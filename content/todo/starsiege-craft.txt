@@ -1,0 +1,163 @@
+# starsiege-craft vs base (162 items)
+new        Plastique                    Grenade Mode
+new        iarmorScout                  Ghost
+new        iarmorSpy                    Marine
+new        iarmorMedik                  Medic
+new        iarmorMercenary              FireBat
+new        iarmorBurster                Vulture
+new        iarmorCyborg                 Goliath
+new        iarmorSniper                 Templar
+new        iarmorDarkTemplar            Dark Templar
+new        iarmorAlien                  Dragoon
+new        iarmorCommando               Archon
+new        iarmorHArchon                Hybrid Archon
+new        iarmorDestroyer              Reaver
+new        iarmorLing                   Zergling
+new        iarmorInfest                 Infested Marine
+new        iarmorLoader                 Hydralisk
+new        iarmorAss                    Ultralisk
+new        iarmorKickAss                Lurker
+new        iarmorEngineer               SCV
+new        iarmorXelNaga                Xel'Naga
+new        iarmorMedic                  Dick Slanger
+renamed+stats+scriptsPlasmaGun                    Plasma Rifle
+new        WaveGun                      Fusion Cutter
+new        Pist                         Gauss Pistol
+new        HyperBAmmo                   8MM Gauss Ammunition
+new        HyperB                       Gauss Rifle w/Grens
+new        Gauss                        8MM C-14 Gauss Rifle
+stats      GrenadeAmmo                  Grenade Ammo
+renamed+stats+scriptsGrenadeLauncher              Frag Gren Laun
+renamed+statsPlasmaAmmo                   Arclite bomb
+new        Autogun                      ArcliteShockCannon
+new        FlakAmmo                     Flak Shells
+new        Flak                         Flak Cannon
+new        SilencerAmmo                 Flame Cartridges
+new        Silencer                     Flame Thrower
+new        VulcanAmmo                   Yamato Fuel
+new        Vulcan                       Yamato Thrower
+new        RailAmmo                     Gemini Missiles
+new        Railgun                      Gemini Launcher
+new        SniperAmmo                   C-10 Canister
+new        SniperRifle                  C-10 Canister Rifle
+new        NukeAmmo                     Tactical Nukes
+new        GNuke                        Ghost Nuclear System
+new        FCanAmmo                     Flash Grenades
+new        FCan                         Optical Flares
+new        HypNAmmo                     Spray Syringes
+new        HypN                         Purge Spray
+new        ShotgunAmmo                  Irradiation Packets
+new        Shotgun                      Irradiation Blast
+new        ShockRifleAmmo               Shock Rifle Charges
+new        ShockRifle                   Shock Rifle
+new        Omega                        Burst Laser
+new        RocketAmmo                   RPGs
+new        RocketLauncher               RPG Launcher
+new        CycloneAmmo                  Hellfire Packs
+new        Cyclone                      Hellfire Missile Pack
+new        ELF                          EMP Generator
+new        Fixit                        SCU Repair Beam
+new        DeathLaser                   Neutron Flare
+new        PLasGun                      Vespene Laser
+new        LongAmmo                     Psionic Receptives
+new        LongRifle                    Psionic Receptive
+new        TranqAmmo                    Phase Disruptors
+new        TranqGun                     Phase Disruptor
+new        IonGun                       Singularity Charge
+new        MagmaLiftAmmo                Seismic Charges
+new        MagmaLift                    Lightning Call
+renamed+stats+scriptsDiscLauncher                 Psi Blades
+new        ShurCannon                   Warp Blades
+new        DemoGun                      Psionic Storm
+new        DStorm                       Dark Storm
+new        Tassadar                     Psionic Assault
+new        IonBeamAmmo                  Ion Beam Charges
+new        IonBeam                      Ion Cannon
+new        DShockAmmo                   DarkShock Charges
+new        DShock                       Dark Shockwave
+new        MassAmmo                     Psi Batteries
+new        MassDriver                   Psionic Shockwave
+new        FlakCAmmo                    Particle Bombs
+new        FlakC                        Particle Cannon
+new        TMortarAmmo                  Anti-Matter Canisters
+new        TMortar                      Anti-Matter Launcher
+new        FBGunAmmo                    FeedBack Bolts
+new        FBGun                        FeedBack Rifle
+new        WarpAmmo                     Scarabs
+new        Warp                         Scarab Cannon
+new        MineTele                     Mine Fabrication
+new        NagaLauncher                 Naga Blazer
+new        Laptop                       Portable Uplink
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+new        StealthShieldPack            Solar Shield Pack
+new        LightningPack                EMP Pack
+new        OpticPack                    FireBat Fuel
+new        OpticPack2                   FireBat Fuels
+new        InfTerranPack                Infestation Juices
+new        PhotonPack                   Irradiation Missile
+new        TrackerMissileAmmo           RPGz
+new        TrackerMissilePack           RPG pack
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch
+stats+scriptsGrenade                      Grenade
+stats+scriptsMineAmmo                     Mine
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsCameraPack                   Camera
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+renamed+stats+scriptsDeployableInvPack            Inventory Outfitter
+renamed+stats+scriptsDeployableAmmoPack           Ammo Resupplier
+new        DeployableComPack            Command Uplink
+new        BlastWallPack                Barrier
+new        AirPlatformPack              Leviation Pad
+new        LargeAirPlatPack             Levitational Floor
+new        TeleportPack                 Teleport Pad
+new        SpringPack                   Energy Altitude Pad
+new        AcceleratorDevicePack        Velocity Enhancer
+new        DeployableLRSensorJammerPack Pulse Disruptor
+new        IonTurretPack                Energon Turret
+new        LaserTurretPack              Beam Turret
+new        RocketPack                   LongBolt Mis. Turret
+new        ShockTurretPack              Multi Burst Laser
+new        PlasmaTurretPack             Plasma Turret
+new        RailTurretPack               Heavy Burst Laser
+new        VulcanTurretPack             Irradiation Cannon
+new        HFlameTurretPack             Flame Turret
+new        ElecTurretPack               Frag Gren Turret
+new        FlameTurretPack              Photon Turret
+new        AAPack                       FGren Launcher
+new        Cloak                        Creep Generator
+new        Heal                         Regeneration
+new        Gravi                        Glave Wurm
+new        Stream                       Corrosive Acid
+new        Zap                          Needle Spines
+new        Fireball                     Dark Swarm
+new        BroodGunAmmo                 Broodling larvae
+new        BroodGun                     Broodling Spawn
+new        Pull                         Plague
+new        PsiLaser                     Spore Beam
+new        Sword                        Adrenal Glands
+new        PlasMeta                     Plasma Metamorphosis
+new        BloodLustAmmo                Zerg BloodLust Hormones
+new        BloodLust                    Blood Lust
+new        BurrowAmmo                   Burrowing Strength
+new        Burrow                       Lurker Burrow
+new        SBarrage                     Spine Barrage
+new        InfFlameAmmo                 Flame Cartridges
+new        InfFlame                     Infested Flamer
+new        InfHyperB                    Infested Gauss Rifle
+new        Shotgun2                     Infested Irrad
+renamed+statsScoutVehicle                 AntiMatter Scout-toss
+new        InterceptorVehicle           Photon Scout-protoss
+new        DogFighterVehicle            Corsair-Protoss
+renamed+statsHAPCVehicle                  Shuttle-Protoss
+new        TempestVehicle               Carrier-Protoss
+new        WraithVehicle                Wraith-Terran
+renamed+statsLAPCVehicle                  DropShip-Terran
+new        QuickLPCVehicle              Valkyrie-Terran
+new        SpeederVehicle               BattleCruiser-Terran
+new        GuardVehicle                 Guardian-Zerg
+new        DevVehicle                   Devourer-Zerg

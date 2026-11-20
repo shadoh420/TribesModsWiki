@@ -1,0 +1,14 @@
+# gunstar vs base (13 items)
+renamed+statsLightArmor                   Light
+renamed+statsMediumArmor                  Medium
+new        FlameOrb                     Flame Orb
+new        HomingOrb                    Homing Orb
+new        RapidOrb                     Force Orb
+new        LaserOrb                     Laser Orb
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      AmmoPack                     Ammo Pack
+stats      RepairKit                    Repair Kit
+stats+scriptsGrenade                      Grenade

@@ -1,0 +1,8 @@
+{
+ "mod": {
+  "overview": "Starsiege Simulation Mod (~2000, Starsiege.cs) mounts the converted Starsiege vehicle/terrain/sound asset corpus on top of completely unmodified Base Tribes gameplay (52 stock items, 3 stock armors).",
+  "notes": [
+   "Unlike Herc Havoc (which replaces weapons and chassis physics), Starsiege mounts asset volumes cleanly and verifies boot resolution via Starsiege_selftest.cs without modifying Base weapon, armor, or vehicle stats."
+  ]
+ }
+}

@@ -1,0 +1,72 @@
+# eradication vs isn (71 items)
+stats      LightArmor                   Light Armor
+stats      MediumArmor                  Medium Armor
+stats      HeavyArmor                   Heavy Armor
+new        SupportArmor                 Support Armor
+new        CommandArmor                 Command Armor
+stats+scriptsBlaster                      Blaster
+new        SniperAmmo                   APHE 50cal Bullet
+new        SniperRifle                  Sniper Rifle
+stats+scriptsLaserRifle                   Laser Rifle
+new        PlasmaAmmo                   Plasma Bolt
+stats+scriptsPlasmaGun                    Plasma Gun
+new        PlasmaShotgun                Plasma Shotgun
+new        Lamprey                      Lamprey
+stats+scriptsEnergyRifle                  ELF Gun
+new        AutoBlaster                  AutoBlaster
+new        ShotgunAmmo                  Shotgun Shells
+new        Shotgun                      Shotgun
+new        DiscAmmo                     Disc
+stats+scriptsDiscLauncher                 Disc Launcher
+new        SuperballAmmo                Superball
+new        SballLauncher                Superball Launcher
+new        GrenadeAmmo                  Grenade Ammo
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        BulletAmmo                   Bullet
+stats+scriptsChaingun                     Chaingun
+new        MortarAmmo                   Mortar Ammo
+stats+scriptsMortar                       Mortar
+new        MultiGrenadeLauncher         MultiGrenade Launcher
+new        HowitzerAmmo                 Howitzer Ammo
+new        Howitzer                     Howitzer
+new        RepulsorGun                  Repulsor Gun
+stats+scriptsTargetingLaser               Targeting Laser
+stats+scriptsRepairPack                   Repair Pack
+new        AssaultPack                  Assault Pack
+new        DefenderPack                 Defender Pack
+new        SniperPack                   Sniper Pack
+new        StealthPack                  Stealth Pack
+new        MinelayerPack                Minelayer Pack
+new        RepulsorPack                 Repulsor Pack
+new        CommanderPack                Commander Pack
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        BarrierPack                  Barrier
+new        StackableCratePack           Stackable Crate
+new        SuspendedPlatformPack        Suspended Platform
+new        LargeDecoyTurretPack         Large Decoy Turret
+new        MediumDecoyTurretPack        Medium Decoy Turret
+new        SmallDecoyTurretPack         Small Decoy Turret
+new        AutoPlasmaTurretPack         AutoPlasma Turret
+new        BlasterTurretPack            Blaster Turret
+new        ChaingunTurretPack           Chaingun Turret
+new        DiscTurretPack               Disc Turret
+new        FusionTurretPack             Fusion Turret
+new        GrenadeTurretPack            Grenade Turret
+new        LaserTurretPack              Laser Turret
+new        EnergyVortexPack             Energy Vortex
+new        EnergyFieldGeneratorPack     Energy Field Generator
+stats+scriptsRepairKit                    Repair Kit
+stats      RepairPatch                  Repair Patch
+stats+scriptsCameraPack                   Camera
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsBeacon                       Beacon
+new        KillerMarker                 Expert Marker
+new        NewbieMarker                 Newbie Marker
+stats+scriptsMineAmmo                     Mine
+renamed+stats+scriptsGrenade                      Frag Grenade
+new        FlashGrenade                 Flash Grenade
+new        VortexGrenade                Vortex Grenade
+new        StickyBomb                   Sticky Bomb

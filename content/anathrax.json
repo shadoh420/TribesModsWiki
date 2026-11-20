@@ -1,0 +1,65 @@
+{
+ "mod": {
+  "overview": "AnAThrax's Mod is a late 1999 tactical warfare overhaul that expands base Tribes into a high-lethal arsenal with specialized roles and super-heavy ordinance. The core gameplay loop broadens team play across six tiered armor classes, ramping up from fragile high-speed snipers to colossal demolition juggernauts wielding nuclear warheads. Base capture and territory control feel significantly more explosive than base Tribes due to infinite team energy budgets, increased weapon capacity across all armors, and armed bomber transports delivering mortar bombardments from the skies. Matches retain standard Tribes mission types like Capture the Flag and Defend and Destroy, but confrontations resolve faster under extreme weapon lethality, EMP energy draining, and massive area-of-effect weaponry.",
+  "notes": [
+   "Six armor classes restructure combat roles: Scout Armor (speed 16, 0.3 health, 4 weapons, exclusive light sniper access), Light Armor (speed 11, 0.66 health, 4 weapons, close-range elemental combat), Medium Armor (speed 8, 1.0 health, 5 weapons, deployables and fusion firepower), Defense Armor (speed 6.5, 1.0 health, 5 weapons, deployables and exclusive EMP launcher), Heavy Armor (speed 5, 1.32 health, 6 weapons, blast mortars and rockets), and Destruction Armor (speed 3, 1.9 health, 140 energy, 6 weapons, exclusive nuclear warheads).",
+   "Players drop into the field in standard Light Armor equipped with a Blaster, Chaingun, Disc Launcher, and Repair Kit, allowing immediate combat readiness before visiting an inventory terminal.",
+   "Weapon capacities are boosted across the board compared to base Tribes: Scout and Light carry 4 weapons instead of 3, Medium and Defense carry 5 weapons instead of 4, and Heavy and Destruction carry 6 weapons instead of 5, enabling players to field versatile combined-arms arsenals.",
+   "Combat features distinct status effects and damage mechanics, highlighted by the EMP Launcher which deals zero direct damage but instantaneously zeroes enemy energy reserves and unmounts their weapon, alongside the Frier which drains 70 energy per second while scorching targets in close-quarters skirmishes.",
+   "Siege combat introduces game-changing ordinance, including the Destruction Armor's Nuclear Warhead with a 250-meter blast radius, and the Blast Mortar, a non-damaging tactical mortar shell delivering a staggering 10,000 kickback impulse to launch players across map zones or disrupt entrenched defenses.",
+   "Vehicles receive major upgrades, notably transforming the standard LPC into the LPC Bomber, which allows Scout and Light pilots to bombard ground installations with mortar shells on a 3-second reload cycle while transporting up to two passenger teammates.",
+   "Default team energy is configured to Infinite, allowing unrestrained station resupplies and purchases, while team deployable limits are increased to permit up to 7 ammo stations, 5 inventory stations, 10 remote turrets, 8 sensor jammers, and 15 cameras per team.",
+   "The mod uses standard Tribes menu navigation and remote functions without custom hash chat commands or specialized hotkey scripts, relying on standard inventory stations and vehicle pads where all items and vehicles remain fully available without inventory bans."
+  ]
+ },
+ "items": {
+  "bigArmor": {
+   "summary": "Destruction Armor is an ultra-heavy juggernaut class featuring 1.9 max damage capacity, a 140 energy tank, and 6 weapon slots.",
+   "notes": [
+    "Sluggish forward speed of 3 makes it vulnerable to encirclement despite high damage resistance against bullets, plasma, and sniper rounds.",
+    "Serves as the exclusive launch platform for the Nuclear Warhead while also supporting the Blast Mortar and all base deployables."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "NW": {
+   "summary": "Nuclear Warhead is a devastating siege weapon firing an apocalyptic projectile exclusive to Destruction Armor.",
+   "notes": [
+    "Detonates with a massive 250-meter radius dealing 5.0 damage and generating a 500-strength impulse wave.",
+    "Features a slow 5-second fire time and 5-second reload delay to balance its immense destructive power."
+   ],
+   "source": "item.cs"
+  },
+  "BM": {
+   "summary": "Blast Mortar is an ordinance launcher firing specialized BlastShell projectiles designed for extreme kinetic displacement.",
+   "notes": [
+    "Inflicts zero health damage but generates an extraordinary 10,000 kickback impulse over a 15-meter radius.",
+    "Equippable by both Heavy Armor and Destruction Armor for team mobility boosting or blasting entrenched enemies off objectives."
+   ],
+   "source": "item.cs"
+  },
+  "EMP": {
+   "summary": "EMP Launcher is a specialized defensive grenade weapon exclusive to Defense Armor.",
+   "notes": [
+    "Fires EMPBlast projectiles that bypass damage dealing to completely drain victim energy to zero.",
+    "Instantly unmounts the victim's active weapon, leaving attacking flag runners and assault units defenseless."
+   ],
+   "source": "item.cs"
+  },
+  "FR": {
+   "summary": "Frier is a short-range directed-energy weapon mounted on a repair gun frame for Light Armor.",
+   "notes": [
+    "Channels an intense electrical discharge across a 5-meter beam length, dealing 0.4 damage per second at a cost of 70 energy per second.",
+    "Drains target player energy at 70 points per second, functioning as a lethal close-quarters ambushing tool."
+   ],
+   "source": "item.cs"
+  },
+  "LAPCVehicle": {
+   "summary": "LPC Bomber is an offensive conversion of the light hover personnel carrier equipped with heavy aerial ordinance.",
+   "notes": [
+    "Equipped with pilot-fired MortarShell rounds with a 3-second reload cycle to carpet-bomb surface bases.",
+    "Requires Scout or Light Armor to pilot and accommodates two passengers to facilitate coordinated tactical drops."
+   ],
+   "source": "vehicle.cs"
+  }
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "mod": {
+  "overview": "Dynamix Plus MOD v1.1 (Dynamix, June 2000) is an official balance and anti-exploit update to Base 1.11 that curbs skiing top speeds, adds spawn invulnerability, shields vehicle pads, buffs Medium Armor, and tunes Chaingun, Mortar, ELF Gun, and Mine behavior.",
+  "notes": [
+   "Anti-skiing speed caps and Medium buff (ArmorData.cs): adds horzVelClamp caps (38 Light, 32 Medium, 21 Heavy). Medium Armor gains +10% health (maxDamage 1.0 -> 1.1), faster ground movement (forward 8 -> 9.5, side 7 -> 8.5, backward 7 -> 8.0), stronger jets (jetForce 320 -> 330, maxJetForwardVelocity 17 -> 20, groundForce 35*13 -> 38*13). Laser Rifle damage scaling increases on all armors (Light 1.0 -> 1.12, Medium 1.0 -> 1.2, Heavy 0.6 -> 0.75).",
+   "Weapons and mines: Chaingun fires 25% faster (fireTime 0.2 -> 0.15 s) with wider spread (aimDeflection 0.005 -> 0.008) and proportionally lower per-bullet damage (0.11 -> 0.0825, keeping 0.55 base DPS). Mortar shells hold level flight farther (maxLevelFlightDist 275 -> 345). ELF Gun beam reaches 59 m (was 40 m) in a narrower 30 deg cone (was 35 deg) with lower DPS (0.06 -> 0.045). Antipersonnel mines take 0.45x damage until their arming animation ends.",
+   "Vehicles and spawn protection: adds $Server::respawnInvulnerableTime = 6 (fresh spawns deflect damage with a shield effect and cannot fire until active). Vehicle pads receive shields (shieldStrength 0.03, rechargeRate 10 when powered), boarding vehicles while at an inventory station is blocked, Scout maxSpeed rises 50 -> 52, LAPC rises 25 -> 40 speed / 1.5 -> 2.0 HP, and HAPC rises 25 -> 32 speed / 2.0 -> 3.0 HP."
+  ]
+ },
+ "items": {
+  "Chaingun": {
+   "summary": "Fires 25% faster (fireTime 0.15 s vs 0.2 s) with wider spread (0.008 vs 0.005) and lower per-round damage (0.0825 vs 0.11).",
+   "notes": [
+    "Total theoretical DPS stays 0.55 while trading pinpoint sniping accuracy for higher suppression rate."
+   ],
+   "source": "item.cs ChaingunImage; baseProjData.cs ChaingunBullet"
+  },
+  "Mortar": {
+   "summary": "Mortar shell extends flat level flight from 275 m to 345 m before gravity drop dominates.",
+   "notes": [
+    "Launcher reload and damage (1.0) remain identical to Base 1.11."
+   ],
+   "source": "baseProjData.cs MortarShell"
+  },
+  "EnergyRifle": {
+   "summary": "ELF Gun beam lengthens from 40 m to 59 m with a tighter 30 deg cone (was 35 deg) and 25% lower damage (0.045/s vs 0.06/s).",
+   "notes": [
+    "Turns the ELF Gun into a longer-range energy-drain and slowdown tool rather than direct lethal damage."
+   ],
+   "source": "baseProjData.cs lightningCharge"
+  },
+  "MineAmmo": {
+   "summary": "Antipersonnel mines take 0.45x damage while deploying until AntipersonelMine::onEndSequence marks them armed.",
+   "notes": [
+    "Prevents tossed mines from being shot in midair for instant full-power explosions at point-blank range."
+   ],
+   "source": "Mine.cs AntipersonelMine::onEndSequence, onDamage"
+  }
+ }
+}

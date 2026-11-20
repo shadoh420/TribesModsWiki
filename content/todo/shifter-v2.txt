@@ -1,0 +1,38 @@
+shifter-v2: 37 of 187 need write-ups
+  Blaster (Blaster): stats
+  Chaingun (Equalizer): stats
+  DiscLauncher (Disc Launcher): stats
+  LaserRifle (Laser Rifle): stats
+  HyperB (Hyper Blaster): stats
+  TranqGun (Dart Rifle): stats
+  Silencer (Magnum): stats
+  ConCun (Shockwave Cannon): stats
+  Railgun (Railgun): stats
+  IonGun (Ion Rifle): stats
+  Fixit (Engineer Repair-Gun): scripts
+  GravGun (Grav Gun): stats+scripts
+  RegenerationPack (Regeneration Pack): scripts
+  SMRPack (Rocket Launcher Pack): stats
+  AutoMortarAmmo (Underarm Mortars): new
+  MorPack (Mortar Launcher Pack): new
+  TurretPack (Ion Turret): scripts
+  indoorLaserPack (Indoor Laser Turret): new
+  outdoorLaserPack (Outdoor Laser Turret): new
+  vulcanPack (vulcan Turret): new
+  PlasmaTurretPack (Plasma Turret): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  airbase (AirBase): scripts
+  Regen (Regeneration Gun): scripts
+  EmplacementPack (Emplacement): stats+scripts
+  Booster1Pack (Booster): stats
+  Booster2Pack (Booster): stats
+  VulPack (Dual Vulcans): new
+  Vulcan1Pack (Dual Vulcan Cannon 1): new
+  Vulcan2Pack (Dual Vulcan Cannon 2): new
+  HowAmmo (Howitzer Shells): new
+  HowGun (Howitzer): new
+  Howampack (Howitzer Ammo Pack): new
+  Howitzer (Howitzer): new

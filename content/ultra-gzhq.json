@@ -1,0 +1,1372 @@
+{
+ "mod": {
+  "overview": "Ultra Renegades GZHQ (UltraGZHQ, by Plasmatic and others, ~2002) is a large standalone conversion built on stock Tribes rather than on Renegades Classic: server.cs runs one loader, serverUltraGZHQ.cs, which execs about 140 per-item files in groups (suits, weapons, packs, misc, deploy functions, sensors, deployable objects, barriers, power systems, remote bases and drop ships, droids, vehicles, turrets, stations), then serverItemUsage.cs, which sets every suit's weapon count, vehicle rights, damage scales and item limits in one table. It replaces the stock armors with seven suits (Light, Assassin, Assault, Deffence, Borg, Heavy, Destroyer), each with its own gear list, a class touch ability and its own damage resistances, and fills the shop with about 35 weapons, class backpack weapons, status effects (poison and dart damage over time, shock energy loss, stasis, and burn and acid visuals), a builder suit (Deffence) that carries nearly every deployable, power and remote-base item, and drop-ship bases. A per-player Personal Options menu switches fire modes for the Grenade Launcher, Mortar and ChainGun, and server settings in UltraGZHQ.cs add admin tools, a Builder mode, fair teams and IP logging.",
+  "notes": [
+   "Load order: server.cs execs serverUltraGZHQ.cs once when the server is created (all datablocks and item scripts), then UltraGZHQ.cs (the settings file) on server creation and, while $UltraGZHQ::ResetSettings is true, at every map change. serverItemUsage.cs is execed last, so its $ItemMax/$TeamItemMax values override any set in item files.",
+   "Suits (male/female PlayerData): iLightArmor LightArmor/LightFArmor, iAssassin Assassin/FAssassin, iAssault Assault/FAssault, iDeffence Deffence/FDeffence, iBorg Borg, iHeavy Heavy, iDestroyer Destroyer. Borg, Heavy and Destroyer have no female model; female players get the male one.",
+   "Weapon slots ($MaxWeapons): Light 8, Assassin 7, Assault 8, Deffence 6, Borg 7, Heavy 5, Destroyer 8.",
+   "Every spawn is a Light Suit carrying Disc Launcher, IX-2002, Mortar, Stinger, Sniper Mki, Plasma Gun, Blaster, Beam Of Pain and Targeting Laser with ammo, plus a Repair Kit, 25 Beacons, 25 Grenades, 20 Mines and a Repair Pack. A new player is invulnerable and auto-repairs for 10 s (5 s on respawn) and starts with half energy.",
+   "Who can carry what comes from the PopulateItemMax table in serverItemUsage.cs. Its column comments use older class names: Angel = Light, Spy = Assassin, Warrior = Assault, Builder = Deffence, Troll = Borg, Tank = Heavy, Titan = Destroyer, which is where item names like TankShredder, TrollMagmaPack and TitanBurstPack come from. The mwr/fwr (Necro) columns are passed but never assigned.",
+   "A DM armor (armormDM/armorfDM) has columns in every table but is not sold, and no script puts a player into it.",
+   "All seven suits share the same Grenade and Beacon effects: Grenade stops you dead (velocity set to zero, 'Brake Applied') and Beacon is a jet speed boost with a 1.2 s cooldown whose strength depends on the suit (see Beacon). Neither throws or deploys anything.",
+   "Touch abilities (Player::onCollision calls the touching player's armor ::onPlayerContact): Light steals an enemy's items, Assassin attempts an assassination, Deffence heals teammates, Heavy is meant to drain life. Assault, Borg and Destroyer call Armor::onPlayerContact, which no script defines, so they have no touch effect.",
+   "Personal Options menu (admin.cs processMenuOptions): Grenade Launcher Single/Triple/FFB, Mortar Standard/EMP/Rubber, ChainGun Chaingun/Vulcan/Verminator bullets, Suicide Pack timer (instant, 5, 10, 15, 20 s) and weapon help messages. Choices are stored on the client and persist across deaths.",
+   "Status effects hang off damage types in Player::onDamage: Plasma calls the victim armor's onBurn, Shock onShock, Dart onDart, Beam of Pain onBeam, Acid onAcid, Poison onPoison. Poison and Dart deal damage over time and Shock sets energy to 0; the burn and acid after-effects only spawn effect projectiles that do no damage. Stasis damage temporarily swaps the victim into a harmor1/2/3 stasis armor for 10 s; Disarm damage makes an enemy drop the mounted weapon.",
+   "Every suit has $ArmorKickback 0.2, so players take only a fifth of the knockback momentum of hits.",
+   "An Assassin hit by mine damage also loses 40 energy.",
+   "Builder mode ($build, admin menu) lifts most team limits and stops grenades, beacons, repair kits and most deployables from being used up.",
+   "Nearly every deployable is registered with NukeList so an admin 'neutron bomb' can remove them all, and most are flagged cloakable for the Base Cloaking Device.",
+   "Server settings in UltraGZHQ.cs include FairTeams (no switching to the larger team), SafeBase, BaseHeal, ExtendedInvs (multiple-use inventory stations), Zappy (electro-beam check that extended inventories are not walled in), QuickInv, personal skins and $IpLogger, which records every name seen per address in config\\GZHQInfo.cs and shows it to admins.",
+   "PopulateCanPilot (serverItemUsage.cs) declares 13 armor parameters but every call passes 15 values, so they shift two columns. In effect Deffence can pilot the Screaming Eagle and Ion Assault Scout, and Heavy and Destroyer can pilot the LAPC and Hell Fire Transporter, though the table meant them to ride only.",
+   "The bullet damage-scale row gives FAssassin (female Assassin) 0.0 while the male Assassin gets 1.0, so female Assassins take no Bullet damage.",
+   "Mode-change confirmation for the Mortar checks whether you carry a Grenade Launcher (copied from the Grenade Launcher entries), so the sound plays for the wrong weapon.",
+   "deployFunctions.cs DeployStuff builds its 'flat surfaces' message from an undefined %desc, so the message shows no item name."
+  ]
+ },
+ "items": {
+  "iLightArmor": {
+   "summary": "The default suit every player spawns in: a light, fast frame tied for the most weapon slots (8), with a touch that steals enemy items.",
+   "notes": [
+    "PlayerData LightArmor/LightFArmor (larmor/lfemale shapes). Same movement, energy and health as the Assassin Suit.",
+    "Touching an enemy moves all their items except the flag into your inventory as far as your carry limits allow, and flashes their screen. Touching another Light Suit only plays a pirate 'Aaargh' sound.",
+    "Beacon gives a speed boost of power 450. Grenade applies the brake.",
+    "Damage scales: takes more from impact (1.2), plasma (1.2), shrapnel (1.5), missiles (1.2), OS missiles (1.5) and acid (1.2), and less from explosions (0.7), mortars (0.5), mines (0.7), landing (0.7), poison and darts (0.8).",
+    "Exclusive gear includes the Blaster, Beam Of Pain, Screaming Eagle Pack (FighterPack) and Spy Scanner Pack. Also carries Mortar, Stinger, Sniper Mki/Mkii, IX-2000/2002, Disc Launcher and Lazer Rifle."
+   ],
+   "source": "armorLight.cs; armorData.cs Steal, Armor::SpeedBooster; player.cs Player::onCollision; serverItemUsage.cs; game.cs Game::playerSpawn"
+  },
+  "iAssassin": {
+   "summary": "A light infiltration suit with the Spy Pack, FEB Rifle and Shock Lance, whose touch can assassinate an enemy outright.",
+   "notes": [
+    "PlayerData Assassin/FAssassin (larmor shape). Same movement, energy and health as the Light Suit.",
+    "Touching a player calls Assassinate: a roughly 1 in 4 chance ($AssassinateChance 25) of 14.2 Assassin damage, which kills almost anything. It works on enemies normally, but while the Spy Pack has put you on the enemy team (client.isSpy) it only works on the team you are disguised in. It fails against a player in the same armor datablock, so a male Assassin can still assassinate a female one.",
+    "Takes only 0.2 of Assassin damage, 0.4 of mine damage (but loses 40 energy per mine hit), 0.6 of impact and 0.7 of shotgun damage.",
+    "The female FAssassin has a Bullet damage scale of 0.0 (male 1.0), so female Assassins take no Bullet damage. Female Assassins also cannot carry the IX-2000 or IX-2002 (their item-max column is 0).",
+    "Beacon gives a speed boost of power 400. Grenade applies the brake.",
+    "Exclusive gear: FEB Rifle, Shock Lance and Spy Pack (ChameleonPack). Also carries the Sniper Mki/Mkii, Disc Launcher, Plasma Gun and Lazer Rifle; it cannot use the Ammo Pack or Energy Pack."
+   ],
+   "source": "armorAssassin.cs; armorData.cs Assassinate; player.cs Player::onDamage; serverItemUsage.cs PopulateDamageScale, PopulateItemMax"
+  },
+  "iAssault": {
+   "summary": "A medium front-line suit with eight weapon slots and broad access to mid-weight weapons, but no touch ability.",
+   "notes": [
+    "PlayerData Assault/FAssault (marmor shape). Same movement, energy and health as the Deffence Suit, a step up in health from the light suits.",
+    "Its onPlayerContact calls Armor::onPlayerContact, which no script defines, so touching players does nothing.",
+    "Beacon gives a speed boost of power 460. Grenade applies the brake.",
+    "Damage scales are neutral (1.0) except laser (1.1).",
+    "Carries the ChainGun, IX-2000/2002, Hyper Spinfusor, Grenade Launcher, Plasma Gun, Rocket Launcher, Stinger, Shotgun, Shockwave Cannon and Jailers Gun, plus Stealth Shield, Inventory Station, Teleport Pad and several turret packs."
+   ],
+   "source": "armorAssault.cs; serverItemUsage.cs"
+  },
+  "iDeffence": {
+   "summary": "The builder suit: it carries almost every deployable, turret, barrier, power system, drone and remote base, and its touch heals teammates and friendly objects.",
+   "notes": [
+    "PlayerData Deffence/FDeffence (marmor shape). Same movement, energy and health as the Assault Suit.",
+    "Touching a hurt teammate heals 0.10. Touching a friendly non-player object such as a station, turret or generator repairs it by 0.07 per contact.",
+    "Beacon gives a speed boost of power 400. Grenade applies the brake.",
+    "Damage scales: less from bullets (0.8), energy (0.7), mortars (0.9) and landing (0.9); more from electricity (1.2), burn (1.5) and rockets (1.5).",
+    "Exclusive weapons: Railgun and the Builder Repair-Gun (Fixit). Exclusive packs include the Attack Pack (BuilderPack), Laptop, Spy Sensor, the three droids and most turret, barrier and remote-base packs.",
+    "armorDeffence.cs also defines BuilderBeacon, which would place an Inventory Station from a beacon, but nothing calls it."
+   ],
+   "source": "armorDeffence.cs Repair, BuilderBeacon; player.cs Player::onCollision; serverItemUsage.cs"
+  },
+  "iBorg": {
+   "summary": "A heavy suit (male model only) with the Magma Pack backpack weapon and access to most medium weapons; it shrugs off burn and rocket damage.",
+   "notes": [
+    "PlayerData Borg (harmor shape). Same movement, energy and health as Heavy and Destroyer: twice the light suits' health, low energy and a slow jet.",
+    "Damage scales: only 0.2 from burn and rocket damage, 0.6 from shrapnel, 0.8 from explosions, mortars and mines; more from laser (1.2) and electricity (1.3).",
+    "Its onPlayerContact calls Armor::onPlayerContact, which no script defines, so touching players does nothing.",
+    "Beacon gives a speed boost of power 500. Grenade applies the brake.",
+    "Exclusive packs: Suicide DetPack, Regeneration Pack and Magma Pack (TrollMagmaPack). Also carries the Mortar, ChainGun, Plasma Gun, Hyper Spinfusor, Void Disrupter and Rocket Launcher."
+   ],
+   "source": "armorBorg.cs; serverItemUsage.cs"
+  },
+  "iHeavy": {
+   "summary": "The tank suit (male model only): five slots of exclusive heavy weapons, immune to poison and shock effects, with a touch meant to drain an enemy's life.",
+   "notes": [
+    "PlayerData Heavy (harmor shape). Same movement, energy and health as Borg and Destroyer.",
+    "Exclusive weapons: Heavy Blast Cannon, Heavy Chaingun, Heavy Rocket Launcher, Heavy RPG and Heavy Mortar. Only 5 weapon slots.",
+    "Heavy::onPoison is empty and the Armor::onShock call in Heavy::onShock is commented out, so poison and shock after-effects never apply.",
+    "Damage scales: 0.5 from impact and OS missiles, 0.6 from mines, 0.7 from explosions and mortars, 0.8 from shrapnel and missiles; more from electricity (1.4), burn (1.5) and rockets (1.5).",
+    "Touch calls Drain, which would deal 0.2 Energy damage and take 80 energy from the victim while healing you 0.2 and giving you 120 energy. Its team check reads two variables Drain never sets (%targetPlayer/%sourcePlayer), so both teams compare equal and Drain always returns without doing anything.",
+    "Beacon gives a speed boost of power 500. Grenade applies the brake."
+   ],
+   "source": "armorHeavy.cs; armorData.cs Drain; serverItemUsage.cs"
+  },
+  "iDestroyer": {
+   "summary": "The heaviest assault suit (male model only), with eight weapon slots, the Nuke Launcher, OS Launcher, Particle Beam and the Sonic Burst Pack.",
+   "notes": [
+    "PlayerData Destroyer (harmor shape). Same movement, energy and health as Borg and Heavy.",
+    "Exclusive gear: Nuke Launcher (BabyNukeMortar), OS Launcher, Particle Beam and Sonic Burst Pack (TitanBurstPack, the Titan Cannon backpack weapon). Also carries the Void Disrupter, Hyper Spinfusor, Rocket Launcher, Stinger, Plasma Gun and some turret and base packs.",
+    "Damage scales: 0.5 from mines, 0.7 from impact and shrapnel, 0.8 from explosions, missiles and OS missiles; more from laser and electricity (1.2), burn and rockets (1.5).",
+    "Its onPlayerContact calls Armor::onPlayerContact, which no script defines, so touching players does nothing.",
+    "Beacon gives a speed boost of power 500. Grenade applies the brake."
+   ],
+   "source": "armorDestroyer.cs; serverItemUsage.cs"
+  },
+  "RepairKit": {
+   "summary": "A one-use medkit that heals 0.2 damage and also cures poisoning.",
+   "notes": [
+    "Unlike stock Tribes, using it also calls your armor's onRepairKit, which clears the poison timer.",
+    "Armor::onRepairKit is meant to also repair a station you are looking at within 5 m by 0.27, but it reads the datablock name of the object's type string instead of the object, so that repair never happens.",
+    "Not used up in Builder mode. Carry limit 1 for every suit; every spawn gets one."
+   ],
+   "source": "item.cs RepairKit::onUse; armorData.cs Armor::onRepairKit"
+  },
+  "RepairPatch": {
+   "summary": "A repair pickup lying in missions. Running over it heals 0.125 damage if you are hurt and cures poisoning.",
+   "notes": [
+    "Unlike stock Tribes, picking one up also clears the poison timer.",
+    "Used from inventory it heals 0.1 (not used up in Builder mode)."
+   ],
+   "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+  },
+  "Grenade": {
+   "summary": "In this mod the grenade key is an air brake: using it sets your velocity to zero. Nothing is thrown.",
+   "notes": [
+    "Unlike stock Tribes, Grenade::onUse no longer throws a hand grenade. It calls the armor's onGrenade, and all seven suits (male and female) do the same thing: stop the player dead and print 'Brake Applied.'",
+    "Only works once the match has started. Not used up in Builder mode.",
+    "Each suit's onGrenade also tries to remove an item, but Grenade::onUse (which already removed one) passes no item name, so only one grenade is used per press.",
+    "The 0.5 s throw delay check remains, but nothing in the brake path sets it, so there is no cooldown.",
+    "Every suit can carry 25, and every spawn gets 25."
+   ],
+   "source": "miscGrenade.cs Grenade::onUse; armor*.cs ::onGrenade"
+  },
+  "Beacon": {
+   "summary": "In this mod the beacon key fires a jet speed boost instead of placing a target beacon. The boost's strength depends on your suit.",
+   "notes": [
+    "Unlike stock Tribes, Beacon::onUse calls the armor's onBeacon, and every suit uses Armor::SpeedBooster: Assassin and Deffence power 400, Light 450, Assault 460, Borg, Heavy and Destroyer 500.",
+    "While moving, the impulse pushes you along your current direction of travel. When standing still, it launches you where you are looking, with some upward lift.",
+    "1.2 s cooldown ('Your jets must cool before using another booster'). Only works once the match has started. Not used up in Builder mode.",
+    "Beacon::deployShape (a target beacon, team limit 40) is still defined but nothing calls it.",
+    "Every suit can carry 25, and every spawn gets 25."
+   ],
+   "source": "miscBeacon.cs Beacon::onUse, Beacon::deployShape; armor*.cs ::onBeacon; armorData.cs Armor::SpeedBooster"
+  },
+  "MineAmmo": {
+   "summary": "Thrown antipersonnel mines that arm once they come to rest and explode when an enemy, vehicle or moving object touches them. The same for every suit.",
+   "notes": [
+    "Unlike stock Tribes, the mine takes the thrower's team, and teammates do not set it off. In Deathmatch it throws a DMMine instead, which any player triggers.",
+    "Mines are cloakable by the Base Cloaking Device and fade in briefly when a player touches them.",
+    "A mine that comes to rest touching another mine detonates.",
+    "$TeamItemMax[mineammo] is 35 and destroyed mines lower the count, but MineAmmo::onUse never checks or raises it, so no team limit is enforced.",
+    "Not used up in Builder mode. Every suit can carry 20, and every spawn gets 20."
+   ],
+   "source": "miscMine.cs MineAmmo::onUse, AntipersonelMine::onCollision, AntipersonelMine::deployCheck, DMMine"
+  },
+  "Blaster": {
+   "summary": "Energy sidearm that fires BlasterBolt and uses no ammo. In this mod only the Light Suit can carry it.",
+   "notes": [
+    "Unlike stock Tribes, where every armor carries the Blaster, its $ItemMax is 1 only for LightArmor/LightFArmor.",
+    "BlasterBolt is much stronger and faster than stock (damage 1 vs 0.125, muzzle velocity 600 vs 200).",
+    "onMount only prints a bottom-screen 'Mounted' message."
+   ],
+   "source": "weaponBlaster.cs Blaster::onMount; baseProjData.cs BlasterBolt; serverItemUsage.cs PopulateItemMax"
+  },
+  "VulcanAmmo": {
+   "summary": "Bullets for the ChainGun (Vulcan).",
+   "notes": [
+    "Chaingun and Verminator modes use 1 round per shot; Vulcan mode uses 2."
+   ],
+   "source": "weaponVulcan.cs VulcanImage::onFire"
+  },
+  "Vulcan": {
+   "summary": "Three-mode chaingun. You pick the bullet type in the Personal Options menu (ChainGun Options): Chaingun, Vulcan or Verminator bullets.",
+   "notes": [
+    "The image has no projectile of its own. VulcanImage::onFire spawns the projectile for the selected mode: ChaingunBullet (1 round), VulcanBullet (2 rounds, small 2 m blast) or VermBullet (1 round, very high damage per bullet).",
+    "The mode is stored per client (client.Vulcan) and defaults to Chaingun bullets.",
+    "Mounting it also mounts a cosmetic Vulcan2 model (sniper shape) in slot 7. Unmounting removes it.",
+    "Carried by the DM armor, Assault, Deffence and Borg suits."
+   ],
+   "source": "weaponVulcan.cs Vulcan::onMount, VulcanImage::onFire; admin.cs processMenuOptions weapon_vulcan_*"
+  },
+  "IX2000Ammo": {
+   "summary": "Rounds for the IX-2000 rifle.",
+   "notes": [
+    "One round per shot."
+   ],
+   "source": "weaponIX2000.cs"
+  },
+  "IX2000": {
+   "summary": "Hitscan-speed sniper rifle that fires IX2000Bullet with its own damage type ($IX2000DamageType).",
+   "notes": [
+    "No script behavior beyond the projectile; the damage type only changes death messages and the armor damage-scale row.",
+    "Carried by Light, Assault and male Assassin suits. The female Assassin (FAssassin) column is 0, so female Assassins cannot carry it."
+   ],
+   "source": "weaponIX2000.cs; baseProjData.cs IX2000Bullet; serverItemUsage.cs PopulateItemMax"
+  },
+  "IX2002Ammo": {
+   "summary": "Rounds for the IX-2002 rifle.",
+   "notes": [
+    "One round per shot."
+   ],
+   "source": "weaponIX2002.cs"
+  },
+  "IX2002": {
+   "summary": "Twin of the IX-2000: fires IX2002Bullet with its own damage type ($IX2002DamageType).",
+   "notes": [
+    "Same script setup as the IX-2000; only the projectile datablock and death messages differ.",
+    "Carried by Light, Assault and male Assassin suits; female Assassins cannot carry it (their column is 0)."
+   ],
+   "source": "weaponIX2002.cs; baseProjData.cs IX2002Bullet; serverItemUsage.cs PopulateItemMax"
+  },
+  "SniperMkiAmmo": {
+   "summary": "Rounds for the Sniper Mki.",
+   "notes": [
+    "One round per shot."
+   ],
+   "source": "weaponSniperMki.cs"
+  },
+  "SniperMki": {
+   "summary": "Sniper rifle whose $SniperMkiDamageType gets extra damage on players in Player::onDamage, plus a blood-spray effect.",
+   "notes": [
+    "+27% damage on any body hit. Head shots get +35% instead, or +30% against Borg, Heavy and Destroyer when the hit is in a middle quadrant.",
+    "Mounting it also mounts a cosmetic Scope1 model in slot 7.",
+    "Carried by Light and Assassin suits."
+   ],
+   "source": "weaponSniperMki.cs SniperMki::onMount; player.cs Player::onDamage"
+  },
+  "SniperMkiiAmmo": {
+   "summary": "Rounds for the Sniper Mkii.",
+   "notes": [
+    "One round per shot."
+   ],
+   "source": "weaponSniperMkii.cs"
+  },
+  "SniperMkii": {
+   "summary": "Second sniper rifle, firing SniperBulletMkii. It has no special script handling.",
+   "notes": [
+    "Script bug: $SniperMkiiDamageType is never assigned a number (baseProjData.cs defines damage types only up to $SniperMkiDamageType = 34). The bullet's damageType, its PopulateDamageScale row and its death messages all key on an empty value.",
+    "Carried by Light and Assassin suits."
+   ],
+   "source": "weaponSniperMkii.cs; baseProjData.cs damage type list, SniperBulletMkii; serverItemUsage.cs; game.cs"
+  },
+  "FEBRifleAmmo": {
+   "summary": "Rounds for the F.E.B Rifle.",
+   "notes": [
+    "One round per shot."
+   ],
+   "source": "weaponFEBRifle.cs"
+  },
+  "FEBRifle": {
+   "summary": "Assassin-only dart rifle. FEBBullet does little impact damage but poisons the target.",
+   "notes": [
+    "FEBBullet uses $DartDamageType. Player::onDamage then calls the armor's onDart, which runs Arm_PDart.",
+    "Poison: +0.05 damage every 5 seconds for 15 ticks (about 75 s). It ignores invulnerability, and if it kills the victim it counts as a death and costs them a point ('died from a strange disease').",
+    "Being hit again resets the poison timer."
+   ],
+   "source": "weaponFEBRifle.cs; baseProjData.cs FEBBullet; player.cs Player::onDamage; armorData.cs Arm_PDart, checkPlayerBlind"
+  },
+  "RailAmmo": {
+   "summary": "Bolts for the Deffence Suit's Railgun.",
+   "notes": [
+    "One bolt per shot."
+   ],
+   "source": "weaponRailGun.cs"
+  },
+  "Railgun": {
+   "summary": "Deffence Suit rifle that fires the fast RailRound rocket projectile.",
+   "notes": [
+    "RailgunImage::onFire only prints a debug echo; the engine fires RailRound.",
+    "RailRound uses $SniperDamageType (14), which has no PopulateDamageScale row. Player::onDamage multiplies player damage by $DamageScale[armor, type], which is empty here, so as scripted the Railgun deals no damage to players. Its 600 kickback still applies.",
+    "Mounting it also mounts the Railgun2 dummy model in slot 4."
+   ],
+   "source": "weaponRailGun.cs Railgun::onMount, RailgunImage::onFire; baseProjData.cs RailRound; serverItemUsage.cs PopulateDamageScale; player.cs Player::onDamage"
+  },
+  "Railgun2": {
+   "summary": "Cosmetic companion model (shotgun shape) that Railgun::onMount mounts in slot 4. Railgun::onUnmount removes it.",
+   "notes": [
+    "No projectile and not sold (showInventory false, price 0)."
+   ],
+   "source": "weaponRailGun.cs Railgun::onMount, Railgun::onUnmount"
+  },
+  "ShotgunShells": {
+   "summary": "Shells for the Shotgun.",
+   "notes": [
+    "One shell per blast (10 pellets)."
+   ],
+   "source": "weaponShotGun.cs ShotgunImage::onFire"
+  },
+  "Shotgun": {
+   "summary": "Close-range scattergun: each shot spawns 10 ShotgunBullet pellets with slight aim deflection.",
+   "notes": [
+    "ShotgunImage::onFire takes 1 shell and spawns 10 pellets with $ShotgunDamageType, which Assassin suits take at 0.7x.",
+    "Mounting it also mounts a cosmetic Shotgun2 model in slot 7.",
+    "Carried by the DM armor, Assassin, Assault, Deffence and Borg suits."
+   ],
+   "source": "weaponShotGun.cs Shotgun::onMount, ShotgunImage::onFire; baseProjData.cs ShotgunBullet"
+  },
+  "LazerRifle": {
+   "summary": "Energy laser rifle that fires AssassinLaser and uses no ammo.",
+   "notes": [
+    "Laser hits report $LaserDamageType. Player::onDamage adds +55% on head shots, or +45% against Borg, Heavy or Destroyer in a middle quadrant, and sprays blood.",
+    "Mounting it also mounts a cosmetic FakeLaser model in slot 5.",
+    "Carried by the DM armor, Light and Assassin suits."
+   ],
+   "source": "weaponLazerRifle.cs LazerRifle::onMount; baseProjData.cs AssassinLaser; player.cs Player::onDamage"
+  },
+  "DiscLauncher": {
+   "summary": "The spinfusor, reworked into a fast, hard-hitting short-radius disc and limited to the lighter suits.",
+   "notes": [
+    "Unlike stock Tribes, DiscShell has damage 2 (stock 0.5), a 5 m radius (stock 7.5), kickback 5 (stock 150) and muzzle velocity 600 (stock 65).",
+    "If a disc's explosion hits a teammate who is using a station, the shooter's trigger is released, the Disc Launcher is unmounted and the damage is cancelled. This is anti 'inv discing' code in Player::onDamage.",
+    "Carried only by the DM armor, Light and Assassin suits (stock: all armors)."
+   ],
+   "source": "weaponDiscLauncher.cs; baseProjData.cs DiscShell; player.cs Player::onDamage"
+  },
+  "HDiscLauncherAmmo": {
+   "summary": "Hyper Discs for the Hyper Spinfusor.",
+   "notes": [
+    "The launcher copies this count into hidden HDiscLauncher1Ammo and HDiscLauncher2Ammo items for its two barrels; this item is the real ammo."
+   ],
+   "source": "weaponHDiscLauncher.cs HDiscLauncher::onMount, HDiscLauncherImage::onFire"
+  },
+  "HDiscLauncher1": {
+   "summary": "Hidden first barrel of the Hyper Spinfusor, mounted in slot 6 by HDiscLauncher::onMount. It fires HyperDiscShell using HDiscLauncher1Ammo.",
+   "notes": [
+    "Triggered by HDiscLauncherImage::onFire on alternate shots. Removed on unmount."
+   ],
+   "source": "weaponHDiscLauncher.cs HDiscLauncher::onMount, HDiscLauncherImage::onFire"
+  },
+  "HDiscLauncher2": {
+   "summary": "Hidden second barrel of the Hyper Spinfusor, mounted in slot 7 by HDiscLauncher::onMount. It fires HyperDiscShell using HDiscLauncher2Ammo.",
+   "notes": [
+    "Triggered by HDiscLauncherImage::onFire on alternate shots. Removed on unmount."
+   ],
+   "source": "weaponHDiscLauncher.cs HDiscLauncher::onMount, HDiscLauncherImage::onFire"
+  },
+  "HDiscLauncher": {
+   "summary": "Heavy-suit disc launcher that alternates HyperDiscShell shots between two hidden barrels: larger blast, slower disc.",
+   "notes": [
+    "The main image has no projectile. When neither barrel is firing or reloading, onFire removes 1 Hyper Disc, copies the remaining count to that barrel's ammo, and pulses the trigger on slot 6 or slot 7 in turn (client.hd toggles).",
+    "Script quirk: when exactly 1 disc remains after the decrement, the barrel's ammo is set to 0, so that shot does not fire.",
+    "client.hd is shared with the Heavy Mortar's alternation.",
+    "Carried by Assault, Deffence, Borg, Heavy and Destroyer suits."
+   ],
+   "source": "weaponHDiscLauncher.cs HDiscLauncher::onMount, HDiscLauncherImage::onFire"
+  },
+  "PlasmaAmmo": {
+   "summary": "Plasma bolts for the Plasma Gun.",
+   "notes": [
+    "One bolt per shot."
+   ],
+   "source": "weaponPlasmagun.cs"
+  },
+  "PlasmaGun": {
+   "summary": "Plasma rifle firing PlasmaBolt. Plasma hits set the target on fire.",
+   "notes": [
+    "Unlike stock Tribes, PlasmaBolt has damage 1 (stock 0.45) and muzzle velocity 600 (stock 55).",
+    "Any $PlasmaDamageType hit on a player calls Armor::onBurn ('Your energy system is on fire!'). Plasmafire then runs 200 ticks of 0.1 s (20 s) of flame effects. The AnnihilationFlame and JetSmoke projectiles it spawns have zero damage value or zero radius, so the burn is a visual effect; only the bolt itself does damage.",
+    "Carried by every suit except Heavy."
+   ],
+   "source": "weaponPlasmagun.cs; baseProjData.cs PlasmaBolt, AnnihilationFlame, JetSmoke; player.cs Player::onDamage; armorData.cs Armor::onBurn, Plasmafire"
+  },
+  "Flamer": {
+   "summary": "Energy flamethrower: short-range FlamerBoltA plasma bursts that set targets alight, with no ammo.",
+   "notes": [
+    "FlamerBoltA uses $PlasmaDamageType, so hits trigger the burn effect (see Plasma Gun).",
+    "Mounting it also mounts cosmetic Flame2 and Flame3 models in slots 6 and 7.",
+    "Carried by the DM armor, Assassin, Assault, Deffence, Borg and Destroyer suits."
+   ],
+   "source": "weaponFlameThrower.cs Flamer::onMount; baseProjData.cs FlamerBoltA; armorData.cs Armor::onBurn"
+  },
+  "FlameThrowerAmmo": {
+   "summary": "Acid canisters for the Acid Sprayer (datablock FlameThrower).",
+   "notes": [
+    "One canister per shot."
+   ],
+   "source": "weaponAcidSpray.cs"
+  },
+  "FlameThrower": {
+   "summary": "The Acid Sprayer: lobs AcidSpray globs ($AcidDamageType) that melt the target.",
+   "notes": [
+    "Acid hits call Armor::onAcid ('Your Melting From Acid!'). AcidBath then runs 200 ticks of 0.1 s of effects. The AcidBathBolt and AcidJetSmoke it spawns have zero damage or zero radius, so the melt is visual; damage comes from the spray itself.",
+    "Carried by the DM armor, Assault, Borg and Destroyer suits."
+   ],
+   "source": "weaponAcidSpray.cs; baseProjData.cs AcidSpray; armorData.cs Armor::onAcid, AcidBath"
+  },
+  "ShockwaveGun": {
+   "summary": "Energy cannon firing a Shock rocket with a 20 m blast and strong knockback. It drains the victim's energy.",
+   "notes": [
+    "$ShockDamageType hits call Armor::onShock: the target's energy is set to 0 and 'Your energy system is FRIED!' is shown. About 10 s of spark effects follow, but those projectiles have zero radius.",
+    "Carried by the DM armor, Assassin and Assault suits."
+   ],
+   "source": "weaponShockwave.cs; baseProjData.cs Shock; armorData.cs Armor::onShock, Shockfire"
+  },
+  "GrenadeAmmo": {
+   "summary": "Grenades for the Grenade Launcher.",
+   "notes": [
+    "Single mode uses 1 per shot; Triple and FFB modes use 2."
+   ],
+   "source": "weaponGrenadeLauncher.cs GrenadelauncherImage::onFire"
+  },
+  "GrenadeLauncher": {
+   "summary": "Grenade launcher with three fire modes chosen in Personal Options: Single, Triple and FFB.",
+   "notes": [
+    "Unlike stock Tribes, the image has no projectile; GrenadelauncherImage::onFire picks by client.MiniMode.",
+    "Single (default): one GrenadeShell, 1 ammo.",
+    "Triple: GrenadeShell2, 3 and 4 together. They differ in level-flight distance (GrenadeShell2 140, 3 130, 4 120), so they land in a short line. Costs 2 ammo, but the script requires more than 3 in stock to fire.",
+    "FFB: one heavy FFBShell, 2 ammo. Its damage value is 150, an effective instant kill in the blast.",
+    "Carried by the DM armor, Assassin, Assault, Deffence, Borg and Destroyer suits."
+   ],
+   "source": "weaponGrenadeLauncher.cs GrenadelauncherImage::onFire; admin.cs processMenuOptions weapon_grenadelauncher_*; baseProjData.cs GrenadeShell*, FFBShell"
+  },
+  "MortarAmmo": {
+   "summary": "Mortar shells for the Mortar.",
+   "notes": [
+    "1 shell per shot in every mode."
+   ],
+   "source": "weaponMortar.cs MortarImage::onFire"
+  },
+  "Mortar": {
+   "summary": "Mortar with three shell types chosen in Personal Options: Standard, EMP and Rubber.",
+   "notes": [
+    "Unlike stock Tribes, the image has no projectile; MortarImage::onFire picks by client.MortarMode.",
+    "Standard: MortarShell, the same stats as stock.",
+    "EMP: MortarShellEMP, low damage with $ShockDamageType. It zeroes the energy of players caught in it (Armor::onShock).",
+    "Rubber: RubberMortarShell, a bouncier shell (elasticity 0.7) with a 5 s fuse.",
+    "Script bug: the menu's mode-change confirmation sound checks for a Grenade Launcher in inventory, not the Mortar.",
+    "Carried only by the Light and Borg suits."
+   ],
+   "source": "weaponMortar.cs MortarImage::onFire; admin.cs processMenuOptions weapon_mortar_*; baseProjData.cs MortarShell, MortarShellEMP, RubberMortarShell"
+  },
+  "RocketAmmo": {
+   "summary": "Salvo rockets for the PayLoad Launcher.",
+   "notes": [
+    "Each trigger pull fires and uses up to 3 rockets."
+   ],
+   "source": "weaponRocketLauncher.cs RocketLauncher::fireRockets"
+  },
+  "RocketLauncher": {
+   "summary": "The PayLoad Launcher: each shot fires a 3-rocket salvo of unguided SalvoRockets, 0.2 s apart.",
+   "notes": [
+    "RocketImage::onFire schedules RocketLauncher::fireRockets(3). Each step spawns a SalvoRocket and removes 1 rocket until the count or the ammo runs out.",
+    "SalvoRocket uses $RocketDamageType, which does 1.5x damage to Deffence, Heavy and Destroyer and 0.2x to Borg.",
+    "Carried by the DM armor, Assault, Deffence, Borg and Destroyer suits."
+   ],
+   "source": "weaponRocketLauncher.cs RocketImage::onFire, RocketLauncher::fireRockets; serverItemUsage.cs PopulateDamageScale"
+  },
+  "StingerAmmo": {
+   "summary": "Missiles for the Stinger.",
+   "notes": [
+    "One missile per shot."
+   ],
+   "source": "weaponStinger.cs StingerImage::onFire"
+  },
+  "Stinger": {
+   "summary": "Lock-on missile launcher. A seeking AvengerMissile is fired at whatever player, vehicle, turret or sensor you are aiming at within 1024 m; otherwise an unguided StingerRocket.",
+   "notes": [
+    "Locking a turret or sensor centerprints 'Has a Stinger lock on you' to that object's owner. Locking a player or flier plays a lock sound only for the shooter.",
+    "A second targeting branch (gated by $DiskerUseMTPack) calls AquireTarget and CheckTargetJamming. Neither function exists in the mod's scripts and the variable is never set, so that branch never runs.",
+    "Script bug: the out-of-ammo message uses %client before it is assigned.",
+    "Carried by the DM armor, Light, Assault, Deffence, Borg and Destroyer suits."
+   ],
+   "source": "weaponStinger.cs StingerImage::onFire; baseProjData.cs AvengerMissile, StingerRocket"
+  },
+  "ShockLance": {
+   "summary": "Assassin-only short lightning lance (SoulBolt) that drains all of the user's energy in one massive hit.",
+   "notes": [
+    "SoulBolt::damageTarget needs at least 0.06 energy. It then applies $SoulDamageType damage 55.5 to the target, twice for players and fliers (once inside the player check and again unconditionally), and sets the user's energy to 0.",
+    "If the user is damaged, a player or flier hit repairs the user by 0.05. The target is told who shocked them.",
+    "The bolt is deleted after 0.5 s and the trigger released after 1 s. The script passes the client id to Player::trigger in places."
+   ],
+   "source": "weaponShockLance.cs ShockLanceImage::onFire, SoulBolt::damageTarget, SoulWarning"
+  },
+  "BeamOfPain": {
+   "summary": "Light-suit lightning beam that drains enemy energy quickly, does light damage and shoves the target.",
+   "notes": [
+    "BeamOfPainproj::damageTarget does nothing to teammates. Enemies get an impulse of -80 along the shooter's facing, damage per second of 2, and energy drain of 500 per second.",
+    "Script bug: the impulse direction is computed from GameBase::getRotation of the shooter's client id, not their player object.",
+    "Hits call Armor::onBeam -> BeamMe, which is meant to make the victim drop weapon, pack and flag. BeamMe uses variables that are never set in it (%damagedClient, %this), so it drops nothing."
+   ],
+   "source": "weaponBeamOfPain.cs; baseProjData.cs BeamOfPainProj, BeamOfPainproj::damageTarget; armorData.cs BeamMe"
+  },
+  "Fixit": {
+   "summary": "The Deffence Suit's Builder Repair-Gun: a SuperRepairBolt repair beam with a very high repair rate, paired with a second beam.",
+   "notes": [
+    "Fixit::onMount also mounts Fixit2 (slot 4) and cosmetic Fixit3/Fixit4 (slots 6 and 7). While you hold fire, CheckFixit re-triggers Fixit2 every 0.1 s.",
+    "SuperRepairBolt::onAcquire sets repairRate 100 on the target, nearly instant compared to the stock repair pack. It repairs yourself when nothing else is targeted.",
+    "Objects go through fixable(): when an admin has disabled map turrets, inventories, generators or vehicle stations, those can't be repaired. Enemy objects can be repaired and are shown as 'enemy ...'.",
+    "Dropping it while not firing also clears Fixit2."
+   ],
+   "source": "weaponFixit.cs Fixit::onMount, FixitImage::onFire, CheckFixit, Fixit::onDrop; baseProjData.cs SuperRepairBolt::onAcquire; adminKill.cs fixable"
+  },
+  "Fixit2": {
+   "summary": "Hidden second repair beam (SuperRepairBolt) that Fixit::onMount mounts in slot 4. CheckFixit fires it alongside the Builder Repair-Gun.",
+   "notes": [
+    "Price 0 and no $ItemMax entry, so it can't be bought; it exists only while the Fixit is mounted."
+   ],
+   "source": "weaponFixit.cs Fixit::onMount, CheckFixit"
+  },
+  "JailGun": {
+   "summary": "Short lightning beam that arrests an enemy player and teleports them to your team's Jail Tower for 30 seconds.",
+   "notes": [
+    "jailbolt::damageTarget ignores non-players, teammates, invulnerable players and players already jailed.",
+    "It needs your team's $JailPosition, which is set when a Jail Tower is deployed. Otherwise it says 'No Jail Tower Deployed'.",
+    "ToJail marks the player jailed (they take no damage while jailed), moves them to the jail and pulls them out of any vehicle or turret. JailBreak releases them after 30 s. JailBird checks after 1 s and announces an escape if they are more than 10 m from the jail.",
+    "Carried by the DM armor, Assassin, Assault and Deffence suits."
+   ],
+   "source": "weaponJailGun.cs; baseProjData.cs JailBolt, jailbolt::damageTarget; deployJailTower.cs ToJail, JailBird"
+  },
+  "PhaseDisrupterAmmo": {
+   "summary": "Ammo for the Void Disrupter.",
+   "notes": [
+    "One per shot."
+   ],
+   "source": "weaponPhaseDisrupter.cs PhaseDisrupterImage::onFire"
+  },
+  "PhaseDisrupter": {
+   "summary": "The Void Disrupter: a slow, heavy 25 m-radius blast paired with a matching pull field that drags nearby targets in.",
+   "notes": [
+    "onFire spawns PhaseDisrupterBolt (missile damage) and PhaseDisrupterBoltNull together. The Null bolt does no damage but has the same radius and kickback of -450, so its explosion pulls things toward it.",
+    "Mounting it also mounts a cosmetic Phase2 model in slot 7.",
+    "Carried by the Borg and Destroyer suits."
+   ],
+   "source": "weaponPhaseDisrupter.cs PhaseDisrupterImage::onFire, PhaseDisrupter::onMount; baseProjData.cs PhaseDisrupterBolt, PhaseDisrupterBoltNull"
+  },
+  "TBlastCannonAmmo": {
+   "summary": "Shots for the Heavy Blast Cannon.",
+   "notes": [
+    "One shot fires 10 projectiles."
+   ],
+   "source": "weaponHeavyBlastCannon.cs TBlastCannonImage::onFire"
+  },
+  "TBlastCannon": {
+   "summary": "Heavy Suit cannon: each shot sprays 10 BlastCannonShot explosive tracers with aim deflection, like a giant shotgun.",
+   "notes": [
+    "onFire removes 1 shot and spawns 10 BlastCannonShot (missile damage, 7.5 m radius each).",
+    "Heavy Suit only."
+   ],
+   "source": "weaponHeavyBlastCannon.cs TBlastCannonImage::onFire; baseProjData.cs BlastCannonShot"
+  },
+  "TankShredderAmmo": {
+   "summary": "Belt ammo for the Heavy Chaingun.",
+   "notes": [
+    "Shared by the main gun and its three hidden barrels."
+   ],
+   "source": "weaponHeavyShredder.cs"
+  },
+  "TankShredder": {
+   "summary": "Heavy Suit gatling: four streams of ShredderBullet fire at once, from the main gun plus three hidden barrels.",
+   "notes": [
+    "onFire spawns one ShredderBullet and starts CheckTankShredder. While the trigger is held, that pulses hidden TankShredder2/3/4 (slots 4, 7, 6) every 0.1 s; each fires ShredderBullet from the same ammo.",
+    "Dropping it while not firing clears TankShredder2.",
+    "Heavy Suit only."
+   ],
+   "source": "weaponHeavyShredder.cs TankShredder::onMount, TankShredderImage::onFire, CheckTankShredder"
+  },
+  "TRocketLauncherAmmo": {
+   "summary": "Rockets for the Heavy Rocket Launcher.",
+   "notes": [
+    "Each shot uses 2."
+   ],
+   "source": "weaponHeavyRocketLauncher.cs TRocketLauncherImage::onFire"
+  },
+  "TRocketLauncher": {
+   "summary": "Heavy Suit twin-rocket launcher. Aimed at a player or vehicle within 1500 m, it fires two seeking TankMissiles; otherwise two straight TankRockets.",
+   "notes": [
+    "The second rocket starts from a side-offset muzzle transform. A lock tells the shooter 'lock acquired' and warns the target 'lock detected'.",
+    "Mounting also mounts hidden TRocketLauncher2/3/4 (slots 4, 7, 6), which CheckTRocketLauncher triggers while firing. Those images have no projectileType.",
+    "Heavy Suit only."
+   ],
+   "source": "weaponHeavyRocketLauncher.cs TRocketLauncherImage::onFire, CheckTRocketLauncher; baseProjData.cs TankMissile, TankRocket"
+  },
+  "TankRPGAmmo": {
+   "summary": "Rounds for the Heavy RPG.",
+   "notes": [
+    "Also given an Ammo Pack maximum of 300 in this file."
+   ],
+   "source": "weaponHeavyRPG.cs"
+  },
+  "TankRPGLauncher": {
+   "summary": "Heavy Suit RPG battery: the main tube plus three hidden tubes all fire RPG shrapnel rockets while the trigger is held.",
+   "notes": [
+    "onFire removes 1 round and spawns an RPG. CheckTankRPGLauncher pulses hidden TankRPGLauncher2/3/4 (slots 4, 7, 6), each with RPG as projectile and TankRPGAmmo as ammo.",
+    "Heavy Suit only."
+   ],
+   "source": "weaponHeavyRPG.cs TankRPGLauncherImage::onFire, CheckTankRPGLauncher; baseProjData.cs RPG"
+  },
+  "TankMortarAmmo": {
+   "summary": "Shells for the Heavy Mortar.",
+   "notes": [
+    "Also used directly by the hidden barrels TankMortar1 and TankMortar2."
+   ],
+   "source": "weaponHeavyMortar.cs"
+  },
+  "TankMortar1": {
+   "summary": "Hidden first barrel of the Heavy Mortar, mounted in slot 4 by TankMortar::onMount. It fires TankMortarShell from TankMortarAmmo.",
+   "notes": [
+    "Pulsed on alternate shots by TankMortarImage::onFire."
+   ],
+   "source": "weaponHeavyMortar.cs TankMortar::onMount, TankMortarImage::onFire"
+  },
+  "TankMortar2": {
+   "summary": "Hidden second barrel of the Heavy Mortar, mounted in slot 5 by TankMortar::onMount. It fires TankMortarShell from TankMortarAmmo.",
+   "notes": [
+    "Pulsed on alternate shots by TankMortarImage::onFire. Its own onMount does nothing."
+   ],
+   "source": "weaponHeavyMortar.cs TankMortar::onMount, TankMortar2::onMount"
+  },
+  "TankMortar": {
+   "summary": "Heavy Suit twin mortar that alternates TankMortarShell shots between two hidden barrels.",
+   "notes": [
+    "The main image has no projectile. When neither barrel is busy, onFire removes 1 shell and pulses slot 4 or 5 in turn (client.hd, shared with the Hyper Spinfusor). The barrel itself also draws on TankMortarAmmo.",
+    "Script quirk: when exactly 1 shell remains after the decrement, the ammo is set to 0.",
+    "Heavy Suit only."
+   ],
+   "source": "weaponHeavyMortar.cs TankMortarImage::onFire, TankMortar::onMount"
+  },
+  "BabyNukeAmmo": {
+   "summary": "Nuclear Devices for the Nuke Launcher.",
+   "notes": [
+    "One per shot; the Destroyer can carry 5."
+   ],
+   "source": "weaponBabynuke.cs; serverItemUsage.cs PopulateItemMax"
+  },
+  "BabyNukeMortar": {
+   "summary": "Destroyer-only nuke launcher. It lobs a BabyNukeBomb that explodes in a 40 m blast, then releases a column of bomblets.",
+   "notes": [
+    "onFire spawns BabyNukeBomb and holds the trigger of hidden BabyNukeMortar2 (slot 4) while you fire.",
+    "BabyNukeBomb::onAdd schedules BombSpread 5.1 s later. That places 10 bomblet mines (Bomba to Bombf) stacked up to 35 m above the shell, plus four 10 m out at 25 m height. They detonate 0.1 to 0.75 s later, each a 25 m shrapnel blast.",
+    "$AutoUse is true, so it is selected when picked up."
+   ],
+   "source": "weaponBabynuke.cs BabyNukeImage::onFire, FireBabyNukeMortar, BabyNukeBomb::onAdd, BombSpread; miscMine.cs Bomba-Bombf"
+  },
+  "BabyNukeMortar2": {
+   "summary": "Hidden companion image that BabyNukeMortar::onMount mounts in slot 4. FireBabyNukeMortar holds its trigger while the Nuke Launcher fires.",
+   "notes": [
+    "Its image has ammoType BabyNukeAmmo but no projectileType. Price 0, not sold."
+   ],
+   "source": "weaponBabynuke.cs BabyNukeMortar::onMount, FireBabyNukeMortar"
+  },
+  "OSAmmo": {
+   "summary": "Optical Seeking rockets for the OS Launcher.",
+   "notes": [
+    "One per launch."
+   ],
+   "source": "weaponOSLauncher.cs"
+  },
+  "OSLauncher": {
+   "summary": "Destroyer-only guided missile: firing spawns an OSMissile flier that you steer yourself until it hits something.",
+   "notes": [
+    "onFire creates the OSMissile vehicle 1.5 m above the muzzle on your team, switches your control to it and unmounts your weapon.",
+    "The missile burns 1 energy (fuel) per second from 15. It explodes as RocketKilla (25 m, $OSMissileDamageType) on collision, when you press jump, when its fuel runs out, or when it is destroyed. Control then returns to your body and your last weapon is re-selected.",
+    "The explosion is spawned only if the owner is still alive. The OSMissile flier itself has OSBomblet as its vehicle weapon.",
+    "Control Jammers and the player-targeting code special-case OSMissile."
+   ],
+   "source": "weaponOSLauncher.cs OSLauncherImage::onFire, KillRocket, OSMissile::onCollision/jump/onDestroyed/exhaustFuel"
+  },
+  "ParticleBeamWeapon": {
+   "summary": "Destroyer-only energy beam that fires DeathRayLaser and uses no ammo.",
+   "notes": [
+    "Laser damage reports as $LaserDamageType, so it gets the laser head-shot bonus (+55%, or +45% against Borg, Heavy or Destroyer in a middle quadrant) and the blood effect in Player::onDamage."
+   ],
+   "source": "weaponParticleBeam.cs; baseProjData.cs DeathRayLaser; player.cs Player::onDamage"
+  },
+  "TargetingLaser": {
+   "summary": "Every suit's Targeting Laser. Using it no longer mounts the laser: it reports your height relative to your team flag's starting position.",
+   "notes": [
+    "Unlike stock Tribes, where Tool::onUse mounts the laser, TargetingLaser::onUse only bottomprints 'You are N meters ABOVE/BELOW your flag'. It measures only the vertical difference. Nothing in its own code mounts the targetLaser image.",
+    "Given to every spawning player, and every suit can carry one."
+   ],
+   "source": "weaponTargetLaser.cs TargetingLaser::onUse; item.cs Tool::onUse; game.cs spawn loadout"
+  },
+  "EnergyPack": {
+   "summary": "Backpack that switches itself on when worn and adds energy regeneration. Every armor except the Assassin can carry it.",
+   "notes": [
+    "Unlike stock Tribes, the pack image runs at -3 to -5 energy per second instead of -1 to -3, so it adds energy faster.",
+    "Unlike stock, taking it off does nothing: the stock onUnmount that unequipped the Laser Rifle is empty here.",
+    "Mounting it prints the pack name at the bottom of the screen."
+   ],
+   "source": "packEnergy.cs EnergyPack::onUse, ::onMount, ::onUnmount, EnergyPackImage; serverItemUsage.cs PopulateItemMax"
+  },
+  "StealthShieldPack": {
+   "summary": "A shield pack that also hides you from sensors. When on, incoming damage is absorbed by your energy, and your sensor suppression rises by 20.",
+   "notes": [
+    "Sets the same shield strength as the Shield Pack (0.012). Player damage code then absorbs hits from energy: Shrapnel and Mortar hits at 75% shield strength, Electricity not at all.",
+    "Turning it off removes the 20 suppression and the shield.",
+    "Only the Assault suit (and the unsold DM armor) can carry it."
+   ],
+   "source": "packStealthShield.cs StealthShieldPackImage::onActivate/onDeactivate; player.cs Player::onDamage shield block; serverItemUsage.cs PopulateItemMax"
+  },
+  "CloakingDevice": {
+   "summary": "Cloaking backpack that fades the wearer out of sight while on. Every armor's carry limit for it is 0, and no script hands it out, so stations do not sell it.",
+   "notes": [
+    "On: fades the player out, adds 5 sensor suppression and sets guiLock, which blocks switching to the command, inventory and objectives screens. Off: fades back in and removes the suppression and the lock.",
+    "PopulateItemMax gives it 0 for all 13 armors. Stations check $ItemMax before they sell anything, and no other script gives the item."
+   ],
+   "source": "packCloak.cs CloakingDeviceImage::onActivate/onDeactivate; game.cs remoteCommandMode/remoteInventoryMode; serverItemUsage.cs PopulateItemMax"
+  },
+  "AmmoPack": {
+   "summary": "Raises how much ammunition you can carry and fills the extra when bought. The Light suit, Assault suit and DM armor can carry it.",
+   "notes": [
+    "Extra capacity still comes from the stock $AmmoPackMax table, which covers only the stock ammo types: bullets 150, plasma 30, discs 15, grenade rounds 15, mortar shells 10, mines 5, hand grenades 10, beacons 10. The mod's new ammo types get no extra room.",
+    "Unlike stock, buying it runs through every ammo type registered with addAmmo and tries to add half the armor's normal maximum of each (charged to team energy), instead of a fixed stock list.",
+    "Dropping it moves ammo above your armor's normal maximum into the dropped pack, for every registered ammo type. Whoever picks it up gets that ammo, capped at 1.5 times their own maximum for each type.",
+    "Script bug: AmmoPack::onRemove's loop tests a bare 'i' instead of '%i' (for(%i = 0; i < $AmmoCount; %i++)), so the condition never changes and the loop has no working end condition."
+   ],
+   "source": "packAmmo.cs AmmoPack::onDrop, ::onRemove, ::onCollision, checkPacksAmmo, fillAmmoPack; item.cs $AmmoPackMax, checkResources; server.cs addAmmo"
+  },
+  "ChameleonPack": {
+   "summary": "The Assassin's Spy Pack. While it is on, you join the enemy team, so to them you look like a teammate. Only one spy per team can use it at a time, and only on maps with two teams.",
+   "notes": [
+    "Turning it on drops any flag you carry, sets client.isSpy, makes you un-cloakable and moves you to the other team (team 0 to 1 or 1 to 0), with a message to your real team. Turning it off moves you back and says 'Your spy powers wear Off'.",
+    "With more than two teams it refuses and also deletes the pack from your inventory. If a teammate's spy power is already on, it refuses and switches off.",
+    "While isSpy is set you cannot use stations, and you cannot touch tower switches to claim them.",
+    "The Assassin's touch attack checks isSpy. A spy can assassinate players on the team he is disguised in, and no one else.",
+    "Spy Sensors (AlarmPack) and the Spy Scanner Pack are meant to counter it. Energy cost while on: 5 to 12 per second."
+   ],
+   "source": "packChameleon.cs ChameleonPackImage::onActivate/onDeactivate; station.cs, StationTrigger.cs onCollision isSpy checks; objectives.cs TowerSwitch::onCollision; armorData.cs Assassinate"
+  },
+  "Laptop": {
+   "summary": "The Deffence suit's hacking backpack. You can control turrets without a command station, take over enemy turrets and pass through enemy teleport pads. It also adds energy while worn.",
+   "notes": [
+    "With the Laptop on, you can take control of any controllable turret without a Command Station tag.",
+    "Touching an enemy controllable turret patches you in: the turret switches to your team while you control it ('Successful patch into enemy turret'), and is switched back when you dismount. Without a Laptop you get 'ACCESS DENIED - Wrong Team'.",
+    "A turret without a Laptop must be idle before you can control it. With one, only a recalibrating or alerted turret refuses.",
+    "Walking into an enemy teleport beam with the Laptop on teleports you to that team's other pad ('Enemy teleport override successful'), instead of being refused.",
+    "The pack image runs at -1 to -3 energy, so it regenerates energy like a weaker Energy Pack."
+   ],
+   "source": "packCommand.cs Laptop::onUse/onMount, Laptop::IsAvailable; turret.cs Turret::onCollision, Turret::onAttemptControl; deployTeleporter.cs TeleportBeam::onCollision"
+  },
+  "SightPack": {
+   "summary": "The Light suit's Spy Scanner. While on, it checks the point you aim at every second, up to 3000 m away, and uncloaks anything hidden within 10 m of it.",
+   "notes": [
+    "Each second it collects players, static shapes, vehicles, mines and interiors in a 30 m box around your aim point. Anything flagged cloaked within 10 m of that point fades back in.",
+    "The cloaked flag is set by the Base Cloaking Device (and on cloaked mines). Spy Pack users are never flagged cloaked, so despite the help text ('Able to see players using Spy Pack powers'), the scan does not expose them.",
+    "Energy cost: 10 per second while on."
+   ],
+   "source": "packTrueSight.cs SightPackImage::onActivate/onDeactivate, SightPack::onMount, CheckSight; deployBaseCloak.cs BaseCloak::onEnabled/checkBaseCloak"
+  },
+  "BuilderPack": {
+   "summary": "The Attack Pack: a Deffence-suit backpack that holds extra combat ammo for builders who go on the attack, and adds energy while worn.",
+   "notes": [
+    "Extra carry room while worn: Railgun bolts +5, Salvo Rockets +5, hand grenades +7, plasma +15, mines +3.",
+    "Mounting it at a station fills those extras at once, charged to team energy. Taking it off at a station removes anything above the armor's normal maximum.",
+    "Dropping it during a match moves the extra ammo into the dropped pack, and whoever picks it up receives that ammo.",
+    "The pack image runs at -2 to -3 energy, so it also regenerates energy."
+   ],
+   "source": "PackBuilder.cs BuilderPack::onMount/onUnmount/onDrop/onCollision, fillBuilderPack, CheckBuilderPack, $BuilderPackMax; item.cs checkResources"
+  },
+  "SuicidePack": {
+   "summary": "The Borg's Suicide DetPack. Using it a second time throws a large charge that explodes after the timer you chose in your personal options.",
+   "notes": [
+    "Deploying it unmounts the pack and throws a Suicidebomb2 mine at three times your throw strength. It blows up after client.suicideTimer seconds.",
+    "Set the timer under Personal Options > Suicide Pack: Instant, 5, 10, 15 or 20 s. It is 10 s by default (set when you connect).",
+    "Building mode does not use up the pack.",
+    "Suicidebomb2's touch handler only lets 'armormBuilder'/'armorfBuilder' disarm it (90%) or set it off by mistake (10%). Neither armor exists in this mod, so no one can disarm the charge. The mis-wire branch also calls Mine::Detonate with a literal string instead of the object."
+   ],
+   "source": "packSuicide.cs SuicidePack::onUse/onDeploy/deployShape; miscMine.cs Suicidebomb2, Suicidebomb2::onCollision, Mine::Detonate; admin.cs processMenuOptions pack_suicideTimer; server.cs"
+  },
+  "RegenerationPack": {
+   "summary": "A Borg-only backpack meant to heal its wearer over time. As written, it adds damage instead.",
+   "notes": [
+    "It switches itself on when mounted and runs once a second while worn and alive.",
+    "Script bug: the healing branch, which takes off 0.0275 damage per second, runs only for armor 'ZXBorg', which this mod does not define. The Borg (the only armor that can carry the pack) gets the other branch instead, which adds 0.275 damage per second. A Borg has 2.0 max damage, so from full health the pack kills it in about 7 seconds.",
+    "The unmount handler is misnamed Regeneration::onUnmount, so it never runs. It is empty anyway."
+   ],
+   "source": "packRegeneration.cs RegenerationPack::OnMount, RegenerationPackImage::onActivate/onDeactivate, checkRegeneration; armorBorg.cs"
+  },
+  "TitanBurstPack": {
+   "summary": "The Destroyer's Sonic Burst Pack: a backpack weapon. Using the pack again equips the Titan Cannon, which fires bursts of flak from the Titan Cannon Top, and firing too fast shorts out your suit.",
+   "notes": [
+    "Using it while worn mounts the Titan Cannon (not while invulnerable). The cannon mounts TitanCannonT in slot 6 and switches the pack on.",
+    "Each pull (1 s fire time) loads TitanCannonTAmmo and fires the top gun: 3 shots at 30 energy or more, 2 at 0 or more. The script takes only 0.06 energy per pull.",
+    "Every shot adds 1 heat (TitanShort). A cooling loop takes off 1 heat every 2 s while the cannon is not firing. Every shot starts another loop, so several can run at once.",
+    "Each shot rolls 0 to 14 plus current heat. Above 15, you get an Electrical Short (ShortPack) in slot 3 for 6 s.",
+    "Removing or dropping the pack unequips the cannon.",
+    "Script bug: before mounting the short, it calls Player::unmountItem on an undefined variable (%damagedClient)."
+   ],
+   "source": "packTitanBurst.cs TitanBurstPack::onUse/onUnmount/onDrop, TitanCannon::onMount/onUnmount, TitanCannonImage::onFire, TitanCircuit"
+  },
+  "TitanCannonTAmmo": {
+   "summary": "Internal ammo for the Titan Cannon Top. The Titan Cannon sets it to 1 to 3 rounds on every pull, so it is never bought or carried.",
+   "notes": [
+    "Price 0, not on any inventory list. TitanCannon::onMount sets it to 3. TitanCannonImage::onFire sets it to 3, 2 or 1, depending on the wearer's energy."
+   ],
+   "source": "packTitanBurst.cs TitanCannonTAmmo, TitanCannon::onMount, TitanCannonImage::onFire"
+  },
+  "TitanCannonT": {
+   "summary": "The hidden gun the Titan Cannon fires through: a rapid sustained image in slot 6 that shoots TitanFlakBomb flak shells.",
+   "notes": [
+    "Mounted in slot 6 by TitanCannon::onMount and triggered by the cannon's onFire. Each trigger empties the 1 to 3 TitanCannonTAmmo rounds it was given, at 0.05 s per shot.",
+    "TitanFlakBomb is a Shrapnel bullet with an 8 m explosion radius.",
+    "Not sold or listed in inventories. It exists only while the Titan Cannon is equipped."
+   ],
+   "source": "packTitanBurst.cs TitanCannonTImage, TitanFlakBomb, TitanCannon::onMount, TitanCannonImage::onFire"
+  },
+  "BurnFlame": {
+   "summary": "A penalty item, not equipment. It is mounted on a Borg whose Magma Pack ruptures and burns the wearer every 0.45 s.",
+   "notes": [
+    "Mounted in slot 3 by the Magma Cannon's overheat branch. On mount it switches on and says 'Your Magma Cannon Back Fired!'.",
+    "Each fire applies 0.3 Burn damage to the wearer. The Borg takes only 0.2x Burn damage.",
+    "No script ever removes it, so the burning lasts until the wearer dies or something else takes slot 3."
+   ],
+   "source": "packBurner.cs BurnFlame::onMount, BurnFlameImage::onFire; packTrollMagma.cs TrollCannonImage::onFire; serverItemUsage.cs PopulateDamageScale"
+  },
+  "TrollMagmaPack": {
+   "summary": "The Borg's Magma Pack: a backpack weapon. Using the pack again equips the Magma Cannon, which fires plasma blasts alternately from two hidden barrels, and overheating it sets you on fire.",
+   "notes": [
+    "Using it while worn mounts the Magma Cannon (not while invulnerable). The cannon mounts TrollCannon A in slot 6 and TrollCannon B in slot 7, and switches the pack on.",
+    "Each pull (0.1 s) needs more than 1 energy. If neither barrel is busy, it gives the next barrel 1 round and fires it, alternating A and B. Below that it says 'Magma Cannon must Recharge'.",
+    "Each pull adds 1 heat (PlasmaTemp). A cooling loop takes off 1 heat every 2 s while not firing.",
+    "Above 15 heat the pack ruptures. The cannon stops, you take 0.5 Burn damage and BurnFlame is mounted on you. Until you cool below 16, every further pull ruptures again instead of firing.",
+    "Script bug: the 'Plasma temperature reaching critical!' warning is in a branch for more than 18 heat, placed after the more-than-15 check, so it can never run. There is no warning before the rupture.",
+    "Script bug: the rupture calls Player::unmountItem on an undefined variable (%damagedClient)."
+   ],
+   "source": "packTrollMagma.cs TrollMagmaPack::onUse/onUnmount/onDrop, TrollCannon::onMount/onUnmount, TrollCannonImage::onFire, CoolTrollPack"
+  },
+  "TrollCannonAAmmo": {
+   "summary": "Internal ammo for the Magma Cannon's first barrel. The cannon sets it to 1 round for each shot, so it is never bought.",
+   "notes": [
+    "Price 0, not on any inventory list. TrollCannon::onMount sets it to 2. Each alternating shot sets it to 1."
+   ],
+   "source": "packTrollMagma.cs TrollCannonAAmmo, TrollCannon::onMount, TrollCannonImage::onFire"
+  },
+  "TrollCannonA": {
+   "summary": "First hidden barrel of the Magma Cannon. Mounted in slot 6, it fires TrollBlast plasma rockets.",
+   "notes": [
+    "Fired by TrollCannonImage::onFire on alternate pulls, in turn with TrollCannon B, and only when neither barrel is busy firing or reloading.",
+    "TrollBlast is a Plasma rocket with a 3.5 m explosion radius.",
+    "Not sold. It exists only while the Magma Cannon is equipped."
+   ],
+   "source": "packTrollMagma.cs TrollCannonAImage, TrollBlast, TrollCannon::onMount, TrollCannonImage::onFire"
+  },
+  "TrollCannonBAmmo": {
+   "summary": "Internal ammo for the Magma Cannon's second barrel. The cannon sets it to 1 round for each shot, so it is never bought.",
+   "notes": [
+    "Price 0, not on any inventory list. TrollCannon::onMount sets it to 2. Each alternating shot sets it to 1."
+   ],
+   "source": "packTrollMagma.cs TrollCannonBAmmo, TrollCannon::onMount, TrollCannonImage::onFire"
+  },
+  "TrollCannonB": {
+   "summary": "Second hidden barrel of the Magma Cannon. Mounted in slot 7, it fires the same TrollBlast plasma rockets as barrel A.",
+   "notes": [
+    "Fired by TrollCannonImage::onFire on alternate pulls, in turn with TrollCannon A, and only when neither barrel is busy.",
+    "Not sold. It exists only while the Magma Cannon is equipped."
+   ],
+   "source": "packTrollMagma.cs TrollCannonBImage, TrollCannon::onMount, TrollCannonImage::onFire"
+  },
+  "ShortPack": {
+   "summary": "A penalty item, not equipment. The Electrical Short is mounted on a Destroyer whose Titan Cannon overheats, and cripples the wearer for 6 seconds.",
+   "notes": [
+    "Mounted in slot 3 by the Titan Cannon. On mount it switches on and says '-=Power Systems have shorted out=-'. The Titan Cannon schedules its removal 6 s later.",
+    "Each fire (about every 0.01 s) releases your weapon trigger, cuts your horizontal speed to 1/8 and sets your energy to 0."
+   ],
+   "source": "packShort.cs ShortPack::onMount, ShortPackImage::onFire; packTitanBurst.cs TitanCannonImage::onFire"
+  },
+  "CameraPack": {
+   "summary": "Deploys a remote camera your team can look through. In this mod you can control it without a command station, and teammates can destroy it.",
+   "notes": [
+    "Carried by the Light, Deffence, Borg, Heavy and Destroyer suits. Team limit 10 (stock: 15).",
+    "Unlike stock, it can be placed on a Deployable Platform as well as on terrain and buildings, on walls and ceilings too. In building mode the obstruction check is skipped and the pack is not used up.",
+    "$CanAlwaysControl lets you take control of the camera without a Command Station. $CanAlwaysTeamDestroy means teammates do full damage to it even when team damage is scaled down.",
+    "The camera is hidden by a Base Cloaking Device and removed by the admin deployable wipe (NukeList). If it is placed on a moving object, such as a drop ship, it is re-created after 5 s so it renders and collides properly.",
+    "Every camera is named just 'Camera' on the map, not 'Camera#N player name' as in stock."
+   ],
+   "source": "deployCamera.cs CameraPack::onUse/onDeploy/deployShape, CameraTurret::onDestroyed; item.cs checkInvDeployArea, replaceSensor; turret.cs Turret::onDamage, Turret::onAttemptControl"
+  },
+  "MotionSensorPack": {
+   "summary": "Deploys a small motion sensor that detects moving enemies within 50 m, as in stock. It can also go on Deployable Platforms.",
+   "notes": [
+    "Carried by the Light, Assault, Deffence, Borg, Heavy and Destroyer suits. Team limit 10 (stock: 15).",
+    "Unlike stock, it can be placed on a Deployable Platform as well as on terrain and buildings, still on walls and ceilings. The obstruction check accepts a platform under it.",
+    "In building mode it is not used up and does not count toward the team limit.",
+    "The sensor is hidden by a Base Cloaking Device and removed by the admin deployable wipe. If it is placed on a moving object, it is re-created after 5 s."
+   ],
+   "source": "deployMotionSensor.cs MotionSensorPack::onDeploy/deployShape, DeployableMotionSensor; item.cs checkInvDeployArea, replaceSensor; sensor.cs"
+  },
+  "AlarmPack": {
+   "summary": "The Deffence suit's Spy Sensor. It deploys a small alarm that warns your team when a disguised enemy spy (Spy Pack user) comes within 25 m.",
+   "notes": [
+    "Placed on terrain, buildings or a Deployable Platform, but not on moving objects ('Deploy area crappy, cannot deploy'). Team limit 10.",
+    "The sensor is a turret placed on the last (neutral) team. It remembers your team. A target counts if it is a spy (client.isSpy) disguised in your team. The sensor then tells your team '<sensor> has detected chameleon <name>', at most once every 5 s. It never fires.",
+    "Map names are numbered 'Spy Sensor #N'.",
+    "Script bug: when one is destroyed it decrements the team count for 'BaseAlarm' instead of 'AlarmPack'. Destroyed Spy Sensors never free their slot, so a team can deploy only 10 per map."
+   ],
+   "source": "deploySensorCat.cs AlarmPack::onDeploy/deployShape, DeployableCat::verifyTarget/onAdd/onDestroyed"
+  },
+  "PulseSensorPack": {
+   "summary": "Deploys a remote pulse sensor (200 m range), as in stock. It must sit on flat terrain or a flat building surface.",
+   "notes": [
+    "Carried by the Light, Assault, Deffence, Borg, Heavy and Destroyer suits. Team limit 10 (stock: 15).",
+    "Unlike stock, in building mode it is not used up and does not count toward the team limit. The sensor can be hidden by a Base Cloaking Device and is removed by the admin deployable wipe. If it is placed on a moving object, it is re-created after 5 s."
+   ],
+   "source": "deployPulseSensor.cs PulseSensorPack::onDeploy, DeployablePulseSensor; item.cs Item::deployShape, replaceSensor"
+  },
+  "DeployableSensorJammerPack": {
+   "summary": "Deploys a stationary jammer (80 m range) that hides nearby friendly objects from enemy sensors, as in stock. It must sit on a flat surface.",
+   "notes": [
+    "Carried by the Light, Assault, Deffence, Borg, Heavy and Destroyer suits. Team limit 10 (stock: 8).",
+    "Unlike stock, in building mode it is not used up and does not count toward the team limit. The jammer can be hidden by a Base Cloaking Device and is removed by the admin deployable wipe. If it is placed on a moving object, it is re-created after 5 s."
+   ],
+   "source": "deploySensorJammer.cs DeployableSensorJammerPack::onDeploy, DeployableSensorJammer; item.cs Item::deployShape, replaceSensor"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Backpack that deploys a remote ammo station (DeployableAmmoStation) for restocking ammunition in the field.",
+   "notes": [
+    "Carried by Commando, Assassin, Assault, Deffence, Borg and Destroyer suits; team limit 10.",
+    "Unlike stock Tribes, it can also be placed on a Deployable Platform (and, in Builder mode, on any surface), it refuses moving surfaces such as a descending drop ship, and the overlap check (checkInvDeployArea) tolerates a Deployable Platform in the way.",
+    "Unlike stock Tribes, in Builder mode the team limit is ignored and the pack is not used up.",
+    "The station is marked cloakable, so a friendly Base Cloaking Device hides it; it fades back in when a player touches it.",
+    "Stepping in unmounts your current weapon while it resupplies, as in stock. When destroyed it gives off a small debris blast and frees a team slot.",
+    "Registered for the admin 'neutron bomb' that destroys all deployables (NukeList)."
+   ],
+   "source": "deployAmmoStation.cs DeployableAmmoPack::deployShape, DeployableAmmoStation::onActivate; stationDeployableStation.cs DeployableStation::onDestroyed/onCollision; item.cs checkInvDeployArea; adminKill.cs NukeList"
+  },
+  "BaseCloakPack": {
+   "summary": "Deffence-only backpack that places a Base Cloaking Device: while it is enabled, friendly cloakable objects and players around it fade out of sight.",
+   "notes": [
+    "Team limit 1. Must be aimed at a flat spot between 2.75 m and 3.5 m away.",
+    "Every 2.5 s it re-scans a 200 x 200 x 50 m box and fades out every same-team object flagged cloakable (players, deployed stations, turrets, sensors, droids and more); objects that leave the box fade back in.",
+    "Cloaked stations, jump pads and similar shapes fade back in when a player touches them.",
+    "It wears itself out: each 2.5 s scan adds 0.002 damage to it, so it slowly destroys itself. When disabled, everything it cloaked fades back in.",
+    "Script bug: the 'Can only deploy in buildings' test is written as !%obj == \"InteriorShape\", which is never true, so it can be placed on terrain too.",
+    "Unlike most deployables here, the pack is used up even in Builder mode."
+   ],
+   "source": "deployBaseCloak.cs BaseCloakPack::deployShape, BaseCloak::onEnabled, BaseCloak::checkBaseCloak, BaseCloak::onDisabled"
+  },
+  "DeployableComPack": {
+   "summary": "Backpack that deploys a remote Command Station, giving the user the commander map while standing at it.",
+   "notes": [
+    "Carried by Deffence and Destroyer suits; team limit 5.",
+    "Placed on flat terrain, buildings or a Deployable Platform within 3 m; refuses moving surfaces.",
+    "While a player stands in it, it switches them to command mode (GUI mode 2) and sets their CommandTag; access turns off when they leave.",
+    "The station is cloakable by a Base Cloaking Device.",
+    "Its price is $RemoteComEnergy + 200, but $RemoteComEnergy is never defined in the scripts, so it costs 200."
+   ],
+   "source": "deployCommandStation.cs DeployableComPack::deployShape, DeployableComStation::OnActivate"
+  },
+  "ControlJammerPack": {
+   "summary": "Deffence-only backpack that places a Control Jammer inside a building; it shoots down enemy remote-controlled craft nearby and hurts their pilots.",
+   "notes": [
+    "Team limit 1. Must be placed on a flat building floor between 2.75 m and 3.5 m away (interiors only).",
+    "Once a second, it finds enemy OS Missiles, Probe Droids and Suicide Droids in a 250 x 250 x 150 m box, destroys them, and deals 0.2 Energy damage to the player controlling each one ('remote control feedback').",
+    "It wears itself out: each one-second check adds 0.0015 damage to it.",
+    "Survey Droids are not on its list."
+   ],
+   "source": "deployControlJammer.cs ControlJammerPack::deployShape, ControlJammer::checkControlJammer"
+  },
+  "FighterPack": {
+   "summary": "Light-suit backpack that drops an Interceptor flier (the mod's Screaming Eagle fighter) on the spot.",
+   "notes": [
+    "Counts against the team's Interceptor vehicle limit (3), shared with Interceptors bought at a vehicle station.",
+    "Needs flat terrain or a building floor within 3 m, and the vehicle must fit there (Vehicle::DeployArea test-places one).",
+    "The vehicle appears at the aimed point; the player is not put into it, despite the 'Piloting Interceptor...' message.",
+    "A terrain check sets the vehicle's damage to 2 (destroying it) if the engine pops it upward from below the ground.",
+    "Not used up in Builder mode. The file also contains an unused deployFighter function that would throw a Fighterbomb mine instead; nothing calls it."
+   ],
+   "source": "deployFighter.cs FighterPack::deployShape; vehicle.cs Vehicle::DeployArea, Vehicle::TerrainCheck"
+  },
+  "DeployableInvPack": {
+   "summary": "Backpack that deploys a remote inventory station for re-equipping in the field.",
+   "notes": [
+    "Carried by Commando, Assault and Deffence suits; team limit 10.",
+    "The station sells from the remote inventory list ($RemoteInvList), so some items (for example armors, Mobile Inventory and drop-ship beacons) cannot be bought there.",
+    "Unlike stock Tribes, the overlap check tolerates a Deployable Platform in the way, moving surfaces are refused, and in Builder mode the team limit is ignored and the pack is not used up. It still has to sit on terrain or a building.",
+    "The station is cloakable by a Base Cloaking Device and gives off a small debris blast when destroyed."
+   ],
+   "source": "deployInventoryStation.cs DeployableInvPack::deployShape, DeployableInvStation::onActivate; stationDeployableStation.cs DeployableStation::onDestroyed"
+  },
+  "JailTower": {
+   "summary": "Deffence-only backpack that builds the team's jail: a floating tower with force-field walls. Enemies hit by the Jailer's Gun are teleported into it.",
+   "notes": [
+    "One per team, and it cannot be removed: the parts have 50000 health, and the team count never goes down. Builder mode does not lift the limit.",
+    "Must be deployed on terrain, inside the mission area, at least 100 m from your flag, away from drop-ship landing zones, with a clear 27 m box around you and 35 m of open sky above.",
+    "Builds two floating pads, a tower shell, four force-field walls and a release switch, and sets the team's jail position about 16 m above the deploy point.",
+    "A jailed player is told the sentence lasts 30 seconds. Moving more than 10 m from the jail point counts as an escape and is announced to everyone. When the 30 s are up, a player still inside is moved 10 m up and released.",
+    "Touching the release switch (anyone can, there is no team check) raises the jail walls 6 m, then lowers them again after 10 s."
+   ],
+   "source": "deployJailTower.cs JailTower::deployshape, JailReleaseSwitch::onCollision, JailWall::move, ToJail, JailBird, JailBreak; baseProjData.cs (Jailer's Gun hit calls ToJail)"
+  },
+  "JumpPadPack": {
+   "summary": "Deffence-only backpack that places a launch pad: stand on it, aim, then jump or jet to be flung in the direction you are looking.",
+   "notes": [
+    "Team limit 3. Can be placed on any surface within 3 m except a ceiling.",
+    "Standing on the pad arms it and prints instructions; walking off cancels the launch.",
+    "Launch strength is 40-60 times the armor's mass, split between forward and up by your view pitch. 30% of launches get a bigger 71-79x boost (the 'K-E-R-S-P-R-O-I-N-G' message).",
+    "Cloakable by a Base Cloaking Device. Has 250 health."
+   ],
+   "source": "deployJumpPad.cs JumpPadPack::deployShape, JumpPad::onCollision, JumpPadPack::CheckPlayer"
+  },
+  "TeleportPack": {
+   "summary": "Backpack that deploys a teleport pad; stepping into its beam sends you to the team's other pad.",
+   "notes": [
+    "Carried by Commando, Assault and Deffence suits; team limit 2 pads (DeployableTeleport). Builder mode does not lift the limit, and the pack is always used up.",
+    "Placed on flat terrain, buildings or a Deployable Platform within 3 m.",
+    "After a jump both pads recharge for 5 s. You arrive facing the far pad's direction with a small forward push.",
+    "Enemies are refused unless they carry a working Laptop, which lets them override the pad.",
+    "On each use there is a 1-in-55 chance of a malfunction: the user takes 0.15 crush damage and the two pads are never re-enabled.",
+    "Destroying a pad deals 20 debris damage to the team's other teleport objects."
+   ],
+   "source": "deployTeleporter.cs TeleportPack::deployShape, TeleportBeam::onCollision, DeployableTeleport::onDestroyed"
+  },
+  "TransportPack": {
+   "summary": "Deffence-only backpack that drops a Hell Fire Transporter (HAPC) flier on open terrain.",
+   "notes": [
+    "Counts against the team's HAPC limit (2), shared with HAPCs bought at a vehicle station.",
+    "Terrain only, flat ground within 3 m, and the vehicle must fit (Vehicle::DeployArea).",
+    "The vehicle is not boarded automatically. A terrain check destroys it if the engine pushes it up out of the ground.",
+    "Not used up in Builder mode."
+   ],
+   "source": "deployTransport.cs TransportPack::deployShape; vehicle.cs Vehicle::DeployArea, Vehicle::TerrainCheck"
+  },
+  "BlastWallPack": {
+   "summary": "Deffence-only backpack that places a solid door-shaped blast wall.",
+   "notes": [
+    "Team limit 20. Needs a flat surface within 3 m and cannot be put on another team's base objects.",
+    "Fliers that touch it take a small amount of damage (+0.01) and play a crash sound.",
+    "Has 250 health."
+   ],
+   "source": "deployBlastWall.cs BlastWallPack::deployShape, BlastWall::onCollision"
+  },
+  "ForceFieldPack": {
+   "summary": "Backpack that places a 5x5 force-field panel as a barrier.",
+   "notes": [
+    "Carried by every suit except the Assassin; team limit 16.",
+    "Needs a flat surface within 3 m. There is no terrain or building check, so it can sit on deployables too.",
+    "Fliers touching it take +0.01 damage. Has 250 health."
+   ],
+   "source": "deployForceField.cs ForceFieldPack::deployShape, DeployableForceField::onCollision"
+  },
+  "ForceFieldDoorPack": {
+   "summary": "Deffence-only backpack that places a 5x5 force-field door: it opens for teammates and blocks enemies.",
+   "notes": [
+    "Team limit 8. Can be placed at any angle on whatever you aim at within 3 m (no flat-surface check).",
+    "When a teammate touches it, the field fades out and is moved 1000 m up, then comes back after 2 s. Enemies get no reaction.",
+    "Explodes with a debris blast when destroyed. Fliers touching it take +0.01 damage. Cloakable."
+   ],
+   "source": "deployForceFieldDoor.cs ForceFieldDoorPack::deployShape, ForceFieldDoorShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Deffence-only backpack that places a large force-field barrier.",
+   "notes": [
+    "Team limit 8. Needs a flat surface within 3 m.",
+    "Failed placements give no message.",
+    "Fliers touching it take +0.01 damage. Has 250 health."
+   ],
+   "source": "deployLargeForceField.cs LargeForceFieldPack::deployShape, LargeForceField::onCollision"
+  },
+  "LargeForceFieldDoorPack": {
+   "summary": "Deffence-only backpack that places a large force-field door that teammates pass through.",
+   "notes": [
+    "Team limit 4. Can be placed at any angle within 3 m.",
+    "A teammate's touch moves the field away for 2 s. Enemies are blocked.",
+    "Explodes with a debris blast when destroyed. Cloakable."
+   ],
+   "source": "deployLargeForceFieldDoor.cs LargeForceFieldDoorPack::deployShape, LargeForceFieldDoorShape::onCollision/openDoor"
+  },
+  "PlatformPack": {
+   "summary": "Backpack that places a thin 6x6 platform to stand or build on. Several other deployables accept it as a base.",
+   "notes": [
+    "Carried by Assault, Deffence and Destroyer suits; team limit 20. Range 4 m.",
+    "No surface or slope check: it goes on whatever you aim at and takes that point's orientation from your facing. Aimed at a ceiling, it is flipped upside down.",
+    "Ammo Station, Command Station, Teleport Pad and Mobile Inventory can be deployed on top of it, and the inventory-style overlap check ignores it.",
+    "In Builder mode the pack is not used up and you are lifted 1 m after placing it, so you can stack platforms.",
+    "Fragile (4 health)."
+   ],
+   "source": "deployPlatform.cs PlatformPack::deployShape; item.cs checkInvDeployArea"
+  },
+  "MobileInventoryPack": {
+   "summary": "Deffence-only backpack that deploys a full-size inventory station. It only works while it is powered by a generator.",
+   "notes": [
+    "Team limit 5. Bought only at fixed inventory stations, not remote or mobile ones.",
+    "Placed on flat terrain, buildings or a Deployable Platform within 5 m.",
+    "On deploy it looks for a same-team generator within a 200 m box and joins its power group, using a damaged one if no working one is found. With no generator nearby it waits unpowered until a Portable Generator is placed near it.",
+    "Unpowered, it refuses use ('Unit is not powered'). It sells from the mobile inventory list ($MobileInvList).",
+    "Explodes with a debris blast when destroyed. Cloakable."
+   ],
+   "source": "deployMobileInventory.cs MobileInventoryPack::deployShape, MobileInventory::onEndSequence; powerFunctions.cs Station::FindPower; stationMobileStation.cs MobileStation::onCollision"
+  },
+  "PortableGeneratorPack": {
+   "summary": "Deffence-only backpack that places a portable generator, which powers deployables such as the Mobile Inventory.",
+   "notes": [
+    "Team limit 1. Flat terrain or building floor within 5 m.",
+    "On deploy it joins the power group of a same-team generator within 200 m. If none is found it starts a new power grid and pulls in nearby unpowered Mobile Inventory stations.",
+    "The pack's own PortableGeneratorPack::deployShape is never called: onDeploy uses Generator::deployShape from powerFunctions.cs, which does not mark the generator cloakable. The pack is used up even in Builder mode.",
+    "Explodes with a debris blast when destroyed."
+   ],
+   "source": "deployPortableGenerator.cs PortableGeneratorPack::onDeploy, PortableGenerator::onEnabled/onDestroyed; powerFunctions.cs Generator::deployShape, Generator::CreateSimGroup"
+  },
+  "PortableSolarPack": {
+   "summary": "Deffence-only backpack that places a solar panel generator on open terrain.",
+   "notes": [
+    "Team limit 1. Terrain only, flat ground within 5 m.",
+    "It is added to the team's main mission group and generates power while enabled. It does not join a deployable power grid the way the Portable Generator does, and which objects it powers is left to the engine. Behavior not determined beyond that.",
+    "Explodes with a debris blast when destroyed. Cloakable. Used up even in Builder mode."
+   ],
+   "source": "deployPortableSolar.cs PortableSolarPack::deployShape, PortableSolar::onEnabled/onDestroyed"
+  },
+  "AirBasePack": {
+   "summary": "Backpack that summons a complete floating air base 150 m above you, with vehicle, inventory and command stations.",
+   "notes": [
+    "Carried by Commando, Assault and Deffence suits; one per team per map (the count never goes down, and Builder mode does not lift the limit).",
+    "Must be aimed at terrain within 3 m, at least 50 m from your flag, and not below -150 m altitude.",
+    "Builds two floating pads, force-field walls, a vehicle station and pad, an inventory station, a command station, a medium pulse sensor and two solar panels.",
+    "The pads and force fields have 50000 health, so in practice the structure cannot be destroyed."
+   ],
+   "source": "deployAirbase.cs AirBasePack::deployshape"
+  },
+  "BunkerPack": {
+   "summary": "Backpack that drops a small round bunker building onto open terrain.",
+   "notes": [
+    "Carried by Deffence and Destroyer suits; team limit 4. Bunkers are buildings with no destroy handler, so the count never goes down (unlimited in Builder mode).",
+    "Terrain only, flat ground within 3 m. It refuses if another bunker (an eround1 interior) is inside a 20 m box or anything is in the way.",
+    "Not used up in Builder mode."
+   ],
+   "source": "deployBunkerPack.cs BunkerPack::deployShape, BnkrDeployArea"
+  },
+  "CommandShipPack": {
+   "summary": "Deffence-only beacon that calls down a Command Ship: a landed drop ship carrying command, inventory and ammo stations, turrets, sensors and team spawn points.",
+   "notes": [
+    "One per team. The beacon needs flat terrain within 5 m, a clear 65 m landing box, distance from other ships' landing zones, and in two-team games 40% of the flag-to-flag distance from the enemy flag.",
+    "The beacon (a small antenna) is placed first. 20 s later the ship appears 300 m up and descends. If the antenna was destroyed in the meantime, the drop is cancelled and the slot freed.",
+    "On landing it fits four command stations, an inventory station, an ammo station, an indoor turret, two plasma turrets, sensors, a main generator, two team drop points (players can respawn there) and a repair pack.",
+    "Script bug: the second radar block reuses the pulse sensor object instead of creating a new one, so only one pulse sensor ends up on the ship.",
+    "Destroying the ship's generator (which takes half damage) starts a 45 s warp-core countdown. If it is not repaired in time, every part of the ship is destroyed and a 100 m blast follows. The destroyer gains 2 points, or loses 2 for their own team's ship."
+   ],
+   "source": "dropShipCommandShip.cs CommandShipPack::deployShape, CommandShip::deployShape, CommandShip::DeployItems; dropShipFunctions.cs DropShip::deployShape, DropShip::MoveShip, DropShipGen::onDamage, WarpCoreCheck, BlowShitUp"
+  },
+  "GunShipPack": {
+   "summary": "Deffence-only beacon that calls down a Gun Ship: a heavily armed landed drop ship with turrets, stations and team spawn points.",
+   "notes": [
+    "One per team. The beacon checks a 100 x 80 x 400 m landing zone and keeps away from the enemy flag and other ships' landing zones. The ship arrives from 300 m up 20 s after the beacon is placed.",
+    "On landing it fits four inventory stations, a command station, two ammo stations, four plasma turrets, an ELF turret, a large radar, a main generator, two team drop points and a repair pack.",
+    "Shares the drop-ship rules: destroying the beacon before the ship arrives cancels it, and destroying the generator starts a 45 s warp-core countdown that wipes out the whole ship."
+   ],
+   "source": "dropShipGunShip.cs GunShipPack::deployShape, GunShip::deployShape, GunShip::DeployItems; dropShipFunctions.cs"
+  },
+  "SupplyShipPack": {
+   "summary": "Deffence-only beacon that calls down a Supply Ship: a landed drop ship focused on resupply.",
+   "notes": [
+    "One per team. Uses a 65 m landing-zone check and the same beacon, descent and cancellation rules as the other ships.",
+    "On landing it fits three inventory stations, two ammo stations, an indoor turret, a plasma turret, a main generator, two team drop points and a repair pack.",
+    "Destroying its generator triggers the same 45 s warp-core countdown and ship destruction."
+   ],
+   "source": "dropShipSupplyShip.cs SupplyShipPack::deployShape, SupplyShip::deployItems; dropShipFunctions.cs"
+  },
+  "ProbeDroidPack": {
+   "summary": "Deffence-only pack that launches a remote-controlled flying droid armed with disruptor bolts; you steer it while your body stays behind.",
+   "notes": [
+    "Team limit 3. Launches 1.5 m above your muzzle and switches your control to the droid. While you fly it, your body gives off no heat to heat-seekers.",
+    "Very fragile (0.0125 health). Touching an enemy player, or pressing jump, destroys it and returns control to your body.",
+    "Touching a teammate kills its pilot as well as the droid.",
+    "Enemy Control Jammers destroy it within range and hurt the pilot."
+   ],
+   "source": "droidProbeDroid.cs DeployProbeDroid, ProbeDroid::onCollision, ProbeDroid::jump, ProbeDroid::onDestroyed; player.cs (heat factor while controlling a droid); deployControlJammer.cs"
+  },
+  "SuicideDroidPack": {
+   "summary": "Deffence-only pack that launches a remote-controlled flying droid that fires a heavy grenade (SuicideGren, Mortar damage, 30 m radius).",
+   "notes": [
+    "Team limit 6. Control passes to the droid at launch, and your body gives no heat while you fly it.",
+    "Touching any player, or pressing jump, destroys it and returns you to your body.",
+    "Enemy Control Jammers destroy it within range and hurt the pilot."
+   ],
+   "source": "droidSuicideDroid.cs DeploySuicideDroid, SuicideDroid::onCollision/jump/onDestroyed; baseProjData.cs SuicideGren"
+  },
+  "SurveyDroidPack": {
+   "summary": "Deffence-only pack that launches a remote-controlled scouting droid; firing plants a Target Beacon on the surface it is facing.",
+   "notes": [
+    "Team limit 10. Control passes to the droid at launch. It fades in and then straight out, so it flies faded out.",
+    "Fire (within 3 m of terrain or a building) places a Target Beacon (DefaultBeacon) and counts it as a team Beacon. The check uses the Camera team limit, not the Beacon one. It can place only one beacon per droid.",
+    "Script bug: after planting the beacon it calls SurveyDroid::removeDrone, which does not exist.",
+    "Script bug: touching a player calls SuicideDroid::onDestroyed, which lowers the Suicide Droid count instead of the Survey Droid count. Touching a teammate also kills the pilot.",
+    "Control Jammers do not target it."
+   ],
+   "source": "droidSurveyDroid.cs DeploySurveyDroid, SurveyDroid::onFire, SurveyDroid::onCollision, SurveyDroid::onDestroyed"
+  },
+  "ScoutVehicle": {
+   "summary": "The Screaming Eagle: a single-seat fighter bought at the vehicle station. Unlike stock Tribes it fires ScoutMissile rockets instead of FlierRocket, and more armors can fly it.",
+   "notes": [
+    "Fires ScoutMissile: a Shrapnel-damage rocket with a 20.5 m blast radius.",
+    "Stock Tribes lets only light armor pilot. Here the effective pilots are the DM armors, Light, Assassin, Assault and Deffence; Borg, Heavy and Destroyer are told they cannot pilot it. No passenger seats ($VehicleSlots 0).",
+    "serverItemUsage.cs PopulateCanPilot takes 13 armor arguments but each call passes 15 (the table still has the unused mwr/fwr columns), so every value from the 7th on lands two armors early and the last two are dropped. For this vehicle that makes Deffence a pilot, although the table meant it to be ride-only.",
+    "Takes full damage from every type (all vehicle damage scales are 1.0); stock Tribes halves blaster damage to it.",
+    "You cannot board a vehicle while you are using a station ('Sun Tzu Says NO!'). Boarding turns off quick-inventory and the extended inventory link."
+   ],
+   "source": "vehicleFighter.cs; vehicle.cs Vehicle::onCollision, Vehicle::onDamage; serverItemUsage.cs PopulateCanPilot, PopulateDamageScale; baseProjData.cs ScoutMissile"
+  },
+  "InterceptorVehicle": {
+   "summary": "The Ion Assault Scout: a single-seat fighter on the flyer model that fires Ion Bolts. You can buy it at the vehicle station, and the Screaming Eagle Pack also deploys it.",
+   "notes": [
+    "Fires IonBolt (Electricity damage, 4 m blast). Player shield packs absorb nothing from Electricity damage, so its shots go straight through them.",
+    "Effective pilots: the DM armors, Light, Assassin, Assault and Deffence. Borg, Heavy and Destroyer cannot fly it. No passenger seats.",
+    "serverItemUsage.cs PopulateCanPilot takes 13 armor arguments but each call passes 15 (the table still has the unused mwr/fwr columns), so every value from the 7th on lands two armors early and the last two are dropped. That is why Deffence can pilot it, although the table meant Deffence to be ride-only.",
+    "Station purchases and the FighterPack share the InterceptorVehicle team count."
+   ],
+   "source": "vehicleInterceptor.cs; vehicle.cs Vehicle::onCollision; deployFighter.cs; serverItemUsage.cs PopulateCanPilot; player.cs Player::onDamage shield branch"
+  },
+  "LAPCVehicle": {
+   "summary": "The LAPC Bomber: the light transport, turned into a bomber. Unlike stock Tribes' unarmed LAPC, firing drops bomb shells.",
+   "notes": [
+    "LAPC::onFire spawns a BombShell (Mortar damage, 20 m radius) from a muzzle transform with one component forced to -0.5 so it drops downward. Each bomb costs 30 vehicle energy, with a 0.25 s refire lock; it will not fire below 30 energy.",
+    "Two passenger seats; a boarding passenger gets the free seat closest to them.",
+    "Every armor can pilot it, although the table meant Heavy and Destroyer to be ride-only; this happens because serverItemUsage.cs PopulateCanPilot takes 13 armor arguments but each call passes 15 (the table still has the unused mwr/fwr columns), so every value from the 7th on lands two armors early and the last two are dropped.",
+    "Takes full damage from every type; stock Tribes halves laser and blaster damage to it."
+   ],
+   "source": "vehicleLAPC.cs LAPC::onFire; vehicle.cs Vehicle::onCollision, Vehicle::findEmptySeat; serverItemUsage.cs PopulateCanPilot"
+  },
+  "HAPCVehicle": {
+   "summary": "The Hell Fire Transporter: the heavy transport, armed here with a forward Fireball gun (stock Tribes' HAPC is unarmed). The Hell Fire Transport Pack can also deploy it.",
+   "notes": [
+    "Fires Fireball: a fast, short-lived Shrapnel bullet with a 15 m blast radius.",
+    "Four passenger seats. Every armor can pilot it, although the table meant Heavy and Destroyer to be ride-only; this happens because serverItemUsage.cs PopulateCanPilot takes 13 armor arguments but each call passes 15 (the table still has the unused mwr/fwr columns), so every value from the 7th on lands two armors early and the last two are dropped.",
+    "The team limit is set twice: 1 in item.cs and 2 in serverItemUsage.cs. serverItemUsage.cs loads last, so the limit is 2, shared with the Transport Pack.",
+    "Takes full damage from every type; stock Tribes cuts laser, blaster and crash damage to it."
+   ],
+   "source": "vehicleHAPC.cs; deployTransport.cs; item.cs and serverItemUsage.cs $TeamItemMax; serverUltraGZHQ.cs exec order"
+  },
+  "FlameTurretPack": {
+   "summary": "Deploys a short-range flame turret with an external fuel canister. It can only be placed inside buildings.",
+   "notes": [
+    "Uses its own deploy code instead of Turret::deployShape. You must aim at an interior surface between 2.75 and 3.5 m away; it has to be flat, and not near the enemy flag.",
+    "Fires FlameShell: Plasma damage, which sets players on fire (Armor::onBurn).",
+    "A fuel canister (Canister, liqcyl shape) is placed 0.8 m behind the turret. Destroying the turret sets the canister's damage to 0.6, above its 0.55 maximum, so the canister blows up with debris damage. Destroying the canister sets the turret's damage level to 0.6.",
+    "In the deploy code, the deployer field is written to a string (getObjectType's result) instead of the turret, so the flame turret never records who deployed it.",
+    "Teammates can always damage it ($CanAlwaysTeamDestroy). Only Deffence can carry it."
+   ],
+   "source": "turretFlameTurret.cs FlameTurretPack::deployShape, FlameTurret::onDestroyed, Canister::onDestroyed; player.cs Player::onDamage; armorData.cs Armor::onBurn"
+  },
+  "FusionTurretPack": {
+   "summary": "Deploys a ground-only Fusion Turret (hellfire gun) that fires Fusioncharge bolts at long range. You can take manual control of it by walking into it.",
+   "notes": [
+    "Ground only (flat surfaces) and must fit. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "$CanControl and $EmbedController are set: touching it puts you inside it in manual control. With a Laptop you can do this to an enemy one, which switches it to your team until 10 s after you leave.",
+    "On destruction it deals a large debris blast (20 radius).",
+    "Carried by the DM armors, Assault, Deffence and Borg."
+   ],
+   "source": "turretFusionTurret.cs; turret.cs Turret::deployShape, Turret::onCollision, Turret::onInternalDiagnostics"
+  },
+  "TurretPack": {
+   "summary": "The Ion Turret: the old remote turret, reworked. It fires Ion Bolts and can mount on floors, walls or ceilings.",
+   "notes": [
+    "Stock Tribes' DeployableTurret fires MiniFusionBolt, goes on flat ground only, allows 2 per 50x50x25 m area at least 10 m apart, and is for medium and heavy armor. Here it fires IonBolt (Electricity damage, which player shield packs cannot absorb). It mounts at any angle ($TurretLocAnywhere), including on Deployable Platforms. Area limits follow the mod-wide rules: up to 8 other range-finding turrets in a 35x35x25 m box, 4 m from another Ion Turret.",
+    "Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Carried by Assault, Deffence and Destroyer; team limit 10."
+   ],
+   "source": "turretIonTurret.cs; turret.cs Turret::deployShape, CountTurrets; game.cs turret box globals; sources/base/item.cs TurretPack::deployShape"
+  },
+  "IrradiationTurretPack": {
+   "summary": "Deploys the Irradiation Cannon, a ground turret with no auto-targeting that only fires while a player controls it.",
+   "notes": [
+    "Its range is 0, so it never picks targets by itself (mounting the pack says so). It also does not count toward the area turret limit. Walking into it gives you manual control; a Laptop lets you take over an enemy one.",
+    "Fires IrradiationBlast, a rapid bullet with a 5 m blast. The datablock sets baseDamageType, not damageType, so its damage type is unclear. Behavior not determined from scripts.",
+    "Ground only. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Not sold at remote inventory stations. Carried by the DM armors, Assault, Deffence and Destroyer; team limit 2."
+   ],
+   "source": "turretIrradiationTurret.cs; turret.cs Turret::deployShape, CountTurrets, Turret::onCollision; baseProjData.cs IrradiationBlast"
+  },
+  "LaserTurretPack": {
+   "summary": "Deploys a small camera-shaped laser turret that can go on any surface angle.",
+   "notes": [
+    "Fires TurretLaser (Laser damage). Laser hits on players spawn a blood effect, and head hits on Borg, Heavy or Destroyer from the middle quadrants do 45% extra.",
+    "Mounts on floors, walls or ceilings. It has no shield. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Only Deffence can carry it; team limit 16."
+   ],
+   "source": "turretLaserTurret.cs; turret.cs Turret::deployShape; player.cs Player::onDamage"
+  },
+  "RocketPack": {
+   "summary": "Deploys a ground Missile Turret that fires seeking missiles at hot targets.",
+   "notes": [
+    "verifyTarget only accepts targets with a heat factor of at least 0.5, so it locks onto jetting players and vehicles. Vehicle::getHeatFactor always returns 1.0, so vehicles are always valid targets.",
+    "Fires TurretMissile (Missile damage, 9.5 m radius, heavy kickback). It cannot be manually controlled by touch ($CanControl 0) and deals a large debris blast when destroyed.",
+    "Ground only. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Carried by Deffence and Borg; team limit 6."
+   ],
+   "source": "turretMissileTurret.cs DeployableRocket::verifyTarget; vehicle.cs Vehicle::getHeatFactor; turret.cs Turret::deployShape"
+  },
+  "MortarTurretPack": {
+   "summary": "Deploys a ground Mortar Turret that lobs heavy mortar shells at enemies in range.",
+   "notes": [
+    "Fires MortarTurretShell (Mortar damage, 30 m radius).",
+    "When mounted, the pack says the turret has no auto-sensor and must be controlled manually. That message is wrong: its datablock has range 100, so it targets on its own, and $CanControl is 0, so you cannot take it over by touch.",
+    "MortarTurretPack::onUse is defined twice, with the same body.",
+    "Ground only. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Only Deffence can carry it; team limit 2."
+   ],
+   "source": "turretMortarTurret.cs; turret.cs Turret::deployShape, Turret::onCollision"
+  },
+  "NuclearTurretPack": {
+   "summary": "Deploys a short-range Nuclear Turret (indoor gun) that fires very powerful NukeShell rockets. It can be placed at any angle.",
+   "notes": [
+    "NukeShell does Missile damage with heavy kickback in a 9.5 m radius. Its damage is far above every other turret's on this mod's scale, but the turret's range is short.",
+    "Mounts on floors, walls or ceilings. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Only Deffence can carry it; team limit 2."
+   ],
+   "source": "turretNuclearTurret.cs; baseProjData.cs NukeShell; turret.cs Turret::deployShape"
+  },
+  "ParticleBeamTurretPack": {
+   "summary": "Deploys the Particle Beam Turret: a manual-only ground turret that fires a strong beam.",
+   "notes": [
+    "Range 0: it never fires on its own and is excluded from the area turret count. Walk into it to control it (embedded controller); with a Laptop you can take over an enemy one.",
+    "Fires the ParticleBeam laser (Laser damage). Its damage conversion is far above the Laser Turret's (4 vs 0.0065).",
+    "Ground only. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Carried by the DM armors, Assault, Deffence and Destroyer; team limit 2."
+   ],
+   "source": "turretParticleBeamTurret.cs; baseProjData.cs ParticleBeam; turret.cs Turret::onCollision"
+  },
+  "PlasmaTurretPack": {
+   "summary": "Deploys a ground Plasma Turret that fires fast plasma bolts which set targets on fire. You can take control of it by touch.",
+   "notes": [
+    "Fires Plasmacharge (Plasma damage). Plasma damage on a player triggers Armor::onBurn, which sets them burning.",
+    "The Plasmacharge datablock sets liveTime twice (11.0, then 1.0). The later value applies.",
+    "Touch it to control it manually; with a Laptop you can take over an enemy one. It deals a large debris blast when destroyed.",
+    "Ground only. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Carried by Assault, Deffence and Borg; team limit 8."
+   ],
+   "source": "turretPlasmaTurret.cs; baseProjData.cs Plasmacharge; player.cs Player::onDamage; armorData.cs Armor::onBurn"
+  },
+  "ShockTurretPack": {
+   "summary": "Deploys a short-range Shock Turret whose concussion shells fry the target's energy.",
+   "notes": [
+    "Fires ShockShell (Shock damage, 30 m radius). Shock damage on a player calls Armor::onShock: energy is set to 0 at once, and shock effects (ShockedDamage, and ShockJet while jetting) run every 0.5 s for about 10 s. Heavy armor's onShock is commented out, so Heavy is immune.",
+    "Mounts on floors, walls or ceilings. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "onAdd sets a recharge rate of 6, but onEnabled sets it back to 5.",
+    "Only Deffence can carry it; team limit 8."
+   ],
+   "source": "turretShockTurret.cs; armorData.cs Armor::onShock, Shockfire; armorHeavy.cs Heavy::onShock; player.cs Player::onDamage"
+  },
+  "vortexTurretPack": {
+   "summary": "Deploys a camera-sized Vortex Turret that does no damage but pulls targets toward it.",
+   "notes": [
+    "Fires vortexBolt: damage 0 (TurretVortexDamageType) with kickback -300, so each hit yanks the target toward the impact point instead of pushing it away.",
+    "Mounts on floors, walls or ceilings. It has no shield. Deploys through Turret::deployShape: aim within 3 m at terrain, a building or a Deployable Platform; not within 40% of the flag-to-flag distance of the enemy flag (2-team maps); no more than 8 range-finding turrets of any type already in a 35x35x25 m box, and none of the same type within a 4 m box. Builder mode ($build) skips the team limit and does not use up the pack.",
+    "Only Deffence can carry it; team limit 6."
+   ],
+   "source": "turretVortexTurret.cs; baseProjData.cs vortexBolt; turret.cs Turret::deployShape"
+  },
+  "DiscAmmo": {
+   "summary": "Discs for the Disc Launcher.",
+   "notes": [
+    "Only the DM armor, Light and Assassin suits can carry it (200 each), matching the Disc Launcher's carry list. Every spawn starts with 200.",
+    "One disc per shot; the script is unchanged from stock Tribes."
+   ],
+   "source": "weaponDiscLauncher.cs; serverItemUsage.cs PopulateItemMax; game.cs Game::playerSpawned"
+  },
+  "RepairPack": {
+   "summary": "The stock repair backpack and Repair Gun, but its beam repairs far faster than in stock Tribes. Every suit can carry one, and every spawn gets one already switched on.",
+   "notes": [
+    "Pack and gun scripts match stock. The change is in RepairBolt::onAcquire: self-repair adds an auto-repair rate of 100 (stock 0.05) and repairing another target adds 50 (stock 0.1), so repairs finish almost at once.",
+    "Repairing an object first goes through fixable(), which refuses map turrets, inventory stations, generators or vehicle stations when an admin has disabled that class of object.",
+    "Repairing an enemy object is allowed; the message names it as 'enemy'."
+   ],
+   "source": "packRepair.cs; baseProjData.cs RepairBolt::onAcquire; adminKill.cs fixable"
+  },
+  "ShieldPack": {
+   "summary": "The stock energy shield backpack: while on, incoming damage drains energy instead of health.",
+   "notes": [
+    "Pack script matches stock (shield strength 0.012). Unlike stock, Player::onDamage gives it no effect at all against Electricity damage, and it absorbs only 75% as well against shrapnel and mortar damage.",
+    "Carried by the DM armor, Assault, Borg and Destroyer suits. Light, Assassin, Deffence and Heavy cannot use it."
+   ],
+   "source": "packShield.cs; player.cs Player::onDamage; serverItemUsage.cs PopulateItemMax"
+  },
+  "SensorJammerPack": {
+   "summary": "The stock personal sensor jammer backpack: while on it raises your sensor suppression by 20 so enemy sensors lose you.",
+   "notes": [
+    "Script matches stock.",
+    "Carried by the DM armor, Light, Assault, Heavy and Destroyer suits and the male Deffence suit. The female Deffence (fdf column 0), Assassin and Borg cannot carry it."
+   ],
+   "source": "packJammer.cs; serverItemUsage.cs PopulateItemMax"
+  }
+ }
+}

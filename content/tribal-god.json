@@ -1,0 +1,1326 @@
+{
+ "mod": {
+  "overview": "Tribal God 6.6 (Ultra_Tribal_God, by Dustin 'X-Ecutioner' Bruce, 2003) is a heavily expanded build of stock Tribes with four armor classes (Asassin, Mercenary, Engineer, BoRg), dozens of new weapons, psionic-style abilities, droids, a jail system and over twenty deployable turrets and structures. Armors carry 10 to 20 weapons instead of 3 to 5, players choose a class and spawn with a large loadout, and stock placement rules are replaced by a 'fair play' check that keeps deployables near friendly objects and away from enemy bases.",
+  "notes": [
+   "Four armor classes: Asassin (larmor/lfemale), Mercenary (marmor/mfemale), Engineer (one Earmor suit for both genders) and BoRg (harmor). Weapon slots ($MaxWeapons): male Asassin 20, female Asassin 15, Mercenary 12, Engineer 10, BoRg 10 (stock 3/4/5).",
+   "Players pick a spawn class in the Character Options menu (Light, Medium, Engineer, Heavy, saved favorites or random); game.cs buys the class's $spawnBuyList through buyItem, so carry limits apply. Default starting weapons: Asassin Double Plasma, Mercenary Tank Shredder, Engineer Plasma Cannon, BoRg Tank RPG.",
+   "Spawn protection sets the player's shieldStrength to 1500 for $TG::SafeSpawnTime seconds (1.75 by default).",
+   "Placement: turrets and the Portable Hole deploy through deployable() in deployableFuncts.cs, which allows any surface within 4 m at any angle with no spacing or per-area turret count. It refuses only when the player is jailed, the team limit is reached, or an enemy inventory station, ammo station, turret or generator is inside a 300 m box (god admins exempt). Its proximity and 'objects in the way' checks call CountObjects(set, \"\"), which only matches objects with an empty datablock name, so they never block.",
+   "Most other deployables need a friendly static object within a box around the aim point (150 m for doors, ammo station, motion sensor, Huge Wall and teleport; 999 m for the inventory station). TG::CheckFairPlay, used by the Deployable Base and IBlock, refuses if any non-friendly static, including neutral mission objects, is in the box.",
+   "Every deployable() deploy adds $TG::FlagDefencePoints (1 by default) to the deployer's score with a 'Defending Your Flag' message, wherever it is placed; the message prints scoreKills for both DeathCount and Kill Count. The deployer is made the owner of the turret for kill credit, except for the Nuclear Turret.",
+   "The Asassin can carry only a few deployables (Decoy Carrier, Probe Droid, Cloak Droid, Clone, Portable Hole, blast door) but every turret pack; all turret packs are carried by every armor.",
+   "Player damage is $DamageScale[armor, type] x damage. Damage types with no DamageScale entry (Jail, Nuker, Claymor, Debug, Misc, Admin) do no normal health damage to players; Player::onDamage gives several types special effects instead (EMP, Claymor and Flash drain energy or drop items, Nuker strips enemies and heals teammates, Smoke adds 0.25 directly). Enemy head hits with the Bullet or LiL POO mkii types gib the target for triple damage.",
+   "Shield packs absorb energy x shieldStrength, at 0.75x strength against shrapnel and mortar. The packs cost about 0.1 energy per second while running (stock 9 to 10).",
+   "Infinite-ammo switches in TribalPrefs.cs: only Double Plasma, Mine Launcher, Mortar and Tank Shredder read their weapon setting; $TG::InfiniteAmmo:DiscLauncher and :RepairKit are never read. Grenade::onUse uses a grenade only when $TG::InfiniteAmmo:Grens is true, the reverse of its meaning, and LiLBoost reads the Grens setting instead of Boosts. $TG::InfiniteDropAmmo makes dropped ammo free.",
+   "Weapon modes for the Mine Launcher, Mortar, Blaster and Disc Launcher are chosen in the Tab menu under Character Options > Weapon Options.",
+   "$TG::GiveallOn (off by default) enables the giveall refill for admins, the chat word HOOKITUPX (a refill for any player) and QUADDISC (the hidden Quad Disc).",
+   "Admin system with God, Super Admin and Public Admin levels set by passwords in TribalPrefs.cs, plus optional voting for Public Admin. With $TG::LogIps on, joiners' addresses and names are logged to config\\IpLoggs.cs, admins are told when an address uses a new name, and the fourth different name from one address is kicked.",
+   "Several team counts (Jail Capture Pad, IBlock, Air Base, Freezing Pad) are never lowered when the object is destroyed and are not reset between missions, so those limits fill up for the rest of the server session."
+  ]
+ },
+ "items": {
+  "JailPack": {
+   "summary": "Builds a team jail cell high in the air above the deployer: force-field and blast-wall panels, a prisoner pad inside, a team-only door and a release pad on the roof. Enemies captured by Jail Capture Pads are teleported into it.",
+   "notes": [
+    "One jail per team (limit key JailPackage). The count is only reset by Mission::reinitData; destroying the jail does not decrement it.",
+    "Built relative to the deployer's own position, not the aim point, and not rotated to their facing: panels sit about 80 to 86 units above the deployer. The deploy message says 250m, but the code offsets are about 80 to 86.",
+    "Fair-play check over static objects in a 350-unit box: refused if the box holds only non-friendly objects (neutral mission objects count as non-friendly) or no objects at all; allowed if any friendly object is present.",
+    "The cell door (Jail::JailDoorShape) opens only for the jail team: it rises 6 units and fades out, then closes after 2.5 seconds. It explodes with radius damage when destroyed.",
+    "The prisoner pad (jailStand) only prints 'No Escape This Way'. Prisoners are released by a schedule set when they are jailed: after 30 seconds, a prisoner within 10 units of the jail team's roof release pad is moved onto it.",
+    "Stepping on the roof release pad announces the player as paroled. Standing on it repeatedly builds a counter: at 5 and 10 the player is shoved off with an impulse.",
+    "Destroying the prisoner pad (maxDamage 20000) deletes all 14 jail pieces.",
+    "Bug: the jail pieces are tracked in global variables $JailSide1 to $JailSide14, so a second team's jail overwrites the first's references, and destroying either prisoner pad deletes the most recently built jail.",
+    "Bug: the out-of-mission-area message is sent to %client before it is assigned, so the player gets no message; jailStand::onCollision centerprints to an undefined %client.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "Jail_Package.cs JailPack::deployshape, Jail::JailDoorShape::onCollision/openDoor/closeDoor/Sesame, jailStand::onCollision/onDestroyed, jailStandTop::onCollision"
+  },
+  "JailCapPack": {
+   "summary": "Deploys a small pad that teleports any enemy who steps on it into the deploying team's Jail Cell for 30 seconds.",
+   "notes": [
+    "Cannot be deployed within 10 units of the team's own flag. There is no fair-play or surface check.",
+    "An enemy who touches the pad is moved to the prisoner pad of every jail not owned by their team (the last one found wins). For 30 seconds they cannot suicide, and the deploy code that most turrets use (deployable()) and the Portable Hole refuse to deploy for them.",
+    "Teammates who touch it just get a message. If no enemy jail exists, the victim is not moved, but a 'prison' message is still broadcast to everyone.",
+    "The pad is not used up and has no working cooldown: the recharge branch checks %this.disabled, which nothing ever sets.",
+    "No destroy handler decrements the team count and Mission::reinitData does not reset it, so the team limit of 25 counts every pad deployed during the server session.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "Jail_Package.cs JailCapPack::deployShape, JailingPad::onCollision"
+  },
+  "hugewall": {
+   "summary": "Raises a large wall of blast-door panels in front of the deployer: a grid four panels wide and three high, facing the way the deployer looks.",
+   "notes": [
+    "Placed relative to the deployer's position and rotation, not the aim point. There is no surface or line-of-sight requirement.",
+    "Requires a friendly static object within a 150-unit box of the aim point, and the deployer must be more than 5 units from their own flag.",
+    "Each panel (HugeWallShape) has 20000 maxDamage. Its onDamage tries to stop team damage from pushing a panel past its disabled level, but it overwrites the capped value right away, so the cap has no effect.",
+    "HugeWallShape::onDestroyed is empty: no explosion and no count decrement. The team limit of 2 is only reset by Mission::reinitData.",
+    "Bug: 13 panels are created but only 12 are positioned. objSide5 is never given a position or team.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableHBlastWall.cs hugewall::deployshape, HugeWallShape::onDamage/onDestroyed"
+  },
+  "Deployablebase": {
+   "summary": "Builds a complete small base around the deployer in one go: force-field walls, blast-wall ceiling, two team-only doors, two Inventory Stations, a Command Station, two Plasma Turrets on the roof, a floating-pad floor and a generator.",
+   "notes": [
+    "One per team. Built at fixed offsets from the deployer's position, axis-aligned, regardless of facing, aim or surface.",
+    "Fair-play check (TG::CheckFairPlay) over static objects in a 175-unit box around the deployer: there must be at least one friendly object and no non-friendly ones. Neutral mission objects count as non-friendly.",
+    "The doors open only for teammates: they move up 6 units and return after 2 seconds. Fliers that hit a door take 0.01 damage.",
+    "The generator is placed 5109 units below the deployer, effectively underground.",
+    "Collapse rule: deploying sets a global counter to 5. Each destroyed force-field wall or door (6 pieces in total) lowers it, and at 0 every piece of the base is deleted and the team count is freed.",
+    "Bug: the counter ($DplBase::EnabledCnt) and the piece list ($BaseObj0 to $BaseObj16) are global, not per base. A second team's base resets the counter and overwrites the list, so destroying pieces of either base can delete the newest one.",
+    "The force-field walls and doors have 20000 maxDamage. Their onDamage has the same ineffective team-damage cap as the Huge Wall.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "DeployableBase.cs Deployablebase::deployshape, DeployableBase::CheckCount, TG::DeployableBase:DoorShape::onCollision/openDoor, TG::DeployableBase:FFWallShape::onDestroyed; deployableFuncts.cs TG::CheckFairPlay"
+  },
+  "DecoyCarrier": {
+   "summary": "Deploys a fake flag carrier in front of the deployer: a light-armor hologram holding a decoy flag and a decoy sniper rifle, labelled with the deployer's name.",
+   "notes": [
+    "Placed 2.5 units in front of the deployer, using their rotation. There is no surface, area or fair-play check.",
+    "The figure is a Hologram1 shape (light armor model). The decoy flag (Flag101) and decoy weapon (DecoyWeapon) are separate fragile shapes.",
+    "Bug: the deploy count is incremented for the team of an undefined %sensor rather than the deployer's team, so the team limit of 5 never fills. Meanwhile the flag and weapon each decrement the team's DecoyCarrier count when destroyed, and the figure decrements the Hologram count, which lets the team exceed its hologram limit.",
+    "Usable by every armor, including Asassin."
+   ],
+   "source": "deployableCarrier.cs DecoyCarrier::deployshape; staticshape.cs Flag101::onDestroyed, DecoyWeapon::onDestroyed, Hologram1::onDestroyed"
+  },
+  "IBlock": {
+   "summary": "Places a very large floor interior (iblock.dis) just under the deployer's feet, giving a huge platform to build on.",
+   "notes": [
+    "Placed 1.5 units below the deployer and turned to their facing.",
+    "Fair-play check (TG::CheckFairPlay) over static objects in a 200-unit box around the deployer: there must be at least one friendly object and no non-friendly ones (neutral objects count as non-friendly).",
+    "Cannot be deployed within 50 units of the team's own flag.",
+    "One per team. The floor is an InteriorShape with no destroy handler, and its count is only reset when the script is first executed (Mission::reinitData does not include it), so a team gets one for the whole server session.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableIBlock.cs IBlock::deployshape; deployableFuncts.cs TG::CheckFairPlay"
+  },
+  "AirBasePack": {
+   "summary": "Builds a floating air base 150 units straight above the deployer: floor and roof pads, force-field walls, a Vehicle Station and Vehicle Pad, an Inventory Station, a Command Station, a Medium Pulse Sensor and two Solar Panels.",
+   "notes": [
+    "The aim point must be terrain, and the deployer must be at least 50 units from their own flag.",
+    "The force-field walls have 50000 maxDamage.",
+    "The stations, sensor and panels are registered with NukeList, which tags them for the admin 'neutron bomb' deployable cleanup.",
+    "The team limit is 2, but nothing ever lowers or resets the AirBasePack count. The file's reset loop indexes with the wrong variable, Mission::reinitData resets an 'airbase' key instead, and the only 'airbase' decrement (ABPortGenerator::onDestroyed) is defined inside another function. So each team gets 2 for the server session.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableAirBase.cs AirBasePack::deployshape; staticshape.cs LargeRadar::onDestroyed; AdminFunctions.cs NukeList"
+  },
+  "BlastWall": {
+   "summary": "Deploys a single blast-door panel at the aim point, turned to the deployer's facing.",
+   "notes": [
+    "Only needs a target within 3 units. There is no surface, area or fair-play check, so it can be placed against anything.",
+    "Destroying it decrements the team count.",
+    "Bug: the limit check uses > instead of >=, so a team can deploy 11 against the limit of 10.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableBlastWall.cs BlastWall::deployShape, BlastWallShape::onDestroyed"
+  },
+  "lgaForceFieldPack": {
+   "summary": "Deploys the largest team force-field door (4x17 panel). It opens briefly for teammates and punishes enemies who touch it.",
+   "notes": [
+    "Placed at the aim point within 3 units, upright and facing the deployer's rotation.",
+    "Requires a friendly static object within a 150-unit box of the aim point.",
+    "A teammate touching it makes the field fade out and rise 6 units, then return after 1 second.",
+    "An enemy touching it loses 30 energy, gets a damage flash and is knocked back, and their damage level is set to 0.4. Because the level is set rather than added, an enemy with more than 0.4 damage is actually healed to 0.4.",
+    "Explodes with radius damage when destroyed.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableForceFields.cs lgaForceFieldPack::deployShape, lgaForceFieldShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "lgbForceFieldPack": {
+   "summary": "Deploys a large team force-field door (4x14 panel) that opens briefly for teammates and blocks everyone else.",
+   "notes": [
+    "Placed at the aim point within 3 units, upright and facing the deployer's rotation.",
+    "Requires a friendly static object within a 150-unit box of the aim point.",
+    "A teammate touching it makes the field fade out and rise 6 units, then return after 1 second. Enemies are ignored.",
+    "Explodes with radius damage when destroyed.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableForceFields.cs lgbForceFieldPack::deployShape, lgbForceFieldShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "medaForceFieldPack": {
+   "summary": "Deploys a medium team force-field door (4x8 panel) that opens briefly for teammates and blocks everyone else.",
+   "notes": [
+    "Placed at the aim point within 3 units, upright and facing the deployer's rotation.",
+    "Requires a friendly static object within a 150-unit box of the aim point.",
+    "A teammate touching it makes the field fade out and rise 6 units, then return after 1 second. Enemies are ignored.",
+    "Explodes with radius damage when destroyed.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableForceFields.cs medaForceFieldPack::deployShape, medaForceFieldShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "medbForceFieldPack": {
+   "summary": "Deploys a square team force-field door (5x5 panel) that opens briefly for teammates and blocks everyone else.",
+   "notes": [
+    "Placed at the aim point within 3 units, upright and facing the deployer's rotation.",
+    "Requires a friendly static object within a 150-unit box of the aim point.",
+    "A teammate touching it makes the field fade out and rise 6 units, then return after 1 second. Enemies are ignored.",
+    "Explodes with radius damage when destroyed.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableForceFields.cs medbForceFieldPack::deployShape, medbForceFieldShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "medcForceFieldPack": {
+   "summary": "Deploys the smallest team force-field door (3x4 panel) that opens briefly for teammates and blocks everyone else.",
+   "notes": [
+    "Placed at the aim point within 3 units, upright and facing the deployer's rotation.",
+    "Requires a friendly static object within a 150-unit box of the aim point.",
+    "A teammate touching it makes the field fade out and rise 6 units, then return after 1 second. Enemies are ignored.",
+    "Explodes with radius damage when destroyed.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableForceFields.cs medcForceFieldPack::deployShape, medcForceFieldShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "FlyerPack": {
+   "summary": "Deploys a small remote-controlled flier (NLAPC, an LAPC hull that fires fireballs). The player flies it directly while their body stays behind.",
+   "notes": [
+    "The flier spawns at the aim point within 10 units, and control switches to it immediately.",
+    "One per team, and a player cannot run it while they already control a droid. In either refused case the pack is removed, and the script tries to give a Repair Pack by calling buyItem() with the player object instead of a client.",
+    "The deployer's body is left standing and unprotected.",
+    "The flier starts with full health and no energy, then recharges energy quickly.",
+    "The kill key (or the deployer's death) calls FlyerPack::onDestroyed, which returns control to the body and frees the team slot.",
+    "When the flier itself is destroyed, only the generic Vehicle::onDestroyed runs. FlyerPack::onDestroyed is not called by the engine, because the flier's datablock is NLAPC.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableFlyer.cs FlyerPack::onDeploy, DeployFlyerPack, FlyerPack::onDestroyed; RemoteClientFuncts.cs remoteKill; vehicleFuncts.cs Vehicle::onDestroyed"
+  },
+  "HolePack": {
+   "summary": "Deploys a team-only portal panel that teammates can phase through. On a floor it drops them 4 units down; on walls it pushes them 4 units through.",
+   "notes": [
+    "Uses the shared deployable() routine with no surface, flatness, area or fair-play checks and a 5-unit range. It can go on terrain, buildings or deployables at any angle, oriented to the surface.",
+    "A teammate touching it takes a tiny 0.01 'portal' damage, which Player::onDamage turns into a teleport. On a flat-floor portal (no X rotation), the player moves 4 units down. Depending on the portal's other rotation values, they move either 4 units up or 4 units along the portal's facing.",
+    "Enemies are not affected by it.",
+    "On deploy, the deployer's team hears 'Friendly Portal Deployed' and the enemy hears 'Hull Breech!'. The deployer gets 2 points plus the deployable() point award.",
+    "Jailed players cannot deploy it.",
+    "Usable by every armor."
+   ],
+   "source": "deployableHole.cs HolePack::deployShape, Portal::onCollision/onDestroyed; player.cs Player::onDamage ($TrapDam1 branch); deployableFuncts.cs deployable"
+  },
+  "ProbeDroidPack": {
+   "summary": "Launches a tiny camera-shaped flying probe from the deployer's muzzle and hands them control of it for scouting. It fires small fusion bolts.",
+   "notes": [
+    "Two per team. Control switches to the probe immediately, and the deployer's body is left standing and unprotected.",
+    "Pressing jump ends the probe and returns control to the body.",
+    "Flying the probe into an enemy player just ends it. Flying it into a teammate kills the deployer.",
+    "The probe is very fragile. Destroying it returns control to the body and frees the team slot.",
+    "Usable by every armor."
+   ],
+   "source": "droidProbeDroid.cs DeployProbeDroid, ProbeDroid::onCollision/jump/onDestroyed"
+  },
+  "CloakDroidPack": {
+   "summary": "Uploads the player into a cloaked Mercenary-armor droid body armed with a double plasma gun, while their real body waits behind under a strong energy shield.",
+   "notes": [
+    "The droid spawns at the aim point within 10 units. The player watches from an observer camera for a 10-second upload countdown, then takes control.",
+    "The droid fades out (it is invisible) and has sensor suppression.",
+    "The droid's loadout: Plasma Gun, Double Plasma, LiLPOOMki, LiLPOOMkii, Disc Launcher, Mortar, Beacons, Grenades, Repair Kits and a Hack Pack. Weapons and ammo are set to the deployer's armor limits, not the droid's; non-weapon items are set to 999.",
+    "While the droid is active, the real body's shieldStrength is set to 9999, so its energy absorbs damage.",
+    "Pressing the kill key (after the upload finishes), or the droid being killed, returns control to the body. The droid is then removed after 5 seconds.",
+    "Five per team. A player cannot run two droids at once.",
+    "Backpack items in the loadout, and the Repair Pack given when the deploy is refused, are handed out through buyItem() called with a player object instead of a client.",
+    "Only Asassin and Engineer armors can carry it."
+   ],
+   "source": "droidCloakDroid.cs DeployCloakDroid, CloakDroidPack::onDestroyed; RemoteClientFuncts.cs remoteKill; game.cs Client::onKilled; player.cs shield absorption"
+  },
+  "ClonePack": {
+   "summary": "Uploads the player into a visible Mercenary-armor clone body loaded with heavy weapons, while their real body waits behind under a strong energy shield.",
+   "notes": [
+    "The clone spawns at the aim point within 10 units. The player orbits it with the observer camera during a 10-second upload, then takes control.",
+    "The clone's loadout: TRocketLauncher, Double Plasma, LiLPOOMki, LiLPOOMkii, Disc Launcher, Mortar, Beacons, Grenades, Repair Kits, LiLFFB and a Repair Pack. Weapons and ammo use the deployer's armor limits; non-weapon items are set to 999.",
+    "Unlike the Cloak Droid, it is not cloaked and has no sensor suppression.",
+    "While the clone is active, the real body's shieldStrength is set to 9999, so its energy absorbs damage.",
+    "Pressing the kill key (after the upload finishes), or the clone being killed, returns control to the body. The clone is then removed after 5 seconds.",
+    "Three per team. A player cannot run two droids at once.",
+    "Usable by every armor."
+   ],
+   "source": "droidCloneDroid.cs DeployClone, Clone::onDestroyed; RemoteClientFuncts.cs remoteKill; game.cs Client::onKilled"
+  },
+  "TeleportPack": {
+   "summary": "Deploys a team teleport pad, marked by an electrical beam. A teammate stepping on it is sent to another of the team's pads, and both pads then recharge for 5 seconds.",
+   "notes": [
+    "Needs a flat spot on terrain, a building or a static shape within 3 units. The pad sits 1 unit above the aim point.",
+    "A teammate goes to the first other team pad in the global pad list, not to a chosen partner, so with three or more pads the destination is fixed.",
+    "Mercenary (male model only, marmor) and BoRg armors cannot teleport. The check misses the female Mercenary model (mfemale).",
+    "Each teleport has a 1 in 55 chance of dealing 0.15 crush damage to a non-admin player. Bug: in that case the 5-second re-enable is never scheduled, so both pads stay disabled for good.",
+    "When a pad is destroyed, it deals 20 debris damage to one other friendly pad, enough to destroy it, which can set off a chain.",
+    "Bug: the limit check reads the TeleportPack count, but deploying and destroying change the DeployableTeleport count, so the team limit of 2 is never reached.",
+    "Bug: a failed fair-play check (no friendly static object within a 150-unit box) only prints a warning and does not stop the deploy.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableTeleport.cs TeleportPack::onDeploy/deployShape, DeployableTeleport::onCollision/onDestroyed"
+  },
+  "HoloPack": {
+   "summary": "Deploys a stationary hologram of a player in armor, to draw fire or fake a defender.",
+   "notes": [
+    "Needs a flat surface within 3 units and a clear area. It faces the deployer's rotation.",
+    "The model is random: light armor 30% of the time, medium 40% and heavy 30% (Hologram1, 2 and 3).",
+    "Team limit of 5 (key 'hologram'). Destroying a hologram frees a slot. Decoy Carrier figures also lower this count when destroyed, though they never raise it.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableHologram.cs HoloPack::deployShape; staticshape.cs Hologram1/2/3::onDestroyed"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote inventory station so the team can re-equip in the field.",
+   "notes": [
+    "Unlike stock Tribes, the range is 5 units instead of 3, and it can be placed on static shapes and turrets as well as terrain and buildings. There is no clear-area check, so it can overlap players and items.",
+    "New fair-play rule: there must be a friendly static object within a 999-unit box of the aim point, which in practice is almost anywhere on a map where the team owns something.",
+    "Must still be on a flat surface.",
+    "The station's map name is set to 'Inventory Station'; in stock Tribes it was left blank.",
+    "Medium, heavy (BoRg) and Engineer armors only."
+   ],
+   "source": "deployableInv.cs DeployableInvPack::deployShape; stationFuncts.cs DeployableStation::onDestroyed"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote ammo station for restocking in the field.",
+   "notes": [
+    "Same placement rules as stock Tribes (flat terrain or building within 3 units, clear area), plus a new fair-play rule: there must be a friendly static object within a 150-unit box of the aim point.",
+    "Medium, heavy (BoRg) and Engineer armors only."
+   ],
+   "source": "deployableAmmoInv.cs DeployableAmmoPack::deployShape; stationFuncts.cs DeployableStation::onDestroyed"
+  },
+  "MotionSensorPack": {
+   "summary": "Deploys a small motion sensor that detects moving enemies nearby. It can be stuck on floors, walls or ceilings.",
+   "notes": [
+    "Unlike stock Tribes, it can also be placed on static shapes and turrets, and there is no clear-area check.",
+    "New fair-play rule: there must be a friendly static object within a 150-unit box of the aim point.",
+    "The deployer gets 2 points as soon as there is a valid target in range, before the fair-play and surface checks. Failed attempts still award the points, and they can be repeated.",
+    "Unlike stock Tribes, where light armor could carry one, it is not usable by the Asassin armor."
+   ],
+   "source": "deployableSensors.cs MotionSensorPack::onDeploy/deployShape; sensor.cs Sensor::onDestroyed"
+  },
+  "FreezePack": {
+   "summary": "Deploys an invisible trap pad that freezes any enemy who steps on it, switching their view to an observer camera so they cannot act.",
+   "notes": [
+    "Needs only a target within 3 units. There is no surface or fair-play check. The pad fades out on deploy and is not visible to sensors.",
+    "An enemy who steps on it is frozen: control moves to an observer camera orbiting their body, and suicide is blocked. The pad schedules the release 10 seconds later.",
+    "Freeze() also schedules its own release using $TG::FreezePadTime, which no script in the mod defines, so that release is scheduled with an empty delay.",
+    "Teammates who step on it just get a message.",
+    "The pad has no destroy handler, and Mission::reinitData does not reset its count, so the team limit of 10 covers the whole server session.",
+    "Not usable by the Asassin armor."
+   ],
+   "source": "deployableFreeze-KillPad.cs FreezePack::deployShape; staticshape.cs FreezePad::onCollision; AdminFunctions.cs Freeze, FreezeCheck"
+  },
+  "RailTurret": {
+   "summary": "Deploys a self-powered hellfire-gun turret that fires a rail laser beam at enemies: slow (one shot per 5 seconds) but long-ranged and tough.",
+   "notes": [
+    "Placed with the mod's shared turret routine: aim within 4 m at any surface or object, at any angle (the turret is oriented to the surface). There is no flat-surface, clear-space or spacing check. Deployment is refused while jailed, or if any enemy inventory or ammo station, turret or generator lies inside a 300x300x300 m box around the spot (god admins exempt).",
+    "Fires railLaser, a laser beam with the sniper damage type that stays visible for 1.5 seconds.",
+    "Its own destroyed handler sets off a much larger debris blast than other turrets (fixed 20 m radius, 1.1 to 2.5 damage, against 3 to 9 m and 0.1 to 0.4 for the shared turret blast).",
+    "TeamItemMax.cs sets the team limit twice, first to 2 and then to 5; the later value of 5 applies.",
+    "It recharges at 20 when placed but at 8 after being re-enabled from a disabled state.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretRail.cs RailTurret::deployShape, DeployableRail::onAdd/onEnabled/onDestroyed; deployableFuncts.cs deployable(); Laser-LightningData.cs railLaser; TeamItemMax.cs"
+  },
+  "LaserTurretPack": {
+   "summary": "Deploys a remote turret that fires rapid, short laser pulses at enemies.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires LaserTrtLaser every 0.25 seconds. Being laser damage, head hits deal 30% extra (against BoRg armor only on the centre of the head).",
+    "Can be remotely controlled from a command station without base power, and can be taken over with the Hack Gun ($Hackable[LaserTurret]).",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretLaser.cs LaserTurretPack::deployShape, LaserTurret::onAdd/onDestroyed; deployableFuncts.cs deployable(); Laser-LightningData.cs LaserTrtLaser; player.cs Player::onDamage, Client::takeControl; packHackPack.cs"
+  },
+  "TurretPack": {
+   "summary": "Renamed Ion Turret: the stock remote turret, still firing small energy bolts, but with far longer range, more health and faster fire.",
+   "notes": [
+    "Unlike stock, any armor, including the Assassin, can carry one (stock allowed medium and heavy only), and the team limit is 5 instead of 10.",
+    "Unlike stock, range rises from 30 to 135, health from 0.65 to 1, reload falls from 0.4 to 0.25 seconds and each shot costs less energy. It still fires MiniFusionBolt.",
+    "Unlike stock, placement uses the mod's shared routine: any surface or object within 4 m (stock 3 m) at any angle. The stock checks for terrain or buildings, flat ground, a clear 1 m spot, at most 2 turrets in a 50x50x25 m area and 10 m spacing are all gone. Instead deployment is refused while jailed or if any enemy inventory or ammo station, turret or generator lies inside a 300x300x300 m box (god admins exempt).",
+    "The deployer is set as the turret's owner, the step stock had commented out to give turret kills to the deployer, and earns $TG::FlagDefencePoints score for deploying it.",
+    "Like stock, it ignores base power and can be controlled from a command station without power.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretIon.cs TurretPack::deployShape, DeployableTurret; deployableFuncts.cs deployable(); turretFuncts.cs ItemMax; base item.cs TurretPack::deployShape"
+  },
+  "LaserTurretBPack": {
+   "summary": "Mini-Plasma Turret: a remote turret that lobs plasma bolts with a small blast radius.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires PlasmaBolt (plasma damage, 4 m blast) every 0.5 seconds.",
+    "Can be remotely controlled from a command station without base power, and can be taken over with the Hack Gun ($Hackable[LaserTurretB]).",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretMini-Plasma.cs LaserTurretBPack::deployShape, LaserTurretB; deployableFuncts.cs deployable(); BulletData.cs PlasmaBolt; player.cs Client::takeControl; packHackPack.cs"
+  },
+  "FireBallTurretPack": {
+   "summary": "Deploys a remote turret that sprays exploding fireballs, ten per second, each with a wide blast.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires Fireball: a plasma-bolt-shaped shot with a fireball explosion, shrapnel damage type and a 15 m blast radius, every 0.1 seconds.",
+    "Shrapnel damage gets past energy shields more easily: Player::onDamage cuts shield strength to 75% against it.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretFireBall.cs FireBallTurretPack::deployShape, DeployableFireBall; deployableFuncts.cs deployable(); BulletData.cs Fireball; player.cs Player::onDamage"
+  },
+  "FlameTurretPack": {
+   "summary": "Deploys a short-range turret that pours out a near-continuous stream of slow flame shots.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires FlameLarge, a slow flame rocket with a 2 m blast and the flame damage type, every 0.02 seconds out to 45 m. It cannot be jammed (supressable = false).",
+    "Flame damage is scaled by armor: 2.5x against Engineer armor, 1.1x against BoRg, 0.9x against Assassin and 1.0x against Mercenary.",
+    "FlameTurret::onDestroyed also damages %this.cyl, a field that is never set, so that line does nothing.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretFlame.cs FlameTurretPack::deployShape, FlameTurret; deployableFuncts.cs deployable(); RocketData.cs FlameLarge; ArmorData.cs DamageScale"
+  },
+  "MiniSAMTurretPack": {
+   "summary": "Mini-S.A.M Turret: a missile turret that launches slow, long-lived seeking missiles at long range.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires MiniSAMproj, a seeking missile that starts slowly but stays alive for 20 seconds, with a 9.5 m blast, every 4 seconds.",
+    "It has no verifyTarget filter, unlike the mod's base Rocket Turret, which only fires at targets with a heat factor of 0.5 or more.",
+    "Can be remotely controlled from a command station without base power.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretMini-S.A.M.cs MiniSAMTurretPack::deployShape, MiniSAMTurret; deployableFuncts.cs deployable(); RocketData.cs MiniSAMproj; turretMisc.cs RocketTurret::verifyTarget; player.cs Client::takeControl"
+  },
+  "MiniFlakTurretPack": {
+   "summary": "Mini-Flak Turret: a remote turret that fires fast, short-lived seeking flak rockets.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires MiniFlakproj, a fast seeking rocket that lives 3 seconds, with a 9.5 m blast, every 1.5 seconds.",
+    "Can be remotely controlled from a command station without base power.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretMini-Flak.cs MiniFlakTurretPack::deployShape, MiniFlakTurret; deployableFuncts.cs deployable(); RocketData.cs MiniFlakproj; player.cs Client::takeControl"
+  },
+  "NuclearTurretPack": {
+   "summary": "Deploys a mortar-type turret that lobs nuclear shells with a 500 m blast radius, which strip enemies of their gear and energy. One per team.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires MortarShellNuke, a grenade-type shell with the nuke damage type, every 5 seconds. It cannot be jammed.",
+    "When the nuke damage type hits an enemy player, they drop their weapon, pack and flag, their energy is emptied and their energy recharge stops for 10 seconds (it then returns at a raised rate).",
+    "Players wearing an active Engineer Pack are immune (isUnNukable). A player on the shooter's team is fully healed instead of damaged.",
+    "The handler also tries to add half the victim's health as damage, but it reads %this.maxDamage, a field that is never set on players, so this adds nothing.",
+    "Unlike the other turrets from the shared routine, the deployer is deliberately not set as owner, so kills are not credited to them. Which team the handler then treats as the shooter's was not determined from scripts.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretNuke.cs NuclearTurretPack::deployShape, NuclearDeployableTurret; deployableFuncts.cs deployable(); GrenadeData.cs MortarShellNuke; player.cs Player::onDamage; packEnergyPack.cs EnergyPack::onActivate"
+  },
+  "ConPack": {
+   "summary": "Guard Dog: a chaingun-shaped turret that rapidly fires slow mortar-shaped rockets with a large, hard-pushing blast.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires Watch, a rocket shot with the mortar shell model, missile damage type, a 30 m blast and strong knockback, every 0.15 seconds out to 125 m. It cannot be jammed.",
+    "turretGuardDog.cs re-defines CountObjects with the same code as deployableFuncts.cs.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretGuardDog.cs ConPack::deployShape, DeployableConTurret; deployableFuncts.cs deployable(); RocketData.cs Watch"
+  },
+  "WatchdogPack": {
+   "summary": "Watchdog: a cheap, fragile camera-shaped turret with a long-range laser that does almost no damage.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires WatchdogLaser out to 200 m. Its damage conversion is 0.001, so each hit deals almost no damage.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretWatchDog.cs WatchdogPack::deployShape, DeployableWatchdog; deployableFuncts.cs deployable(); Laser-LightningData.cs WatchdogLaser"
+  },
+  "DissectionPack": {
+   "summary": "Mini-Me Turret: a camera-shaped sniper turret that fires very fast bullets, and enemy head shots make the victim blow up. One per team.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires LiLPOOmkiBullet, a near-instant bullet with the bullet damage type, every 0.1 seconds out to 225 m.",
+    "Through Player::onDamage, a bullet head shot on an enemy calls Player::blowup on the victim and triples the damage.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretMini-Me.cs DissectionPack::deployShape, DeployableDissection; deployableFuncts.cs deployable(); BulletData.cs LiLPOOmkiBullet; player.cs Player::onDamage"
+  },
+  "TaserTrtBPack": {
+   "summary": "Taser Turret: a camera-shaped turret that holds a two-second laser beam on its target, dealing light damage.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires TaserTrtBLaser (laser damage type, low 0.05 damage conversion, 2-second beam) every 2 seconds out to 100 m. It can be jammed.",
+    "Can be remotely controlled from a command station without base power, and can be taken over with the Hack Gun ($Hackable[DeployableTaserTrtB]).",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretTaser.cs TaserTrtBPack::deployShape, DeployableTaserTrtB; deployableFuncts.cs deployable(); Laser-LightningData.cs TaserTrtBLaser; player.cs Client::takeControl; packHackPack.cs"
+  },
+  "MiniELFTurretPack": {
+   "summary": "Mini-ELF Turret: a short-range lightning turret that drains enemy energy and makes them drop their weapon and pack.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires MiniELFTurretproj, a wide-cone (35 degree) lightning beam that drains 1000 energy per second and does very little damage, out to 50 m.",
+    "Its damage handler skips teammates unless team damage scale is 1. Each hit on a player applies the Mini-ELF damage type, which makes them drop their mounted weapon and pack.",
+    "Can be remotely controlled from a command station without base power.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretMini-ELF.cs MiniELFTurretPack::deployShape, MiniELFTurret; deployableFuncts.cs deployable(); Laser-LightningData.cs MiniELFTurretproj, MiniELFturretproj::damageTarget; player.cs Player::onDamage"
+  },
+  "MiniSmokeTurretPack": {
+   "summary": "Mini-Beam Of Pain: a short-range turret firing a thick, weak lightning beam.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires MiniSmokeTurretproj, a wide (beam width 2) lightning bolt with tiny damage and a 2 energy per second drain, out to 55 m.",
+    "The beam names the Mini-ELF damage type, but no MiniSmokeTurretproj::damageTarget exists, so hits go through the generic Lightning::damageTarget. That handler applies electricity damage, so the beam neither strips items like the Mini-ELF nor pushes and disarms like the Beam Of Pain weapon (BeamOfPainProj).",
+    "Can be remotely controlled from a command station without base power.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretMini-B.O.P.cs MiniSmokeTurretPack::deployShape, MiniSmokeTurret; deployableFuncts.cs deployable(); Laser-LightningData.cs MiniSmokeTurretproj, Lightning::damageTarget"
+  },
+  "TaserTrtCPack": {
+   "summary": "Tracking Turret: a very tough camera-shaped turret with a 600 m laser that deals almost no damage.",
+   "notes": [
+    "Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires TaserTrtCLaser every 0.1 seconds. Its damage conversion is 0.0001, so hits deal almost nothing. It has 10 health, recharges at 20 and can be jammed.",
+    "Of the turrets, only this one and the Camera are also sold at remote (deployable) inventory stations.",
+    "Can be remotely controlled from a command station without base power.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretTracker.cs TaserTrtCPack::deployShape, DeployableTaserTrtC; deployableFuncts.cs deployable(); Laser-LightningData.cs TaserTrtCLaser; turretFuncts.cs AddToInv; server[TG].cs AddToInv"
+  },
+  "RTurretGenPack": {
+   "summary": "Deploys a portable generator that a Repair Turret needs nearby, both to be deployed and to keep repairing. One per team.",
+   "notes": [
+    "Sold under Other Deployables. It must be placed within the mission boundaries, within 3 m, on flat terrain or a building with a clear 1 m spot. It does not use the shared turret routine or its enemy-proximity check.",
+    "The generator is marked RTurretPower. Repair Turret deployment looks for any such object, of any team, within a 30x30x30 m box, and its repair loop keeps running only while one is within its 150 m box.",
+    "When destroyed, it decrements the team count and tells the owning team it was lost. Its onDestroyed replaces the generic generator handler, so there is no debris blast, and it never clears RTurretPower, so a destroyed generator still counts as a power source.",
+    "As a Generator-class object, it blocks enemy turret deployment within the 300 m box."
+   ],
+   "source": "turretRepair.cs RTurretGenPack::deployShape, RepGenerator::onDestroyed; deployableFuncts.cs deployable()"
+  },
+  "RepairTurretPack": {
+   "summary": "Deploys a non-firing repair turret that fully repairs every friendly object near it every 10 seconds and heals any player who touches it. It needs a RepairTurret Gen within 30 m when deployed.",
+   "notes": [
+    "Placement: within 3 m on terrain or a building, at any angle, with a clear 1 m spot. (It compares the object type against DeployablePlatform, which never matches, so platforms do not count.)",
+    "Deploying first looks for a RepairTurret Gen of any team in a 30x30x30 m box. The player's view switches to an orbit camera for 5 seconds before the turret appears or 'No RepairTurret Gen Was Found' is shown.",
+    "The pack is removed 5 seconds after any deploy attempt that passes the placement checks, even when no generator was found and nothing appears.",
+    "The deploy position and rotation are kept in shared globals ($RepPos, $RepRot), so two players deploying within the same 5 seconds can overwrite each other's spot.",
+    "Every 10 seconds it removes 5.0 damage (a full repair) from every same-team player, structure, vehicle and mine in a 150x150x150 m box. The loop starts from onEnabled and stops when no RTurretPower object is left in that box.",
+    "Touching it fully heals any living player. onCollision reads both teams but never compares them, so enemies are healed too.",
+    "Every 60 seconds after deployment, its damage is set to half its remaining health, which pulls it toward about one-third damaged. The loop stops, with a team warning, once the turret is no longer enabled.",
+    "On destruction it alerts both teams. It clears RTurretPower on itself, not on its generator."
+   ],
+   "source": "turretRepair.cs RepairTurretPack::onDeploy/deployShape/DeployMe, initDamage, RepairTurret::onEnabled/CheckRepair/onCollision/onDestroyed"
+  },
+  "ObeliskPack": {
+   "summary": "Obelisk of Light: a tall tower with a laser gun on top that fires a heavy beam out to 350 m. It must be deployed next to an unused Obelisk Power Source. One per team.",
+   "notes": [
+    "Placement: within 3 m on a flat surface that is not a building interior, with a clear 1 m spot, and within a 70x70x50 m box of an Obelisk Power Source not yet linked to an obelisk. The power source's team is not checked, so an enemy's unused one also works. It does not use the shared turret routine or its enemy-proximity check.",
+    "Two objects are created: the tower (ObeliskOfLight, a decoration shape) and the gun (RealObeliskOfLight) 11.5 m above it. The gun fires ObeliskBeam and does not need line of sight to track (castLOS = false).",
+    "The gun needs 80 energy per shot, all of its energy, so recharge rather than its 2-second reload sets the firing rate.",
+    "Destroying the tower also destroys the gun, frees the power source and decrements the team count. Destroying only the gun does none of these, so the team cannot deploy another until the tower is destroyed.",
+    "If the linked power source is disabled or deactivated, the gun is destroyed and the tower is left standing.",
+    "ObeliskBeam sets damageType = $ObeliskDamageType instead of the baseDamageType field other lasers use, and $ObeliskDamageType is never defined. The damage type of its hits is not determined from scripts.",
+    "The deployer is set as owner for kill credit."
+   ],
+   "source": "turretObelisk.cs ObeliskPack::deployShape, ObeliskOfLight::onDestroyed, RealObeliskOfLight, ObeliskPower::onDisabled/onDeactivate; Laser-LightningData.cs ObeliskBeam"
+  },
+  "ObeliskPowerPack": {
+   "summary": "Deploys the solar-panel power source that an Obelisk of Light must be built next to. One per team.",
+   "notes": [
+    "Placement: within 3 m on a flat surface that is not a building interior, with a clear 1 m spot. There is no enemy-proximity check.",
+    "Each power source can feed one Obelisk. It is freed again only when that Obelisk's tower is destroyed.",
+    "When the power source is disabled or deactivated, it sets its Obelisk gun's damage to 20, destroying the gun.",
+    "On destruction it decrements the team count and makes the standard generator debris blast.",
+    "deployShape sets the map name on an undefined variable (%turret), so the power source gets no map name."
+   ],
+   "source": "turretObelisk.cs ObeliskPowerPack::deployShape, ObeliskPower::onDisabled/onDeactivate/onDestroyed"
+  },
+  "JailTurretPack": {
+   "summary": "Jail Turret: a short-range camera turret whose darts teleport enemy players into a jail cell for 30 seconds.",
+   "notes": [
+    "Sold under the Jailing Toyz heading. Uses the shared turret placement rules: any surface within 4 m, no flat-surface or spacing check, blocked near enemy stations, turrets or generators (300 m box).",
+    "Fires JailDart, a near-instant rocket with the jail damage type, out to 45 m. It has 10 health.",
+    "A jail hit on a player runs jailbolt::damageTarget, which skips the shooter's teammates and non-players. It moves the victim to a Jail Cell pad (from the Jail Package) belonging to any other team and marks them jailed for 30 seconds, during which they cannot deploy anything. With several such pads, it moves them to each in turn and they end at the last one.",
+    "If no other team has a Jail Cell deployed, the dart only does its small damage.",
+    "Its deployShape calls deployable() without returning the result, so onDeploy's Player::decItemCount never runs: the pack is not used up by deploying, and only the team limit stops repeat deploys."
+   ],
+   "source": "turretJail.cs JailTurretPack::deployShape, JailTurret; deployableFuncts.cs deployable(); RocketData.cs JailDart; player.cs Player::onDamage; Laser-LightningData.cs jailbolt::damageTarget; Jail_Package.cs"
+  },
+  "ArbitorBoxPack": {
+   "summary": "Arbitor Device: a cargo-box deployable that cloaks all friendly players, structures, vehicles and mines around it while it stays enabled. One per team.",
+   "notes": [
+    "Placement: within 3 m on a perfectly level surface (the surface normal must point exactly straight up) with a clear 1 m spot. The terrain check calls CheckDeployTerrain, which this mod never defines, so it never refuses. It does not use the shared turret routine or its enemy-proximity check.",
+    "When enabled, it fades out every same-team object in a 150x150x150 m box. Every 6 seconds it re-scans a 200x200x50 m box, cloaking new arrivals and fading back in anything that left, unless that object has its own cloak (cloak pack, boost, gun, plane or device) active.",
+    "When disabled or destroyed, everything it cloaked fades back in.",
+    "packHackPack.cs lists $Hackable[ArbitorBoxPack], the pack name, instead of the deployed ArbitorBox datablock, so the Hack Gun cannot take it over."
+   ],
+   "source": "turretArbitor.cs ArbitorBoxPack::deployShape, ArbitorBox::onEnabled/checkArbitorBox/onDisabled/onDestroyed; packHackPack.cs"
+  },
+  "Chaingun": {
+   "summary": "A very fast-firing bullet gun with no spin-up. Each bullet is fast and accurate, and unlike stock Tribes it hurts heavier armor more, not less.",
+   "notes": [
+    "Unlike stock Tribes, the image is single-shot (weaponType 0) with a 0.02 s fire time, so there is no 0.5 s spin-up or 3 s spin-down.",
+    "Bullets use the mod's own chaingun damage type instead of the stock bullet type. Its damage scale is 1.0 on Asassin, 1.5 on Mercenary, 2.0 on BoRg and 1.0 on Engineer, the reverse of stock, where heavy armor takes the least.",
+    "Because it does not use the bullet damage type, it gets none of the head-shot bonus that the LiL POO rifles get.",
+    "Every armor except the Engineer can carry it, and it is sold at both inventory and remote stations."
+   ],
+   "source": "wepItem.cs ChaingunImage, Chaingun::onUse; BulletData.cs ChaingunBullet; ArmorData.cs DamageScale; wepFuncts.cs ItemMax"
+  },
+  "LiLPOOmkiAmmo": {
+   "summary": "Ammunition for the LiL POO mki rifle. It costs nothing, and every armor except the Engineer can carry 10000 rounds.",
+   "notes": [
+    "Dropping it throws out 25 rounds at a time. If 25 or fewer are left and the mki is the weapon in hand, one round is kept back.",
+    "Price 0, so buying it uses no team energy."
+   ],
+   "source": "wepItem.cs LiLPOOmkiAmmo; wepFuncts.cs ItemMax, $SellAmmo, Ammo::onDrop"
+  },
+  "LiLPOOmki": {
+   "summary": "A rapid-fire sniper rifle with near-instant bullets. A head shot on an enemy makes them explode and deals triple damage.",
+   "notes": [
+    "Fires LiLPOOmkiBullet at 9500 m/s, with a 0.011 s fire time and no reload.",
+    "The bullets use the stock bullet damage type. In this mod, Player::onDamage turns any enemy head hit of that type into Player::blowUp plus triple damage, and prints a head-shot message to both players.",
+    "Every armor except the Engineer can carry it. It is part of the Asassin, Mercenary and BoRg spawn loadouts."
+   ],
+   "source": "wepItem.cs LiLPOOmkiImage, LiLPOOmki::onUse; BulletData.cs LiLPOOmkiBullet; player.cs Player::onDamage"
+  },
+  "LiLPOOmkiiAmmo": {
+   "summary": "Ammunition for the LiL POO mkii rifle. Every armor except the Engineer can carry 10000 rounds.",
+   "notes": [
+    "Dropping it throws out 25 rounds at a time. If 25 or fewer are left and the mkii is the weapon in hand, one round is kept back."
+   ],
+   "source": "wepItem.cs LiLPOOmkiiAmmo; wepFuncts.cs ItemMax, $SellAmmo, Ammo::onDrop"
+  },
+  "LiLPOOmkii": {
+   "summary": "The mod's main sniper rifle: a fast-firing rifle with 10000 m/s bullets. Enemy head shots make the target explode for triple damage.",
+   "notes": [
+    "It has its own damage type, which hits Asassins at 1.5x, Mercenaries and Engineers at 1.0x and BoRgs at 0.9x.",
+    "Player::onDamage gives this damage type the same enemy head-shot rule as the bullet type: Player::blowUp, triple damage and head-shot messages.",
+    "Fire time is 0.02 s with no reload. Every armor except the Engineer can carry it."
+   ],
+   "source": "wepItem.cs LiLPOOmkiiImage, LiLPOOmkii::onUse; BulletData.cs LiLPOOmkiiBullet; player.cs Player::onDamage; ArmorData.cs DamageScale"
+  },
+  "PlasmaGun": {
+   "summary": "A rapid-fire plasma gun. Its bolts are much faster and stronger than in stock Tribes and keep a small splash.",
+   "notes": [
+    "Unlike stock Tribes (0.1 s reload, 0.5 s fire time), reload and fire time are both 0.03 s.",
+    "PlasmaBolt has muzzle velocity 600 (stock 55) and damage 1 (stock 0.45), with a radius of 4.",
+    "Plasma damage is scaled 0.95x on Asassin, 0.6x on Mercenary, 0.4x on BoRg and 0.45x on Engineer.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepItem.cs PlasmaGunImage, PlasmaGun::onUse; BulletData.cs PlasmaBolt; ArmorData.cs DamageScale"
+  },
+  "GrenadeLauncher": {
+   "summary": "Lobs bouncing grenades on a timed fuse, as in stock Tribes, but about ten times faster.",
+   "notes": [
+    "Reload and fire time are 0.05 s each, against 0.5 s each in stock Tribes.",
+    "Every armor can carry it, the Engineer included. Engineers can hold 350 grenades, more than any other armor.",
+    "Grenades still bounce (elasticity 0.45) and deal shrapnel damage."
+   ],
+   "source": "wepItem.cs GrenadeLauncherImage, GrenadeLauncher::onUse; GrenadeData.cs GrenadeShell; wepFuncts.cs ItemMax"
+  },
+  "LiLFFBAmmo": {
+   "summary": "Shells for the LiLForce Field Buster.",
+   "notes": [
+    "Carry limits are 25 for Asassin, 30 for Mercenary, 50 for BoRg and 350 for Engineer.",
+    "Dropping it throws out 5 shells at a time."
+   ],
+   "source": "wepItem.cs LiLFFBAmmo; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "LiLFFB": {
+   "summary": "A mortar-style launcher that lobs one heavy grenade per second. The grenade's radius damage is far above anything an armor can survive.",
+   "notes": [
+    "Fires LiLFFBShell, a shrapnel grenade with damage 150, a radius of 15 and strong kickback. Every armor's maxDamage is 2.5 or less.",
+    "Despite the name, no script treats force fields specially. The shell is simply a high-damage grenade.",
+    "The shell can hit its owner once the 250 ms grace period ends (collideWithOwner).",
+    "Every armor can carry it, the Engineer included. It is in every spawn loadout except the BoRg's."
+   ],
+   "source": "wepItem.cs LiLFFBImage, LiLFFB::onUse; GrenadeData.cs LiLFFBShell; Spawn.cs SpawnBuyList"
+  },
+  "ATosserAmmo": {
+   "summary": "Ammunition for the Atom Tosser. Each shot uses one.",
+   "notes": [
+    "Carry limits are 45 for Asassin, 100 for Mercenary and 250 for BoRg, even though only the Asassin can carry the Atom Tosser. Engineers cannot carry it."
+   ],
+   "source": "wepAtomTosser.cs ATosserAmmo, ATosserImage::onFire; wepFuncts.cs ItemMax"
+  },
+  "ATosser": {
+   "summary": "An Asassin-only launcher that fires a slow rocket shell. When the shell is timed to reach the aim point, it scatters five mortar-type bomblets.",
+   "notes": [
+    "The fire script checks line of sight up to 800 m. If it hits something, the scatter is timed to the distance divided by 180, plus 0.25 s. Otherwise the scatter happens after 2 s.",
+    "ScatterBombs spawns five AtomShell2 grenades at the shell's position, each with a random velocity of up to 30 on every axis. They deal mortar damage with a radius of 30.",
+    "The original AtomShell is not removed when the bomblets spawn.",
+    "Only the Asassin can carry it, and it is sold only at inventory stations, not remote ones."
+   ],
+   "source": "wepAtomTosser.cs ATosserImage::onFire; wepFuncts.cs ScatterBombs, ItemMax, AddToInv; RocketData.cs AtomShell; GrenadeData.cs AtomShell2"
+  },
+  "FireballAbilityAmmo": {
+   "summary": "Fire Implants, the ammunition for the Fireball Ability.",
+   "notes": [
+    "Carry limits are 200 for Asassin, 250 for Mercenary and 375 for BoRg. Engineers cannot carry it."
+   ],
+   "source": "wepPsionics.cs FireballAbilityAmmo; wepFuncts.cs ItemMax"
+  },
+  "FireballAbility": {
+   "summary": "A psionic weapon that shoots fast fireballs. Each one bursts with shrapnel damage over a 15 m radius.",
+   "notes": [
+    "Fires the Fireball bullet at 600 m/s with a 0.05 s reload.",
+    "It is listed under the Psionics shop heading. Every armor except the Engineer can carry it."
+   ],
+   "source": "wepPsionics.cs FireballAbilityImage, FireballAbility::onUse; BulletData.cs Fireball"
+  },
+  "SmScreenAbilityAmmo": {
+   "summary": "Smoke Implants, the ammunition for the SmokeScreen Ability.",
+   "notes": [
+    "Carry limits are 100 for Asassin, 150 for Mercenary and 200 for BoRg. Engineers cannot carry it.",
+    "Dropping it throws out 25 at a time."
+   ],
+   "source": "wepPsionics.cs SmScreenAbilityAmmo; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "SmScreenAbility": {
+   "summary": "A psionic launcher for toxic smoke grenades. Anyone caught in the blast takes extra damage that ignores armor, shields and team.",
+   "notes": [
+    "SmScreen grenades use the smoke damage type with a 5 m radius.",
+    "Every smoke hit runs Player::onDamage, which prints a toxic gas warning and adds 0.25 straight to the victim's damage level. This bypasses the armor damage scale, shields and the friendly-fire scale, so it also hurts teammates and the shooter.",
+    "The normal 0.2 radius damage is scaled as usual. The Engineer's 0.1 smoke scale only reduces this part.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepPsionics.cs SmScreenAbilityImage; GrenadeData.cs SmScreen; player.cs Player::onDamage"
+  },
+  "ExSmScreenAbilityAmmo": {
+   "summary": "Lair Implants, the ammunition for the LairWaster.",
+   "notes": [
+    "Carry limits are 25 for Asassin, 75 for Mercenary and 100 for BoRg. Engineers cannot carry it.",
+    "Dropping it throws out 25 at a time."
+   ],
+   "source": "wepPsionics.cs ExSmScreenAbilityAmmo; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "ExSmScreenAbility": {
+   "summary": "A psionic grenade launcher. Its delayed grenade deals overwhelming shrapnel damage in a small radius.",
+   "notes": [
+    "The ExSmScreen grenade's damage is 280 over a 5 m radius, which kills any armor in range. Its liveTime is 6 s, matching the mount message's 'approx. 6 seconds' fuse.",
+    "Reload is 0.5 s. Every armor except the Engineer can carry it."
+   ],
+   "source": "wepPsionics.cs ExSmScreenAbilityImage; GrenadeData.cs ExSmScreen; TutorialMsgs.cs"
+  },
+  "FireScreenAbilityAmmo": {
+   "summary": "FireWall Bombs, the ammunition for the FireWall.",
+   "notes": [
+    "Carry limits are 150 for Asassin, 200 for Mercenary and 275 for BoRg. Engineers cannot carry it.",
+    "Dropping it throws out 25 at a time."
+   ],
+   "source": "wepPsionics.cs FireScreenAbilityAmmo; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "FireScreenAbility": {
+   "summary": "A psionic rocket launcher. Its slow fire rockets explode over a wide area, and it can fire every 0.05 s.",
+   "notes": [
+    "FireScreen rockets travel at 80 m/s and deal shrapnel damage with a radius of 20.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepPsionics.cs FireScreenAbilityImage; RocketData.cs FireScreen"
+  },
+  "SpellAbilityAmmo": {
+   "summary": "SpellHeart, the ammunition for the Spell.",
+   "notes": [
+    "Carry limits are 250 for Asassin, 375 for Mercenary and 500 for BoRg. Engineers cannot carry it.",
+    "Dropping it throws out 50 at a time."
+   ],
+   "source": "wepPsionics.cs SpellAbilityAmmo; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "SpellAbility": {
+   "summary": "A psionic 'decoy' weapon. It sprays slow projectiles shaped like the female light armor model, and they still do real bullet damage.",
+   "notes": [
+    "SpellAbilityProj uses the lfemale.dts shape, moves at 30 m/s and spreads widely (aimDeflection 0.25). Fire time is 0.1 s.",
+    "The projectiles deal the stock bullet damage type, so an enemy head hit triggers the mod's head-shot rule: the target explodes and takes triple damage.",
+    "It has no firing sound. Every armor except the Engineer can carry it."
+   ],
+   "source": "wepPsionics.cs SpellAbilityImage; BulletData.cs SpellAbilityProj; player.cs Player::onDamage"
+  },
+  "PlasmaCannon2": {
+   "summary": "A hidden companion image for the Plasma Cannon. It is mounted in extra slot 4 and triggered once when a charged shot is released, giving the mortar-gun model and plasma firing sound.",
+   "notes": [
+    "It has no projectile. The shot itself comes from PlasmaCannon::Charge.",
+    "It is not sold or shown in the inventory, and no armor has an item max for it."
+   ],
+   "source": "wepPlasmaCannon.cs PlasmaCannon2Image, PlasmaCannon::onMount, PlasmaCannon::Charge"
+  },
+  "PlasmaCannon": {
+   "summary": "A charge-up energy cannon. Holding fire converts the wearer's energy into charge, and releasing fires a stronger shot the longer it was held.",
+   "notes": [
+    "Each 0.1 s that fire is held drains 2.5 energy and adds 2 charge, while energy is at least 1 and the charge level is below 3. Charge is capped at the armor's maxEnergy.",
+    "Charge levels are 1 at 10 charge, 2 at 35 and 3 at 75. Releasing fires PlasmaCannonBlast with no level, PlasmaCannonBlastlvl1 or lvl2 at those levels, and both PlasmaCannonBlastlvl3 and PlasmaCannonBlastlvl3Add at level 3.",
+    "It uses no ammo. Its own damage type hits Mercenaries at 1.5x and BoRgs at 2.0x, but heavy APCs at only 0.5x.",
+    "Script bug: the 'Max Charge' message and sound sit in an else-branch that can never run, so level 3 just shows 'Charge Level: 3.'.",
+    "Every armor can carry it, the Engineer included. It is the Engineer's default spawn weapon."
+   ],
+   "source": "wepPlasmaCannon.cs PlasmaCannonImage::onFire, PlasmaCannon::Charge, PlasmaCannon::onMount; ArmorData.cs DamageScale; Spawn.cs"
+  },
+  "LaserRifle": {
+   "summary": "Renamed 'Laser Rifle 6.7'. A rapid-fire sniper laser that, unlike stock Tribes, needs no energy pack and costs almost no energy per shot.",
+   "notes": [
+    "Unlike stock Tribes, onUse just mounts the weapon. There is no energy pack check, and every armor except the Engineer can carry it, not light armor only.",
+    "Reload and fire time are 0.03 s, against 0.1 s and 0.5 s in stock. minEnergy is 1 and maxEnergy only 0.5, against 10 and 60 in stock.",
+    "sniperLaser's damageConversion is 25, thousands of times the stock 0.007, and its beam time is 0.05 s.",
+    "Laser head hits still take 30% extra. Against a BoRg this applies only to hits in the middle quadrants.",
+    "It is sold only at inventory stations, not remote ones."
+   ],
+   "source": "wepEnergyWeps.cs LaserRifleImage, LaserRifle::onUse; Laser-LightningData.cs sniperLaser; player.cs Player::onDamage"
+  },
+  "TaserRifle": {
+   "summary": "A laser rifle with a long, slow-hitting beam (the 'Vx5 Taser Rifle'). It costs very little energy per shot.",
+   "notes": [
+    "Fires TaserRfLaser, with damageConversion 5.25 and a 0.99 s beam, using the laser damage type, so laser head hits take 30% extra.",
+    "minEnergy is 1, maxEnergy 0.5 and reload 0.08 s.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepEnergyWeps.cs TaserRifleImage, TaserRifle::onUse; Laser-LightningData.cs TaserRfLaser"
+  },
+  "EnergyRifle": {
+   "summary": "The ELF gun, rebuilt into a long, narrow lightning beam that empties a target's energy almost instantly and does real damage.",
+   "notes": [
+    "Unlike stock Tribes, lightningCharge reaches 100 m (stock 40) in a 3-degree cone (stock 35), drains 500 energy per second (stock 60) and deals 2 damage per second (stock 0.06).",
+    "Reload is 0.08 s, against 0.2 s in stock. It still uses the stock Lightning::damageTarget.",
+    "Electricity damage is scaled 0.7x on Mercenary, and 0.5x on APCs.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepEnergyWeps.cs EnergyRifleImage; Laser-LightningData.cs lightningCharge, Lightning::damageTarget"
+  },
+  "BeamOfPain": {
+   "summary": "An ELF-style beam that shoves its target around and makes enemies drop their pack, weapon and flag.",
+   "notes": [
+    "BeamOfPainproj::damageTarget skips teammates unless team damage is at full (1.0). Otherwise it applies an 80-strength impulse built from the shooter's rotation, then 1.25 damage per second and 25 energy drain per second.",
+    "Every damage tick on an enemy runs the Beam Of Pain case in Player::onDamage, which drops the victim's mounted pack, weapon and flag.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepEnergyWeps.cs BeamOfPainImage; Laser-LightningData.cs BeamOfPainProj, BeamOfPainproj::damageTarget; player.cs Player::onDamage"
+  },
+  "TargetingLaser": {
+   "summary": "The stock target-painting tool. It is unchanged in function, but only the Engineer can hold it and nothing in the mod hands it out.",
+   "notes": [
+    "Only the Engineer has an item max for it (1).",
+    "It is not on any station list (AddToInv 0, 0), not in any spawn loadout and not in the giveall refill, so no script sells or gives it.",
+    "It is still a Tool, so it takes no weapon slot. The beam and energy cost are as in stock."
+   ],
+   "source": "wepEnergyWeps.cs TargetingLaserImage, TargetingLaser::onUse; wepFuncts.cs AddToInv, ItemMax; Spawn.cs"
+  },
+  "TankShredderAmmo": {
+   "summary": "Ammunition for the Tank Shredder.",
+   "notes": [
+    "Carry limits are 500 for Asassin, 750 for Mercenary and 999 for BoRg. Engineers cannot carry it.",
+    "The fire script's deductions follow $TG::InfiniteAmmo:TankShredder (off by default), but the extra barrels draw this ammo through their own images.",
+    "Dropping it throws out 25 at a time."
+   ],
+   "source": "wepTankShredder.cs TankShredderAmmo, TankShredderImage::onFire; wepFuncts.cs ItemMax"
+  },
+  "TankShredder": {
+   "summary": "A multi-barrel super chaingun. Extra chaingun images are bolted onto the wearer and fire alongside the main gun while the trigger is held.",
+   "notes": [
+    "The main image has no projectile of its own. Its onFire spawns one ShredderBullet and subtracts 0.5 ammo unless $TG::InfiniteAmmo:TankShredder is true.",
+    "Mounting it adds TankShredder2 in extra slot 4 at once, and TankShredder3 and 4 in slots 5 and 6 after 1.5 s if it is still in hand.",
+    "While fire is held, CheckTankShredder re-triggers slots 4 to 6 every 0.1 s. Those images define their own ShredderBullet projectile and TankShredderAmmo.",
+    "ShredderBullet uses the chaingun damage type: 1.0x on Asassin, 1.5x on Mercenary, 2.0x on BoRg.",
+    "Every armor except the Engineer can carry it. It is the Mercenary's default spawn weapon."
+   ],
+   "source": "wepTankShredder.cs TankShredderImage::onFire, TankShredder::onMount, addMount, CheckTankShredder; BulletData.cs ShredderBullet"
+  },
+  "TRocketLauncherAmmo": {
+   "summary": "Ammunition for the Tank Rocketgun. Each volley of two rockets uses two.",
+   "notes": [
+    "Carry limits are 150 for Asassin, 200 for Mercenary and 275 for BoRg. Engineers cannot carry it.",
+    "No infinite-ammo setting applies.",
+    "Dropping it throws out 20 at a time."
+   ],
+   "source": "wepTankRocket.cs TRocketLauncherAmmo, TRocketLauncherImage::onFire; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "TRocketLauncher": {
+   "summary": "A twin rocket launcher. When aimed at a player or flier, it fires two homing missiles and warns the target. Otherwise it fires two straight rockets.",
+   "notes": [
+    "The fire script checks line of sight up to 3500 m. If it hits a Player or Flier, it fires two TankMissile seekers at that object, messages the shooter 'lock acquired' and tells the target a lock was detected.",
+    "Admins fire AdminTankMissile instead, with damage 20000. When aimed at something else, God admins fire AdminTankRocket and others fire TankRocket.",
+    "Each volley costs 2 ammo.",
+    "Three extra launcher models are mounted in slots 4 to 6 and triggered while fire is held. They have no projectile and no fire script, so only the script's two rockets are fired.",
+    "Script bugs: the out-of-ammo message uses %client before it is set. When nothing is in line of sight, the admin check reads .isAdmin from the player's name, so admins never get the admin rockets there.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "wepTankRocket.cs TRocketLauncherImage::onFire, TRocketLauncher::onMount, CheckTRocketLauncher; RocketData.cs TankMissile, AdminTankMissile"
+  },
+  "MineLauncherAmmo": {
+   "summary": "Ammunition for the MineLauncher. One is used per shot in every mode.",
+   "notes": [
+    "Carry limits are 45 for Asassin, 75 for Mercenary, 100 for BoRg and 15 for Engineer.",
+    "Use is skipped when $TG::InfiniteAmmo:MineLauncher is true (off by default).",
+    "Dropping it throws out 25 at a time."
+   ],
+   "source": "wepMineLauncher.cs MineLauncherAmmo, MineLauncherImage::onFire; wepFuncts.cs ItemMax"
+  },
+  "MineLauncher": {
+   "summary": "A launcher with five modes, picked in the Tab menu under Weapon Options. The default throws a Claymor mine. The other modes fire flash grenades or shells that burst into flash grenades or mines.",
+   "notes": [
+    "Default mode throws a TG::ClayMorMine from the player's position.",
+    "Light Grenade mode fires one EMPgrenshl flash grenade. In Player::onDamage, flash damage empties the victim's energy and whites out their screen.",
+    "Burst Mine mode fires a MinerShell. At 3 s it splits into 10 MineFloaters, and each becomes an anti-personnel mine about 2 s later. Then there is a 3 s cooldown.",
+    "Tranq mode fires a MinerShell that splits into 10 flash grenades at 3 s. Then there is a 4 s cooldown.",
+    "Script bug: the menu sets the Radius Mine mode to 'Radius_Mine', but onFire tests for 'RadiusMine' and would spawn a datablock named Radius_Mine, which does not exist. In that mode nothing is thrown, but ammo is still used.",
+    "Script bug: during a cooldown, the burst and tranq modes release the trigger and print 'Re Packing', but they do not return, so a round of ammo is still spent.",
+    "Every armor can carry it, the Engineer included."
+   ],
+   "source": "wepMineLauncher.cs MineLauncherImage::onFire; wepFuncts.cs TG::TossMines, SetMines, SplitExplosion, CoolGun; CharacterOpts.cs processMenuMineLopts"
+  },
+  "Mortar": {
+   "summary": "Every armor can carry the mortar here. It fires about forty times faster than stock and has four modes from the Tab menu: Default, Nuke, Multi (bunker buster) and Flame.",
+   "notes": [
+    "Unlike stock Tribes, any armor can carry it, the Engineer included, and reload and fire time are 0.05 s each, against 0.5 s and 2.0 s in stock.",
+    "Default mode fires MortarShell.",
+    "Nuke mode fires MortarShellNuke with a 500 m radius, then has a 5 s cooldown. Its damage type has no armor damage scale, so it does no normal damage. Instead, Player::onDamage fully heals teammates, makes enemies drop their pack, weapon and flag, empties their energy and stops recharge for 10 s.",
+    "In Nuke mode, the shooter is unaffected, and so is anyone wearing an Energy Pack (isUnNukable).",
+    "Script bug: the nuke case tries to add half of the victim's maxDamage, but reads maxDamage from the player object rather than its datablock, so it adds nothing.",
+    "Multi mode fires a MinerShell that splits into five MortarBunkerShells at 3 s, with a 2 s cooldown.",
+    "Flame mode fires MortarFlameShell, but refuses to fire if anything is in line of sight within 25 m.",
+    "Ammo use is skipped when $TG::InfiniteAmmo:Mortar is true (off by default).",
+    "Script bug: shots denied by a Nuke cooldown or the Flame safety still spend a round. A denied Multi shot is free only once per 5 s message window."
+   ],
+   "source": "wepMortar.cs MortarImage::onFire; player.cs Player::onDamage; CharacterOpts.cs processMenuMortaropts; packEnergyPack.cs"
+  },
+  "DoublePlasmaAmmo": {
+   "summary": "Double Plasma Bolts, the ammunition for the Double Plasma. Each shot uses two.",
+   "notes": [
+    "Carry limits are 450 for Asassin, 500 for Mercenary, 999 for BoRg and 350 for Engineer.",
+    "Use is skipped when $TG::InfiniteAmmo:DoublePlasma is true (off by default).",
+    "Dropping it throws out 50 at a time."
+   ],
+   "source": "wepDoublePlasma.cs DoublePlasmaAmmo, DoublePlasmaImage::onFire; wepFuncts.cs ItemMax, $SellAmmo"
+  },
+  "DoublePlasma": {
+   "summary": "A twin-barrel plasma gun. Each shot fires two fast plasma rockets side by side, and it can fire every 0.03 s.",
+   "notes": [
+    "onFire spawns two PlasmaRocket projectiles, one at the muzzle and one offset to the side. These are impact-damage plasma rockets.",
+    "A second plasma gun model is mounted in slot 4 one second after the weapon is mounted, and is triggered while fire is held. It has no projectile.",
+    "Each shot costs 2 ammo unless $TG::InfiniteAmmo:DoublePlasma is true.",
+    "Every armor can carry it, the Engineer included. It is the Asassin's default spawn weapon."
+   ],
+   "source": "wepDoublePlasma.cs DoublePlasmaImage::onFire, DoublePlasma::onMount, DoublePlas::CheckMounted, CheckDoublePlasma"
+  },
+  "Blaster": {
+   "summary": "An energy pistol every armor can carry. It fires very fast and has a Spredder mode in the Tab menu that fires five bolts at once.",
+   "notes": [
+    "Reload and fire time are 0.03 s, against 0 s and 0.3 s in stock. maxEnergy is 2, against 6 in stock.",
+    "Bolts are fired by script. Default mode fires one BlasterBolt. Spredder mode fires five Spredder bolts, each with 0.02 aim deflection.",
+    "It is sold only at inventory stations, not remote ones."
+   ],
+   "source": "wepBlaster.cs BlasterImage::onFire; BulletData.cs BlasterBolt, Spredder; CharacterOpts.cs processMenuBlasteropts"
+  },
+  "DiscLauncher": {
+   "summary": "The disc launcher fires far faster discs at a much higher rate than stock. It has Spreader and Invisible modes in the Tab menu.",
+   "notes": [
+    "Unlike stock Tribes, the image is single-shot with no spin-up (weaponType 0, fire time 0, reload 0.05 s), against 1.25 s fire and 0.25 s spin-up in stock.",
+    "DiscShell leaves at 600 m/s and accelerates to 800, against 65 to 80 in stock.",
+    "Spreader mode fires three DiscSpreader bullets. Invisible mode fires one unseen DiscInvisible.",
+    "The fire script never subtracts DiscAmmo, and the $TG::InfiniteAmmo:DiscLauncher setting is never read, so discs are not used up. The launcher still needs at least one disc to fire.",
+    "Every armor can carry it, the Engineer included."
+   ],
+   "source": "wepDiscLauncher.cs DiscLauncherImage::onFire, DiscShell, DiscSpreader, DiscInvisible; CharacterOpts.cs processMenuDiscopts"
+  },
+  "JailGun": {
+   "summary": "An ELF-style beam that teleports an enemy into the shooter's team's deployed Jail Cell for 30 seconds. It does nothing if no enemy jail is deployed.",
+   "notes": [
+    "jailbolt::damageTarget ignores non-players and teammates. For each jail pad in the jailports set that does not belong to the target's team, it moves the target there and sets them jailed for 30 s.",
+    "On each jailing, it tells the victim the sentence length and sends a message to everyone else.",
+    "After 30 s, Jail::JailDoorShape::Sesame moves the prisoner to any opposing release pad within 10 m.",
+    "Jailed players cannot deploy items or portals.",
+    "The beam does no damage (damagePerSec 0), but drains 60 energy per second. The jail code runs on every beam update while it stays on the target.",
+    "Only Mercenaries and BoRgs can carry it, and it is sold only at inventory stations."
+   ],
+   "source": "Jail_Weapons.cs JailGunImage; Laser-LightningData.cs jailbolt, jailbolt::damageTarget; Jail_Package.cs Jail::JailDoorShape::Sesame, JailPack::deployshape"
+  },
+  "JailRifle": {
+   "summary": "A sniper rifle whose darts send the enemy hit to the shooter's team's jail for 30 seconds, using the same code as the Jail Gun.",
+   "notes": [
+    "JailDart uses the jail damage type. Player::onDamage passes it to jailbolt::damageTarget, which teleports enemy players to an opposing jail pad.",
+    "That damage type has no armor damage scale, so the dart does no health damage.",
+    "Fire time is 0.15 s, minEnergy 10 and maxEnergy 0.01.",
+    "Only Asassins and Engineers can carry it, and it is sold only at inventory stations."
+   ],
+   "source": "Jail_Weapons.cs JailRifleImage; RocketData.cs JailDart; player.cs Player::onDamage; Laser-LightningData.cs jailbolt::damageTarget"
+  },
+  "TankRPGAmmo": {
+   "summary": "RPG Ammo for the Tank RPG.",
+   "notes": [
+    "Carry limits are 50 for Asassin, 75 for Mercenary and 150 for BoRg. Engineers cannot carry it.",
+    "The fire script always subtracts one per scripted rocket. No infinite-ammo setting applies.",
+    "Dropping it throws out 25 at a time."
+   ],
+   "source": "wepTankRPG.cs TankRPGAmmo, TankRPGLauncherImage::onFire; wepFuncts.cs ItemMax"
+  },
+  "TankRPGLauncher": {
+   "summary": "A four-tube RPG rig. The main tube fires an RPG by script, and three extra tubes mounted on the wearer fire their own RPGs while the trigger is held.",
+   "notes": [
+    "onFire subtracts one RPG Ammo and spawns one RPG rocket, which deals shrapnel radius damage.",
+    "The extra images TankRPGLauncher2 to 4 are mounted in slots 4, 7 and 6. CheckTankRPGLauncher re-triggers them every 0.1 s. Each defines its own RPG projectile and RPG Ammo.",
+    "Every armor except the Engineer can carry it. It is the BoRg's default spawn weapon."
+   ],
+   "source": "wepTankRPG.cs TankRPGLauncherImage::onFire, TankRPGLauncher::onMount, CheckTankRPGLauncher; RocketData.cs RPG"
+  },
+  "AirStrike": {
+   "summary": "A one-shot targeting device meant to call down bombs on the spot it is aimed at. In this build, the bomb datablock is not loaded, so it produces only sounds and messages.",
+   "notes": [
+    "Firing at a point within 300 m plays explosion sounds and prints a lock-on message. It adds one to the team's airstrike count, limited to 5 per team, and removes the AirStrike from the player.",
+    "AirStrike::DropBombs is meant to drop 40 waves of four AirStrikeShell mines, 0.5 s apart. AirStrikeShell is defined only in mineAirStrikeShell.cs, which the loader has commented out, so no bombs appear.",
+    "Script bug: the Y offset uses an undefined variable on one branch.",
+    "Script bug: DropBombs reschedules itself every 0.5 s forever while the team is within its limit, setting the shooter's AirStrike count to 0 each time. A player who has used one cannot hold another while that player object lives.",
+    "The dropship functions Formation3 and MoveShip are never called.",
+    "Every armor except the Engineer can carry it. It is sold only at inventory stations."
+   ],
+   "source": "AirStrike.cs AirStrikeImage::onFire, AirStrike::DropBombs; TeamItemMax.cs; server[TG].cs LoadMineFiles"
+  },
+  "DetPackLauncherAmmo": {
+   "summary": "DetPacks for the DetPack Launcher. One is used per throw.",
+   "notes": [
+    "Carry limits are 5 for Mercenary and 10 for BoRg. Asassins and Engineers cannot carry it.",
+    "It is sold only at inventory stations. Dropping it throws out 5 at a time."
+   ],
+   "source": "wepDetPackLauncher.cs DetPackLauncherAmmo; wepFuncts.cs ItemMax, AddToInv, $SellAmmo"
+  },
+  "DetPackLauncher": {
+   "summary": "Throws a timed demolition charge that explodes 20 seconds later in a huge blast. Engineers can disarm it, and Asassins can try, at a risk.",
+   "notes": [
+    "Each shot throws a Suicidebomb2 mine set to the thrower's team. It detonates after 20 s with shrapnel damage 750 over a 200 m radius.",
+    "The thrower gets a 20-second warning, then a 5-second countdown and explosion sounds.",
+    "Any Engineer, or a God admin, who touches the charge disarms it. This includes the thrower's own team, because the code does not check teams.",
+    "An Asassin who touches it has a 20% chance of setting it off, and otherwise disarms it. Mercenaries and BoRgs are ignored.",
+    "Script bug: after a failed disarm, the reset is scheduled as '.fuckedup = false:', with a colon instead of a semicolon, so the flag never clears for that client.",
+    "Only Mercenaries and BoRgs can carry it."
+   ],
+   "source": "wepDetPackLauncher.cs DetPackLauncherImage::onFire, CheckDetonated; mineSuicide.cs Suicidebomb2, Suicidebomb2::onAdd, Suicidebomb2::onCollision"
+  },
+  "MineSweeper": {
+   "summary": "An Engineer tool that fires slow energy balls to clear enemy mines. Mines it hits drop a pickup of the matching ammo.",
+   "notes": [
+    "It uses no ammo. onFire spawns MineSweepShell, which deals debug-type radius damage, and triggers the companion MineSweeper2 in slot 4.",
+    "An enemy anti-personnel mine hit by it drops a MineAmmo pickup for 4 s and is destroyed. An enemy Claymor drops a TG::ClayMorMineAmmo pickup. A suicide-pack bomb is removed and leaves an Instant Health pickup.",
+    "Script bug: the Claymor case sets the mine's damage from a %data variable that is only assigned later in the function, so the Claymor is not destroyed by that line.",
+    "Players have no damage scale for the debug type, so the shell does not hurt them.",
+    "Only the Engineer can carry it. It is sold only at inventory stations and is in the Engineer's spawn loadout."
+   ],
+   "source": "wepDebug.cs MineSweeperImage::onFire, MineSweeper::onMount; mineAnti-Personel.cs AntipersonelMine::onDamage; mineClaymor.cs TG::ClayMorMine::onDamage; mineSuicide.cs Suicidebomb::onDamage"
+  },
+  "MineSweeper2": {
+   "summary": "A hidden companion image for the Mine Sweeper. It is mounted in slot 4 to show a second launcher model and plays its fire effect when the Mine Sweeper fires.",
+   "notes": [
+    "It has no projectile. It is not shown in the inventory, and no armor has an item max for it."
+   ],
+   "source": "wepDebug.cs MineSweeper2Image, MineSweeper::onMount, MineSweeperImage::onFire"
+  },
+  "NDiscAmmo": {
+   "summary": "Ammunition for the hidden Quad Disc.",
+   "notes": [
+    "It is not on any station list. The only way to get it is to buy the Quad Disc itself, which fills it to the armor's maximum.",
+    "Carry limits are 250 for Asassin, 325 for Mercenary and 800 for BoRg. No Engineer max is set."
+   ],
+   "source": "dfjhsbdfsdf.cs NDiscAmmo, $ItemMax; ItemFuncts.cs buyItem"
+  },
+  "NDisc": {
+   "summary": "The hidden Quad Disc: a launcher with four disc barrels mounted around the wearer. It fires discs two at a time in alternating pairs.",
+   "notes": [
+    "Typing QUADDISC in chat with $TG::GiveallOn set runs buyItem for it, then equips it.",
+    "buyItem only succeeds if the item is on the client's shopping list, or server or test cheats are on, or the client is in spawn buying. NDisc is never added to a station list, so the chat word alone normally fails.",
+    "The four disc models NDisc1 to 4 are mounted in slots 4 to 7.",
+    "The first shot fires two NDiscShell discs from an offset position, the second 0.35 s later, and spends no ammo. The next shot fires two from the muzzle, 0.45 s apart, and spends 2 ammo.",
+    "It is not in the next/previous weapon cycle, so it can only be selected by using the item directly.",
+    "Every armor except the Engineer can carry it."
+   ],
+   "source": "dfjhsbdfsdf.cs NDiscImage::onFire, NDisc::onMount, NDisc::onDrop; comchat.cs; ItemFuncts.cs buyItem; RocketData.cs NDiscShell"
+  },
+  "NDisc1": {
+   "summary": "One of the four hidden disc models of the Quad Disc. It is mounted in slot 4 and triggered for its fire effect when the Quad Disc fires.",
+   "notes": [
+    "It has no projectile and is not shown in the inventory. The discs themselves are spawned by NDiscImage::onFire."
+   ],
+   "source": "dfjhsbdfsdf.cs NDisc1Image, NDisc::onMount, NDiscImage::onFire"
+  },
+  "EnergyPack": {
+   "summary": "Renamed Engineer Pack. Unlike stock Tribes' Energy Pack it is a combat-engineering pack only the Engineer can carry: activating it equips a Repair Gun in the weapon slot and turns on a very strong energy shield plus immunity to nuclear damage.",
+   "notes": [
+    "Only the Engineer armor can carry it; it is the Engineer's default pack at spawn.",
+    "Activating sets the wearer's shield strength to 1.0, so each point of energy absorbs a full point of damage (stock Shield Pack: 0.012). With the Engineer's large energy pool this blocks almost everything until energy runs out.",
+    "While active the wearer is also flagged un-nukable: nuclear damage only prints 'Nuke Shield Enabled' and does nothing.",
+    "The pack still has a negative energy cost, so it adds energy while running, as the stock Energy Pack did.",
+    "Using the pack again while it is active swaps the tool between the Repair Gun and the Hack Gun.",
+    "The Repair Gun and Hack Gun switch the pack off when they are unmounted and on when mounted, so putting the gun away (switching weapons) also drops the shield.",
+    "EnergyPack::onActivate always mounts the Repair Gun, and swapping guns re-triggers the pack through those mount handlers, so a switch to the Hack Gun can be bounced back to the Repair Gun. The actual in-game result is not determined from scripts.",
+    "No weapon script checks for it, so unlike stock Tribes it is not tied to the laser rifle."
+   ],
+   "source": "packEnergyPack.cs EnergyPack::onUse, EnergyPack::onActivate, EnergyPack::onDeactivate; packRepairPack.cs RepairGun::onMount/onUnmount; packHackPack.cs HackGun::onMount/onUnmount; player.cs Player::onDamage; packFuncts.cs ItemMax"
+  },
+  "RepairGun": {
+   "summary": "A repair beam weapon. It is the gun handed out by the Repair Pack (standard setting) and the Engineer Pack, and the Engineer can also buy it on its own. It reaches 50 m and repairs much faster than the stock repair gun.",
+   "notes": [
+    "Repairs others at a rate of 1.5 and the wielder at 1.25, against 0.1 and 0.05 for the stock repair gun.",
+    "Pointing it at an enemy object (not a player) is refused: the wielder gets an insult and every player sees a message that they tried to betray their team. Enemy players can still be repaired.",
+    "Finishing a repair on a teammate or friendly object (beam released with the target at full health) gives 1 point of score.",
+    "Mounting it triggers the backpack slot and unmounting it releases it, which is what switches the Engineer Pack on and off.",
+    "As a standalone purchase only the Engineer can carry it."
+   ],
+   "source": "packRepairPack.cs RepairBolt::onAcquire, RepairBolt::onRelease, RepairBolt::checkDone, RepairGun::onMount/onUnmount/onUse; packFuncts.cs ItemMax"
+  },
+  "RepairRifle": {
+   "summary": "The 'Advanced Repair Gun': a long-range repair beam on a sniper-rifle model, given by the Repair Pack when the player picks the advanced option in the pack options menu. It repairs almost instantly from up to 1000 m.",
+   "notes": [
+    "Selected through the Repair Pack Options menu (Advanced Repair Gun); with that setting, using an equipped Repair Pack mounts the Repair Rifle instead of the Repair Gun.",
+    "Adds 350 to the target's auto-repair rate, so targets heal essentially at once.",
+    "Unlike the Repair Gun it has no team check: it will repair enemy players and enemy objects, and it never awards score.",
+    "It is not sold separately; it only comes from the Repair Pack."
+   ],
+   "source": "packRepairPack.cs RepairRifleBolt::onAcquire/onRelease/checkDone, RepairPack::onUse; CharacterOpts.cs processMenupackopts2"
+  },
+  "RepairPack": {
+   "summary": "Gives the wearer a repair beam. Using the pack while worn equips either the Repair Gun or, if the player chose the advanced option, the Repair Rifle. Every armor except the Engineer can carry it, and it is the default pack for the other three classes.",
+   "notes": [
+    "Unlike stock Tribes, the gun it gives reaches 50 m (Repair Gun) or 1000 m (Repair Rifle) and repairs far faster; see those items.",
+    "The Engineer cannot carry a Repair Pack; the Engineer Pack replaces it.",
+    "Unmounting the pack removes either repair gun from the weapon slot.",
+    "Dropping the pack only checks for the Repair Gun; a mounted Repair Rifle is cleared by the unmount handler instead.",
+    "The pack itself costs almost no energy while on."
+   ],
+   "source": "packRepairPack.cs RepairPack::onUse, RepairPack::onUnmount, RepairPack::onDrop; packFuncts.cs ItemMax; Spawn.cs SpawnBuyList"
+  },
+  "HackPack": {
+   "summary": "Gives the wearer a Hack Gun beam that converts enemy deployables, turrets and stations to the wearer's team for 25 seconds. Aimed at a friendly object it makes that object hack-proof for 25 seconds instead.",
+   "notes": [
+    "Carried by the Mercenary and the Engineer (the Engineer also gets the Hack Gun through the Engineer Pack).",
+    "Using the pack while worn mounts the Hack Gun.",
+    "Hacking takes the beam held on the target for 15 checks spaced 0.5 s apart (about 7.5 s); letting go or losing the target interrupts it and resets the progress.",
+    "Only objects on a fixed list can be hacked, including inventory, ammo and command stations, stock and mod turrets (plasma, rocket, mortar, indoor, camera, laser, ELF, taser), the Deployable Base and its doors, blast walls, force field floors, shock floors, the Arbitor device, the air base and the portable hole. Force field doors, teleport pads and holograms cannot be hacked.",
+    "A hacked object switches to the hacker's team and goes back to its original team 25 seconds later. Hacking an already hacked object switches it again.",
+    "Every successful hack also repairs the target by 0.99, because the check guarding that repair reads a variable that is never set.",
+    "Beaming a friendly object gives it a firewall for 25 seconds; a firewalled object cannot be hacked."
+   ],
+   "source": "packHackPack.cs HackPack::onUse/onUnmount/onDrop, HackBolt::onAcquire/onRelease, CheckHackStatus, HackPack::UnHack, SetupHackList; packFuncts.cs ItemMax"
+  },
+  "BoRgItem1": {
+   "summary": "A cosmetic part of the BattlePack Advanced: a mortar-gun model mounted on the wearer's side while the BattlePack (BoRgDevice) is worn. It has no functions of its own.",
+   "notes": [
+    "Mounted automatically into an extra slot when the BattlePack is mounted and removed when it is unmounted.",
+    "When the BattlePack fires, this slot is triggered too, but it has no projectile; the shots come from the BattlePack itself.",
+    "It is not sold on its own, and dropping the BattlePack sets its count to 0."
+   ],
+   "source": "packBoRgPack.cs BoRgDevice::onMount/onUnmount/onDrop, BoRgDeviceImage::onActivate"
+  },
+  "BoRgItem2": {
+   "summary": "A cosmetic part of the BattlePack Advanced: a sensor-jammer pack model mounted in an extra slot while the BattlePack (BoRgDevice) is worn. It has no functions of its own.",
+   "notes": [
+    "Mounted automatically when the BattlePack is mounted and removed when it is unmounted.",
+    "The BattlePack's sensor suppression comes from BoRgDevice::onMount, not from this item.",
+    "It is not sold on its own, and dropping the BattlePack sets its count to 0."
+   ],
+   "source": "packBoRgPack.cs BoRgDevice::onMount/onUnmount/onDrop"
+  },
+  "BoRgDevice": {
+   "summary": "The BattlePack: a weapon pack for the Mercenary and the BoRg. Wearing it gives a light shield and some sensor suppression and adds two side-mounted parts; activating the pack fires a pair of rockets from the wearer's muzzle.",
+   "notes": [
+    "Carried only by the Mercenary and BoRg armors.",
+    "While mounted the wearer gets shield strength 0.008 and sensor suppression 3; both are cleared when it is taken off.",
+    "Each activation fires two NukeTurret rockets (missile damage), one from the muzzle and one offset to the side. Super admins fire two AdminTankRocket shots instead.",
+    "Mounting it also mounts BoRgItem1 and BoRgItem2 as visual parts; dropping it removes them from the inventory.",
+    "On mount it triggers slot 2, which is the flag slot rather than the backpack slot.",
+    "The pack can only be dropped when the weapon slot is not firing or reloading."
+   ],
+   "source": "packBoRgPack.cs BoRgDevice::onMount/onUnmount/onDrop, BoRgDeviceImage::onActivate/onDeactivate; RocketData.cs NukeTurret; packFuncts.cs ItemMax"
+  },
+  "HiderPack": {
+   "summary": "The Morph Pack hides the wearer for up to 15 seconds. The player's body is moved far below the map and replaced by a decoy (an electrical beam, a flag stand and an upside-down flag stand) at their position, while the player watches it from an orbiting camera.",
+   "notes": [
+    "Carried by every armor except the BoRg.",
+    "The pack switches itself off after 15 seconds; pressing jump returns earlier. Either way the player is put back where they started.",
+    "A living player whose team differs from the decoy stand's who touches it is set on fire repeatedly (a FireScreen projectile every 0.2 s) until they die, and a rocket that hits it is destroyed. The stand is never assigned a team, so the check compares against its default team and teammates of the hider are not protected by it. The stand cannot be damaged.",
+    "Activating it with a flag is meant to drop the flag, but the script passes the flag slot number to Player::dropItem instead of the flag item, and the 'Flag Dropped' message goes to an unset client variable.",
+    "Inventory and menus are locked while it is active.",
+    "HiderPack::holdPlayer, a loop that would hold the hidden body still, is never called."
+   ],
+   "source": "packHider.cs HiderPackImage::onActivate/onDeactivate, HiderStand::onCollision/onDamage; observer.cs Observer::jump; AdminFunctions.cs BurnUp"
+  },
+  "CloakingDevice": {
+   "summary": "Makes the wearer fade out of view and hides them from sensors while the pack is on.",
+   "notes": [
+    "Carried by every armor except the BoRg.",
+    "Turning it on fades the wearer out and sets sensor suppression to 5; turning it off fades them back in and sets suppression to 0.",
+    "It costs almost no energy while on (0.1 per second)."
+   ],
+   "source": "packCloakPack.cs CloakingDeviceImage::onActivate/onDeactivate; packFuncts.cs ItemMax"
+  },
+  "ShieldPack": {
+   "summary": "Projects an energy shield that absorbs damage out of the wearer's energy, like stock Tribes, but weaker per point of energy and almost free to keep running.",
+   "notes": [
+    "Each point of energy absorbs 0.009 damage (0.00675 against shrapnel and mortars), against 0.012 in stock Tribes.",
+    "If a hit is larger than the energy can absorb, energy drops to 0 and the rest goes through.",
+    "Running cost is 0.1 energy per second against 9 in stock Tribes; it still needs 4 energy to switch on.",
+    "Every armor can carry it."
+   ],
+   "source": "packShieldPack.cs ShieldPackImage::onActivate/onDeactivate; player.cs Player::onDamage"
+  },
+  "SensorJammerPack": {
+   "summary": "Renamed StealthShield Pack. Unlike the stock Sensor Jammer it combines sensor jamming with a shield that is stronger than the mod's Shield Pack.",
+   "notes": [
+    "While on, the wearer gets shield strength 0.025 (the Shield Pack gives 0.009) and sensor suppression 3.",
+    "Stock Tribes added 20 to the wearer's sensor suppression; this pack sets it to 3 and resets it to 0 when switched off, overriding any other suppression.",
+    "Running cost is 0.1 energy per second against 10 in stock Tribes.",
+    "Carried by every armor except the BoRg."
+   ],
+   "source": "packStealthShield.cs SensorJammerPackImage::onActivate/onDeactivate; player.cs Player::onDamage; packFuncts.cs ItemMax"
+  },
+  "SuicidePack": {
+   "summary": "The Suicide DetPack. Using it while worn throws a large bomb that explodes 20 seconds later with a very large, very strong shrapnel blast.",
+   "notes": [
+    "Every armor can carry one.",
+    "The bomb (Suicidebomb2) is lobbed a short way and the wearer is told it will self-destruct in 20 seconds.",
+    "A male Asassin (larmor) or an Engineer of either team who touches the bomb tries to disarm it. Engineers and God admins always succeed. Other male Asassins succeed 80% of the time; otherwise the bomb goes off at once. Female Asassins and other armors cannot disarm it.",
+    "The bomb is given no team, so the blast hits everyone in range, including the thrower.",
+    "SuicidePack::deployShape returns no value, so onDeploy never removes the pack from the inventory; the pack is only unmounted and can be used again.",
+    "It is also a dead-man switch: if the wearer dies with it mounted, a bomb is thrown from the body and a countdown is shown to the dead player before it goes off 20 seconds later.",
+    "SuicidePack::onUnmount schedules deleteObject on its second argument, which the engine passes as the mount slot, not on the deployed bomb."
+   ],
+   "source": "packSuicidePack.cs SuicidePack::onUse/onDeploy/deployShape/onUnmount; mineSuicide.cs Suicidebomb2::onAdd/onCollision; player.cs Player::onKilled"
+  },
+  "instantHealth": {
+   "summary": "Instant Health: a one-use kit that repairs 0.99 damage, and also a pickup that fully heals any teammate who touches it.",
+   "notes": [
+    "Using it from the inventory repairs 0.99 damage, the same as this mod's Repair Kit.",
+    "Carry limits: 3 for the Asassin, 5 for the Mercenary, 7 for the BoRg; the Engineer has no allowance.",
+    "As a pickup, a player of the item's team who touches it is repaired by their armor's full maxDamage. The pickup is not removed when used.",
+    "It is not on any station's buy list. Scripts drop one only when a Suicidebomb mine is hit with debug (Mine Sweeper) damage, and nothing in the scripts creates a Suicidebomb, so in practice it is not obtainable."
+   ],
+   "source": "packSuicidePack.cs instantHealth::onUse/onCollision; mineSuicide.cs Suicidebomb::onDamage"
+  },
+  "LightArmor": {
+   "summary": "Renamed Asassin: the light class. It carries the most weapons and is fast, with the lowest health. Male and female versions differ: the female suit has less health, fewer weapon slots and a weaker jump.",
+   "notes": [
+    "Male Asassins can hold 20 weapons and female Asassins 15, against 3 for stock light armor.",
+    "The female suit (lfemale) has maxDamage 0.66 against 0.99 for the male (larmor).",
+    "Cannot carry most deployables (inventory, ammo and other stations, force fields, blast walls, teleporters, jail), the BattlePack, Hack Pack, Ammo Pack, DetPack Launcher or Jail Gun. Asassin-only items are the Atom Tosser and, shared with the Engineer, the Jail Rifle and Cloak Droid.",
+    "Unlike stock light armor it takes reduced shrapnel (0.7), bullet (0.8) and landing (0.1) damage, but 1.5 times LiL POO mkii damage.",
+    "Only a male Asassin (or an Engineer) can try to disarm a Suicide DetPack, with a 20% chance of setting it off.",
+    "A God admin wearing it knocks back and damages enemies they touch, and fully heals and adds energy to teammates they touch.",
+    "Default spawn loadout: Repair Pack, mines, Beacons, Grenades, Tunneler, Repair Kit and a large weapon set, starting with the Double Plasma."
+   ],
+   "source": "ArmorLight.cs larmor/lfemale, larmor::onCollision, lfemale::onCollision; ArmorData.cs DamageScale; wepFuncts.cs, packFuncts.cs, deployableFuncts.cs ItemMax; Spawn.cs SpawnBuyList; mineSuicide.cs Suicidebomb2::onCollision"
+  },
+  "MediumArmor": {
+   "summary": "Renamed Mercenary: the mid-weight class. It has more health than the Asassin, can carry the deployables, the BattlePack and the Hack Pack, but cannot crouch and moves a little slower.",
+   "notes": [
+    "Holds 12 weapons, against 4 for stock medium armor.",
+    "Neither the male nor the female suit can crouch.",
+    "Takes 1.5 times plasma cannon and chaingun damage, 0.6 plasma, 0.5 shrapnel and 0.7 from most other types, including electricity, mines and explosions.",
+    "Can carry the inventory and ammo stations, force fields, blast walls, teleporters and other deployables, plus the BattlePack, Hack Pack and Ammo Pack. Cannot carry Engineer-only items or the Atom Tosser, Jail Rifle or Cloak Droid.",
+    "Default spawn loadout: Repair Pack, mines, Beacons, Grenades, Repair Kit and a weapon set, starting with the Tank Shredder."
+   ],
+   "source": "ArmorMedium.cs marmor/mfemale; ArmorData.cs DamageScale; wepFuncts.cs, packFuncts.cs, deployableFuncts.cs ItemMax; Spawn.cs SpawnBuyList"
+  },
+  "EnginArmor": {
+   "summary": "The Engineer: a new class with one suit for both genders. It repairs damaged friendly equipment just by touching it, gets the Engineer Pack, and has a very large energy pool, but it is barred from most heavy weapons.",
+   "notes": [
+    "Holds 10 weapons. Male and female players both get the same Earmor suit (medium-armor model).",
+    "Touching a damaged friendly object (not a player) repairs it completely.",
+    "Engineer-only items: the Engineer Pack, the standalone Repair Gun, the Mine Sweeper and the Targeting Laser. The Engineer also carries the Hack Pack, Jail Rifle and Cloak Droid.",
+    "Cannot carry the Repair Pack, BattlePack, Repair Kit, Radius Mine, LiLBoost, Tunneler, Land Camo or Instant Health, nor most of the mod's heavy weapons and abilities (tank rocket and RPG launchers, Tank Shredder, DetPack Launcher, the abilities, laser, taser and ELF rifles, Beam of Pain, LiL POO guns, chaingun, plasma gun, air strike).",
+    "Its default spawn list includes a Repair Kit, but the Engineer has no Repair Kit allowance, so the kit is not given.",
+    "Takes 2.5 times flame damage but only 0.1 impact, landing and smoke damage, 0.45 plasma and 0.5 bullet, laser, shrapnel and mine damage.",
+    "Engineer mines are thrown much harder and Beacons produce a different boost blast; see Mine and Beacon.",
+    "Default spawn loadout: Engineer Pack, mines, Beacons, Grenades, Mine Launcher, Mine Sweeper, Mortar, LiLForce Field Buster, DetPack Launcher and Plasma Cannon."
+   ],
+   "source": "ArmorEngineer.cs Earmor, Earmor::onCollision; item.cs $ArmorType; ArmorData.cs DamageScale; wepFuncts.cs, packFuncts.cs ItemMax; Spawn.cs SpawnBuyList"
+  },
+  "HeavyArmor": {
+   "summary": "Renamed BoRg: the heavy class, with the most health and the largest ammo limits. It resists most damage types but is especially vulnerable to plasma cannons and chainguns, and it cannot use the stealth packs.",
+   "notes": [
+    "Holds 10 weapons, against 5 for stock heavy armor. It cannot crouch.",
+    "Takes 2.0 times plasma cannon and chaingun damage, but only 0.4 plasma and shrapnel and 0.6 bullet, explosion, missile, laser, mortar and blaster damage.",
+    "Cannot carry the StealthShield Pack, Cloaking Device, Hack Pack or Morph Pack, nor Engineer-only items. It can carry the BattlePack.",
+    "As in stock Tribes, laser head shots only get the 30% bonus on the centre of the head.",
+    "Default spawn loadout: Repair Pack, mines, Beacons, Grenades, Repair Kit, DetPack Launcher and a weapon set, starting with the Tank RPG launcher."
+   ],
+   "source": "ArmorHeavy.cs harmor; ArmorData.cs DamageScale; player.cs Player::onDamage; wepFuncts.cs, packFuncts.cs ItemMax; Spawn.cs SpawnBuyList"
+  },
+  "RepairKit": {
+   "summary": "A one-use kit that repairs 0.99 damage, almost a full heal, against 0.2 in stock Tribes.",
+   "notes": [
+    "Carry limits: 3 for the Asassin, 5 for the Mercenary, 7 for the BoRg (stock: 1 for everyone). The Engineer has no allowance and cannot buy or hold one.",
+    "Always used up: the $TG::InfiniteAmmo:RepairKit setting is never read by any script."
+   ],
+   "source": "item.cs RepairKit::onUse, $ItemMax; TribalPrefs.cs"
+  },
+  "MineAmmo": {
+   "summary": "Thrown mines that arm once they come to rest and explode when an enemy touches them. Unlike stock Tribes they deal EMP damage, and that damage only affects players on the thrower's own team.",
+   "notes": [
+    "Mines only trigger for enemy players, vehicles and moving objects, where stock mines had no team check.",
+    "The blast uses the EMP damage type. Player::onDamage ignores EMP damage when the victim and the source are on different teams, so the enemy who sets the mine off takes knockback but no damage. Teammates in the blast, and the thrower, lose all energy and drop their pack, weapon and flag; teammates then take damage scaled by the server's team damage setting, the thrower takes it in full.",
+    "Mines ignore EMP damage themselves. A hit from an enemy's Mine Sweeper (debug damage) defuses the mine and leaves a MineAmmo pickup for 4 seconds.",
+    "The Engineer throws mines with a throw animation and a 0.8 s delay, at 55 times throw strength against 15 for other armors.",
+    "Unless $TG::InfiniteAmmo:Mine is on (off by default), each use takes a mine even during the 0.5 s throw cooldown when nothing is thrown. The Engineer's throw takes a second mine on top of that, so an Engineer uses two per throw.",
+    "Walking over a loose MineAmmo item picks up one mine if below the carry limit.",
+    "A mine that lands on another mine detonates.",
+    "Carry limits: Asassin 10, Mercenary 20, Engineer 25, BoRg 35."
+   ],
+   "source": "item.cs MineAmmo::onUse, MineAmmo::onCollision; mineAnti-Personel.cs AntipersonelMine::onCollision/deployCheck/onDamage; player.cs Player::onDamage; TribalPrefs.cs"
+  },
+  "RadiusMineAmmo": {
+   "summary": "A single thrown Radius Mine (shown with a flag model) that arms at rest and goes off when an enemy comes within its much wider trigger radius.",
+   "notes": [
+    "One per armor; the Engineer cannot carry it.",
+    "Its trigger radius is 10, against 1 for the standard mine. Once armed, any collision with an object of a different team sets it off: the type test includes a comparison of the mine's own datablock with RadiusMine, which is always true.",
+    "Deals mine damage over a 20 m radius.",
+    "Like other mines it detonates if it lands on another mine, and it is destroyed after taking enough damage (mine damage counts at a quarter).",
+    "Always used up when thrown; it ignores the infinite-ammo settings.",
+    "Its destroy handler lowers a team count that the throw never raises."
+   ],
+   "source": "item.cs RadiusMineAmmo::onUse; mineRadius.cs RadiusMine::onCollision/deployCheck/onDamage/onDestroyed"
+  },
+  "Grenade": {
+   "summary": "In Tribal God the Grenade is an air brake, not a hand grenade. Using it cuts the player's current velocity to one sixth.",
+   "notes": [
+    "Nothing is thrown: Grenade::onUse just scales the user's velocity down by 6 and prints 'AirBrake Used.'",
+    "There is no throw cooldown.",
+    "The infinite-ammo check is inverted: a Grenade is used up only when $TG::InfiniteAmmo:Grens is true (the default), and becomes free when it is set to false.",
+    "Carry limits: Asassin 100, Mercenary 125, Engineer and BoRg 250."
+   ],
+   "source": "item.cs Grenade::onUse, $ItemMax; TribalPrefs.cs"
+  },
+  "FlashGrenade": {
+   "summary": "A thrown flash grenade that goes off after 2 seconds, whiting out the screens of players in a large radius and wiping their energy.",
+   "notes": [
+    "Uses the flash damage type over a 30 m radius. Each player hit gets a heavy screen flash, energy set to 0 and a recharge rate of 8, plus a small amount of damage.",
+    "There is no team check, so teammates and the thrower are affected too.",
+    "Thrown more softly than mines (9 times throw strength), with a 0.5 s cooldown; always used up.",
+    "Carry limits: Asassin 40, Mercenary 65, Engineer and BoRg 90."
+   ],
+   "source": "item.cs FlashGrenade::onUse; mineGrenades.cs Flash, Flash::onAdd; player.cs Player::onDamage"
+  },
+  "LiLBoostammo": {
+   "summary": "LiLBoost: a smaller version of the Beacon speed boost. It drops a zero-damage mine at the player's feet whose blast gives a light push.",
+   "notes": [
+    "The mine does no damage; its kickback is about a fifth of the Beacon boost's over an 8 m radius.",
+    "Its class is Mine, which has no fuse or contact handler in this mod, so what sets it off is not determined from scripts; it can be detonated by damage.",
+    "Uses the grenade setting rather than the boost setting: it is used up only when $TG::InfiniteAmmo:Grens is false, so it is free by default.",
+    "0.6 s between uses. The Engineer cannot carry it; every other armor can hold 35."
+   ],
+   "source": "item.cs LiLBoostammo::onUse; Mine.cs lilBoost, lilBoost::onDamage; TribalPrefs.cs"
+  },
+  "RepairPatch": {
+   "summary": "A repair pickup found lying in missions. Running over it heals 0.5 damage if the player is hurt, against 0.125 in stock Tribes.",
+   "notes": [
+    "Used from the inventory it still heals only 0.1.",
+    "The patch respawns after being picked up."
+   ],
+   "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+  },
+  "cactusPack": {
+   "summary": "Land Camo: a backpack that mounts a cactus model on the wearer as a disguise. It has no scripted effect beyond the model.",
+   "notes": [
+    "It defines no functions of its own; it uses the generic backpack behavior.",
+    "The cactus is mounted low on the back, so it reaches down around the wearer.",
+    "One per armor, except the Engineer, who cannot carry it. Up to 10 per team."
+   ],
+   "source": "item.cs cactusPack, cactuspackImage; packFuncts.cs Backpack::onUse; TeamItemMax.cs"
+  },
+  "Tunneler": {
+   "summary": "A reusable teleporter. Using it moves the player instantly to the point their view hits, up to 225 m away.",
+   "notes": [
+    "Never used up.",
+    "The script does not test whether the line-of-sight check hit anything; where the player ends up when nothing is in range is not determined from scripts.",
+    "One per armor, except the Engineer, who cannot carry it. It is part of the Asassin's default spawn loadout."
+   ],
+   "source": "item.cs Tunneler::onUse; Spawn.cs SpawnBuyList"
+  },
+  "Beacon": {
+   "summary": "In Tribal God the Beacon is a speed boost, not a target marker. Using it drops a zero-damage mine at the player's feet whose blast throws them along.",
+   "notes": [
+    "The boost mine has strong kickback over a 20 m radius and deals no damage, so it pushes any nearby player.",
+    "Engineers get an EngineerBoost mine with its own explosion effect; it is otherwise the same as everyone else's Boost.",
+    "The mines use the Handgrenade class, whose onAdd sets them off 2 seconds after they are dropped; damaging one sets it off at once.",
+    "0.2 s between uses. Used up only when $TG::InfiniteAmmo:Boosts is false; it is free by default.",
+    "Carry limits: Asassin 100, Mercenary 175, Engineer 150, BoRg 250."
+   ],
+   "source": "itemBoost.cs Beacon::onUse, ItemMax; Mine.cs Boost, EngineerBoost, Boost::onDamage, EngineerBoost::onDamage; mineGrenades.cs Handgrenade::onAdd; TribalPrefs.cs"
+  }
+ }
+}

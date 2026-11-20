@@ -1,0 +1,68 @@
+ultra-warfare: 79 of 100 need write-ups
+  SoulSucker (ShockLance): new
+  Laser1 (Shotgun): new
+  ELFGun (ELF Projector): new
+  IXShotAmmo (IX-Shotgun shells): new
+  IXSniperAmmo (IX-Sniper rounds): new
+  IXAssaultAmmo (IX-Bullets): new
+  Assault (IX-Assault Rifle): new
+  Shotgun (IX-Shotgun): new
+  SniperRifle (IX-Sniper Rifle): new
+  FEBAmmo (FEB Bullets): new
+  FEB (FEB Rifle): new
+  LaserRifle (Laser Rifle): stats+scripts
+  DiscAmmo (Disc Ammo): renamed+stats
+  Spinfusor (Spinfusor): new
+  chaingunAmmo (Chaingun Bullets): new
+  FusionAmmo (Fusion Ammo): new
+  Fusion (Fusion Rifle): new
+  LaserAmmo (Laser Cell): new
+  Laser (Laser Cannon): new
+  RailAmmo (Rails): new
+  RailGun (RailGun): new
+  FarSight (FarSight): new
+  MinigunAmmo (Minigun Ammo): new
+  Minigun (Minigun): new
+  MinerAmmo (Mine Rounds): new
+  Miner (Mine Layer): new
+  FlamerAmmo (Flamer Fuel): new
+  Flamer (Flame Thrower): new
+  FGLAmmo (Frag Rounds): new
+  FGL (Frag Grenade Launcher): new
+  GrenadeAmmo (Grenade Rounds): renamed+stats
+  MortarAmmo (Mortar Rounds): renamed+stats
+  MortarLauncher (Mortar Launcher): new
+  MissileAmmo (Missiles): new
+  MissileLauncher (Missile Launcher): new
+  FBWRocketAmmo (FBW Rockets): new
+  Slayer (Slayer): new
+  FBWRocketLauncher (Slayer): new
+  TrojaxAmmo (Trojax Cell): new
+  Trojax (Trojax): new
+  ShockAmmo (Shockwave Cell): new
+  Shock (Shockwave Cannon): new
+  CycleVehicle (Grav Cycle): new
+  ShrikeVehicle (Shrike Fighter): new
+  BomberVehicle (Air Bomber): new
+  TransportVehicle (Heavy Transport): new
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  AmmoPack (Ammo Pack): stats+scripts
+  MinigunAmmoPack (Minigun Ammo Pack): new
+  FuelPack (Fuel Pack): new
+  EnergyPack (Energy Pack): stats+scripts
+  StealthShieldPack (Stealth Shield Pack): new
+  ShieldPack (Shield Pack): stats+scripts
+  CloakingDevice (Cloaking Pack): new
+  FlagstandPack (Flag Stand): new
+  StackableCratePack (Stackable Crate): new
+  ForceFieldPack (Small Force Field): new
+  LargeFieldPack (Large Force Field): new
+  doorfivebyfiveForceFieldPack (Force Field Door): new
+  AirPlatformPack (Air Platform): new
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableWallPack (Deployable Wall): new
+  AssassinTurretPack (Assassin Turret): new
+  RocketPack (Rocket Turret): new
+  TurretPack (Sentry Turret): renamed+stats+scripts
+  DepLaserPack (Laser Turret): new

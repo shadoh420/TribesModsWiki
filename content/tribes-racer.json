@@ -1,0 +1,8 @@
+{
+ "mod": {
+  "overview": "Tribes Racer: Retribution v3.0 (Josef Jahn / PlaySpoon, December 1999, TribesRacer.cs) uses Base Tribes physics and 52 stock datablocks while uncapping vehicle team limits to 64 per team and turning maps into sequential checkpoint races.",
+  "notes": [
+   "TribesRacer.cs sets $TeamItemMax to 64 for Scout, LAPC, and HAPC so all racers can spawn vehicles freely, sequences vehicle::leg1/leg2/leg3 gates via TowerSwitch/GroupTrigger collisions, places persistent next-checkpoint waypoints on the HUD, and scores fastest laps."
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+# bop vs base (39 items)
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    MotionSensorPack             Motion Sensor
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Turret
+scripts    MineAmmo                     Mine
+new        MedicArmor                   Medic Armor
+new        SensorArmor                  Sensor Network Armor
+new        FlagArmor                    Flag Mover Armor
+new        DogFighterVehicle            DogFighter
+new        QuickLPCVehicle              QuickLPC
+new        AirPlatformPack              Air Platform
+new        LargeAirPlatPack             Large Air Platform
+new        DeployableWallPack           Deployable Wall
+new        ForceFieldPack               Small Force Field
+new        LargeFieldPack               Large Force Field
+new        FlagstandPack                Flag Stand
+new        CloakPack                    Cloaking Pack
+new        RepairMakerPack              Repair Kit Maker
+new        MineLayerPack                Mine Layer Pack
+new        HeatSinkPack                 Heat Sink
+new        AirMineAmmo                  Air Mine
+new        flagmineammo                 Flag Mine
+new        LaserTurretPack              Laser Turret
+new        RocketTurretPack             Rocket Turret
+new        SmallElfPack                 ELF turret
+new        SatCameraPack                Satellite Camera
+new        wocblaster                   Blaster kills
+new        wocplasmagun                 Plasma kills
+new        wocchaingun                  Chaingun kills
+new        wocdisclauncher              Disclauncher kills
+new        wocgrenadelauncher           Grenade launcher kills
+new        wocmortar                    Mortar kills
+new        woclaserrifle                Laser Rifle kills
+new        wocenergyrifle               Elf kills
+new        flagcaps                     Flag caps
+new        flagdrops                    Flag drops
+new        RepItemPoints                Repaired items
+new        RepMatePoints                Repaired teammates

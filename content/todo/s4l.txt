@@ -1,0 +1,19 @@
+# s4l vs base (18 items)
+stats      LightArmor                   Light Armor
+new        ScoutArmor                   Scout Armor
+new        SniperArmor                  Sniper Armor
+new        AssaultArmor                 Assault Armor
+stats      MediumArmor                  Medium Armor
+stats      HeavyArmor                   Heavy Armor
+new        BattleStarArmor              BattleStar Armor
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+new        FusionAmmo                   Fusion Bolt
+new        FusionRifle                  Fusion Rifle
+new        RocketAmmo                   Rocket
+new        RocketLauncher               Rocket Launcher
+new        NukeAmmo                     Nuclear Mortar
+new        Nuke                         Nuclear Gun
+stats      LaserRifle                   Laser Rifle
+new        SniperRifle                  Sniper Rifle
+new        HeatLaser                    Heat Laser

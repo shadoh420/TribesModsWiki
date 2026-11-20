@@ -1,0 +1,59 @@
+# jester vs ultra-renegades-vx5 (58 items)
+new        SkipperArmor                 Skipper Armor
+stats+scriptsLaserRifle                   Laser Rifle
+renamed+statsTaserRifle                   Green Beam O' Death
+new        BogeyToasterAmmo             Bogey Toaster Ammo
+new        BogeyToaster                 Bogey Toaster
+new        LightningGunAmmo             Lightning Ammo
+new        LightningGun                 Lightning Gun
+new        ElectrodeFlareGunAmmo        Electrode Flares
+new        ElectrodeFlareGun            Electrode FlareGun
+new        SizzlemasterAmmo             Sizzlemaster Ammo
+new        Sizzlemaster                 Sizzlemaster2000
+new        AnnihilatorAmmo              Annihilator Ammo
+new        Annihilator                  Annihilator
+stats      Blaster                      Blaster
+stats      BulletAmmo                   Bullet
+stats      Chaingun                     Chaingun
+new        ZRifleAmmo                   ZRifle Ammo
+new        ZRifle                       ZRifle
+new        ZRifleIIAmmo                 ZRifle II Ammo
+new        ZRifleII                     ZRifle II
+stats      PlasmaAmmo                   Plasma Bolt
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeAmmo                  Grenade Ammo
+stats      GrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+stats      Mortar                       Mortar
+new        SpiralScopeAmmo              SpiralScope Ammo
+new        SpiralScope                  SpiralScope
+new        J22BurstGunAmmo              J22 Bursts
+new        J22BurstGun                  J22 Burst Gun
+new        J22empBurstGunAmmo           J22|emp| Bursts
+new        J22empBurstGun               J22|emp| Burst Gun
+stats      DiscAmmo                     Disc
+stats      DiscLauncher                 Disc Launcher
+stats      TargetingLaser               Targeting Laser
+new        GreenLaser                   'Shock Therapy Gun'
+stats      EnergyRifle                  ELF Gun
+scripts    ShieldPack                   Shield Pack
+scripts    SensorJammerPack             StealthShield Pack
+stats      LaserTurretPack              Laser Turret
+renamed+stats+scriptsTurretPack                   Peewee Turret
+stats      TaserTrtBPack                Taser Turret
+stats+scriptsTaserTrtCPack                Tracking Turret
+stats      LaserTurretBPack             Mini-Plasma Turret
+stats      MiniFlakTurretPack           Mini-Flak Turret
+stats      MiniSAMTurretPack            Mini-S.A.M Turret
+stats      MiniELFTurretPack            Mini-ELF Turret
+renamed+stats+scriptsMiniSmokeTurretPack          Electrode Turret
+stats      RepairKit                    Repair Kit
+stats      MineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+renamed+stats+scriptsBeacon                       Spead Boosters
+stats+scriptsRepairPatch                  Repair Patch
+renamed+statscactusPack                   Cactus Camo
+new        turretcamoPack               Turret Camo
+new        satcamoPack                  Sattelite Camo
+new        gencamoPack                  Generator Camo
+new        treecamoPack                 Tree Camo

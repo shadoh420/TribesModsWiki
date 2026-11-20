@@ -1,0 +1,28 @@
+# skynet vs base (27 items)
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+renamed+statsGrenadeAmmo                  GrenadeAmmo
+renamed+statsMortarAmmo                   MortarAmmo
+renamed+statsEnergyRifle                  Lightning Rod
+new        RocketAmmo                   Rockets
+new        RocketLauncher               Stinger
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+new        ConCun                       Shockwave Cannon
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      Railgun
+new        Gaussgun                     Gauss Gun
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+scripts    EnergyPack                   Energy Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPack                     Ammo Pack
+scripts    CameraPack                   Camera
+new        LaserPack                    Laser Turret
+scripts    TurretPack                   Turret
+new        LaserTurret                  Plasma Turret
+new        RocketPack                   Rocket Turret
+new        ForceFieldPack               Small Force Field
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon

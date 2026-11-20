@@ -1,0 +1,110 @@
+# knights-16 vs base (109 items)
+new        ScoutArmor                   Scout
+renamed+statsLightArmor                   Assassin
+new        SorcererArmor                Sorceror
+renamed+statsMediumArmor                  Worker
+new        AlienArmor                   Clytranium
+renamed+statsHeavyArmor                   Knight
+new        UltraArmor                   Base Defender
+new        SpeederVehicle               Speeder
+new        MistVehicle                  Shadows
+renamed+stats+scriptsBlaster                      Alien Rifle
+new        TRocketLauncherAmmo          Knight Missiles
+new        TRocketLauncher              Knight Missile Launcher
+new        TankShredderAmmo             Knight-Chain Bullets
+new        TankShredder                 Knight Chaingun
+new        TankRPGAmmo                  Knight RPG shells
+new        TankRPGLauncher              Knight Quad RPG
+new        PistolsAmmo                  Knight Pistol Rounds
+new        Pistols1                     Knight Pistols
+new        Pistols2                     Knight Pistols
+new        Pistols                      Knight Pistols
+new        Arifle                       Energy Assault Rifle
+new        BiteAmmo                     Lightning charge
+new        Bite                         Bite of Lightning
+new        KShotgunAmmo                 Knights Shotgun Shell
+new        KShotgun                     Knights Shotgun
+new        Soul                         Evil Soul
+new        Blade                        Energy Blade
+new        BGun                         Worker Repair-Gun
+new        BGun2                        Worker Repair-Gun
+new        EShotgun                     Energy Shotgun
+new        Sword                        Sword of the Fallen Devil
+new        ConRocketl                   Concussion Rocket Launcher
+new        Dark                         Darkness
+new        Brimstone                    ravenscheater1
+new        Weak                         Sewage hole
+new        DropMine                     Ravenscheater
+stats+scriptsChaingun                     Chaingun
+new        Dinky1Ammo                   Dinky 1 Bullet
+new        Dinky1                       Dinky 1
+new        AlienGatAmmo                 Energy Bolt
+new        AlienGat                     Clytranium Gatling Gun
+new        FlameThrowerAmmo             Flame Cartridge
+new        FlameThrower                 Flame Thrower
+new        AntiAmmo                     Anti-Aircraft Bullet
+new        Anti                         Anti-Aircraft Machinegun
+new        Plasmagun                    Plasma Gun
+new        BARAmmo                      BAR Bullet
+new        BAR                          BAR
+new        SniperAmmo                   Sniper Round
+new        Sniper                       Silent Sniper
+new        DartAmmo                     Poison Darts
+new        Dart                         Poison Dart Rifle
+renamed+statsGrenadeAmmo                  Grenade Canister
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        ScoutMAmmo                   Scout Mortars
+new        ScoutM                       Scout Mortar
+new        MortarRAmmo                  Mortar Round
+new        MortarR                      Mortar Rocket Launcher
+new        RocketLAmmo                  Rocket
+new        RocketL                      Rocket Launcher
+new        GasAmmo                      Gas Bomb
+new        Gas                          Gas Bomb Launcher
+stats+scriptsMortar                       Mortar
+new        Dinky2Ammo                   Dinky 2 Bomb
+new        Dinky2                       Dinky 2
+new        StingerAmmo                  Stinger Missiles
+new        Stinger                      Missile Launcher
+new        KRGun                        KRGun
+new        EMPAmmo                      EMP Missiles
+new        EMP                          EMP Missile Launcher
+renamed+stats+scriptsDiscLauncher                 Particle Blade Launcher
+new        ChronoLaser                  Chronosceptor
+stats+scriptsLaserRifle                   Laser Rifle
+new        FlameL                       Flaming Laser
+new        AlienL                       Clytranium Laser Rifle
+new        ScoutLaser                   Scout Laser
+new        KnightLaser                  Knight Laser
+stats+scriptsTargetingLaser               Targeting Laser
+renamed+stats+scriptsEnergyRifle                  Worker Power Beam
+stats      DeployableInvPack            Inventory Station
+stats      DeployableAmmoPack           Ammo Station
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+new        MistPack                     Shadow Pack
+stats      ShieldPack                   Shield Pack
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+stats      MotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+stats      PulseSensorPack              Pulse Sensor
+new        TeleportPack                 Teleport Pad
+stats      DeployableSensorJammerPack   Sensor Jammer
+stats      CameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Laser Turret
+new        TargetPack                   Striker Turret
+new        DefenderPack                 Defender Turret
+new        SlashPack                    Slash Turret
+new        NukePack                     Nuke Turret
+new        FFieldPack                   Small Force Field
+new        HealPack                     Healing Antenna
+new        GeneratorPack                Backup Generator
+new        DepFFDoorPack                Blast Floor
+new        DoorPack                     Defensive Door
+new        LgFFDoorPack                 Large Force Field Door
+new        PlatformPack                 Deployable Hologram
+stats      RepairKit                    Repair Kit
+stats      MineAmmo                     Mine
+stats      Grenade                      Grenade
+stats      Beacon                       Beacon
+stats      RepairPatch                  Repair Patch

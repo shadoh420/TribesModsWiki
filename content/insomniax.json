@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Insomniax is an action-heavy combat and server-administration mod for Tribes that expands base gameplay with specialized modern weapons, deployable field fortifications, custom vehicles, and deep combat physics. Matches revolve around classic objective modes like Capture the Flag and Capture and Hold, but combat feels significantly more lethal and tactical due to locational sniper damage, kickback forces, an explosive heat and thruster system, and programmable missile barrages. Base defense and siege play are completely overhauled with deployable sentries, flak cannons, force fields, and carpet-bombing gunships, while built-in quality-of-life systems manage inventory stations, prevent team griefing, and enforce fair team balances. Compared to standard Tribes, players enjoy greater tactical customization through in-game menus, allowing heavy artillery players to tailor missile warhead payloads while scouts use stealth transports and cloaking devices for silent infiltration.",
+  "notes": [
+   "Classes and Armor Loadouts: Light Armor carries up to 3 weapons and is the sole operator of the IX-2000 Sniper Rifle and Cloaking Device, trading durability for high agility. Medium Armor carries 4 weapons and serves as versatile assault support, wielding the rapid-fire dual Phalanxx Cannon, Shotgun, Rocket Launcher, and Sentry deployables. Heavy Armor carries 5 weapons and mounts the heaviest ordnance including Mortars, Flak Cannons, Avenger anti-missile turrets, and the devastating Vengeance Missile Pack.",
+   "Locational Damage and Precision Sniping: Combat incorporates advanced body-part hit detection and specialized status effects. The IX-2000 Sniper Rifle deals +120 percent bonus damage on headshots, can shoot weapons directly out of an enemy's hand with a shot to the weapon arm, can knock the objective flag off a carrier's back, and will detonate enemy Rocket Boosters with a direct shot to the rear pack. Laser rifles also deal bonus headshot damage and can disarm enemies, while EMP grenade blasts drain energy to zero and prevent recharging for 10 seconds.",
+   "Heat Mechanics, Thrusters, and Explosions: Equipping a Rocket Booster grants forward jet propulsion fueled by booster charges, but rapid flight builds severe heat and risks vapor lock shutdowns at excessive speeds. Taking hard fall damage, weapon heat, or rear sniper shots while wearing a booster will trigger an internal detonation that blows the player up into an explosive blast. Players can counter heat-seeking missile locks by equipping the Heat Sink pack, which eliminates heat signatures so homing warheads cannot track them.",
+   "Deployables and Field Fortifications: Defenders can deploy Sentry turrets for rapid anti-infantry fire, Avenger turrets for anti-air missile tracking, Flak Cannons for heavy area suppression, and Small Force Fields for physical cover. Every deployable can be packed up directly in the field by its owner using an empty backpack slot if undamaged, or managed remotely through the Options menu to pack up intact structures or self-destruct damaged ones to free up team deployable caps.",
+   "Aerial Vehicles and Bombing Runs: The vehicle roster is bolstered by the Bomber and the SLAPC stealth transport alongside base Scouts and APCs. The Bomber flyer acts as a fast ground-attack craft capable of releasing a carpet-bomb volley of seven high-explosive bomblets in rapid sequence with a six-second cooldown. The SLAPC provides heavy armor and sensor suppression that keeps the pilot and all passenger troops hidden from enemy radar during transit.",
+   "In-Game Menus, Vengeance Customization, and Controls: Pressing Escape opens the Options menu, granting access to personal deployable management and the deep Vengeance missile customization system. Heavy armor pilots with the Vengeance pack can configure laser scanner range (50m, 150m, 350m), payload count (1 to 5 missiles), and warhead sequences mixing Low, Medium, High yield, EMP, and Pause intervals, or select combat presets such as Long Range Turret Buster or Short Range Flag Defender.",
+   "Inventory Stations and Anti-Grief Rules: Inventory stations feature Safe Station protection, shielding players inside from taking damage while shopping. To prevent station hoarding and abuse, an automated timer gives players 15 seconds before launching them out of the station with physical ejection force, and players who shoot teammates out of stations receive stern warnings followed by kicks. Furthermore, Sentry Packs, Flak Packs, and Vengeance Packs are restricted to main base inventory stations and are explicitly banned from remote deployable inventory stations ($RemoteInvList = 0).",
+   "Server Governance and Boundary Enforcement: The mod runs the IX-Admin framework with fair-teams enforcement that prevents players from stacking onto the larger team, automatic IP-mask user list authorization, and multi-tier teamkill penalties that vote or kick chronic offenders. Straying outside the mission boundaries triggers a 15-second countdown warning from the automated base system, instantly eliminating players who fail to return in time.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): FlakPack (station.cs), SentryPack (station.cs), Vengeance (station.cs)."
+  ]
+ },
+ "items": {
+  "Vengeance": {
+   "summary": "Heavy armor missile pack that paints targets with a locking laser to unleash a programmable multi-missile artillery volley.",
+   "notes": [
+    "Locks onto distant players, vehicles, or structures using customizable Short, Medium, or Long range targeting lasers.",
+    "Once locked, completely drains user energy and launches up to five guided warheads customized with Low, Medium, High yield, or EMP warheads.",
+    "Restricted to heavy armor and cannot be purchased at remote inventory stations ($RemoteInvList is 0)."
+   ],
+   "source": "item.cs"
+  },
+  "MagGun": {
+   "summary": "Dual-wielded magnetic energy emitter that zaps targets with continuous lightning beams and pulls them toward the shooter.",
+   "notes": [
+    "Uses twin repair gun view models to fire continuous 40-meter red magnetic lightning arcs.",
+    "Applies an inverted impulse force that yanks victim players across the field toward the user.",
+    "Fatalities cause victims to violently detonate into explosive gibs."
+   ],
+   "source": "item.cs"
+  },
+  "SniperRifle": {
+   "summary": "Light armor precision ballistic rifle with high-velocity bullets capable of disarming enemies and knocking flags loose.",
+   "notes": [
+    "Deals +120 percent extra damage on headshots and can snipe weapons directly out of an enemy's hand with a shot to the weapon arm.",
+    "Striking an enemy flag carrier in the back knocks the objective flag directly onto the ground.",
+    "Hitting the booster pack of an enemy Rocket Booster user will ignite their fuel and trigger a catastrophic internal detonation."
+   ],
+   "source": "item.cs"
+  },
+  "RocketBooster": {
+   "summary": "Propulsion backpack that mounts forward thrusters for high-speed travel but risks deadly overheating and vapor lock.",
+   "notes": [
+    "Grants directional rocket thrust to medium and heavy armors using booster charges.",
+    "Excessive speed triggers audio warnings and causes booster vapor lock shutdowns.",
+    "Accumulating maximum heat, taking fall damage, or taking rear weapons fire causes the pack to explode, killing the wearer and damaging nearby units."
+   ],
+   "source": "item.cs"
+  },
+  "BomberVehicle": {
+   "summary": "Fast strike aircraft designed for low-altitude carpet bombing over enemy bases and defensive perimeters.",
+   "notes": [
+    "Maneuverable flyer that drops a salvo of seven explosive bomblets in rapid succession across target terrain.",
+    "Features a six-second reload cycle between bombing passes.",
+    "Limited to one active aircraft per team ($TeamItemMax is 1)."
+   ],
+   "source": "vehicle.cs"
+  },
+  "ForceFieldPack": {
+   "summary": "Deployable field generator that erects a translucent defensive barrier to block enemy fire and seal choke points.",
+   "notes": [
+    "Creates a durable 3x4 small force field barrier that obstructs enemy movement and incoming weapons fire.",
+    "Can be packed up by its deploying owner if undamaged or remotely self-destructed via the Options menu.",
+    "Limited to a maximum of five deployable force fields per team ($TeamItemMax is 5)."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

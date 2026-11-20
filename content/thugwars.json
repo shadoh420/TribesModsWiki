@@ -1,0 +1,10 @@
+{
+ "mod": {
+  "overview": "ThugWars v1.0 (June 1999) speeds up firing rates and reduces energy costs across all Base weapons, standardizes jet energy drain to 1.0, adds a 650-cost Mega Armor and Heavy-only Rocket Launcher, and strengthens base generators and turrets.",
+  "notes": [
+   "Weapon rate-of-fire boost: Blaster fireTime 0.3 -> 0.1 s (12 maxEnergy); Chaingun fireTime 0.2 -> 0.1 s & spinUp 0.5 -> 0.1 s; Plasma fireTime 0.5 -> 0.1 s (0 reload); GrenadeLauncher 0.5 -> 0.1 s fire / 0.3 s reload; Mortar 0 reloadTime; Disc fireTime 1.25 -> 0.1 s; LaserRifle 0.1 s fireTime with 5 maxEnergy (0.1 min); TargetingLaser 3 maxEnergy / 0 reload.",
+   "New class & Heavy Rocket Launcher: adds MegaArmor (650 price) and RocketLauncher (Heavy-only, 20 RocketAmmo); Medium and Heavy also gain LaserRifle access, landing/crush damage halves across all armors (0.5x), and Heavy takes 0.2x Laser damage.",
+   "Hardened base structures: Generator/SolarPanel HP raised 5-10x (2 -> 10 / 1 -> 10), PortGenerator 1.6 -> 5.0, IndoorTurret 2.5 -> 5.0, PlasmaTurret 1.0 -> 2.0 (110 m range), AntipersonelMine HP 0.5 -> 2.0."
+  ]
+ }
+}

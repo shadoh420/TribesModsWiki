@@ -1,0 +1,27 @@
+# anathrax vs base (26 items)
+new        scoutArmor                   Scout Armor
+new        defenseArmor                 Defense Armor
+new        bigArmor                     Destruction Armor
+renamed+statsLAPCVehicle                  LPC Bomber
+new        FGAmmo                       Fusion Bolt
+new        FG                           Fusion Gun
+new        NapAmmo                      Napalm Ammo
+new        Nap                          Napalm Gun
+new        GASAmmo                      Liquid Gasoline
+new        GAS                          Liquid Fire Launcher
+new        PGAmmo                       Poison Gas
+new        PG                           Poison Gas Gun
+new        EMPAmmo                      EMP Ammo
+new        EMP                          EMP Launcher
+new        RPGAmmo                      Rockets
+new        RPG                          RPG
+new        ARPGAmmo                     Advanced Rockets
+new        ARPG                         Advanced RPG
+new        BMAmmo                       Blast Mortar
+new        BM                           Blast Mortar
+new        NukeAmmo                     Nuke
+new        NW                           Nuclear Warhead
+new        SRAmmo                       Sniper Bullet
+new        SR                           Sniper Rifle
+new        FR                           Frier
+scripts    AmmoPack                     Ammo Pack

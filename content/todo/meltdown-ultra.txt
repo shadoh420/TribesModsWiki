@@ -1,0 +1,175 @@
+meltdown-ultra: 189 of 204 need write-ups
+  LightArmor (Peltast (Light)): renamed+stats
+  BlastechArmor (Blastech): new
+  MediumArmor (Engineer): renamed+stats
+  MagIonArmor (Hoplite (Medium)): new
+  MECHArmor (Assault): new
+  HeavyArmor (Myrmidon (Heavy)): renamed+stats
+  ArwingV (Arwing): new
+  EPodV (Lightning): new
+  CutterV (Sky Cutter): new
+  ExplorerV (3DFX Explorer): new
+  RangerV (Sky Ranger): new
+  HammerV (Star Hammer): new
+  FighterV (Star Fighter): new
+  AvengerV (ThunderTank): new
+  LAPCVehicle (LPC -- LandSkimmer): renamed+stats
+  ValkyrieV (Valkyrie Interceptor): new
+  TankV (Hover Tank): new
+  IcarusV (Annihilator): new
+  Grenade1 (Cannon): new
+  Grenade2 (Cannon): new
+  RepairKit (Repair Kit): stats+scripts
+  Beacon (Beacon): stats+scripts
+  Grenade (Grenade): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  Blaster (Blaster): stats+scripts
+  IonCannon (Ion Cannon): new
+  IonChargerA (Ion Charger A): new
+  IonChargerB (Ion Charger B): new
+  IonChargerC (Ion Charger C): new
+  OmegaRifle (Omega Rifle): new
+  VertigoCannon (GEP Gun): new
+  Charger (ELF Cannon): new
+  ExtraCharger (ELF Cannon): new
+  ExtraCharger2 (ELF Cannon): new
+  ExtraCharger3 (ELF Cannon): new
+  MitziCore (MBC Power Charge): new
+  MBCannon (Mitzi Blast Cannon): new
+  ExtraEnergyA (Protron): new
+  ExtraEnergyB (Protron): new
+  ExtraEnergyC (Protron): new
+  EnergyGun (Protron): new
+  Chaingun (Chaingun): stats+scripts
+  GatB (Gatling Blaster): new
+  MinigunAmmo (MiniGun Ammo): new
+  Minigun (MiniGun): new
+  Minigun2 (MiniGun): new
+  MMinigunAmmo (MMinigun Ammo): new
+  MMinigun (MECHMinigun): new
+  MMinigun2 (MECHMinigun): new
+  MMinigun3 (MECHMinigun): new
+  MMinigun4 (MECHMinigun): new
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  EMPGrenadeAmmo (EMP Mortars): new
+  Mortar (Mortar): stats+scripts
+  DefendersRunGun (Defenders RunGun): new
+  DefendersRunGun2 (Defenders RunGun): new
+  DefendersRunGun3 (Defenders RunGun): new
+  DefendersRunGun4 (Defenders RunGun): new
+  ShotgunAmmo (Shotgun Ammo): new
+  Shotgun (Shotgun): new
+  MultiMineAmmo (Spawning Mines): new
+  MineLauncher (Mine Launcher): new
+  IMPAmmo (Implosion Shells): new
+  ImpGun (Implosion Cannon): new
+  BabyNukeMortar (FireBomb): new
+  DiscLauncher (Disc Launcher): stats+scripts
+  TwinFusorAmmo (TwinFusors): new
+  DualDisc2 (TwinFusor): new
+  TwinFusor (TwinFusor): new
+  MissileAmmo (Std Missile Ammo): new
+  AODStinger (Missile Launcher): new
+  AODStinger2 (Missile Launcher): new
+  MrpgAmmo (Blaster Cartridges): new
+  MrpgLauncher (MECHSHB): new
+  MrpgLauncher2 (MECHRPG): new
+  MrpgLauncher3 (MECHRPG): new
+  MrpgLauncher4 (MECHRPG): new
+  RPMLauncher (RPM): new
+  RPEMPAmmo (RPEMP Ammo): new
+  RPEMPLauncher (RPEMP): new
+  MECHRocketLauncher (MECHRocketgun): new
+  MECHRocketLauncher2 (MECHRocketgun): new
+  MECHRocketLauncher3 (MECHRocketgun): new
+  MECHRocketLauncher4 (MECHRocketgun): new
+  JugAmmo (Juggalo Missiles): new
+  JugLauncher (Juggalo Laucher): new
+  LaserPistol (Laser Pistol): new
+  LaserRifle (Laser Rifle): stats+scripts
+  PBW (Particle Beam (PBW)): new
+  Darts (Poison Darts): new
+  DartGun (Poison Dart Rifle): new
+  Shells (Shells): new
+  RifleRailGun2 (MD-1024): new
+  scope (MD-1024): new
+  Rifle (MD-1024): new
+  Bolts (Mass Driver Bolts): new
+  MassDriver (Mass Driver): new
+  SXAmmo (HP Shots): new
+  AAODSniperX (HP Sniper Rifle): new
+  ElectricityRifle (Power Gun): new
+  Reassembler (Reassembler): new
+  RailGunAmmo (RailGun): new
+  RailGun (RailGun): new
+  MaserRifle (Maser Rifle): new
+  PlasmaGun (Plasma Gun): stats+scripts
+  AODBeaconGun (Beacon Gun): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  StrykerChain (Pull Beam): new
+  Reactor (Mini-Reactor): new
+  EnergyPack (Energy Pack): stats+scripts
+  Accelerator (Particle Accelerator): new
+  MitziCharger (Mitzi Charger): new
+  GravFieldPack (Gravitron Field Pack): new
+  AODSuperRPack (Super-Repair Pack): new
+  SuperR2Pack (Super-Repair Pack): new
+  AutoPack (AutoRepair Pack): new
+  CloakingDevice (3Dfx Cloaking Device): new
+  AmmoGeneratorPack (Ammo Generator): new
+  TargPack (Missile Targeting Pack): new
+  BugPack (TeamChat Tapper): new
+  AODCmdPack (Turret Control pack): new
+  HyperPack (Hyperdrive Pack): new
+  Slipstream (Slipstream Teleporter): new
+  LeechPack (Leech Pack): new
+  GigaWatt (GigaWatts: ): new
+  Capacitor (Capacitor): new
+  SpeedPack (SuperSpeed Pack): new
+  JetPack (Jet Pack): new
+  HammerAmmo (GodHammerAmmo): new
+  Hammer1Pack (God Hammer Cannon): new
+  Hammer2Pack (God Hammer Cannon 2): new
+  AODShieldNode (Remote Shield Node): new
+  CNode (Remote Cloaking Node): new
+  MotionSensorPack (Motion Sensor): stats+scripts
+  CameraPack (Camera): stats+scripts
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DummyPack (Decoy Creator): new
+  HoloPack (Hologram Creator): new
+  AODDefender (Defender Designator): new
+  TurretPack (Laser Turret): renamed+stats+scripts
+  TTurretPack (Tractor Turret): new
+  LELFPack (ELF Turret): new
+  AODGrogPack (Chaingun Turret): new
+  AODVelcroPack (Velcro Turret): new
+  FluxPack (EMP Blast Turret): new
+  Turret4Pack (Fusion Turret): new
+  DisruptorTurretPack (Plasma Turret): new
+  IonTurretPack (Mitzi Blast Turret): new
+  PulseTurretPack (AA Battery): new
+  DiscTurretPack (Disc Turret): new
+  RocketPack (Rocket Turret): new
+  ElectroTurretPack (PBW Turret): new
+  AODArtilleryPack (SHB Turret): new
+  TeleportPack (Telepotor Pad): new
+  PortaComm (Mobile Command Stn): new
+  PortaAmmo (Mobile Ammo Stn): new
+  AODMobileGen (Portable Generator): new
+  AODShieldGen (Shield Generator): new
+  DShieldPack (Enhancement Beacon): new
+  doorfivebyfiveForceFieldPack (5x5 Forcefield): new
+  doorfourbyeightForceFieldPack (4x8 Forcefield): new
+  AirAmmoPad (Air Ammo Pad): new
+  EmplacementPack (Ground Base): new
+  LargeShockForceFieldPack (Large Shock Force Field): new
+  DronePack (Drone): new
+  ShockFloorPack (Shock Floor): new
+  BlastFloor (Blast Floor): new
+  ArbitorBeaconPack (Arbitor Cloak Device): new
+  AODBunker (Mobile Bunker): new
+  C4Pack (C-4 LAM): new
+  TNTPack (Blast Pack): new
+  MiniBase (Mini-Base): new
+  BaseOpsPack (The Borg Cube): new

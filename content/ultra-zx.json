@@ -1,0 +1,431 @@
+{
+ "mod": {
+  "overview": "Ultra-ZX Infinite is {TAS}KINDS' version of *DK*SlipKnot's Ultra-ZX, built straight on stock Tribes 1.11 rather than on another Ultra Renegades release. There are no classes: all three suits carry almost the whole arsenal of about thirty weapons, four spell guns and dozens of turret, force-field and base packs. Most of these are script-driven: lock-on rockets, cluster bombs, nukes, jail and cloak guns, pull beams, and portable bases deployed in the air. The grenade and beacon keys become an air brake and a speed boost, and with the default settings those, and the repair kit, never run out.",
+  "notes": [
+   "Each suit has its own item limits, but nearly every weapon and pack is allowed in all three. The Atomizer is heavy only. Weapon slots ($MaxWeapons): light 10, medium 8, heavy 8. The female light and medium models both get 10.",
+   "Light and medium suits have 500 energy and heavy has 100. Every suit's jetEnergyDrain is 0.1 (stock light/medium/heavy: 0.8/1.0/1.1). Players recharge at 8.",
+   "Bullet headshots: when an enemy is hit in the head by bullet damage (Chaingun, Retaliator, IX-MayHeM, Clone Spell, Chaingun Turret) or by IX-Railgun damage, Player::onDamage blows the body apart, adds 2 damage and prints 'Head Shot' to both players.",
+   "Laser headshots get +30% damage, as in stock (only the centre of the head box on heavy armor).",
+   "EMP damage (thrown mines, Tracking Ion Cannon) sets the victim's energy to 0, drops recharge to 6, and makes them drop their pack, weapon and flag. Beam Of Pain damage forces the same three drops. Mini-ELF damage forces a pack and weapon drop.",
+   "Flash, Nuke and Electric Web damage set the victim's energy to 0 and their recharge rate to 6. Nuke damage is scaled x3 against every armor.",
+   "Fair-play rule: most deployables (stations, sensors, cameras, turrets, force-field doors) can only be placed when one of your team's static objects is inside a 150 m box around the deploy point. Otherwise you get 'Fair play distance exceeded'.",
+   "Remote turrets: up to 20 Ionic Turrets in a 50x50x25 m area (stock allows 2), each at least 10 m from another. The other turret packs have no spacing check at all, only the per-team limit (10 each).",
+   "Infinite options (SettingsURZX.cs, and the super-admin Infinite Options menu): boosts (Beacon), brakes (Grenade) and Repair Kits default to infinite. Mines and Radius Mines can be made infinite too, but SettingsURZX.cs never sets those two, so they are used up until an admin turns them on.",
+   "Spawn loadout: Light Suit, Taser Rifle, LocK-JaW, IX-Railgun, Heavy Impact Mortar, Mortar, Beam Of Pain, Plasma Gun, Disc Launcher, Blaster, IX-MayHeM, Repair Pack, Mines, Beacons, Grenades and a Repair Kit.",
+   "Vehicles are flown only in light armor. The pilot steps through the vehicle's guns with next/previous weapon, and fire spawns the selected projectile. Before you pick one, fire shoots a 'swordHit' electric bolt.",
+   "Remote inventory stations start with 5000 energy (stock 3000)."
+  ]
+ },
+ "items": {
+  "LightArmor": {
+   "summary": "The light suit. It is fast, can crouch, and is the only suit that can pilot vehicles.",
+   "notes": ["10 weapon slots and 500 energy. Carries nearly the full arsenal; the Atomizer is the only item it cannot carry.", "Carries the most bullet and plasma ammo (999 and 350) and 18 mortar shells."],
+   "source": "ArmorData.cs larmor/lfemale $ItemMax, $MaxWeapons; vehicle.cs Vehicle::onCollision"
+  },
+  "MediumArmor": {
+   "summary": "The medium suit. It cannot crouch, and it can ride vehicles as a passenger but not fly them.",
+   "notes": ["8 weapon slots (the female medium model gets 10) and 500 energy.", "Ammo limits sit between the other two suits, with the most grenade-launcher ammo (30)."],
+   "source": "ArmorData.cs marmor/mfemale"
+  },
+  "HeavyArmor": {
+   "summary": "The heavy suit: the most health and the best damage resistances, but only 100 energy and slow jets.",
+   "notes": ["8 weapon slots. It is the only suit that can carry the Atomizer, and it carries the most mines and rockets (40 mines, 100 LocK-JaW and Ion Tracker rounds).", "Takes reduced damage from most types (e.g. 0.4x plasma, 0.6x bullet and laser). Nuke damage is still x3."],
+   "source": "ArmorData.cs harmor"
+  },
+  "ScoutVehicle": {
+   "summary": "The Brawler Assault, a single-seat flyer with three scripted guns: the Brawler Shot (a fast shell), the Brawler Rocket and the Brawler Mortar.",
+   "notes": ["Only light armor can pilot it, and it has no passenger seats.", "Cycle guns with next/previous weapon. Each gun has its own refire delay (0, 0.2 and 0.6 s). The Brawler Mortar's shell is a heavy, wide-radius blast."],
+   "source": "vehicle.cs Scout, $VProj[Scout], Vehicle::onFire, getNextVWeap; baseProjData.cs BrawlerShot/BrawlerRocket/BrawlerMortar"
+  },
+  "MercJetVehicle": {
+   "summary": "The Mercenary Jet-Bike, a single-seat flyer with four guns: Merc Chaingun, Merc Grenade Launcher, Merc Disc Launcher and Merc Flame Thrower.",
+   "notes": ["Light armor pilots only. Like the Brawler, it takes no passengers.", "The flame thrower fires plasma-damage bolts, and the disc launcher fires explosive rockets."],
+   "source": "vehicle.cs MercJet, $VProj[MercJet], Vehicle::onCollision"
+  },
+  "LAPCVehicle": {
+   "summary": "The Star Destroyer, a light transport rebuilt as a gunship. It carries Star Assault rockets, Star Fury electric spread rounds, Star Bomb air-raid bombs and a Star Mortar.",
+   "notes": ["Light armor pilots it. Other armors can board as passengers.", "Takes half damage from lasers and blasters."],
+   "source": "vehicle.cs LAPC, $VProj[LAPC], $DamageScale[LAPC]"
+  },
+  "HAPCVehicle": {
+   "summary": "The Hover Tank, a heavy transport with Heavy Chaingun, Heavy Grenade, Heavy Bazooka and Heavy Rocket guns. It is slower than the other flyers.",
+   "notes": ["Light armor pilots it, and it has passenger seats.", "Takes half damage from lasers and blasters."],
+   "source": "vehicle.cs HAPC, $VProj[HAPC]"
+  },
+  "LaserRifle": {
+   "summary": "The Laser Gat, a rapid-fire laser on a chaingun body. Each shot costs a small amount of energy.",
+   "notes": ["Unlike stock's charged sniper shot, it fires a laser pulse every 0.075 s for 0.6 energy per shot.", "Like stock, it needs an Energy Pack, and removing the pack unequips it.", "Laser damage, so headshots get the +30% bonus."],
+   "source": "item.cs LaserRifleImage, LaserRifle::onUse, EnergyPack::onUnmount; baseProjData.cs sniperLaser"
+  },
+  "TaserRifle": {
+   "summary": "A self-powered laser rifle that hits much harder per shot than the Laser Gat, and doesn't need an Energy Pack.",
+   "notes": ["Fires a laser pulse every 0.08 s for 0.6 energy per shot. Its beam converts several times more damage than the Laser Gat's.", "Part of the spawn loadout."],
+   "source": "item.cs TaserRifleImage; baseProjData.cs TaserRfLaser"
+  },
+  "FireballAbility": {
+   "summary": "A spell that hurls two fire rockets together. The second explodes in a damaging 25 m blast, and the first drops a trail of fire bombs as it flies.",
+   "notes": ["Uses energy only, no ammo.", "solarBurst1 does no damage itself. From 0.7 s after launch, trailLoop calls boom() every 0.15 s. Each call spawns a SolarTrail bomb (30 m radius) at the rocket's position 0.3 s later. The loops are tied to the rocket, so they stop when it expires at 2.1 s."],
+   "source": "item.cs FireballAbilityImage::onFire; baseProjData.cs solarBurst1, solarBurst2, SolarTrail, solarBurst1::onAdd; TrailLoop.cs trailLoop"
+  },
+  "SmScreenAbilityAmmo": {
+   "summary": "Smoke Implants, the ammo for the Smoke Screen spell.",
+   "notes": [],
+   "source": "item.cs SmScreenAbilityAmmo"
+  },
+  "SmScreenAbility": {
+   "summary": "A spell that lobs a heavy smoke grenade. It bursts in a large flash and does light smoke-type damage.",
+   "notes": ["Fires the SmScreen grenade, one Smoke Implant per shot.", "Smoke damage has no special effect in Player::onDamage."],
+   "source": "item.cs SmScreenAbilityImage; baseProjData.cs SmScreen"
+  },
+  "ExSmScreenAbilityAmmo": {
+   "summary": "Lair Implants, the ammo for the SplitWaster spell.",
+   "notes": [],
+   "source": "item.cs ExSmScreenAbilityAmmo"
+  },
+  "ExSmScreenAbility": {
+   "summary": "SplitWaster, a cluster spell. It lobs a napalm shell that splits after 3 seconds and showers the area with fire bomblets.",
+   "notes": ["The onFire script spends one Lair Implant and fires a NapShell. At 2.9 s it adds a split burst. At 3 s it throws 15 NapFire bomblets with random sideways speeds (up to 30 either way) and extra upward speed, then deletes the shell.", "Each bomblet explodes after about 2 s with a 45 m radius. Damage is light per bomblet but covers a wide area.", "2.75 s reload."],
+   "source": "item.cs ExSmScreenAbilityImage::onFire, SplitFlame, TossFlame; baseProjData.cs NapShell, NapSplit, NapFire"
+  },
+  "FireScreenAbilityAmmo": {
+   "summary": "FireWall Bombs, the ammo for the Field Of Fire spell.",
+   "notes": [],
+   "source": "item.cs FireScreenAbilityAmmo"
+  },
+  "FireScreenAbility": {
+   "summary": "Field Of Fire throws a fire bomb that spreads into a chain of plasma explosions, a short-lived wall of fire.",
+   "notes": ["0.6 s after it is fired, the Firebomb throws two FW1 charges sideways. Each FW1 throws two FW2 charges, and each of those throws two FW3 charges, 14 charges in all. Each one blows up 0.2 to 0.4 s after it appears.", "Each charge is a heavy plasma blast with a 6.5 m radius. The charges aren't given a team."],
+   "source": "item.cs FireScreenAbilityImage; baseProjData.cs firebomb, firebomb::onAdd, FW1/FW2/FW3 and their onAdd"
+  },
+  "SpellAbilityAmmo": {
+   "summary": "Clones, the cheap ammo for the Clone Spell.",
+   "notes": [],
+   "source": "item.cs SpellAbilityAmmo"
+  },
+  "SpellAbility": {
+   "summary": "The Clone Spell fires slow, wildly scattered projectiles shaped like a female light-armor player.",
+   "notes": ["Each 'clone' is a bullet moving at 30 m/s with a large aim spread (0.25).", "Bullet damage, so an enemy headshot gets the blow-up bonus."],
+   "source": "item.cs SpellAbilityImage; baseProjData.cs SpellAbilityProj; player.cs Player::onDamage"
+  },
+  "VerminatorAmmo": {
+   "summary": "Retaliator Bullets, ammo for the Retaliator.",
+   "notes": [],
+   "source": "item.cs VerminatorAmmo"
+  },
+  "Verminator": {
+   "summary": "The Retaliator, a very fast-firing bullet gun with near-instant rounds. It looks double-barrelled.",
+   "notes": ["Equipping it mounts a second gun model (Chain2) in slot 7. That model is only cosmetic.", "Bullet damage: enemy headshots get the blow-up bonus.", "The Fabrication Pack does not refill its ammo."],
+   "source": "item.cs VerminatorImage, Verminator::onMount/onUnMount; baseProjData.cs VerminatorBullet"
+  },
+  "LiLPOOmkiAmmo": {
+   "summary": "MayHeM Bullets for the IX-MayHeM. They are free to buy.",
+   "notes": [],
+   "source": "item.cs LiLPOOmkiAmmo"
+  },
+  "LiLPOOmki": {
+   "summary": "The IX-MayHeM, a rapid-fire gun whose visible smoke-puff rounds have no spread.",
+   "notes": ["Bullet damage: enemy headshots get the blow-up bonus.", "Part of the spawn loadout."],
+   "source": "item.cs LiLPOOmkiImage; baseProjData.cs LiLPOOmkiBullet"
+  },
+  "LiLPOOmkiiAmmo": {
+   "summary": "Rail Bolts for the IX-Railgun. They are free to buy.",
+   "notes": [],
+   "source": "item.cs LiLPOOmkiiAmmo"
+  },
+  "LiLPOOmkii": {
+   "summary": "The IX-Railgun fires rail bolts fast, with no spread, and its headshots blow enemies apart.",
+   "notes": ["It has its own damage type, which Player::onDamage gives the same enemy-headshot bonus as bullets (blow up, +2 damage).", "Part of the spawn loadout."],
+   "source": "item.cs LiLPOOmkiiImage; baseProjData.cs LiLPOOmkiiBullet; player.cs Player::onDamage"
+  },
+  "IX2002Ammo": {
+   "summary": "IX2002 Bullets, free ammo for the IX-2002.",
+   "notes": [],
+   "source": "item.cs IX2002Ammo"
+  },
+  "IX2002": {
+   "summary": "The IX-2002, a rapid-fire gun with no spread that fires visible plasma-trail rounds.",
+   "notes": ["Its damage type ($IX2002DamageType) has no special handling: 1.0x against every armor and no headshot bonus."],
+   "source": "item.cs IX2002Image; baseProjData.cs IX2002ZXBullet"
+  },
+  "FEBAmmo": {
+   "summary": "FEB Bullets, free ammo for the IX-FEB.",
+   "notes": [],
+   "source": "item.cs FEBAmmo"
+  },
+  "FEB": {
+   "summary": "The IX-FEB, a rapid-fire gun that works like the IX-2002 but with a different projectile and explosion effect.",
+   "notes": ["Rounds ignore the shooter's velocity. Its damage type has no special handling."],
+   "source": "item.cs FEBImage; baseProjData.cs FEBBullet"
+  },
+  "ShotgunAmmo": {
+   "summary": "BuckShot Shells for the ShotGun.",
+   "notes": [],
+   "source": "item.cs ShotgunAmmo"
+  },
+  "Shotgun": {
+   "summary": "A pump shotgun. Each shell fires a spread of 12 pellets that hit on impact.",
+   "notes": ["ShotgunImage::onFire spawns 12 ShotgunPellet bullets (aim spread 0.02) and uses 1 shell."],
+   "source": "item.cs ShotgunImage::onFire; baseProjData.cs ShotgunPellet"
+  },
+  "GrenadeLauncher": {
+   "summary": "The Tri-Grenade launcher. Each shot lobs a cluster of nine grenades.",
+   "notes": ["Unlike stock's single grenade, onFire spawns three each of Gren1, Gren2 and Gren3. They differ in range, so they land spread out. It uses 1 grenade-ammo round and 1 energy per shot.", "The script tries to spread them by passing the shooter's velocity minus 15 and plus 15. That is plain arithmetic on a three-number vector string, so the spread it actually produces was not determined from the scripts.", "Each grenade has a small 3 m blast and goes off 1 s after first touching something."],
+   "source": "item.cs GrenadeLauncherImage::onFire; baseProjData.cs Gren1/Gren2/Gren3"
+  },
+  "LiLFFBAmmo": {
+   "summary": "Shells for the Heavy Impact Mortar.",
+   "notes": [],
+   "source": "item.cs LiLFFBAmmo"
+  },
+  "LiLFFB": {
+   "summary": "The Heavy Impact Mortar lobs a heavy shell that explodes on impact. The blast kills almost anything in its 15 m radius and throws bodies hard.",
+   "notes": ["The shell bursts 0.1 s after contact. Its damage is far beyond any suit's health.", "Part of the spawn loadout."],
+   "source": "item.cs LiLFFBImage; baseProjData.cs LiLFFBShell"
+  },
+  "NuclearAmmo": {
+   "summary": "Nuclear Ammo for the Nuclear Emitter. One round fires a whole volley.",
+   "notes": [],
+   "source": "item.cs NuclearAmmo"
+  },
+  "Nuclear": {
+   "summary": "The Nuclear Emitter fires six nuclear shockwave shells at once, which blow up in overlapping 50 m blasts. It can only be equipped while a Nuclear Emitter Shield is on your back.",
+   "notes": ["Nuclear::onUse refuses unless a NuclearShieldPack is mounted in the backpack slot.", "Each shot fires Nuke1 to Nuke6, which have different ranges, and uses 1 Nuclear Ammo. Nuke damage is x3 against every armor. It also sets the victim's energy to 0, drops their recharge to 6, and warns 'Nuclear Radiation Detected'.", "Mounting it adds a jetpack model in slot 7. Turning on the shield pack makes you drop the Emitter 5 seconds later."],
+   "source": "item.cs Nuclear::onUse/onMount, NuclearImage::onFire, ContainmentCritical; baseProjData.cs Nuke1-Nuke6; player.cs Player::onDamage"
+  },
+  "AtomizerAmmo": {
+   "summary": "Expensive ammo for the Atomizer.",
+   "notes": ["Heavy armor only, up to 100."],
+   "source": "item.cs AtomizerAmmo; ArmorData.cs"
+  },
+  "Atomizer": {
+   "summary": "A heavy-only cluster cannon. It fires a shell that bursts near whatever you are aiming at, scattering 15 plasma bomblets.",
+   "notes": ["onFire checks your line of sight up to 800 m and times the split at distance/180 - 0.05 s, or 1 s if nothing is in view. At the split the shell spawns a burst and 15 AgedonGrenadeShell bomblets with random velocities (up to 30 either way on each axis), then deletes itself.", "Bomblets have a 15 m radius and go off 2 s after landing.", "Mounting it adds three disc-launcher models (slots 5-7).", "Script bug: onFire checks that you have AtomizerAmmo but decrements PlasCAmmo, an item the mod never defines, so the script itself never spends Atomizer Ammo."],
+   "source": "item.cs AtomizerImage::onFire, SpawnAgedon, Atomizer::onMount; baseProjData.cs AgedonShell, PrettySplit, AgedonGrenadeShell"
+  },
+  "LiLRocketLauncherAmmo": {
+   "summary": "LocK JaW rockets, free to buy.",
+   "notes": [],
+   "source": "item.cs LiLRocketLauncherAmmo"
+  },
+  "LiLRocketLauncher": {
+   "summary": "The LocK-JaW, a lock-on rocket launcher. Aim at a player or vehicle and it fires a homing missile and warns the target. Otherwise it fires a straight rocket.",
+   "notes": ["onFire checks line of sight up to 1500 m. On a Player or Flier both sides get a lock message ('LocK-JaW lock acquired' / 'WARNING ... lock detected'), and it fires StingerMissile2, a fast seeker. Otherwise it fires a dumb StingerRocket.", "Each shot uses one rocket. With none left it says 'LocK JaW is out of ammo'.", "Mounting it adds a mortar model in slot 7. Part of the spawn loadout."],
+   "source": "item.cs LiLRocketLauncherImage::onFire, LiLRocketLauncher::onMount; baseProjData.cs StingerMissile2, StingerRocket"
+  },
+  "LiLEMPRocketLauncherAmmo": {
+   "summary": "Ion Trackers, ammo for the Tracking Ion Cannon.",
+   "notes": [],
+   "source": "item.cs LiLEMPRocketLauncherAmmo"
+  },
+  "LiLEMPRocketLauncher": {
+   "summary": "The Tracking Ion Cannon fires EMP missiles. A target locked within 350 m gets two homing missiles. A hit drains all its energy and knocks its pack, weapon and flag loose.",
+   "notes": ["On a Player or Flier in sight within 350 m it calls RocketLockWarning (lock message to you, repeated warning beeps to the target) and fires LiLEMPRocketONE and LiLEMPRocketTWO. Otherwise it fires one short-lived straight EMP rocket.", "EMP damage: the victim's energy goes to 0, recharge drops to 6, and they drop pack, weapon and flag.", "Uses one Ion Tracker per shot, even when it fires two missiles."],
+   "source": "item.cs LiLEMPRocketLauncherImage::onFire; server.cs RocketLockWarning; baseProjData.cs LiLEMPRocketONE/TWO/alt; player.cs Player::onDamage"
+  },
+  "BeamOfPain": {
+   "summary": "A sustained lightning beam that drains enemy energy fast, shoves the target, and strips its gear.",
+   "notes": ["On a non-teammate, damageTarget applies an impulse of -80 along the shooter's facing, drains energy at 500/s, and does a little damage.", "Its damage type makes Player::onDamage drop the victim's pack, weapon and flag.", "Script bug: teammates hit by the beam lose their gear too. damageTarget skips the push and drain for teammates but still calls applyDamage with 0 damage, and the drop code in Player::onDamage checks neither team nor damage.", "Part of the spawn loadout."],
+   "source": "item.cs BeamOfPainImage; baseProjData.cs BeamOfPainProj, BeamOfPainproj::damageTarget; player.cs Player::onDamage"
+  },
+  "CloakGun": {
+   "summary": "The Cloaking-Gun is a short beam that turns whatever it touches invisible.",
+   "notes": ["cloakingCharge::damageTarget fades the target out and schedules the fade-in 30000 seconds later, so in practice the cloak lasts the rest of the map.", "There is no team or type check, so it cloaks enemies and objects as readily as teammates."],
+   "source": "item.cs CloakGunImage; baseProjData.cs cloakingCharge, cloakingCharge::damageTarget"
+  },
+  "JailGun": {
+   "summary": "The Jail-Gun is a beam that arrests enemy players: they are teleported into an enemy jail cell and released 20 seconds later.",
+   "notes": ["jailbolt::damageTarget skips non-players and teammates. It moves the target to every jail pad (from a deployed Jail Cell) whose team is not the target's, tells them their sentence is 20 seconds, and after 20 s moves them to an enemy release pad.", "Does nothing until someone has deployed a Jail Cell."],
+   "source": "item.cs JailGunImage; baseProjData.cs jailbolt::damageTarget; staticshape.cs jLargeForceField::jailSesame"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote inventory station, as in stock, but only near your own base.",
+   "notes": ["Unlike stock, it needs the fair-play check (one of your team's static objects inside a 150 m box around the spot).", "The deployed station starts with 5000 energy (stock 3000). Up to 5 per team."],
+   "source": "item.cs DeployableInvPack::deployShape; game.cs $RemoteInvEnergy; station.cs DeployableInvStation::onAdd"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote ammo station, as in stock, but only near your own base.",
+   "notes": ["Adds the fair-play own-base check to the stock flat-surface and clear-area rules.", "Up to 7 per team."],
+   "source": "item.cs DeployableAmmoPack::deployShape; ZXNewMount.cs $TeamItemMax"
+  },
+  "ShieldPack": {
+   "summary": "Turns energy into protection, as in stock, but each point of energy absorbs less damage.",
+   "notes": ["Sets shieldStrength to 0.008 (stock 0.012). Each point of energy soaks 0.008 damage, or 0.006 against shrapnel and mortar."],
+   "source": "item.cs ShieldPackImage::onActivate; player.cs Player::onDamage"
+  },
+  "SensorJammerPack": {
+   "summary": "The StealthShield Pack is a personal sensor jammer with a built-in shield.",
+   "notes": ["Unlike stock, turning it on also sets shieldStrength 0.008, the same as the Shield Pack, along with the usual +20 sensor suppression.", "Turning it off removes both."],
+   "source": "item.cs SensorJammerPackImage::onActivate/onDeactivate"
+  },
+  "CloakingDevice": {
+   "summary": "A backpack that makes you invisible while it is switched on.",
+   "notes": ["Turning it on fades you out and adds 3 sensor suppression. Turning it off fades you back in.", "Drains energy continuously while on."],
+   "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate"
+  },
+  "MotionSensorPack": {
+   "summary": "Deploys a motion sensor on floors, walls or ceilings, as in stock, but only near your own base.",
+   "notes": ["Same placement as stock plus the fair-play own-base check. Up to 10 per team."],
+   "source": "item.cs MotionSensorPack::deployShape"
+  },
+  "BaseAlarm": {
+   "summary": "A tripwire alarm you stick to a building. When an enemy comes within 10 m it tells your team who set it off.",
+   "notes": ["Placed within 10 m on interior (building) surfaces only, floor, wall or ceiling. No fair-play check.", "When an enemy touches its 10 m trigger it sends a team message ('... has been tripped! By: name'). Your team is also told when it is destroyed.", "Script quirks: the cooldown is one global $pause, so after any player, teammate or enemy, trips any alarm, every alarm on the server stays silent for 10 s. Deploying doesn't check or count the team limit of 10, but destroying an alarm lowers the count."],
+   "source": "item.cs BaseAlarm::deployShape; staticshape.cs AlarmKit, AlarmKit::onCollision/onDestroyed"
+  },
+  "FABPack": {
+   "summary": "The Fabrication Pack is a one-shot resupply. Turning it on refills your ammo to the armor maximum, then the pack disappears.",
+   "notes": ["Refills bullets, plasma, discs, grenade-launcher and mortar ammo, FEB, IX2002, Heavy Mortar, LocK-JaW, Ion Tracker, MayHeM and Rail ammo, all four spell ammos, buckshot, Repair Kits, Beacons, Grenades and Mines.", "Not refilled: Retaliator, Nuclear and Atomizer ammo, and Radius Mines.", "Sets your FABPack count to 0 afterwards."],
+   "source": "item.cs FABPackImage::onActivate"
+  },
+  "NuclearShieldPack": {
+   "summary": "The Nuclear Emitter Shield. It is needed to use the Nuclear Emitter, and when switched on it gives near-total shielding for five seconds before it ejects.",
+   "notes": ["On activation shieldStrength is set to 0.999, so almost any hit is soaked by energy. It warns 'Five seconds until nuclear containment failure.'", "At 5 s ContainmentCritical drops your Nuclear Emitter. At 5.5 s the pack itself is dropped, and at 5.6 s the shield is cleared."],
+   "source": "item.cs NuclearShieldPackImage::onActivate/onDeactivate, ContainmentCritical; Nuclear::onUse"
+  },
+  "CameraPack": {
+   "summary": "Deploys a remote camera on floors, walls or ceilings, as in stock, but only near your own base.",
+   "notes": ["Adds the fair-play own-base check. Up to 5 per team."],
+   "source": "item.cs CameraPack::deployShape"
+  },
+  "LaserTurretPack": {
+   "summary": "Deploys a short-range laser turret that can go on floors, walls or ceilings.",
+   "notes": ["Placement for this and the other new turret packs: within 3 m, on terrain or a building, passing the fair-play own-base and clear-area checks. It sits flat, upside down or on the surface normal depending on the surface. There are no turret-spacing checks.", "Kills by the turret are credited to the deployer."],
+   "source": "item.cs LaserTurretPack::deployShape; turret.cs LaserTurret; baseProjData.cs LaserTrtLaser"
+  },
+  "TurretPack": {
+   "summary": "The Ionic Turret, renamed from stock's remote turret. It fires small energy bolts and now goes anywhere near your own base, in any armor.",
+   "notes": ["Unlike stock: adds the fair-play own-base check, lets any armor carry it, and allows up to 20 turrets per 50x50x25 m area (still 10 m apart, flat ground only).", "The deployed turret is 'LiL Turret' (MiniFusionBolt), and the success message still reads 'LiL Turret deployed'.", "Kills are not credited to the deployer (that code is commented out)."],
+   "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret; game.cs $MaxNumTurretsInBox"
+  },
+  "TaserTrtBPack": {
+   "summary": "Deploys a Taser Turret, a camera-sized laser turret whose beam stays on target for two seconds per shot.",
+   "notes": ["Placement as the Laser Turret (floor, wall or ceiling near your base). Range 60.", "Kills are not credited to the deployer."],
+   "source": "item.cs TaserTrtBPack::deployShape; turret.cs DeployableTaserTrtB; baseProjData.cs TaserTrtBLaser"
+  },
+  "TaserTrtCPack": {
+   "summary": "The Tracking Turret, listed under Sensor Network, is a long-range tracker. Its laser does almost no damage but reaches 500 m.",
+   "notes": ["Fires TaserTrtCLaser with a damage conversion of 0.0001. It is in effect a spotter that paints targets far away.", "Placement as the Laser Turret. Its map name is 'Taser Tracker'."],
+   "source": "item.cs TaserTrtCPack::deployShape; turret.cs DeployableTaserTrtC; baseProjData.cs TaserTrtCLaser"
+  },
+  "MaliceTurretPack": {
+   "summary": "Deploys a Chaingun Turret that sprays the same high-velocity bullets as the Chaingun.",
+   "notes": ["Range 40. Bullet damage, so it can land blow-up headshots on enemies.", "Placement as the Laser Turret. Kills are credited to the deployer."],
+   "source": "item.cs MaliceTurretPack::deployShape; turret.cs MaliceTurret"
+  },
+  "LaserTurretBPack": {
+   "summary": "Deploys a Plasma Turret that fires Plasma Gun bolts.",
+   "notes": ["Range 40. Its turret datablock is named 'Mini-Plasma Turret'.", "Placement as the Laser Turret. Kills are credited to the deployer."],
+   "source": "item.cs LaserTurretBPack::deployShape; turret.cs LaserTurretB"
+  },
+  "MiniFlakTurretPack": {
+   "summary": "Deploys a Flak Turret that fires seeking flak missiles.",
+   "notes": ["Fires MiniFlakproj seekers with a 9.5 m blast and strong knockback. Range 75.", "Placement as the Laser Turret. Kills are credited to the deployer."],
+   "source": "item.cs MiniFlakTurretPack::deployShape; turret.cs MiniFlakTurret; baseProjData.cs MiniFlakproj"
+  },
+  "MiniSAMTurretPack": {
+   "summary": "Deploys a S.A.M Turret that fires slow homing missiles, which hit harder than flak.",
+   "notes": ["Fires MiniSAMproj seekers (30 m/s launch speed). Range 100.", "Placement as the Laser Turret. Kills are credited to the deployer."],
+   "source": "item.cs MiniSAMTurretPack::deployShape; turret.cs MiniSAMTurret; baseProjData.cs MiniSAMproj"
+  },
+  "MiniELFTurretPack": {
+   "summary": "Deploys a small ELF turret with a wide beam. The beam empties enemy energy and makes targets drop their weapon and pack.",
+   "notes": ["Sustained beam with a 35-degree cone that drains 1000 energy per second and does almost no damage. Range 60.", "Mini-ELF damage makes Player::onDamage drop the victim's pack and weapon.", "Placement as the Laser Turret. Kills are credited to the deployer."],
+   "source": "item.cs MiniELFTurretPack::deployShape; turret.cs MiniELFTurret; baseProjData.cs MiniELFTurretproj, MiniELFturretproj::damageTarget; player.cs Player::onDamage"
+  },
+  "MiniSmokeTurretPack": {
+   "summary": "The Grip Turret fires bolts that do no damage but pull nearby targets toward the impact and drain their energy.",
+   "notes": ["Fires IonEEBolt, a 5 m blast with negative knockback (-300) and Flash damage, which sets the victim's energy to 0 and their recharge to 6. Range 75.", "Has a light shield (0.05). Its default map name is 'Vortex Turret'. Kills are credited to the deployer."],
+   "source": "item.cs MiniSmokeTurretPack::deployShape; turret.cs MiniSmokeTurret, MiniSmokeTurret::onAdd; baseProjData.cs IonEEBolt"
+  },
+  "lgaForceFieldPack": {
+   "summary": "Deploys a large force-field door. Teammates pass through, and enemies are blocked.",
+   "notes": ["When a living teammate touches it, the door fades out and moves up 6 m, then drops back and fades in 1 s later. Enemies get no reaction.", "Deployed within 3 m with the fair-play own-base check, facing the way you face. There is no surface, flatness or clearance check.", "Script quirk: although the pack is labelled 4x14, it deploys the 4x17 field shape (lgaForceFieldShape, '4x17 Field Door').", "Destroyed doors damage things around them. Up to 12 per team."],
+   "source": "item.cs lgaForceFieldPack::deployShape; staticshape.cs lgaForceFieldShape and its onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "lgbForceFieldPack": {
+   "summary": "Deploys a 4x14 force-field door that opens for teammates and blocks enemies.",
+   "notes": ["Same open-for-1-second behavior and placement as the other FFDs. Up to 12 per team."],
+   "source": "item.cs lgbForceFieldPack::deployShape; staticshape.cs lgbForceFieldShape"
+  },
+  "medaForceFieldPack": {
+   "summary": "Deploys a 4x8 force-field door that opens for teammates and blocks enemies.",
+   "notes": ["Same open-for-1-second behavior and placement as the other FFDs. Up to 12 per team."],
+   "source": "item.cs medaForceFieldPack::deployShape; staticshape.cs medaForceFieldShape"
+  },
+  "medbForceFieldPack": {
+   "summary": "Deploys a 5x5 force-field door that opens for teammates and blocks enemies.",
+   "notes": ["Same open-for-1-second behavior and placement as the other FFDs. Up to 12 per team."],
+   "source": "item.cs medbForceFieldPack::deployShape; staticshape.cs medbForceFieldShape"
+  },
+  "medcForceFieldPack": {
+   "summary": "Deploys a small 3x4 force-field door that opens for teammates and blocks enemies.",
+   "notes": ["Same open-for-1-second behavior and placement as the other FFDs. Up to 12 per team."],
+   "source": "item.cs medcForceFieldPack::deployShape; staticshape.cs medcForceFieldShape"
+  },
+  "ElectricWeb": {
+   "summary": "Spins an electric web 2 m above where you stand. Every 0.1 s it shocks enemy players inside it and empties their energy.",
+   "notes": ["PlasmaDoorTurr::checkPlasmaDoorTurr scans a 4x4x3 box. Each enemy player inside takes two small Web-damage hits per tick, which set their energy to 0 and recharge to 6 ('You got caught in a Electric Web!').", "No placement checks: it appears at your position plus 2 m, whatever you are aiming at. Kills are credited to the deployer.", "Script bug: ElectricWeb::deployShape never returns true, so the pack is never used up. The team counter still rises, and deploying stops at 5."],
+   "source": "item.cs ElectricWeb::deployShape/onDeploy; turret.cs PlasmaDoorTurr, PlasmaDoorTurr::checkPlasmaDoorTurr; player.cs Player::onDamage"
+  },
+  "ArbitorBoxPack": {
+   "summary": "The Arbitor Device is a field cloaker. Once deployed, it makes your team's players, vehicles, structures and mines within about 100 m invisible.",
+   "notes": ["Can't be used within 100 m of either flag's starting position. Placed within 10 m on a flat surface that is not a player.", "When enabled, it fades out every friendly object in a 200x200x50 box. Every 6 s it rescans, cloaking newcomers and fading back in those that left, unless they have their own cloak.", "When disabled, everything it cloaked fades back in. Up to 3 per team."],
+   "source": "item.cs ArbitorBoxPack::onUse/deployShape, ArbitorBox::onEnabled/checkArbitorBox/onDisabled"
+  },
+  "JailCapPack": {
+   "summary": "Deploys a jail capture pad. An enemy who steps on it is teleported into the enemy jail for 20 seconds.",
+   "notes": ["Placed within 10 m, not on a player, and at least 10 m from your own flag.", "jailpad::onCollision ignores teammates ('You Stepped On Your Teams Jail Capture Pad'). An enemy is moved to every jail pad whose team is not theirs, told they are a Prisoner of War for 20 seconds, and released to a release pad 20 s later.", "Needs a deployed Jail Cell to send anyone anywhere. Up to 5 per team."],
+   "source": "item.cs JailCapPack::deployShape; staticshape.cs jailpad::onCollision, jLargeForceField::jailSesame"
+  },
+  "jailpack": {
+   "summary": "Builds your team's jail high in the sky: a force-field cell with a door, a teleport-in pad and a release pad on the roof.",
+   "notes": ["Can't be used within 111 m of either flag's starting position. One per team ('Can Not Deploy Jail Cell Already In Place').", "Builds about 80 m above you: LLargeForceField walls, a jail door that opens for 4 s only for the owning team, two switch towers, a jailStand teleport pad (added to the jailports set) with an electrical beam, and a jailStandTop release pad on top.", "The Jail-Gun and Jail Capture Trap send enemies here. Destroying a cell wall lowers the team count."],
+   "source": "item.cs jailpack::onUse/deployshape, CreatejailportSimSet, CreatereleasepadSimSet; staticshape.cs LLargeForceField, jLargeForceField, jailStand, jailStandTop"
+  },
+  "RemoteBase": {
+   "summary": "Drops a complete forward bunker on open terrain, with force-field walls, a team door, a plasma turret, a solar panel and an inventory station.",
+   "notes": ["Can't be used within 100 m of either flag's starting position. The spot must be terrain, 9 to 20 m away from you. One per team.", "Builds a bunker4 interior with three force-field walls (bLargeForceField) and a door (bdForceField) that opens for 4 s only for your team. Inside: a Plasma Turret on the roof, a Solar Panel and an Inventory Station. Kills are credited to the deployer.", "Script quirks: the surface check also accepts an object type 'Large Platform', which isn't a real type, and one team-count line uses an undefined variable."],
+   "source": "item.cs RemoteBase::onUse/onDeploy/deployShape; staticshape.cs bLargeForceField, bdForceField"
+  },
+  "AirBasePack": {
+   "summary": "The Sky Base builds a floating base 300 m above you, with vehicle, inventory and command stations.",
+   "notes": ["You must aim at terrain within 3 m and be at least 50 m from your own flag. One per team.", "Builds two floating-pad interiors (floor, and roof 38 m higher), force-field walls with 50000 health, a Vehicle Station and Vehicle Pad, an Inventory Station, a Command Station and two Solar Panels.", "You are not moved up to it, so you have to fly or jet there."],
+   "source": "item.cs AirBasePack::deployshape, AirBaseForceFieldLarge/Small"
+  },
+  "RepairKit": {
+   "summary": "A medkit that heals 0.99 damage instantly, nearly a full heal for light and medium suits. With default settings it never runs out.",
+   "notes": ["Unlike stock (0.2 heal, one use), it repairs 0.99 and is only used up when $UltraZX::Infinite::RepairKit is off. SettingsURZX.cs sets it on."],
+   "source": "item.cs RepairKit::onUse; SettingsURZX.cs"
+  },
+  "MineAmmo": {
+   "summary": "Thrown antipersonnel mines. They arm at rest and detonate on enemy contact with an EMP blast that strips the victim's gear.",
+   "notes": ["The mine does EMP damage: the victim's energy goes to 0 and they drop pack, weapon and flag.", "AntipersonelMine::onCollision only triggers for objects not on the mine's team. ","Used up unless an admin enables infinite mines. SettingsURZX.cs doesn't turn that option on."],
+   "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine; player.cs Player::onDamage"
+  },
+  "RadiusMineAmmo": {
+   "summary": "Thrown proximity mines with a pulsing light. They go off when an enemy comes within 10 m and blast a 20 m radius.",
+   "notes": ["Arms once at rest, like the normal mine. Its flag-shaped model glows.", "The team limit (1) is never checked when throwing. Used up unless an admin enables infinite radius mines."],
+   "source": "item.cs RadiusMineAmmo::onUse; Mine.cs RadiusMine; ZXNewMount.cs"
+  },
+  "Grenade": {
+   "summary": "In Ultra-ZX the grenade key is an air brake: using it stops you dead in mid-air or mid-run.",
+   "notes": ["Grenade::onUse sets your velocity to 0. It throws nothing.", "Infinite by default ($UltraZX::Infinite::Brake)."],
+   "source": "item.cs Grenade::onUse; SettingsURZX.cs"
+  },
+  "Beacon": {
+   "summary": "In Ultra-ZX the beacon key is a speed boost: it drops a no-damage charge at your feet whose blast launches anyone nearby.",
+   "notes": ["Beacon::onUse drops a Boost mine at zero throw strength, with 0.2 s between uses. Its explosion has a 20 m radius, very strong knockback and no damage.", "Boost has no onAdd of its own. Its className is Handgrenade, and Handgrenade::onAdd detonates the charge 2 s after it is placed. Any damage also sets it off at once (Boost::onDamage).", "Infinite by default ($UltraZX::Infinite::Boost)."],
+   "source": "item.cs Beacon::onUse; Mine.cs Boost"
+  },
+  "RepairPatch": {
+   "summary": "A repair pickup that heals far more than stock when run over.",
+   "notes": ["Running over it while damaged heals 0.5 (stock 0.125). Using it from inventory still heals 0.1."],
+   "source": "item.cs RepairPatch::onCollision/onUse"
+  },
+  "cactusPack": {
+   "summary": "The Flag Pack is a cosmetic backpack that shows a glowing flag on your back.",
+   "notes": ["It has no scripts of its own beyond the generic backpack mount. The image is the flag model with a pulsing light. Behavior beyond that was not determined from the scripts."],
+   "source": "item.cs cactusPack, cactuspackImage"
+  }
+ }
+}

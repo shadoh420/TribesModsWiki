@@ -1,0 +1,87 @@
+  RepairKit (Repair Kit): stats+scripts
+  RepairPatch (Repair Patch): stats+scripts
+  iarmorAngel (Rogue Angel): new
+  iarmorSpy (Chameleon Assassin): new
+  iarmorNecro (Necromancer): new
+  iarmorWarrior (Warrior): new
+  iarmorBuilder (Builder): new
+  iarmorTroll (Troll): new
+  iarmorTank (Tank): new
+  iarmorTitan (Titan): new
+  AngelFire (Angel Fire): new
+  AngelRepairGun (Bio Feedback Beam): new
+  BabyNukeAmmo (Nuclear Device): new
+  BabyNukeMortar (Baby Nuke Launcher): new
+  BabyNukeMortar2 (BabyNukeMortar2): new
+  GateGun (Portal Device): new
+  Blaster (Blaster): stats+scripts
+  BulletAmmoBase (Bullet): new
+  ChaingunBase (Chaingun): new
+  BulletAmmoElite (Bullet): new
+  ChaingunElite (Chaingun): new
+  DiscLauncher (Disc Launcher): stats+scripts
+  DiscAmmoBase (Disc Base): new
+  DiscLauncherBase (Disc Launcher Base): new
+  DiscAmmoElite (Disc Elite): new
+  DiscLauncherElite (Disc Launcher Elite): new
+  Fixit (Builder's Tool): new
+  FlamerAmmo (FlamerAmmo): new
+  Flamer (Flamer): new
+  FlameThrowerAmmo (Flame Cartridges): new
+  FlameThrower (Flame Thrower): new
+  GrenadeAmmo (Mini ammo): renamed+stats
+  GrenadeLauncher (Mini Bomber): renamed+stats+scripts
+  GrenadeAmmoBase (Grenade Ammo): new
+  GrenadeLauncherBase (Grenade Launcher): new
+  HammerAmmo (Hammer Ammo): new
+  Hammer (Lucifers Hammer): new
+  Heavensfury (Heaven's Fury): new
+  JailGun (Jailers Gun): new
+  Mortar (Mortar): stats+scripts
+  OSAmmo (OS Rockets): new
+  OSLauncher (OS Laucher): new
+  ParticleBeamWeapon (Particle Beam): new
+  ParticleBeamWeapon5 (ParticleBeamWeapon5): new
+  PhaseAmmo (Disrupter Ammo): new
+  PhaseDisrupter (Phase Disrupter): new
+  Grabbler (Pitchfork): new
+  Pitchfork (Pitchfork): new
+  PlasmaAmmo (PlasmaBolt): renamed+stats
+  PlasmaGun (Plasma Gun): stats+scripts
+  PlasmaAmmoBase (PlasmaBolt Base): new
+  PlasmaGunBase (Plasma Gun Base): new
+  RailAmmo (Railgun Bolt): new
+  Railgun (Railgun): new
+  HarpoonAmmo (Harpoons): new
+  Harpoon (Heaven's Harpoon): new
+  HarpoonScope (HarpoonScope): new
+  HarpoonClip (HarpoonClip): new
+  RocketAmmo (Rockets): new
+  RocketLauncher (Rocket Launcher): new
+  RocketLauncherSight (Rocket Launcher): new
+  GrapplingHook (Grappling Hook): new
+  RopeCan (RopeCan): new
+  RubberAmmo (R Mortar Ammo): new
+  RubberMortar (Rubbery Mortar): new
+  ShockwaveGun (Shockwave Cannon): new
+  ShotgunShells (Shotgun Shells): new
+  Shotgun (Shotgun): new
+  LaserRifle (Laser Rifle): stats+scripts
+  SniperAmmo (Sniper Ammo): new
+  SniperRifle (Sniper Rifle): new
+  SoulSucker (Soul Grabber): new
+  SoulSuckerR (SoulSuckerR): new
+  SoulSuckerL (SoulSuckerL): new
+  SoulSuckerB (SoulSuckerB): new
+  DeathRay (Spell: Death Ray): new
+  DeathRayBeam (Spell: Death Ray): new
+  DisarmerSpell (Spell: Disarm): new
+  FlameStrike (Spell: Flame Strike): new
+  SpellFlameThrower (Spell: Flame Thrower): new
+  ShockingGrasp (Spell: Shocking Grasp): new
+  ShockingGrasp2 (Spell: Shocking Grasp): new
+  Stasis (Spell: Stasis): new
+  StingerAmmo (Stinger Ammo): new
+  Stinger (Stinger Missle): new
+  TBlastCannonAmmo (Blast Cannon Shots): new
+  TBlastCannon (Tank Blast Cannon): new

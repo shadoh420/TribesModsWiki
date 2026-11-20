@@ -1,0 +1,90 @@
+{
+ "mod": {
+  "overview": "Balance of Power (BOP v1.85) is an objective and engineering overhaul for Tribes created by James C. Vetsch (Hakuryu / QA.MAN.9) in September 1999. The mod expands base Capture the Flag mechanics by allowing teams to relocate their home flags to player-built defensive positions while constructing floating aerial bases using mid-air deployable platforms. Gameplay introduces three specialized classes including the Flag Mover, Sensor Network Armor, and Medic, backed by cloaking, heat sinks, remote sniper turrets, and deceptive flag mines. Match performance is tracked across all weapon types and support roles, culminating in an end-of-match awards screen celebrating each player weapon of choice, specialized ranks, and mission achievements.",
+  "notes": [
+   "Classes and Roles: Balance of Power introduces three dedicated specialist classes alongside standard Light, Medium, and Heavy armors. The Flag Mover is a light armor class with 3 weapon slots dedicated to moving the team flag to remote flagstands, though it cannot capture enemy flags or switch armors while carrying the flag. The Sensor Network Armor is a medium class with 3 weapon slots that stacks up to 5 of each sensor deployable in one pack and can pilot base or field turrets from anywhere without needing a Command Station. The Medic Armor is a medium class carrying 2 weapon slots and up to 5 repair kits that repairs players and equipment at double speed while creating new repair kits from personal energy.",
+   "Flag Relocation and CTF Rules: Defending teams can relocate their home flag up to 70 meters away from its original spawn point onto player-deployed Flag Stands built inside buildings. Map balance checks prevent hiding the flag under air platforms (minimum 7-meter distance required), behind deployable walls (minimum 14-meter distance), or inside force fields (minimum 3-meter distance). Returning a dropped friendly flag from more than 100 meters away grants a 5-point bonus, while flag captures award a 10-point bonus to the carrier.",
+   "Aerial Fortifications and Platform Collapse: Players in Medium or Heavy armor can deploy small (6x6) and large (16x16) Air Platforms mid-flight at their current coordinates to erect floating sky bases. Platforms can support inventory stations, ammo stations, motion sensors, cameras, turrets, walls, and force fields. However, a structural collapse mechanic applies: if a supporting platform or deployable wall is destroyed, every static shape and turret mounted upon it receives massive collateral damage and is destroyed simultaneously.",
+   "Expanded Base Deployables: Defense arsenals feature deployable walls, small and large force fields, down-angled Satellite Cameras deployed mid-air for wide-area sensor tracking, deployable Rocket Turrets that lock onto heat sources, and deployable ELF Turrets that drain enemy power. Laser Turrets fire high-damage sniper beams with a 30-meter range, restricted to one per defensive grid, and can be manually piloted by Sensor Armor or command terminals for long-distance perimeter defense. All deployable turrets bypass team damage scaling so teammates can clear them even when team damage is disabled.",
+   "Deceptive Ordnance and Tactical Packs: Mine throwing keys cycle through available stocks, supporting standard anti-personnel mines, weightless Air Mines that float mid-air where thrown, and Flag Mines that disguise themselves as real team flags and detonate only when touched by enemies. Tactical gear includes the Cloaking Pack (complete visual transparency and 20 sensor suppression), the Heat Sink Pack (drops heat factor to zero to ignore rocket turrets and seeking missiles), the Repair Kit Maker (spends 40 energy to throw a repair kit forward), and the Mine Layer Pack (boosts mine carrying capacity up to 10 or 11 mines).",
+   "Custom Aircraft and Combat Vehicles: Vehicle stations offer two specialized combat craft alongside standard base vehicles. The DogFighter is an ultra-agile interceptor flyer reaching speeds of 55, equipped with rapid-fire blaster cannons dealing 0.21 bullet damage at a 0.1-second reload delay, balanced by thin armor vulnerable to chaingun and missile fire. The Quick LPC is a high-speed troop transport reaching scout top speeds of 40, sacrificing defensive plating to the point where two direct laser rifle hits will destroy it.",
+   "Weapon of Choice and End-Game Rankings: The mod tracks all individual weapon kills across eight armament categories, along with flag captures, flag drops, object repairs, and teammate repairs as persistent inventory items under the zCounts ammunition tab. These counters automatically persist across player deaths. At match conclusion, the mission screen celebrates category leaders with titles including Most Flag Caps, Repairs Master, Sniper Master, Mortar Master, Points Leaders, and Kills Leaders displaying their personal Weapon of Choice, awarding ranks from Apprentice to Master and GrandMaster.",
+   "Player Options and In-Game Guidance: When connecting to a server, players receive a setup menu prompting them to choose between their personal skin (Option 0) or the team default skin (Option 1). An integrated guidance system displays contextual bottomprint messages explaining equipment roles and deployment tactics whenever a player purchases specialist armors, deployables, packs, or vehicles at inventory and vehicle stations."
+  ]
+ },
+ "items": {
+  "FlagArmor": {
+   "summary": "Specialist light armor designed specifically to relocate the team flag to fortified positions.",
+   "notes": [
+    "Built on the light armor chassis with 0.66 max damage, 11 max speed, and 3 weapon slots.",
+    "The only class permitted to pick up its own team flag from its stand to relocate it to a deployable flagstand.",
+    "Forbidden from capturing the enemy flag to score and cannot change armors at inventory stations while carrying the team flag.",
+    "Takes increased damage from bullets, blasters, mortars, shrapnel, mines, and energy weapons."
+   ],
+   "source": "myarmordata.cs"
+  },
+  "SensorArmor": {
+   "summary": "Medium recon armor with direct remote turret control and multi-sensor carrying capacity.",
+   "notes": [
+    "Can carry up to 5 of each sensor deployable including motion sensors, pulse sensors, cameras, and satellite cameras in a single stack.",
+    "Can directly control base and field turrets from anywhere without needing a physical Command Station.",
+    "Has 1.0 max damage and 3 weapon slots, takes 0.6x landing damage, but suffers 1.5x damage from laser rifles."
+   ],
+   "source": "myarmordata.cs"
+  },
+  "MedicArmor": {
+   "summary": "Support medium armor featuring expanded repair kit capacity and accelerated repair speed.",
+   "notes": [
+    "Carries up to 5 repair kits in personal inventory and receives a full restock upon purchase.",
+    "Repairs self at a rate of 0.10, double the standard 0.05 rate of other armors.",
+    "Restricted to 2 weapon slots and cannot equip heavy siege weapons such as grenade launchers or mortars."
+   ],
+   "source": "myarmordata.cs"
+  },
+  "FlagstandPack": {
+   "summary": "Deployable flag base used to relocate friendly flags or hold captured enemy flags.",
+   "notes": [
+    "Must be deployed on interior building surfaces within 70 meters of the team flag original position.",
+    "Touching the stand while carrying a friendly flag relocates the team flag to the stand; touching with an enemy flag places it in holding.",
+    "Teams are limited to a maximum of 6 deployable flagstands."
+   ],
+   "source": "myitem.cs"
+  },
+  "AirPlatformPack": {
+   "summary": "Floating mid-air platform enabling teams to construct aerial defensive fortifications and sky bases.",
+   "notes": [
+    "Deploys mid-air at the player current position when used during flight, creating elevated staging areas.",
+    "Cannot be deployed within 7 meters of the team flag or its original spawn position.",
+    "Supports stations, turrets, sensors, walls, and force fields, but collapsing the platform destroys all objects built upon it."
+   ],
+   "source": "myitem.cs"
+  },
+  "CloakPack": {
+   "summary": "Active stealth backpack providing visual invisibility and increased sensor suppression.",
+   "notes": [
+    "Fades the player character model out completely on activation and increases sensor suppression by 20.",
+    "Deactivating the pack fades the character back in and resets sensor suppression.",
+    "Available to Light Armor and Medium Armor classes for 300 credits."
+   ],
+   "source": "myitem.cs"
+  },
+  "HeatSinkPack": {
+   "summary": "Passive thermal dampener that renders the wearer invisible to heat-seeking missiles and rocket turrets.",
+   "notes": [
+    "Forces player heat factor to zero, preventing automated rocket turrets from acquiring a target lock.",
+    "Defeats heat-seeking missile tracking capabilities.",
+    "Can be equipped by Light, Medium, and Heavy armor classes for 200 credits."
+   ],
+   "source": "myitem.cs"
+  },
+  "flagmineammo": {
+   "summary": "Deceptive mine disguised as an authentic team flag that detonates only on enemy contact.",
+   "notes": [
+    "Thrown using the standard Mine key when no regular anti-personnel mines are present in inventory.",
+    "Uses the team flag shape file, coming to rest as an upright stationary flag duplicate.",
+    "Checks team ownership on contact, allowing teammates to pass safely while detonating on enemy players."
+   ],
+   "source": "mymine.cs"
+  }
+ }
+}

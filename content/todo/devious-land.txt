@@ -1,0 +1,47 @@
+# devious-land vs base (46 items)
+new        KineticArmor                 Vandal KineticArmor
+new        SniperArmor                  Vandal SniperSuit
+new        DoomArmor                    Empire DoomArmor
+new        ErectorArmor                 Empire ErectorArmor
+new        ArbiterArmor                 ArbiterArmor
+new        GrandMantle                  GrandArbiter Mantle
+new        GrandArbiterArmor            (GrandArbiter Armor)
+new        ChosenArmor                  (Arbiter ChosenArmor)
+new        Larva                        Insatiable Larva
+new        Parasite                     Insatiallis Tripanosoma
+new        LarvalArmor                  (Larval Armor)
+new        IAdultArmor                  (Drone Armor)
+new        QueenArmor                   (PainMistress)
+new        EmpireTank                   Empire Flying Tank
+new        VandalInterceptor            Vandal Interceptor
+new        ArbiterPod                   Arbiter Pod
+new        Spore                        Insatiable Sporethrower
+new        SporeMine                    Insatiable Sporemines
+new        Immol                        Immolator Missile
+new        SniperRounds                 Sniper Rounds
+new        VandalSniper                 Vandal Sniper Rifle
+new        Hypercannon                  Vandal HyperBlaster
+new        DoomAmmo                     Doom Bullet
+new        Doomcannon                   Doom Cannon
+new        SluggardAmmo                 Sluggard Shots
+new        Sluggard                     Doom Sluggard
+new        EmpireLaser                  Empire Laser Rifle
+new        DeathTouch                   Kinetic Death-Touch
+new        ChosenRifle                  Arbiter ChosenRifle
+new        ArbiterHeavyFusion           Arbiter HeavyFusion
+new        ArbiterFusionGun             Arbiter FusionGun
+stats      Blaster                      Blaster
+stats      EnergyRifle                  ELF Gun
+new        Flechette                    Flechette Gun
+new        LifeDrain                    LifeDrain
+new        PlasmaThrower                PlasmaStream
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    AmmoPack                     Ammo Pack
+new        PortaGen                     Erector Generator
+new        DeployableWall               Erector Wall
+new        DeployableTree               Vandal Hologram
+new        Satellite                    Arbiter Satellite
+new        DeployableNest               Nest
+scripts    TurretPack                   Turret
+new        Cloak                        Cloaking Pack

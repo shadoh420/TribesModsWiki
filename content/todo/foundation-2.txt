@@ -1,0 +1,34 @@
+# foundation-2 vs base (33 items)
+stats+scriptsLightArmor                   Light Armor
+stats+scriptsMediumArmor                  Medium Armor
+stats+scriptsHeavyArmor                   Heavy Armor
+stats      Blaster                      Blaster
+stats      BulletAmmo                   Bullet
+stats      Chaingun                     Chaingun
+stats      PlasmaAmmo                   Plasma Bolt
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeAmmo                  Grenade Ammo
+stats      GrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+stats      Mortar                       Mortar
+stats      DiscAmmo                     Disc
+stats      DiscLauncher                 Disc Launcher
+stats+scriptsLaserRifle                   Laser Rifle
+stats      EnergyRifle                  ELF Gun
+stats      TargetingLaser               Targeting Laser
+stats+scriptsEnergyPack                   Energy Pack
+stats+scriptsAmmoPack                     Ammo Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+stats      DeployableSensorJammerPack   Sensor Jammer
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsMotionSensorPack             Motion Sensor
+stats      PulseSensorPack              Pulse Sensor
+stats+scriptsCameraPack                   Camera
+stats+scriptsRepairKit                    Repair Kit
+stats      RepairPatch                  Repair Patch
+stats+scriptsGrenade                      Grenade
+stats      ScoutVehicle                 Scout
+stats      LAPCVehicle                  LPC
+stats      HAPCVehicle                  HPC

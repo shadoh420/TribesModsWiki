@@ -1,0 +1,10 @@
+{
+ "mod": {
+  "overview": "Shifter Advanced (Yukichigai's unreleased 2001-08-19 build, branched from Emo1313's 09-28-2000 Shifter) is an early precursor to the Shifter_v1Y line. It simplifies station lists directly into station.cs, moves damage scaling out of damage.cs, adds experimental Magnum variants (Magnum, Silencer2, Sil, Sil2), and removes JammerBeaconPack and the Mercenary shoulder Booster1Pack/Booster2Pack items.",
+  "notes": [
+   "Earlier prototype in Yukichigai's modding history before Shifter FAMM and Shifter_v1Y (marked as unreleased and potentially incomplete in the Tribes-1-Archive notes).",
+   "Keeps the nine buyable armor classes and weapon caps from Shifter 09-28-2000 ($MaxWeapons: Scout 2, Chemeleon 3, Assassin 3, Mercenary 5, Goliath 4, Engineer 4, Arbitor 4, DreadNaught 4, Juggernaught 3).",
+   "Adds Magnum, Silencer2, Sil, and Sil2 weapon datablocks while removing JammerBeaconPack, Booster1Pack, and Booster2Pack."
+  ]
+ }
+}

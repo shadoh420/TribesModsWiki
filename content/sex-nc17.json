@@ -1,0 +1,34 @@
+{
+ "mod": {
+  "overview": "SEX mod NC17 (Sex.v.NC17) is .:(A):.Armagedon's May 2004 revision of Plasmatic's Sex mod 3 for Tribes 1, built on base Tribes into a chaotic, comedic sandbox of overpowered trick weapons, teleporters, custom deployables, and admin pranks. Instead of slow base-raiding attrition, matches start fast with 0.1-second respawns, 10-second spawn invulnerability (5 seconds on respawn), and an immediate mobile QuickInv uplink so players can gear up before leaving the pad. Gameplay shifts heavily toward mobility tricks, status effects, and base-fortification building—players blink across the map, phase through walls, swap bodies with enemies, rain mines and stink cans, or switch into Builder mode for unlimited deployables. Standard CTF, Siege, and DM mission types are supported alongside server-wide toggles for indestructible generators and stations (BaseRape), BaseHeal, NoPlayerDamage, and voteable Builder mode.",
+  "notes": [
+   "Armor classes and carry limits: Light (larmor/lfemale: 0.66 maxDamage, 25 maxForwardSpeed, 450 jetForce, 4 weapons max), Medium (marmor/mfemale: 1.0 maxDamage, 15.0 speed, 480 jetForce, 5 weapons max), and Heavy (harmor: 1.32 maxDamage, 10.0 speed, 505 jetForce, 6 weapons max). GhostArmor (lghost/fghost) mirrors Light stats with 4 weapon slots and phases through walls via GhostPack.",
+   "Light specializes in trick gear (Blaster/Cherry Popper, MindFuk, SoulSucker, EnergyRifle/Orgasm Gun, JumperPack short-range line-of-sight blink, TeleportPack waypoint jump, GhostPack, HellPack bomb rain); Medium specializes in artillery and utility (OSPack camera rocket, InvTree bush, Chaingun/Pepper Gun, PlasmaGun/Money $hot Cannon, needlelauncher, Mortar/Funk Tosser, AgedonGun, ShotDiscGun); Heavy carries up to 6 weapons including exclusive HoTosser blow-up doll launcher plus AgedonGun, ShotDiscGun, Mortar, and PlasmaticGun.",
+   "Controls, menus, and chat: No # chat commands exist; press Tab for the 'SEX mod options' menu (Personal Options for spawn quick-inventory and weapon help, Change Teams/Observe, Vote Mission/Time/Damage/Builder/Player punishments). In chat, '=text' whispers to a selected player, typing both 'god' and 'damn' strikes the speaker dead for blasphemy, and admins can broadcast with '!text' or '!!text'.",
+   "Combat and status effects: MindFuk swaps attacker and target bodies for 6.1 s; EnergyRifle tractor-beams targets while draining enemy energy to make them fumble weapons/flags or repairing allies; Mortar inflicts 30 s poison damage; PlasmaticGun (Phrailter) charges up to 100 with an EnergyPack for multi-shell bursts; Miner and AgedonGun split mid-flight into 15 MajikMines or exploding sub-munitions; SoulSucker locks onto targets within 50 m; Grabbler (Pitchfork) telekinetically moves players and deployables.",
+   "Deployables and Builder mode: Players can deploy Blue Doors (door5x5pack, door4x14pack), BlastWalls, platforms (plat), Mr. Twig barriers (Twig) that damage enemies and open for teammates, Girly Girl decoys (Girl), multiple custom turrets (ZapperPack, PencilPack, vortexTurretPack, TurretPack), and remote Hucker turrets shot out to 250 m with HuckerGun (blocked within 55 m of enemy flags). When Builder mode ($Build) is enabled by an admin or vote, deployables are not consumed on placement and Blaster/SoulSucker switch to builder behavior.",
+   "Vehicles: Three modified fliers are purchasable (team limits 10 Scouts, 2 LAPCs, 1 HAPC in station.cs): Scout (Bandit, speed 120) rapid-fires PencilShells, LAPC drops downward MortarTurretShells at 30 energy per shot, and HAPC fires trailing HAPCRocket missiles.",
+   "Rules and explicit inventory bans: $InvList[OSLauncher] = 0 and $RemoteInvList[OSLauncher] = 0 (mounted via OSPack), $InvList[PenisPack] = 0 and $RemoteInvList[PenisPack] = 0 (and $ItemMax = 0 on all armors), and $RemoteInvList = 0 for DeployableInvPack, GhostPack, and InvTree (full base stations only). LaserRifle, GrenadeLauncher, and GrenadeAmmo are removed from the station lists.",
+   "Spawns and server switches: No bots are present; players respawn in 0.1 s in Light Armor with EnergyRifle, Rocklauncher, Disclauncher, Blaster, TurretPack, RepairKit, Beacon, MineAmmo, and Grenade, receiving 10 s invulnerability on initial drop (5 s on respawn) plus a temporary mobile QuickInv uplink window. Admins and votes can also toggle BaseRape (invulnerable generators/stations), BaseHeal, NoPlayerDamage, FairTeams, Flag captures, and fun punishments (Blind, Freeze, PenaltyBox, Slap, To The Moon, Happy Flag Curse).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): OSLauncher (station.cs), PenisPack (armorData.cs); Blocked at Remote Stations ($RemoteInvList = 0): DeployableInvPack (station.cs), GhostPack (item.cs), InvTree (item.cs)."
+  ]
+ },
+ "items": {
+  "MindFuk": {
+   "summary": "Sustained energy beam weapon that temporarily swaps bodies between the shooter and target player.",
+   "notes": [
+    "Available only to Light Armor ($ItemMax=1 for larmor/lfemale; 0 for medium and heavy).",
+    "Firing the beam on a player swaps client control and ownership between the attacker and victim for 6.1 seconds before returning both players to their original bodies."
+   ],
+   "source": "item.cs, armorData.cs"
+  },
+  "PenisPack": {
+   "summary": "Banned joke/curse backpack that cannot be unmounted or dropped once attached.",
+   "notes": [
+    "Set to $InvList=0, $RemoteInvList=0, and $ItemMax=0 across all standard armors so players cannot buy it normally.",
+    "PenisPack::onUnMount and PenisPack::onDrop refuse removal with 'The curse can not be removed so easily.', and game.cs schedules a random 10-40 s penis() trigger on spawn when %clientId.penis is flagged."
+   ],
+   "source": "armorData.cs, item.cs, game.cs"
+  }
+ }
+}

@@ -1,0 +1,24 @@
+ultra-vx5-hunter: 32 of 89 need write-ups
+  HunterArmor (Hunter Armor): new
+  SmScreenAbility (Smoke Screen): renamed+stats
+  Chaingun (Atomizer): renamed+stats
+  LiLPOOmki (LiLPOOmki): renamed+stats
+  LiLPOOmkii (LiLPOOmkii): renamed+stats
+  LiLFFB (LiL FFB): renamed+stats
+  LiLRocketLauncher (LiL Rocket Launcher): renamed+stats+scripts
+  LiLEMPRocketLauncher (EMP Rocket Launcher): renamed+stats+scripts
+  HBeamOfPain (Flag Stripper): new
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  LaserRifle (Raptor Rifle): renamed+stats+scripts
+  RaptorRifle (Raptor Rifle): new
+  Torque (Torque Cannon): new
+  TribesArm (phase shifter): new
+  RocketLauncher (Star Burster): new
+  GrenadeLauncher (Napalm Launcher): renamed+stats
+  JetR (Jet Right): new
+  JetL (Jet Left): new
+  Booster1Pack (Booster Pack): new
+  Booster2Pack (Booster Pack): new

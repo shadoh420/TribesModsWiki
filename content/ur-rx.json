@@ -1,0 +1,154 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades RX (March 2004) is a stripped-down arena build on stock Tribes scripts. There is one armor (Medium), no backpacks or deployables, and every stock weapon slot is filled by a new gun: Raptor Rifle, RailGun, Shredder, Torque, Napalm Launcher, Vaporizer and a homing Rocket Launcher, each with its own ammo. Mines become EMP air mines, the Grenade is an air brake and the Beacon a speed booster, and Repair Kits and Patches heal you fully.",
+    "notes": [
+      "Only Medium Armor exists (marmor/mfemale): 0.66 health, 100 energy. Light Armor, Heavy Armor, every backpack and deployable, the Targeting Laser, the APC vehicles and the stock ammo items (Bullet, Plasma, Grenade, Mortar) are removed.",
+      "Buying Medium Armor gives Booster1Pack and Booster2Pack and mounts them in slots 4 and 5, 0.3 s later.",
+      "Damage types are renumbered: Energy 4, Raptor 5, Rail 6, Disc 7, Napalm 8, Electricity 9, Crush 10, Debris 11, Missile 12, EMP 13, Torque 14, Shredder 15, Vapor 16. The stock Bullet, Plasma, Explosion, Shrapnel, Laser, Mortar, Blaster and Mine types are never assigned, so the laser head-shot bonus in Player::onDamage never applies.",
+      "EMP damage (the air mine) runs Insomniax_startEMP: \"You ran into a air mine!\", your weapon is unmounted, and energy and recharge go to 0. checkPlayerEMP counts down 2 every 2 s from 5 (about 6 s), then restores recharge 8 with \"Your energy systems are now on-line.\" Its gentler earmor/efemale branch is dead code, since no such armor exists here.",
+      "Default spawn kit: Medium Armor, RailGun, Shredder, Torque, Disc Launcher, Napalm Launcher, Rocket Launcher, Raptor Rifle, Mine, Grenade, Beacon, Repair Kit.",
+      "VX heritage: RX ships wpn_raptor.cs, wpn_torque.cs, wpn_rocket.cs, wpn_napalm.cs and booster.CS under the same names as VX5 Hunter. It shares the Raptor Rifle (RaptorProj, damageConversion 10), the ProjNapalm grenade, the Booster packs with the undefined CHANGEMEPLZ projectile, the RocketLockWarning lock-on, and the VX AirBrake grenade and Speed Booster beacon. The two builds' files are not identical."
+    ]
+  },
+  "items": {
+    "RepairKit": {
+      "summary": "Heals you completely: a kit repairs 0.66, a Medium Armor's whole health.",
+      "notes": [
+        "Unlike stock (0.2), it repairs 0.66. It is still used up; you may carry 5."
+      ],
+      "source": "item.cs RepairKit::onUse; ArmorData.cs"
+    },
+    "MineAmmo": {
+      "summary": "Air Mine: a small floating sensor-shaped mine that arms the instant it is thrown, so it can hang in mid-air. It EMPs whoever touches it.",
+      "notes": [
+        "Unlike stock, deployCheck does not wait for the mine to come to rest or play a deploy animation; it activates immediately. It still detonates if another mine is within 1 m.",
+        "AntipersonelMine does EMP damage (see the mod notes for the effect), radius 10. onCollision has no team check, so anyone can set it off.",
+        "Still used up (5 per armor, 0.5 s between throws)."
+      ],
+      "source": "Mine.cs AntipersonelMine, deployCheck, onCollision; item.cs MineAmmo::onUse; player.cs Insomniax_startEMP"
+    },
+    "Grenade": {
+      "summary": "AirBrake: using a grenade cuts your velocity to one sixth and prints \"You used an AirBrake.\" It is never used up.",
+      "notes": [
+        "Replaces stock's thrown hand grenade. onUse does not remove the item."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "Speed Booster: drops a Boost mine at your feet whose zero-damage blast (kickback 500) throws you. It is never used up.",
+      "notes": [
+        "Replaces stock's targeting beacon. onUse throws a Boost mine with zero force, prints \"You used a Speed Booster.\" and allows another use after 0.2 s.",
+        "Boost (booster.CS) detonates as soon as it takes any damage."
+      ],
+      "source": "item.cs Beacon::onUse; booster.CS Boost, Boost::onDamage"
+    },
+    "RepairPatch": {
+      "summary": "A repair patch now restores a full Medium Armor's health (0.66) instead of stock's 0.1.",
+      "notes": [
+        "Still used up when used."
+      ],
+      "source": "item.cs RepairPatch::onUse"
+    },
+    "LaserRifle": {
+      "summary": "Raptor Rifle: a rapid-fire paint-gun beam that costs very little energy and needs no Energy Pack. Two hits kill.",
+      "notes": [
+        "wpn_raptor.cs replaces the laser. LaserRifleImage fires RaptorProj every 0.08 s, drawing 0.05 energy per shot. At damageConversion 10 that is about 0.5 damage per hit against 0.66 health.",
+        "No Energy Pack requirement (there are no backpacks in RX). Raptor damage type, so no laser head-shot bonus."
+      ],
+      "source": "wpn_raptor.cs LaserRifleImage, RaptorProj"
+    },
+    "RailAmmo": {
+      "summary": "Ammunition for the RailGun.",
+      "notes": [],
+      "source": "wpn_rail.cs"
+    },
+    "Blaster": {
+      "summary": "RailGun: replaces the Blaster with an ammo-fed rail rifle firing very fast, accelerating slugs with a small blast.",
+      "notes": [
+        "BlasterImage fires ProjRail (Rail damage, 2.5 m blast, kickback 80) every 0.1 s, using Rail Ammo instead of energy.",
+        "ProjRail starts at 3000 and accelerates toward 9000."
+      ],
+      "source": "wpn_rail.cs BlasterImage, ProjRail"
+    },
+    "ShredderAmmo": {
+      "summary": "Ammunition for the Shredder; each shot uses one.",
+      "notes": [],
+      "source": "wpn_shredder.cs"
+    },
+    "Chaingun": {
+      "summary": "Shredder: replaces the Chaingun with a shotgun that fires five Shredder pellets per shot.",
+      "notes": [
+        "ChaingunImage::onFire uses one Shredder Ammo and spawns five ProjShredder pellets (Shredder damage, slight spread, 0.5 s life). With no ammo it says \"You Ran Out Of Ammo for the shredder\".",
+        "The image's own projectileType is undefinedproj; all shots come from onFire. After each shot ShredderNoFireAnim unmounts and remounts the gun.",
+        "Each shot also sends a chat message made of the unset %msg plus the mortar_fire sound, so only the sound plays.",
+        "0.25 s reload; it is no longer a spinning weapon."
+      ],
+      "source": "wpn_shredder.cs ChaingunImage::onFire, ShredderNoFireAnim, ProjShredder"
+    },
+    "TorqueAmmo": {
+      "summary": "Torque Cells: ammunition for the Torque.",
+      "notes": [],
+      "source": "wpn_torque.cs"
+    },
+    "PlasmaGun": {
+      "summary": "Torque: replaces the Plasma Gun with a launcher of large shield-shaped rockets that trail shields and explode with a wide, hard-pushing blast.",
+      "notes": [
+        "PlasmaGunImage fires ProjTorque (Torque damage, 9.5 m blast, kickback 250) with a 0.2 s reload, using Torque Cells."
+      ],
+      "source": "wpn_torque.cs PlasmaGunImage, ProjTorque"
+    },
+    "NapalmAmmo": {
+      "summary": "Ammunition for the Napalm Launcher.",
+      "notes": [],
+      "source": "wpn_napalm.cs"
+    },
+    "GrenadeLauncher": {
+      "summary": "Napalm Launcher: lobs bouncing napalm grenades, five times faster than stock's grenade launcher.",
+      "notes": [
+        "GrenadeLauncherImage fires ProjNapalm (Napalm damage, 15 m blast) with 0.1 s fire and reload (stock 0.5 each), using Napalm Ammo.",
+        "No script gives Napalm damage a burning effect."
+      ],
+      "source": "wpn_napalm.cs GrenadeLauncherImage, ProjNapalm"
+    },
+    "VaporAmmo": {
+      "summary": "Ammunition for the Vaporizer.",
+      "notes": [],
+      "source": "wpn_vapor.cs"
+    },
+    "Mortar": {
+      "summary": "Vaporizer: replaces the Mortar with a fast-firing launcher of flat-flying shells that burst after about a second, with a 20 m blast.",
+      "notes": [
+        "MortarImage fires ProjVapor (Vapor damage) every 0.35 s (stock mortar 2.0 s fire time), using Vapor Ammo.",
+        "ProjVapor flies flat for up to 1000 m before dropping, but its total time is 1 s, so it explodes about a second after firing."
+      ],
+      "source": "wpn_vapor.cs MortarImage, ProjVapor"
+    },
+    "RocketAmmo": {
+      "summary": "Ammunition for the Rocket Launcher.",
+      "notes": [],
+      "source": "wpn_rocket.cs"
+    },
+    "EnergyRifle": {
+      "summary": "Rocket Launcher: replaces the ELF Gun. It fires a homing missile at a player or flier you are aiming at, or a straight rocket otherwise.",
+      "notes": [
+        "EnergyRifleImage::onFire uses one Rocket Ammo and checks line of sight out to 1000 m. On a Player or Flier it sends RocketLockWarning and fires ProjSeeker (a seeking missile) at it. Otherwise it fires ProjRocket. Both are Missile damage with a 9 m blast.",
+        "0.2 s reload."
+      ],
+      "source": "wpn_rocket.cs EnergyRifleImage::onFire, ProjSeeker, ProjRocket, RocketLockWarning"
+    },
+    "Booster1Pack": {
+      "summary": "Booster Pack (right side): a mortar-gun shape mounted on every Medium Armor when it is bought. It does nothing.",
+      "notes": [
+        "buyItem mounts it in slot 4 after 0.3 s. Unlike VX5 Hunter's version, its onActivate is empty, and its CHANGEMEPLZ projectile is not defined anywhere."
+      ],
+      "source": "booster.CS Booster1PackImage; item.cs buyItem"
+    },
+    "Booster2Pack": {
+      "summary": "Booster Pack (left side): the matching shape mounted in slot 5 with Medium Armor. It does nothing.",
+      "notes": [
+        "Empty onActivate; CHANGEMEPLZ projectile undefined. booster.CS also sets a damage scale for $BoostDamageType, which is never assigned."
+      ],
+      "source": "booster.CS Booster2PackImage; item.cs buyItem"
+    }
+  }
+}

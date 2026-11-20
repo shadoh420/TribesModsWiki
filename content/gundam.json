@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "Gundam Wing (GundamWvx1) is a 2001 total conversion mod created by LoD|ZechsMerqise, built upon the Starsiege Craft 1.19 framework. The mod replaces StarCraft-themed units with mobile suits from the Gundam Wing anime, including Wing Zero, Heavyarms, Deathscythe, Epyon, Tallgeese, and production suits like Leos and Virgos. Teams clash across standard Tribes mission modes such as Capture the Flag and Team Deathmatch using a shared team energy economy to purchase mobile suits, heavy beam arsenals, deployables, and combat fliers. Gameplay feels fast and destructive compared to its parent mod, cutting legacy command laptops and satchel charges in favor of instant mobile suit thrusters, anime-inspired heavy weapons, line-of-sight missile locks, and lethal melee combos.",
+  "notes": [
+   "Mobile Suits and Loadouts: Players select from 14 distinct mobile suits based on Gundam Wing designs, ranging from light units like Virgo, Taurus, and Leo, to agile skirmishers like Deathscythe and Wing, heavy combat units like Heavyarms, Sandrock, and Deathscythe Hell, up to elite command units like Wing Zero, Epyon, and Tallgeese, plus the Worker builder suit. Most mobile suits carry up to 3 weapons, while Wing Zero, Epyon, Tallgeese, and the starter Gundam Pilot chassis can carry 4 weapons, with top ground speeds scaling up to 20 units.",
+   "Controls and Special Abilities: Special abilities are activated directly through the Grenade and Beacon keybinds rather than chat commands. Pressing the grenade key throws suit-specific munitions, including Wing Zero virus canisters, Taurus Yamato nuclear cylinders, Tallgeese psionic scrambler bombs, Epyon ultrabombs, and Heavyarms cluster mines. Pressing the beacon key triggers active defense systems, giving suits like Wing Zero, Epyon, and Deathscythe a 20-second Impact Shield, while suits like Virgo, Nakatu, and Gundam Pilot gain high-speed directional thruster dashes via Speed Enhancers.",
+   "Combat, Arsenals, and Status Effects: Combat revolves around extreme-damage anime arsenals, such as the Destruction Rifle sniper firing 2000-velocity rounds for 6.5 damage, the Nuke Launcher firing 150-radius mini-nukes, rapid-fire melee weapons like the Energy Sword and Laser Scythe, and the Tractor Beam which uses negative impulse to pull targets in for point-blank strikes. Status effects include lingering burning damage from flamer weapons and biotoxin poisoning that steadily drains health until cured by a Repair Kit.",
+   "Combat Vehicles and Pilot Restrictions: The vehicle roster includes the Core Fighter, Ultra Fighter, Flare Scout, and transport Dropships and Battle Carriers. Flier piloting is restricted strictly by armor type: only Epyon, Leo, and Tallgeese have the CanPilot capability required to pilot combat fliers, while all other mobile suits can only enter multi-passenger transports as riders.",
+   "Economy and Base Construction: All purchases of mobile suits, weapons, ammo, packs, and vehicles draw from the shared team energy pool via teamEnergyBuySell. The Worker suit serves as the team combat engineer, capable of deploying Inventory Stations, Ammo Resuppliers, Command Uplinks, Launch Pads, Teleport Pads, and automated turrets including Ion, Laser, Missile, Plasma, Rail, Shock, and Flamer turrets. Aerial platforms and deployables cannot be constructed within 10 meters of the team flag to prevent flag hiding griefing.",
+   "Bots and Admin Enforcement: Server administrators can spawn and configure AI bots across Guard, Demo, Painter, Sniper, and Medic roles with optional roaming behaviors directly from the admin menu. Disruptive teamkillers can be punished with the Balls of Life penalty, forcibly converting them into the slow, unarmed Ball chassis (parmor) with 1000 energy, stripped packs, and station lockouts until they make amends by repairing team structures."
+  ]
+ },
+ "items": {
+  "PlasMeta": {
+   "summary": "Ultra Canon heavy plasma weapon that occasionally destabilizes into a catastrophic blast.",
+   "notes": [
+    "Fires standard PlasIC plasma rockets dealing 1.4 radius damage under normal operation.",
+    "Features an unpredictable 1-in-24 misfire mechanic that triggers an out-of-control warning and fires a PlasNC projectile dealing 10.0 damage with 500 kickback strength.",
+    "Purchased at equipment stations for 1000 credits drawn from team energy."
+   ],
+   "source": "weaponPlasma.cs"
+  },
+  "Cyclone": {
+   "summary": "Hellfire heavy missile system with active line-of-sight targeting lock.",
+   "notes": [
+    "Scans targets via line of sight up to 3000 units away against players and fliers.",
+    "Plays an alert sound and warns the target before launching two seeking missiles dealing up to 2.5 damage each.",
+    "Fires twin unguided heavy missiles if fired without an active target lock."
+   ],
+   "source": "weaponHellMis.cs"
+  },
+  "Gravi": {
+   "summary": "Tractor Beam utility weapon that reels enemies toward the shooter.",
+   "notes": [
+    "Fires a specialized projectile that inflicts a negative 999 kickback impulse within a 20-meter radius.",
+    "Designed explicitly to drag distant enemy pilots into close quarters to set up combos with the Energy Sword or Laser Scythe.",
+    "Draws 49 to 50 energy per shot and costs 950 credits at stations."
+   ],
+   "source": "weaponGlave.cs"
+  },
+  "PhotonPack": {
+   "summary": "Single-use backpack that fires a devastating seeking photon torpedo.",
+   "notes": [
+    "Mounted as a backpack item costing 500 credits at stations.",
+    "Pressing the pack key consumes the backpack to launch a seeking photon torpedo with 10 damage and a 50-meter explosion radius.",
+    "Provides only a single shot, requiring the player to rearm at an inventory station."
+   ],
+   "source": "packPhotonTorpedo.cs"
+  },
+  "iarmorMedic": {
+   "summary": "Ball mobile pod chassis used as an administrator punishment tool against teamkillers.",
+   "notes": [
+    "Assigned by administrators to penalize teamkillers with the Balls of Life curse.",
+    "Equipped with 20 maximum health and 1000 energy but virtually zero jet thrust and jump impulse.",
+    "Locked out of inventory and ammo stations and stripped of weapons and packs to force offenders into base repair duties."
+   ],
+   "source": "armorMedic.cs"
+  },
+  "AirPlatformPack": {
+   "summary": "Deployable aerial platform pack with built-in anti-griefing flag proximity checks.",
+   "notes": [
+    "Allows players to place floating metal platforms in midair to establish elevated fire positions.",
+    "Enforces a strict 10-meter boundary check around team flags to prevent players from sealing or hiding the objective.",
+    "Limited to 8 small and 4 large platforms per team."
+   ],
+   "source": "deployAirPlat.cs"
+  }
+ }
+}

@@ -1,0 +1,55 @@
+ultra-renegades-vx5: 64 of 94 need write-ups
+  TaserRifle (Taser Rifle): new
+  FireballAbilityAmmo (Fire Implants): new
+  FireballAbility (Fireball Ability): new
+  SmScreenAbilityAmmo (Smoke Implants): new
+  SmScreenAbility (SmokeScreen Ability): new
+  ExSmScreenAbilityAmmo (Lair Implants): new
+  ExSmScreenAbility (LairWaster): new
+  FireScreenAbilityAmmo (FireWall Bombs): new
+  FireScreenAbility (FireWall): new
+  SpellAbilityAmmo (SpellHeart): new
+  SpellAbility (Spell): new
+  LiLPOOmkiAmmo (Bullet mki): new
+  LiLPOOmki (LiL POO mki): new
+  LiLPOOmkiiAmmo (Bullet mkii): new
+  LiLPOOmkii (LiL POO mkii): new
+  LiLFFBAmmo (LiLFFB Ammo): new
+  LiLFFB (LiLForce Field Buster): new
+  LiLRocketLauncherAmmo (LiLRockets): new
+  LiLRocketLauncher (LiLRocket Launcher): new
+  LiLEMPRocketLauncherAmmo (LiLEMPRockets): new
+  LiLEMPRocketLauncher (LiLEMPRocket Launcher): new
+  BeamOfPain (Beam Of Pain): new
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (StealthShield Pack): renamed+stats+scripts
+  CloakingDevice (Cloaking Device): new
+  MotionSensorPack (Motion Sensor): scripts
+  CameraPack (Camera): scripts
+  LaserTurretPack (Laser Turret): new
+  TurretPack (LiL Turret): renamed+stats+scripts
+  TaserTrtBPack (Taser Turret): new
+  TaserTrtCPack (Tracking Turret): new
+  LaserTurretBPack (Mini-Plasma Turret): new
+  MiniFlakTurretPack (Mini-Flak Turret): new
+  MiniSAMTurretPack (Mini-S.A.M Turret): new
+  MiniELFTurretPack (Mini-ELF Turret): new
+  MiniSmokeTurretPack (Mini-Beam Of Pain): new
+  lgaForceFieldPack (LgaForceFieldDoor): new
+  lgbForceFieldPack (LgbForceFieldDoor): new
+  medaForceFieldPack (MedaForceFieldDoor): new
+  medbForceFieldPack (MedbForceFieldDoor): new
+  medcForceFieldPack (MedcForceFieldDoor): new
+  TeleportPack (Teleport Pad): new
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): stats+scripts
+  RadiusMineAmmo (Radius Mine): new
+  Grenade (Grenade): scripts
+  FlashGrenade (FlashGrenade): new
+  LiLBoostammo (LiLBoost): new
+  VXGasAttackAmmo (VX Gas Attack): new
+  Beacon (Beacon): stats+scripts
+  RepairPatch (Repair Patch): scripts
+  cactusPack (Land Camo): new

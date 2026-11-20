@@ -1,0 +1,6 @@
+# football vs base (5 items)
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+new        Football                     Football
+new        FootballThrower              Football Thrower

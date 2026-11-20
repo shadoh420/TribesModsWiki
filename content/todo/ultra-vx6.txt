@@ -1,0 +1,66 @@
+ultra-vx6: 68 of 83 need write-ups
+  LightArmor (Light Armor Suit): renamed+stats
+  MediumArmor (Medium Armor Suit): renamed+stats
+  HeavyArmor (Heavy Armor Suit): renamed+stats
+  ScoutVehicle (Brawler Assault): renamed+stats
+  MercJetVehicle (Mercenary Jet-Bike): new
+  LAPCVehicle (Star Destroyer): renamed+stats
+  HAPCVehicle (Hover Tank): renamed+stats
+  LaserRifle (Laser Rifle): stats+scripts
+  TaserRifle (Taser Rifle): new
+  FireballAbility (Solar Flare): new
+  SmScreenAbility (Noxious Gas): new
+  ExSmScreenAbility (Split Waster): new
+  FireScreenAbility (Hell Fire): new
+  SpellAbility (Confusion Spell): new
+  Blaster (Energy Pistol): renamed+stats+scripts
+  Chaingun (Verminator): renamed+stats+scripts
+  LiLPOOmki (Sniper MKI): new
+  LiLPOOmkii (Sniper MKII): new
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Cluster Launcher): renamed+stats+scripts
+  Mortar (Fusion Mortar): renamed+stats+scripts
+  LiLFFB (ForceField Buster): new
+  LiLRocketLauncher (RPG Launcher): new
+  LiLEMPRocketLauncher (EMP Launcher): new
+  BeamOfPain (Beam Of Pain): new
+  EnergyRifle (Cloak Gun): renamed+stats+scripts
+  DeadWeight (Deadweight): new
+  LessWeight (Deadweight): new
+  LessWeight2 (Deadweight): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (StealthShield Pack): renamed+stats+scripts
+  CloakingDevice (Cloaking Pack): new
+  MotionSensorPack (Motion Sen. Network): renamed+stats+scripts
+  PulseSensorPack (Pulse Sen. Network): renamed+stats
+  DeployableSensorJammerPack (Sen. Jammer Network): renamed+stats
+  CameraPack (Spy Camera Network): renamed+stats+scripts
+  LaserTurretPack (Laser Turret System): new
+  TurretPack (Sentry Turret System): renamed+stats+scripts
+  TaserTrtBPack (Taser Turret System): new
+  TaserTrtCPack (Scan Tracking Network): new
+  LaserTurretBPack (Plasma Turret System): new
+  MiniFlakTurretPack (Flak Turret System): new
+  MiniSAMTurretPack (S.A.M Turret System): new
+  MiniGripTurretPack (GRIP Turret System): new
+  MiniELFTurretPack (ELF Turret System): new
+  MiniSmokeTurretPack (B.o.P Turret System): new
+  ElectricWeb (Electric Web): new
+  lgaForceFieldPack (Lrg A: Force Field): new
+  lgbForceFieldPack (Lrg B: Force Field): new
+  medaForceFieldPack (Med A: Force Field): new
+  medbForceFieldPack (Med B: Force Field): new
+  medcForceFieldPack (Med C: Force Field): new
+  TeleportPack (Teleport Station): new
+  ArbitorBeaconPack (Cloak Device): new
+  EMPBeaconPack (Flux Device): new
+  JammerBeaconPack (Jammer Device): new
+  ShieldBeaconPack (Shield Device): new
+  HealBeaconPack (Healing Device): new
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  RepairPatch (Repair Patch): stats+scripts

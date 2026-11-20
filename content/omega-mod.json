@@ -1,0 +1,58 @@
+{
+ "mod": {
+  "overview": "Omega Assault (v1.6) is an action-heavy base-plus mod for Starsiege: Tribes that expands the three standard armor classes (Scout|Sniper, Engineer, and Confederate Herc) with dozens of high-power weapons, multi-barrel cannons, guided rockets, support tools, and large-scale base-building deployables. Matches run with infinite team energy, instant item respawns, no post-station grenade throw delay, and fast Light spawns armed out of the gate with sniper rifles, flamethrowers, and razor chainguns. Compared to base Tribes, combat is far more lethal and chaotic, blending fast aerial dogfights in Hyper Laser fighters and Bombers with fortified sky bases deployed 40 meters in the air by Engineers. It uses standard Capture the Flag/Objective and Deathmatch maps alongside stock AI drone support, with no custom chat commands or separate game modes.",
+  "notes": [
+   "Classes and carry limits: Light (Scout|Sniper, speed 11, 9 male / 7 female weapons) specializes in long-range and hit-and-run gear like FissionSniper (2000m lock-on), Sniper Rifle (SR), SpikeRifle, AssasinTool (H.S.C.), Smoke Bombs (SmokyHands), PaintBallGun, and the Light-only PhasePack (Sprout Manuever Pack, drops 2m downward on activation). Medium (Engineer, speed 8, 8 male / 6 female weapons) is the primary builder and support class with Healing Mortar (HM), C4Placer (30-second timer releasing 80 blasts), RPG, DemLas, AirBasePack, Hover Pad (BunkerPack), BridgePack, PlatformPack, BlastWallPack, forcefields, Dial-up Modem (SpeedyModemPack), HealingTurret, ObeliskOfDoom, ObeliskofLight, DevestatorTurret, ProtonTurret, and RazorTurret. Heavy (Confederate Herc, speed 5, 11 weapons, 240 energy) packs heavy firepower like Burster Torpedo Cannon (BurTC), Plasma Laser Cannon (PL), 4-barrel DevCannon, guided GammaChain, Flakcannon, and Meson Cannon (Mlas).",
+   "Spawn loadout and economy: Team energy is set to Infinite ($DefaultTeamEnergy = \"Infinite\"), $WaitThrowTime is 0 (grenades and mines can be thrown immediately after leaving a station), and $ItemRespawnTime is 1 second. Players spawn in LightArmor equipped with Blaster, Chaingun, Disclauncher, PlasmaGun, Sniper Rifle (SR), FlameThrower (M.J.I.T.), RazorChaingun, RepairPack, 30 RepairKits, and Grenades.",
+   "Unique weapons and explosives: Beyond standard Tribes gear, Omega Assault adds multi-barrel weapons (DevCannon, OBCannon, Falcon), 2000m target-locking weapons (FissionSniper, QRLC, GammaChain), cluster/DoT weapons (NapalmSetter, C4Placer, FlameThrower), and the 10-level charging Power Blast Cannon (PBC). AntipersonelMine (\"Dusty Mine\") deals 6.0 damage across a 10m trigger/blast radius, while Handgrenade deals 0 damage with 250 kickback strength for blast-jumping.",
+   "Deployables and Fair Play range: Engineers can build sky bases (AirBasePack, limit 3, spawns a floating tower 40m up with forcefields, Solar Panels, Inventory, Command, and Vehicle Stations), Hover Pads (BunkerPack, limit 6), Bridges (limit 60), and 9 turret types. Custom turrets such as HealingTurret, ObeliskOfDoom (base/InteriorShape only, limit 3), ObeliskofLight (limit 1), DevestatorTurret, ProtonTurret, RazorTurret, HunterTurret, MissileTurret, and FlameTurret require a friendly static object within 150m (\"Fair play distance\").",
+   "Vehicles: Three fliers are sold at Vehicle Stations (with AirBasePack also spawning a sky Vehicle Pad): ScoutVehicle (\"Hyper Laser fighter\", maxSpeed 200, rapid HyperLaser fire, limit 3), LAPCVehicle (\"Bomber\", maxSpeed 75, drops 40m-radius BomberShells, limit 2), and HAPCVehicle (\"Heavy Transport\", maxSpeed 25, fires DevBlast, limit 1).",
+   "Menus and commands: The Tab menu (Omega Assault v1.6) provides team switching, muting, observing, voting (change mission, toggle team damage, FFA/Tourney mode, kick), and admin tools (including a Torture animation loop and Mark expert toggle). No custom # chat commands are added (comchat.cs handles standard chat and command status).",
+   "Bans and hidden content: PulseSensorPack ($InvList=0, $RemoteInvList=0) and Annihilation ChainGun (AnniChain and AnniChainAmmo, $InvList=0, $RemoteInvList=0, $MobileInvList=0) are disabled from inventory. AirBasePack, LargeForceFieldDoorPack, and Mlas are banned from Remote Inventory Stations ($RemoteInvList=0). A hidden 4th armor (indalacioarmor) and six spell weapons (DeathPoint, DivineWave, EarthQuakeSpell, FoehnWind, IceStormSpell, StarFlare) are blocked from all stations ($InvList=0, $RemoteInvList=0) and only usable via server cheats.",
+   "Bots and modes: Supports standard CTF/Objective missions (objectives.cs) and Deathmatch (dm.cs) with stock AI pathing (ai.cs), spawning team AI drones in heavy armor (harmor) armed with Blaster, Disclauncher, and Chaingun.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AnniChain (WeaponAnnihilatorChaingun.cs), AnniChainAmmo (WeaponAnnihilatorChaingun.cs), DeathPoint (SpellDeathPoint.cs), DivineWave (SpellDivineWave.cs), EarthQuakeSpell (SpellEarthQuake.cs), FoehnWind (SpellFoehn.cs), IceStormSpell (SpellIceStorm.cs), PulseSensorPack (station.cs), StarFlare (SpellStarFlare.cs); Blocked at Remote Stations ($RemoteInvList = 0): AirBasePack (deployAirbase.cs), LargeForceFieldDoorPack (deployLargeForceFieldDoor.cs), Mlas (station.cs)."
+  ]
+ },
+ "items": {
+  "AirBasePack": {
+   "summary": "Deploys a complete floating Air Base roughly 40 meters above the terrain, including floor and roof pads, forcefield walls, two Solar Panels, an Inventory Station, a Command Station, a Vehicle Station, and a Vehicle Pad.",
+   "notes": [
+    "Available at base Inventory Stations only ($RemoteInvList[AirBasePack] = 0); limited to 3 per team and restricted to Medium armor (marmor/mfemale).",
+    "Must be deployed on terrain at least 5 meters away from the team flag."
+   ],
+   "source": "deployAirbase.cs"
+  },
+  "PBC": {
+   "summary": "Power Blast Cannon (PBC), a 10-stage chargeable energy cannon scaling from basic Dominion blasts up to Micro-Napalm, Explosive Barrage, and Mini Nuke salvos.",
+   "notes": [
+    "Usable by all three standard armors with up to 10 PBCAmmo charges.",
+    "Firing starts a 2-second-per-tier charge cycle up to Level 10 (Mini Nuke), then fires a multi-shot volley on the next trigger pull."
+   ],
+   "source": "WeaponPowerCharge.cs"
+  },
+  "OBCannon": {
+   "summary": "Omega Blast Cannon, a multi-barrel heavy blaster that spawns 20 OhmBlast projectiles per shot.",
+   "notes": [
+    "Restricted to Medium (7 ammo) and Heavy (14 ammo) armors; mounts 4 cannon barrels across weapon slots.",
+    "Deals $OhmDamageType damage, which has a 100x multiplier against indalacioarmor."
+   ],
+   "source": "WeaponOmegaBlastCannon.cs"
+  },
+  "PhasePack": {
+   "summary": "Sprout Manuever Pack, a Light-only utility backpack that teleports the wearer 2 meters downward on activation.",
+   "notes": [
+    "Restricted to Light armor (larmor/lfemale); costs 1750 energy at stations.",
+    "When activated, it shifts the player's position by 0 0 -2, dropping them 2 meters straight down."
+   ],
+   "source": "PackSprout.cs"
+  },
+  "HM": {
+   "summary": "Healing Mortar, a support mortar for Medium Engineers that launches area-of-effect healing shells instead of damaging projectiles.",
+   "notes": [
+    "Restricted to Medium armor (Engineer) with up to 20 HMAmmo shells.",
+    "Uses negative damageValue (-100.5) over a 20m radius to repair or heal targets in an area; pairs with the Medium-only HealingTurret deployable."
+   ],
+   "source": "WeaponHealingMortar.cs"
+  }
+ }
+}

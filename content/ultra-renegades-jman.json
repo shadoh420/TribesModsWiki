@@ -1,0 +1,352 @@
+{
+  "mod": {
+    "overview": "VX5 \"Jman\" 2.1 is Ultra Renegades VX5 with a set of extra weapons and packs bolted on: a Nuclear Warhead that needs its own shield pack, a MIRV launcher, a Bouncy (ricochet) Gun, the ChainBlaster, a Cloaking Gun, the Death Blossom, the Backpack of Revenge and a few deployables. Most VX5 weapons keep their VX5 behavior but now print a \"Using ...\" line when selected. It also adds a Tab-menu Run-Time Store, a super-admin prank menu, and loosens the deploy rules for cameras and teleport pads.",
+    "notes": [
+      "Selecting almost any weapon (Blaster, Chaingun, Plasma Gun, Disc Launcher, Mortar, the psionic abilities, LiL weapons, ELF Gun, Beam Of Pain, Targeting Laser and the new Jman weapons) bottom-prints \"Using <weapon>.\" for 3 seconds. In VX5 most of these had no onUse script at all. This is the only script change for many items on this list.",
+      "Weapon switches live in WeaponOps.cs (exec'd from admin.cs): $StoreOpen 1, $NukeInventory 1, $NukeEMPPulse 1, $BouncyBounce 0.65, $BouncyInventory 1, $ChainBlasterInventory 1, $CloakGunInventory 1, $RevengeInstantDetonation 0, $RevengeRadius 50, $RevengeInventory 1, $MIRVinventory 1, $MIRVwarheads 8.",
+      "Run-Time Store: with $StoreOpen 1 every player's Tab menu gets a Run-Time Store. It switches armor (light, medium, heavy) and buys a fixed short list anywhere on the map by calling buyItem with $ServerCheats on: LiLEMPRocket Launcher, Fireball, SmokeScreen and Spell abilities, Teleport Pad, Shield Pack, Cloaking Device, Land Camo, and LiL POO mki/mkii, LiLFFB and Plasma ammo. Its \"StealthShield Pack\" entry actually buys the Shield Pack.",
+      "VX5 difficulty modes still apply: server start runs vxmode() and vxDIFmode(), which exec the profile UltraVX5.cs and (for \"Defaults\") UltraVX5_EASY.cs. Those files rewrite VX5 projectile damage, armor health and item limits at mission start. Jman's new projectiles (NuclearShell, BouncyShell, BlossomShell, BlossomShell2, ChainBlasterBullet) are not in any difficulty file, so they keep the same damage on MEDIUM and HARD while VX5 weapons get weaker and armor tougher. UltraVX5_EASY.cs never sets armor maxDamage, so switching from MEDIUM or HARD back to Defaults leaves the raised armor health in place until restart.",
+      "Some Jman edits are undone at start-up. ArmorData.cs sets the ELF Gun's item limit to 0 for every armor, but all three difficulty files set it back to 1. item.cs raises $TeamItemMax for LiL Turret and Mini-Plasma Turret to 30 and for Radius Mine to 5, but the UltraVX5.cs profile resets them to 10, 10 and 1. Beam Of Pain's lower energy drain (100) is reset to 500 by every difficulty file.",
+      "New damage types: $NukeDamageType 21, $RevengeDamageType 22, $BlossomDamageType 23, each with damage scale 1.2 on all five armors and their own death messages.",
+      "Player::onDamage changes: Beam Of Pain hits only knock items out of enemies' hands (VX5 did it to teammates too). Bullet and LiL POO mkii hits to an enemy's head still gib the target and add 200% damage, as in VX5.",
+      "Radius Mine is bigger than VX5's: explosion radius 75 (VX5 20) and trigger radius 15 (VX5 10).",
+      "Default spawn kit slot 5 is the Blaster instead of VX5's Beam Of Pain.",
+      "Camera and Teleport Pad no longer need a friendly base object within 150 m. The VX5 \"fair play distance\" check is replaced by if(true).",
+      "Super admins get a prank menu: Ass Monkey (makes a player drop the flag 5 s after taking it, for 7 minutes), Apply Impulse, Drop Their Shit, Pinball, Insane, Tie up/Untie and Possess/Unpossess. There is also an Admin's Mail Order menu.",
+      "Flag drops, takes and captures are now echoed to the server console as ADMINMSG lines."
+    ]
+  },
+  "items": {
+    "LaserRifle": {
+      "summary": "The VX5 sniper rifle: an energy beam that only works with an Energy Pack on your back.",
+      "notes": [
+        "Same as VX5 except that selecting it bottom-prints \"Using Laser Rifle.\"",
+        "Needs a mounted Energy Pack; without one it refuses with \"Must have an Energy Pack to use Laser Rifle.\" Buying it at a station auto-buys an Energy Pack if you have none.",
+        "Laser-type hits to the head do 30% extra (heavy armor: centre of the head only)."
+      ],
+      "source": "item.cs LaserRifle::onUse, buyItem; player.cs Player::onDamage"
+    },
+    "TaserRifle": {
+      "summary": "An energy-fed laser rifle with a far higher energy-to-damage conversion than the Laser Rifle, and no Energy Pack requirement.",
+      "notes": [
+        "Fires TaserRfLaser (Laser damage type), so the 30% laser head-shot bonus applies.",
+        "VX5's difficulty files set TaserRfLaser damageConversion to 3 on Defaults, 0.3 on MEDIUM and 0.1 on HARD.",
+        "Unlike VX5, selecting it bottom-prints \"Using Taser Rifle\"."
+      ],
+      "source": "item.cs TaserRifle::onUse; UltraVX5_EASY.cs/MEDIUM.cs/HARD.cs"
+    },
+    "FireballAbility": {
+      "summary": "A psionic weapon that throws fast explosive fireballs using Fire Implants as ammo.",
+      "notes": [
+        "Fires the Fireball projectile: shrapnel-type area damage.",
+        "Unlike VX5, selecting it bottom-prints \"Using Fireball Psionics.\""
+      ],
+      "source": "item.cs FireballAbility::onUse"
+    },
+    "SmScreenAbility": {
+      "summary": "A psionic smoke-screen launcher: lobs smoke grenades that hang around for a long time and do light Smoke damage.",
+      "notes": [
+        "The SmScreen shell has a 32-second live time, so the smoke lingers.",
+        "Anyone hit by Smoke damage gets the message \"WARNING - Toxic Gas Detected!\".",
+        "Unlike VX5, selecting it bottom-prints \"Using Smokescreen Psionics.\""
+      ],
+      "source": "item.cs SmScreenAbility::onUse; player.cs Player::onDamage"
+    },
+    "ExSmScreenAbility": {
+      "summary": "LairWaster: a psionic grenade launcher whose shell does enormous shrapnel damage in a small radius, meant for wiping out a base room.",
+      "notes": [
+        "Uses Lair Implants ammo and reloads slowly for a psionic.",
+        "Its ExSmScreen shell does roughly a full nuke's worth of damage per hit on Defaults; the HARD difficulty file cuts it to 0.2.",
+        "Unlike VX5, selecting it bottom-prints \"Using LairWaster Psionics.\""
+      ],
+      "source": "item.cs ExSmScreenAbility::onUse; UltraVX5_HARD.cs"
+    },
+    "FireScreenAbility": {
+      "summary": "FireWall: a psionic that launches slow, accelerating fire rockets with a wide blast, using FireWall Bombs as ammo.",
+      "notes": [
+        "FireScreen is a slow rocket (shrapnel damage) with a 20 m blast radius.",
+        "Unlike VX5, selecting it bottom-prints \"Using FireWall Psionics.\""
+      ],
+      "source": "item.cs FireScreenAbility::onUse"
+    },
+    "SpellAbility": {
+      "summary": "The Spell psionic sprays slow, widely scattered bullets shaped like female player models, using SpellHeart ammo.",
+      "notes": [
+        "SpellAbilityProj uses the lfemale.dts model as its bullet shape and has a wide aim deflection (0.25).",
+        "It is Bullet damage, so an enemy head hit gibs the target and does triple damage (see Player::onDamage).",
+        "Unlike VX5, selecting it bottom-prints \"Using SpellAbility Psionics\"."
+      ],
+      "source": "item.cs SpellAbility::onUse; player.cs Player::onDamage"
+    },
+    "Blaster": {
+      "summary": "VX5's energy Blaster: quick bolts that cost a little energy each and need no ammo.",
+      "notes": [
+        "Unlike VX5, selecting it bottom-prints \"Using Blaster.\"",
+        "Replaces the Beam Of Pain in the default spawn kit."
+      ],
+      "source": "item.cs Blaster::onUse; game.cs $spawnBuyList"
+    },
+    "Chaingun": {
+      "summary": "VX5's rapid-fire chaingun, firing Bullet-type rounds from Bullet Ammo.",
+      "notes": [
+        "Bullet hits to an enemy's head gib the target, add 200% damage and bottom-print \"Head Shot\" to both players.",
+        "Unlike VX5, selecting it bottom-prints \"Using Chaingun.\""
+      ],
+      "source": "item.cs Chaingun::onUse; player.cs Player::onDamage"
+    },
+    "ChainBlasterAmmo": {
+      "summary": "Ammunition for the ChainBlaster.",
+      "notes": [
+        "Ammo stations resupply up to 50 at a time; the item limit per armor is 500."
+      ],
+      "source": "item.cs; station.cs AmmoStation resupply; ArmorData.cs"
+    },
+    "ChainBlaster": {
+      "summary": "A chaingun that fires blaster bolts: very fast single-shot fire of visible bolts with tracers, using ChainBlaster Ammo instead of energy.",
+      "notes": [
+        "ChainBlasterBullet is Blaster damage type with slight aim deflection.",
+        "No difficulty file touches ChainBlasterBullet, so its damage is the same on every difficulty.",
+        "Shown in the shop only when $ChainBlasterInventory is 1 (default). Selecting it bottom-prints \"Using ChainBlaster.\""
+      ],
+      "source": "item.cs ChainBlaster::onUse; baseProjData.cs ChainBlasterBullet; station.cs"
+    },
+    "LiLPOOmki": {
+      "summary": "LiL POO mki: a very fast-firing gun of near-instant Bullet-type rounds, fed by Bullet mki ammo.",
+      "notes": [
+        "Bullet damage, so enemy head hits gib and do triple damage.",
+        "Unlike VX5, selecting it bottom-prints \"Using LiL POO mki.\""
+      ],
+      "source": "item.cs LiLPOOmki::onUse; player.cs Player::onDamage"
+    },
+    "LiLPOOmkii": {
+      "summary": "LiL POO mkii: a rapid-fire rifle with extremely fast rounds of its own damage type, fed by Bullet mkii ammo.",
+      "notes": [
+        "Its LiLPOOmkii damage type has the same enemy head-shot rule as bullets: gib and triple damage.",
+        "Unlike VX5, selecting it bottom-prints \"Using LiL POO mkii.\""
+      ],
+      "source": "item.cs LiLPOOmkii::onUse; player.cs Player::onDamage"
+    },
+    "PlasmaGun": {
+      "summary": "VX5's ammo-fed Plasma Gun, firing small-radius plasma bolts.",
+      "notes": [
+        "Unlike VX5, selecting it bottom-prints \"Using Plasma Gun.\""
+      ],
+      "source": "item.cs PlasmaGun::onUse"
+    },
+    "GrenadeLauncher": {
+      "summary": "VX5's grenade launcher: bouncing shrapnel grenades from Grenade Ammo.",
+      "notes": [
+        "Unlike VX5, selecting it bottom-prints \"Using Grenade Launcher.\""
+      ],
+      "source": "item.cs GrenadeLauncher::onUse"
+    },
+    "Mortar": {
+      "summary": "VX5's mortar: heavy arcing shells with a wide blast, fed by Mortar Ammo.",
+      "notes": [
+        "Its MortarShell is also what the MIRV fires and splits into.",
+        "Unlike VX5, selecting it bottom-prints \"Using Mortar.\""
+      ],
+      "source": "item.cs Mortar::onUse, FireWorks1Image::onFire"
+    },
+    "BouncyAmmo": {
+      "summary": "Shells for the Bouncy Gun.",
+      "notes": [
+        "Ammo stations resupply up to 50 at a time; the item limit per armor is 20."
+      ],
+      "source": "item.cs; station.cs AmmoStation resupply; ArmorData.cs"
+    },
+    "BouncyGun": {
+      "summary": "A ricochet launcher: fires mortar-strength shells that bounce off surfaces before exploding.",
+      "notes": [
+        "BouncyShell is a mortar shell (Mortar damage, 20 m blast) whose elasticity is the WeaponOps.cs setting $BouncyBounce (default 0.65). The settings file warns that values above 0.65 tend to bounce through walls.",
+        "Sold when $BouncyInventory is 1 (default). Selecting it bottom-prints \"Using Bouncy Gun.\"",
+        "Not affected by the difficulty files."
+      ],
+      "source": "item.cs BouncyGun::onUse; baseProjData.cs BouncyShell; WeaponOps.cs"
+    },
+    "BlossomAmmo": {
+      "summary": "Shells for the Death Blossom.",
+      "notes": [
+        "Item limit is 10 per armor. Its station entry is commented out, so it is not sold."
+      ],
+      "source": "item.cs; station.cs; ArmorData.cs"
+    },
+    "Blossom": {
+      "summary": "Death Blossom: fires one shell that, a second later, bursts into 15 scattering bomblets.",
+      "notes": [
+        "BlossomImage::onFire uses one Death Blossom Shell and spawns BlossomShell. After 1 second SpreadItB spawns 15 BlossomShell2 at its position with random sideways (plus or minus 30) and upward (0 to 60) velocity added, then deletes the original.",
+        "BlossomShell2 does impact damage of the Blossom damage type; it has its own death messages.",
+        "Its $InvList lines are commented out, so stations do not sell it, but it is in the weapon cycle (after the Cloaking Gun) and armors may carry one."
+      ],
+      "source": "item.cs BlossomImage::onFire, SpreadItB; baseProjData.cs BlossomShell, BlossomShell2; station.cs"
+    },
+    "FireWorks1Ammo": {
+      "summary": "Ammunition for the MIRV.",
+      "notes": [
+        "Item limit is 80 per armor."
+      ],
+      "source": "item.cs; ArmorData.cs"
+    },
+    "FireWorks1": {
+      "summary": "MIRV: fires a mortar shell that splits in mid-air after one second into a LiLFFB shell plus a spread of mortar warheads.",
+      "notes": [
+        "FireWorks1Image::onFire uses one MIRV Ammo and spawns a MortarShell. After 1 second SpreadIt spawns one LiLFFBShell on the original's path and $MIRVwarheads MortarShells (default 8) with random sideways (plus or minus 30) and upward (0 to 20) velocity added, then deletes the original.",
+        "WeaponOps.cs warns that a high $MIRVwarheads can lag the server.",
+        "Sold when $MIRVinventory is 1 (default). Selecting it bottom-prints \"Using MIRV.\""
+      ],
+      "source": "item.cs FireWorks1Image::onFire, SpreadIt; WeaponOps.cs"
+    },
+    "LiLFFB": {
+      "summary": "LiLForce Field Buster: a slow-firing launcher of heavy grenades that hit very hard, meant for breaking force fields and turrets.",
+      "notes": [
+        "Unlike VX5, the LiLFFBShell has a larger blast (radius 20, VX5 15), much more kickback (500, VX5 300) and flies farther before dropping (450, VX5 250).",
+        "The MIRV also releases one LiLFFBShell when it splits.",
+        "Selecting it bottom-prints \"Using LiLFFB.\""
+      ],
+      "source": "item.cs LiLFFB::onUse, SpreadIt; baseProjData.cs LiLFFBShell"
+    },
+    "NuclearAmmo": {
+      "summary": "The single warhead the Nuclear Warhead launcher fires.",
+      "notes": [
+        "Carry limit is 1 per armor and 20 per team. Sold in inventory and remote stations; sells back at 1 per sale."
+      ],
+      "source": "item.cs $TeamItemMax, $SellAmmo; station.cs; ArmorData.cs"
+    },
+    "NuclearBomb": {
+      "summary": "Nuclear Warhead: a launcher for one huge, short-ranged nuke with a 300 m blast. You must wear the NuclearShield pack to fire it, and the shield only protects you for about five seconds.",
+      "notes": [
+        "Buying it auto-buys a NuclearShield pack if you have none. Selecting it without the NuclearShield mounted fails with \"Must have a Nuclear Shield Pack to use Nuclear Weapon.\"",
+        "NuclearShell is a 900-mass grenade that drops almost at once (maxLevelFlightDist 30): Nuke damage, explosion radius 300, kickback 900.",
+        "With $NukeEMPPulse 1 (default), anyone who survives a nuke hit has energy set to 0 and recharge stopped for 6 seconds (\"Armor is OFFLINE due to an EMP pulse\"), then gets 100 energy back.",
+        "Not affected by the difficulty files. Shown in stations when $NukeInventory is 1 (default)."
+      ],
+      "source": "item.cs NuclearBomb::onUse, buyItem; baseProjData.cs NuclearShell; player.cs Player::onDamage, endEMP"
+    },
+    "LiLRocketLauncher": {
+      "summary": "VX5's LiL Rocket Launcher: locks on to a player or flier in your sights and fires three homing rockets, or one fast dumb-fire rocket otherwise.",
+      "notes": [
+        "On fire it checks line of sight out to 350 m. On a Player or Flier it warns the target (RocketLockWarning) and fires LiLRocketEMP, LiLRocket and LiLRocketSubmission at it. Otherwise it fires one LiLRocketalt.",
+        "LiLRocketEMP does EMP damage (see LiLEMPRocket Launcher for the effect).",
+        "Unlike VX5, selecting it bottom-prints \"Using LiLRocket Launcher.\""
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire, LiLRocketLauncher::onUse"
+    },
+    "LiLEMPRocketLauncher": {
+      "summary": "VX5's EMP rocket launcher: two homing EMP rockets at a locked player or flier, or one straight EMP rocket otherwise.",
+      "notes": [
+        "On a target within 350 m it fires LiLEMPRocketONE and LiLEMPRocketTWO, else one LiLEMPRocketalt.",
+        "An EMP hit zeroes the victim's energy, cuts recharge to 6 and knocks their weapon, pack and flag out of their hands.",
+        "Unlike VX5, selecting it bottom-prints \"Using LiLEMPRocket Launcher.\" It is also sold in the Run-Time Store."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherImage::onFire; player.cs Player::onDamage; admin.cs processMenuwepstore"
+    },
+    "DiscLauncher": {
+      "summary": "VX5's disc launcher: explosive discs fed by Disc Ammo.",
+      "notes": [
+        "Unlike VX5, selecting it bottom-prints \"Using Disc Launcher.\""
+      ],
+      "source": "item.cs DiscLauncher::onUse"
+    },
+    "TargetingLaser": {
+      "summary": "The standard targeting laser for painting targets; it does no damage.",
+      "notes": [
+        "Unlike VX5, selecting it bottom-prints \"Using Targeting Laser.\"",
+        "The VX5 profile and station.cs keep it out of the shop ($InvList 0)."
+      ],
+      "source": "item.cs TargetingLaser::onUse; station.cs; UltraVX5.cs"
+    },
+    "BeamOfPain": {
+      "summary": "Beam Of Pain: a short beam that hurts, drains energy, pulls the target toward you and knocks their gear loose. Jman makes it harmless to teammates.",
+      "notes": [
+        "Unlike VX5, BeamOfPainProj::damageTarget checks teams: a teammate takes no damage, no energy drain and no pull. Against enemies it applies an impulse back along the shooter's facing (toward the shooter), damage and energy drain each tick.",
+        "Beam Of Pain damage on an enemy drops their weapon, pack and flag. VX5 did this to anyone hit, including teammates.",
+        "Jman lowers the beam's energyDrainPerSec to 100 (VX5 500), but every difficulty file sets it back to 500 at mission start.",
+        "Selecting it bottom-prints \"Using Beam Of Pain.\""
+      ],
+      "source": "baseProjData.cs BeamOfPainProj::damageTarget; player.cs Player::onDamage; UltraVX5_EASY.cs"
+    },
+    "EnergyRifle": {
+      "summary": "VX5's ELF Gun: an electric beam that drains the target's energy quickly while doing light Electricity damage.",
+      "notes": [
+        "Jman's ArmorData.cs sets its item limit to 0 for every armor, but each difficulty file sets it back to 1, so it can still be carried.",
+        "Unlike VX5, selecting it bottom-prints \"Using Energy Rifle.\""
+      ],
+      "source": "item.cs EnergyRifle::onUse; ArmorData.cs; UltraVX5_EASY.cs"
+    },
+    "CloakGun": {
+      "summary": "Cloaking Gun: a wide, short beam that makes whatever it touches fade out, then fade back in much later. It does no damage.",
+      "notes": [
+        "cloakingCharge::damageTarget calls GameBase::startFadeOut on the target and schedules startFadeIn 300 seconds later. There is no team check, so it works on teammates and enemies alike.",
+        "The beam has 0 damage and 0 energy drain; it is a 40 m, 35-degree cone.",
+        "Sold when $CloakGunInventory is 1 (default)."
+      ],
+      "source": "baseProjData.cs cloakingCharge::damageTarget; item.cs CloakGun; station.cs"
+    },
+    "RevengePack": {
+      "summary": "Backpack of Revenge: when you die wearing it, you drop a fake flag that blows up on the first enemy to touch it. Activating it kills you after 10 seconds.",
+      "notes": [
+        "Player::onKilled checks every mounted slot; if one holds the revengepack it throws a MineofRevenge (a flag-shaped mine) at the body and sets it to your team.",
+        "The mine arms once it comes to rest and explodes when an enemy player, vehicle or moveable touches it: Revenge damage, explosion radius $RevengeRadius (default 50), kickback 1000.",
+        "With $RevengeInstantDetonation 1 the mine instead blows up 0.3 seconds after it is dropped.",
+        "Activating the pack prints \"Self-Destruct in 10 seconds.\" and schedules Player::kill. Deactivating does not cancel it.",
+        "Its death messages say the victim \"thought that was a flag\". Sold when $RevengeInventory is 1 (default)."
+      ],
+      "source": "item.cs RevengePackImage::onActivate/onDeactivate; player.cs Player::onKilled; Mine.cs MineofRevenge"
+    },
+    "NuclearShieldPack": {
+      "summary": "NuclearShield: a shield pack for firing the Nuclear Warhead. It absorbs nearly all damage into energy, then ejects itself and the warhead launcher after five seconds.",
+      "notes": [
+        "Activating sets shieldStrength to 0.999 and warns \"Five seconds until nuclear containment failure.\" At 5 s ContainmentCritical drops your Nuclear Warhead launcher; at 5.5 s the pack itself is dropped; at 5.6 s the shield is turned off.",
+        "Damage is absorbed while energy times 0.999 exceeds the hit, so a full-energy light or medium armor (500 energy) can absorb its own nuke. Heavy armor has only 100 energy and cannot. A fully absorbed hit still triggers the nuke's 6-second EMP pulse, because the pulse only checks that the hit was not lethal.",
+        "Deactivating turns the shield off at once."
+      ],
+      "source": "item.cs NuclearShieldPackImage::onActivate/onDeactivate, ContainmentCritical; player.cs Player::onDamage; ArmorData.cs"
+    },
+    "CameraPack": {
+      "summary": "Deploys a remote camera on terrain or a building, which teammates can view through.",
+      "notes": [
+        "Unlike VX5, it no longer has to be placed within 150 m of a friendly base object. The fair-play check is replaced by if(true).",
+        "The team limit is 5. The camera points straight up or down on flat surfaces, otherwise along the surface normal."
+      ],
+      "source": "item.cs CameraPack::deployShape"
+    },
+    "SatCameraPack": {
+      "summary": "Satellite Camera: meant to drop a camera at your own position, facing down at the ground. As shipped it cannot be bought or deployed.",
+      "notes": [
+        "deployShape places a SatCameraTurret at the player's position, tilted down (x rotation -1) and facing the player's heading. It does not check line of sight or surface.",
+        "$TeamItemMax[SatCameraPack] is never set, so the team-count check always fails, and that branch has no failure message. Deploying silently does nothing.",
+        "$InvList[SatCameraPack] is 0, so stations do not sell it."
+      ],
+      "source": "item.cs SatCameraPack::deployShape/onDeploy; station.cs"
+    },
+    "TaserTrtCPack": {
+      "summary": "Tracking Turret: a deployable camera-shaped turret that tracks and fires a taser beam. Jman cuts its range and energy and makes it recharge very slowly.",
+      "notes": [
+        "Unlike VX5, DeployableTaserTrtC::onEnabled sets its energy recharge rate to 1 (VX5 20).",
+        "turret.cs also lowers the turret's maxEnergy and range from 500 to 200.",
+        "Deploying still needs a friendly base object within 150 m. VX5's difficulty files set its beam damage conversion to 0.0001 on Defaults."
+      ],
+      "source": "turret.cs DeployableTaserTrtC, onEnabled; item.cs TaserTrtCPack::deployShape; UltraVX5_EASY.cs"
+    },
+    "TeleportPack": {
+      "summary": "Deploys a teleport pad on a flat surface. Stepping on it sends a light-armor teammate to another of the team's pads.",
+      "notes": [
+        "Unlike VX5, the pad no longer has to be within 150 m of a friendly base object.",
+        "Needs a surface with an upward normal over 0.7. Team limit is 4 pads.",
+        "Medium and heavy armor are refused (\"Cannot teleport in this character class\"); enemies get \"Wrong team\"."
+      ],
+      "source": "item.cs TeleportPack::deployShape; staticshape.cs DeployableTeleport::onCollision"
+    },
+    "LaserTurretMPack": {
+      "summary": "Laser Motion Turret: a small laser turret that sticks to floors, walls or ceilings near your base. It is not sold in stations.",
+      "notes": [
+        "Deploys LaserTurretM (LaserTrtLaser beam, range 40, 1000 energy) within 150 m of a friendly base object. It points up or down on flat surfaces, otherwise along the surface normal.",
+        "onAdd gives it recharge rate 100 and shieldStrength 0.99; onEnabled later sets recharge 5.",
+        "Deploying sets the turret as your owned object and then sets you back as your owned object.",
+        "Bug: deploying increments the team count of LaserTurretPack, but destroying it decrements LaserTurretMPack. Each one built uses up a LiL Turret slot permanently.",
+        "$InvList[LaserTurretMPack] is 0, so stations do not sell it."
+      ],
+      "source": "item.cs LaserTurretMPack::deployShape; turret.cs LaserTurretM; station.cs"
+    }
+  }
+}

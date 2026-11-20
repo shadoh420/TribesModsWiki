@@ -1,0 +1,136 @@
+# nappy vs base (135 items)
+new        DuelerArmor                  Duel Armor
+new        ScoutArmor                   Scout Armor
+new        SpyArmor                     Spy Armor
+new        SniperArmor                  Sniper Armor
+new        MercenaryArmor               Mercenary Armor
+new        EngineerArmor                Engineer Armor
+new        FlagMoverArmor               Flag Mover Armor
+new        BursterArmor                 Burster Armor
+new        DragArmor                    Cyborg
+new        WraithVehicle                Wraith
+new        JetVehicle                   Jet
+renamed+statsLAPCVehicle                  LAPC
+renamed+statsHAPCVehicle                  HAPC
+stats      Blaster                      Blaster
+stats      BulletAmmo                   Bullet
+stats      Chaingun                     Chaingun
+new        TranqAmmo                    Poison Dart
+new        TranqGun                     Dart Rifle
+stats      DiscAmmo                     Disc
+stats      DiscLauncher                 Disc Launcher
+new        FlamerAmmo                   Gas
+new        Flamer                       Flame Thrower
+stats      GrenadeAmmo                  Grenade Ammo
+stats      GrenadeLauncher              Grenade Launcher
+new        IonGun                       Ion Rifle
+stats+scriptsLaserRifle                   Laser Rifle
+new        SilencerAmmo                 Magnum Bullets
+new        Silencer                     Magnum
+stats      MortarAmmo                   Mortar Ammo
+stats      Mortar                       Mortar
+new        NapalmAmmo                   Napalm Shell
+new        Napalm                       Napalm Launcher
+new        Omega                        Omega
+stats      PlasmaAmmo                   Plasma Bolt
+stats      PlasmaGun                    Plasma Gun
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      Railgun
+new        RocketAmmo                   Rockets
+new        RocketLauncher               Rocket Launcher
+new        WaveGun                      Shockwave Cannon
+new        ShotgunAmmo                  Shotgun Shell
+new        Shotgun                      Shotgun
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+renamed+statsEnergyRifle                  Thunderbolt
+new        VulcanAmmo                   Vulcan Bullet
+new        Vulcan                       Vulcan
+stats      TargetingLaser               Targeting Laser
+new        Fixit                        Repair-Gun
+new        Hackit                       Hack-Gun
+new        JailGun                      Jail-Gun
+new        Packit                       Pack-Gun
+new        VehicleRepairGun             Vehicle Repair Gun
+new        VehiclePackit                Vehicle Pack-Gun
+new        MortarOne                    Mortar One
+new        MortarTwo                    Mortar Two
+new        MortarThree                  Mortar Three
+new        MortarFour                   Mortar Four
+new        QuadMortar                   Quad Mortar
+stats+scriptsEnergyPack                   Energy Pack
+stats+scriptsRepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+new        GasPack                      Gas Pack
+new        CloakingDevice               Cloaking Device
+new        StealthShieldPack            StealthShield Pack
+new        RegenerationPack             Regeneration Pack
+new        LightningPack                Lightning Pack
+new        OpticPack                    Cybernetic Laser
+new        MissileAmmo                  Missiles
+new        SMRPack                      Auto-Rocket Cannon
+new        Laptop                       Command Laptop
+new        SuicidePack                  Suicide DetPack
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+new        BaseAlarm                    Base Alarm
+stats+scriptsCameraPack                   Camera
+new        LaserTurretPack              Laser Turret
+new        IonTurretPack                Ion Turret
+new        IndoorTurretPack             Indoor Turret
+new        ShockTurretPack              Shock Turret
+new        AntiAirTurretPack            AntiAir Turret
+new        ElfTurretPack                Elf Turret
+new        MortarTurretPack             Mortar Turret
+new        PlasmaTurretPack             Plasma Turret
+new        RailTurretPack               Rail Turret
+new        RocketTurretPack             Rocket Turret
+new        VulcanTurretPack             Vulcan Turret
+new        ArbitorPack                  Arbitor
+new        TeleportPack                 Teleport Pad
+new        FlagstandPack                Flag Stand
+new        SpringPack                   Springboard
+new        HoloPack                     Hologram
+new        TreePack                     Mechanical Tree
+new        JailCapPack                  Jail Capture Pad
+new        BuilderPole                  Builder Pole
+new        BlastWallPack                Blast Wall
+new        newdooroneR                  Panel Wall One Right
+new        newdooroneL                  Panel Wall One Left
+new        newdoortwoR                  Panel Wall Two Right
+new        newdoortwoL                  Panel Wall Two Left
+new        newdoorthreeR                Panel Wall Three Right
+new        newdoorthreeL                Panel Wall Three Left
+new        newdoorfourR                 Panel Wall Four Right
+new        newdoorfourL                 Panel Wall Four Left
+new        DeployableForceField         Force Field
+new        LargeForceField              Large Force Field
+new        DeployablePlatform           Deployable Platform
+new        MediumPlatform               Medium Platform
+new        LargePlatform                Large Platform
+new        jailpack                     Jail Cell
+new        RemoteBase                   Remote Base
+new        SniperHut                    Sniper Hut
+new        BlastDoor                    Blast Door
+new        doorthreebyfourForceField    3 by 4 Force Field Door
+new        doorfourbyeightForceField    4 by 8 Force Field Door
+new        doorfourbyfourteenForceField 4 by 14 Force Field Door
+new        doorfourbyseventeenForceField4 by 17 Force Field Door
+new        doorfivebyfiveForceField     5 by 5 Force Field Door
+new        LargePlatformDoor            Large Platform Door
+new        ScoutVehiclePack             Scout Vehicle Pack
+new        WraithVehiclePack            Wraith Vehicle Pack
+new        JetVehiclePack               Jet Vehicle Pack
+new        LAPCVehiclePack              LAPC Vehicle Pack
+new        HAPCVehiclePack              HAPC Vehicle Pack
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats      RepairPatch                  Repair Patch

@@ -1,0 +1,1450 @@
+[
+ {
+  "id": "420snipers",
+  "title": "420Snipers (Beta)",
+  "author": "{420}Ice-Dragon (scripts dated Dec 2002 – Mar 2003)",
+  "era": "Dec 2002 – Mar 2003",
+  "launch": "-mod Snipers420",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "5th-element",
+  "title": "5th Element (v0.2)",
+  "author": "+]-[+Armagedon+ (Team Hybrid; scripts.vol dated Jan 2003)",
+  "era": "Jan 2003",
+  "launch": "-mod FifthElement",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "aaod",
+  "title": "AAOD (Mod 1.6Ex)",
+  "author": "AAOD Clan (Server Admin: Valya[AAOD], Bug Reports: darkserpent; dated Feb 18, 2000)",
+  "era": "Feb 2000",
+  "launch": "-mod AAOD",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "advanced-war",
+  "title": "Advanced War (AdvWar 0.1)",
+  "author": "DKSlipKnot (DK Clan; scripts dated Jul 2002 – Apr 2005)",
+  "era": "Jul 2002 – Apr 2005",
+  "launch": "-mod AdvWar",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "aeon",
+  "title": "AEON (Monopolization RPG)",
+  "author": "Ice (2008)",
+  "era": "2008",
+  "launch": "-mod Aeon",
+  "category": "RPGs & Progression"
+ },
+ {
+  "id": "alliance",
+  "title": "Alliance (Alliance Engine)",
+  "author": "Alazane, with Mjolnir, Mephisto, and Kevin \"Savage1\" Savage (dated up to Jan 2000)",
+  "era": "Jan 2000",
+  "launch": "-mod Alliance",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "anarchy-ur",
+  "title": "Ultra Renegades 3 .v. Anarchy (AnarchyUR BETA)",
+  "author": "The Anarchy Tribe (dated Feb 10, 2003; based on UR3 by URG_Thrash, League version by ($A$)FSB-Deacon, Dr. NoRtOn, {187}George W., and Kissie-Poo)",
+  "era": "Feb 2003",
+  "launch": "-mod AnarchyUR",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "anarchy",
+  "title": "ANARCHY (Mod 2.0)",
+  "author": "DRONE1000 (Team Anarchy); server build and documentation by ^Plasmatic^ (Jan–Feb 2001)",
+  "era": "Jan–Feb 2001",
+  "launch": "-mod Anarchy",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "anathrax",
+  "title": "AnAThrax's Mod",
+  "author": "AnAThrax (dated Oct 27, 1999)",
+  "era": "Oct 1999",
+  "launch": "-mod Anathrax",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "annihilation",
+  "title": "Total Annihilation",
+  "author": "Annihilation Dev Team (Sevnn, Plasmatic, et al.; 2001–2003)",
+  "era": "2001–2003",
+  "launch": "-mod TotalAnnihilation",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "apocalypse",
+  "title": "Apocalypse Mod (v1.6)",
+  "author": "ProtoManX (2002–2003; built on Foundation Mod by Nicodemus, with code from Ice and Creeperman)",
+  "era": "2002–2003",
+  "launch": "-mod ApocalypseMod",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "apollo11",
+  "title": "Apollo 11 Mod (v0.4 Alpha)",
+  "author": "Bloodhype (Design: Bloodhype, Blade, Metasys; distributed by AWACS.net, 1999–2000)",
+  "era": "1999–2000",
+  "launch": "-mod Apollo11",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "apteryx",
+  "title": "Apteryx (v2)",
+  "author": "Crow! (2003; built on Annihilation 2.1 by Sevnn & Plasmatic)",
+  "era": "2003",
+  "launch": "-mod Apteryx",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "armageddon",
+  "title": "Armageddon (\"Meltdown v w00\")",
+  "author": "||w00||GreyWolf with [GL]VRWarper (Apr 2002)",
+  "era": "*",
+  "launch": "-mod Armageddon",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "asylum",
+  "title": "Asylum 2.5 (Asylum2)",
+  "author": "planetstarsiege.com/asylum (files dated Jun 19, 2000)",
+  "era": "Jun 2000",
+  "launch": "-mod Asylum",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "atf",
+  "title": "{ATF} Attack Team Force Mod (v1.0 Beta)",
+  "author": "{ATF}HaCk ({ATF} Clan; scripts dated 2001–2004; built on Foundation Mod by Nicodemus)",
+  "era": "2001–2004",
+  "launch": "-mod ATF",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "base-duel",
+  "title": "BaseDuel (DuelMOD)",
+  "author": "Drink|Kahlua (May 2000)",
+  "era": "Kahlua",
+  "launch": "-mod BaseDuel",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "base-plus",
+  "title": "Dynamix Plus MOD (v1.1)",
+  "author": "Dynamix (Official Sierra/Dynamix Release, June 2000)",
+  "era": "Jun 2000",
+  "launch": "-mod Plus",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "beginner-mod",
+  "title": "Beginner Mod",
+  "author": "Dustin Bruce (Aug–Nov 2003)",
+  "era": "Aug–Nov 2003",
+  "launch": "-mod BeginnerMod",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "biowasteland",
+  "title": "BioWasteland (v7.5)",
+  "author": "Bohazard (biohazard@exploratoriums.com; ~2001–2003)",
+  "era": "~2001–2003",
+  "launch": "-mod BioWasteland",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "blitzkrieg",
+  "title": "Blitzkrieg (v1.0b BETA)",
+  "author": "I/O deRost (Sep 10, 2000)",
+  "era": "Sep 2000",
+  "launch": "-mod Blitzkrieg",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "blur-of-insanity",
+  "title": "Blur of Insanity",
+  "author": "SipHoN (2002; built on HaVoC 1.59c base)",
+  "era": "2002",
+  "launch": "-mod BlurOfInsanity",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "bop",
+  "title": "Balance of Power (BOP v1.85)",
+  "author": "James C. Vetsch aka Hak|Hakuryu (Sep 1999)",
+  "era": "Hakuryu)",
+  "launch": "-mod BOP",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "chivalry",
+  "title": "Chivalry (v2.0)",
+  "author": "[CLU]Robear & [CLU]Clu (Sojourn Development Team, Sep 2000)",
+  "era": "Sep 2000",
+  "launch": "-mod Chivalry",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "cisygy",
+  "title": "CiSYGY (Server Mod PR1)",
+  "author": "Sundiata (CiSYGY Clan, Feb 1999)",
+  "era": "Feb 1999",
+  "launch": "-mod CiSYGY",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "cnc-tribes",
+  "title": "C&C Tribes V2",
+  "author": "Lennex Production Studios (2000; with contributions from Matthais of Starsiegecraft)",
+  "era": "2000",
+  "launch": "-mod CNCTRIBESV2",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "cocaine",
+  "title": "Nappy Cocaine (v1.3)",
+  "author": "SSSneeky (2004; built on NHOP's Nappy V4 and InsomniaX admin framework)",
+  "era": "2004",
+  "launch": "-mod NappyCocaine",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "cybrid-2k5",
+  "title": "+Cybrid+ 2K5 (\"The Cybrid Wars\")",
+  "author": "Armageddon & WorstAim (Team Hybrid / Hybrid Development Team, 2005; built on Ultra Renegades VX Elite & secureBase)",
+  "era": "2005",
+  "launch": "-mod Cybrid2K5",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "dbz",
+  "title": "DBZ_3k (Dragon Ball Z Mod)",
+  "author": "Uncredited author (Dec 2000)",
+  "era": "Dec 2000",
+  "launch": "-mod DBZ_3k",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "delta-force",
+  "title": "DeltaForce (v1.0)",
+  "author": "Delta Force Development Team (Jan 2001)",
+  "era": "Jan 2001",
+  "launch": "-mod DeltaForce",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "deltaairforce",
+  "title": "Delta Air Force (DAF)",
+  "author": "DAF Development Team (~2001–2003)",
+  "era": "~2001–2003",
+  "launch": "-mod DeltaAirForce",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "destroyer",
+  "title": "Destroyer Mod",
+  "author": "{SOF} Snake eye (Scripts.vol dated Dec 23, 2002)",
+  "era": "Dec 2002",
+  "launch": "-mod DeStRoYeR",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "devastator",
+  "title": "Devastator Mod (BETA v0.99)",
+  "author": "Ice (May 2002)",
+  "era": "May 2002",
+  "launch": "-mod Devastator",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "devious-land",
+  "title": "DeviousLand (v1.46)",
+  "author": "Mojica (misterdevious / Brian Waibel, Mar 1999)",
+  "era": "Mar 1999",
+  "launch": "-mod DeviousLand",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "dogfight",
+  "title": "DogFight (v1.5)",
+  "author": "{SOF} Snake eye (Oct 2002)",
+  "era": "Oct 2002",
+  "launch": "-mod DogFight",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "duel",
+  "title": "Duel Tournament",
+  "author": "[HvC]NaTeDoGG (Original Author); maintained by Krayvok, Lestat, and =Argh!= (PlayT1.com, 2000–2026)",
+  "era": "2000–2026",
+  "launch": "-mod Duel",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "eliterenegades",
+  "title": "Elite Renegades (v1.1b)",
+  "author": "Fire Team Alpha (FTA) (The original creators of Renegades; hosted by Temples of Syrinx, ~2000–2001)",
+  "era": "~2000–2001",
+  "launch": "-mod EliteRenegades",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "enhanced-base",
+  "title": "Enhanced Base (v2)",
+  "author": "Timer[TiZ] (Apr–May 2000)",
+  "era": "Apr–May 2000",
+  "launch": "-mod EnhancedBase",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "eradication",
+  "title": "Eradication (v1.4)",
+  "author": "Dissident (August 2000, for Tribes 1.11)",
+  "era": "Aug 2000",
+  "launch": "-mod Eradication",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "et-war",
+  "title": "ET War (TK Clan Mod)",
+  "author": "Rkon (Official TK Clan Mod; scripts dated Jan 2009)",
+  "era": "Jan 2009",
+  "launch": "-mod ETWar",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "extreme",
+  "title": "Extreme",
+  "author": "Jason Avina (author of the Orion Mod; scripts dated Feb 20, 2000)",
+  "era": "Feb 2000",
+  "launch": "-mod Extreme",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "fallout",
+  "title": "Fallout (Alpha)",
+  "author": "Floater (scripts dated February – April 2005)",
+  "era": "Feb-Apr 2005",
+  "launch": "-mod Fallout",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "football",
+  "title": "Tribes Football (Football_Tasermod v5.7.5)",
+  "author": "JeremyIrons (original mod); modifications by Spike, Greasey, aRc, LackeyNo2, and Taserman (Tasermod v5.7.5, August 2003; clientpack 1.2 by Angel Kill)",
+  "era": "2001-2003",
+  "launch": "-mod Football",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "football-1v1",
+  "title": "Football 1vs1 Mod",
+  "author": "Taserman (September 2003, built on Football 1.32 build 3)",
+  "era": "Sep 2003",
+  "launch": "-mod Football1v1",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "foundation-2",
+  "title": "Foundation Mod II",
+  "author": "ProtoManX (2005–2006), built on Foundation Mod by Nicodemus (2000)",
+  "era": "2005-2006",
+  "launch": "-mod FoundationII",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "gammy-mk2",
+  "title": "GammY[MK2] (v0.07)",
+  "author": "Gammak7 (October 2003, v0.07; forked from {ATF}HaCk's Foundation mod)",
+  "era": "Oct 2003",
+  "launch": "-mod GammYMK2",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "genocide",
+  "title": "Genocide (v2R)",
+  "author": "6|6|6SlipKnot (a.k.a. +]-[+Armageddon+]), admin system by ]|420|[CraCka (September 2003)",
+  "era": "6",
+  "launch": "-mod Genocide",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "goldeneye",
+  "title": "GoldenEye 007 Total Conversion",
+  "author": "Community Authors (Tribute to Rareware / Nintendo 64)",
+  "era": "Classic Era",
+  "launch": "Installed as Base Mission / Asset Pack",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "gpu-normals",
+  "title": "Modern GPU HD Normal Maps",
+  "author": "Modern Tribes Community Graphics Preservation",
+  "era": "Modern (1.50)",
+  "launch": "Engine Renderer Asset Pack (Config / HDNormals)",
+  "category": "HD Remasters & Visuals"
+ },
+ {
+  "id": "gundam",
+  "title": "Gundam Wing (GundamWvx1)",
+  "author": "LoD|ZechsMerqise (March 2001, built on Starsiege Craft 1.19 via serverStarCraft.cs)",
+  "era": "ZechsMerqise (Starsiege Craft base)",
+  "launch": "-mod GundamWvx1",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "gunstar",
+  "title": "GunStar (v0.5)",
+  "author": "Nathan Sweet ([HvC]NaTeDoGG), concept by [OO]Striker (circa 1999–2000)",
+  "era": "~1999-2000",
+  "launch": "-mod GunStar",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hard-corps",
+  "title": "HARD CORPS (V1.5 FINAL)",
+  "author": "Warpath (warpath@strategyplanet.com, April 2000)",
+  "era": "Apr 2000",
+  "launch": "-mod HardCorps",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "havoc",
+  "title": "HaVoC (v1.6)",
+  "author": "Nathan Sweet ([HvC]NaTeDoGG), with major tech from IXSavage1 and CreeperMan (circa 1999–2000)",
+  "era": "1999-2000",
+  "launch": "-mod HaVoC",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "herchavoc",
+  "title": "Herc Havoc (Starsiege Simulation)",
+  "author": "Modern Tribes Community (Built on Mech Mayhem by Nathan Sweet; 1,139 files)",
+  "era": "Modern (1.50)",
+  "launch": "-mod HercHavoc",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "holocaust",
+  "title": "Holocaust (v3.5 \"With Duel\")",
+  "author": "/D:B/Spector (circa 2001)",
+  "era": "2001",
+  "launch": "-mod Holocaust",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hunters",
+  "title": "Tribes Hunters (v1.4)",
+  "author": "Tinman aka \"Kidney Thief\" (February 2000, v1.4)",
+  "era": "Feb 2000",
+  "launch": "-mod Hunters",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hv-mechbot",
+  "title": "HvMechBot (House Vagoroth MechBot)",
+  "author": "House Vagoroth & Spoonbot Dev Team (circa 2000–2001)",
+  "era": "2000-2001",
+  "launch": "Bot Package for hv-mechwarrior",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hv-mechwarrior",
+  "title": "hvMechWarrior (v1.4)",
+  "author": "hvPalantirion and hvHelplessTarget (House Vagoroth, November 2000, v1.4)",
+  "era": "Nov 2000",
+  "launch": "-mod HvMechWarrior",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hv-tactical",
+  "title": "hvTactical (v1.0)",
+  "author": "hvPalantirion (House Vagoroth, July 1999, v1.0; grew from PALrenegades / Renegades 1.3)",
+  "era": "Jul 1999",
+  "launch": "-mod HvTactical",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "hybrid",
+  "title": "+Hybrid+ 2K4",
+  "author": "Hybrid Development Team (+]-[+Armageddon+], +]-[+WOG+], +]-[+WorstAim+]), with XCalibur Admin System (2004)",
+  "era": "2004",
+  "launch": "-mod Hybrid",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ideal",
+  "title": "Ideal Mod",
+  "author": "Ziktar (scripts dated May – August 1999)",
+  "era": "May-Aug 1999",
+  "launch": "-mod Ideal",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "insane",
+  "title": "INSANE (v1.0a)",
+  "author": "[PLA]KeViN (built on Renegades, incorporating Insomniax admin controls; March 1999)",
+  "era": "Mar 1999",
+  "launch": "-mod Insane",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "insomniax",
+  "title": "Insomniax TRIBES Mod (v0.9c)",
+  "author": "Kevin \"IXSavage1\" Savage (scripts dated April 2000; insomniax.net)",
+  "era": "1999-2000",
+  "launch": "-mod Insomniax",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "isn",
+  "title": "ISN Rift (v4.0a Beta)",
+  "author": "(TF)Ryath and (TF)SlayerMonk (Internet Starsiege Network Modifications, October 2000; built on Dynamix \"Plus\" Mod 1.1)",
+  "era": "Oct 2000",
+  "launch": "-mod ISNRift",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "jester",
+  "title": "JesterMOD (v1)",
+  "author": "Casey D'Angelo (December 2000 / February 2001; built on Ultra Renegades VX4)",
+  "era": "2000-2001",
+  "launch": "-mod Jester",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "knights-16",
+  "title": "Knights (v1.6)",
+  "author": "}KR{Dark Knight (KR Clan, September 2003)",
+  "era": "Sep 2003",
+  "launch": "-mod Knights",
+  "category": "RPGs & Progression"
+ },
+ {
+  "id": "meltdown-2",
+  "title": "Meltdown 2",
+  "author": "||w00||GreyWolf & [GL]VRWarper (Meltdown Team, circa 2000–2001)",
+  "era": "~2000-2001",
+  "launch": "-mod Meltdown2",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-classic",
+  "title": "Meltdown Classic",
+  "author": "Mega Man 1024, Z_Dog, and the Meltdown Development Team (2000–2002)",
+  "era": "2000-2002",
+  "launch": "-mod MeltdownClassic",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-hell",
+  "title": "Meltdown Hell (v3.3)",
+  "author": "INHDynaBlade and the Meltdown Hell Team (2002)",
+  "era": "2002",
+  "launch": "-mod MeltdownHell",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-total-war",
+  "title": "Meltdown Total War 2001 (Build 124)",
+  "author": "Defender (2001)",
+  "era": "2001",
+  "launch": "-mod MeltdownTW",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-ultra",
+  "title": "Meltdown Ultra (v2.33)",
+  "author": "Defender (built on INHDynaBlade's Meltdown 2.16; February 2003)",
+  "era": "Feb 2003",
+  "launch": "-mod MeltdownUltra",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "meltdown-x",
+  "title": "Meltdown X - BLACK OP'S (vX Omega)",
+  "author": "Meltdown Community Authors (spawned from Meltdown Hell v3.3, Meltdown Classic, Shifter, Ultra Renegades, and HaVoC; circa 2003–2004)",
+  "era": "2003-2004",
+  "launch": "-mod MeltdownX",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "minimod",
+  "title": "MiniMod (v1.0)",
+  "author": "Dewy and the MiniMod Team (December 1999)",
+  "era": "Dec 1999",
+  "launch": "-mod MiniMod",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "mmsflight",
+  "title": "MMSFlight",
+  "author": "MMS (circa 2000)",
+  "era": "~2000",
+  "launch": "-mod MMSFlight",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "modx",
+  "title": "ModX (v3.0 Open Source)",
+  "author": "Vage (Jacob B. Gohlke; build date November 14, 2004)",
+  "era": "Nov 2004",
+  "launch": "-mod ModX",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "mortar-men",
+  "title": "Mortar Men (v1.1)",
+  "author": "IntauraMODs (lead programmer Michael Wales; scripts dated July 1999)",
+  "era": "Jul 1999",
+  "launch": "-mod MortarMen",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nappy",
+  "title": "NAPPY 6 (NappyMod)",
+  "author": "[NHOP]Smokey (scripts dated 2003–2004; nappybase.com)",
+  "era": "2003-2004",
+  "launch": "-mod NappyMod",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ndg20",
+  "title": "NDG Renegades (v2.0)",
+  "author": "[NDG] Tog Neve (November 1999)",
+  "era": "Nov 1999",
+  "launch": "-mod NDG20",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "netrunner",
+  "title": "NetRunner",
+  "author": "Stiletto and Arkfire (April 2000)",
+  "era": "Apr 2000",
+  "launch": "-mod NetRunner",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nfs",
+  "title": "The Need For Speed (v36B)",
+  "author": "Blade[INC] and Enforcer[INC] (Incubus Tribe, July 1999)",
+  "era": "Jul 1999",
+  "launch": "-mod NFSv36",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nihility",
+  "title": "NIHILITY (v1.4.3)",
+  "author": "AUTO (November 2002)",
+  "era": "Nov 2002",
+  "launch": "-mod Nihility",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "novamorpher",
+  "title": "NovaMorpher (v0.821)",
+  "author": "VRWarper (2002; creator of GreyBOT and Meltdown contributor)",
+  "era": "2002",
+  "launch": "-mod NovaMorpher",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "omega-mod",
+  "title": "Omega Assault (v1.6)",
+  "author": "Uncredited Community Developer (Classic Era)",
+  "era": "Classic Era",
+  "launch": "-mod Omega",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "orion",
+  "title": "Orion Mod",
+  "author": "Jason Avina (February 20, 2000)",
+  "era": "Feb 2000",
+  "launch": "-mod Orion",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ot",
+  "title": "OldTribes (v0.3)",
+  "author": "Tom Vogt (tom@lemuria.org, April 2000)",
+  "era": "Apr 2000",
+  "launch": "-mod OT",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "paintball",
+  "title": "Paintball Mod (v2.6)",
+  "author": "|K0RN| and [RR]MisterPibb, reworked by KingTomato (May 2004)",
+  "era": "K0RN",
+  "launch": "-mod Paintball",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "paintball-9beta",
+  "title": "Paintball (v9.0 Beta)",
+  "author": "|K0RN| and [RR]MisterPibb, modifications by GoHaN (March 2003)",
+  "era": "K0RN",
+  "launch": "-mod PB9Beta",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "paintball-rs",
+  "title": "Paintball (vRaPiD StYLe)",
+  "author": "|K0RN| and [RR]MisterPibb, reworked by .:RaPiD:. (April 2004)",
+  "era": "Apr 2004",
+  "launch": "-mod PBRapidStyle",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "paintball-speed",
+  "title": "Paintball (v.Speed)",
+  "author": "SaGe, Harabec, and WOG (built on Paintball 2.5; April 2004)",
+  "era": "Apr 2004",
+  "launch": "-mod PBSpeed",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "paintball-tactical",
+  "title": "Paintball (v.Tactical_XCal)",
+  "author": "+]-[+Armageddon+] and +]-[+WorstAim+] (Team Hybrid, March 2004)",
+  "era": "Mar 2004",
+  "launch": "-mod PBTactical",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "pantheon",
+  "title": "Pantheon MOD (v1.02)",
+  "author": "Pantheon MOD Team (March 2000; built on Insomniax admin code)",
+  "era": "Mar 2000",
+  "launch": "-mod Pantheon",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "phobiax-109",
+  "title": "Phobiax Expansion Mod (v1.09)",
+  "author": "Ben Ross (Dreadnaught, October–November 2000; phobiax.thisplacehere.com)",
+  "era": "Oct-Nov 2000",
+  "launch": "-mod Phobiax",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "professional",
+  "title": "Tribes Professional",
+  "author": "Desrtfox (desrtfox@primenet.com, February 2000)",
+  "era": "Feb 2000",
+  "launch": "-mod Professional",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "proud-man-down",
+  "title": "Proud Man Down: World War II (v5.0)",
+  "author": "Josh Buckingham (Sahbitar / Buletz, Xagon Games; 2004)",
+  "era": "2004",
+  "launch": "-mod ProudManDown",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "r1",
+  "title": "R1 (v1.2)",
+  "author": "Ryan Smith (November 1999)",
+  "era": "Nov 1999",
+  "launch": "-mod R1",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "rampage",
+  "title": "_RaMpAgE_ (v2.0)",
+  "author": "Armagedon (.:(A):. Anarchy clan, February 2003; based on Nappy 4.0)",
+  "era": "Feb 2003",
+  "launch": "-mod Rampage",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "rb2",
+  "title": "Reality Bites 2.0 (rb2)",
+  "author": "Reality Bites Development Team (built on MiniMod v0.6 loader)",
+  "era": "~2000",
+  "launch": "-mod rb2",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ren2k",
+  "title": "Ren2K (Renegades 2000)",
+  "author": "Ren2K Development Team (2000; integrating Insomniax administrative framework)",
+  "era": "2000",
+  "launch": "-mod Ren2K",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "renegades",
+  "title": "RenegadesMod (v8-20-2003)",
+  "author": "The Renegades Development Team (1999–2003)",
+  "era": "1999-2003",
+  "launch": "-mod RenegadesMod",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegades-classic",
+  "title": "Renegades Classic (v1.1c)",
+  "author": "The Renegades Development Team (1999–2000)",
+  "era": "1999-2000",
+  "launch": "-mod RenegadesClassic",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegades-duel",
+  "title": "Renegades Duel",
+  "author": "HaVoC & Renegades Communities (July 2, 2002)",
+  "era": "Jul 2002",
+  "launch": "-mod RenegadesDuel",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegadez",
+  "title": "Renegadez (v1.1)",
+  "author": "[[DD]] Nemesis (circa 2001)",
+  "era": "~2001",
+  "launch": "-mod Renegadez",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "retro",
+  "title": "Retrogear (v1.25b)",
+  "author": "Mustang (February 1999)",
+  "era": "Feb 1999",
+  "launch": "-mod Retro",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "rmrpg",
+  "title": "Red Moon RPG (RMRPG)",
+  "author": "Joe and the RMRPG Development Team (Classic to Modern Era; 934 files)",
+  "era": "Classic to Modern",
+  "launch": "-mod RMRPG",
+  "category": "RPGs & Progression"
+ },
+ {
+  "id": "rsp",
+  "title": "Redneck Slag Pack (RSP v1.18)",
+  "author": "HightechRedneck, patch work by [CNM] Nightwind (CNM Team; February 2000; www.planetstarsiege.com/rsp)",
+  "era": "Feb 2000",
+  "launch": "-mod RedneckSlag",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "s4l",
+  "title": "Snipers For Life (S4L v1.2b)",
+  "author": "[S4L]KaT (snipers4life@hotmail.com; ~1999-2000)",
+  "era": "~1999-2000",
+  "launch": "-mod S4L",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "scout-skirmish",
+  "title": "Scout Skirmish",
+  "author": "Community Modders / Unknown (~2000)",
+  "era": "~2000",
+  "launch": "-mod ScoutSkirmish",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "screaming-fist",
+  "title": "Screaming Fist (Public Beta)",
+  "author": "Rob Mineault & Ratorsniki (ratorasniki@tribalwar.com; ~2000; 401 files!)",
+  "era": "~2000",
+  "launch": "-mod ScreamingFist",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "sex-nc17",
+  "title": "SEX mod NC17 (Sex.v.NC17)",
+  "author": ".:(A):.Armagedon (edit of Plasmatic's Sex mod 3; May 2004)",
+  "era": "May 2004",
+  "launch": "-mod SexNC17",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "shadow-10",
+  "title": "SHaDoW (v1.0)",
+  "author": "VoOdOo (Clan Foo, voodoo@clanfoo.org; ~1999-2000)",
+  "era": "~1999-2000",
+  "launch": "-mod shadow",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shazbot-beta1",
+  "title": "Shazbot (v.Beta)",
+  "author": ":}|S|{jInZo}: (scripts.vol dated May 2004)",
+  "era": "S",
+  "launch": "-mod Shazbot",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter",
+  "title": "Shifter (v1 09-28-2000)",
+  "author": "Taylor Suchan (Emo1313, Dopplegangers; documentation by Ascain & FUBAR; September 2000)",
+  "era": "Sep 2000",
+  "launch": "-mod Shifter",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-2k5",
+  "title": "Shifter 2K5 (v0.6 Beta)",
+  "author": "ParoXsitiC (derived from Shifter K by KiLL(-) & enV.3zer0, and Shifter v1G by GreyFlcn; 2004–2005)",
+  "era": "2004-2005",
+  "launch": "-mod Shifter2k5",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-bots",
+  "title": "Shifter v1 with Bots (SpoonBot Edition)",
+  "author": "Emo1313, SpoonBot AI by Werewolf & Wicked69, core by Dewy (MiniMod v0.7; October 1999)",
+  "era": "Oct 1999",
+  "launch": "-mod ShifterBots",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-renegades",
+  "title": "Shifter Renegades",
+  "author": "Renegades & Shifter Community Modders (~2001-2002)",
+  "era": "~2001-2002",
+  "launch": "-mod ShifterRenegades",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-sg1",
+  "title": "Shifter SG-1 (Stargate TC)",
+  "author": "Stargate Tribes Team (~2002)",
+  "era": "~2002",
+  "launch": "-mod ShifterSG1",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-v1g",
+  "title": "Shifter HC (v1G)",
+  "author": "GreyFlcn (Hardcore Shifter Community; final release May 27, 2002)",
+  "era": "May 2002",
+  "launch": "-mod Shifter_v1G",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-vx5duel",
+  "title": "Shifter VX5 Duel (UltraShifterDuel)",
+  "author": "Ultra VX & Shifter Duel Community (~2002-2003)",
+  "era": "~2002-2003",
+  "launch": "-mod UltraShifterDuel",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-xtreme",
+  "title": "Shifter Xtreme (ShifterXtreme)",
+  "author": "Xtreme Modding Crew (~2002)",
+  "era": "~2002",
+  "launch": "-mod ShifterXtreme",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "skynet",
+  "title": "SkyNet Tribes Pack (v1.0)",
+  "author": "Mephisto (MephistoX@theglobe.com; February 15, 1999)",
+  "era": "Feb 1999",
+  "launch": "-mod SkyNet",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "snipers-base",
+  "title": "Snipers Base (v2.0)",
+  "author": "King Shit (Alliance Engine Community; 2001)",
+  "era": "2001",
+  "launch": "-mod Snipers",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "specialist",
+  "title": "Specialist (v2000d)",
+  "author": "|PTi| & |V| ({TGO}LadyMacbeth, RCabrera; July 12, 2000; 154 files!)",
+  "era": "PTi",
+  "launch": "-mod Specialist",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "squadmod-alpha",
+  "title": "SquadMod (Alpha)",
+  "author": "KillerBunny (~2000)",
+  "era": "~2000",
+  "launch": "-mod SquadMod",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "starmod",
+  "title": "StarMod (STAR Shifter)",
+  "author": "StarMod Team (~2000-2001)",
+  "era": "~2000-2001",
+  "launch": "-mod STAR",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "starsiege",
+  "title": "Starsiege Simulation Mod",
+  "author": "Starsiege & Tribes Modding Communities (~2000)",
+  "era": "~2000",
+  "launch": "-mod starsiege",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "starsiege-craft",
+  "title": "Starsiege Craft: Rogues and Renegades (SSCR)",
+  "author": "[SC]Matthias (special thanks to Zell, DarkFox, and the War40K team; August 2001; 199 files!)",
+  "era": "Aug 2001",
+  "launch": "-mod SSCR",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "starwars",
+  "title": "Star Wars Total Conversion (v2.0)",
+  "author": "Machine, Noodle, Phantom Stranger, Hosed, Lone Predator, Angel Kill, Krun, Indecipherable, Jeremy Irons (~2002-2004; 2,079 files!)",
+  "era": "~2002-2004",
+  "launch": "-mod StarWars",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "strategic-combat",
+  "title": "Strategic Combat (v1.63)",
+  "author": "Dasher[TOP] (variant of Despised's Tribal Combat; ~2001)",
+  "era": "~2001",
+  "launch": "-mod StrategicCombat",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "striker",
+  "title": "Striker MOD (082499 Beta)",
+  "author": "Harold Brown (LabRat) (conceived from a mod design idea by [OO]Striker; August 24, 1999)",
+  "era": "Aug 1999",
+  "launch": "-mod Striker",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "swattactics",
+  "title": "SWAT Tactics",
+  "author": "Tactical Modding Group (~2001)",
+  "era": "~2001",
+  "launch": "-mod SwatTactics",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "swrpg",
+  "title": "Star Wars RPG (SWRPG / KOTOR Mod)",
+  "author": "Tenabrae, Joe & SWRPG Community (~2003-2005; 872 files!)",
+  "era": "~2003-2005",
+  "launch": "-mod SWRPG",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "tac",
+  "title": "Team Aerial Combat (TAC v1.41)",
+  "author": "[TPG]SaNTa[DTM] (concept & sounds), Wizard_TPG (scripting), [TPG]SMedly[DTM] (skins) (TAC Development Team; 2000-2001; www.tribes-universe.com/tac; 223 files!)",
+  "era": "2000-2001",
+  "launch": "-mod Tac",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "talon",
+  "title": "Talon Mod (v2.2)",
+  "author": "Talon Mod Team (~2001)",
+  "era": "~2001",
+  "launch": "-mod Talon",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tantrum",
+  "title": "Tribes Tantrum",
+  "author": "the maLadroit (Completed July 11, 2005; Glitch-Free Update July 18, 2005)",
+  "era": "Jul 2005",
+  "launch": "-mod Tantrum",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "thieves",
+  "title": "Thieves Mod (Revelation)",
+  "author": "p|DGE0n (Xpidge0n@aol.com) & PheoniX (Pheonix2og@cs.com) (~2001; 74 files!)",
+  "era": "DGE0n & PheoniX (74 files)",
+  "launch": "-mod Thieves",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "thugwars",
+  "title": "ThugWars",
+  "author": "ThugWars Modding Crew (~1999)",
+  "era": "~1999",
+  "launch": "-mod ThugWars",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "thunderstruck",
+  "title": "ThunderStruck Mod",
+  "author": "NateDogg (HaVoC admin & duels), wildBill (inventory station power range code), /H:H/SkySnipe (weapons, maps, testing), Spec (weapon recoding, permanent banning system, network tuning) (~2002; 241 files!)",
+  "era": "~2002",
+  "launch": "-mod Thunderstruck",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tiz19",
+  "title": "TiZ (v1.9)",
+  "author": "TiZ Modding Team (~2001; 98 files!)",
+  "era": "~2001",
+  "launch": "-mod TiZ",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "top-gun",
+  "title": "Top Gun (Delta Force Air Force)",
+  "author": "Delta Force & Top Gun Flight Modders (~2000)",
+  "era": "~2000",
+  "launch": "-mod TopGun",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribal-combat",
+  "title": "Tribal Combat",
+  "author": "Despised (~2000; 47 files)",
+  "era": "~2000",
+  "launch": "-mod TribalCombat",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribal-god",
+  "title": "Tribal God Mod",
+  "author": "[TG]-X-Ecutioner (KyA X-Ecutioner; built upon Plasmatic's Annihilation core; ~2001; 147 files!)",
+  "era": "~2001",
+  "launch": "-mod TribalGod",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribes-arena",
+  "title": "Tribes Arena (v3.0)",
+  "author": "Lizard (belgarion@tribes2universe.com; versions 2.4 - 3.0), original version by Rasia (up to v2.3; June 15, 2002; 48 files)",
+  "era": "Jun 2002",
+  "launch": "-mod TribesArena",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "tribes-racer",
+  "title": "Tribes Racer: Retribution (v3.0)",
+  "author": "Josef Jahn (werewolf@playspoon.com, PlaySpoon / creator of SpoonBot; December 20, 1999; 11 files)",
+  "era": "Dec 1999",
+  "launch": "-mod Racer",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "tribes2",
+  "title": "Tribes 2 Modern Client Asset Port",
+  "author": "Modern Tribes Engine Development Team (2,574 files!)",
+  "era": "Modern (1.50)",
+  "launch": "Client Content Pack (evaluated on t2:// connection)",
+  "category": "HD Remasters & Visuals"
+ },
+ {
+  "id": "tribes2-hd",
+  "title": "Tribes 2 HD Remaster Texture Pack",
+  "author": "Modern Remaster Team; AI Upscaling by Philip Hofmann (4xNomos8kDAT, CC-BY-4.0); Normal Maps by HugoTini (DeepBump, GPL-3.0); Original art by Dynamix (2,048 files!)",
+  "era": "Modern (1.50)",
+  "launch": "Asset Overlay Pack (config/AssetPacks/tribes2-hd)",
+  "category": "HD Remasters & Visuals"
+ },
+ {
+  "id": "ultra-bop",
+  "title": "Ultra-BOP",
+  "author": "Majestic12 & suckit (tribes-universe.com/UltraBOP; built upon James C. Vetsch's Balance of Power; July 1999)",
+  "era": "Jul 1999",
+  "launch": "-mod UltraBOP",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-competition",
+  "title": "Ultra Competition (v1.2)",
+  "author": "In-game mod switcher by {187}George W., core rules by Thrash, Deacon, Kissie-POO, Dr. NoRtOn, Vfrjim, TheThug (August 28, 2001)",
+  "era": "Aug 2001",
+  "launch": "-mod ultra_competition",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "ultra-gzhq",
+  "title": "Ultra Renegades GZHQ (UltraGZHQ)",
+  "author": "GZHQ Modding Team (~2002; 179 files!)",
+  "era": "~2002",
+  "launch": "-mod UltraGZHQ",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-infinite",
+  "title": "Ultra Renegades VX5 \"Infinite\" 6 [VX]",
+  "author": "kissiePOO / UltraVXAuthor (~2002)",
+  "era": "~2002",
+  "launch": "-mod UltraVX5Infinite",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-mega-mod",
+  "title": "Mega Renegades (v1.3a / \"Ultra_Mega_Mod\")",
+  "author": "Updated by Dr. NoRtOn, original mod by {URCM}Iceman & {URCM}Gorgon, installer by Pestilence (~2000; 143 files!)",
+  "era": "~2000",
+  "launch": "-mod UltraMegaMod",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-renegades-jman",
+  "title": "Ultra Renegades VX5 \"Jman\" (v2.1)",
+  "author": "Jman & kissiePOO (~2002)",
+  "era": "~2002",
+  "launch": "-mod UltraVX5Jman",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "ultra-renegades-modmgt",
+  "title": "Ultra Renegades \"Modmgt\" (Mod Management Build)",
+  "author": "UltraVXAuthor (August 2002)",
+  "era": "Aug 2002",
+  "launch": "-mod Ultra_Renegades",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "ultra-renegades-vx5",
+  "title": "Ultra Renegades VX5 (v5.01 / UltraVX5)",
+  "author": "kissiePOO / UltraVXAuthor (~2002; 152 files!)",
+  "era": "~2002",
+  "launch": "-mod Ultra_RenegadesVX5",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "ultra-tribute",
+  "title": "Ultra Renegades VX \"-Tribute-\"",
+  "author": ".:O|S:.LeGeND (~2003)",
+  "era": "S:.LeGeND",
+  "launch": "-mod UltraVXTribute",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vx-elite",
+  "title": "Ultra Renegades VX-Elite",
+  "author": "Armageddon & WorstAim (August 2005)",
+  "era": "Aug 2005",
+  "launch": "-mod UltraVXElite",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vx5-god",
+  "title": "Ultra Renegades VX5 \"GoD\" Final",
+  "author": "GoD Clan Modders & kissiePOO (~2002)",
+  "era": "~2002",
+  "launch": "-mod UltraVX5GoD",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vx5-hunter",
+  "title": "Ultra Renegades VX5 \"Hunter\"",
+  "author": "Hunter & VX Modding Communities (~2002; 49 files)",
+  "era": "~2002",
+  "launch": "-mod UltraVX5Hunter",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vx5-ix",
+  "title": "Ultra Renegades VX5 \"IX\" (InsomniaX Edition)",
+  "author": "InsomniaX & Ultra Renegades Teams (~2002)",
+  "era": "~2002",
+  "launch": "-mod UltraVX5IX",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vx6",
+  "title": "Ultra Renegades VX6",
+  "author": "Next-Gen VX Community Modders (~2003)",
+  "era": "~2003",
+  "launch": "-mod UltraVX6",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vxc",
+  "title": "Ultra Renegades VXC (Clean / Classic)",
+  "author": "Competitive VX Modders (~2002-2003)",
+  "era": "~2002-2003",
+  "launch": "-mod UltraVXC",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vxe",
+  "title": "Ultra Renegades VXE (Evolution)",
+  "author": "VX Evolution Team (~2003)",
+  "era": "~2003",
+  "launch": "-mod UltraVXE",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vxo",
+  "title": "Ultra Renegades VXO (Orbital)",
+  "author": "VXO Modding Crew (~2003)",
+  "era": "~2003",
+  "launch": "-mod UltraVXO",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vxu",
+  "title": "Ultra Renegades VXU (Unlimited)",
+  "author": "Underground VX Modders (~2003)",
+  "era": "~2003",
+  "launch": "-mod UltraVXU",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-warfare",
+  "title": "Ultra Warfare (Alpha)",
+  "author": "Ultra Warfare Development Team (~2002-2003; 1,481 files!)",
+  "era": "~2002-2003",
+  "launch": "-mod Ultra_Warfare",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-zx",
+  "title": "Ultra-ZX Infinite",
+  "author": "{TAS}KINDS, originally Ultra-ZX by DKSlipKnot (~2002)",
+  "era": "~2002",
+  "launch": "-mod UltraZXInfinite",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultrannihilation",
+  "title": "UltrAnnihilation",
+  "author": "UltrAnnihilation Team (~2002; 135 files!)",
+  "era": "~2002",
+  "launch": "-mod UltrAnnihilation",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "upscaled-skins",
+  "title": "Upscaled Community Skins Pack",
+  "author": "Tribes Preservation Community (405 skin archives!)",
+  "era": "Modern (1.50)",
+  "launch": "Client Asset Overlay (base/Skins/.zip)",
+  "category": "HD Remasters & Visuals"
+ },
+ {
+  "id": "ur-rx",
+  "title": "Ultra Renegades RX",
+  "author": "UltraRaptor (PWA) (March 28, 2004; successor to Ultra_Renegades2004)",
+  "era": "Mar 2004",
+  "launch": "-mod UltraRenegadesRX",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur-x",
+  "title": "Ultra Renegades -X-",
+  "author": ".:O|S:.LeGeND (November 2003)",
+  "era": "S:.LeGeND",
+  "launch": "-mod UltraRenegadesX",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur-xl",
+  "title": "UltraXL (Beta / \"UR 3k\")",
+  "author": "Durt (kurtmayer.com; January 28, 2001; built on URG_Thrash's UR3 with Ideal, Havoc, and mini-mod code)",
+  "era": "Jan 2001",
+  "launch": "-mod ultraXL",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur2",
+  "title": "Ultra Renegades 2",
+  "author": "Thrash & Killjoy (June 1999)",
+  "era": "Jun 1999",
+  "launch": "-mod UR2",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-league",
+  "title": "Ultra Renegades 3 League (v1.8)",
+  "author": "{187}George W. & Dr. NoRtOn (April 30, 2001; original League mod by ($A$)FSB-Deacon, UR3 by URG_Thrash)",
+  "era": "Apr 2001",
+  "launch": "-mod UR3League",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "ur3-mayhem",
+  "title": "Ultra Renegades 3 Mayhem",
+  "author": "Mayhem Modding Crew (~1999-2000)",
+  "era": "~1999-2000",
+  "launch": "-mod UR3Mayhem",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur4",
+  "title": "Ultra Renegades 4 (Build 091100)",
+  "author": "Dr. NoRtOn, based on URG_Thrash's UR3, with George W. (September 11, 2000)",
+  "era": "Sep 2000",
+  "launch": "-mod UltraRenegades4",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vehiclemod",
+  "title": "VehicleMod Tribes 1 (April 2003)",
+  "author": "Community Modders (April 2003)",
+  "era": "Apr 2003",
+  "launch": "-mod VehicleModT1",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vip",
+  "title": "VIP Assassination (v1.3)",
+  "author": "nagorak (~2000; 44 files)",
+  "era": "~2000",
+  "launch": "-mod VIPAssassination",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "voice-5150v2",
+  "title": "5150v2 Quick-Chat Voice Extension Pack",
+  "author": "5150 Voice Team & Modern Audio Pipeline Tools (9 files)",
+  "era": "Classic / Modern",
+  "launch": "Quick-Chat Menu Extension (vpkronos-5150v2.cs / vpmenu-5150v2.cs)",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "wwii-mod",
+  "title": "WWII Mod (Historical Tactical TC)",
+  "author": "WWII Modding Team & Proud Man Down Community (~2000-2010; 112 files!)",
+  "era": "Historical / Modern",
+  "launch": "-mod WWII",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "xfrisbee",
+  "title": "Extreme Frisbee (v1 BETA)",
+  "author": "CaN-O-SpAm (~1999; 13 files)",
+  "era": "~1999",
+  "launch": "-mod xFrisbee",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "xk",
+  "title": "{|XK|} Mod (Xtreme Knights Beta 1.4.5)",
+  "author": "Neo{|XK|} & King Shit{|XK|} (Xtreme Knights Clan; November 2000; built on Renegades Alliance; 162 files!)",
+  "era": "} Mod (Xtreme Knights v1.4.5)",
+  "launch": "-mod XKmod",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "xtreme-tribes",
+  "title": "Xtreme Tribes Mod Maps",
+  "author": "optimizer (Xtreme Gaming, with =LL= Marshall and Chris Huber; ~2000; 10 files)",
+  "era": "~2000",
+  "launch": "-mod XtremeTribes",
+  "category": "Action & Mechanics"
+ }
+]

@@ -1,0 +1,67 @@
+{
+ "mod": {
+  "overview": "HvMechBot merges House Vagoroth's tactical BattleTech conversion mod with Spoonbot 0.96 AI, transforming Starsiege: Tribes into a full-scale mech warfare simulator featuring autonomous bot lances. While the parent hvMechWarrior mod established the chassis weights, heat dynamics, BattleTech ballistics, and combined-arms Aerotech aircraft, HvMechBot fully integrates waypoint navigation trees and bot behaviors so players can engage in offline bot matches or cooperative team warfare. Gameplay shifts away from fast-paced skiing toward deliberate, high-traction armored combat where pilots pilot mechs ranging from light scouts to hundred-ton assault juggernauts, managing weapon heat dissipation and missile locks while pushing base objectives. Matches run across standard and custom CTF or Deathmatch arenas using either the standard 14-bot preset or the optimized hvMechLite 8-bot configuration for lower-performance servers.",
+  "notes": [
+   "Chassis Progression and Speeds: Ten distinct armor types represent BattleTech mechs. Light scout mechs include the swift Commando (speed 12.5, 3 weapon slots) and Panther (speed 10.0, 4 weapons); medium chassis include the Centurion (speed 9.0, 4 weapons) and Hunchback (speed 8.0, 5 weapons); heavy chassis feature the HellBringer (speed 7.5, 5 weapons) and missile-heavy Archer (speed 7.0, 5 weapons); assault titans include the BattleMaster (speed 6.0, 5 weapons) and the heavily armored Atlas (speed 5.0, 3.0 max damage, 6 weapons). Special chassis include the deathmatch-tuned DM Panther and the Driver (Hunter Light Tank, speed 11.0, 3.0 health, 3 weapons, with jetpack disabled at jetForce 0).",
+   "High-Traction Ground Physics: Material properties are overhauled with extreme ground friction (sand at 3.0, concrete and mud at 2.0, default and stone at 1.5) to eliminate traditional Tribes skiing. Combat is anchored to high-traction, deliberate bipedal mech footwork.",
+   "Heat Dynamics and Disabling Status Effects: Energy acts as reactor heat capacity and capacitor charge. Firing lasers, PPCs, and sustained autocannons drains energy, and running dry causes heat sink overload which disables weapon fire. Incoming hostile hits inflict severe status effects: PPC bolts stun and drain 20 energy while blinding cockpit vision, Flamers drain 7 energy with prolonged flash blinding, and Inferno blasts drain 35 energy. The Double Heat Sinks pack accelerates cooling to sustain fire and counteract heat attacks.",
+   "Fire-Control Computer and Lock-Ons: Activating the FCCPod backpack provides targeting calculations and ballistic recoil compensation. With FCC active, Long Range Missiles (LRM-5, LRM-10, LRM-15/20) and Streak SRMs (STR-2, STR-6) lock onto hostile mechs with audio warnings, launching homing salvos. Without FCC or when aiming at jammed targets, missiles fire as unguided rockets.",
+   "Electronic Countermeasures and Jamming: Equipping an ECM Pod or deploying portable ECM pods adds 25 sensor suppression. High suppression jams hostile fire-control targeting, preventing missile locks and forcing incoming LRMs and Streaks to dumbfire harmlessly off course.",
+   "Weapon Recoil, Headshots, and Kamikaze Core Overload: Firing heavy ballistics applies backward physical impulse to the mech. Direct hits to the cockpit head box deal devastating bonus damage: sniper cannons deal +100% bonus damage (double damage), while autocannons, gauss rifles, and lasers deal +45% to +65% extra damage. If facing defeat, executing suicide (remote kill) initiates a kamikaze reactor explosion, ejecting nuclear mines that obliterate nearby foes in a massive blast.",
+   "Combined-Arms Aerotech and Dropships: Vehicle stations offer airborne combat vehicles subject to strict team limits: agile Corsair interceptors with rapid-fire AC-10 tracers, Stingray fighters armed with heat-monitored PPC bolts, Riever heavy fighter-bombers firing Arrow IV missiles, and massive Leopard and Union class dropships armed with Streak missiles and Long Tom bombardment shells.",
+   "Field Engineering and Inventory Bans: Players can deploy field infrastructure including Mobile Mech Bays (DeployableMechBay), Mobile Munitions Bays (DeployableMunitionsPack), sensor dishes, and turrets. Inventory stations explicitly ban hand grenades and vehicle packs by setting InvList to 0 for NukeGrenade, InfernoGrenade, SmokeHandGrenade, MASCPack, MedPLasPack, and STR2Pack. Remote stations also ban LongTomPack and PPCPack. Strict team caps enforce limits of 1 Union dropship, 2 of each fighter, 5 Mobile Mech Bays, 2 Ultra-AC20 turrets, and 1 Long Tom turret.",
+   "Spoonbot AI Architecture: Spoonbot 0.96 bots spawn automatically using name parsing to assign chassis, roles, and loadouts. Bot roles define tactical priorities: Roam bots patrol and support based on armor, Demo bots systematically bombard enemy generators and turrets, CTF bots execute flag captures, FG bots guard the team flag and chase carriers, and CMD bots remain in defensive holding patterns until assigned attack waypoints by commanders via the command grid. On listen hosts, players can view bot statuses by typing BotHUD::Toggle() in the console.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): InfernoGrenade (station.cs), MASCPack (station.cs), MedPLasPack (station.cs), NukeGrenade (station.cs), SmokeHandGrenade (station.cs), STR2Pack (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): LongTomPack (station.cs), PPCPack (station.cs)."
+  ]
+ },
+ "items": {
+  "AtlasArmor": {
+   "summary": "Assault class mech chassis (harmor) featuring massive armor plating and 6 weapon slots at a low forward speed of 5.0.",
+   "notes": [
+    "Boasts a maximum damage tolerance of 3.0, a heavy mass of 25.7, and 552 jet force.",
+    "Carries an arsenal of 6 weapons and serves as the frontline demolition juggernaut for cracking hardened bases."
+   ],
+   "source": "armordata.cs, item.cs"
+  },
+  "DoubleHeatSink": {
+   "summary": "Sustained cooling backpack that accelerates reactor recharge to vent weapon heat and keep weapons operational.",
+   "notes": [
+    "Operates with negative sustained energy drain (minEnergy -1, maxEnergy -5) to regenerate energy reserves rapidly while active.",
+    "Acts as an essential countermeasure against energy exhaustion and heat cutoff caused by PPCs, Flamers, and heavy laser discharges."
+   ],
+   "source": "item.cs"
+  },
+  "FCCPod": {
+   "summary": "Fire-Control Computer backpack providing targeting telemetry, guided missile locks, and recoil dampening.",
+   "notes": [
+    "Grants the active FCC item state, enabling LRM and Streak missile launchers to lock onto enemy targets and fire guided homing warheads.",
+    "Automatically purchased at inventory stations whenever an Arrow IV launcher is bought."
+   ],
+   "source": "item.cs"
+  },
+  "DeployableMechBay": {
+   "summary": "Deployable backpack that erects a Mobile Mech Bay for complete inventory access away from main base stations.",
+   "notes": [
+    "Deploys a full DeployableInvStation onto sufficiently flat terrain (surface normal dot product greater than 0.7).",
+    "Restricted by a strict team limit of 5 total deployable mech bays across the map."
+   ],
+   "source": "item.cs"
+  },
+  "DeployableECMPod": {
+   "summary": "Deployable radar jamming tower that obscures signatures and neutralizes incoming guided missile locks.",
+   "notes": [
+    "Raises sensor suppression to obscure friendly units from radar sweeps and hostile sensors.",
+    "Breaks missile lock-on attempts, forcing guided LRMs and Streak missiles to fire as unguided dumbfire rockets."
+   ],
+   "source": "item.cs"
+  },
+  "LongTomPack": {
+   "summary": "Deployable heavy artillery turret backpack that bombards distant enemy installations with mortar shells.",
+   "notes": [
+    "Restricted to a maximum of 1 active turret per team and buyable only at main base inventory stations.",
+    "Explicitly banned from remote inventory stations with RemoteInvList set to 0."
+   ],
+   "source": "item.cs, station.cs"
+  }
+ }
+}

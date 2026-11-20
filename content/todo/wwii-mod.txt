@@ -1,0 +1,163 @@
+# wwii-mod vs base (162 items)
+new        WWIIsoldier                  Soldier
+stats+scriptsMineAmmo                     Mine
+stats+scriptsBeacon                       Beacon
+new        DeployMineAmmo               ...lol
+new        DeployMine                   Anti-Infantry Mine
+new        yppshAmmo                    PPSH41 Bullets
+new        yppsh                        PPSH41
+new        yppsh2                       Railgun
+new        yppsh3                       Railgun
+new        ysniperAmmo                  Sniper Bullets
+new        ysniperrifle                 Springfield M1903
+new        ysniperrifle2                Railgun
+new        ysniperrifle3                Railgun
+new        ysniperrifle4                Railgun
+new        xSTGAmmo                     STG44 Bullets
+new        xSTG                         STG44 Assault Rifle
+new        xSTG2                        Railgun
+new        xSTG3                        Railgun
+new        xarAmmo                      Fallschirmj Ager Bullets
+new        xar                          Fallschirmj Ager Gewehr 42
+new        xar2                         Railgun
+new        xar3                         Railgun
+new        xpanzerAmmo                  Panzershreck Grenades
+new        xpanzergun                   Panzerschreck
+new        xpanzer2                     Railgun
+new        ysubmgunAmmo                 MP18 Bullets
+new        ysubmgun                     MP18 Sub Machine Gun
+new        ysubmgun2                    Railgun
+new        ysubmgun3                    Railgun
+new        ysubmgun4                    Railgun
+new        xrifleAmmo                   Rifle Bullets
+new        xrifle                       Karabiner 98K Rifle
+new        xrifle2                      Railgun
+new        yBazookaAmmo                 M9A1 Grenades
+new        yBazooka                     M9A1 Bazooka
+new        yBazooka2                    Railgun
+new        ybrenAmmo                    Bren Bullets
+new        ybren                        Bren-Light Machine Gun
+new        ybren2                       Railgun
+new        ybren3                       Railgun
+new        xMP40Ammo                    MP40 Bullets
+new        xMP40                        MP40
+new        xMP402                       MP40
+new        xMP403                       MP40
+new        xMP404                       MP40
+new        xMP405                       MP40
+new        xMP406                       MP40
+new        ybarAmmo                     B.A.R bullets
+new        ybar                         B.A.R M1918
+new        ybar2                        lol
+new        ybar3                        lol
+new        ybar4                        lol
+new        ybar5                        lol
+new        ythompsonAmmo                Thompson Bullets
+new        ythompson                    M1A1 Thompson Machine Gun
+new        ythompson2                   l
+new        ythompson3                   M1A1 Thompson Machine Gun
+new        ythompson4                   p
+new        ycarbineAmmo                 Cal. 30 Bullets
+new        ycarbine                     M1 Carbine
+new        ycarbine2                    po
+new        ycarbine3                    po
+new        ycarbine4                    po
+new        ymosinnagantAmmo             Mosin-Nagant ammo
+new        ymosinnagant                 Mosin-Nagant
+new        ymosinnagant2                po
+new        ymosinnagant3                pk
+new        ymosinnagant4                hk
+new        ymosinnagant5                hu
+new        ystenammo                    Sten Bullets
+new        ysten                        Sten
+new        ysten2                       po
+new        ysten3                       po
+new        ysten4                       po
+new        ygarandAmmo                  Garand Bullets
+new        ygarand                      M1 Garand
+new        ygarand2                     po
+new        xpistolAmmo                  P38 Bullets
+new        xpistol                      Walther P38 Pistol
+new        ypistolAmmo                  M1911 Bullets
+new        ypistol                      M1911 Pistol
+new        xgrifle                      Mauser K98 Grenade Rifle
+new        yDPAmmo                      DP Bullets
+new        yDP                          DP-28
+new        yDP2                         Railgun
+new        yDP3                         lol
+new        yDP4                         lol
+new        yDP5                         lol
+new        yM3Ammo                      M3 Bullets
+new        yM3                          M3 - Grease Gun
+new        yM32                         MP40
+new        yM33                         MP40
+new        yM34                         MP40
+new        yM35                         MP40
+new        yM36                         MP40
+new        ylanchesterAmmo              Lanchester Bullets
+new        ylanchester                  Lanchester SMG
+new        ylanchester2                 gsfgjk
+new        ylanchester3                 gsfgjk
+new        ylanchester4                 gsfgjk
+new        ylanchester5                 gsfgjk
+new        yPTRDAmmo                    PTRD shells
+new        yPTRD                        PTRD
+new        yPTRD2                       gsfgjk
+new        yPTRD3                       gsfgjk
+new        yPIATAmmo                    PIAT shells
+new        yPIAT                        PIAT
+new        yPIAT2                       gsfgjk
+new        yPIAT3                       gsfgjk
+new        xrifleJAmmo                  Rifle Bullets
+new        xrifleJ                      Type 99 Sniper Rifle
+new        xrifleJa                     Railgun
+new        xrifleJb                     Railgun
+new        xrifleJc                     Railgun
+new        xType100Ammo                 Type 100 Bullets
+new        xType100                     Type 100 Submachine Gun
+new        xType100a                    Railgun
+new        xType100b                    Railgun
+new        xType100c                    Railgun
+new        xType100clip                 Railgun
+new        xType96Ammo                  Type 96 Bullets
+new        xType96                      Type 96 Machine Gun
+new        xType96a                     Railgun
+new        xType96b                     Railgun
+new        xType96c                     Railgun
+new        xType96clip                  Railgun
+new        xRocketAmmo                  Type 4 Rocket
+new        xRocket                      Type 4 Rocket Launcher
+new        xRocket2                     fwee
+new        xRocket3                     fwee
+new        xType97Ammo                  Type 97 HE round
+new        xType97                      Type 97 AT Rifle
+new        xType972                     fwee
+new        xType973                     fwee
+new        xType974                     fwee
+new        xrifleJEAmmo                 Rifle Bullets
+new        xrifleJE                     Type 38 Rifle
+new        xrifleJEa                    Railgun
+new        xrifleJEb                    Railgun
+new        xNambuAmmo                   Type 14 Bullets
+new        xNambu                       Nambu Type 14 Pistol
+new        xShotgunAmmo                 Type 14 Bullets
+new        xShotgun                     Undefined Shotgun Object
+new        PriWeapClip                  Weapon clips
+new        SecWeapClip                  Pistol clips
+new        MedicalkitAmmo               medical kit contents
+new        MedicalKit                   Medical Kit
+stats+scriptsGrenade                      Grenade
+new        nadeAmmo                     Grenades
+new        nade                         Grenade
+new        binoculars                   Binoculars
+new        binoculars2                  Railgun
+new        ExppackAmmo                  ...lol
+new        detonatorAmmo                .,.lol
+new        Exppack                      Explosives
+new        Detonator                    Detonator
+new        detonator2                   ac23
+new        detonator3                   ac23
+new        detonator4                   ac23
+new        DeployBoxammo                ...lol
+new        DeployBox                    Deployable Resupplies
+stats+scriptsTargetingLaser               Targeting Laser

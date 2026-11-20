@@ -1,0 +1,130 @@
+shifter: 129 of 177 need write-ups
+  ScoutArmor (Scout): new
+  SpArmor (Chemeleon): new
+  LightArmor (Assassin): renamed+stats
+  MediumArmor (Mercenary): renamed+stats
+  BursterArmor (Goliath): new
+  EngArmor (Engineer): new
+  AlArmor (Arbitor): new
+  DragArmor (DreadNaught): new
+  Juggernaught (Juggernaught): new
+  WraithVehicle (Wraith): new
+  JetVehicle (Interceptor): new
+  Blaster (Blaster): stats+scripts
+  Chaingun (Equalizer): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  HyperB (Hyper Blaster): new
+  RocketAmmo (RocketAmmo): new
+  RocketLauncher (Rocket Launcher): new
+  SniperAmmo (Sniper Bullet): new
+  SniperRifle (Sniper Rifle): new
+  BoomAmmo (Boom Shell): new
+  BoomStick (Boom Stick): new
+  TranqAmmo (Poison Dart): new
+  TranqGun (Dart Rifle): new
+  SilencerAmmo (Magnum Bullets): new
+  Silencer (Magnum): new
+  ConCun (Shockwave Cannon): new
+  RailAmmo (Railgun Bolt): new
+  Railgun (Railgun): new
+  VulcanAmmo (Vulcan Bullet): new
+  Vulcan (Vulcan): new
+  MfglAmmo (Nuclear Warhead): new
+  Mfgl (Tactical Nuke): new
+  Flamer (Flame Thrower): new
+  IonGun (Ion Rifle): new
+  Volter (Volter): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  Fixit (Engineer Repair-Gun): new
+  GravGun (Grav Gun): new
+  Penis (Penis): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableComPack (Command Station): new
+  ShieldPack (Shield Pack): scripts
+  CloakingDevice (Cloaking Device): new
+  StealthShieldPack (StealthShield Pack): new
+  RegenerationPack (Regeneration Pack): new
+  LightningPack (Teleport Pack): new
+  FlightPack (Flight Pack): new
+  AutoRocketAmmo (Auto Rockets): new
+  SMRPack (Rocket Launcher Pack): new
+  SMRPack2 (Rocket Launcher Pack): new
+  BarragePack (Anti-Aircraft Turret): new
+  BlastFloorPack (Blast Floor): new
+  Laptop (Command Laptop): new
+  SuicidePack (Suicide DetPack): new
+  FgcPack (Containment Pack): new
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  PulseSensorPack (Pulse Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  CameraPack (Camera): scripts
+  TurretPack (Ion Turret): renamed+stats+scripts
+  LaserPack (Laser Turret): new
+  DeployableElf (Deployable Elf Turret): new
+  ShockPack (EMP Turret): new
+  TargetPack (Mortar Turret): new
+  PlasmaTurretPack (Plasma Turret): new
+  RocketPack (Rocket Turret): new
+  ForceFieldPack (Small Force Field): new
+  LargeForceFieldPack (Large Force Field): new
+  BlastWallPack (Blast Wall): new
+  HoloPack (Hologram): new
+  TreePack (Mechanical Tree): new
+  PlantPack (Healing Plant): new
+  PlatformPack (Deployable Platform): new
+  TeleportPack (Teleport Pad): new
+  MechPack (Interceptor Pack): new
+  DetPack (Stealth HPC Pack): new
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  AirAmmoPad (Air Ammo Pad): new
+  airbase (AirBase): new
+  LaunchPack (Launch Pad): new
+  AccelPPack (Accelerator Pad): new
+  Hackit (Engineer Hack-Gun): new
+  DisIt (Engineer Disassymbler-Gun): new
+  Regen (Regeneration Gun): new
+  CoolLauncher (Missile Control Station): new
+  EmpM (EMP Missile): new
+  GasM (Toxin Missile): new
+  PhoenixM (Phoenix Missile): new
+  NapM (Napalm Missile): new
+  BooM (HaVoC Missile): new
+  SpyPod (SpyPod Missile): new
+  DetBug (Det Bug): new
+  Plastique (Plastique): new
+  RepairPatch (Repair Patch): scripts
+  EmplacementPack (Emplacement): new
+  LargeShockForceFieldPack (Large Shock Force Field): new
+  ArbitorBeaconPack (Arbitor Device): new
+  EMPBeaconPack (EMP Device): new
+  ShieldBeaconPack (Shield Device): new
+  PowerGeneratorPack (Power Device): new
+  LasCannon (LasCannon): new
+  PlasmaCannon (HeavyPlasmaCannon): new
+  HammerAmmo (GodHammerAmmo): new
+  Hammer1Pack (God Hammer Cannon): new
+  Hammer2Pack (God Hammer Cannon 2): new
+  ShockFloorPack (Shock Floor): new
+  NapalmModule (NapalmModule): new
+  HellFireModule (HellFireModule): new
+  DetPackModule (DetPack Module): new
+  BomberModule (BomberModule): new
+  PickUpModule (PickUpModule): new
+  MineNetModule (MineNetModule): new
+  StealthModule (StealthModule): new
+  WraithModule (WraithModule): new
+  InterceptorModule (InterceptorModule): new
+  GodHammerModule (GodHammerModule): new
+  JammerBeaconPack (Jammer Device): new
+  Booster1Pack (Booster): new
+  Booster2Pack (Booster): new

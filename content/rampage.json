@@ -1,0 +1,57 @@
+{
+ "mod": {
+  "overview": "_RaMpAgE_ (v2.0) is a fast, over-the-top February 2003 Tribes 1 mod by Armagedon (.:(A):. Anarchy clan), built off Nappy 4.0 on top of the base game with infinite team energy and the +Hybrid+ 5.0 scoring display. Matches revolve around five sharply specialized armor classes wielding 30+ custom weapons, physics tools, elemental status effects (burn, poison, and energy shock), and massive Engineer-deployed structures ranging from floating Jail Cells and teleporters to deorbiting battleships and orbital Dooms Day satellites. Compared to base Tribes, combat is far deadlier and more chaotic, mixing precision sniping and hit-location disarms with nuclear blasts, grappling hooks, and class-specific grenade and beacon powers. It supports standard CTF, C&H, D&D, and F&R missions (with 25-second flag returns and capture/defense point bonuses) alongside Deathmatch and Team Deathmatch modes.",
+  "notes": [
+   "Classes and Roles: Five armors define playstyles. Sniper Armor (larmor, 0.66 health, speed 20, 3 weapons) uses Laser, Elite Sniper, Plasma, Armageddon, and Venom Fang rifles, OpticPack/TLPack stealth gear, HoloMines, TreeMines, Sensor Jammer beacons, and is the only class allowed to pilot vehicles. Assault Armor (marmor, 1.0 health, speed 10, 5 weapons) is the default spawn class with Disc, Chaingun, Plasma, Rocket, Vulcan, Blast/Flak weapons, Grappling Hook, Jet Booster Pack, and Speed Booster beacons. Fighter Armor (barmor, 1.0 health, speed 12, 5 weapons) brings Mortar, Napalm Strike, Flame Thrower, Plasmatic Fragger, Dual Fighter Assault, Suicide DetPack, Firebombs, Motion Mines, 10-second Nukebomb plastique beacons, plasma burn immunity, and the ability to phase through enemy teleporters. Engineer Armor (aarmor, 1.0 health, speed 19, 5 weapons) builds turrets, force-field doors, teleporters, Jail Cells, Mini-Bases, Space Stations, Gunships, and Dooms Day Devices while draining 0.20 health on enemy collision and ignoring energy-poison blindness. Mech Armor (darmor, 1.60 health, speed 7, 300 energy, 6 weapons) carries Nukex, IX Beam Cannon, F.F.M.L., Atom Disruptor, TankRPG, Anti-Air/SMR packs, and shield beacons, though it cannot use teleporters.",
+   "Spawn Loadout and Economy: Default team energy is Infinite across all teams, letting players freely purchase gear at Inventory Stations. Players spawn in Assault Armor (MediumArmor) with Plasma Gun, Assault Gun, Disc Launcher, Grenade Launcher, Blaster, Repair Pack, Targeting Laser, Repair Kit, Grenades, Beacons, and Mines. Deathmatch mode (dm.cs) spawns players with Disc Launcher, Rocket Launcher, Napalm Strike, Energy Pack, 10 Beacons, and 25 Grenades.",
+   "Status Effects and Special Hit Rules: Flash weapons and Shockgrenades short-circuit a target's energy and recharge for 10 seconds; Energy weapons and Tranq/Venom rounds inflict a 30-second poison/blindness tick (cured by Repair Patches or Cactus/Tree shapes); Plasma weapons have a chance to ignite enemies for 10 seconds. Sniper and Laser headshots deal 30% bonus damage, torso-right Laser hits can knock held weapons out of an enemy's hand, and sniping a SuicidePack wearer in the torso detonates the bomb on their back.",
+   "Signature Weapons and Tools: Heavy ordnance includes the Nuker Blast (Nukex) multi-ring nuclear bomb, the F.F.M.L. (PlasmaCannon) airbursting into 15 submunitions, the IX Beam Cannon (ParticleBeamWeapon) chargeable up to 100% for a 3000m hitscan beam with heavy recoil, the Jail-Gun (JailGun) that teleports enemies into a deployed Jail Cell for 60 seconds, the Grappling Hook (Grap) and Repulse Beam (Push) physics tools, and the Emergency Flare (F) that broadcasts an SOS while damaging the user.",
+   "Deployables and Super-Structures: Engineers and Mechs can deploy a floating Jail Cell (1 per team) and Jail Capture Pads, while Engineers uniquely deploy Teleport Pads (5s cooldown), Spring Pads (with a rare 1-in-30 chance of launching players sky-high), Hologram decoys, Sniper Huts, Air Bases, Mini-Bases with Vehicle/Inventory/Ammo stations, a deorbiting Destroyer |X| BattleShip (GunShipPack), and an orbital Dooms Day Device (DeathStarPack) armed with a laser and missile satellite.",
+   "Menus, Controls, and Admin Powers: There are no custom # chat commands. Players use standard Tab Options menus (vote mission/team damage/Tourney mode, toggle Personal Skin, or vote-kick teamkillers), while Public Admins and SuperAdmins gain team-switch, kick/ban, De-tongue (gag), Freeze, and Blow Up tools; SuperAdmins also have an Extra Fun menu with HellFire (spawning PackOMen to rain 160 bombs) and Fight To Death (teleporting everyone high into the air). Station Lock prevents knocking teammates or enemies out of stations, with a 30-second idle eject when more than 3 players are connected.",
+   "Rules and Inventory Bans: Station inventory explicitly disables Boost, FlightPack, GasPack, Hackit, Laptop, Plastique, and RainManPack ($InvList = 0). Remote Inventory Stations explicitly block AirBase2Pack, AODBunker, AODMobileGen, AODMobileInv, AODShieldGen, DShieldPack, MiniBase, ObeliskPack, and ObeliskPowerPack ($RemoteInvList = 0), so heavy base kits require a full base Inventory Station.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Boost (station.cs), FlightPack (station.cs), GasPack (station.cs), Hackit (station.cs), Laptop (station.cs), Plastique (station.cs), RainManPack (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): AirBase2Pack (deployables.cs), AODBunker (deployables.cs), AODMobileGen (deployables.cs), AODMobileInv (deployables.cs), AODShieldGen (deployables.cs), DShieldPack (deployables.cs), MiniBase (deployables.cs), ObeliskPack (deployables.cs), ObeliskPowerPack (deployables.cs)."
+  ]
+ },
+ "items": {
+  "EngArmor": {
+   "summary": "Fast Engineer Armor (aarmor) that builds entire bases, warships, and orbital weapons while draining enemy health on contact.",
+   "notes": [
+    "Carries up to 5 weapons, moves at speed 19.0 with 1.0 maxDamage, and can buy almost every deployable turret, door, platform, Teleporter, Jail Cell, Air Base, Mini-Base, Destroyer BattleShip, and Dooms Day Device.",
+    "Immune to energy-poison status effects, drains 0.20 health from enemy players on body collision to heal itself, throws Shockgrenades, drops Claymore mines, and deploys Motion Sensors on Beacon use."
+   ],
+   "source": "item.cs, armordata.cs, player.cs, deployables.cs, Deployables2.cs"
+  },
+  "DragArmor": {
+   "summary": "Walking juggernaut Mech Armor (darmor) with 1.60 maxDamage, 300 energy, 6 weapon slots, and nuclear/beam superweapons.",
+   "notes": [
+    "Wields up to 6 heavy weapons including Nuker Blast (Nukex), IX Beam Cannon (ParticleBeamWeapon), F.F.M.L. (PlasmaCannon), Atom Disruptor (KineticRifle), and TankRPGLauncher.",
+    "Throws Mortarbomb grenades, drops MortarMine mines, activates a 20-second Emergency Force Shield on Beacon use, and is too heavy to pass through DeployableTeleport pads."
+   ],
+   "source": "item.cs, armordata.cs, staticshape.cs, Weapons2.cs"
+  },
+  "JailGun": {
+   "summary": "Tool-slot capture beam that teleports struck enemies directly into a floating Jail Cell when one is deployed.",
+   "notes": [
+    "Fires jailbolt lightning at enemies; any enemy struck is instantly teleported to the opposing team's deployed Jail Cell for a 60-second sentence.",
+    "Works alongside the Engineer/Mech deployable Jail Cell (jailpack, 1 per team) and Jail Capture Pad (JailCapPack, 5 per team), which also jails enemies who step on it."
+   ],
+   "source": "Weapons2.cs, baseprojdata.cs, deployables.cs, staticshape.cs"
+  },
+  "DeathStarPack": {
+   "summary": "Dooms Day Device backpack that launches an orbital laser and satellite missile turret high overhead.",
+   "notes": [
+    "Available to Engineer Armor (team limit 2; 1-in-40 chance of a defective launch explosion on placement).",
+    "Spawns an orbital DeathStarSolar power unit, DeathStarRay laser turret, and DeathStarMissile turret 250m above the launch point with 325m range."
+   ],
+   "source": "Deployables2.cs"
+  },
+  "GunShipPack": {
+   "summary": "Destroyer |X| BattleShip deployable that calls down a flying warship stocked with stations and turrets.",
+   "notes": [
+    "Available to Engineer Armor; drops a beacon and deorbits a multi-deck aerial warship overhead after 20 seconds.",
+    "Equipped with four Inventory Stations, two Ammo Stations, a Command Station, and Plasma Turrets to serve as a forward sky-base."
+   ],
+   "source": "Deployables2.cs"
+  }
+ }
+}

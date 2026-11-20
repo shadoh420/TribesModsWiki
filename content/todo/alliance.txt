@@ -1,0 +1,88 @@
+# alliance vs base (87 items)
+new        iarmorSprint                 Sprint
+new        iarmorCommando               Commando
+new        iarmorLoader                 Loader
+new        iarmorDestroyer              Destroyer
+stats+scriptsBlaster                      Blaster
+stats      BulletAmmo                   Bullet
+stats+scriptsChaingun                     Chaingun
+stats      PlasmaAmmo                   Plasma Bolt
+stats+scriptsPlasmaGun                    Plasma Gun
+stats      GrenadeAmmo                  Grenade Ammo
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+stats+scriptsMortar                       Mortar
+stats      DiscAmmo                     Disc
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsLaserRifle                   Laser Rifle
+new        RocketAmmo                   Rockets
+new        RocketLauncher               Rocket Launcher
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+new        TranqAmmo                    Poison Dart
+new        TranqGun                     Dart Rifle
+new        SilencerAmmo                 Magnum Bullets
+new        Silencer                     Magnum
+new        WaveGun                      Shockwave Cannon
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      Railgun
+new        VulcanAmmo                   Vulcan Bullet
+new        Vulcan                       Vulcan
+new        Flamer                       Flame Thrower
+new        Omega                        Omega Cannon
+new        Bolt                         Thunderbolt
+stats      TargetingLaser               Targeting Laser
+new        Fixit                        Engineer Repair-Gun
+new        MassAmmo                     Mass Shell
+new        MassDriver                   Mass Driver
+new        TractorDevice                Tractor Device
+new        DeathLaser                   Rapidfire Laser
+stats+scriptsAmmoPack                     Ammo Pack
+new        CloakingDevice               Cloaking Device
+new        Laptop                       Laptop
+stats      EnergyPack                   Energy Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+new        SuicidePack                  Suicide DetPack
+new        PackOMen                     Pack O' Men
+new        TargetMarkLaser              Target Marking Laser
+new        PhotonPack                   Photon Torpedo
+new        TrackerMissileAmmo           Image Rec. Missile
+new        TrackerMissilePack           Image Rec. Launcher
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch
+stats+scriptsGrenade                      Grenade
+stats+scriptsMineAmmo                     Mine
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsCameraPack                   Camera
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+new        ForceFieldPack               Force Field
+new        LargeForceFieldPack          Large Force Field
+new        MannequinPack                Mannequin
+new        TreePack                     Mechanical Tree
+new        BlastWallPack                Blast Wall
+new        PlatformPack                 Deployable Platform
+new        TeleportPack                 Teleport Pad
+new        SpringPack                   Springboard
+new        AcceleratorDevicePack        Accelerator Device
+new        MechPack                     Interceptor Pack
+new        DetPack                      HPC Pack
+new        IonTurretPack                Ion Turret
+new        LaserTurretPack              Laser Turret
+new        RocketPack                   Missile Turret
+new        MortarTurretPack             Mortar Turret
+new        ShockTurretPack              Shock Turret
+new        PlasmaTurretPack             Plasma Turret
+new        RailTurretPack               Rail Turret
+new        VulcanTurretPack             Vulcan Turret
+stats      ScoutVehicle                 Scout
+new        InterceptorVehicle           Interceptor
+new        WraithVehicle                Wraith
+renamed+statsLAPCVehicle                  BomberLPC
+stats      HAPCVehicle                  HPC

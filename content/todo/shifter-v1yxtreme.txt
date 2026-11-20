@@ -1,0 +1,88 @@
+shifter-v1yxtreme: 87 of 229 need write-ups
+  HeavyArmor (Neo-Juggernaught): new
+  WeaponSmith (WeaponSmith): new
+  Blaster (Blaster o' Death): renamed+stats+scripts
+  FusionBlaster (Fusion Blaster): new
+  Chaingun (Equalizer): stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Mortar (Mortar): stats+scripts
+  MinelAmmo (Mine Launcher Ammo): new
+  MineLauncher (Mine Launcher): new
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  ALaserRifle (Arbitor Laser Rifle): new
+  Boomer (Boomer): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  HyperB (SpoogeHammer): renamed+stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SniperRifle (Sniper Rifle): stats+scripts
+  BoomStick (Boom Stick): stats+scripts
+  TranqGun (Dart Rifle): stats
+  Silencer (Magnum): stats+scripts
+  ConCun (Shockwave Cannon): stats+scripts
+  Railgun (Railgun): stats+scripts
+  Vulcan (Vulcan): stats+scripts
+  Mfgl (Tactical Nuke): stats+scripts
+  Flamer (Flame Thrower): stats+scripts
+  IonGun (Ion Rifle): stats+scripts
+  Volter (Volter): stats+scripts
+  HammerAmmo (GodHammer Ammo): renamed+stats
+  HammerGun (God Hammer Cannon): new
+  HammerGun2 (God Hammer Launcher): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  Fixit (Engineer Repair-Gun): scripts
+  GravGun (Grav Gun): scripts
+  DeployableInv2Pack (Inventory Station): new
+  EnergyPack (Energy Pack): scripts
+  RepairPack (Repair Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): scripts
+  StealthShieldPack (StealthShield Pack): scripts
+  RegenerationPack (Regeneration Pack): scripts
+  LightningPack (Teleport Pack): scripts
+  FlightPack (Flight Pack): scripts
+  SMRPack (Rocket Launcher Pack): stats
+  SMRPack2 (Rocket Launcher Pack): stats
+  SuicidePack (Suicide DetPack): scripts
+  AmmoPack (Ammo Pack): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  GHPack (Godhammer Turret): new
+  DeployableGrav (Grav Turret): new
+  BoomPack (Boomstick Turret): new
+  HyperBPack (Chaos Turret): new
+  FragPack (Frag Turret): new
+  NukePack (Tactical Nuke Turret): new
+  FusionTurretPack (Fusion Turret): new
+  HoloPack (Hologram): stats+scripts
+  PlantPack (Healing Plant): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  AirAmmoPad (Air Ammo Pad): scripts
+  airbase (Air Base): renamed+stats+scripts
+  Hackit (Engineer Hack-Gun): scripts
+  DisIt (Engineer Disassymbler-Gun): scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  RepairPatch (Repair Patch): scripts
+  ShockForceFieldPack (Small Shock Force Field): new
+  LasCannon (Gattling Laser Cannon): stats+scripts
+  PlasmaCannon (Heavy Plasma Cannon): scripts
+  HammerPack (God Hammer Cannon): new
+  Hammer1Pack (GodHammer Cannon): renamed+stats
+  Hammer2Pack (God Hammer Cannon 2): stats
+  OpticPack (Cybernetic Laser): new
+  Frag1Pack (Super Frag Turret): new
+  Frag2Pack (EMP Frag Turret): new
+  FragXPack (Ultra Frag Turret): new
+  TranqPack (Dart Turret): new
+  FlamerPack (Flamer Turret): new
+  GrenPack (Underarm 20mm HE): stats
+  TranqGun1 (EMP Rifle): stats
+  TranqGun2 (Flare Rifle): stats
+  TranqGun0 (Dart Rifle): stats
+  MegaDiscLauncher (Mega-Disc Launcher): stats+scripts

@@ -1,0 +1,41 @@
+{
+ "mod": {
+  "overview": "Paintball (v.Speed) is a grounded, speedball-style total conversion built on Paintball 2.5 by SaGe, Harabec, and WOG that strips away base Tribes jetpacks, heavy armors, and explosive weapons. Players spawn in fast-moving Light Armor with a free Delta handgun and visit inventory stations to equip one primary paintball marker, Bunker Buster paint grenades, and a tactical utility pack. Because every paintball hit is an instant elimination, firefights focus on peeking cover, landing mask shots, swapping canister clips, and switching firing modes via the Tab menu's LCD Switch. Base generators and antennas are given near-infinite health, keeping matches centered on fast player-versus-player paintball skirmishes across standard missions.",
+  "notes": [
+   "Movement and armor: Medium and Heavy armors are removed, leaving only Light Armor (larmor and lfemale) with jetForce = 0 (no jetpacks), crouch enabled, and fast ground movement (maxForwardSpeed 27 on male, 29 on female with 15 side speed vs 10).",
+   "One-hit paintball combat: Every paintball deals 1.0 Blaster damage (scaled 1.3x against Light Armor's 0.66 maxDamage), eliminating targets in a single hit; hitting an opponent's head plays a Headshot sound and broadcasts a mask-hit banner to both players.",
+   "Loadouts and reloads: Players spawn with Light Armor, a free Delta handgun (classed as a Tool, 30 paintballs plus 3 clips of 10), and can carry only 1 primary Weapon ($MaxWeapons = 1) plus up to 2 Bunker Buster grenades. Primary markers hold 200-250 rounds with 1 spare 100-round canister clip (3.03s reload animation on empty, 1.00s for Delta) that automatically swaps in when ammo runs out.",
+   "LCD Switch firing modes: Pressing Tab and choosing LCD Switch opens a menu to toggle the equipped marker's trigger mode (Semi-Auto, 3Shot-Burst, 6Shot-Burst, Full-Auto, or Safety depending on the weapon); note that due to a menu indexing check in admin.cs, Safety is only selectable on 2-mode semi-auto markers and the 5-mode Diablo Mongoose LCD.",
+   "Markers available at Inventory Stations: Besides the free Delta handgun, players can buy the Spyder E-99 (170), Diablo Mongoose LCD (180), Smart Parts Shocker 03 Basic (180), PGC Speed Gun / Inferno (190), M3 Dragun LCD (210), Psycho Ballistic Lightning (300), Tippmann 98 Sniper (350), Shocktech Autococker (1000), Bob Long Intimidator GZ (1000), and WDP Angel (1300).",
+   "Custom tactical packs: Only three packs are sold at inventory stations—Land Camo (200), Laser Sight (275), and Flash Light XE (275)—replacing all standard Tribes energy, repair, ammo, and deployable packs.",
+   "Bans and reinforced bases: All base Tribes weapons, base ammo, Mines, Beacons, Repair Kits, ShieldPack, and deployable packs (turrets, sensors, cameras, and remote stations) are set to $InvList = 0 and $ItemMax = 0. Generators, solar panels, and antennas have massive maxDamage values in staticshape.cs so base power cannot be destroyed.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AmmoPack (station.cs), AngelAmmo (Weapon_Angel.cs), AngelClip (station.cs), AutoCockerAmmo (Weapon_AutoCocker.cs), AutoCockerClip (station.cs), Beacon (station.cs), Blaster (station.cs), BulletAmmo (station.cs), CameraPack (station.cs), Chaingun (station.cs), DeltaAmmo (Weapon_Delta.cs), DeltaClip (station.cs), DeployableAmmoPack (station.cs), DeployableInvPack (station.cs), DeployableSensorJammerPack (station.cs) (+33 more)."
+  ]
+ },
+ "items": {
+  "Delta": {
+   "summary": "Free starting paintball sidearm classed as a Tool so players can carry it alongside one primary marker.",
+   "notes": [
+    "Spawn loadout item in game.cs ($spawnBuyList[1] = Delta, with 30 DeltaAmmo and 3 DeltaClip of 10 rounds each).",
+    "Fires high-velocity paintballs (muzzleVelocity 1100, 1.0 Blaster damage) with a 1.00-second canister reload time."
+   ],
+   "source": "Weapon_Delta.cs"
+  },
+  "Angel": {
+   "summary": "High-capacity, multi-mode primary speedball marker (New: WDP Angel).",
+   "notes": [
+    "Highest-priced marker at 1300 credits with 250-round hopper capacity (versus 200 on other markers).",
+    "Supports Full-Auto, 3Shot-Burst, 6Shot-Burst, and Semi-Auto via the Tab-menu LCD Switch."
+   ],
+   "source": "Weapon_Angel.cs"
+  },
+  "Camo": {
+   "summary": "Land Camo backpack that attaches a cactus prop to the player for outdoor concealment.",
+   "notes": [
+    "Costs 200 credits and is available at inventory stations for Light Armor.",
+    "Mounts the cactus2 shape onto the player's back for visual cover in terrain."
+   ],
+   "source": "Pack_Camo.cs"
+  }
+ }
+}

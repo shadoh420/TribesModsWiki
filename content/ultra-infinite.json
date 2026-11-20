@@ -1,0 +1,59 @@
+{
+  "mod": {
+    "overview": "VX5 \"Infinite\" is Ultra Renegades VX5 with unlimited gear: every weapon fires without ammo, and Repair Kits, Mines, Grenades and Beacons are never used up. It is the same infinite-ammo base as VX5 Hunter without the Flag Hunter game type or its gear, and it puts back VX5's own damage effects, mines and weapon projectiles where Hunter had changed them.",
+    "notes": [
+      "No ammo: the VX5 ammunition items are removed and weapon images use minEnergy 1 / maxEnergy 0.1 (a little energy per shot) instead.",
+      "Hand items are never consumed (Repair Kit, Mine, Grenade, Beacon), and every armor may carry only 1 of each. VX5 allowed 30 to 60.",
+      "player.cs, Mine.cs, baseProjData.cs and baseExpData.cs are VX5's own files, so damage effects are VX5's. An EMP hit zeroes energy, sets recharge to 6 and drops the victim's weapon, pack and flag. Beam Of Pain damage drops weapon, pack and flag. Enemy Bullet or LiL POO mkii head shots gib and do triple damage.",
+      "No difficulty modes: vxmod.cs is not shipped and the vxmode()/vxDIFmode() calls are commented out (PORT-OFF), so datablock values are the live ones.",
+      "No Flag Hunter: FlagHunter.cs, the Hunter Armor, Raptor Rifle, Torque, Phase Shifter, Star Burster, Flag Stripper and Booster packs are all gone.",
+      "Default spawn kit: Light Armor, LiL Rocket Launcher, Disc Launcher, LiLFFB, Plasma Gun, Mortar, LiL POO mkii and mki, Repair Pack, Mine, Beacon, Grenade, Repair Kit."
+    ]
+  },
+  "items": {
+    "LaserRifle": {
+      "summary": "The standard VX5 laser beam, but energy-fed per shot with no reload and no Energy Pack requirement. Each shot draws so little energy that it does very little damage.",
+      "notes": [
+        "Unlike Hunter, the slot holds the normal Laser Rifle again (sniperLaser beam), not the Raptor Rifle.",
+        "LaserRifleImage draws at most 0.1 energy per shot (VX5: 20). Laser damage is the energy drawn times damageConversion 0.7, so each hit is a tiny fraction of a VX5 shot. It can fire every frame (reload 0).",
+        "There is no LaserRifle::onUse, so no Energy Pack is needed.",
+        "Laser hits to the head still do 30% extra."
+      ],
+      "source": "item.cs LaserRifleImage; baseProjData.cs sniperLaser; player.cs Player::onDamage"
+    },
+    "Chaingun": {
+      "summary": "VX5's rapid-fire chaingun (Bullet rounds with tracers), now with no ammo.",
+      "notes": [
+        "Unlike Hunter's Atomizer, ChaingunBullet is VX5's again: bullet shape with 100% tracers, normal range.",
+        "Energy-fed (no Bullet Ammo) and fires every frame.",
+        "Bullet hits to an enemy's head gib the target and do triple damage."
+      ],
+      "source": "item.cs ChaingunImage; baseProjData.cs ChaingunBullet; player.cs Player::onDamage"
+    },
+    "GrenadeLauncher": {
+      "summary": "VX5's grenade launcher, firing bouncing shrapnel grenades for a little energy each instead of Grenade Ammo.",
+      "notes": [
+        "Unlike Hunter, it fires the normal GrenadeShell, not napalm.",
+        "Each shot costs a little energy; there is no ammo."
+      ],
+      "source": "item.cs GrenadeLauncherImage; baseProjData.cs GrenadeShell"
+    },
+    "LiLRocketLauncher": {
+      "summary": "VX5's LiL Rocket Launcher with unlimited rockets: three homing rockets at a locked player or flier, or one fast straight rocket otherwise.",
+      "notes": [
+        "Unlike Hunter, onFire spawns VX5's LiLRocketEMP, LiLRocket and LiLRocketSubmission at a Player or Flier in line of sight within 350 m, otherwise LiLRocketalt. These are not Hunter's EMP \"Stripper\" rockets.",
+        "No ammo is subtracted. It reloads in 0.2 s (Hunter: 0.06)."
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire"
+    },
+    "MineAmmo": {
+      "summary": "Throws a VX5 mine that arms once it settles and only goes off for enemies. Mines are never used up.",
+      "notes": [
+        "Unlike Hunter, deployCheck waits until the mine is at rest (rechecking every 3 s) and plays its deploy animation before arming.",
+        "onCollision checks teams again, so only enemy players, vehicles or moveables set it off.",
+        "onUse still does not remove a mine from your inventory (0.5 s between throws)."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine::deployCheck/onCollision"
+    }
+  }
+}

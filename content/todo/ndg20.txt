@@ -1,0 +1,75 @@
+ndg20: 81 of 113 need write-ups
+  SniperArmor (Sniper-L): new
+  ScoutArmor (Scout-L): renamed+stats
+  SpyArmor (Spy-L): new
+  GruntArmor (Grunt-M): new
+  BursterArmor (Burster-M): renamed+stats
+  FengArmor (Field Engineer-M): new
+  SapperArmor (Sapper-M): new
+  MedicArmor (Medic-M): new
+  PilotArmor (Pilot-M): new
+  EngArmor (Engineer-H): renamed+stats
+  CyclopsArmor (Cyclops-H): new
+  ScoutVehicle (Scout): renamed+stats
+  InterceptVehicle (Interceptor): new
+  SPCVehicle (Speedy PC): new
+  LAPCVehicle (LPC): renamed+stats
+  HAPCVehicle (HPC): renamed+stats
+  Blaster (Blaster): scripts
+  Chaingun (Chaingun): stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Enhanced Laser Rifle): renamed+stats+scripts
+  EnergyRifle (ELF Gun): renamed+stats
+  DeployableInvPack (Inventory Station): scripts
+  DeployableFieldPack (Field Station): new
+  DeployableAmmoPack (Ammo Station): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  CameraPack (Camera): stats+scripts
+  TurretPack (Ion Turret): stats+scripts
+  RepairKit (Repair Kit): stats+scripts
+  RepairPatch (Repair Patch): stats+scripts
+  DepPlasTurretPack (Plasma Turret): new
+  DepHoloPlasPack (Holo Plasma Turret): new
+  DepRailTurretPack (Rail Turret): new
+  DepRockTurretPack (Rocket Turret): new
+  DepHoloRockPack (Holo Rocket Turret): new
+  PointDefTurretPack (Point Defense System): new
+  ChainPack (ChainGun Turret): new
+  MortTurretPack (Mortar Turret): new
+  LaserPack (Laser Turret): stats+scripts
+  CIWSTurretPack (C.I.W.S. AA Turret): new
+  EMPTurretPack (EMP Turret): new
+  ShotGunAmmo (Shotgun Shells): new
+  ShotGun (Shotgun): new
+  ShockMortarAmmo (Shock Mortar Ammo): new
+  ShockMortarGun (Shock Mortar): new
+  SniperRifle (Sniper Rifle): stats+scripts
+  WaveGun (Shockwave Cannon): stats+scripts
+  Railgun (Railgun): stats+scripts
+  Flamer (Flame Thrower): scripts
+  IonGun (Ion Rifle): stats+scripts
+  Thunderbolt (Thunderbolt): new
+  CloakGun (Cloaking Gun): new
+  EngRepGun (Engineer Repair-Gun): new
+  MedHealGun (Medics Healing Gun): new
+  RocketLauncher (Rocket Launcher): scripts
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  BlastwallPack (Blast Wall): new
+  SpringPack (Deployable Springboard): renamed+stats
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): stats+scripts
+  SRMPack (Auto-Rocket Cannon): new
+  SuicidePack (Suicide DetPack): scripts
+  HoloPack (Hologram): stats+scripts
+  InterceptorPack (Interceptor Pack): new
+  HPCPack (HPC Pack): new
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  WandAmmo (Wand Charges): new
+  WonderWand (Wand of Wonder): new

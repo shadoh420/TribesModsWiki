@@ -1,0 +1,64 @@
+{
+ "mod": {
+  "overview": "Chivalry (v2.0) by [CLU]Robear and [CLU]Clu of the Sojourn Development Team transforms Starsiege: Tribes into a medieval-fantasy team warfare game combining magic spells, chivalric honor, persistent RPG rankings, and specialized combat classes. Players battle across traditional Tribes objectives like Capture the Flag and Defend and Destruct as one of seven reimagined classes ranging from spellcasting Mages and holy Clerics to deployable-building Crafters and colossal Leviathans. The mod fundamentally reshapes standard jetpack dueling by introducing magical crowd control, field fortifications, summoned AI minions, and apocalyptic server rituals where crowned Paladins and Warlords clash against a player corrupted into the infernal Litch King. Performance is persistently recorded in the Scrolls of Honor, granting higher knightly titles to skilled combatants while banishing persistent suicides and teamkillers into ghostly or disgraced states.",
+  "notes": [
+   "Seven Reimagined Classes: Base armors are replaced with seven specialized roles: Mage (light, speed 11, 4 weapons) wields offensive and utility spells while resisting energy damage and forgoing standard firearms; Ranger Scout (light, speed 12, 3 weapons) excels at stealth reconnaissance and sniping; Warrior (medium, speed 10, 4 weapons) acts as the balanced default spawn class; Crafter (medium, speed 8, 4 weapons) serves as the master builder; Cleric (medium, speed 8, 4 weapons) provides holy healing and undead turning; Crusader Paladin (heavy, speed 6, 5 weapons) delivers heavy frontline siege firepower; and Leviathan (super-heavy, speed 4, 5 weapons) acts as a colossal tank armed with DaHammer and Heavy Plasma.",
+   "Undead Faction and the Litch King: Players whose persistent scores plunge below negative 100 can be transformed into the Litch King, gaining the Undead Curse spell that slays living players and resurrects them as rogue Undead warriors assigned to team -1. Undead gain regenerating health, custom skins, and private communications, and they can only be redeemed if killed by a Cleric's Turn Undead spell, a crowned Paladin or Warlord, or an Altar of Life ritual.",
+   "Crowned Rulers and the Ritual of Equality: Super admins can enable Ceremony Mode to crown a player as the Paladin or Warlord, granting them visible crowns and team-wide abilities like Hands of Healing or Blessing of War. If both rulers activate their respective rites within three minutes, they initiate the Ritual of Equality, slaying everyone on the map and locking inventory stations for ten minutes so all players must battle in basic Warrior spawn gear.",
+   "Altars, Minions, and Ritual Magic: Mages can construct an Altar of Brimstone and channel a ritual beam to grant all allied Mages the Brimstone spell, raining 70 fiery explosions over a designated coordinate. Clerics can build an Altar of Life to permanently purge all active Undead from the game, or cast Resurrection to summon up to three autonomous AI combat bots per team.",
+   "Engineering and Field Fortifications: Crafters deploy an extensive defensive infrastructure, including full-sized pre-fabricated concrete bunkers, deployable barricades, team-exclusive Force Field Doors, and SatCom Units that permit players in the field to remote-control base defenses without visiting a Command Station.",
+   "Specialized Arsenal and Status Effects: Combat incorporates distinct weapons and effects including the Stasis spell that paralyzes victims in immobile armor, the electrical Disarmer sniper rifle that forces victims to drop weapons, the guided Viper missile launcher, cluster-bomb MIRVs, and the Holy Bolt that calls down divine lightning from high altitude onto targeted enemies.",
+   "Scrolls of Honor and Disciplinary States: Player rankings, scores, team kills, and character passwords persist across sessions in ReturnPlayers.cs, progressing from Page and Man-at-Arms up to Knight Errant and Knight. Players who suicide with Ctrl+K five times are demoted into wandering Ghosts, excessive teamkillers are branded with a visible TeamKiller skin, and out-of-bounds deserters take continuous cowardice damage.",
+   "Inventory Bans and Deployment Limits: Stations explicitly ban the Tagger, TaggerAmmo, and Falcon vehicle ($InvList=0, $RemoteInvList=0, $VehicleInvList=0). Strict team limits govern high-impact hardware, allowing at most 1 Annihilator turret, 1 Altar of Life, 1 Altar of Brimstone, 1 Disarmer rifle, 1 MIRV launcher, 2 Volcano mine dispensers, 2 Viper launchers, 2 Force Field Doors, and 4 Bunkers per team.",
+   "Menu-Driven Admin and Server Customization: All administrative controls and game rules are managed via the Tab options menu rather than chat commands, allowing admins to toggle Ceremony Mode, team shuffling, personal skins, friendly or hostile mine activation, station camping eject timers (default 45 seconds), and spawn grace period invulnerability (default 4 seconds).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Tagger (station.cs), TaggerAmmo (station.cs)."
+  ]
+ },
+ "items": {
+  "BrimstoneAltar": {
+   "summary": "Deployable ritual altar that empowers friendly Mages to unleash an apocalyptic firestorm from the sky.",
+   "notes": [
+    "Channeling the sustained Ritual of Brimstone beam into a deployed altar until fully charged consumes the structure.",
+    "Upon completion, all allied Mages receive the Brimstone spell, allowing them to call down a devastating 70-shell fiery bombardment over any targeted position within 300 meters.",
+    "Equippable by Mages and Crafters, and restricted to a team maximum of one deployed altar."
+   ],
+   "source": "item.cs"
+  },
+  "LifeAltar": {
+   "summary": "Deployable holy shrine used by Clerics to cleanse the battlefield of supernatural evil.",
+   "notes": [
+    "Broadcasts a warning to all Undead and Litch King players across the server the moment it is erected on terrain.",
+    "Channeling the Ritual of Life sustained beam into the altar to full charge triggers a server-wide exorcism.",
+    "Detonates and purges all active Undead and the Litch King, freeing their souls and restoring those players to standard team rosters."
+   ],
+   "source": "item.cs"
+  },
+  "DepFFDoorPack": {
+   "summary": "Deployable force field doorway that selectively opens only for friendly teammates.",
+   "notes": [
+    "When an allied player collides with the doorway, it fades out and temporarily displaces upward by 2000 units for six seconds before returning.",
+    "Blocks enemy movement completely and cannot be triggered or opened by hostile players.",
+    "Limited to a maximum of two deployed doors per team."
+   ],
+   "source": "item.cs"
+  },
+  "Stasis": {
+   "summary": "Offensive spell that completely freezes an enemy combatant in place for four seconds.",
+   "notes": [
+    "Fires a magical bolt that deals stasis damage on impact.",
+    "Paralyzes the target for four seconds by temporarily encasing them in immobile heavy armor with zero running speed and disabled jetpack thrust.",
+    "Automatically restores the victim to their original armor loadout and displays an unstasis notification when the duration expires."
+   ],
+   "source": "item.cs"
+  },
+  "Summon": {
+   "summary": "Cleric weapon that summons autonomous AI warrior minions to fight alongside the team.",
+   "notes": [
+    "Casts a resurrection ritual near the player that immediately spawns an AI bot under friendly team control.",
+    "Summoned minions randomly roll among Scout, Mage, Warrior, or Paladin armor loadouts with dedicated voice sets.",
+    "Enforces a strict maximum limit of three active summoned minions per team."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

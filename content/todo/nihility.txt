@@ -1,0 +1,177 @@
+# nihility vs base (176 items)
+renamed+statsLightArmor                   Wraith
+new        EngArmor                     Slave
+renamed+statsMediumArmor                  Pawn
+new        AlArmor                      Navigator
+new        DragArmor                    Atomizer
+new        BursterArmor                 Paladin
+new        WraithVehicle                Specter
+new        JetVehicle                   Interceptor
+renamed+statsLAPCVehicle                  Bomber LPC
+renamed+statsHAPCVehicle                  Stealth HPC
+new        Hackit                       Hack Gun
+new        bomberPack                   Scout Pack
+new        cloakjetPack                 Specter Pack
+new        MechPack                     Interceptor Pack
+new        BigBomberPack                LAPC Pack
+new        DetPack                      HAPC Pack
+new        Boost                        Bot
+new        Plastique                    Grenade Mode
+stats+scriptsRepairPatch                  Repair Patch
+stats      DiscAmmo                     Disc
+renamed+stats+scriptsDiscLauncher                 Spinfusor
+new        HDiscLauncherAmmo            Disc
+new        HDiscLauncher1               Hyper Spinfusor
+new        HDiscLauncher2               Hyper Spinfusor
+new        HDiscLauncher                Spinfusor
+renamed+stats+scriptsChaingun                     Iron Storm A.C.
+new        KShredderAmmo                Nemesis Ammo
+new        KShredder                    Nemesis 4x A.C.
+new        TranqAmmo                    Poison Dart
+new        TranqGun                     Dart Gun
+new        RailAmmo                     Rifle Ammo
+new        Railgun                      Hellspike Rifle
+stats+scriptsLaserRifle                   Laser Rifle
+new        LaserCell                    Laser Cells
+new        Gatling                      Laser Gatling Gun
+new        Gatling2                     Laser Gatling Gun
+new        Gatling3                     Laser Gatling Gun
+new        Gatling4                     Laser Gatling Gun
+new        TitanCell                    Titan Cells
+new        Titan                        Negatron Beam
+new        Titan2                       Negatron Beam
+new        Titan3                       Negatron Beam
+new        Titan4                       Negatron Beam
+new        Steny                        Blastomatic 3000
+new        Steny2                       void
+new        Steny3                       void
+new        Steny4                       void
+new        Sten                         Zettawatt Shotgun
+new        Sten2                        Energy Shotgun
+new        Sten3                        Energy Shotgun
+new        Sten4                        Energy Shotgun
+stats      GrenadeAmmo                  Grenade Ammo
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+stats+scriptsMortar                       Mortar
+new        Mortar2                      Mortar
+new        Mortar3                      Mortar
+new        Mortar4                      Mortar
+new        Mortarr1                     Thumper
+new        Mortarr                      Mortar MKII
+new        DiabloAmmo                   Diablo Ammo
+new        Diablo                       El Diablo
+new        NukeAmmo                     Warhead
+new        Nukesi                       Reaper Nuke Launcher
+new        Nukes                        Reaper Nuke Launcher
+new        RPGAmmo                      Grenade Rockets
+new        Rocket                       RPG Launcher
+new        RocketAmmo                   Rockets
+new        Guidedii                     Guided Missile Launcher
+new        Guidedi                      Guided Missile Launcher
+new        Guided                       Guided Missile Launcher
+new        BlasterL                     Left
+new        BlasterR                     Right
+new        BlasterB                     Bottom
+renamed+stats+scriptsBlaster                      Lightning Gun
+renamed+stats+scriptsEnergyRifle                  Anti-Blastwall Torch
+new        EnergyRifleR                 Anti-Blastwall Torch
+new        EnergyRifleL                 Anti-Blastwall Torch
+new        PaintR                       Anti-Blastwall Torch
+new        WaveGun                      Shockwave Cannon
+stats      PlasmaAmmo                   Plasma Bolt
+renamed+stats+scriptsPlasmaGun                    Plasma Blaster
+new        MKIIAmmo                     Nihility Cartridge
+new        blasteri                     left hand blaster
+new        blasterii                    right hand blaster
+new        blasteriii                   bottom blaster
+new        Plasmaii                     Nihility Pistol
+new        xgatlingammo                 Mercury Shells
+new        XHChain1                     Thumper
+new        XHChain2                     Thumper
+new        XHChaingun                   Mercury Cannon
+new        NihilityShells               NIHILITY Fuel
+new        Nihility                     Fireworks
+new        Fixit                        Repair Gun
+new        Hack                         Hack Gun
+new        Tract                        Tractor Beam
+new        Retract                      Repulsor Beam
+new        Grap                         Grappler Beam
+new        Run                          Grappler Beam
+new        Riot                         Riot Shield Tool
+new        BeaconAmmo                   Targeting Beacons
+new        BeaconGun                    Beacon Gun
+new        Smokey                       Smoke Screen
+stats+scriptsTargetingLaser               Targeting Laser
+stats+scriptsEnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+new        CloakingDevice               Cloaking Device
+stats+scriptsAmmoPack                     Ammo Pack
+new        AmmoPack2                    Ammo Pack
+new        Laptop                       Command Laptop
+new        SuicidePack                  Big Bug Bomb Pack
+new        GhostFloorArmor              Floor
+new        GhostArmor                   Walls
+new        GhostPack                    Wraith Pack
+new        GhostPack2                   Wraith Pack
+new        GhostPack3                   Wraith Pack
+new        GhostPack4                   Wraith Pack
+new        GhostPack5                   Wraith Pack
+new        GhostPack6                   Wraith Pack
+new        GhostPack7                   Wraith Pack
+new        PhaseShifterPack             Hyperdrive
+new        Slipstream                   Navigator Pack
+new        TeslaPack                    Riot Shield
+new        RunPack2                     Molecular Accelerator
+new        RunPack                      Molecular Accelerator
+new        Gamma                        Deuterium Battery
+new        IonPack                      Ion Generator
+new        LaserPack                    Laser Turret
+renamed+stats+scriptsTurretPack                   Ion Turret
+new        IndoorPack                   Indoor Turret
+new        ShockPack                    Shock Turret
+new        DeployableElfTurret          Elf Turret
+new        LaserTurret                  Plasma Turret
+new        DiscTurret                   Disc Turret
+new        RocketPack                   Missile Turret
+new        TargetPack                   Mortar Turret
+new        VulcanTurret                 Vulcan Turret
+new        RailTurret                   Rail Turret
+stats+scriptsCameraPack                   Camera
+new        BaseAlarm                    Base Alarm
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+new        BuilderPole                  Scaffolding
+new        BunkerPack                   Bunker
+new        TowerPack                    Tower
+new        ArbitorBoxPack               Base Cloak
+new        FlagstandPack                Flag Stand
+new        SpringPack                   Springboard
+new        AccelPPack                   Accelerator Pad
+new        TeleportPack                 Teleport Pad
+new        JailGun                      Jailers Gun
+new        JailCapPack                  Jail Capture Pad
+new        jailpack                     Jail Cell
+new        TripwirePack                 Blast Wall
+new        BlastDoorPack                Blast Door
+new        ForceFieldPack               Small FF Wall
+new        doorfivebyfiveForceFieldPack Small FF Door
+new        LargeForceFieldPack          Wide FF Wall
+new        doorfourbyseventeenForceFieldPackWide FF Door
+new        PlatformPack                 Small Platform
+new        PlatformDoor                 Small Platform Door
+new        LrgPltPack                   Large Platform
+new        LargePlatDoor                Large Platform Door
+new        newdoorone                   Panel One
+new        newdoortwo                   Panel Two
+new        newdoorthree                 Panel Three
+new        newdoorfour                  Panel Four
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon

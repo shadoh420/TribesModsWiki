@@ -1,0 +1,128 @@
+{
+  "mod": {
+    "overview": "Shifter SG1 is the {TKO} clan's 2001 edit of Shifter 09-28-2000. It keeps Shifter's armors, shops and deployables and adds two top-end armors (ArkAngel and DarthAngel), a renamed and rebalanced weapon set (BlastCannon, PopTart Launcher, Phaser Rifle), and three new turret packs (Guard Dog, FlakNuk and PhaserRail). Compared with Renegades Classic it is a Shifter-style mod: many more armors, packs and deployables, with higher team limits.",
+    "notes": [
+      "Two armors are added: ArkAngel (zarmor, price 3900) and DarthAngel (xarmor, price 3650). Their PlayerData blocks use the heavy-armor shape and are identical to each other apart from the hit-box lines.",
+      "Weapon slot limits are raised: the earmor and efemale armors carry 5 weapons (was 4), jarmor 4 (was 3), parmor 3 (was 1); ArkAngel carries 7 and DarthAngel 6.",
+      "Laser damage taken is higher than in Shifter on several armors: aarmor and afemale 0.6 (was 0.5), darmor 0.8 (was 0.6), harmor 0.9 (was 0.6), jarmor 0.9 (was 0.5).",
+      "Many team deployable limits and ammo-pack maximums are raised versus Shifter (for example Beacon 50, DetPack limit 25, Nuke limit 45, GrenadeAmmo pack max 15, RailAmmo pack max 15). The Hacked time is 70 instead of 90.",
+      "The remote inventory list (station_list.cs) now allows Airbase, ArbitorBeaconPack, EMPBeaconPack, EmplacementPack, Mfgl, MfglAmmo and PowerGeneratorPack, and Plastique is listed with value 3 instead of 0.",
+      "The vehicle smoke and fire trail code and the JetVehicle shop entry that Shifter has are not present in this mod's vehicle.cs and station_list.cs.",
+      "Script bug: itemfuncs.cs defines Renegades_startShield and checkPlayerShield three times (jarmor, oarmor and zarmor versions); the last copies apply. They give the stronger shield to zarmor and only keep it alive for darmor, dfemale and zarmor. The Juggernaut (jarmor) still calls Renegades_startShield when damaged (player.cs), but under the last copies it gets the weak shield and checkPlayerShield cancels it on its first tick, so it lasts about two seconds. In Shifter the same functions favour jarmor.",
+      "Script bug: the Heavy Plasma Cannon was only half renamed to BlastCannon. See the BlastCannon entry.",
+      "Port changes in this archive's scripts: the admin menu checks permissions server-side and the server-specific settings are commented out. These do not change item behavior."
+    ]
+  },
+  "items": {
+    "DarthAngel": {
+      "summary": "A new top-tier armor sold under the aArmor heading for 3650. It uses the heavy-armor body (slow, high jet force, high hit points) and can carry a wide mix of weapons and packs.",
+      "notes": [
+        "ArmorType maps DarthAngel to xarmor for both genders. PlayerData xarmor is commented as Medium Armor but uses shapeFile harmor, maxDamage 2.0, maxEnergy 250, jetForce 490, mass 20, and run speed 5.8 forward.",
+        "Carries up to 6 weapons ($MaxWeapons). Its ItemMax list covers Blaster, Chaingun, Equalizer, ConCun, DiscLauncher, EnergyRifle, GrenadeLauncher, Mortar, PlasmaGun, RocketLauncher, Vulcan, Mfgl, TargetingLaser, plus packs such as ShieldPack, CameraPack, HoloPack, FlakPack, PlasmaTurretPack, TurretPack, BarragePack and ShockFloorPack (one each).",
+        "Damage scale table is custom: Plasma 2.0, Blaster 1.5, Flash 1.5, Energy 1.3, Mortar 1.2, Electricity 1.2, Laser 0.9, Impact 0.5, Crush 0.6, Landing 0.2, Grav 0.1, Cloak 0.0, most others 1.0. It is therefore weak to plasma and blaster fire.",
+        "Its ItemMax block lists AutoRocketAmmo twice (15, then 20); the later value applies."
+      ],
+      "source": "item.cs ItemData DarthAngel, $ArmorType/$ArmorName; ArmorData.cs PlayerData xarmor, $ItemMax[xarmor,...], $MaxWeapons; damage.cs $DamageScale[xarmor,...]"
+    },
+    "ArkAngel": {
+      "summary": "A new heavy armor sold under the aArmor heading for 3900. It carries more weapons than any other armor in the mod and has the strongest emergency shield.",
+      "notes": [
+        "ArmorType maps ArkAngel to zarmor. PlayerData zarmor is a heavy-armor copy: maxDamage 2.0, maxEnergy 250, jetForce 490, mass 20, forward speed 5.8; its stats match DarthAngel's.",
+        "Carries up to 7 weapons ($MaxWeapons). Allowed gear includes Blaster, BoomStick (25 ammo), Mortar (35 ammo), PlasmaGun, Railgun, RocketLauncher (50 rockets), SniperRifle, TargetingLaser, Mfgl, plus EnergyPack, FgcPack, FlakPack, FlightPack, Booster1Pack, Booster2Pack and SMRPack2 (one each).",
+        "Renegades_startShield (the last definition in itemfuncs.cs) sets shieldStrength 0.016 for zarmor and 0.006 for other armors, and checkPlayerShield keeps the shield running for zarmor, darmor and dfemale. The shield runs on a 20-unit timer that drops 2 per tick. The only callers are player.cs (on damage, jarmor only) and the pack-use code in item.cs (darmor and harmor), so no script path starts the shield for an ArkAngel wearer.",
+        "Damage scale table is identical to DarthAngel's (Plasma 2.0, Blaster 1.5, Flash 1.5, Energy 1.3, Mortar 1.2, Laser 0.9, Impact 0.5, Crush 0.6, Landing 0.2, Grav 0.1).",
+        "itemfuncs.cs gives zarmor a kval of 850 in its armor-value table."
+      ],
+      "source": "item.cs ItemData ArkAngel, $ArmorType; ArmorData.cs PlayerData zarmor, $ItemMax[zarmor,...], $MaxWeapons; itemfuncs.cs Renegades_startShield, checkPlayerShield; damage.cs $DamageScale[zarmor,...]"
+    },
+    "Blaster": {
+      "summary": "The Blaster is renamed BlastCannon in the shop and turned from a rapid low-damage energy bolt into a single heavier explosive shot.",
+      "notes": [
+        "Unlike Shifter, the BlasterBolt projectile is a radius-damage shot (damageClass 1, explosion radius 2.0, damage value 1.52) of Missile damage type, shown with the plasma shape and rocket explosion, instead of a 0.2-damage Blaster-type direct hit. liveTime is 1.12 seconds.",
+        "Image data differ from Shifter: reloadTime -10 (was 0), maxEnergy 600 (was 6), sfxFire is the mortar fire sound (was the blaster sound). minEnergy is 5. How these values play out in the engine is not determined from scripts.",
+        "Because the bolt is no longer Blaster damage type, the Blaster-specific handling in staticshape.cs and damage scales do not apply to it; Missile-type scales do.",
+        "Selecting it shows the on-screen text Using BlastCannon (itemmsgs.cs). Price is 695 (was 85).",
+        "Note the name clash: this is the Blaster datablock, separate from the item called BlastCannon (the Heavy Plasma Cannon)."
+      ],
+      "source": "item.cs ItemImageData BlasterImage, ItemData Blaster; baseProjData.cs BulletData BlasterBolt; itemmsgs.cs Blaster::onUse"
+    },
+    "DiscAmmo": {
+      "summary": "The disc ammo item, renamed CherryDisc in the shop and ammo lists.",
+      "notes": [
+        "Only the display name and ammo-pack numbers differ from Shifter: description CherryDisc (was Disc), the DiscAmmo ammo-pack maximum is 15.",
+        "Price is 2 and SellAmmo is 5, as in Shifter."
+      ],
+      "source": "item.cs ItemData DiscAmmo, $AmmoPackMax[DiscAmmo]"
+    },
+    "DiscLauncher": {
+      "summary": "The Disc Launcher is renamed the PopTart Launcher and fires faster than in Shifter.",
+      "notes": [
+        "reloadTime is 0.15 (was 0.25) and fireTime 1.05 (was 1.25), so the launcher cycles roughly 0.2 seconds faster per shot. Price is 420 (was 150).",
+        "It still fires DiscShell with the same projectile data as Shifter (radius damage 0.5, radius 7.5) and uses DiscAmmo, which is now shown as CherryDisc.",
+        "Selecting it shows Using PopTart Launcher (itemmsgs.cs).",
+        "$WeaponList slot 28 is named PopTartLauncher, which is not an item datablock; the item itself is still DiscLauncher."
+      ],
+      "source": "item.cs ItemImageData DiscLauncherImage, ItemData DiscLauncher, $WeaponList; itemmsgs.cs DiscLauncher::onUse"
+    },
+    "LaserRifle": {
+      "summary": "The Laser Rifle is renamed the Phaser Rifle. It is still a sniper-style beam weapon but with a yellow muzzle glow and a higher cost.",
+      "notes": [
+        "Fires SniperLaser with the same reloadTime 0.1, fireTime 0.5 and energy 10 to 60 as Shifter; the lightColor is yellow (1,1,0) instead of red.",
+        "Armor laser scales were raised in this mod (aarmor 0.6, darmor 0.8, harmor 0.9, jarmor 0.9), so Laser-type damage hurts those armors more than in Shifter.",
+        "The auto-sell and auto-buy messages tied to the Energy Pack now say Phaser Rifle, and itemmsgs.cs shows Using Phaser Rifle. However item.cs checks Player::getItemCount for PhaserRifle in one place, which is not a datablock name, so the Energy Pack auto-sell check on that line does not find the rifle.",
+        "Price is 200."
+      ],
+      "source": "item.cs ItemImageData LaserRifleImage, ItemData LaserRifle, energy-pack buy/sell code; itemmsgs.cs LaserRifle::onUse; damage.cs"
+    },
+    "ConPack": {
+      "summary": "The Guard Dog is a new deployable turret pack. It sets down a chain-turret shaped sentry that lobs large-radius, low-damage missiles at enemies.",
+      "notes": [
+        "ConPack::onUse mounts the pack, then deploys when used again; ConPack::deployShape needs the team's count below $TeamItemMax (2) and a line-of-sight surface within range that is SimTerrain, an InteriorShape or a DeployablePlatform.",
+        "Placement checks: not too close to another DeployableConTurret (max box and min box counts), floor normal dot (0,0,1) must exceed 0.7 (flat surface only), and checkDeployArea requires nothing in a 1x1x1 box (it reports if the player or another object is in the way). The deployed object is a remoteTurret with datablock DeployableConTurret, mapped as RMT Guard Dog.",
+        "DeployableConTurret: chainturret shape, maxDamage 1.5, range 150, reloadDelay 1.5, shieldStrength 0.010, recharge 5, activates after its deploy animation. It fires the Watch rocket: radius damage with explosion radius 30 and a small damage value 0.06, Missile damage type, strong kickback 350.",
+        "When destroyed it runs Turret::onDestroyed and lowers the team count for ConPack.",
+        "Price 425; listed in the inventory and remote inventory shops. earmor and efemale can carry one."
+      ],
+      "source": "item.cs ConPack, ConPack::onUse/onDeploy/deployShape; turret.cs DeployableConTurret; baseProjData.cs RocketData Watch"
+    },
+    "FlakPack": {
+      "summary": "The FlakNuk Turret is a new deployable mortar-turret pack that shoots fast flak shells and targets only air targets.",
+      "notes": [
+        "FlakPack::deployShape follows the same placement rules as the Guard Dog: team limit $TeamItemMax[FlakPack] = 4, terrain/interior/platform surface, flat ground, spacing from other DeployableFlak turrets, and a clear 1x1x1 box. The deployed turret is DeployableFlak, mapped as RMT Flak Turret.",
+        "DeployableFlak: mortar_turret shape, range 300, reloadDelay 0.8, maxDamage 1.0, fires FlakShell (radius damage 1.9, explosion radius 8, muzzle velocity 200, Explosion damage type).",
+        "DeployableFlak::verifyTarget only accepts a target whose getHeatFactor is at least 0.5, so it engages hot air targets such as jetting players and vehicles. The mod's ShifterSG1.cs notes that objects other than players or vehicles return heat 0 under this port.",
+        "When destroyed it lowers the FlakPack team count. Price 1650. darmor, earmor, efemale, ArkAngel and DarthAngel can carry one; aarmor and barmor are set to 0."
+      ],
+      "source": "item.cs FlakPack, FlakPack::deployShape; turret.cs DeployableFlak, DeployableFlak::verifyTarget; baseProjData.cs RocketData FlakShell"
+    },
+    "LaserPack": {
+      "summary": "The Laser Turret pack is renamed the Phaser Turret and the team may deploy more of them.",
+      "notes": [
+        "LaserPack::deployShape calls deployable() with the deployed object name Laser Turret and datablock DeployableLaser, unchanged from Shifter.",
+        "Team limit is 7 (was 4). Price 300.",
+        "DeployableLaser fires SniperLaser with range 75 and a long reloadDelay of 10 seconds; the shop name is the only change in the turret data itself (description of the datablock still reads Remote Laser Turret)."
+      ],
+      "source": "item.cs ItemData LaserPack, LaserPack::deployShape, $TeamItemMax[LaserPack]; turret.cs DeployableLaser"
+    },
+    "RailTurretPack": {
+      "summary": "The PhaserRail Turret is a new deployable turret ported from Ultra Renegades that fires a long, slow-reloading rail laser at long range.",
+      "notes": [
+        "RailTurretPack::deployShape uses deployable() with name Rail Turret, datablock DeployableRail, range 4, a flat-surface requirement and a proximity check; team limit is 1. Price 850. earmor and efemale can carry one.",
+        "DeployableRail: camera shape, range 205, maxDamage 1.0, reloadDelay 5.0, fires railLaser (LaserData with Laser damage type, damageConversion 0.1, beamTime 1.5).",
+        "When destroyed it applies radius debris damage around itself (CalcRadiusDamage) and lowers the RailTurretPack team count.",
+        "ItemData uses imageType = CameraPackImage rather than the RailTurretPackImage block defined just above it, so the carried pack looks like the camera pack."
+      ],
+      "source": "item.cs RailTurretPack, RailTurretPack::deployShape; itemfuncs.cs deployable(); turret.cs DeployableRail; baseProjData.cs LaserData railLaser"
+    },
+    "BlastCannon": {
+      "summary": "The Heavy Plasma Cannon renamed HeavyBlastCannon, a charge-up weapon that is only half renamed in the scripts and so cannot work as written.",
+      "notes": [
+        "The ItemData BlastCannon (price 2400) still has imageType = PlasmaCannonImage, but that image was renamed to BlastCannonImage, so the image reference is undefined.",
+        "Its onFire is still declared as PlasmaCannonImage::onFire, which spawns PlasmaCannonBolt, PlasmaCannonBolt2 and PlasmaCannonShock, none of which exist any more under those names (they were renamed BlastCannonBolt and so on). Charge and Detonate schedule PlasmaCannoner::Charge and ::Detonate, which were renamed to BlastCannoner.",
+        "The charge trigger in item.cs checks for the item PlasmaCannon, which no longer exists, and the inventory lists (station_list.cs InvList and RemoteInvList) and ItemMax tables (jarmor) still name PlasmaCannon, not BlastCannon. No armor has an ItemMax for BlastCannon.",
+        "Intended behavior, from the code that remains: it charges using beacons for up to 15 seconds, fires more projectiles at higher charge, and at full charge it must be fired within 15 seconds or the holder explodes. Behavior of the renamed item as shipped is not determined from scripts."
+      ],
+      "source": "item.cs ItemData BlastCannon, PlasmaCannonImage::onFire, BlastCannoner::Charge/Detonate; station_list.cs; ArmorData.cs"
+    }
+  }
+}

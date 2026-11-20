@@ -1,0 +1,604 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades VX6 (the 'VX6 Infinite' script set by Armageddon and WorstAim) is built directly on stock Tribes 1.11 rather than on the VX5 line, keeping the three stock armors (Light, Medium, Heavy Armor Suit) but replacing almost everything else. Every hand-carried item costs 0 and team energy defaults to Infinite, weapons need no ammo (each shot costs a token amount of energy from a 500-point pool, 100 for heavy), and the shop is reorganised under ten headings set through $InvHead: Turret Systems, Weapon Cache, Psionics, Armor Suits, Tactical Back Packs, Field Equipment, Sensor Networks, Armor Upgrades, Base/Field Equipment and Defence Equipment. It adds seven new weapons, five 'Psionics' spell-weapons, ten deployable turret systems, five deployable force-field doors, a teleport pad, five area 'Devices' (cloak, flux, jammer, shield, healing), an electric web, and four armed vehicles with switchable vehicle weapons. Status damage types are central: EMP and Beam of Pain knock weapons, packs and flags out of hands, ELF and Flash damage drain energy, and mines freeze victims in place.",
+    "notes": [
+      "Parent is stock Tribes 1.11: where an item note says 'stock', it means base Tribes.",
+      "Shop headings ($InvHead in item.cs): a Turret Systems, b Weapon Cache, c Psionics, d Armor Suits, e Tactical Back Packs, f Field Equiptment (spelled so; no item uses it), g Sensor Networks, h Armor Upgrades (Repair Kit, Mine, Grenade, Beacon, Repair Patch), i Base/Field Equipment (stations, teleport pad, Devices), j Deffence Equiptment (force fields). Vehicles sit under a separate 'a-=[Vehicle]=-' heading.",
+      "Every hand-carried item's price is 0 (vehicles cost 5000-7500) and $DefaultTeamEnergy is \"Infinite\" (game.cs), so buying is limited only by $ItemMax (1 of nearly everything for every armor), weapon slots and team deployable limits.",
+      "Weapon slots ($MaxWeapons): Light 10, Medium 8, Heavy 8; the female light and medium suits get 10. Female players buying Heavy get the male harmor.",
+      "Hand weapons have no ammo items ($WeaponAmmo is blank for all); almost every single-shot weapon needs 1 energy and spends 0.1 per shot (the Taser Rifle spends up to 15), with zero or near-zero fire/reload times. Light and Medium have 500 energy, Heavy 100.",
+      "Spawn loadout ($spawnBuyList): Light Armor, RPG Launcher, Disc Launcher, ForceField Buster, Plasma Gun, Fusion Mortar, Sniper MKII, Sniper MKI, Repair Pack, Mine, Beacon, Grenade, Repair Kit.",
+      "Inventory and ammo stations (Station::itemsToResupply) top up Repair Kit, Grenade, Mine and re-issue the Verminator, Cluster Launcher, Disc Launcher, Fusion Mortar, the four flame/gas Psionics, ForceField Buster, RPG and EMP Launcher and Confusion Spell if missing and allowed.",
+      "Deployed inventory stations ($RemoteInvList) sell most items but not the five Devices or the Electric Web; the Targeting Laser is in no shop list.",
+      "Damage types with side effects (player.cs Player::onDamage): EMP zeroes energy, sets recharge rate to 6 and drops the victim's weapon, pack and flag; Beam of Pain drops weapon, pack and flag; MiniELF damage drops weapon and pack; Flash damage zeroes energy and sets recharge to 6; Noxious Gas (Smoke) prints a gas warning and fully whites out the screen; Mine damage calls Freeze.",
+      "Freeze (player.cs) mounts the hidden DeadWeight item (mass 90000) on the victim for 15 seconds, pinning them in place.",
+      "Head shots: laser head hits get +30% damage as in stock; enemy head hits from Bullet or Sniper MKII damage add 2 damage and blow the victim apart, with a 'Head Shot ... 2 Bonus Points' message (the score itself is not changed by that code).",
+      "Shield-style absorption (shieldStrength) is used by the Shield Pack, StealthShield Pack, Shield Device and some turrets; Shrapnel and Mortar damage are absorbed at 75% efficiency.",
+      "Friendly fire is ignored when $Server::TeamDamageScale is 0, except damage dealt by a player who is being possessed by an admin.",
+      "Most deployables add a 'fair play' check: a static object owned by your team must lie inside a 150 x 150 x 150 search box around the deploy point, otherwise 'Fair play distance exceeded' is shown. Each successful deploy prints 'Deffence Bonus: 2 points' and adds 2 to the deployer's score.",
+      "Only Light armor can pilot vehicles; Medium and Heavy can ride as passengers in the Star Destroyer (2 seats) and Hover Tank (4 seats). Pilots cycle vehicle weapons with next/previous weapon.",
+      "VX6Trails.cs supplies trailLoop/boom helpers that respawn a projectile along another projectile's path; only the Solar Flare uses them (solarBurst1::onAdd). trailEndlessLoop checks for an armor named armorfInfest that VX6 does not define, so it never runs.",
+      "Fireworks.cs holds the paint-splat bullets and explosion effects used by admin punishments in admin.cs ('Make Him A Firework', 'Make Him A Timebomb'), not player items. The admin Manipulation menu also offers Set On Fire, Possess (take control of a player's body), Strip and Boost options.",
+      "Admins log in from chat with !sad <password>; passwords are set in VX6Config.cs at four levels (Public, Super, Master, Owner).",
+      "Vehicle weapon selection index is stored under getManagerId() (vehicle.cs getNextVWeap/getPrevVWeap), a single value shared by every pilot on the server.",
+      "Bug: several deployable onDestroyed handlers (sentry, camera, laser, grip turrets etc.) call GameBase::applyDamage on Player::getClient(turret); what that targets is not determined from scripts."
+    ]
+  },
+  "items": {
+    "LightArmor": {
+      "summary": "The Light Armor Suit is the fastest, most fragile of VX6's three armors and the one everyone spawns in. It is the only suit that can pilot vehicles or use teleport pads.",
+      "notes": [
+        "Carries 10 weapons (stock: fewer) and has 500 energy, against stock light armor's 60.",
+        "Uses the same strong jet force as the other two suits in this mod, with a very low jet energy drain.",
+        "Can buy every item in the shop; $ItemMax is 1 for each.",
+        "Bullet, Shrapnel and Mine damage are scaled to 1.2x and Energy, Mortar and Blaster damage to 1.3x."
+      ],
+      "source": "ArmorData.cs larmor/lfemale, $MaxWeapons; item.cs LightArmor; staticshape.cs DeployableTeleport::onCollision; vehicle.cs Vehicle::onCollision"
+    },
+    "MediumArmor": {
+      "summary": "The Medium Armor Suit is the middle armor: tougher than light, slower, and unable to crouch. It cannot pilot vehicles or teleport but can ride as a passenger.",
+      "notes": [
+        "Carries 8 weapons (the female version carries 10) and keeps 500 energy.",
+        "Teleport pads refuse marmor with 'Cannot teleport in this character class'.",
+        "Same jet force as the other suits; canCrouch is false."
+      ],
+      "source": "ArmorData.cs marmor/mfemale, $MaxWeapons; item.cs MediumArmor; staticshape.cs DeployableTeleport::onCollision"
+    },
+    "HeavyArmor": {
+      "summary": "The Heavy Armor Suit has the most health but only 100 energy, a fifth of the other suits, which limits sustained weapons and shield packs. It cannot pilot, crouch or teleport.",
+      "notes": [
+        "Carries 8 weapons. Female players buying it get the male harmor model.",
+        "Laser head shots only get the +30% bonus on heavy armor when they hit the middle quadrants, as in stock.",
+        "Teleport pads refuse harmor."
+      ],
+      "source": "ArmorData.cs harmor; item.cs HeavyArmor, $ArmorType; player.cs Player::onDamage; staticshape.cs DeployableTeleport::onCollision"
+    },
+    "ScoutVehicle": {
+      "summary": "The Brawler Assault is the renamed stock Scout flier, now a heavily armed single-seat attack craft. The pilot cycles between three weapons: Brawler Shot, Brawler Rocket and Brawler Mortar.",
+      "notes": [
+        "Unlike stock, it no longer fires FlierRockets; Vehicle::onFire spawns whichever $VProj weapon the pilot selected, with its own refire delay ($VDelay 0, 0.2, 0.6 s).",
+        "Brawler Shot is a fast explosive round, Brawler Rocket a fast rocket, and Brawler Mortar a bomb with very high damage and knockback.",
+        "Before the pilot cycles weapons the default projectile is 'swordHit', which no VX6 script defines.",
+        "Much higher top speed, health and energy than stock; team limit 10 (stock 3). Blaster damage against it is halved.",
+        "Light armor only; no passenger seats."
+      ],
+      "source": "vehicle.cs FlierData Scout, $VProj[Scout], Vehicle::onFire, getNextVWeap, Vehicle::onCollision; baseProjData.cs BrawlerShot/BrawlerRocket/BrawlerMortar"
+    },
+    "MercJetVehicle": {
+      "summary": "The Mercenary Jet-Bike is a new single-seat flier on the same frame as the Brawler, carrying four switchable infantry-style weapons: Merc Chaingun, Merc Grenade Launcher, Merc Disc Launcher and Merc Flame Thrower.",
+      "notes": [
+        "Weapons cycle with next/previous weapon; refire delays 0, 0.3, 0.1 and 0.1 s.",
+        "The flame thrower is a plasma bolt; the grenade launcher fires a heavy short-fused explosive shell.",
+        "Light armor only, no passenger seats; team limit 10. Blaster damage against it is halved."
+      ],
+      "source": "vehicle.cs FlierData MercJet, $VProj[MercJet], Vehicle::onFire; station.cs $VehicleInvList[MercJetVehicle]; baseProjData.cs MercChaingun/MercGrenadeLauncher/MercDiscLauncher/MercFlameThrower"
+    },
+    "LAPCVehicle": {
+      "summary": "The Star Destroyer replaces the stock light APC: an armed transport whose pilot cycles Star Assault rockets, Star Fury electric spread rounds, Star Bomb air-raid bombs and Star Mortar shells, with two passenger seats.",
+      "notes": [
+        "Stock LAPC is unarmed; here the pilot fires the selected $VProj weapon (delays 0.01, 0.01, 0.2, 0.3 s).",
+        "Laser and Blaster damage against it are halved.",
+        "Light armor pilots; any armor can take the 2 passenger seats. Team limit 12 (stock 2)."
+      ],
+      "source": "vehicle.cs FlierData LAPC, $VProj[LAPC], Vehicle::onFire, Vehicle::findEmptySeat; baseProjData.cs StarAssault/StarFury/StarBomb/StarMortar"
+    },
+    "HAPCVehicle": {
+      "summary": "The Hover Tank replaces the stock heavy APC: a four-passenger transport whose pilot cycles Heavy Chaingun, Heavy Grenade, Heavy Bazooka and Heavy Rocket.",
+      "notes": [
+        "Despite the name it is still a FlierData using the hover APC model.",
+        "Stock HAPC is unarmed; here weapon refire delays are 0, 0.05, 0.07 and 0.3 s.",
+        "Laser and Blaster damage against it are halved. Team limit 10 (stock 1)."
+      ],
+      "source": "vehicle.cs FlierData HAPC, $VProj[HAPC], Vehicle::onFire, Vehicle::findEmptySeat; baseProjData.cs HeavyChaingun/HeavyGrenade/HeavyBazooka/HeavyRocket"
+    },
+    "LaserRifle": {
+      "summary": "The Laser Rifle fires the hitscan sniper laser like stock, but no longer requires an Energy Pack and mounts two decorative scope pieces.",
+      "notes": [
+        "Unlike stock, there is no LaserRifle::onUse check for an Energy Pack.",
+        "Mounting it sets the player's energy recharge rate to 1750 (default 8); unmounting does not reset it, so energy stays near-instantly refilling until something else changes the rate.",
+        "Laser damage scales with energy spent per shot; this image spends only 0.1 energy per shot but its sniperLaser has a much higher conversion than stock.",
+        "Head hits get +30% damage."
+      ],
+      "source": "item.cs LaserRifleImage, LaserRifle::onMount/onUnmount; baseProjData.cs sniperLaser; player.cs Player::onDamage"
+    },
+    "TaserRifle": {
+      "summary": "The Taser Rifle is a second hitscan laser rifle with a higher per-shot energy draw and double the Laser Rifle's damage conversion, making it the harder-hitting sniper laser.",
+      "notes": [
+        "Spends up to 15 energy per shot with a short reload; TaserRfLaser converts energy to damage at twice the sniperLaser rate.",
+        "Mounting sets the energy recharge rate to 2750 and it is not reset on unmount.",
+        "Mounts two paint-gun-model scope pieces as decoration."
+      ],
+      "source": "item.cs TaserRifleImage, TaserRifle::onMount/onUnmount; baseProjData.cs TaserRfLaser"
+    },
+    "FireballAbility": {
+      "summary": "Solar Flare (Psionics) launches two slow rockets at once: a harmless carrier that rains explosions along its flight path, and a damaging burst.",
+      "notes": [
+        "onFire spawns solarBurst1 and solarBurst2 from the muzzle with the player's velocity.",
+        "solarBurst1 deals no damage itself; 0.7 s after launch it starts trailLoop, spawning a SolarTrail explosion at its position every 0.15 s, 36 times. Each SolarTrail explodes in a wide radius with light damage.",
+        "solarBurst2 does the main radius damage.",
+        "Reload 1 second."
+      ],
+      "source": "item.cs FireballAbilityImage::onFire; baseProjData.cs solarBurst1/solarBurst2/SolarTrail, solarBurst1::onAdd; VX6Trails.cs trailLoop, boom"
+    },
+    "SmScreenAbility": {
+      "summary": "Noxious Gas (Psionics) lobs smoke canisters that burst into a small cloud of Smoke damage.",
+      "notes": [
+        "Fires the SmScreen grenade with almost no delay between shots.",
+        "Victims hit by Smoke damage get 'WARNING - Noxious Gas Detected!' and a full white damage flash that blinds them briefly."
+      ],
+      "source": "item.cs SmScreenAbilityImage; baseProjData.cs SmScreen; player.cs Player::onDamage ($SmokeDamageType)"
+    },
+    "ExSmScreenAbility": {
+      "summary": "Split Waster (Psionics) fires a napalm shell that, after about three seconds, bursts into fifteen scattering fire bombs.",
+      "notes": [
+        "onFire launches NapShell. At 2.9 s SplitFlame spawns a NapSplit effect at the shell; at 3 s TossFlame spawns 15 NapFire grenades from the shell's position with randomized horizontal and upward velocities, then deletes the shell.",
+        "NapFire bombs each explode with a large radius; the shell itself also explodes on its own timer if it detonates first, in which case no bombs are released.",
+        "Reload 2.75 seconds.",
+        "SplitFlame and TossFlame also call Projectile::spawnProjectile with a single argument, which does nothing useful."
+      ],
+      "source": "item.cs ExSmScreenAbilityImage::onFire, SplitFlame, TossFlame; baseProjData.cs NapShell/NapSplit/NapFire"
+    },
+    "FireScreenAbility": {
+      "summary": "Hell Fire (Psionics) throws a firebomb that bursts into a chain of cascading plasma mines, blanketing an area with explosions.",
+      "notes": [
+        "firebomb::onAdd calls FW1 after 0.6 s, throwing two FW1 mines from the bomb. Each FW1 throws two FW2 mines and detonates; each FW2 throws two FW3 mines and detonates, for 14 mine explosions in total.",
+        "Every FW mine carries a very large plasma damage value with a small radius, and the mines belong to no team.",
+        "Reload 2.1 seconds."
+      ],
+      "source": "item.cs FireScreenAbilityImage; baseProjData.cs firebomb, firebomb::onAdd, FW1/FW2/FW3 and their onAdd handlers"
+    },
+    "SpellAbility": {
+      "summary": "Confusion Spell (Psionics) fires two slow bullets shaped like a female and a male light-armor model; each is a lethal impact bullet.",
+      "notes": [
+        "onFire spawns SpellAbilityProj1 (lfemale model) and SpellAbilityProj2 (larmor model) together at slow speed.",
+        "They deal Bullet damage, so enemy head hits also trigger the head-shot blow-up.",
+        "No confusion, control or status effect is applied by the scripts beyond the hit itself."
+      ],
+      "source": "item.cs SpellAbilityImage::onFire; baseProjData.cs SpellAbilityProj1/SpellAbilityProj2; player.cs Player::onDamage"
+    },
+    "Blaster": {
+      "summary": "The Energy Pistol replaces the stock Blaster with a four-bolt shotgun spread fired with no delay between shots.",
+      "notes": [
+        "onFire spawns four GrBlasterBolt: one straight and three with fixed offset velocities (left-down, right-down and up), giving a small spread pattern.",
+        "Stock Blaster fires one BlasterBolt every 0.3 s for 5-6 energy; this one spends 0.1 energy per trigger."
+      ],
+      "source": "item.cs BlasterImage::onFire, HybridVector::rotVector; baseProjData.cs GrBlasterBolt"
+    },
+    "Chaingun": {
+      "summary": "The Verminator replaces the stock Chaingun with a no-ammo sniper-style gun that fires five very fast, very accurate bullets per trigger pull.",
+      "notes": [
+        "Unlike stock, it is a single-shot energy weapon (no spin-up, no bullet ammo); onFire spawns five ChaingunBullet at once.",
+        "Each bullet does Bullet damage, so enemy head hits blow the victim apart and add 2 damage.",
+        "Mounts a decorative sniper-rifle model (Chaingun2) in slot 5."
+      ],
+      "source": "item.cs ChaingunImage::onFire, Chaingun::onMount/onUnmount; baseProjData.cs ChainGunBullet; player.cs Player::onDamage"
+    },
+    "LiLPOOmki": {
+      "summary": "The Sniper MKI fires a near-instant bullet with no ammo and no fire delay, plus Bullet-type head-shot kills.",
+      "notes": [
+        "LiLPOOmkiBullet is a Bullet-damage round at extreme muzzle velocity.",
+        "Enemy head hits add 2 damage and blow the victim apart.",
+        "Mounts a decorative scope (SniperScope) in slot 7."
+      ],
+      "source": "item.cs LiLPOOmkiImage, LiLPOOmki::onMount/onUnMount; baseProjData.cs LiLPOOmkiBullet; player.cs Player::onDamage"
+    },
+    "LiLPOOmkii": {
+      "summary": "The Sniper MKII is a twin of the MKI using its own damage type, which also triggers the head-shot blow-up.",
+      "notes": [
+        "LiLPOOmkiiBullet uses $LiLPOOmkiiDamageType; Player::onDamage gives the same +2 damage and blow-up on enemy head hits as for Bullet damage.",
+        "Has its own firing sound and mounts a decorative shotgun piece (Burst3) in slot 7."
+      ],
+      "source": "item.cs LiLPOOmkiiImage, LiLPOOmkii::onMount/onUnMount; baseProjData.cs LiLPOOmkiiBullet; player.cs Player::onDamage"
+    },
+    "PlasmaGun": {
+      "summary": "The Plasma Gun fires PlasmaBolt like stock, but needs no plasma ammo and has no fire delay.",
+      "notes": [
+        "Unlike stock, ammoType is gone; each shot spends 0.1 energy.",
+        "PlasmaBolt is a fast, small-radius plasma shot.",
+        "Mounts a decorative grenade-launcher model (Plasmagun2) in slot 7."
+      ],
+      "source": "item.cs PlasmaGunImage, PlasmaGun::onMount/onUnMount; baseProjData.cs PlasmaBolt"
+    },
+    "GrenadeLauncher": {
+      "summary": "The Cluster Launcher replaces the stock grenade launcher with a no-ammo gun that fires five bouncing cluster shells per shot in a slightly randomized spread.",
+      "notes": [
+        "onFire spawns five ClusterShell, each with the muzzle direction jittered by up to 0.05 per axis.",
+        "ClusterShell is a bouncy shrapnel grenade with a large blast radius and strong knockback.",
+        "Fire/reload time 0.2 s each; mounts two decorative grenade models in slots 5 and 6."
+      ],
+      "source": "item.cs GrenadeLauncherImage::onFire, GrenadeLauncher::onMount/onUnmount; baseProjData.cs ClusterShell"
+    },
+    "Mortar": {
+      "summary": "The Fusion Mortar is the stock mortar with no ammo and a very short refire, so it can lob shells almost continuously.",
+      "notes": [
+        "Unlike stock, ammoType is gone and fire/reload are 0.05 s each.",
+        "MortarShell keeps a large blast radius and strong knockback.",
+        "Mounts a decorative plasma-ammo core (MortarCore) in slot 7."
+      ],
+      "source": "item.cs MortarImage, Mortar::onMount/onUnmount; baseProjData.cs MortarShell"
+    },
+    "LiLFFB": {
+      "summary": "The ForceField Buster fires two heavy shells at once, one with an enormous damage value meant for breaking the mod's high-health force fields and deployables.",
+      "notes": [
+        "onFire spawns FFBShell1 (very high shrapnel damage) and FFBShell2 (light damage), both with strong knockback.",
+        "Force-field doors have 250 health, far beyond normal weapons, which is what FFBShell1 is sized for.",
+        "Reload 0.25 s."
+      ],
+      "source": "item.cs LiLFFBImage::onFire; baseProjData.cs FFBShell1/FFBShell2; staticshape.cs lgaForceFieldShape"
+    },
+    "LiLRocketLauncher": {
+      "summary": "The RPG Launcher locks on to a player or flier in your sights and fires three homing missiles; without a lock it fires a single fast dumb rocket.",
+      "notes": [
+        "onFire checks line of sight out to 350. If it hits a Player or Flier, it calls RocketLockWarning (tells you 'Lock Aquired' and warns the target with alarm sounds) and fires LiLRocketRPG, LiLRocket and LiLRocketSubmission, all seeking that target.",
+        "Otherwise it fires LiLRocketalt, a very fast unguided missile.",
+        "Kills with LiLRocket damage can gib the victim like explosion damage."
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire; server.cs RocketLockWarning; baseProjData.cs LiLRocketRPG/LiLRocket/LiLRocketSubmission/LiLRocketalt; player.cs Player::onDamage"
+    },
+    "LiLEMPRocketLauncher": {
+      "summary": "The EMP Launcher works like the RPG Launcher but its rockets carry EMP damage, which empties the victim's energy and knocks their weapon, pack and flag out of their hands.",
+      "notes": [
+        "With a Player or Flier in line of sight within 350 it fires two seeking EMP rockets (LiLEMPRocketONE/TWO) and sends the lock warning; otherwise it fires one unguided LiLEMPRocketalt.",
+        "EMP hits set energy to 0, slow the victim's recharge rate to 6, flash the screen and drop the mounted weapon, backpack and flag.",
+        "The rockets have a small blast radius and no knockback."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherImage::onFire; server.cs RocketLockWarning; baseProjData.cs LiLEMPRocketONE/TWO/alt; player.cs Player::onDamage ($EMPDamageType)"
+    },
+    "BeamOfPain": {
+      "summary": "The Beam of Pain is a long sustained beam that drags enemies, drains their energy almost instantly and knocks their weapon, pack and flag loose.",
+      "notes": [
+        "BeamOfPainproj::damageTarget pushes enemy targets with an impulse along the shooter's facing (negative velocity, pulling them toward the shooter), drains 500 energy per second and deals steady damage.",
+        "Beam of Pain damage drops the victim's weapon, backpack and flag.",
+        "Teammates take no damage or drain from the beam; with team damage on, the zero-damage hit still reaches Player::onDamage and can make them drop items.",
+        "Costs 11 energy per second to hold."
+      ],
+      "source": "item.cs BeamOfPainImage; baseProjData.cs BeamOfPainProj, BeamOfPainproj::damageTarget; player.cs Player::onDamage ($BeamOfPainDamageType)"
+    },
+    "EnergyRifle": {
+      "summary": "The Cloak Gun replaces the stock ELF gun with a short sustained beam that turns whatever it touches invisible for 30 seconds.",
+      "notes": [
+        "cloakingCharge::damageTarget calls GameBase::startFadeOut on the target and schedules a fade-in 30 s later; there is no team check, so it cloaks friends and enemies alike.",
+        "The beam's own damage and energy drain are negligible (stock ELF drains energy heavily).",
+        "Visual fade only; the target's sensor visibility is not changed."
+      ],
+      "source": "item.cs EnergyRifleImage; baseProjData.cs cloakingCharge, cloakingCharge::damageTarget"
+    },
+    "DeadWeight": {
+      "summary": "Deadweight is a hidden item with a mass of 90000 that the mine freeze effect mounts on its victims to pin them in place for 15 seconds.",
+      "notes": [
+        "Freeze (called for any Mine damage) adds one DeadWeight, mounts it in slot 4, messages 'You Stepped On A Freeze Mine!' and removes it after 15 s.",
+        "Not shown in the shop. Freeze also calls Item::setVelocity on an undefined variable, so it does not zero the victim's velocity itself."
+      ],
+      "source": "item.cs DeadWeight/DeadWeightImage, Weight; player.cs Freeze, Player::onDamage"
+    },
+    "LessWeight": {
+      "summary": "A hidden negative-mass weight item (also described as 'Deadweight') that is defined but never mounted by any VX6 script.",
+      "notes": [
+        "Its image has mass -2, which would make the wearer lighter. Behavior in play not determined from scripts, since nothing gives it to players."
+      ],
+      "source": "item.cs LessWeight/LessWeightImage"
+    },
+    "LessWeight2": {
+      "summary": "A second hidden negative-mass weight item (described as 'Deadweight') that is defined but never mounted by any VX6 script.",
+      "notes": [
+        "Its image has mass -4. Behavior in play not determined from scripts."
+      ],
+      "source": "item.cs LessWeight2/LessWeight2Image"
+    },
+    "DeployableInvPack": {
+      "summary": "The deployable Inventory Station works like stock but adds the mod's fair-play rule: it can only be placed near a structure your team owns.",
+      "notes": [
+        "Needs a flat terrain or building surface within 3 m and free space, and a friendly static object inside the 150-unit search box around the spot.",
+        "Deploying awards 2 score ('Deffence Bonus: 2 points'). The follow-up Game::refreshClientScore call passes an undefined variable, so the scoreboard is not refreshed there.",
+        "The deployed station has its own 3000-energy pool and sells the $RemoteInvList (no Devices or Electric Web). Team limit 5."
+      ],
+      "source": "item.cs DeployableInvPack::onUse/onDeploy/deployShape; station.cs DeployableInvStation::onAdd, $RemoteInvList"
+    },
+    "DeployableAmmoPack": {
+      "summary": "The deployable Ammo Station works like stock but must be placed near a friendly structure and awards deploy score.",
+      "notes": [
+        "Same placement checks as the inventory station: flat terrain or building within 3 m, free space, friendly static object within the 150-unit search box.",
+        "Awards 2 score on deploy. Team limit 7.",
+        "Because weapons use no ammo, its resupply hands out Repair Kits, Grenades, Mines and missing weapons from Station::itemsToResupply rather than ammo."
+      ],
+      "source": "item.cs DeployableAmmoPack::onUse/onDeploy/deployShape; station.cs DeployableAmmoStation, Station::itemsToResupply"
+    },
+    "ShieldPack": {
+      "summary": "The Shield Pack absorbs incoming damage with your energy while switched on, as in stock, but with a weaker absorption rate offset by this mod's much larger energy pool.",
+      "notes": [
+        "onActivate sets shieldStrength 0.008 (stock 0.012); each point of damage absorbed costs damage divided by strength in energy.",
+        "With 500 energy (light/medium) it still soaks far more total damage than a stock shield pack.",
+        "Costs 18 energy per second while on."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate/onDeactivate; player.cs Player::onDamage"
+    },
+    "SensorJammerPack": {
+      "summary": "The StealthShield Pack combines a personal sensor jammer with a shield: while on, you are hidden from sensors and incoming damage is absorbed by your energy.",
+      "notes": [
+        "Unlike the stock Sensor Jammer Pack, onActivate also sets shieldStrength 0.008 (same as the Shield Pack) in addition to +20 sensor suppression.",
+        "Costs 18 energy per second while on."
+      ],
+      "source": "item.cs SensorJammerPackImage::onActivate/onDeactivate; player.cs Player::onDamage"
+    },
+    "CloakingDevice": {
+      "summary": "The Cloaking Pack makes the wearer visually fade out while it is switched on, with a small sensor-suppression bonus.",
+      "notes": [
+        "onActivate calls GameBase::startFadeout on the player and adds 3 sensor suppression; onDeactivate fades back in and removes it.",
+        "Costs 18 energy per second while on."
+      ],
+      "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate"
+    },
+    "MotionSensorPack": {
+      "summary": "The Motion Sen. Network deploys the stock motion sensor, now gated by the fair-play rule and awarding deploy score.",
+      "notes": [
+        "Can be stuck to floors, ceilings or walls on terrain or buildings within 3 m, but only with a friendly static object in the 150-unit search box.",
+        "Awards 2 score on deploy. Team limit 10 (stock 15)."
+      ],
+      "source": "item.cs MotionSensorPack::onUse/onDeploy/deployShape; sensor.cs DeployableMotionSensor"
+    },
+    "PulseSensorPack": {
+      "summary": "The Pulse Sen. Network deploys the stock pulse sensor on flat ground.",
+      "notes": [
+        "Uses the generic Item::deployShape, so unlike most VX6 deployables it has no fair-play friendly-structure check; it still awards 2 score.",
+        "Team limit 10 (stock 15)."
+      ],
+      "source": "item.cs PulseSensorPack::onUse/onDeploy, Item::deployShape; sensor.cs DeployablePulseSensor"
+    },
+    "DeployableSensorJammerPack": {
+      "summary": "The Sen. Jammer Network deploys the stock area sensor jammer on flat ground.",
+      "notes": [
+        "Uses the generic Item::deployShape: no fair-play check, but awards 2 score.",
+        "Team limit 10 (stock 8)."
+      ],
+      "source": "item.cs DeployableSensorJammerPack::onUse/onDeploy, Item::deployShape; sensor.cs DeployableSensorJammer"
+    },
+    "CameraPack": {
+      "summary": "The Spy Camera Network deploys a remote camera as in stock, with the fair-play rule, deploy score, and a debris burst when destroyed.",
+      "notes": [
+        "Placeable on floors, walls or ceilings within 3 m, only near a friendly static object (150-unit search box).",
+        "Awards 2 score. Team limit 10 (stock 15).",
+        "On destruction CameraTurret::onDestroyed throws seven MiscDeb debris projectiles."
+      ],
+      "source": "item.cs CameraPack::onUse/onDeploy/deployShape; turret.cs CameraTurret, CameraTurret::onDestroyed"
+    },
+    "LaserTurretPack": {
+      "summary": "The Laser Turret System deploys a remote turret that fires a hitscan laser at short range.",
+      "notes": [
+        "Needs flat terrain or building within 3 m, a friendly static object in the fair-play box, fewer than 20 Laser Turrets in a 50 x 50 x 25 area and none within 10 units.",
+        "LaserTurret fires LaserTrtLaser with a very short reload; it has its own energy pool and recharges.",
+        "Controllable from a command station without needing power. Awards 2 score; team limit 10.",
+        "Throws debris projectiles when destroyed."
+      ],
+      "source": "item.cs LaserTurretPack::deployShape; turret.cs LaserTurret, LaserTurret::onAdd/onDestroyed; baseProjData.cs LaserTrtLaser; player.cs Client::takeControl"
+    },
+    "TurretPack": {
+      "summary": "The Sentry Turret System is the stock remote turret, tuned up: longer range, much faster fire and a big energy pool, plus the fair-play rule and deploy score.",
+      "notes": [
+        "Fires MiniFusionBolt energy shots with a very short reload; range and health are higher than stock.",
+        "Bug: the spacing checks count objects named LaserTurret instead of DeployableTurret, so sentry turrets are only kept apart from Laser Turrets, not from each other.",
+        "Awards 2 score; team limit 10. Throws debris when destroyed."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret, DeployableTurret::onAdd/onDestroyed; baseProjData.cs MiniFusionBolt"
+    },
+    "TaserTrtBPack": {
+      "summary": "The Taser Turret System deploys a camera-sized turret that fires a laser bolt every two seconds at medium range.",
+      "notes": [
+        "Same flat-surface, fair-play and spacing checks as the Laser Turret, counted against other Taser turrets.",
+        "DeployableTaserTrtB fires TaserTrtBLaser with a 2-second reload.",
+        "Awards 2 score; team limit 10."
+      ],
+      "source": "item.cs TaserTrtBPack::deployShape; turret.cs DeployableTaserTrtB; baseProjData.cs TaserTrtBLaser"
+    },
+    "TaserTrtCPack": {
+      "summary": "The Scan Tracking Network (listed under Sensor Networks) deploys a sturdy camera-sized turret with very long range whose laser does almost no damage, so it serves as a long-range tracker.",
+      "notes": [
+        "DeployableTaserTrtC has a 500 range and much higher health than the other turrets; TaserTrtCLaser has a near-zero damage conversion.",
+        "Same flat-surface, fair-play and spacing checks as the Taser Turret, counted against its own type.",
+        "Awards 2 score; team limit 10. Its TurretData description reads 'Scan Tracker Network'."
+      ],
+      "source": "item.cs TaserTrtCPack::deployShape; turret.cs DeployableTaserTrtC; baseProjData.cs TaserTrtCLaser"
+    },
+    "LaserTurretBPack": {
+      "summary": "The Plasma Turret System deploys a remote turret that rapidly fires plasma bolts and can be mounted on floors, walls or ceilings.",
+      "notes": [
+        "LaserTurretB fires PlasmaBolt with a short reload.",
+        "Unlike the Laser and Sentry turrets it has no spacing check and no flat-surface requirement; it orients to the surface normal.",
+        "Requires the fair-play friendly structure nearby; awards 2 score; team limit 10."
+      ],
+      "source": "item.cs LaserTurretBPack::deployShape; turret.cs LaserTurretB; baseProjData.cs PlasmaBolt"
+    },
+    "MiniFlakTurretPack": {
+      "summary": "The Flak Turret System deploys a mortar-turret-shaped launcher that fires short-lived seeking flak missiles every two seconds.",
+      "notes": [
+        "MiniFlakTurret fires MiniFlakproj, a seeking missile with a large blast and knockback that lives 3 seconds.",
+        "Mountable on any surface angle; fair-play check, no spacing check. Awards 2 score; team limit 10."
+      ],
+      "source": "item.cs MiniFlakTurretPack::deployShape; turret.cs MiniFlakTurret; baseProjData.cs MiniFlakproj"
+    },
+    "MiniSAMTurretPack": {
+      "summary": "The S.A.M Turret System deploys a turret that launches slow-starting, long-lived seeking missiles every four seconds at longer range.",
+      "notes": [
+        "MiniSAMTurret fires MiniSAMproj, which accelerates from a low launch speed and seeks for up to 20 seconds.",
+        "Mountable on any surface angle; fair-play check, no spacing check. Awards 2 score; team limit 10."
+      ],
+      "source": "item.cs MiniSAMTurretPack::deployShape; turret.cs MiniSAMTurret; baseProjData.cs MiniSAMproj"
+    },
+    "MiniGripTurretPack": {
+      "summary": "The GRIP Turret System fires ion bolts whose blast pulls targets toward the impact point and drains their energy.",
+      "notes": [
+        "IonEEBolt explodes with a negative kickback (a pull) and Flash damage, which zeroes the victim's energy and slows their recharge.",
+        "The turret has a built-in shield (shieldStrength 0.05) and lower health than other turrets.",
+        "It is not in Client::takeControl's unpowered-turret list, so it cannot be remote-controlled unless powered.",
+        "Mountable on any surface angle; fair-play check. Awards 2 score; team limit 10."
+      ],
+      "source": "item.cs MiniGripTurretPack::deployShape; turret.cs MiniGripTurret, MiniGripTurret::onAdd/onDestroyed; baseProjData.cs IonEEBolt; player.cs Client::takeControl, Player::onDamage"
+    },
+    "MiniELFTurretPack": {
+      "summary": "The ELF Turret System is a small camera-sized turret with a sustained beam that drains energy extremely fast and knocks weapons and packs out of victims' hands.",
+      "notes": [
+        "MiniELFturretproj::damageTarget applies MiniELF damage and drains 1000 energy per second; MiniELF damage drops the victim's mounted weapon and pack.",
+        "Fires 0.75-second bursts; has a light built-in shield.",
+        "Mountable on any surface angle; fair-play check. Awards 2 score; team limit 10."
+      ],
+      "source": "item.cs MiniELFTurretPack::deployShape; turret.cs MiniELFTurret, MiniELFTurret::onAdd; baseProjData.cs MiniELFTurretproj, MiniELFturretproj::damageTarget; player.cs Player::onDamage"
+    },
+    "MiniSmokeTurretPack": {
+      "summary": "The B.o.P (Beam of Pain) Turret System is a camera-sized turret with a long sustained damaging beam fired in 2-second bursts.",
+      "notes": [
+        "Its MiniSmokeTurretproj lists MiniELF damage, but no damageTarget handler of its own exists, so only the generic Lightning::damageTarget (Electricity damage, no energy drain) is defined for it; which handler the engine applies, and so whether the item-dropping MiniELF effect happens, is not determined from scripts.",
+        "Has a light built-in shield. Mountable on any surface angle; fair-play check. Awards 2 score; team limit 10."
+      ],
+      "source": "item.cs MiniSmokeTurretPack::deployShape; turret.cs MiniSmokeTurret; baseProjData.cs MiniSmokeTurretproj, Lightning::damageTarget"
+    },
+    "ElectricWeb": {
+      "summary": "The Electric Web spins a translucent electric wall just above your head that instantly kills enemies passing through it.",
+      "notes": [
+        "Deploys a PlasmaDoorTurr 2 m above the player's position, rotated from the player's facing, with no line-of-sight, surface or fair-play checks.",
+        "Every 0.1 s it hits each enemy player in a 4 x 4 x 3 box around it with Web damage far above any armor's health.",
+        "Bug: ElectricWeb::deployShape never returns true, so onDeploy never removes the pack; one pack can deploy webs until the team limit of 5.",
+        "The web shape has collision disabled and is not visible to sensors. Awards 2 score."
+      ],
+      "source": "item.cs ElectricWeb::onUse/onDeploy/deployShape; turret.cs PlasmaDoorTurr, PlasmaDoorTurr::checkPlasmaDoorTurr"
+    },
+    "lgaForceFieldPack": {
+      "summary": "Lrg A: Force Field deploys a large 4x17 force-field door that blocks enemies and briefly opens for teammates who touch it.",
+      "notes": [
+        "Placed at the aimed point within 3 m, facing your direction, with only the fair-play check; there is no surface-type or flatness check.",
+        "When a living teammate touches it, openDoor fades it out and lifts it 6 m for 1 second, then closeDoor drops it back and fades it in. openDoor is defined twice; the second definition (open sound after 0.15 s) is the one used.",
+        "Very high health (250), meant to be broken by the ForceField Buster; on destruction it deals debris radius damage. Awards 2 score; team limit 12."
+      ],
+      "source": "item.cs lgaForceFieldPack::deployShape; staticshape.cs lgaForceFieldShape, onCollision/openDoor/closeDoor/onDestroyed"
+    },
+    "lgbForceFieldPack": {
+      "summary": "Lrg B: Force Field deploys a 4x14 force-field door that works like Lrg A: blocks enemies, opens briefly for teammates.",
+      "notes": [
+        "Same placement rules and team-only open/close behavior as the Lrg A field, using the forcefield_4x14 shape.",
+        "250 health; debris damage on destruction. Awards 2 score; team limit 12."
+      ],
+      "source": "item.cs lgbForceFieldPack::deployShape; staticshape.cs lgbForceFieldShape"
+    },
+    "medaForceFieldPack": {
+      "summary": "Med A: Force Field deploys a 4x8 force-field door that blocks enemies and opens briefly for teammates.",
+      "notes": [
+        "Same placement and team-only door behavior as the large fields, using the forcefield_4x8 shape.",
+        "250 health; awards 2 score; team limit 12."
+      ],
+      "source": "item.cs medaForceFieldPack::deployShape; staticshape.cs medaForceFieldShape"
+    },
+    "medbForceFieldPack": {
+      "summary": "Med B: Force Field deploys a square 5x5 force-field door that blocks enemies and opens briefly for teammates.",
+      "notes": [
+        "Same placement and team-only door behavior as the other fields, using the forcefield_5x5 shape.",
+        "250 health; awards 2 score; team limit 12."
+      ],
+      "source": "item.cs medbForceFieldPack::deployShape; staticshape.cs medbForceFieldShape"
+    },
+    "medcForceFieldPack": {
+      "summary": "Med C: Force Field deploys the smallest, 3x4 force-field door, sized for doorways; it blocks enemies and opens briefly for teammates.",
+      "notes": [
+        "Same placement and team-only door behavior as the other fields, using the forcefield_3x4 shape.",
+        "250 health; awards 2 score; team limit 12."
+      ],
+      "source": "item.cs medcForceFieldPack::deployShape; staticshape.cs medcForceFieldShape"
+    },
+    "TeleportPack": {
+      "summary": "The Teleport Station deploys a teleport pad; light-armored teammates who step on one pad are moved to another of your team's pads.",
+      "notes": [
+        "Needs flat terrain or building within 3 m, free space and a friendly structure nearby; the pad sits 1 m above the spot with an electrical beam effect. Team limit 4 pads.",
+        "Touching a pad moves you to the first other friendly pad in the Teleports set; both pads then recharge for 5 seconds. Enemies get 'Wrong team'; medium and heavy armor get 'Cannot teleport in this character class'.",
+        "Each teleport has a 1-in-55 chance to do crush damage ('phased your molecular structure wrong'); in that case the recharge is never scheduled, leaving both pads disabled.",
+        "Destroying a pad applies damage equal to a pad's full health to another friendly pad. Unlike other deployables it does not award score."
+      ],
+      "source": "item.cs TeleportPack::onUse/onDeploy/deployShape, CreateteleportSimSet; staticshape.cs DeployableTeleport, onCollision/onDestroyed/Reenable"
+    },
+    "ArbitorBeaconPack": {
+      "summary": "The Cloak Device deploys a small box that keeps nearby friendly players, structures and vehicles visually cloaked.",
+      "notes": [
+        "On enabling it fades out every friendly player, static object and vehicle in a 25-unit box; every 6 seconds it re-cloaks whatever is in range, each cloak lasting 6 seconds, so objects stay cloaked while near it.",
+        "When the device is disabled or destroyed, the objects it tracked fade back in.",
+        "Visual fade only; sensors are not affected. The re-cloak check tests the device's own cloaked flag rather than each object's, so it re-fades everything each pass.",
+        "Placement: terrain or building within 3 m, any angle, friendly structure nearby. Awards 2 score; team limit 3; not sold at deployed inventory stations."
+      ],
+      "source": "item.cs ArbitorBeaconPack::onUse/onDeploy/deployShape; turret.cs ArbitorBeacon, onEnabled/checkArbitorBeacon/onDestroyed"
+    },
+    "EMPBeaconPack": {
+      "summary": "The Flux Device deploys a box that pulses every 5 seconds, hitting every enemy object near it with Flash damage that empties players' energy.",
+      "notes": [
+        "checkEMPBeacon applies Flash damage to each enemy player, structure, vehicle, mine or interior in a 35-unit box (the pack's message claims a 25 m range). For players this zeroes energy, sets recharge to 6 and flashes the screen.",
+        "Its armor check is written with OR instead of AND, so it always passes and every enemy object is hit.",
+        "Placement as for the Cloak Device. Awards 2 score; team limit 3; not sold at deployed inventory stations."
+      ],
+      "source": "item.cs EMPBeaconPack::onUse/deployShape; turret.cs EMPBeacon, EMPBeacon::checkEMPBeacon; player.cs Player::onDamage ($FlashDamageType)"
+    },
+    "JammerBeaconPack": {
+      "summary": "The Jammer Device deploys a sturdy, long-range sensor jammer.",
+      "notes": [
+        "Deploys JammerBeacon, a jamming sensor with a 250 range (the stock-style Sen. Jammer Network has 80) and more health.",
+        "Placeable on any surface angle within 3 m, friendly structure nearby. Awards 2 score; team limit 3; not sold at deployed inventory stations."
+      ],
+      "source": "item.cs JammerBeaconPack::onUse/deployShape; sensor.cs JammerBeacon"
+    },
+    "ShieldBeaconPack": {
+      "summary": "The Shield Device deploys a box that gives every friendly object near it a damage-absorbing shield, refreshed every 15 seconds.",
+      "notes": [
+        "checkShieldBeacon sets shieldStrength 0.024 (three times a Shield Pack's) on every friendly player, structure, vehicle and mine in a 35-unit box and clears it 15 seconds later, then repeats every 15 seconds.",
+        "As with the Shield Pack, absorbed damage is paid from the shielded object's energy. The pack's message claims a 25 m range.",
+        "Its map name defaults to 'Shield Box'. Awards 2 score; team limit 3; not sold at deployed inventory stations."
+      ],
+      "source": "item.cs ShieldBeaconPack::onUse/deployShape; turret.cs ShieldBeacon, ShieldBeacon::checkShieldBeacon; player.cs Player::onDamage"
+    },
+    "HealBeaconPack": {
+      "summary": "The Healing Device deploys a fragile box that repairs any damaged player who touches it and destroys rockets that hit it.",
+      "notes": [
+        "HealBeacon::onCollision repairs 0.3 damage per touch for any living player; it reads both teams but never compares them, so enemies are healed too.",
+        "Any colliding object whose datablock uses the 'rocket' shape is destroyed.",
+        "Also restores breath for players whose swim (oxygen) counter is running.",
+        "Placement as for the other Devices. Awards 2 score; team limit 3; not sold at deployed inventory stations."
+      ],
+      "source": "item.cs HealBeaconPack::onUse/deployShape; staticshape.cs HealBeacon, HealBeacon::onCollision/onDestroyed"
+    },
+    "RepairKit": {
+      "summary": "The Repair Kit heals almost a full point of damage on use and, unlike stock, is never used up.",
+      "notes": [
+        "RepairKit::onUse repairs 0.99 damage (stock 0.2) and does not decrement the item, so one kit can be used again and again. That is more than a light suit's whole health.",
+        "Included in the spawn loadout and restocked by stations."
+      ],
+      "source": "item.cs RepairKit::onUse; game.cs $spawnBuyList"
+    },
+    "MineAmmo": {
+      "summary": "The Mine throws an anti-personnel freeze mine; unlike stock, mines are not used up when thrown.",
+      "notes": [
+        "MineAmmo::onUse throws an AntipersonelMine with a 0.5 s cooldown and sets it to the thrower's team, but never decrements the item (stock does), so throws are unlimited.",
+        "The mine arms once at rest and explodes when an enemy player, vehicle or moveable touches it. Mine damage calls Freeze, pinning the victim under the 90000-mass DeadWeight for 15 seconds.",
+        "Mine-type damage against a mine is reduced to 25%, and a mine detonates once its damage passes two-thirds of its health."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine, onCollision/deployCheck/onDamage; player.cs Freeze"
+    },
+    "Grenade": {
+      "summary": "The Grenade does not throw anything in VX6: using it acts as an air brake that cuts your current velocity to one sixth.",
+      "notes": [
+        "Grenade::onUse reads the player's velocity and sets it to velocity / 6 on every axis. Stock throws a Handgrenade.",
+        "The item is never consumed and has no cooldown, so it can be used repeatedly (throw key or use key both call it).",
+        "The Handgrenade mine datablock still exists in Mine.cs but nothing throws it."
+      ],
+      "source": "item.cs Grenade::onUse, remoteThrowItem; Mine.cs Handgrenade"
+    },
+    "Beacon": {
+      "summary": "The Beacon drops a Boost charge at your feet: a no-damage blast with very strong knockback, used to launch players.",
+      "notes": [
+        "Beacon::onUse throws a 'Boost' mine with zero strength and a 0.15 s cooldown; it is never consumed. Stock deploys a targeting beacon instead.",
+        "Boost is a mine of class Handgrenade with no damage, very high kickback and a 20-unit radius. Boost::onDamage detonates it as soon as it takes any damage.",
+        "Handgrenade::onAdd also schedules Mine::Detonate after 2 seconds, but that sets the damage to Boost's maxDamage of 0; whether that alone sets it off is not determined from scripts."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost, Boost::onDamage, Handgrenade::onAdd, Mine::Detonate; baseExpData.cs BoostExp"
+    },
+    "RepairPatch": {
+      "summary": "The Repair Patch is a map pickup that heals a damaged player who walks over it, much more strongly than stock.",
+      "notes": [
+        "RepairPatch::onCollision repairs 0.5 damage (stock 0.125) when a damaged player touches it, then respawns.",
+        "No armor has an $ItemMax for it, so it cannot be bought or carried; RepairPatch::onUse (0.1 repair, not consumed) is effectively unreachable."
+      ],
+      "source": "item.cs RepairPatch::onCollision/onUse; ArmorData.cs $ItemMax"
+    }
+  }
+}

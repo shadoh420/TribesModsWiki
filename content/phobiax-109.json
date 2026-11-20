@@ -1,0 +1,61 @@
+{
+ "mod": {
+  "overview": "Phobiax Expansion Mod (v1.09) by Ben Ross (Dreadnaught) builds directly on Kevin Savage's Insomniax 0.9c mod, layering a large expansion of tactical weapons, status effects, specialized mines, counter-packs, heavy siege deployables, and an anti-air fighter on top of standard Tribes mission types. Matches preserve Insomniax's fast-paced, lethal sandbox—where players spawn ready to fight with a MAG Gun, Plasma Gun, and Disc Launcher—while introducing deep rock-paper-scissors counterplay such as Magnetic Shield Packs vs. EMP and MAG Guns, Heat Sinks vs. Flare Guns, Repair gear vs. Nanite poison, and Shield Packs vs. Decimator cannons. Much of the new arsenal is operated on the fly through context-sensitive Tab Menu options, letting players swap mine types, toggle Tazer firing modes, arm Doomsday warheads, or set Boom Box detonation timers mid-match. Server hosts can also toggle the entire Phobiax expansion off to fall back to Insomniax 0.9c rulesets, or enable PX-Admin features like Randomized Teams and player Restraints.",
+  "notes": [
+   "Classes and Spawns: Players spawn in Light Armor with a MAG Gun, Plasma Gun, Disc Launcher, and Repair Kit. Light armor (0.66 health, 60 energy, 3 weapons) excels at mobility, sniping, and Nanite Injector poison raids; Medium armor (1.0 health, 80 energy, 4 weapons) fields Flare Guns, Sentinels, and can pilot attack fliers using a Pilot Pack; Heavy armor (1.32 health, 110 energy, 5 weapons) carries Boom Boxes, Decimator turrets, and Doomsday Vengeance launchers.",
+   "Tab Menu Controls and Modes: The Tab Menu adds player loadouts and toggles including Select Mine Type (Default Antipersonel, Cloaked, Concussion, or EMP), Change Tazer Mode (Continuous beam vs. Burst bolts), Vengeance Options (including Activate/Deactivate Doomsday Mode), Change Boom Box Timer (20s to 3:00), a Deployables menu to remotely pack up undamaged turrets, and an in-game Item Help Menu.",
+   "Weapons and Status Effects: Energy Repeater fires accurate rapid-fire energy bolts while an Energy Pack is worn. Flare Gun blinds victims for 12.5 seconds and spikes their heat signature so Avengers, Flak Cannons, and Rocket Boosters target them (Heat Sink cuts flare blindness to 2.5 seconds). Nanite Injector infects targets with escalating damage-over-time until cured by a Repair Pack, Repair Kit, Repair Patch, or station resupply, or paused by EMP.",
+   "Backpacks and Counterplay: Magnetic Shield Pack passively blocks EMP effects, breaks Hand Rocket and Retribution locks, and flips MAG Gun pull into double-force pushback. Retribution Pack detonates on death (when killed by an enemy player or flier, excluding mines, Nanites, or Boom Boxes) to fire 1, 2, or 3 homing rockets back at the killer based on armor class. Shield Pack absorbs Decimator hits without health damage.",
+   "Mines and Vehicles: MineAmmo throws whichever mine type you selected in the Tab Menu; Cloaked Mines turn invisible and emit periodic pings while ignoring teammates, Concussion Mines launch enemies at extreme speed, and EMP Mines drain energy for 10 seconds, though only standard mines may be placed within 12 meters of a flag stand. The Lightningstrike Fighter (1 per team) is a fast, fragile anti-air interceptor (speed 55, 0.3 health) dealing 2.5x damage to enemy Scouts, Bombers, and transports.",
+   "Deployables and Doomsday Warhead: Sentinel turrets (3 per team, Medium/Heavy) mount on walls, ceilings, or terrain with 80m energy fire. Decimator turrets (1 per team, Heavy) snipe out to 250m every 10 seconds. Heavy Vengeance users can switch to Doomsday Mode to fire a single unguided 20-ammo Doomsday Missile (7.5 damage, 45m blast), while Boom Box carriers plant a timed or remote-detonated 60m nuke crate.",
+   "Bans, Limits, and Admin Rules: Remote Inventory Stations ban SentryPack, FlakPack, Vengeance, BoomBoxPack, SentinelPack, and DecimatorPack; TazerBoltGun and BoomBoxDetPack cannot be bought directly at any station. Setting $Phobiax::ExpansionItems to false reverts inventories and limits to stock Insomniax 0.9c (increasing SentryPack limit from 3 to 5). PX-Admin includes Safe Stations, a 30-second station auto-eject timer, automated team-kill kick/vote thresholds, Randomized Teams, and a Restrain punishment that locks team switching and chat for 30 to 120 seconds.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): BoomBoxDetPack (station.cs), BoomBoxPack (station.cs), DecimatorPack (station.cs), EnergyRepeater (station.cs), FlareAmmo (station.cs), FlareGun (station.cs), InjectorAmmo (station.cs), MagneticShieldPack (station.cs), NaniteInjector (station.cs), PilotPack (station.cs), RetributionPack (station.cs), SentinelPack (station.cs), TazerBeamGun (station.cs), TazerBoltGun (station.cs); Team limit zeroed ($TeamItemMax = 0): BoomBoxPack=0 (item.cs), DecimatorPack=0 (item.cs), FighterVehicle=0 (item.cs), SentinelPack=0 (item.cs); Blocked at Remote Stations ($RemoteInvList = 0): FlakPack (station.cs), SentryPack (station.cs), Vengeance (station.cs)."
+  ]
+ },
+ "items": {
+  "BoomBoxPack": {
+   "summary": "Timed or manually detonated tactical nuke crate with a 60m blast radius and mushroom cloud.",
+   "notes": [
+    "Heavy armor only, limited to 1 active Boom Box per team, and cannot be purchased from Remote Inventory Stations.",
+    "Countdown timer defaults to 1:00 and can be adjusted in the Tab Menu between 20 seconds and 3 minutes; deploying automatically equips a Detonation Pack (BoomBoxDetPack) for manual trigger.",
+    "Successful countdown or manual detonation deals 60m radius nuke damage with a mushroom cloud, whereas shooting the crate destroys it in a weak 7.5m fizzle."
+   ],
+   "source": "item.cs, staticshape.cs, admin.cs, station.cs"
+  },
+  "NaniteInjector": {
+   "summary": "Long-range poison rifle for Light armor that inflicts escalating damage-over-time until cured or fatal.",
+   "notes": [
+    "Light armor only, uses InjectorAmmo (max 5 carried, 10 with Ammo Pack).",
+    "Damage scales inversely with armor resistance ($NanoResist is 1 for Light, 2 for Medium, 4 for Heavy) and steadily intensifies over time.",
+    "Cured by Repair Pack, Repair Kit, Repair Patch, or touching an Ammo/Inventory Station; temporarily paused if the victim is hit by EMP."
+   ],
+   "source": "item.cs, player.cs, station.cs, ArmorData.cs"
+  },
+  "TazerBeamGun": {
+   "summary": "Dual-mode energy weapon switching via Tab Menu between a close-range energy-draining beam and long-range burst bolts.",
+   "notes": [
+    "Available to all armors; Continuous mode (TazerBeamGun) fires a 7.5m lightning arc draining 20 energy/sec and dealing 0.5 damage/sec.",
+    "Tab Menu option switches it to Burst mode (TazerBoltGun, banned from direct station purchase), which fires twin long-range green energy bolts costing 15 energy per shot.",
+    "Resupplying at an Ammo or Inventory Station resets Burst mode back to Continuous mode."
+   ],
+   "source": "item.cs, baseProjData.cs, admin.cs, station.cs"
+  },
+  "MagneticShieldPack": {
+   "summary": "Passive defensive backpack granting full EMP immunity, missile-lock protection, and reverse MAG Gun knockback.",
+   "notes": [
+    "Usable by all armors; stays active passively whenever mounted.",
+    "Prevents EMP Grenades, EMP Mines, and EMP Warheads from draining energy or disabling recharge, and stops Hand Rockets and Retribution Missiles from locking on.",
+    "Reverses the MAG Gun's pull beam into double-strength pushback."
+   ],
+   "source": "item.cs, player.cs, baseProjData.cs"
+  },
+  "PilotPack": {
+   "summary": "Backpack enabling Medium armor players to pilot Scouts, Firestorm Bombers, and Lightningstrike Fighters.",
+   "notes": [
+    "Medium armor only; equip the pack and trigger the Vehicle Interface Key (PilotKey) before touching a Scout, Bomber, or Fighter.",
+    "Temporarily switches the pilot into pmarmor/pmfemale pilot state while flying, while Heavy armor remains banned from piloting attack fliers."
+   ],
+   "source": "item.cs, vehicle.cs, ArmorData.cs"
+  }
+ }
+}

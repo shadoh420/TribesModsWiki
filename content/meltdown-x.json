@@ -1,0 +1,70 @@
+{
+ "mod": {
+  "overview": "Meltdown X - BLACK OP'S (vX Omega) is an over-the-top Tribes 1.50 total-conversion variant descended from Meltdown Hell v3.3, built around fast, chaotic team warfare with Infinite default team energy and a massive arsenal of multi-mode energy, sniper, rocket, and deployable gear. Players spawn directly into Hoplite (MagIonArmor) medium armor armed with a Disc Launcher, Chaingun, Plasma Gun, Reassembler, and Energy Pack, then customize their fire modes through the Tab Weapon Options menu or visit stations to swap into specialized elemental-absorbing classes, personal teleporters, aircraft conversion packs, and 14 buyable vehicles. Compared to its Meltdown Hell parent, it streamlines loadouts around six distinct armor classes with crouching disabled, trims legacy weapons like the Ion Cannon and Minigun, and leans heavily into selectable MBCannon and MDX-Dragon ammo tiers alongside dense turret and forcefield base defense. It supports standard CTF, Capture and Hold, Defend and Destroy, Find and Retrieve, Deathmatch/FFA, and Tournament modes, though its bundled SpoonBot files are not loaded by the server scripts.",
+  "notes": [
+   "Classes and Roles: Six armors span three tiers, all with crouching disabled: Peltast (Light, 0.66 health, 11/11.1 speed, 60 energy, 3 weapons, Laser Rifle and 3Dfx Cloaking Device), Blastech (Light, 0.66 health, 11/11.1 speed, 3 weapons, heals from explosion/missile/mine/shrapnel/debris at -0.1 and mortar at -0.2, carries FireBomb), Engineer (Medium, 1.0 health, 8.0/8.1 speed, 80 energy, 4 weapons, exclusive Turret Control Pack), Hoplite (Medium MagIonArmor, 1.0 health, 10.0 speed, 80 energy, 4 weapons, 0.5 landing damage, heals from Energy/Blaster/EMP/Electricity hits), Assault (MECHArmor, 2.33 health, 6.5 speed, 115 energy, 5 weapons, 0.0 impact/crush damage, -0.1 laser healing, exclusive MECHRocketLauncher, no deployables or defensive packs), and Myrmidon (Heavy, 2.0 health, 6.5 speed, 115 energy, 5 weapons, full heavy ordnance and deployables).",
+   "Controls, Menus, and Chat: No # chat commands are defined; private messages are sent by picking Speak To in the Tab menu and prefixing chat with =. Pressing Tab -> Weapon Options opens live mode selectors for MBCannon (6 modes: Mitzi Blast, EMP, Mitzi Booster, Poisoning, Heat, Annihilator), AAODSniperX / MDX-Dragon (6 Dragon bolt tiers), Chaingun (Normal or Vulcan 3-round burst), and Mortar (Standard HE, Bouncing Betty HE, or Vertigo Bomb AB). An enemy wearing the TeamChat Tapper (BugPack) can eavesdrop on team chat.",
+   "Weapons and Status Effects: EMP weapons trigger suit malfunctions that unmount energy guns, halt energy recharge, and drain energy then health until auto-repair finishes; Plasma, Heat, and MBHeat hits can ignite players for ticking fire damage until internal extinguishers clear it. Laser, Methane, and Sniper headshots deal +60% damage to Myrmidon center upper quadrants and +30% to other armors. Pack-gated weapons include Particle Beam (PBW, requires Particle Accelerator) and EMPIRIALMASER HP-LS (Rifle, requires Mini-Reactor). Note that MDX-Dragon (AAODSniperX) lacks a working self-recharge function in this build, so SXAmmo must be bought or generated.",
+   "Packs and Mobility: PyroXLPack transforms non-Blastech players into a flying PyroXL armed with StreakRockets (dropping any carried flag). Hyperdrive Pack (HyperPack) teleports up to 300m on line of sight, and Slipstream Teleporter warps to a command-map waypoint at full energy; both drop any carried flag and block teleporting within 50m of a flag. Ammo Generator (AmmoGeneratorPack) fabricates ammo, grenades, mines, beacons, and repair kits over time, while AutoRepair Pack, SuperSpeed Pack, Gravitron Field Pack, and 3Dfx Cloaking Device specialize survivability and speed.",
+   "Deployables and Vehicles: Engineers and heavy/medium utility builds can field specialized turrets (Tractor, Velcro, EMP Blast, Plasma, Mitzi Blast, AA Battery, Disc, Rocket, PBW, GuardDog, ELF), Remote Shield and Cloaking Nodes, Forcefields (3x4, 5x5, 4x8 and Field Doors), Teleport Pads, Tree Planters, and portable stations. Vehicle Stations sell 14 fliers and hovercraft including Arwing, Lightning (EPodV), Sky Cutter, 3DFX Explorer, Sky Ranger, Scout, Star Fighter, ThunderTank, LPC, Valkyrie Interceptor, HPC, Hover Tank (team max 2), and Annihilator (IcarusV, team max 1, 7.5 health, ClusterBomb); note HammerV appears in the station list without an item definition.",
+   "Bans and Station Restrictions: Decoy Creator (dummypack / dummy) is completely banned (InvList = 0, RemoteInvList = 0, TeamItemMax = 0). Remote Inventory Stations cannot dispense PyroXLPack, Remote Cloaking Node (CNode), Laser/ELF/Mitzi/AA/Disc/Rocket/PBW/GuardDog turrets, Mobile Inv/Gen/ShieldGen, PortaComm, PortaAmmo, or Enhancement Beacon (DShieldPack), forcing players to visit base Inventory Stations for high-tier deployables and PyroXL conversion. Legacy weapons IonCannon, Minigun, and PlasmaCannon were removed from this build, and missing source helpers mean nearby-turret count limits and enemy-base shield generator placement blocks never trigger.",
+   "Modes, Economy, and Bots: Supports CTF (10s flag return), C&H, D&D, F&R (180s flag-to-stand), Deathmatch/FFA, and Tournament mode, with Infinite default team energy, a 50s inventory station timeout, and an 8-TK auto-kick limit (minimum 4 TKs). Players spawn in Hoplite (MagIonArmor) with DiscLauncher, Chaingun, PlasmaGun, Reassembler, Grenades, Beacons, Mines, RepairKit, and EnergyPack. Although SpoonBot settings and a Bioderm Options menu exist in the files, the mod loads stock ai.cs rather than SpoonBot scripts, and the 1.50 port disables the Bioderm Options menu entry.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): dummypack (deployables.cs); Team limit zeroed ($TeamItemMax = 0): dummy=0 (deployables.cs), dummypack=0 (deployables.cs); Blocked at Remote Stations ($RemoteInvList = 0): AODArtilleryPack (deployables.cs), AODBunker (deployables.cs), AODMobileGen (deployables.cs), AODMobileInv (deployables.cs), AODShieldGen (deployables.cs), BlastFloor (deployables.cs), CNode (deployables.cs), DiscTurretPack (deployables.cs), DisruptorTurretPack (deployables.cs), DShieldPack (deployables.cs), ElectroTurretPack (deployables.cs), IonTurretPack (deployables.cs) (+8 more)."
+  ]
+ },
+ "items": {
+  "BlastechArmor": {
+   "summary": "Blastech is a fast light demolitions armor that heals from explosive splash damage and carries heavy ordnance like the FireBomb.",
+   "notes": [
+    "Light chassis (0.66 maxDamage, 11/11.1 forward speed, 60 energy, 3 weapons, crouching disabled).",
+    "Negative damage scales cause explosion, missile, debris, shrapnel, mine (-0.1) and mortar (-0.2) damage to heal it.",
+    "Allowed BabyNukeMortar (FireBomb), Gauss, 3Dfx Cloaking Device, 10 grenades, and 30 beacons, but cannot carry deployable stations or turrets."
+   ],
+   "source": "armordata.cs"
+  },
+  "MagIonArmor": {
+   "summary": "Hoplite (Medium) is the default spawn suit, trading a bit of Engineer utility for high mobility and healing from energy, blaster, and EMP hits.",
+   "notes": [
+    "Default spawn armor (1.0 maxDamage, 10.0 forward speed, 80 energy, 4 weapons, crouching disabled) with 0.5 landing damage scale.",
+    "Negative damage scales on Energy (-0.1), Blaster (-0.1), EMP (-0.1), and Electricity (-0.1 male, -0.01 female) restore health when hit.",
+    "Can carry Laser Rifle, Mortar, PBW, AAODSniperX, and full deployable turrets/stations."
+   ],
+   "source": "armordata.cs"
+  },
+  "MECHArmor": {
+   "summary": "Assault (MECH) is a 2.33-health juggernaut immune to impact and crush damage, healed by lasers, and built for heavy rocket and beam firepower.",
+   "notes": [
+    "Heavy assault suit (2.33 maxDamage, 6.5 speed, 115 energy, 5 weapons, crouching disabled) with 0.0 impact and crush damage scales and -0.1 laser damage scale.",
+    "Exclusive access to MECHRocketLauncher and shared access to MECHRPG (MrpgLauncher), Death Ray (LasCannon), Impact Mortar, and FireBomb.",
+    "Blocked from Repair, Shield, and Sensor packs as well as all deployable turrets and stations."
+   ],
+   "source": "armordata.cs"
+  },
+  "MBCannon": {
+   "summary": "MBCannon Model:RJ11 is a self-recharging multi-mode energy cannon with selectable EMP, flame, poison, booster, and Annihilator blasts.",
+   "notes": [
+    "Fires 6 selectable modes via Tab -> Weapon Options -> MB Cannon: Mitzi Blast (10 charge), EMP (15), Mitzi Booster (25), Heat (50), Poisoning (75), and Annihilator (243).",
+    "Ammo (MitziCore, max 487) automatically recharges over time at 1 unit every 0.5 seconds.",
+    "Available to every armor class from both fixed and remote inventory stations."
+   ],
+   "source": "weapons.cs"
+  },
+  "PyroXLPack": {
+   "summary": "PyroXL Conversion converts a bipedal soldier mid-field into an armed PyroXL aircraft.",
+   "notes": [
+    "Transforms the player into a PyroXL flier armed with StreakRockets at the same damage level as the player.",
+    "Drops any carried flag on activation and unmounts the active weapon.",
+    "Allowed on all armors except Blastech, and restricted to base Inventory Stations (RemoteInvList = 0)."
+   ],
+   "source": "packs.cs"
+  },
+  "DummyPack": {
+   "summary": "Decoy Creator (dummypack) is the sole hard-banned item in the mod, zeroed out from all stations and team limits.",
+   "notes": [
+    "InvList, RemoteInvList, TeamItemMax[dummypack], and TeamItemMax[dummy] are all set to 0.",
+    "No other item or weapon is hard-banned across both fixed and remote inventory lists."
+   ],
+   "source": "deployables.cs"
+  }
+ }
+}

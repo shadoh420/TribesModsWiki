@@ -1,0 +1,70 @@
+{
+ "mod": {
+  "overview": "Ultra Competition (v1.2) is a tournament-focused Tribes mod built on Ultra Renegades VX5 that packs four distinct competitive rule sets into one server: League 2.0, Stealth 1.0, NoToR 5, and VX 4A. A super admin can switch modes live from the Tab menu, immediately swapping weapon availability, armor limits, speed booster caps, flag return timers, and favorites keys on the next map without restarting the server. Compared to standard Ultra Renegades VX5, gameplay centers on ultra-fast Light Armor flag running with velocity-capped Speed Boosters and Air Brakes, strict mode-by-mode item bans, headshot multipliers, and competitive anti-stalling mechanics. Matches add OGL map verification, a 300m flag-carrier altitude ceiling, a standoff Anti-Turtle cap timer, 1.5-second anti-spawn-kill shields in public games, automatic end-of-map team balancing, and CarrierChase observer cameras.",
+  "notes": [
+   "Four live-switchable rule sets: Super admins switch between League 2.0 ($Server::Mod = 1, default), Stealth 1.0 (2), NoToR 5 (3), and VX 4A (4) from the Tab menu (Super Admin Options -> Change Server Mod), which advances to the next mission with that mode's weapon set, damage scales, speed caps, favorites key, and flag return timer (45s in League, 25s in Stealth, NoToR, and VX4A).",
+   "Classes and carry limits: Three armor classes exist across male and female models (Light Armor 0.66 health, speed 13, jetForce 436; Medium Armor 1.0 health, speed 13/jetForce 430 male or speed 10/jetForce 620 female; Heavy Armor 1.32 health, speed 10 forward / 7 side, jetForce 635). Weapon carry limits ($MaxWeapons) are 8/9/10 for Light/Medium/Heavy in League, versus 10/8/8 in Stealth, NoToR, and VX4A (with Medium female at 10 in Stealth and NoToR). Speed Booster caps ($SpeedMax) are 200/120/95 in League and 185/120/85 in NoToR and VX4A (180 for Light in Stealth).",
+   "Spawn loadouts: Every player spawns in Light Armor with a Repair Pack, Repair Kit, Mines, Grenades, and Beacons (6 in League), plus Blaster/Disc/Grenade Launcher/IX-2000 Sniper/Plasma/Mayhem Rifle/Targeting Laser in League, Blaster/LiLRocket/Disc/Plasma/Grenade Launcher/LiL POO mki & mkii in Stealth, LiLRocket/Disc/Plasma/Grenade Launcher/LiL POO mki & mkii in NoToR, and Disc/LiLFFB/Plasma/Blaster/LiL POO mki & mkii in VX4A.",
+   "Controls and menus: No chat commands exist in comchat.cs; all mode switching, match/FFA toggles, team damage, Fair Teams, Auto Teams, Anti-Turtle toggles, and Observer Options (five orbit/first-person camera modes plus CarrierChase auto-tracking) live in the Tab options menu. Using the Beacon key fires a Speed Booster; using the Grenade key reports your height relative to your home flag in League or triggers an Air Brake in Stealth, NoToR, and VX4A.",
+   "Combat, headshots, and unique gear: Headshots deal +30% damage with Laser, Rifle, and Railgun shots (middle quadrant only on Heavy Armor) and award +1 bonus point on kills with Bullet, LiL POO mkii, Rifle, or Laser weapons. Energy shields (Shield Pack and StealthShield Pack) absorb 95% vs Laser, 75% vs Shrapnel/Mortar, 50% vs Rifle, and 0% vs Railgun. Mode arsenals add gear such as Verminator flak chaingun, Cloaking Gun (30s invisibility beam), Force Field Buster, Fake Flag Pack, LiLRocket Launcher (locks onto players or fliers up to 350m with EMP and Submission rockets), remote-detonated Da Bomb!, Teleport Pads, VX Gas Attack, Flash Grenades, Radius Mines, Land Camo (cactusPack), and mini Taser/Laser/Flak/SAM/ELF/Smoke turrets.",
+   "Competitive safeguards and spawns: Non-Tourney spawns grant a 1.5-second 5000-strength spawn shield when spawning more than 3m from the home flag. An OGL map check announces whether the mission is on the 8-map OGL list, Anti-Turtle starts a 45s Tourney (60s FFA) cap countdown with a 10s warning and 5s countdown during standoffs, carrying a flag more than 300m above its stand triggers a 10s return warning, and Auto Teams re-balances 2-team non-Tourney rosters by score if the previous map's spread was 2 or more points.",
+   "Explicit bans and vehicle rules: League sets $TeamItemMax[DeployableAmmoPack] = 0 (and disables Mortar, FFBLauncher, RocketLauncher, RocketPack, TurretPack, DeployableAmmoPack, and TeleportPack for Light Armor in ArmorData.cs); Stealth disables VEEnergyRifle, TargetingLaser, and lgaForceFieldPack; NoToR disables LiLFFB, DeployableSensorJammerPack, and PulseSensorPack ($TeamItemMax = 0); VX4A disables TargetingLaser, PulseSensorPack ($TeamItemMax = 0), and all three vehicles at vehicle pads ($VehicleInvList = 0 for Scout, LAPC, and HAPC).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Beacon (ve.cs), Blaster (ve.cs), cactusPack (jimsmod.cs), CameraPack (ve.cs), Chaingun (ve.cs), CloakGun (ve.cs), DaBombPack (ve.cs), DeployableAmmoPack (ve.cs), DeployableInvPack (ve.cs), DeployableSensorJammerPack (ve.cs), Disclauncher (ve.cs), Grenade (ve.cs), GrenadeLauncher (ve.cs), LaserTurretBPack (ve.cs), LaserTurretPack (jimsmod.cs) (+33 more)."
+  ]
+ },
+ "items": {
+  "Beacon": {
+   "summary": "Speed Booster replacing the stock beacon with a velocity-capped directional thrust burst.",
+   "notes": [
+    "Triggered by the Beacon key (Beacon::onUse) when the match has started and vertical speed is 500 or lower.",
+    "Multiplies current X, Y, and Z velocity by the armor's $BoostSpeed scaled by ($SpeedMax - |X|) / $SpeedMax.",
+    "League spawns players with 6 Beacons (up to 8 max in Light Armor); Stealth, NoToR, and VX4A carry higher Beacon limits."
+   ],
+   "source": "Mine.cs:Beacon::onUse"
+  },
+  "Grenade": {
+   "summary": "Dual-purpose key hook that acts as a flag-level altimeter in League mode or an Air Brake in Stealth, NoToR, and VX4A.",
+   "notes": [
+    "In League mode ($Server::Mod == 1), using Grenade prints how many meters above, below, or level you are with your home flag.",
+    "In NoToR and VX4A ($Server::Mod == 3 or 4), it cuts velocity using $BrakeSpeed (0.25) as an Air Brake.",
+    "In Stealth ($Server::Mod == 2), it divides X, Y, and Z velocity by 3 to brake mid-air."
+   ],
+   "source": "item.cs:Grenade::onUse"
+  },
+  "Railgun": {
+   "summary": "High-velocity rifle (3000 muzzle velocity) that completely bypasses active energy shields.",
+   "notes": [
+    "Enabled in League 2.0 (price 375, uses RailAmmo, 250 max in Light Armor).",
+    "Headshots deal +30% extra damage (middle quadrant only on Heavy Armor).",
+    "Energy shields from Shield Pack or StealthShield Pack absorb 0% of Railgun damage."
+   ],
+   "source": "item.cs:Railgun; player.cs:Player::onDamage"
+  },
+  "DaBombPack": {
+   "summary": "Remote-detonated demolition pack that throws a high-damage mine and triggers it on a second pack press.",
+   "notes": [
+    "Enabled in Stealth and NoToR (banned in VX4A and absent from League's enabled list).",
+    "Press pack once to toss a DaBomB mine (15m blast radius, 280 damage, $MineDamageType); press pack again to remotely detonate it.",
+    "Team cap defaults to 3 in item.cs."
+   ],
+   "source": "item.cs:DaBombPack::onUse; Mine.cs:DaBomB"
+  },
+  "TeleportPack": {
+   "summary": "Deployable Teleport Pad linking two friendly pads near team structures for rapid Light Armor transit.",
+   "notes": [
+    "Enabled in NoToR ($TeamItemMax[TeleportPack] = 2 in item.cs and notor.cs; disabled in League base ArmorData, Stealth, and VX4A).",
+    "Deploys only on flat terrain or interior surfaces within 150m of a friendly static base object.",
+    "Only Light Armor can teleport; Medium and Heavy Armor are rejected, pads recharge for 5 seconds after use, and each trip has a 1-in-55 chance to deal 0.15 crush damage."
+   ],
+   "source": "item.cs:TeleportPack::deployShape; staticshape.cs:DeployableTeleport::onCollision"
+  },
+  "CloakGun": {
+   "summary": "Sustained energy beam weapon that turns a hit player invisible for 30 seconds.",
+   "notes": [
+    "Enabled in League 2.0 and Stealth 1.0 (price 900, sustained weapon using 3 energy/sec).",
+    "Fires a green lightning beam (cloakingCharge) up to 40m that fades the struck target out for 30 seconds before fading them back in."
+   ],
+   "source": "item.cs:CloakGun; baseProjData.cs:cloakingCharge::damageTarget"
+  }
+ }
+}

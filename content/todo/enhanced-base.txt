@@ -1,0 +1,16 @@
+# enhanced-base vs base (15 items)
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+renamed+statsGrenadeAmmo                  GrenadeAmmo
+renamed+statsMortarAmmo                   MortarAmmo
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+stats      EnergyRifle                  ELF Gun
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+stats+scriptsEnergyPack                   Energy Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Turret

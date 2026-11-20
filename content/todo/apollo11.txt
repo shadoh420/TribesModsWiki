@@ -1,0 +1,27 @@
+# apollo11 vs base (26 items)
+renamed+statsLightArmor                   Light
+new        RocketeerArmor               Rocketeer
+renamed+statsMediumArmor                  Medium
+renamed+statsHeavyArmor                   Heavy
+new        Apollo11Vehicle              Apollo 11
+new        Napalm                       Napalm
+new        flamer                       Flamethrower
+new        snipergun                    Sniper Rifle
+new        RPGGun                       RPG
+new        RepairMortar                 Repair Shell
+new        NukeAmmo                     Nuke Ammo
+new        NukeGun                      Nuke Silo
+new        Aircan                       Air Canister
+new        AirGun                       Stormblast
+new        AirShellGun                  Stormblast Shell
+new        SmallNukeAmmo                Small Nuke Ammo
+new        SmallNukeGun                 Mini Nuke Silo
+stats      DiscLauncher                 Disc Launcher
+scripts    DeployableInvPack            Inventory Station
+new        FieldPack                    Force Field
+new        BigFieldPack                 Large Force Field
+scripts    DeployableAmmoPack           Ammo Station
+new        PhantasmPack                 Phantasm Pack
+scripts    AmmoPack                     Ammo Pack
+new        WrathPack                    Apollo's Wrath
+new        DecoyFlagPack                Decoy Flag

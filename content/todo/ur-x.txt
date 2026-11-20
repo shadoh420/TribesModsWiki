@@ -1,0 +1,30 @@
+ur-x: 34 of 72 need write-ups
+  TribesAmmo (Tribes Bolt): new
+  TribesArm (Tribes Armory): new
+  RageBlasterAmmo (Blaster Energy): new
+  RageBlaster1 (Rage Blaster): new
+  RageBlaster2 (Rage Blaster): new
+  RageBlaster (Rage Blaster): new
+  OrionAmmo (Orion Shells): new
+  Orion1 (Orion Rifle): new
+  Orion2 (Orion Rifle): new
+  Orion (Orion Rifle): new
+  TritonAmmo (Triton Shells): new
+  Triton1 (Triton Rifle): new
+  Triton2 (Triton Rifle): new
+  Triton (Triton Rifle): new
+  GrenadeAmmo (Bomb Ammo): renamed+stats
+  GrenadeLauncher1 (Hyper Bombs): new
+  GrenadeLauncher2 (Hyper Bombs): new
+  GrenadeLauncher (Hyper Bombs): renamed+stats+scripts
+  Mortar (Sonic Mortar): renamed+stats
+  LaserRifle (Major Laser Rifle): renamed+stats
+  EnergyRifle (Major ELF Gun): renamed+stats
+  HidePack (Super Teleporter): new
+  GhostPack (Ghost Pack): new
+  GhostPack2 (gpack): new
+  GhostPack3 (Ghost Pack): new
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): stats+scripts

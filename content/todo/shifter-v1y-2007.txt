@@ -1,0 +1,42 @@
+shifter-v1y-2007: 41 of 192 need write-ups
+  Blaster (Blaster): scripts
+  Chaingun (Chaingun): renamed+stats+scripts
+  GrenadeLauncher (Grenade Launcher): scripts
+  Mortar (Mortar): stats+scripts
+  LaserRifle (Laser Rifle): scripts
+  EnergyRifle (ELF Gun): scripts
+  HyperB (Hyper Blaster): scripts
+  SniperRifle (Sniper Rifle): stats+scripts
+  BoomStick (Boom Stick): scripts
+  Silencer (Magnum): scripts
+  ConCun (Shockwave Cannon): scripts
+  Railgun (Railgun): scripts
+  Vulcan (Vulcan): stats+scripts
+  Mfgl (Tactical Nuke): stats+scripts
+  Flamer (Flame Thrower): scripts
+  IonGun (Ion Rifle): scripts
+  Volter (Volter): scripts
+  TargetingLaser (Targeting Laser): scripts
+  Fixit (Engineer Repair-Gun): scripts
+  RegenerationPack (Regeneration Pack): scripts
+  LightningPack (Teleport Pack): scripts
+  HoloPack (Hologram): scripts
+  TreePack (Mechanical Tree): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  MineAmmo (Mine): scripts
+  Beacon (Beacon): scripts
+  AirAmmoPad (Air Ammo Pad): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Hackit (Engineer Hack-Gun): scripts
+  DisIt (Engineer Disassymbler-Gun): scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  LasCannon (Gattling Laser Cannon): scripts
+  PlasmaCannon (Heavy Plasma Cannon): scripts
+  TranqGun2 (Flare Rifle): stats
+  MegaDiscLauncher (Mega-Disc Launcher): scripts
+  Boomer (Boomer): scripts
+  PowerIt (Engineer Power-Gun): new

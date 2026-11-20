@@ -1,0 +1,13 @@
+ultra-vxc: 18 of 92 need write-ups
+  LiLRocketLauncher (LiLRocket Launcher): scripts
+  LiLEMPRocketLauncher (LiLEMPRocket Launcher): scripts
+  ShieldPack (Shield Pack): scripts
+  SensorJammerPack (StealthShield Pack): scripts
+  TaserTrtCPack (Tracking Turret): scripts
+  MiniFlakTurretPack (Mini-Flak Turret): scripts
+  MiniSAMTurretPack (Mini-S.A.M Turret): scripts
+  MiniELFTurretPack (Mini-ELF Turret): scripts
+  MiniSmokeTurretPack (Mini-Beam Of Pain): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): scripts

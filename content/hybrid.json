@@ -1,0 +1,62 @@
+{
+ "mod": {
+  "overview": "+Hybrid+ 2K4 is a high-octane total combat overhaul that supercharges Starsiege Tribes with massive multi-weapon arsenals, skyward engineering, and blistering vehicle warfare. Matches discard the conservative limits of base Tribes by granting players sprawling loadouts of up to twelve weapons, customized anti-grav mech suits, and ultra-high-speed jet bikes capable of hitting speeds of 300. Base construction is taken to extreme vertical heights, allowing combat engineers to erect complete floating sky fortresses with force fields and heavy automated turrets high above the terrain. Deathmatch and team games feature rapid respawns with full military payloads, turning every match into an explosive exchange of heavy artillery, guided rockets, and high-tech energy beams.",
+  "notes": [
+   "Five distinct chassis replace standard armor sets: Tactical Sniper (lightest scout armor at mass 4 with speed 22, zero jet energy drain, stealth pack capability, and a 6 weapon limit), Battalion Warrior (light skirmisher holding up to 10 weapons), Deffencive Engineer (medium armor carrying 9 weapons and the entire suite of engineering deployables), Armageddon Mech (the heaviest juggernaut at 1.32 armor damage health, 12 weapon slots, and exclusive anti-gravity flight), and Hybrid Destroyer (an elite frontline platform carrying 12 weapons and exclusive access to the Hybrid Special Arsenal).",
+   "Fresh player spawns automatically grant extensive weapon suites rather than basic blasters, equipping standard warriors with a nine-weapon starter rack including disc launchers, mortars, chainguns, clash rockets, and lasers. Every spawn grants ten seconds of spawn invulnerability (five seconds upon respawn), during which players fade out with circling protective rings, auto-repair rapidly to full health, and have their weapons unmounted until the protection timer expires. In Deathmatch mode, players spawn directly in Hybrid Destroyer armor equipped with the XTremePack and an armory of atomic bombs, railguns, dual mortars, and quad rocket launchers.",
+   "Engineers can deploy an unprecedented array of fortifications using the Deffencive Engineer chassis. The Sky Base pack (AirBasePack, limited to one per team) constructs a massive floating citadel three hundred units in the sky complete with floating platform floors, ceilings, and force field barriers. Defense networks can also drop ground bunkers via the Remote Base pack, construct four sizes of force field doors, lay down blast floors and blast hatches, set up deadly Electric Web door turrets, and position specialized emplacements including ARPG, Laser, Fusion, and Flak turrets.",
+   "Vehicles are expanded into dedicated weaponized fliers and jet bikes, but piloting is strictly restricted to Battalion, Tactical Sniper, or Hybrid Destroyer armors while heavy mechs ride as passengers. Jet bikes like the SpeedBike, Colossus, and Arwing skim across the battlefield at an astonishing speed of 300 while firing plasma blasters, disc shells, or hybrid rockets. Heavier air support includes the Warthog fusion scout, the high-altitude SR71 minigun flier, the Enterprise firing hell storm barrages, and the LAPC support craft that fires repair shells to mend friendly armor from the air.",
+   "Armageddon Mechs gain exclusive access to the Mech Stealth and Anti-Grav Pack, which suppresses sensor detection by twenty points, cloaks the heavy mech, activates passive shielding, and pulses vertical upward impulses every hundredth of a second to allow heavy units to float through the air. Other tactical equipment includes the XTremePack jet pack that negates jet drain through intense energy regeneration, the Multi Charger pack for swift energy replenishment, and the Energy Hook grappling beam that pulls objects and enemies toward the user across three hundred meters.",
+   "High-tier combat revolves around devastating explosive and experimental weaponry. The Hybrid Destroyer exclusively mounts the Hybrid RailGun firing hyper-velocity spikes, the continuous-burst Hybrid Beam Cannon, the rapid Hybrid Chain, the Hybrid Dual Mortar that fires synchronized shells from twin barrels, and the heavy Hybrid Blast Cannon. Additional battlefield superweapons include the deployable Atomic Bomb lobber that fires cluster bomb payloads, the time bomb lobber, and the triple salvo cannon.",
+   "Players access the 2K4 Options menu via the standard game menu key to switch teams, select observers, initiate kick votes, or communicate directly with specific teammates through targeted voice links. The original deployable ammo pack is explicitly banned and set to zero (TeamItemMax of DeployableAmmoPack is 0), forcing combatants to rely on base stations, transport support, and tactical ammo packs. Server administration runs on the integrated XCalibur admin suite with strict clan authorization, tag management, and anti-teamkill safety controls.",
+   "Additional station and team bans: Team limit zeroed ($TeamItemMax = 0): DeployableAmmoPack=0 (WeapOnMount.cs)."
+  ]
+ },
+ "items": {
+  "AirBasePack": {
+   "summary": "Deployable sky base backpack that constructs an entire floating aerial citadel high above the battlefield.",
+   "notes": [
+    "Restricted to the Deffencive Engineer armor and limited to one active base per team.",
+    "Must be deployed on open terrain at least fifty meters away from the friendly team flag.",
+    "Instantiates a multi-level floating fortress featuring floating pad floors, roofs, and defensive force field barriers three hundred units in the sky."
+   ],
+   "source": "item.cs"
+  },
+  "AntiGravPack": {
+   "summary": "Heavy mech mobility and stealth backpack that grants silent levitation, cloaking, and shields to Armageddon Mechs.",
+   "notes": [
+    "Exclusive to the Armageddon Mech heavy armor chassis.",
+    "Applies rapid continuous vertical impulses every hundredth of a second to achieve sustained levitation and flight.",
+    "Fades the player model out for visual camouflage, increases sensor suppression by twenty points, and applies active shielding."
+   ],
+   "source": "item.cs"
+  },
+  "AtomicBomb": {
+   "summary": "Heavy artillery launcher that fires devastating atomic cluster bomb payloads.",
+   "notes": [
+    "Available only to Armageddon Mech and Hybrid Destroyer armors.",
+    "Visually mounts a glowing atomic core model to the weapon housing.",
+    "Launches a high-yield cluster bomb that saturates the impact zone with massive explosive damage."
+   ],
+   "source": "item.cs"
+  },
+  "SpeedBikeVehicle": {
+   "summary": "Ultra-high-speed combat jet bike engineered for lightning-fast skirmishing and flag pursuit.",
+   "notes": [
+    "Achieves maximum speeds of up to 300, making it three times faster than standard scout fliers.",
+    "Mounted with forward-firing plasma blaster cannons.",
+    "Can only be piloted by Battalion Warrior, Tactical Sniper, or Hybrid Destroyer armors."
+   ],
+   "source": "item.cs"
+  },
+  "ElectricWeb": {
+   "summary": "Deployable doorway and base defense web turret that electrocutes enemy intruders.",
+   "notes": [
+    "Carried and deployed exclusively by the Deffencive Engineer armor.",
+    "Limited to a maximum of five deployable webs per team.",
+    "Deploys a specialized plasma door turret that projects lethal electrical currents across entryways."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

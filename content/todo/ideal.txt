@@ -1,0 +1,65 @@
+# ideal vs base (64 items)
+new        SpecialistArmor              Specialist Armor
+new        TransformerArmor             Transformer Armor
+new        BuildingArmor                SCV Armor
+stats+scriptsBlaster                      Blaster
+stats+scriptsPlasmaGun                    Plasma Gun
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+stats+scriptsDiscLauncher                 Disc Launcher
+scripts    LaserRifle                   Laser Rifle
+new        DeadWeight                   Deadweight
+new        LessWeight                   Deadweight
+new        LessWeight2                  Deadweight
+new        LessWeight3                  Deadweight
+new        SCVGun                       Nanite Assembler
+new        MarlinAmmo                   Marlin Bullet
+new        Marlin                       Marlin Rifle
+new        LaserChaingun                Laser Chaingun
+new        SlowGunAmmo                  Mass Gun Ammo
+new        SlowGun                      Mass Gun
+new        concussAmmo                  Chaos Shots
+new        concuss                      Chaos Gun
+new        Cloaker                      Handheld Cloak
+new        TractorBeam                  Tractor Beam
+stats+scriptsTargetingLaser               Targeting Laser
+new        RealTargetingLaser           Targeting Laser
+stats+scriptsEnergyRifle                  ELF Gun
+new        LongEnergyRifle              ELF Gun
+new        shortEnergyRifle             ELF Gun
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsEnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+new        SCVPack                      SCV Building Pack
+new        SpecialistPack               Specialist Pack
+new        ChangelingNet                Changeling Net
+new        TeleportPack                 Teleportation Pack
+new        FlagMovePack                 Flag Movement Pack
+new        ArbitorBoxPack               Arbitor Device
+new        TreePack                     Seed Pack
+new        NuclearTurretPack            Nuclear Turret
+new        ObeliskPack                  Obelisk of Light
+new        ObeliskPowerPack             Obelisk Power Souce
+new        FlameTurretPack              Flame Turret
+new        SuperSensorPack              Super Sensor
+new        JetfirePack                  Jetfire Transformation
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+stats+scriptsTurretPack                   Turret
+stats      RepairKit                    Repair Kit
+new        OriginalMine                 Mine
+new        ReplicatingMine              Replicating Mine
+new        FlagMine                     Fake Flag Mine
+new        C4Ammo                       C4
+new        HandgrenadeAmmo              Grenade
+new        FlashgrenadeAmmo             Flash Grenade
+new        StungrenadeAmmo              Stun Grenade
+new        SuicideAmmo                  Suicide Bomb
+stats      Beacon                       Beacon
+stats      RepairPatch                  Repair Patch

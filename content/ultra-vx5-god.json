@@ -1,0 +1,143 @@
+{
+  "mod": {
+    "overview": "VX5 GoD Final is an admin-power build of Ultra Renegades VX5. It keeps VX5's weapons, deployables and damage-type side effects, and adds a God Admin: Inventory menu (super admins) and a Public Admin: Inventory menu (admins) that hand out armor, weapons and packs for free, including hidden items such as the GoD Rifle, the Ghost Pack, Blast Walls, Deployable Bunkers and a floating Air Base. A public Blood Rifle joins the shop, the repair pack gains decorative mounts, and repair kits, grenades (air brakes) and beacons (speed boosts) are never used up. The vxmod.cs profile and difficulty switching is turned off in this build.",
+    "notes": [
+      "The calls that apply the mod profile and difficulty at mission load are commented out (PORT-OFF in server.cs) and vxmod.cs and the UltraVX5_*.cs presets are not part of this build, so the scripts' own values apply: VX5's Defaults damage numbers with stock armor health.",
+      "Player::onDamage is unchanged from VX5, so EMP, Beam Of Pain, MiniELF and Flash effects and the bullet head-shot gib all still apply.",
+      "The admin inventory menus temporarily set $TestCheats and $ServerCheats and call buyItem, so they ignore price, carry limits and team limits. God Admin: Inventory needs super admin; Public Admin: Inventory needs admin.",
+      "Items with showInventory = false (GoD Rifle, Ghost Pack and its mount pieces, Blast Wall, Deployable Bunker, Air Base, the Teleporter location-recall pack) do not show in the station lists and are meant to come from those menus.",
+      "Repair Kit, Grenade and Beacon have their Player::decItemCount lines commented out, so one of each lasts forever. Normal armors carry 1 grenade and 1 beacon.",
+      "Two extra armors exist for the Ghost Pack: lghost and fghost (GhostArmor), with 900000 max damage and 30 weapon slots for lghost.",
+      "The Blast Wall, Bunker and Air Base deploy code calls NukeList(), which no script in this build defines; the deploys carry on after that call fails."
+    ]
+  },
+  "items": {
+    "GoDRifle": {
+      "summary": "An admin-only super weapon: an invisible sustained beam 10000 m long that does 100 damage per second and shoves whatever it hits.",
+      "notes": [
+        "GoDRifleProj is a lightning beam (bullet damage type, zero width) that costs no energy to fire.",
+        "Its damageTarget applies the same 80-strength impulse from the shooter's facing as the Beam Of Pain on every tick.",
+        "As bullet damage, hits to an enemy's head get the VX head-shot rule (gib and triple damage).",
+        "Hidden from stations (showInventory false); handed out by God Admin: Inventory, including its harmor loadout presets."
+      ],
+      "source": "item.cs GoDRifleImage/GoDRifle; baseProjData.cs GoDRifleProj, GoDRifleproj::damageTarget; admin.cs processMenupre"
+    },
+    "PLiLPOOmkiAmmo": {
+      "summary": "Blood Shells, the free ammunition for the Blood Rifle.",
+      "notes": [
+        "Costs nothing; carry limit 500000 for every armor."
+      ],
+      "source": "item.cs PLiLPOOmkiAmmo; ArmorData.cs"
+    },
+    "PLiLPOOmki": {
+      "summary": "Blood Rifle: a public rapid-fire rifle with very fast, hard-hitting bullets.",
+      "notes": [
+        "Fires PLiLPOOmkiBullet at 52000 m/s with no fire or reload delay, each shot doing 8 damage, far above the LiL POO rifles' 1.",
+        "Uses the LiLPOOmkii damage type, so enemy head shots gib the victim and triple the damage.",
+        "Sold in normal inventory stations; sits between the LiL POO mkii and the GoD Rifle in the weapon cycle."
+      ],
+      "source": "item.cs PLiLPOOmkiImage/PLiLPOOmki; baseProjData.cs PLiLPOOmkiBullet; station.cs $InvList"
+    },
+    "GhostPack2": {
+      "summary": "gpack: the glowing mount piece of the Ghost Pack. It is attached automatically, not bought.",
+      "notes": [
+        "GhostPack::onMount mounts it in image slot 7 (a mine model with a steady blue-grey light) when the Ghost Pack goes on your back; GhostPack::onDeactivate removes it.",
+        "Hidden from stations (showInventory false)."
+      ],
+      "source": "item.cs GhostPack2Image/GhostPack2; GhostPack::onMount/onDeactivate"
+    },
+    "GhostPack3": {
+      "summary": "The mount piece shown while Ghost Pack ghost mode is active. Ghost mode turns you into a nearly unkillable GhostArmor.",
+      "notes": [
+        "Using a mounted Ghost Pack once switches ghost mode on: GhostPack3 is mounted in slot 6, your armor becomes GhostArmor (lghost or fghost, 900000 max damage) with your energy kept, auto-repair is set to 0, and the Casper loop starts.",
+        "Casper runs every 0.75 s while ghost mode is on: it flashes your shield effect, clears your damage flash and rolls a flag-drop chance that is set to 0.",
+        "Using the pack again calls NoGhost, which removes GhostPack3 and always switches you to Heavy Armor, whatever armor you started in.",
+        "Casper's death branch calls Player::blowUp and Player::kill on an undefined variable instead of the player.",
+        "The Ghost Pack itself is only allowed for light armor and comes from the God Admin menus."
+      ],
+      "source": "item.cs GhostPack::onUse, Casper, noghost, GhostPack3Image/GhostPack3; ArmorData.cs lghost/fghost"
+    },
+    "RepairPack": {
+      "summary": "Gives you a repair gun. In GoD it also hangs decorative pieces on your back while worn.",
+      "notes": [
+        "Unlike VX5, RepairPack::onMount also mounts RepairPack1 and RepairPack2 (two tilted flag models) and RepairPack3 (a mine model) in image slots 6, 7 and 8.",
+        "RepairPack::onUnmount only removes those three pieces when the repair gun is in your hand, so dropping or swapping the pack otherwise leaves them mounted.",
+        "Activating the pack still equips the repair gun as in stock."
+      ],
+      "source": "item.cs RepairPack::onMount/onUnmount/onUse"
+    },
+    "RepairPack1": {
+      "summary": "A decorative piece of the GoD Repair Pack: a flag model tilted one way on your back.",
+      "notes": [
+        "Mounted in image slot 6 by RepairPack::onMount; it has no functions of its own."
+      ],
+      "source": "item.cs RepairPack1Image/RepairPack1; RepairPack::onMount"
+    },
+    "RepairPack2": {
+      "summary": "A decorative piece of the GoD Repair Pack: a flag model tilted the other way on your back.",
+      "notes": [
+        "Mounted in image slot 7 by RepairPack::onMount; it has no functions of its own."
+      ],
+      "source": "item.cs RepairPack2Image/RepairPack2; RepairPack::onMount"
+    },
+    "RepairPack3": {
+      "summary": "A decorative piece of the GoD Repair Pack: a mine model on your back.",
+      "notes": [
+        "Mounted in image slot 8 by RepairPack::onMount; it has no functions of its own."
+      ],
+      "source": "item.cs RepairPack3Image/RepairPack3; RepairPack::onMount"
+    },
+    "RepairKit": {
+      "summary": "A medkit that heals 0.99 damage and, unlike VX5's, is never used up.",
+      "notes": [
+        "The Player::decItemCount line in RepairKit::onUse is commented out, so a single kit heals again and again with no delay.",
+        "The item now uses the ammo-pack shape when lying on the ground."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "BlastWallPack": {
+      "summary": "Deploys a Blast Wall, a very tough door-shaped wall section placed on flat ground.",
+      "notes": [
+        "The wall has 7000 health. Flyers that collide with it take 0.01 damage per contact and play a crash sound.",
+        "Needs a flat surface and a clear spot, and refuses to go on an object owned by the enemy team. There is no fair-play distance check.",
+        "50 per team; the item is consumed on deploy. Handed out by the admin inventory menus."
+      ],
+      "source": "item.cs BlastWallPack::deployShape, BlastWall, BlastWall::onCollision"
+    },
+    "BunkerPack": {
+      "summary": "Deploys a small round bunker building (eround.dis) on flat ground.",
+      "notes": [
+        "Refuses if another bunker is within a 20 x 20 x 20 box (the first of its two spacing checks, which allows up to 20, is overridden by the second, which allows none).",
+        "Needs a flat surface and a clear 0.5 m spot; the bunker is rotated to your facing plus 3.3 radians. No fair-play distance check.",
+        "40 per team. Handed out by the admin inventory menus."
+      ],
+      "source": "item.cs BunkerPack::deployShape, BnkrDeployArea"
+    },
+    "AirBasePack": {
+      "summary": "Summons a complete floating base 150 m above you: a pad with roof, force-field walls and a full set of stations.",
+      "notes": [
+        "Builds a floating pad floor and roof, two large and two small force-field walls (50000 health each), a vehicle station and pad, an inventory station, a command station, a medium pulse sensor and two solar panels, all set to your team.",
+        "Refuses within 50 m of your own flag. Needs a deploy point within 3 m but no flat surface or fair-play check.",
+        "Team limit 40 (the refusal message says an Air Base is already in place). Handed out by the admin inventory menus."
+      ],
+      "source": "item.cs AirBasePack::deployshape, CreateAirBaseSimSet, AirBaseForceFieldLarge/Small"
+    },
+    "Grenade": {
+      "summary": "The VX5 air brake (cuts your speed to one sixth), now unlimited.",
+      "notes": [
+        "The Player::decItemCount line is commented out, so the brake can be used as often as you press the key once the match has started; there is no delay.",
+        "Carry limit is 1."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "The VX5 speed booster, now unlimited.",
+      "notes": [
+        "Drops the zero-damage Boost charge (500 knockback) at your feet, at most every 0.2 s, without using up the beacon.",
+        "Beacon::onUse first calls Beacon::deployShape, which no script in this build defines, then boosts anyway; no target beacon is placed.",
+        "Carry limit is 1."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost"
+    }
+  }
+}

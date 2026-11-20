@@ -1,0 +1,239 @@
+{
+ "mod": {
+  "overview": "Elite Renegades 1.1b (Temples of Syrinx) is a cleaned-up Renegades Classic 1.1c with the same classes, weapons and deployables. Most of its changes are structural or quality-of-life: per-class grenades, mines and beacons are moved into one function per armor, per-class item limits use a single table, and the bwadmin observer/stat support and a reserved-name user list are added. Gameplay changes are small: new beacon abilities for the Burster and the deathmatch class, self-repairing generators, hologram mines that knock their victim into a death animation, looser placement checks for several deployables, and no damage protection before the match starts.",
+  "notes": [
+   "Per-class item limits are set with PopulateItemMax(item, ...) calls in ArmorData.cs, one row per item with a column for each armor (deathmatch male/female, Sniper, Scout, Spy, Mercenary, Engineer, Burster, Alien, then harmor and Cyborg). This mod has no HeavyArmor item, so nobody plays harmor and that column has no effect. The wiki's stat parser only reads literal $ItemMax[...] assignments, so per-class carry limits for this mod are not shown in the stat tables; the item notes below give carriers where they matter.",
+   "Grenade, Mine and Beacon no longer branch on armor inside the item. Each calls eval of the armor's own onGrenade, onMine or onBeacon function (for example larmor::onGrenade), and each armor datablock in ArmorData.cs defines those three functions. An armor without the function gets nothing; harmor has none.",
+   "Player::onDamage no longer returns early before $matchStarted, so players can be hurt before the match starts. Poison (Energy damage) and burning (Plasma damage) are started without passing the attacker, unlike Classic; the poison and burn timers still reset to 30 and 10 on a new hit.",
+   "Destroyed Generators and PortGenerators repair themselves: Generator::onDestroyed schedules an auto-repair rate of 0.04 after 60, 120 or 240 s (random), unless $Reneg::AutoRepair is \"False\" or the server is in tourney mode. Solar panels are excluded. Vehicle pads now take shield damage (VehiclePad::onDamage).",
+   "A Hologram Mine that an enemy sets off now also forces that player into a random death animation (Mine.cs HoloMine::onCollision).",
+   "Touch effects (Player::onCollision): a Scout touching an enemy still takes all of their items, and an Engineer still heals touched teammates 0.10. An Alien touching an enemy now applies 0.20 Energy damage to them (which poisons through Player::onDamage) and repairs the Alien 0.20. Looting a corpse is blocked only for a Cyborg taking a Mercenary's beacons.",
+   "Vehicles: trying to pilot from inside an inventory station is refused with a message (Classic killed non-light classes who tried), and the Classic tourney-mode penalty for touching a flag while piloting is removed.",
+   "Other server additions: an item-drop limit (10 drops, $Reneg::NoDrop), an optional 'Now using:' weapon-name message on weapon mount ($Reneg::HMessage, false by default in Renegades.cs), station ejection through ixStationEjectPlayer, a $ItemPopTime for dropped ammo, a GiveAll-cheat auto-ban, and bwadmin v5.01 remote functions for observer clients (player lists, pings, observe player/flag/objective).",
+   "Spawn kit: the default (non-Weapons-Factory) Mercenary spawn list has four Grenades instead of Classic's three."
+  ]
+ },
+ "items": {
+  "ScoutVehicle": {
+   "summary": "The Scout is a fast single-seat flier armed with rockets; it is Classic's ScoutJet under a new name.",
+   "notes": [
+    "Only the item's display name changed (ScoutJet to Scout). The Scout flier datablock is unchanged: it fires the Nuke projectile (Shrapnel damage, 20.5 m blast, 450 kickback) once per second.",
+    "Single seat. Only a Scout, Sniper or Spy can pilot it. Team limit 3."
+   ],
+   "source": "item.cs ScoutVehicle; vehicle.cs Scout, Vehicle::onCollision"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote Inventory Station.",
+   "notes": [
+    "Spawns DeployableInvStation on flat terrain or a building after the usual deploy-area check.",
+    "Unlike Classic, there is no checkStationArea test, so it can be placed right next to other stations.",
+    "The station is named 'RMT Inv Station#N' plus your name on the command map.",
+    "Team limit 15. Carried by the Engineer and the deathmatch class."
+   ],
+   "source": "item.cs DeployableInvPack::deployShape; ArmorData.cs PopulateItemMax"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote Ammo Station.",
+   "notes": [
+    "Spawns DeployableAmmoStation on flat terrain or a building after the usual deploy-area check.",
+    "Unlike Classic, there is no 8 m station-spacing check (checkStationArea).",
+    "Named 'RMT Ammo Station#N' plus your name; it shares its running number with remote Inventory Stations.",
+    "Team limit 10. Carried by the Mercenary, Engineer, Burster, Alien and Cyborg."
+   ],
+   "source": "item.cs DeployableAmmoPack::deployShape; ArmorData.cs PopulateItemMax"
+  },
+  "DeployableComPack": {
+   "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+   "notes": [
+    "Spawns DeployableComStation on flat terrain or a building. Standing in it gives Command Access for as long as you stay.",
+    "Unlike Classic, both checkDeployArea and checkStationArea were removed, so nothing stops it being placed on top of players, objects or other stations.",
+    "Team limit 5. Carried by the Engineer and Cyborg."
+   ],
+   "source": "item.cs DeployableComPack::deployShape; station.cs DeployableComStation::onActivate"
+  },
+  "CameraPack": {
+   "summary": "Deploys a remote Camera you can view through from a command screen.",
+   "notes": [
+    "Spawns CameraTurret on any terrain or building surface, oriented to it. The only script change from Classic is that the deploy is always echoed to the server console.",
+    "Team limit 15, shared with the Engineer's beacon cameras.",
+    "Every class except the deathmatch class can carry one."
+   ],
+   "source": "item.cs CameraPack::deployShape, EngCamera; ArmorData.cs PopulateItemMax"
+  },
+  "TargetPack": {
+   "summary": "Deploys a remote Mortar Turret that only fires under manual control.",
+   "notes": [
+    "Spawns DeployableMortar firing MortarTurretShell. It has no auto-sensor, and mounting the pack tells you so (now center-justified; otherwise unchanged from Classic).",
+    "Flat terrain or building, with the same remote-turret spacing checks as the Ion Turret.",
+    "Team limit 2. Engineer only."
+   ],
+   "source": "item.cs TargetPack::onMount, TargetPack::deployShape; turret.cs DeployableMortar"
+  },
+  "LaserTurret": {
+   "summary": "Despite the datablock name, this deploys a Plasma Turret.",
+   "notes": [
+    "Spawns DeployablePlasma firing FusionBolt.",
+    "Unlike Classic, the checkFlierArea test (clear space above, few players nearby) is gone; it only needs flat ground, the deploy-area check and no other Plasma turret within the spacing boxes.",
+    "Team limit 4. Carried by the Engineer, Alien, deathmatch class and Cyborg."
+   ],
+   "source": "item.cs LaserTurret::deployShape; turret.cs DeployablePlasma"
+  },
+  "VulcanTurret": {
+   "summary": "Deploys a Vulcan Turret that a teammate fires by hand.",
+   "notes": [
+    "Spawns DeployableVulcan firing TurretBullet. Range 0, so it only fires when manned; teammates other than Cyborgs take control by walking into it.",
+    "Unlike Classic, there is no checkFlierArea test, so it can go in tighter spots.",
+    "Team limit 3. Carried by the Engineer and deathmatch class."
+   ],
+   "source": "item.cs VulcanTurret::deployShape; turret.cs DeployableVulcan, Turret::onCollision"
+  },
+  "RailTurret": {
+   "summary": "Deploys a manually fired Rail Turret.",
+   "notes": [
+    "Spawns DeployableRail firing railLaser (Sniper damage). Range 0, so it only fires when manned.",
+    "Unlike Classic, there is no checkFlierArea test. As in Classic, its spacing check counts Vulcan turrets rather than Rail turrets.",
+    "The mount message about having no auto-sensor is now center-justified.",
+    "Team limit 3. Carried by the Engineer and deathmatch class."
+   ],
+   "source": "item.cs RailTurret::onMount, RailTurret::deployShape; turret.cs DeployableRail"
+  },
+  "RocketPack": {
+   "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+   "notes": [
+    "Spawns DeployableRocket firing TurretMissile; it only engages targets with heat factor 0.5 or more.",
+    "Unlike Classic, there is no checkFlierArea test. Its spacing checks still count Sentry, Ion and Missile turrets together.",
+    "The pack now uses the 'logo' shape. Team limit 3. Carried by the Engineer and Burster."
+   ],
+   "source": "item.cs RocketPack::deployShape; turret.cs DeployableRocket::verifyTarget"
+  },
+  "ForceFieldPack": {
+   "summary": "Deploys a small 5x5 force field wall.",
+   "notes": [
+    "Same placement as Classic: only a flat surface is needed, with no terrain/building or clear-space check.",
+    "The field is now named 'Force Field#N' plus your name on the command map. That is the only script change.",
+    "Team limit 10. Every class can carry one."
+   ],
+   "source": "item.cs ForceFieldPack::deployShape; staticshapeR.cs DeployableForceField"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Deploys a full-size force field wall.",
+   "notes": [
+    "Same placement rules as the small field. The only script change is the map name, 'Large Force Field#N' plus your name.",
+    "Team limit 4. Carried by the Engineer, Alien and deathmatch class."
+   ],
+   "source": "item.cs LargeForceFieldPack::deployShape; staticshapeR.cs LargeForceField"
+  },
+  "TripwirePack": {
+   "summary": "Despite the datablock name, this deploys a solid Blast Wall.",
+   "notes": [
+    "Spawns BlastWall on flat terrain only, not on buildings. Behavior is unchanged from Classic; only the error messages and the pack's look (sensor_small shape) differ.",
+    "Team limit 20. Engineer only."
+   ],
+   "source": "item.cs TripwirePack::deployShape; staticshapeR.cs BlastWall"
+  },
+  "HoloPack": {
+   "summary": "Deploys a stationary hologram of a player as a decoy.",
+   "notes": [
+    "Picks a random model the same way as Classic and counts against the shared 'hologram' team limit of 15. Apart from variable names the deploy script is unchanged.",
+    "The pack now uses the ShieldPack shape. Every class can carry one."
+   ],
+   "source": "item.cs HoloPack::deployShape; staticshapeR.cs Hologram1, Hologram2, Hologram3"
+  },
+  "TreePack": {
+   "summary": "Deploys a Mechanical Tree for cover or camouflage.",
+   "notes": [
+    "Spawns DeployableTree or DeployableTree2 on flat terrain only, as in Classic. Only messages and the pack's shape (sensor_jammer) changed.",
+    "Team limit 25. Carried by the Sniper and Engineer."
+   ],
+   "source": "item.cs TreePack::deployShape; staticshapeR.cs DeployableTree, DeployableTree2"
+  },
+  "SpringPack": {
+   "summary": "Deploys a Springboard that launches anyone who touches it.",
+   "notes": [
+    "Launch behavior is Classic's: normal, big (about 1 in 7) and 'moon' (1 in 30) launches, for anyone including enemies.",
+    "The spacing count now looks for DeployableSpring instead of Classic's nonexistent DeployableCactus, but the result is still never checked, so springboards can be placed next to each other.",
+    "The force-field sound on deploy was removed. Team limit 15. Carried by the Engineer and deathmatch class."
+   ],
+   "source": "item.cs SpringPack::deployShape; staticshapeR.cs DeployableSpring::onCollision"
+  },
+  "PlatformPack": {
+   "summary": "Deploys a thin 6x6 platform you can stand on.",
+   "notes": [
+    "Spawns DeployablePlatform wherever your 3 m line of sight hits, with no flat-surface or clear-space check. Unchanged from Classic apart from variable names.",
+    "Team limit 25. Carried by the Engineer and deathmatch class."
+   ],
+   "source": "item.cs PlatformPack::deployShape; staticshapeR.cs DeployablePlatform"
+  },
+  "TeleportPack": {
+   "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+   "notes": [
+    "Rewritten placement: terrain or building, flat surface, deploy-area check, and a new testPosition fit check 1 m above the spot ('Teleport does not fit there'). Classic's checkFlierArea test is gone.",
+    "The pad now sits 0.8 m above the surface (Classic 1 m), and the team count is raised in onDeploy after a successful placement.",
+    "Pad behavior is Classic's: team limit 2 (one linked pair), 5 s recharge after a teleport, 1-in-45 chance of 0.25 crush damage, Cyborgs cannot teleport, Spies can use enemy pads.",
+    "Carried by the Engineer and deathmatch class."
+   ],
+   "source": "item.cs TeleportPack::onDeploy, TeleportPack::deployShape; staticshapeR.cs DeployableTeleport::onCollision"
+  },
+  "MechPack": {
+   "summary": "The Interceptor Pack deploys a ready-to-fly Interceptor jet.",
+   "notes": [
+    "Spawns the Jet flier on flat open terrain (checkFlierArea) and counts against the JetVehicle team limit of 5. Behavior is unchanged from Classic; only messages and the pack's shapes differ.",
+    "Scout only, so the deployer can pilot it."
+   ],
+   "source": "item.cs MechPack::deployShape; vehicle.cs Jet"
+  },
+  "DetPack": {
+   "summary": "Despite the datablock name, this is the StealthHPC Pack: it deploys a StealthHPC transport, not an explosive.",
+   "notes": [
+    "Spawns the HAPC flier on flat open terrain and counts against the HAPCVehicle team limit of 1. Unchanged from Classic apart from messages and the pack's shapes.",
+    "Engineer only. Engineers cannot pilot, so a Scout, Sniper or Spy has to fly it."
+   ],
+   "source": "item.cs DetPack::deployShape; vehicle.cs HAPC, Vehicle::onCollision"
+  },
+  "RepairKit": {
+   "summary": "Single-use self repair that also cures poison.",
+   "notes": [
+    "Repairs 0.2 damage and clears poison.",
+    "Unlike Classic, it can be used inside a station or while piloting; the only restriction is that the match must have started."
+   ],
+   "source": "item.cs RepairKit::onUse"
+  },
+  "MineAmmo": {
+   "summary": "Thrown anti-personnel mine that only goes off for enemies.",
+   "notes": [
+    "MineAmmo::onUse checks the shared team limit of 35 live mines, then calls the armor's own onMine function. Every armor throws an AntipersonelMine except the deathmatch class, which throws a DMMine.",
+    "Armor::ThrowMine now sets the team for every mine, including the deathmatch DMMine (Classic only set it for AntipersonelMine), and plays a throw sound.",
+    "It only triggers when an enemy, enemy vehicle or moving object touches it."
+   ],
+   "source": "item.cs MineAmmo::onUse, Armor::ThrowMine; ArmorData.cs larmor::onMine etc.; Mine.cs AntipersonelMine::onCollision"
+  },
+  "Grenade": {
+   "summary": "Thrown explosive whose effect depends on your class.",
+   "notes": [
+    "Each armor's onGrenade picks the grenade: Scout Firebomb; Spy Plastique (Nukebomb, 10 s fuse, with a warning); Sniper Hologram Mine; Mercenary Handgrenade; Burster Concussion; Engineer Shock grenade; Alien Tranq grenade; Cyborg Mortarbomb; deathmatch class Handgrenade.",
+    "Unlike Classic, the Sniper's Hologram Mine is no longer counted against the 15 hologram-mine team limit when thrown.",
+    "The grenade is removed from inventory before the armor's function runs, so an armor with no onGrenade (only harmor, which no class uses) would lose it without throwing anything.",
+    "Throw force 15 x throwStrength; one throw every 0.5 s; only after the match starts."
+   ],
+   "source": "item.cs Grenade::onUse, Armor::ThrowGrenade; ArmorData.cs larmor::onGrenade etc."
+  },
+  "Beacon": {
+   "summary": "Class ability item: each class's beacon does something different instead of placing a target beacon.",
+   "notes": [
+    "Scout: Pulse Sensor. Spy: Satchel Charge. Sniper: Sensor Jammer. Engineer: Camera. Alien: cloak for about 30 s. Cyborg: Emergency Force Shields for about 20 s. These match Classic.",
+    "Burster: Repulsion Beacon instead of Classic's Haul-Ass stim. It pushes every other player within a 50 m box straight away from you with an impulse of 370 ($RepulsePower).",
+    "Mercenary: Speed Booster applied directly to you, an impulse of 270 along your current direction of travel (world +Y if standing still), instead of Classic's thrown Booster mine.",
+    "Deathmatch class: Vector teleport instead of cloak. It needs at least half your maximum energy and a flat spot within 245 m in your line of sight. It drops any flag you carry, moves you there, empties your energy and holds your recharge rate at 1 for 20 s.",
+    "Cannot be used from inside a station or before the match starts. A stock Beacon::deployShape (target beacon) is defined in beacon.cs but nothing in Beacon::onUse calls it, and Classic's self-destroy timer on enabled beacons was removed."
+   ],
+   "source": "item.cs Beacon::onUse, Repulse, Armor::SpeedBooster, Armor::Vector, Vector::Recharge; ArmorData.cs larmor::onBeacon etc.; beacon.cs Beacon::deployShape, Beacon::onEnabled"
+  },
+  "SuicidePack": {
+   "summary": "The Burster's Suicide DetPack drops a huge timed bomb, and enemy snipers can set it off on your back.",
+   "notes": [
+    "An Engineer can try to disarm the dropped bomb by touching it. On a failed attempt Elite Renegades gives a 2 second delay before it explodes (message \"Aww Crap\"), where Renegades Classic detonated it immediately."
+   ],
+   "source": "Mine.cs Suicidebomb2::onCollision"
+  }
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "mod": {
+  "overview": "Meltdown Total War 2001 (Build 124) is an over-the-top Tribes total conversion by Defender (built on Meltdown Hell and HaVoC/Shifter roots) that cranks up mobility, weapon carry limits, and heavy ordnance while integrating SpoonBot 1.1 AI and optional Duel modes. Compared to meltdown-hell, players spawn straight into Medium Engineer armor loaded with 12 starting items (including Disc Launcher, Chaingun, Plasma Gun, Shotgun, Railgun, Reassembler, Mines, Grenades, Beacons, Repair Kit, and Energy Pack), weapon limits are roughly doubled across all suits, and legacy base/superweapon clutter like MagIonArmor, Nuke packs, and jail packs is stripped out. Team energy defaults to Infinite, encouraging constant base-building with forward Vehicle Bases, linked Teleport Pads, shield/cloak nodes, and specialized turrets alongside 15 purchasable air and ground vehicles. Beyond standard CTF, C&H, D&D, and F&R missions, the mod includes custom Duel MOD and Duel Tourney scripts for structured 1v1 arena matches with custom 3-weapon loadouts.",
+  "notes": [
+   "Armors and class abilities: Five armors are playable (MagIonArmor is commented out). Peltast (Light, 6 weapons) uses Beacon for a 20-second Energy Shield and throws SmallGrenades; Blastech (Light, 7 weapons) heals from explosive, missile, mortar, mine, and shrapnel damage and uses Beacon to cloak and jam enemy sensors within 140m; Engineer (Medium, 7 weapons, default spawn armor with 40% plasma resistance) spawns with ElectricityRifle and Reassembler when bought and uses Beacon for an energy-powered Speed Booster lunge; Assault/MECH (Heavy mech, 9 weapons) heals from lasers, resists bullets and crushes, fires dual shoulder cannons with the Grenade key, and carries exclusive super-heavy weapons; Myrmidon (Heavy, 11 weapons) throws twin PocketNuke mines on Grenade and shares Beacon charging for Death Ray/Plasma Cannon or a stationary F1aker blast.",
+   "Menus, weapon switching, and chat: Press Tab to open the main menu, including Weapon Options to switch the Mitzi Blast Cannon (Mitzi Blast, EMP, Mitzi Booster, Poisoning, Heat, Annihilator), Chaingun (Normal or Vulcan mode), and Mortar (Standard HE, Bouncing Betty HE, or Vertigo Bomb AB). Private chat uses =message after choosing a target under Tab -> Speak To (SuperAdmins can also broadcast with =!message), while wearing or deploying a TeamChat Tapper (BugPack) intercepts enemy team chat within 200m or globally while worn.",
+   "Combat mechanics and status effects: EMP weapons (such as EMP Mortar Launcher, RPEMP, and EMP Blast Turret) trigger an electrical malfunction that unmounts energy weapons, stops recharge, and drains 2 energy per 0.1s before burning health when energy runs dry. Plasma and heat weapons have a chance to ignite targets (MBHeat always ignites) for ticking fire damage until internal extinguishers finish, headshots deal +30% damage (+60% on heavy armor), and high-damage hits from explosions, PBW, Electricity, Pulse, Tractor, or Shotgun blow the player up and drop their active weapon.",
+   "Arsenal, packs, and vehicles: Adds high-firepower weapons like Flame Thrower, Infantry Cannon, SR100 Sniper Rifle, Auto-Cannon, TwinFusor, Missile Launcher (crosshair-seeking AODStinger), Impact Mortar, Implosion Cannon, Poison Dart Rifle, HP Sniper Rifle (scales damage against heavier armor), and Beacon Gun, alongside packs like Hyperdrive (300m line-of-sight teleport, drops flag), Slipstream (teleports to your commander waypoint at full energy), Leech Pack (drains nearby enemy energy and health), Ammo Generator, and PyroXL Conversion (morphs you into a flying PyroXL). Vehicle Pads stock 15 craft including Arwing (Comanche), EscapePod (Lightning with ELF), SkyCutter, Explorer, Skyranger, Avenger (ThunderTank), StarHammer, StarFighter, HoverTank, Interceptor, Annihilator (Icarus), Osprey (turreted gunship), Scout, LAPC, and HAPC.",
+   "Deployables and forward bases: Teams can build fortified outposts using 3x4, 5x5, and 4x8 Forcefield doors, Blast Doors, Blast Floors, Teleport Pads (two pads link for two-way team teleportation), Guard Dog and Defender Designator turrets, AA/AF/Velcro/Disc/Rocket/EMP/Tractor/ELF turrets, Mobile Inventory/Ammo/Command/Generator/Shield units, Tree Planters, and the Vehicle Base pack (deploys a full platform with generator, artillery turret, inventory/ammo stations, and vehicle pad).",
+   "Inventory bans and station limits: GravFieldPack and dummypack are banned ($InvList = 0), and high-tier base/turret/movement gear—including PyroXLPack, JetPack, BlastFloor, CNode, LELFPack, DShieldPack, PortaComm, PortaAmmo, AODMobileInv, AODMobileGen, AODShieldGen, RocketPack, AODArtilleryPack, and TurretPack/Ion/Pulse/Disc/Disruptor/Electro turrets—are restricted to full base Inventory Stations ($RemoteInvList = 0). Team caps also limit deployables and vehicles (for example 2 Vehicle Bases, 2 Shield Generators, 1 HAPC, 1 Annihilator, 2 HoverTanks, and 3 Scouts per team).",
+   "SpoonBot AI and Duel modes: SpoonBot 1.1 is built in with 7 bot roles (Guard, Demo, Painter, Sniper, Medic, Miner, Mortar), auto-spawn disabled by default, menu spawning enabled under Tab -> Admin Menu -> Bioderm Options, and Ctrl+B toggling the BotHUD status panel. Dedicated Duel MOD and Duel Tourney mission scripts let players select 3 weapons (from 19 choices) and 1 pack via Tab menus to fight timed 1v1 duels with automatic health/ammo resets.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): dummypack (deployables.cs), GravFieldPack (packs.cs); Team limit zeroed ($TeamItemMax = 0): dummy=0 (deployables.cs), dummypack=0 (deployables.cs); Blocked at Remote Stations ($RemoteInvList = 0): AODArtilleryPack (deployables.cs), AODMobileGen (deployables.cs), AODMobileInv (deployables.cs), AODShieldGen (deployables.cs), BlastFloor (deployables.cs), CNode (deployables.cs), DiscTurretPack (deployables.cs), DisruptorTurretPack (deployables.cs), DShieldPack (deployables.cs), ElectroTurretPack (deployables.cs), IonTurretPack (deployables.cs), JetPack (packs.cs) (+6 more)."
+  ]
+ },
+ "items": {
+  "MECHArmor": {
+   "summary": "Assault (MECH) heavy combat suit with dual shoulder cannons, laser healing, and exclusive super-heavy weapons.",
+   "notes": [
+    "Has 3.63 max damage, 115 max energy, 6.5 speed, carries up to 9 weapons, is immune to impact and crush damage, takes half bullet damage, and heals from laser damage (-0.1 scale).",
+    "Pressing the Grenade key triggers both shoulder-mounted cannons (slots 3 and 7) at once with kickback and 0.27 self-damage; pressing Beacon charges the Death Ray (LasCannon) or Plasma Cannon, or fires a close-range F1aker blast when stationary.",
+    "Restricted from sniper rifles, railguns, Shield/Cloak/Sensor Jammer packs, and remote turrets, but gains exclusive access to Assault-only weapons such as the Plasma Cannon, Death Ray, MECHMinigun, MECHRocketgun, MECHRPG, and Super-Repair Pack."
+   ],
+   "source": "item.cs, armordata.cs, weapons.cs, packs.cs"
+  },
+  "BlastechArmor": {
+   "summary": "Blastech light stealth armor that cloaks on Beacon use and heals from explosive damage.",
+   "notes": [
+    "Carries up to 7 weapons with 0.66 max damage and 11 speed (11.1 female), and absorbs explosions, missiles, debris, shrapnel, mortars, and mines as healing (-0.1 to -0.2 damage scale).",
+    "Pressing Beacon activates a 20-second cloak that fades the player out, suppresses sensors, and degrades enemy detection within 140m."
+   ],
+   "source": "item.cs, armordata.cs, player.cs"
+  },
+  "MBCannon": {
+   "summary": "Mitzi Blast Cannon with six selectable firing modes powered by self-recharging MitziCore energy.",
+   "notes": [
+    "Recharges MitziCore ammo passively every 0.5 seconds (0.25 seconds with the Mitzi Charger pack) instead of drawing from station ammo drops.",
+    "Mode is switched from the Tab menu under Weapon Options -> MB Cannon: Mitzi Blast (10 cores), EMP (15), Mitzi Booster (25), Poisoning (75), Heat (50), and Annihilator (100)."
+   ],
+   "source": "weapons.cs, admin.cs"
+  },
+  "groundbase": {
+   "summary": "Vehicle Base deployable pack that constructs an entire forward outpost with vehicle pad and stations.",
+   "notes": [
+    "Spawns a BaseGenerator, 4 BasePlatforms, an ArtilleryTurret, AmmoStation, InventoryStation, VehicleStation, and VehiclePad around the deployment site.",
+    "Limited to 2 per team and must be deployed more than 5m away from the team's flag; restricted to Engineer (Medium) and Myrmidon (Heavy) armors."
+   ],
+   "source": "deployables.cs"
+  },
+  "PyroXLPack": {
+   "summary": "PyroXL Conversion pack that transforms the player on the fly into a piloted PyroXL flier.",
+   "notes": [
+    "Priced at 10000 and available only from full base Inventory Stations ($RemoteInvList = 0).",
+    "Automatically drops any carried flag and stows your handheld weapon while active, then restores bipedal form when deactivated."
+   ],
+   "source": "packs.cs"
+  }
+ }
+}

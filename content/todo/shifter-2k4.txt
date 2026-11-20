@@ -1,0 +1,50 @@
+shifter-2k4: 49 of 184 need write-ups
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  airbase (AirBase): scripts
+  Hackit (Engineer Hack-Gun): scripts
+  Regen (Regeneration Gun): scripts
+  Plastique (Plastique): scripts
+  EmplacementPack (Emplacement): scripts
+  PowerGeneratorPack (Power Device): scripts
+  LasCannon (LasCannon): stats+scripts
+  PlasmaCannon (HeavyPlasmaCannon): stats+scripts
+  Hammer1Pack (God Hammer Cannon): stats
+  Hammer2Pack (God Hammer Cannon 2): stats
+  Booster1Pack (Booster): stats
+  Booster2Pack (Booster): stats
+  Mortar0 (Mortar0): stats
+  Mortar2 (Mortar2): stats+scripts
+  Blaster (Blaster): stats
+  Chaingun (Equalizer): stats
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats
+  Mortar (Mortar): stats
+  DiscLauncher (Disc Launcher): stats
+  LaserRifle (Laser Rifle): stats
+  HyperB (Hyper Blaster): stats
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SniperRifle (Sniper Rifle): stats
+  BoomStick (Boom Stick): stats
+  TranqGun (Dart Rifle): stats
+  Silencer (Magnum): stats
+  ConCun (Shockwave Cannon): stats
+  SilencerAmmo (Silencer Bolt): renamed+stats
+  Railgun (Railgun): stats
+  Vulcan (Vulcan): stats
+  Mfgl (Tactical Nuke): stats+scripts
+  Flamer (Flame Thrower): stats
+  IonGun (Ion Rifle): stats
+  Volter (Volter): stats
+  GravGun (Grav Gun): scripts
+  DeployableInvPack (Inventory Station): scripts
+  EnergyPack (Energy Pack): scripts
+  CloakingDevice (Cloaking Device): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  SMRPack (Rocket Launcher Pack): stats+scripts
+  SMRPack2 (Rocket Launcher Pack): stats
+  SuicidePack (Suicide DetPack): stats+scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts

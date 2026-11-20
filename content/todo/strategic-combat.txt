@@ -1,0 +1,49 @@
+# strategic-combat vs tribal-combat (48 items)
+new        BuildingArmor                SCV Armor
+stats      RepairKit                    Repair Kit
+scripts    Special                      Special
+scripts    Beacon                       Beacon
+scripts    Barricade                    Barricade
+scripts    TeleportField                Teleport Field
+scripts    GuidedBombPack               Guided Bomb
+new        EMPBeaconPack                EMP Device
+new        ShieldBeaconPack             Shield Device
+new        PowerGeneratorPack           Portable Generator
+new        PortInvPack                  Inventory Station
+scripts    EnergyPack                   Energy Pack
+scripts    RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+scripts    AmmoPack                     Ammo Pack
+stats+scriptsRelocatePack                 Relocator Pack
+stats      VehicleRepairPack            Vehicle Repair Pack
+stats      ComPack                      CommLink Pack
+stats+scriptsBlaster                      Blaster
+scripts    EDGun                        EDGun
+stats      FusionPack                   Fusion Pack
+new        AutoCannon2                  25mm AutoCannon
+scripts    AutoCannon                   25mm AutoCannon
+renamed+stats+scriptsChaingun                     14.5mm Chaingun
+stats      PistolAmmo                   12mm Ammo
+stats      PlasmaGun                    Plasma Gun
+new        FThrowerAmmo                 Pyro Charge
+renamed+stats+scriptsPlasmaRepeater               Flamethrower
+stats+scriptsEnergyCannon                 Energy Cannon
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsRocketLauncher               RocketLauncher
+stats      MLAmmo                       Missile Ammo
+stats+scriptsMissileLauncher              MissileLauncher
+stats      LaserRifle                   Laser Rifle
+stats      CutterBeam                   Pulse Laser
+new        NARCAmmo                     Beacon Rounds
+new        NARCLauncher                 Beacon Launcher
+stats+scriptsFieldRepairGun               Field Repair Unit
+scripts    DemoCharge                   Demolitions Satchel
+new        ARAmmo                       Assault Rifle Ammo
+new        AssaultRifle                 Assault Rifle
+stats+scriptsKineticRifle                 Particle Cannon
+new        LongTom                      LongTom
+scripts    FloatingPad                  FloatingPad
+new        EmplacementPack              Supply Station
+scripts    StealthMine                  Stealth Mine
+scripts    AntiArmorMine                Anti Armor Mine
+new        DetPack                      DetPack

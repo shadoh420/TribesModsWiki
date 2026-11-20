@@ -1,0 +1,37 @@
+ultra-bop: 57 of 84 need write-ups
+  DiskerArmor (Disker Armor): new
+  MedicArmor (Medic Armor): new
+  SensorArmor (Sensor Network Armor): new
+  FlagArmor (Flag Mover Armor): new
+  DogFighterVehicle (DogFighter): new
+  UFOVehicle (UFO): new
+  QuickLPCVehicle (QuickLPC): new
+  SniperAmmo (Sniper Bullet): new
+  SniperRifle (Sniper Rifle): new
+  PlasmaMortarAmmo (Plasma Mortar Ammo): new
+  PlasmaMortar (Plasma Mortar): new
+  FusionChaingun (Fusion Chaingun): new
+  RPGAmmo (RPG Rocket): new
+  RPGLauncher (RPG Rocket Launcher): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  CloakPack (Cloaking Pack): new
+  RPGAmmoPack (RPG Ammo Pack): new
+  RepairMakerPack (Repair Kit Maker): new
+  MineLayerPack (Mine Layer Pack): new
+  AmmoPack (Ammo Pack): stats+scripts
+  TurretPack (Turret): stats+scripts
+  SmallElfPack (ELF turret): new
+  LaserTurretPack (Laser Turret): new
+  RocketTurretPack (Rocket Turret): new
+  FlagstandPack (Flag Stand): new
+  AirPlatformPack (Air Platform): new
+  LargeAirPlatPack (Large Air Platform): new
+  DeployableWallPack (Deployable Wall): new
+  ForceFieldPack (Small Force Field): new
+  LargeFieldPack (Large Force Field): new
+  SatCameraPack (Satellite Camera): new
+  MineAmmo (Mine): stats+scripts
+  AirMineAmmo (Air Mine): new
+  flagmineammo (Flag Mine): new
+  CommandCenterPack (Command Center): new

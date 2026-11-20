@@ -1,0 +1,242 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades -X- is built on stock Tribes scripts, not on Renegades or VX5. It gives every armor the same 1.3 health and ten weapon slots. It adds three twin-barrel weapons (Rage Blaster, Orion and Triton rifles) that alternate between two hidden guns, a Tribes Armory bolt gun, Hyper Bombs, a recall teleporter and a Ghost Pack. Most weapons hit for several times an armor's full health. Hand items follow the VX pattern: unlimited repair kits and mines, a Grenade air brake and a Beacon speed booster.",
+    "notes": [
+      "Armor: light, medium, heavy and the female armors all have maxDamage 1.3 (stock: 0.66 / 1.0 / 1.32). Energy is 500 (heavy 110). $MaxWeapons is 10 for every armor.",
+      "Twin-weapon system: Rage Blaster, Orion, Triton and the Hyper Bombs launcher are shells with no projectile of their own. Mounting one also mounts two hidden copies in slots 6 and 7 and gives them the same ammo count. Each shot removes one round from the main ammo and fires slots 6 and 7 in turn, tracked per client in .hd. A shot is skipped while either hidden gun is still firing or reloading. Unmounting removes both hidden guns.",
+      "Twin-weapon ammo quirk: after each shot the script copies the remaining count to the hidden gun that is about to fire, but writes 0 instead when exactly one round is left.",
+      "New damage types $TritonDamageType 14, $OrionDamageType 15, $RageBDamageType 16 and $TribesDamageType 17 hit all armors at 1.5x.",
+      "Hand items are never consumed: Repair Kit (heals 0.99), Mine, Grenade and Beacon onUse do not remove the item. Armors may carry 99 of each.",
+      "Default spawn kit: Light Armor, Tribes Armory, Triton, Disc Launcher, Repair Kit, Beacon, Grenade, Hyper Bombs, Plasma Gun, Orion, Blaster, Repair Pack, Mine.",
+      "VX heritage: the Grenade-as-AirBrake and Beacon-as-Speed-Booster (a thrown Boost mine) come from Ultra Renegades VX. So do the TribesArm item and its TribesShell shield-bolt projectile (the same names VX5 Hunter uses for its Phase Shifter), the LiL-style mount offset on TribesArm, and a GrenadeShell that matches VX5's LiLFFBShell (mass 9, damage 150, kickback 300, SoundELFFire). No VX psionics, LiL weapons or VX turrets are present.",
+      "All new weapons share the shop heading \"bWeaponary\"."
+    ]
+  },
+  "items": {
+    "TribesAmmo": {
+      "summary": "Tribes Bolts: ammunition for the Tribes Armory.",
+      "notes": [
+        "Light armor may carry 500."
+      ],
+      "source": "item.cs; ArmorData.cs"
+    },
+    "TribesArm": {
+      "summary": "Tribes Armory: a fast-firing gun of shield-shaped energy bolts with a 7 m blast, using Tribes Bolts.",
+      "notes": [
+        "Fires TribesShell (Tribes damage type, which all armors take at 1.5x) every 0.03 s plus a 0.03 s reload.",
+        "It uses the same item and projectile names as VX5 Hunter's Phase Shifter (there a 4 m blast).",
+        "Part of the default spawn kit."
+      ],
+      "source": "item.cs TribesArm, TribesArmImage; baseProjData.cs TribesShell; ArmorData.cs"
+    },
+    "RageBlasterAmmo": {
+      "summary": "Blaster Energy: the shared ammunition pool for the Rage Blaster.",
+      "notes": [
+        "Carry limit is 50000. The hidden barrels get their own RageBlaster1Ammo/RageBlaster2Ammo copies of this count."
+      ],
+      "source": "item.cs RageBlaster::onMount; ArmorData.cs"
+    },
+    "RageBlaster1": {
+      "summary": "Hidden first barrel of the Rage Blaster, mounted in slot 6. It fires the Blaster2Bolt.",
+      "notes": [
+        "Not shown in inventory or the weapon bar. Fired by RageBlasterImage::onFire on alternate shots.",
+        "Blaster2Bolt is RageB damage with slight aim deflection (0.009)."
+      ],
+      "source": "item.cs RageBlaster1, RageBlasterImage::onFire; baseProjData.cs Blaster2Bolt"
+    },
+    "RageBlaster2": {
+      "summary": "Hidden second barrel of the Rage Blaster, mounted in slot 7. It fires the slightly slower, paint-shaped Blaster1Bolt.",
+      "notes": [
+        "Not shown in inventory. Fired on the other alternate shots.",
+        "Blaster1Bolt is RageB damage, aim deflection 0.007."
+      ],
+      "source": "item.cs RageBlaster2; baseProjData.cs Blaster1Bolt"
+    },
+    "RageBlaster": {
+      "summary": "Rage Blaster: a twin-barrel blaster whose bolts alternate between two hidden guns. Each bolt does several times an armor's health.",
+      "notes": [
+        "Mounting it mounts RageBlaster1 and RageBlaster2 in slots 6 and 7. Each shot uses one Blaster Energy and triggers the next hidden barrel. See the mod notes for the twin-weapon rules.",
+        "RageB damage is taken at 1.5x by every armor."
+      ],
+      "source": "item.cs RageBlaster::onMount/onUnmount, RageBlasterImage::onFire"
+    },
+    "OrionAmmo": {
+      "summary": "Orion Shells: the shared ammunition pool for the Orion Rifle.",
+      "notes": [
+        "Carry limit is 50000."
+      ],
+      "source": "item.cs; ArmorData.cs"
+    },
+    "Orion1": {
+      "summary": "Hidden first barrel of the Orion Rifle (slot 6), firing near-instant smoke-trailed bullets.",
+      "notes": [
+        "Orion1Bullet: Orion damage type, muzzle velocity 12000. Not shown in inventory."
+      ],
+      "source": "item.cs Orion1; baseProjData.cs Orion1Bullet"
+    },
+    "Orion2": {
+      "summary": "Hidden second barrel of the Orion Rifle (slot 7), firing near-instant laser-hit bullets.",
+      "notes": [
+        "Orion2Bullet: Orion damage type, muzzle velocity 12000. Not shown in inventory."
+      ],
+      "source": "item.cs Orion2; baseProjData.cs Orion2Bullet"
+    },
+    "Orion": {
+      "summary": "Orion Rifle: a twin-barrel hitscan-like rifle alternating two hidden guns. Each bullet hits for several times an armor's health.",
+      "notes": [
+        "Mounting it mounts Orion1 and Orion2 in slots 6 and 7. Each shot uses one Orion Shell (see the mod notes for the twin-weapon rules).",
+        "Orion damage is taken at 1.5x by every armor. Part of the default spawn kit."
+      ],
+      "source": "item.cs Orion::onMount/onUnmount, OrionImage::onFire"
+    },
+    "TritonAmmo": {
+      "summary": "Triton Shells: the shared ammunition pool for the Triton Rifle.",
+      "notes": [
+        "Carry limit is 50000."
+      ],
+      "source": "item.cs; ArmorData.cs"
+    },
+    "Triton1": {
+      "summary": "Hidden first barrel of the Triton Rifle (slot 6).",
+      "notes": [
+        "Fires TritonBullet: Triton damage type, plasma-trail shape, muzzle velocity 22000. Not shown in inventory."
+      ],
+      "source": "item.cs Triton1; baseProjData.cs TritonBullet"
+    },
+    "Triton2": {
+      "summary": "Hidden second barrel of the Triton Rifle (slot 7), firing the same TritonBullet with a mine-activation sound.",
+      "notes": [
+        "Not shown in inventory."
+      ],
+      "source": "item.cs Triton2"
+    },
+    "Triton": {
+      "summary": "Triton Rifle: the fastest of the twin-barrel rifles, alternating two hidden guns that fire near-instant Triton bullets.",
+      "notes": [
+        "Mounting it mounts Triton1 and Triton2 in slots 6 and 7. Each shot uses one Triton Shell (see the mod notes for the twin-weapon rules).",
+        "Triton damage is taken at 1.5x by every armor. Part of the default spawn kit."
+      ],
+      "source": "item.cs Triton::onMount/onUnmount, TritonImage::onFire"
+    },
+    "GrenadeAmmo": {
+      "summary": "Bomb Ammo: the shared ammunition pool for the Hyper Bombs launcher (stock Grenade Ammo, renamed).",
+      "notes": [
+        "The hidden launchers get Grenade1Ammo/Grenade2Ammo copies of this count."
+      ],
+      "source": "item.cs GrenadeLauncher::onMount"
+    },
+    "GrenadeLauncher1": {
+      "summary": "Hidden first Hyper Bombs launcher (slot 6), firing GrenadeShell.",
+      "notes": [
+        "GrenadeShell here is a heavy (mass 9), barely bouncing bomb doing very large shrapnel damage in a 15 m blast. It is far stronger than stock's grenade.",
+        "Not shown in inventory."
+      ],
+      "source": "item.cs GrenadeLauncher1; baseProjData.cs GrenadeShell"
+    },
+    "GrenadeLauncher2": {
+      "summary": "Hidden second Hyper Bombs launcher (slot 7), firing SmokeShell: the same heavy bomb with a mortar explosion and a smoke trail.",
+      "notes": [
+        "SmokeShell matches GrenadeShell in damage and blast but uses mortarExp and an rsmoke trail."
+      ],
+      "source": "item.cs GrenadeLauncher2; baseProjData.cs SmokeShell"
+    },
+    "GrenadeLauncher": {
+      "summary": "Hyper Bombs: the grenade launcher becomes a twin launcher that alternates two hidden tubes of heavy bombs, firing far faster than stock's.",
+      "notes": [
+        "Unlike stock, GrenadeLauncherImage has no projectile; onMount mounts GrenadeLauncher1 and GrenadeLauncher2 in slots 6 and 7, and onFire alternates between them using one Bomb Ammo per shot.",
+        "Fire and reload are 0.05 s each (stock 0.5 each). The model is the mortar gun.",
+        "Part of the default spawn kit."
+      ],
+      "source": "item.cs GrenadeLauncher::onMount/onUnmount, GrenadeLauncherImage::onFire"
+    },
+    "Mortar": {
+      "summary": "Sonic Mortar: the stock mortar made rapid-fire and much more lethal, with a longer flat flight.",
+      "notes": [
+        "Fire time 0.03 s and reload 0.03 s (stock 2.0 and 0.5).",
+        "MortarShell damage is raised to several times an armor's health (stock 1.0), and it flies 475 before dropping (stock 275)."
+      ],
+      "source": "item.cs MortarImage; baseProjData.cs MortarShell"
+    },
+    "LaserRifle": {
+      "summary": "Major Laser Rifle: a rapid-fire version of the stock laser that draws only a sliver of energy per shot, so it does almost no damage.",
+      "notes": [
+        "LaserRifleImage draws 0.1 to 0.2 energy per shot (stock 10 to 60) with no fire delay and a 0.05 s reload. sniperLaser keeps stock's damageConversion 0.007, so a hit does about 0.0014 damage against 1.3 health.",
+        "Still needs an Energy Pack mounted (stock LaserRifle::onUse).",
+        "Laser head hits do 30% extra."
+      ],
+      "source": "item.cs LaserRifleImage, LaserRifle::onUse; baseProjData.cs sniperLaser"
+    },
+    "EnergyRifle": {
+      "summary": "Major ELF Gun: the stock ELF beam with a lower energy threshold and a faster reload.",
+      "notes": [
+        "minEnergy 0.1 (stock 3), maxEnergy 10 (stock 11), reload 0.05 s (stock 0.2). The lightningCharge beam itself is stock."
+      ],
+      "source": "item.cs EnergyRifleImage; baseProjData.cs lightningCharge"
+    },
+    "HidePack": {
+      "summary": "Super Teleporter: a recall pack. Activate once to save your position; activate again to snap back to it.",
+      "notes": [
+        "The first activation stores your position in $HidePack::OldPos[player] (\"Current Location: Saved...\"). The next one zeroes your velocity, moves you there and clears the save. The pack then switches itself off.",
+        "There is no cooldown, energy cost or team restriction.",
+        "Bug: the flag check tests Player::getMountedItem's result directly, which is -1 (true) when nothing is mounted. It then passes the slot number $FlagSlot to Player::dropItem, and sends its warning to an unset %client instead of %clientId."
+      ],
+      "source": "item.cs HidePackImage::onActivate/onDeactivate"
+    },
+    "GhostPack": {
+      "summary": "Ghost Pack: a backpack that slowly repairs you while worn. Using it again \"ghost shifts\" you into Ghost armor with a constant shield shimmer, and a third use drops you back to Light armor.",
+      "notes": [
+        "Mounting it also mounts the GhostPack2 shape in slot 7, sets auto-repair to 0.001 and shows a credits bottom-print.",
+        "Using it while mounted with ghost off: mounts GhostPack3 in slot 6, triggers the pack, swaps your armor to Ghost armor (garmor/fgarmor) keeping your energy, and stops auto-repair. Casper() then plays a shield flash on you every 0.75 s.",
+        "Ghost armor (garmor) is a copy of light armor: identical PlayerData, damage scales and item limits.",
+        "Using it again (NoGhost) always returns you to Light Armor, whatever you wore before, and sets auto-repair 0.01.",
+        "$DropFlagChance is 0, so ghosting never makes you drop the flag.",
+        "Bugs: no ItemData named GhostArmor is defined, so the GhostArmor item-count calls (which onDeactivate uses to detect ghost mode) refer to an item that does not exist. When a ghosted player dies, Casper calls Player::blowUp and Player::kill on an unset %obj."
+      ],
+      "source": "item.cs GhostPack::onUse/onMount/onDeactivate, noghost, Casper; ArmorData.cs garmor"
+    },
+    "GhostPack2": {
+      "summary": "gpack: a decorative second pack shape mounted in slot 7 while the Ghost Pack is worn.",
+      "notes": [
+        "Not shown in inventory. Unmounted when the Ghost Pack is deactivated."
+      ],
+      "source": "item.cs GhostPack::onMount/onDeactivate"
+    },
+    "GhostPack3": {
+      "summary": "A glowing pack shape mounted in slot 6 while ghost mode is on.",
+      "notes": [
+        "Mounted by GhostPack::onUse when ghosting starts and unmounted by noghost. Not shown in inventory."
+      ],
+      "source": "item.cs GhostPack::onUse, noghost"
+    },
+    "RepairKit": {
+      "summary": "Repairs almost all damage and is never used up.",
+      "notes": [
+        "Unlike stock, onUse heals 0.99 (stock 0.2) and does not remove the kit."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "MineAmmo": {
+      "summary": "Throws the stock anti-personnel mine, but mines are never used up.",
+      "notes": [
+        "Unlike stock, onUse does not remove the mine, and it sets the mine to your team. onCollision still has no team check, so teammates set it off too.",
+        "0.5 s between throws."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine::onCollision"
+    },
+    "Grenade": {
+      "summary": "AirBrake: instead of throwing a grenade, using one cuts your velocity to one eighth. It is never used up.",
+      "notes": [
+        "Replaces stock's thrown hand grenade entirely. The VX builds use the same trick, dividing by 6."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "Speed Booster: drops a Boost mine at your feet whose zero-damage blast (kickback 500) throws you. Unlimited, with no cooldown.",
+      "notes": [
+        "Replaces stock's targeting beacon. onUse throws a Boost mine with zero force and sets the next allowed use to now + 0, so there is no delay between boosts.",
+        "Never used up. Boost::onDamage detonates the mine as soon as it takes any damage."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost, Boost::onDamage"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+ "mod": {
+  "overview": "ThunderStruck \"Lightning Death\" (vL-D) is a fast-paced, high-lethality Tribes mod forked from NaTeDoGG's HaVoC 1.5.x that packs nine specialized armor classes, a huge experimental arsenal, deployable mini-bases, and dynamic weather hazards into both classic and custom game modes. Every match runs with full friendly fire and an Eye-for-an-Eye anti-teamkill system, while random meteor showers, radiation storms, and CTF handicap lightning strikes punish overly dominant teams from the sky. Compared to HaVoC, ThunderStruck expands class-specific Grenade and Beacon abilities, adds multi-mode weapons like the six-setting EMF Blast Cannon, and bundles 15 mission types including CTF, Deathmatch, Kill the Rabbit, Flag Hunter (with Greed and Hoard rules), Duel and Duel Tournament arenas, no-respawn Tribes Arena, and checkpoint vehicle racing in Tribes Racer.",
+  "notes": [
+   "Classes and Roles: Nine selectable team armors (plus a hidden DeathMatch armor) each remap Grenade and Beacon keys into signature class tools. Ultra Sniper (425, 4 weapons) spawns AI Hologram decoys on Grenade and deploys a Sensor Jammer on Beacon; Sniper (425, 3 weapons, fastest light at speed 13, 0.45 HP) throws Firebombs and deploys Pulse Sensors; Spysniper (425, 4 weapons, sensor-invisible with silent footsteps) throws 15-second Plastique Nukebombs and plants Satchel Charges; Magnum (575, 4 weapons) throws standard grenades and uses Beacon for a jet-energy Speed Booster (cheaper with HeatSink); Meltoid (575, 4 weapons, plasma-burn immune) throws Concussion grenades and places Target Beacons; Elite (575, 5 weapons) cloaks for 9 seconds on Grenade and deploys a Teleport Beacon on Beacon; Engineer (575, 3 weapons, immune to Engineer EMP) throws EMP Shockgrenades and deploys cloaked Cameras; Assult (700, 6 weapons, 320 energy, no crouch) fires dual shoulder rockets on Grenade (with 0.27 self-damage) and stationary F1aker blasts on Beacon; Hercules (700, 7 weapons, 200 energy, speed 15, mass 9.0) throws Mortarbomb grenades and triggers 30-second Emergency Force Shields on Beacon.",
+   "Controls, Keybinds, and Menus: There are no custom # chat commands in comchat.cs; all player and admin configuration runs through the Tab menu (Game::menuRequest). Players use Tab -> Weapon Options -> EMF Cannon to switch the EMF Blast Cannon between Blast, EMP, Booster, Poisoning, Heat, and Annihilator ammo modes, toggle personal vs. team skins, vote or kick teamkillers, and pick vehicle skins in Tribes Racer. Admins gain Watch, Possess, Cripple, Gag, Strip, Execute, Dance, and Dumbass (2x damage taken) options under the Torture menu, plus live toggles for lightning, GREED, HOARD, and fair teams.",
+   "Unique Combat and Status Effects: Railgun shots pierce shields (zeroing shield energy and multiplying damage by 2.8), while Sniper Rifle, Laser Rifle, and Railgun hits to a player's right torso can disarm them by knocking their active weapon out of their hand, detonate a worn Demolition Pack (SuicidePack) on back hits, or force CTF flag drops. Weapons and hazards apply persistent status ailments: EMP drains energy and halts recharge for 1 to 9 seconds by armor weight (blocked by HeatSink), Poison/Blind disables grenades and beacons until cured by a Repair Patch or timer, Flash causes temporary blindness, and Fire/Flamer/Plasma hits ignite burning damage over time.",
+   "Weapons, Packs, and Deployables: Players spawn in Ultra Sniper armor carrying a 50mm SniperRifle, Hyper Spinfusor (HDisclauncher), Disc Launcher, Super Repair Gun (Reassembler), and Nuke Power Pack (Accelerator). Both LaserRifle and Proton Laser (PBW) require the Nuke Power Pack mounted to fire, while heavy arsenals add the 50 Megaton Nuke (BabyNukeMortar), Plasma Disc Launcher, Impact Mortar, Guided Rocket Launcher (IXRocketLauncher), RPG/RPM/MECH rocket launchers, Miniguns, Gauss Rifle, Dart Rifle (TranqGun), Magnum (Silencer), Shotgun, Shockwave Cannon (WaveGun), and Grappling Hook. Team builders can deploy a full Mini-Base (generator, platforms, turrets, inventory, and vehicle pad), Air Pad aerial platforms, Shield Generator + Remote Shield Nodes, Mobile Inventory Stations, Springboards, Teleport Pads, Blast Doors/Floors/Walls, Watchdog turrets, and Cloaking Devices.",
+   "Vehicles and Weather Hazards: Normal missions field Scouts, fast driver-hidden Wraiths, Interceptors, LAPCs, and sensor-invisible HAPCs, while Tribes Racer swaps those out for Spitfire, Hurricane, Tomahawk, and Hellfire racers equipped with Beacon force shields, Grenade rockets, and rear Vehicle Mines. Periodically, RandomEvent weather spawns Meteor showers and Gamma Ray Radiation lightning storms across the map, while LitStrike and CTF LitHelp drop lightning bolts near players and penalize any CTF team leading by 3 or more captures.",
+   "Rules, Explicit Bans, and Loadout Switching: Normal CTF/objective maps (station.cs) leave HyperB, PlatformPack, TreePack, FgcPack, RegenerationPack, LightningPack, and Boost disabled ($RemoteInvList/$InvList = 0). Deathmatch, Team Deathmatch, Flag Hunter, and Kill the Rabbit switch automatically to dmm(), which disables Mortar, MortarAmmo, EMPMine, GASMine, all automated base turrets, force-field doors, CloakingDevice, StealthShieldPack, SuicidePack, DetPack, TeleportPack, TripwirePack, and Laptop while unlocking GravFieldPack, BabyNukeMortar, and SniperRifle40. Tribes Arena (arena.cs) explicitly bans Assult (BehArmor) and Hercules (DragArmor) via $TeamItemMax = 0 and caps LaserRifle and SniperRifle at 2 per team during matches.",
+   "Bots and Spawns: The mod includes full AI drone and waypoint-graph support (ai.cs) that automatically populates team AI groups when a mission defines them, respawns fallen drones with periodic weapon cycling, and exposes a Boost (\"Bot\") item that invokes Training::setupAI. Auto-respawn is enabled on a 20-second timer by default, with 1-second spawn protection ($ThunderStruck::FairSpawn = 1) and automatic team balancing ($ThunderStruck::FairTeams = TRUE).",
+   "Additional station and team bans: Team limit zeroed ($TeamItemMax = 0): \"HellfireVehicle\"=0 (resetracer.cs), \"HurricaneVehicle\"=0 (resetracer.cs), \"SpitfireVehicle\"=0 (resetracer.cs), \"TomahawkVehicle\"=0 (resetracer.cs)."
+  ]
+ },
+ "items": {
+  "MBCannon": {
+   "summary": "EMF Blast Cannon with six switchable warhead modes selected via the Tab menu.",
+   "notes": [
+    "Consumes 30 MitziCore (EMF Power Charge) rounds per shot; cannot fire if fewer than 30 remain.",
+    "Mode is switched mid-match through Tab -> Weapon Options -> EMF Cannon: Blast (IonShock3 explosive), EMP (IonShock4 drain), Booster (IonShock5), Poisoning (IonShock6), Heat/Internal Flaming, or Annihilator (10-damage shockwave)."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/thunderstruck/item.cs, admin.cs, baseprojdata.cs"
+  },
+  "Accelerator": {
+   "summary": "Nuke Power Pack required to power high-energy laser weapons.",
+   "notes": [
+    "Required in the backpack slot to mount or fire either the LaserRifle or PBW (Proton Laser); unmounting the pack automatically unmounts PBW.",
+    "Included in the default player spawn loadout alongside Ultra Sniper armor, 50mm Rifle, Hyper Spinfusor, Disc Launcher, and Super Repair Gun."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/thunderstruck/item.cs, game.cs"
+  },
+  "DragArmor": {
+   "summary": "Hercules heavy armor combining high mobility, 7 weapon slots, and deployable force shields.",
+   "notes": [
+    "Lightest heavy-tier mass (9.0) paired with 15.0 forward speed, 200 energy, 7 weapon slots, and capacity for 250 MrpgAmmo and the 50 Megaton Nuke (BabyNukeMortar).",
+    "Grenade throws a Mortarbomb and Beacon activates 30-second Emergency Force Shields (+0.009 shieldStrength), though it is banned in Tribes Arena ($TeamItemMax[DragArmor] = 0)."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/thunderstruck/armordata.cs, item.cs, arena.cs"
+  },
+  "MiniBase": {
+   "summary": "Deployable forward outpost packing a generator, turrets, inventory, and vehicle pad.",
+   "notes": [
+    "Deploys a MiniBaseGenerator, four BasePlatform pieces, DeployableShock and DeployableLaser turrets, an InventoryStation, a VehicleStation, and a VehiclePad (team limit 2).",
+    "When destroyed, triggers a chain of armorCoreExp and armorExp explosions at the base site."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/thunderstruck/item.cs"
+  },
+  "GravFieldPack": {
+   "summary": "Gravitron Field Pack that lightens heavy armors and recharges energy.",
+   "notes": [
+    "Carries a negative mass (-3) to offset armor weight and boost movement/jetting alongside passive energy recharge.",
+    "Restricted to heavy and elite classes (Assult, Hercules, and Elite) in normal play, and enabled in Deathmatch and Arena item sets."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/thunderstruck/item.cs, armordata.cs"
+  },
+  "SpitfireVehicle": {
+   "summary": "Tribes Racer competition flier disabled outside racing missions.",
+   "notes": [
+    "Only purchasable in Tribes Racer (alongside HurricaneVehicle, TomahawkVehicle, and HellfireVehicle), where the standard combat fliers and APCs are disabled.",
+    "Racing fliers gain Beacon-activated force shields, Grenade-fired forward rockets, and Mine-dropped rear Vehicle Mines, while normal modes keep all four racer chassis set to $TeamItemMax = 0."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/thunderstruck/tribesracer.cs, resetracer.cs, vehicle.cs"
+  }
+ }
+}

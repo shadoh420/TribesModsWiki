@@ -1,0 +1,160 @@
+# genocide vs base (159 items)
+new        SniperArmor                  Tactical Sniper
+renamed+statsLightArmor                   Battalion Warrior
+renamed+statsMediumArmor                  Deffencive Engineer
+renamed+statsHeavyArmor                   Armageddon Mech
+new        NewArmor                     Hybrid Destroyer
+renamed+statsScoutVehicle                 BlaZter Scout
+new        WarthogVehicle               Fusion Assault Scout
+new        SR71Vehicle                  Shredder Scout
+new        EnterpriseVehicle            Napalm Scout
+new        BomberVehicle                Air Strike Scout
+new        SpeedBikeVehicle             Plasma Jet-Bike
+new        ColossusVehicle              Disc Jet-Bike
+new        ArwingVehicle                RPG Jet-Bike
+renamed+statsLAPCVehicle                  Repair Transporter
+renamed+statsHAPCVehicle                  Assault Transporter
+renamed+stats+scriptsBlaster                      BlaZter
+renamed+statsBulletAmmo                   Ripper Clip
+renamed+stats+scriptsChaingun                     Ripper ChainGun
+renamed+statsPlasmaAmmo                   Plasma Bolts
+renamed+stats+scriptsPlasmaGun                    Plasma Cannon
+renamed+statsGrenadeAmmo                  Bio Grenades
+renamed+stats+scriptsGrenadeLauncher              Bio Grenader
+renamed+statsMortarAmmo                   Split Mortar Shells
+renamed+stats+scriptsMortar                       Split Mortar
+new        DiscLauncherAmmo             Disc Ammo
+new        DiscLauncher1                Dual StormHammer
+new        DiscLauncher2                Dual StormHammer
+renamed+stats+scriptsDiscLauncher                 Dual StormHammer
+renamed+stats+scriptsLaserRifle                   Lazer-eX
+new        Charger                      Electron Flux Cannon
+new        ExtraCharger                 Electron Flux Cannon
+new        ExtraCharger2                Electron Flux Cannon
+new        ExtraCharger3                Electron Flux Cannon
+new        FusionRifle                  Fuzion Blast Rifle
+new        ShockRfile                   Shock Rifle
+new        RadiationRifle               Radiation Rifle
+new        DiscoRifle                   Disco Rifle
+new        GatLaser                     Lazer Gat
+new        GrazerCannon                 Grazer Cannon
+new        GrazerCannonT                Grazer Cannon Top
+new        GrazerCannonL                Grazer Cannon Left
+new        GrazerCannonR                Grazer Cannon Right
+new        HybridLaser                  Hybrid Laser
+new        Grappling                    Energy Hook
+new        QuakeBlaster                 Quake Blaster
+new        HellStormAmmo                Hell Shell
+new        HellStorm                    Hell Storm
+new        FusionCannon                 Fusion Cannon
+new        MultiCannon                  Multi-Cannon
+new        GlockAmmo                    Glock Clips
+new        Glock                        Glock-9
+new        WTShotgunAmmo                WT BuckShot Shells
+new        WTShotgun                    WT.12G
+new        ParticalShotgunAmmo          Particle Shells
+new        ParticalShotgun              Partical Shotgun
+new        SXHAmmo                      SXH5000-Ammo
+new        SightShooter                 targetLaser
+new        SXH                          SXH-5000w/Scope
+new        HavocAmmo                    HaVoC-Ammo
+new        Havoc                        HaVoC Sniper
+new        HybridRailAmmo               Hybrid Rail Spikes
+new        HybridRail                   Hybrid RailGun
+new        MinigunAmmo                  Mini-Ammo
+new        Minigun                      Minigun
+new        Minigun2                     Minigun
+new        ShardGunAmmo                 Shard Ammo
+new        ShardGun                     Shard ChainGun
+new        DFMIYAAmmo                   DFMIYA-Ammo
+new        DFMIYA                       D.F.M.I.Y.A
+new        DestroyerAmmo                Destroyer Bullet
+new        Destroyer                    Destroyer Chaingun
+new        ARPGAmmo                     ARPG-Ammo
+new        ARPG                         ARPG
+new        HybridChainAmmo              Hybrid-Chain Ammo
+new        HybridChain                  Hybrid Chain
+new        PlasmaBlaster                Plasma Blaster
+new        BlazeAmmo                    Blaze Thrower Gas
+new        Blaze                        Blaze Thrower
+new        PlasmaGatAmmo                Plasma Gat Ammo
+new        PlasmaGat                    Plasma Gat
+new        MeltLaser                    Melt Laser
+new        SAStealthAmmo                Saturnine-Ammo
+new        SAStealth                    Saturnine Stealth
+new        NapalmLauncherAmmo           Napalm [L] Ammo
+new        NapalmLauncher               Napalm Launcher
+new        NapalmRocketAmmo             Napalm [R] Ammo
+new        NapalmRocket                 Napalm Rocket
+new        MagmaAmmo                    Magma Ammo
+new        Magma                        Magma Cannon
+new        ShockWaveCAmmo               ShockWave Shell
+new        ShockWaveC                   ShockWave Mortar
+new        NitroAmmo                    Nitro Grenades
+new        Nitro                        Nitro Grenader
+new        FireMortarAmmo               Fire Mortar Shells
+new        FireMortar                   Fire Mortar
+new        ContactMortarAmmo            Contact Shells
+new        ContactMortar                Contact Mortar
+new        AirRaidAmmo                  Air Raid Shells
+new        AirRaid                      Air Raid
+new        TimeBombAmmo                 Time Bombs
+new        TimeBomb                     Time Bomb Lobber
+new        AtomicBombAmmo               Atomic Bomb Shell
+new        AtomicBomb                   Atomic Bomb
+new        ClashRocketAmmo              Clash Missiles
+new        ClashRocket                  Clash Missile Launcher
+new        ETTRAmmo                     ETTR Ammo
+new        ETTR                         ETTR Launcher
+new        SludgeAmmo                   Sludge Canister
+new        Sludge                       Sludge Launcher
+new        SalvoAmmo                    Salvo Ammo
+new        Salvo                        Triple Salvo
+new        AnarchyCannon                Anarchy Cannon
+new        ClaymoreAmmo                 Claymore Ammo
+new        Claymore                     Claymore Evolved
+new        HybridMortarammo             Hybrid Mortar Shells
+new        HybridMortar1                HybridMortar
+new        HybridMortar2                HybridMortar
+new        HybridMortar                 Hybrid Dual Mortar
+new        HybridCannonAmmo             Hybrid Cannon Shell
+new        HybridCannon                 Hybrid Cannon
+new        HybridRocketLauncherAmmo     Hybrid Dual Missiles
+new        HybridRocketLauncher         Hybrid Dual Missile
+new        HybridQuadAmmo               Hybrid Quad RPGs
+new        HybridQuadLauncher           Hybrid Quad RPG
+renamed+statsEnergyPack                   Enerjhizer Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+new        StealthShieldPack            Stealth Pack
+stats      AmmoPack                     Ammo Pack
+new        XTremePack                   Jet Pack
+new        AntiGravPack                 Mech Stealth/Grav Pack
+new        MCChargerPack                Multi Charger
+new        DeadWeight                   Deadweight
+stats+scriptsDeployableInvPack            Inventory Station
+new        AirBasePack                  Sky Base
+new        RemoteBase                   Remote Base
+new        BlastDoorpack                Blast Door
+new        plat                         Blast Floor
+new        plat2                        Blast Hatch
+new        lgbForceFieldPack            4x14 FFD
+new        medaForceFieldPack           4x8 FFD
+new        medbForceFieldPack           5x5 FFD
+new        medcForceFieldPack           3x4 FFD
+renamed+stats+scriptsTurretPack                   Fusion Turret
+new        LaserTurretPack              Laser Turret
+new        MaliceTurretPack             Chain Turret
+new        LaserTurretBPack             Plasma Turret
+new        ARPGTurretPack               ARPG Turret
+new        MiniFlakTurretPack           Flak Turret
+new        MiniSAMTurretPack            Missile Turret
+new        ElectricWeb                  Electric Web
+stats      MotionSensorPack             Motion Sensor
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+renamed+stats+scriptsCameraPack                   Spy Camera
+stats      RepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon

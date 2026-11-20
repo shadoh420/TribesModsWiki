@@ -1,0 +1,39 @@
+# swattactics vs base (38 items)
+renamed+statsLightArmor                   Ghoul
+renamed+statsMediumArmor                  Human
+renamed+statsHeavyArmor                   Super Mutant
+new        Robotarmor                   Robot
+renamed+statsScoutVehicle                 Scouter
+renamed+statsLAPCVehicle                  Hummer
+renamed+statsHAPCVehicle                  Tank
+renamed+stats+scriptsBlaster                      Rocket gun
+new        Scream                       Mutant Scream
+renamed+statsBulletAmmo                   Vin ammo
+new        VindictorMini                Vindictor Mini
+scripts    PlasmaGun                    Plasma Gun
+new        Ak74Ammo                     Ak74 ammo
+new        Ak74                         Ak74
+new        Darkmatter                   Darkmatter
+new        GuassAmmo                    Guass cartridge
+new        GuassMini                    Guass Mini
+new        Guassrifle                   Guass Rifle
+scripts    GrenadeLauncher              Grenade Launcher
+scripts    Mortar                       Mortar
+scripts    DiscLauncher                 Disc Launcher
+new        Guassgun                     Guass Gun
+new        GattlingMAmmo                GattlingM Ammo
+new        GattlingM                    GattlingM
+new        GrenideAmmo                  Plasma Grenades
+new        GrenadeT                     Plasma grenade
+scripts    LaserRifle                   Laser Rifle
+new        laserpistol                  laser pistol
+new        SunbeamMini                  Sunbeam Minigun
+new        BunkerPack                   Deployable Bunker
+new        ChangelingNet                Sneak
+new        DepCommandPack               DepCommand
+new        PortableGenPack              Portable Gen
+new        DeployableInvLargePack       Large Inv Station
+new        ForceFieldDoorPack           Field Door
+new        molopack                     molo Turret
+renamed+stats+scriptsTurretPack                   Guass Turret
+scripts    Grenade                      Grenade

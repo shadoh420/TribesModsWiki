@@ -1,0 +1,61 @@
+shifter-v1gy: 60 of 182 need write-ups
+  Mortar (Mortar): scripts
+  LaserRifle (Laser Rifle): stats
+  EnergyRifle (ELF Gun): stats+scripts
+  HyperB (Hyper Blaster): stats
+  RocketLauncher (Rocket Launcher): scripts
+  SniperRifle (Sniper Rifle): stats
+  BoomStick (Boom Stick): stats
+  TranqGun (Dart Rifle): stats
+  Silencer (Magnum): stats
+  ConCun (Shockwave Cannon): stats
+  Railgun (Railgun): stats
+  Vulcan (Vulcan): stats
+  Mfgl (Tactical Nuke): scripts
+  IonGun (Ion Rifle): stats
+  GravGun (Grav Gun): stats+scripts
+  EnergyPack (Energy Pack): stats
+  RepairPack (Repair Pack): stats
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): stats
+  CloakingDevice (Cloaking Device): stats
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  LightningPack (Teleport Pack): stats+scripts
+  FlightPack (Flight Pack): scripts
+  SMRPack (Rocket Launcher Pack): scripts
+  SMRPack2 (Rocket Launcher Pack): scripts
+  SuicidePack (Suicide DetPack): stats+scripts
+  CameraPack (Camera): stats
+  LaserPack (Laser Turret): stats
+  TreePack (Mechanical Tree): scripts
+  PlantPack (Healing Plant): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): stats+scripts
+  AirAmmoPad (Air Ammo Pad): scripts
+  airbase (AirBase): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  EmpM (EMP Missile): stats
+  GasM (Toxin Missile): stats
+  PhoenixM (Phoenix Missile): stats
+  NapM (Napalm Missile): stats
+  BooM (HaVoC Missile): stats
+  SpyPod (SpyPod Missile): stats
+  Plastique (Plastique): scripts
+  RepairPatch (Repair Patch): stats
+  EmplacementPack (Emplacement): scripts
+  Hammer1Pack (God Hammer Cannon): stats+scripts
+  Hammer2Pack (God Hammer Cannon 2): stats
+  ShockFloorPack (Shock Floor): scripts
+  Booster1Pack (Booster): stats
+  Booster2Pack (Booster): stats
+  Mortar0 (Mortar0): stats
+  Mortar2 (Mortar2): stats+scripts

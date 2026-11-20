@@ -1,0 +1,10 @@
+{
+ "mod": {
+  "overview": "ShifterX v18h (2002-09-04) is a heavily modified Shifter fork featuring a streamlined item list and modular drop-in weapon scripts (data_*.cs loaded dynamically via File::findFirst in item.cs). It replaces several stock Shifter items with Assault Cannon, Fusion Cutter, Heavy Machinegun, SAM Launcher, Auto-Cannon packs, Indoor Turret, and armed Assault LPC turrets.",
+  "notes": [
+   "Uses a modular drop-in weapon loader in item.cs (File::findFirst('data_*.cs')) to load Assault Cannon (AsCannonGun), Fusion Cutter (FusionCutterGun), Heavy Machinegun (HeavyMGGun), SAM Launcher (SAMgun), RocketLauncher, and TargetingLaser (LasMortar).",
+   "Tweaks armor limits and health relative to Shifter 09-28-2000: Scout maxDamage 0.8, Assassin 4 weapons, Goliath 5 weapons, Arbitor 5 weapons, DreadNaught 5 weapons, Juggernaught 5 weapons.",
+   "Replaces Equalizer with Chaingun, renames Mortar Turret to AAA Turret (TargetPack), Stealth HPC Pack to Assault LPC Pack (DetPack), and adds Omega (Volter), NewPack/NewerPack (Auto-Cannon), Boost (Bot), IndoorPack, and ALPCTurret/L/R."
+  ]
+ }
+}

@@ -1,0 +1,530 @@
+{
+ "mod": {
+  "overview": "Renegadez 1.1 by [[DD]] Nemesis shares Shifter Renegades' additions, with identical code for the Defender class, Espionage Pack, DeathStar, Scout and Wraith packs and Vehicle Repair-Gun. On top of that it adds a 'Base Addons' set: the Razor II triple disc launcher, a Plane Killer launcher, an Assault HPC with passenger guns, a jail system, a sky Mini Base, base cloaking and regeneration generators, a teleportation pack, a spy drone, force field doors, Tracking and Anti-Aircraft turrets, and random weather events. It goes back to Renegades-style class spawning instead of Shifter's spawn options.",
+  "notes": [
+   "Base Addons ($BaseAddons, \"True\" in Renegadez.cs, and votable): when on, stations sell the Renegadez-named armors (Infiltrator, Assassin, Buster, Guardian) plus the add-on gear. When off, stations sell the Renegades-named armors (Spy, Sniper, Burster, Defender), and the Razor II, Floor Door, Hover Pack, Jail Cell, Jail Gun, Cloak Disrupter, Mini Base, Regeneration Gen., Spy Drone, Base Cloak, Cloaking Device and Teleportation Pack are taken out of the station lists, and the Assault HPC out of vehicle stations.",
+   "Each armor pair shares one PlayerData: SpArmor and SpArmor1 are both spyarmor, LightArmor and LightArmor1 are larmor, BusterArmor and BursterArmor are barmor, HeavyArmor and HeavyArmor1 are harmor. They only differ by item className (Armor vs Armor1), which decides which one a station lists. Carry limits, abilities and spawn loadouts are the same for both names.",
+   "Class spawning ($Reneg::SpawnClass, true in Renegadez.cs) works as in Classic: you spawn as the class you picked, with its loadout plus a Repair Kit, Grenade and Beacon. Mercenaries get $Reneg::Beacon beacons (3). Shifter's favorites, random and saved spawn types are not used.",
+   "Weapon slots ($MaxWeapons): Scout 3, Spy 3, Sniper 4, Engineer 4, Mercenary 5, Burster 4, Alien 4, Cyborg 6, Defender 7.",
+   "Random weather (game.cs RandomEvent): every $RandomEventTime (30 s) plus the event's length, a weighted roll picks a meteor storm, a lightning storm or a solar flare. In the shipped Renegadez.cs only Lightning is on; Meteor and SolarFlare are off. There is no earthquake code.",
+   "Lightning storm (60 s): strikes at random map points, each a LightningBlast (0.01 EMP lightning damage, 75 m radius), a LightningBlast2 (10 Lightning damage, 10 m radius) and a LightningBeam. Meteor storm (120 s): Meteor projectiles (8 Meteor damage, 30 m radius) rain on random points. Solar flare (30 s): 60 bursts of 0.00201 damage in a 3000 m radius. The Lightning function reads $LightingAreaVariance (misspelled), so the lightning area-variance setting is never applied.",
+   "Poison and burning again credit kills to the attacker, as in Classic: a poison death gives the poisoner the kill and score. An Alien's touch adds 0.08 damage at once, then poisons.",
+   "Base rape protection: with $BaseRapeDamage off, generators and stations ignore damage and put up their shield. A routine sets it automatically: under 4 players bases are protected, from 4 players on they can be damaged.",
+   "Spawn Match ($SpawnMatch): when on, fixed Inventory Stations refuse everyone; ammo stations and deployed stations still work. Script bug: Station::onCollision has a leftover messageAll($SpawnMatch), so every station touch broadcasts the setting's value to all players.",
+   "Inventory stations eject you after $Reneg::StationTime (15 s in Renegadez.cs) when more than 3 players are on. Optional cash mode ($Reneg::Cash) makes purchases use per-player cash instead of team energy.",
+   "Undercover, Defender, turret-spacing and checkFlierArea rules are inherited from Shifter Renegades."
+  ]
+ },
+ "items": {
+  "SpArmor": {
+   "summary": "The Infiltrator: the Renegadez name for the spy class (PlayerData spyarmor), sold while Base Addons is on.",
+   "notes": [
+    "Same player as SpArmor1 (Spy); only the station listing differs. See the mod notes on Base Addons.",
+    "Grenade is the Plastique charge and Beacon the Satchel Charge, as in Classic. It can pilot vehicles, except while undercover.",
+    "Unlike Classic, the class gets the Espionage Pack, so the undercover rules really apply. It can also carry the Wraith Pack, Scout Pack, Teleportation Pack, Spy Drone, Jail Gun, Jail Cell, Cloak Disrupter and Hover Pack.",
+    "Spawn loadout when class spawning is on: Plasma Gun, Magnum (Silencer), Disc Launcher, Targeting Laser, Ammo Pack."
+   ],
+   "source": "item.cs ItemData SpArmor, $ArmorType; station.cs setupShoppingList; game.cs Game::playerSpawned, processMenuInitialPickArmor; armordata.cs $ItemMax"
+  },
+  "SpArmor1": {
+   "summary": "The Spy: the Renegades name for the same spyarmor class, sold instead of the Infiltrator when Base Addons is off.",
+   "notes": [
+    "Hidden alternate of SpArmor: identical PlayerData, carry limits, abilities and spawn loadout. Its className Armor1 makes stations list it only while $BaseAddons is off, and the class-pick menu then offers it in slot 1."
+   ],
+   "source": "item.cs ItemData SpArmor1, $ArmorType; station.cs setupShoppingList; game.cs processMenuInitialPickArmor; admin.cs Base Addons toggle"
+  },
+  "LightArmor": {
+   "summary": "The Assassin: the Renegadez name for the sniper class (PlayerData larmor), sold while Base Addons is on.",
+   "notes": [
+    "Same player as LightArmor1 (Sniper); only the station listing differs.",
+    "Grenade is the Hologram Mine and Beacon the Sensor Jammer, as in Classic. It can pilot vehicles.",
+    "New gear available to the class: Spy Drone, Jail Gun, Jail Cell, Cloak Disrupter, Hover Pack.",
+    "Spawn loadout when class spawning is on: Plasma Gun, Disc Launcher, Sniper Rifle, Mines, Energy Pack."
+   ],
+   "source": "item.cs ItemData LightArmor, $ArmorType; station.cs setupShoppingList; game.cs Game::playerSpawned; armordata.cs $ItemMax"
+  },
+  "LightArmor1": {
+   "summary": "The Sniper: the Renegades name for the same larmor class, sold instead of the Assassin when Base Addons is off.",
+   "notes": [
+    "Hidden alternate of LightArmor: identical PlayerData, carry limits, abilities and spawn loadout. Its className Armor1 makes stations list it only while $BaseAddons is off."
+   ],
+   "source": "item.cs ItemData LightArmor1, $ArmorType; station.cs setupShoppingList; game.cs processMenuInitialPickArmor"
+  },
+  "BusterArmor": {
+   "summary": "The Buster: the Renegadez name for the Burster class (PlayerData barmor), sold while Base Addons is on.",
+   "notes": [
+    "Same player as BursterArmor (Burster); only the station listing differs. BursterArmor is the hidden alternate sold when Base Addons is off.",
+    "Immune to burning. Grenade is the Concussion grenade. Unlike Classic's Haul-Ass stim, the Beacon drops a GoodBye charge (see Beacon).",
+    "Only class that can carry the Plane Killer and its missiles.",
+    "Spawn loadout when class spawning is on: Grenade Launcher, Mortar, Rocket Launcher, Plasma Gun, Targeting Laser, Ammo Pack."
+   ],
+   "source": "item.cs ItemData BusterArmor, BursterArmor, $ArmorType; station.cs setupShoppingList; game.cs Game::playerSpawned; item.cs Beacon::onUse"
+  },
+  "HeavyArmor": {
+   "summary": "The Guardian: the Renegadez name for the heavy Defender class (PlayerData harmor) from Shifter Renegades, sold while Base Addons is on.",
+   "notes": [
+    "Same player as HeavyArmor1 (Defender); only the station listing and class-menu label differ. Seven weapon slots.",
+    "Knockback is cut: own Explosion, Missile, Mine and Mortar blasts push it 1/7 as hard, teammates' hits 1/2, enemies' hits 1/1.6.",
+    "A Silencer Laser hit to the body does 60% less, and a Silencer headshot 40% less instead of the usual 30% extra.",
+    "Cannot pilot or ride vehicles ('Armor too heavy to transport'), cannot use teleport pads, and cannot loot dead enemies by touch.",
+    "Grenade: Mortarbomb. Beacon: ByeBye charge.",
+    "Spawn loadout when class spawning is on: Plasma Gun, Mortar, Disc Launcher, Vulcan, Magnum, Rocket Launcher, Mines, Repair Pack."
+   ],
+   "source": "item.cs ItemData HeavyArmor; player.cs Player::onDamage, Player::onCollision; vehicle.cs Vehicle::onCollision; staticshape.cs DeployableTeleport::onCollision; game.cs Game::playerSpawned, processMenuInitialPickClass"
+  },
+  "HeavyArmor1": {
+   "summary": "The Defender: the Renegades name for the same harmor class, sold instead of the Guardian when Base Addons is off.",
+   "notes": [
+    "Hidden alternate of HeavyArmor: identical PlayerData, carry limits, abilities and spawn loadout. Its className Armor1 makes stations list it only while $BaseAddons is off, and the class menu then labels slot 8 'Defender' instead of 'Guardian'."
+   ],
+   "source": "item.cs ItemData HeavyArmor1, $ArmorType; station.cs setupShoppingList; game.cs processMenuInitialPickClass"
+  },
+  "ScoutVehicle": {
+   "summary": "The Scout, a fast single-seat flier armed with rockets. Same as Classic's ScoutJet under a new name.",
+   "notes": [
+    "Fires the Nuke projectile once per second, unchanged from Classic.",
+    "Only a Scout, Sniper or Spy can pilot it, and not while undercover. Scout Packs deploy it too and share its team limit."
+   ],
+   "source": "vehicle.cs Scout, Vehicle::onCollision; item.cs ScoutPack::deployShape"
+  },
+  "HAPCAssaultVehicle": {
+   "summary": "The Assault HPC: a heavy transport whose passengers get a mounted HPC Weapon.",
+   "notes": [
+    "Flier datablock HAPCAssault (hover_apc shape) with no weapon of its own. Bought at vehicle stations while Base Addons is on.",
+    "Unlike other vehicles, the pilot keeps their hand weapon out when climbing in.",
+    "A passenger's weapon is swapped for the HPC Weapon on boarding and given back on jumping out or when the vehicle is destroyed.",
+    "Pilots must be Scout, Sniper or Spy. Defenders cannot ride."
+   ],
+   "source": "vehicle.cs HAPCAssault, Vehicle::onCollision, Vehicle::passengerJump, Vehicle::onDestroyed; station.cs $VehicleToItem; admin.cs Base Addons toggle"
+  },
+  "StingerAmmo": {
+   "summary": "Missiles for the Plane Killer.",
+   "notes": [
+    "One missile is used per locked shot. Burster/Buster only."
+   ],
+   "source": "item.cs StingerAmmo, StingerImage::onFire"
+  },
+  "Stinger": {
+   "summary": "The Plane Killer: an anti-aircraft launcher that only fires when you are aiming at an enemy flier.",
+   "notes": [
+    "On firing it checks your line of sight out to 1000 m. If it hits a Scout, Jet, Wraith, LAPC or HAPC flier you get 'Target Lock Achieved' and a seeking StingerMissile2 locked on that vehicle, using one Plane Killer Missile.",
+    "Any other target gives 'Invalid Target' and the launcher reloads. The Assault HPC is not on the target list.",
+    "Burster/Buster only."
+   ],
+   "source": "item.cs StingerImage::onFire, StingerLoading; baseprojdata.cs StingerMissile2"
+  },
+  "VehFixit": {
+   "summary": "A repair gun that only works on vehicles and vehicle stations, as in Shifter Renegades.",
+   "notes": [
+    "Fires VehRepairBolt: locks onto a flier, vehicle pad or vehicle station and adds 0.1 to its auto-repair rate while held. Anything else gives 'Nothing in range'.",
+    "Scout only."
+   ],
+   "source": "baseprojdata.cs VehRepairBolt::onAcquire, onRelease, checkDone"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote Inventory Station.",
+   "notes": [
+    "Spawns DeployableInvStation on flat terrain or a building. Unlike Classic, there is no 8 m spacing check against other stations.",
+    "Undercover spies cannot use it. Spawn Match mode does not block deployed stations."
+   ],
+   "source": "item.cs DeployableInvPack::deployShape; station.cs DeployableStation::onCollision"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote Ammo Station.",
+   "notes": [
+    "Spawns DeployableAmmoStation on flat terrain or a building. Unlike Classic, there is no 8 m spacing check against other stations."
+   ],
+   "source": "item.cs DeployableAmmoPack::deployShape"
+  },
+  "HoverPack": {
+   "summary": "Creates a floating platform under your feet while it is switched on.",
+   "notes": [
+    "Activating it places a Hover Pad (a 6x6 elevator platform) 1 m below you. Deactivating it deletes the pad.",
+    "Refuses ('Can't deploy near buildings') if any building or static object is within a 25 m box.",
+    "Carry limits are uneven between genders: male Sniper, Scout, Spy and DM armor can carry it, plus the female Sniper, Spy and Mercenary, but not the male Mercenary or the female Scout."
+   ],
+   "source": "item.cs HoverPackImage::onActivate, onDeactivate, HoverPad; armordata.cs ItemMax(HoverPack)"
+  },
+  "HDiscAmmo": {
+   "summary": "Razor II Ammo: the ammunition you buy for the Razor II.",
+   "notes": [
+    "Each Razor II shot uses one. The three barrel ammo items (HDisc1Ammo to HDisc3Ammo) are copied from this count.",
+    "Every class can carry 30."
+   ],
+   "source": "item.cs HDiscAmmo, HDiscLauncherImage::onFire, HDiscLauncher::onMount"
+  },
+  "HDisc1Ammo": {
+   "summary": "Hidden ammo for the Razor II's first barrel.",
+   "notes": [
+    "Not shown in inventory. Set to your Razor II Ammo count when you equip the Razor II and refreshed on each shot from that barrel. Not bought directly."
+   ],
+   "source": "item.cs HDisc1Ammo, HDiscLauncher::onMount, HDiscLauncherImage::onFire"
+  },
+  "HDisc2Ammo": {
+   "summary": "Hidden ammo for the Razor II's second barrel.",
+   "notes": [
+    "Not shown in inventory. Kept in step with your Razor II Ammo count. Not bought directly."
+   ],
+   "source": "item.cs HDisc2Ammo, HDiscLauncher::onMount, HDiscLauncherImage::onFire"
+  },
+  "HDisc3Ammo": {
+   "summary": "Hidden ammo for the Razor II's third barrel.",
+   "notes": [
+    "Not shown in inventory. Kept in step with your Razor II Ammo count. Because the third barrel item uses the second barrel's image, the barrel actually draws HDisc2Ammo, not this item."
+   ],
+   "source": "item.cs HDisc3Ammo, HDisc3, HDiscLauncherImage::onFire"
+  },
+  "HDisc1": {
+   "summary": "Hidden first barrel of the Razor II.",
+   "notes": [
+    "Mounted in slot 6 when you equip the Razor II. Fires an HDiscShell (Explosion damage, 9 m radius) when the launcher triggers it. Not sold."
+   ],
+   "source": "item.cs HDisc1, HDisc1Image, HDiscLauncher::onMount; baseprojdata.cs HDiscShell"
+  },
+  "HDisc2": {
+   "summary": "Hidden second barrel of the Razor II.",
+   "notes": [
+    "Mounted in slot 7. Fires an HDiscShell. Not sold."
+   ],
+   "source": "item.cs HDisc2, HDisc2Image, HDiscLauncher::onMount"
+  },
+  "HDisc3": {
+   "summary": "Hidden third barrel of the Razor II.",
+   "notes": [
+    "Mounted in slot 4. Fires an HDiscShell. Not sold.",
+    "Script bug: its ItemData points at HDisc2Image, so the HDisc3Image block (with its own offset and HDisc3Ammo) is never used."
+   ],
+   "source": "item.cs HDisc3, HDisc3Image, HDiscLauncher::onMount"
+  },
+  "HDiscLauncher": {
+   "summary": "The Razor II: a disc launcher that cycles through three hidden barrels, firing disc rockets in quick succession.",
+   "notes": [
+    "Equipping it mounts three hidden barrels (HDisc1 to HDisc3). Each trigger pull, if no barrel is busy firing or reloading, fires the next barrel in turn and uses one Razor II Ammo.",
+    "Each barrel fires an HDiscShell, an Explosion-damage disc rocket with a 9 m blast. Barrels reload in 0.1 s.",
+    "Every class can carry it. Sold only while Base Addons is on."
+   ],
+   "source": "item.cs HDiscLauncher::onMount, onUnmount, HDiscLauncherImage::onFire; baseprojdata.cs HDiscShell"
+  },
+  "HPCWeap1": {
+   "summary": "Hidden left gun of the Assault HPC's passenger weapon.",
+   "notes": [
+    "Mounted in slot 6 while you ride in an Assault HPC. Fires Shock1 rockets (Missile damage, 30 m blast). It has no ammo type. Its description is the copied 'Razor II'. Not sold."
+   ],
+   "source": "item.cs HPCWeap1, HPCWeap1Image, HPCWeapLauncher::onMount; baseprojdata.cs Shock1"
+  },
+  "HPCWeap2": {
+   "summary": "Hidden right gun of the Assault HPC's passenger weapon.",
+   "notes": [
+    "Mounted in slot 7 while you ride in an Assault HPC. Fires Shock1 rockets. It has no ammo type. Not sold."
+   ],
+   "source": "item.cs HPCWeap2, HPCWeap2Image, HPCWeapLauncher::onMount"
+  },
+  "HPCWeapLauncher": {
+   "summary": "The HPC Weapon: the twin rocket gun Assault HPC passengers fire from their seat.",
+   "notes": [
+    "Given automatically when you board an Assault HPC as a passenger and removed when you leave.",
+    "Each trigger pull alternates between the two hidden guns, each firing a Shock1 rocket. Neither gun needs ammo, but every shot also takes one Razor II Ammo from you if you carry any.",
+    "No class can buy it."
+   ],
+   "source": "item.cs HPCWeapLauncher::onMount, onUnmount, HPCWeapLauncherImage::onFire; vehicle.cs Vehicle::onCollision"
+  },
+  "JailPack": {
+   "summary": "Builds your team's jail cell high in the sky, where the Jail Gun sends captured enemies.",
+   "notes": [
+    "Builds a force-field cell about 80 m above you: walls, roof, floor, a Jail Cell Door, a teleport pad inside, and a Jail Release Pad.",
+    "You must be at least 100 m from your own flag. One per team.",
+    "The door opens for your own team only, for 2 s.",
+    "Destroying any part of the cell destroys the whole cell and resets the team's jail count."
+   ],
+   "source": "item.cs JailPack::deployshape, CreateJailSimSet, JailDoor::onCollision, JailDoor::openSesame, JailSide::onDestroyed"
+  },
+  "CommandShipPack": {
+   "summary": "Mini Base: drops a small floating base, with stations and turrets, 75 m above a terrain point.",
+   "notes": [
+    "Spawns the apipecon interior 75 m above the target, with an Inventory Station, Command Station, radar, two Indoor Turrets, a Portable Generator and an antenna. A Mini Base switch appears inside 3 s later.",
+    "Must target terrain with no static object or item inside a 65 m box. In two-team games it cannot be within 40% of the flag distance from the enemy flag.",
+    "Destroying the Mini Base switch deletes the whole base with a debris blast.",
+    "Script bug: CommandShip::onDestroyed reduces the team count using an unset %player, so the team's Mini Base count is not reduced when one is destroyed.",
+    "Engineer only, one per team."
+   ],
+   "source": "item.cs CommandShipPack::deployShape, checkDeployAreaCommandShip, CommandShip::onDestroyed, MiniBaseSwitch::onDestroyed"
+  },
+  "CloakDisrupterPack": {
+   "summary": "While on, it keeps de-cloaking enemy objects around you.",
+   "notes": [
+    "Every 6 s it fades in (makes visible) every enemy player, static shape, vehicle, mine and interior within a 50x50x20 box around you.",
+    "Script bug: its on/off flag is stored as $cloakdisTime[%clientId] with %clientId never set, so all players share one flag and switching any disrupter off stops them all.",
+    "Sniper, Mercenary and Spy."
+   ],
+   "source": "item.cs CloakDisrupterPackImage::onActivate, onDeactivate, checkPlayerCloakDis"
+  },
+  "BaseCloakPack": {
+   "summary": "Deploys a Base Cloaking Device that hides your team's nearby base objects.",
+   "notes": [
+    "Must be placed inside a building, on a reasonably flat floor.",
+    "While enabled it fades out friendly objects around it (players, static shapes, vehicles, mines, interiors), rechecking every 5 s over a 100x100x40 box. Objects that leave the area fade back in.",
+    "Disabling or destroying it uncloaks everything. Destruction also causes a debris blast.",
+    "Can be switched off by admins ($Reneg::BCdisable) and is off in tourney mode unless allowed.",
+    "Engineer only, one per team."
+   ],
+   "source": "item.cs BaseCloakPack::deployShape, BaseCloak::onEnabled, checkBaseCloak, onDisabled, onDestroyed"
+  },
+  "HyperPack": {
+   "summary": "Teleportation Pack: blinks you to the spot you are looking at.",
+   "notes": [
+    "Needs more than 55 energy and uses 55. Range is your line of sight out to about 300 m.",
+    "A carried flag is dropped first.",
+    "Script bug: the 'Cannot teleport within 50m of the flag' check prints its message but does not stop the jump, so you teleport anyway.",
+    "Spy and Alien."
+   ],
+   "source": "item.cs HyperPackImage::onActivate, FindFlag, Player::hasFlag"
+  },
+  "RegenGenPack": {
+   "summary": "Deploys a Regeneration Generator that heals your team's players and equipment nearby.",
+   "notes": [
+    "Must be placed inside a building on a reasonably flat floor.",
+    "Every 5 s it repairs 0.08 damage on friendly players, static shapes, vehicles and other objects in a 200x200x50 box (0.065 when first enabled). Players get a 'RepairRate - Enhanced -' message.",
+    "Engineer only, one per team."
+   ],
+   "source": "item.cs RegenGenPack::deployShape, RegenGen::onEnabled, RegenGen::checkRegenGen, RegenGen::onDisabled"
+  },
+  "JailGun": {
+   "summary": "Zaps an enemy straight into your team's jail cell for 30 seconds.",
+   "notes": [
+    "Fires JailBolt, an Electricity beam that drains energy. The first enemy player it touches is teleported to your team's jail pad, then moved to the Jail Release Pad 30 s later.",
+    "Needs your team's Jail Cell to be built. Teammates are not affected.",
+    "The target's 'jailed' flag is set before the team and jail checks and is only cleared on release. A player hit while no jail exists, or a teammate hit, cannot be jailed again later.",
+    "Engineer, Sniper, Mercenary and Spy."
+   ],
+   "source": "item.cs JailGun, JailGunImage, JailBreak; baseprojdata.cs JailBolt, jailbolt::damageTarget"
+  },
+  "Hider": {
+   "summary": "Cloaking Device: attach it to a base object to make that object invisible.",
+   "notes": [
+    "Aim at a static shape, turret or sensor (not force field doors or tower switches). It places a small device on it and fades the object out.",
+    "From 33 s on, the object and device briefly reappear every 45 s.",
+    "Script bugs: the device is created as a DeployableMotionSensor, so Hider::onDestroyed never runs and the team's Cloaking Device count is never reduced. The device's team is set through an unset %turret variable.",
+    "Engineer only."
+   ],
+   "source": "item.cs Hider::deployShape, Hider::ondestroyed, toggleCloak"
+  },
+  "ProbeDroidPack": {
+   "summary": "Spy Drone: launches a tiny remote-controlled flier you steer from your own viewpoint.",
+   "notes": [
+    "Deploying it spawns a ProbeDroid flier just above you and switches your control to it. Your body stays where it is.",
+    "The drone fires a sniper laser every 2 s. It is very fragile and is destroyed the moment it touches any player, or when you press jump. Control then returns to your body ('Connection to ProbeDroid lost').",
+    "Sniper and Spy."
+   ],
+   "source": "item.cs ProbeDroidPack::onDeploy, DeployProbeDroid, ProbeDroid, ProbeDroid::onCollision, ProbeDroid::jump, ProbeDroid::onDestroyed"
+  },
+  "DeployableComPack": {
+   "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+   "notes": [
+    "Spawns DeployableComStation on flat terrain or a building. Unlike Classic, there is no 8 m spacing check against other stations."
+   ],
+   "source": "item.cs DeployableComPack::deployShape"
+  },
+  "EspPack": {
+   "summary": "Espionage Pack: puts the Spy undercover on the enemy team, as in Shifter Renegades.",
+   "notes": [
+    "Activating it switches your team and skin to the enemy's and drops your flag. Only with exactly two teams, one spy per team at a time.",
+    "Your cover breaks whenever you damage anyone. Damage from a player whose team value matches yours is blocked, while damage from the other team value, or a touch from a matching one, removes the pack. Because onActivate sets both your team and your initial team, which real side counts as 'matching' is not determined from scripts.",
+    "While undercover: no stations, teleporters, remote items, vehicles, grenades or beacons.",
+    "Spy/Infiltrator only."
+   ],
+   "source": "item.cs EspPackImage::onActivate, onDeactivate; player.cs Player::onDamage, Player::onCollision"
+  },
+  "DefenseAlarm": {
+   "summary": "Deploys a Defense Alarm on a building surface.",
+   "notes": [
+    "Spawns an AlarmKit (a camera-shaped TurretData firing BaseAlarmProj, 0.01 Alarm damage, range 19) on any building surface, including walls and ceilings. It is created with newObject as a StaticShape, so whether it ever fires is not determined from scripts.",
+    "When it is destroyed your team gets a '<name> has been destroyed!' message.",
+    "It is on the station lists, but no class has a carry limit above 0 for it.",
+    "Both onDeploy and deployShape add to the team count. The second add uses an unset %SGen variable, so it does not land on the deployer's team."
+   ],
+   "source": "item.cs DefenseAlarm::deployShape, onDeploy; turret.cs AlarmKit, AlarmKit::onDestroyed; armordata.cs $ItemMax"
+  },
+  "TurretPack": {
+   "summary": "Deploys a remote Ion Turret that fires electrical bolts.",
+   "notes": [
+    "As in Shifter Renegades it can go on walls and ceilings, aligned to the surface.",
+    "Like Classic, the deploying player is made the turret's owner, so its kills are credited to them."
+   ],
+   "source": "item.cs TurretPack::deployShape"
+  },
+  "LaserTurret": {
+   "summary": "Despite the datablock name, this deploys a Plasma Turret.",
+   "notes": [
+    "Spawns DeployablePlasma. Unlike Classic, placement no longer runs checkFlierArea (no clear-space or nearby-player check).",
+    "Unlike Classic, the deploying player becomes the turret's owner and is credited with its kills."
+   ],
+   "source": "item.cs LaserTurret::deployShape"
+  },
+  "VulcanTurret": {
+   "summary": "Deploys a Vulcan Turret that a teammate fires by hand.",
+   "notes": [
+    "Spawns DeployableVulcan, manned by walking into it. Unlike Classic, placement no longer runs checkFlierArea."
+   ],
+   "source": "item.cs VulcanTurret::deployShape"
+  },
+  "RailTurret": {
+   "summary": "Deploys a manually fired Rail Turret.",
+   "notes": [
+    "Spawns DeployableRail, manned by walking into it. Unlike Classic, placement no longer runs checkFlierArea."
+   ],
+   "source": "item.cs RailTurret::deployShape"
+  },
+  "TrackingTurretPack": {
+   "summary": "Deploys a Tracking Turret that fires slow seeking rockets.",
+   "notes": [
+    "Spawns TrackingTurret (camera shape) firing Trackingproj, a seeking missile with Missile damage and a 9.5 m blast, range 120.",
+    "Goes on terrain or buildings, including walls and ceilings. Uses the standard turret spacing boxes, counting only other Tracking Turrets.",
+    "Always takes full damage from teammates. Engineer only."
+   ],
+   "source": "item.cs TrackingTurretPack::deployShape; turret.cs TrackingTurret, Turret::onDamage; baseprojdata.cs Trackingproj"
+  },
+  "RocketPack": {
+   "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+   "notes": [
+    "Spawns DeployableRocket. Unlike Classic, placement no longer runs checkFlierArea."
+   ],
+   "source": "item.cs RocketPack::deployShape"
+  },
+  "BarragePack": {
+   "summary": "Deploys an Anti-Aircraft Turret that fires fast seeking flak at players in vehicles.",
+   "notes": [
+    "Spawns AntiAirCraftTurret firing BarrageBolt (seeking, Missile damage), range 325.",
+    "Only accepts targets that are mounted on something, such as vehicle pilots and passengers. While it has no valid target its shield is 0.02. While engaging, the shield drops to 0.",
+    "Needs a flat spot on terrain or a building. Spacing checks count Sentry, Ion and Anti-Aircraft turrets together.",
+    "Always takes full damage from teammates. Engineer only."
+   ],
+   "source": "item.cs BarragePack::deployShape; turret.cs AntiAirCraftTurret, AntiAirCraftTurret::verifyTarget; baseprojdata.cs BarrageBolt"
+  },
+  "ForceFieldPack": {
+   "summary": "Deploys a small force field wall.",
+   "notes": [
+    "Spawns DeployableForceField on any flat surface, as in Classic. The code counts nearby force fields but never uses the count."
+   ],
+   "source": "item.cs ForceFieldPack::deployShape"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Deploys a full-size force field wall.",
+   "notes": [
+    "Spawns LargeForceField on any flat surface. Placement is the same as Classic.",
+    "Each one is named on the map 'Large Force Field#<n> <owner>'."
+   ],
+   "source": "item.cs LargeForceFieldPack::deployShape"
+  },
+  "FloorDoorPack": {
+   "summary": "Deploys a force field door laid flat, as a floor or hatch.",
+   "notes": [
+    "Spawns a 5x5 force field door rotated 90 degrees to lie flat, wherever your line of sight hits. There is no flat-surface check.",
+    "It opens like the Force Field Door: for teammates, and for enemy Engineers and Spies.",
+    "Script bug: it is a DoorfivebyfiveForceField, so destroying it lowers the Force Field Door count instead of the Floor Door count.",
+    "Engineer and Scout."
+   ],
+   "source": "item.cs FloorDoorPack::deployShape; staticshape.cs DoorfivebyfiveForceField::onCollision, onDestroyed"
+  },
+  "TripwirePack": {
+   "summary": "Despite the datablock name, this deploys a solid Blast Wall.",
+   "notes": [
+    "Spawns BlastWall on flat terrain only. Placement is as in Classic, without Shifter Renegades' turret and 2 m clearance checks.",
+    "Four Blast Walls in a square form the launch pad for the DeathStar Pack."
+   ],
+   "source": "item.cs TripwirePack::deployShape, DeathDeployCheck"
+  },
+  "DeathStarPack": {
+   "summary": "Builds a DeathStar launcher that puts a satellite weapon platform 250 m above the launch pad, as in Shifter Renegades.",
+   "notes": [
+    "Needs flat terrain inside a square of exactly 4 Blast Walls with a clear 50 m column above. After a 3-2-1 countdown it creates a DeathStar Ray (RailLaser), a DeathStar Missile turret (BazookaBolt at hot targets) and a solar panel. Range 325.",
+    "Unlike Shifter Renegades, you must be within 200 m of your own flag. Further out it refuses and tells everyone you tried to set an offensive DeathStar.",
+    "Admins can disable DeathStars ($Reneg::DSdisable). In tourney mode they are off unless allowed.",
+    "1 in 40 launchers is defective and explodes. Destroying the solar panel removes the satellite. Engineer only."
+   ],
+   "source": "item.cs DeathStarPack::deployShape, DeathDeployCheck, DeathLaunch; turret.cs DeathStarRay, DeathStarMissile; staticshape.cs DeathStarSolar"
+  },
+  "PlatformPack": {
+   "summary": "Deploys a thin platform you can stand on.",
+   "notes": [
+    "Spawns DeployablePlatform wherever your 3 m line of sight hits. Placement is the same as Classic, without Shifter Renegades' turret check."
+   ],
+   "source": "item.cs PlatformPack::deployShape"
+  },
+  "TeleportPack": {
+   "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+   "notes": [
+    "Unlike Classic, placement no longer runs checkFlierArea.",
+    "Cyborgs and Defenders cannot teleport, and neither can undercover spies."
+   ],
+   "source": "item.cs TeleportPack::deployShape; staticshape.cs DeployableTeleport::onCollision"
+  },
+  "ScoutPack": {
+   "summary": "A backpack that deploys a Scout flier in the field.",
+   "notes": [
+    "Spawns a Scout flier on flat terrain only, when no other player is in the 8 m checkFlierArea box. Counts against the ScoutVehicle team limit.",
+    "Scout and Spy."
+   ],
+   "source": "item.cs ScoutPack::deployShape, checkFlierArea"
+  },
+  "WraithPack": {
+   "summary": "A backpack that deploys a Wraith flier in the field.",
+   "notes": [
+    "Spawns a Wraith flier on flat terrain only, with the same checkFlierArea rule. Counts against the WraithVehicle team limit.",
+    "Spy only."
+   ],
+   "source": "item.cs WraithPack::deployShape"
+  },
+  "DoorfourbyeightForceFieldPack": {
+   "summary": "Deploys a Large Force Field Door (4x8) that opens for your team.",
+   "notes": [
+    "Placed on a flat surface, facing your heading.",
+    "Touching it opens it for teammates, and for enemy Engineers and Spies: it fades out, moves away and comes back after 3 s.",
+    "Engineer only."
+   ],
+   "source": "item.cs DoorfourbyeightForceFieldPack::deployShape; staticshape.cs DoorfourbyeightForceField::onCollision, openDoor, closeDoor"
+  },
+  "DoorfivebyfiveForceFieldPack": {
+   "summary": "Deploys a 5x5 Force Field Door that opens for your team.",
+   "notes": [
+    "Placed on a flat surface, facing your heading.",
+    "Opens for teammates, and for enemy Engineers and Spies, then closes again after 3 s.",
+    "Engineer only."
+   ],
+   "source": "item.cs DoorfivebyfiveForceFieldPack::deployShape; staticshape.cs DoorfivebyfiveForceField::onCollision, openDoor, closeDoor"
+  },
+  "Grenade": {
+   "summary": "Thrown explosive whose effect depends on your class.",
+   "notes": [
+    "Same per-class grenades as Classic, plus the Defender/Guardian, which throws a Mortarbomb like the Cyborg.",
+    "Cannot be thrown while undercover."
+   ],
+   "source": "item.cs Grenade::onUse"
+  },
+  "Beacon": {
+   "summary": "Class ability item: each class's beacon does something different.",
+   "notes": [
+    "Mercenary: unlike Classic's thrown Speed Booster, it shoves you directly with a 270 impulse in the direction you are moving (forward if you are standing still).",
+    "Burster/Buster: drops a GoodBye charge that blows 0.5 s later (Mine damage, 25 m radius), instead of Classic's stim.",
+    "Defender/Guardian: throws a ByeBye charge that blows 2 s later (Explosion damage, 50 m radius, 950 kickback).",
+    "Other classes as in Classic. Cannot be used from a station or while undercover.",
+    "Script bug: the Burster and Defender branches set the charge's team from %client, which is never assigned in this function, so the charge does not get the thrower's team."
+   ],
+   "source": "item.cs Beacon::onUse, Armor::SpeedBooster; mine.cs GoodBye, ByeBye"
+  },
+  "Fixit": {
+   "summary": "The Engineer Repair-Gun is a repair beam that needs no Repair Pack.",
+   "notes": [
+    "Unlike Renegades Classic, an Engineer using it repairs at 0.2 per tick instead of the normal rate, making Engineers much faster healers."
+   ],
+   "source": "item.cs RepairBolt::onAcquire"
+  },
+  "MineAmmo": {
+   "summary": "Thrown antipersonnel mines that arm once they come to rest and explode when an enemy touches them.",
+   "notes": [
+    "Unlike Renegades Classic, a player wearing an active Espionage Pack (flagged as a spy) passes over enemy mines safely, but sets off their own team's mines.",
+    "Any other enemy player, vehicle or moving object triggers it; teammates do not."
+   ],
+   "source": "Mine.cs AntipersonelMine::onCollision; item.cs Espionage pack (sets client.isSpy)"
+  }
+ }
+}

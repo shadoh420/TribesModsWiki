@@ -1,0 +1,14 @@
+# beginner-mod vs base (13 items)
+scripts    AmmoPack                     Ammo Pack
+scripts    EnergyPack                   Energy Pack
+scripts    RepairPack                   Repair Pack
+scripts    CameraPack                   Camera
+scripts    DeployableAmmoPack           Ammo Station
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableSensorJammerPack   Sensor Jammer
+scripts    MotionSensorPack             Motion Sensor
+scripts    PulseSensorPack              Pulse Sensor
+scripts    TurretPack                   Turret
+scripts    Beacon                       Beacon
+scripts    Grenade                      Grenade
+scripts    MineAmmo                     Mine

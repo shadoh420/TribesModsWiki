@@ -1,0 +1,71 @@
+{
+ "mod": {
+  "overview": "Snipers For Life (S4L v1.2b) by [S4L]KaT expands base Tribes around long-range stealth sniping, specialized counter-sniper classes, and heavy siege hardware across seven distinct armor types. In standard games you spawn in Scout Armor with a Blaster, Disc Launcher, and Repair Kit, using Scout's 90% resistance to beam weapons to survive sniper fire while visiting base Inventory Stations for specialized gear. Sniper Armor grants sensor invisibility, fall-damage immunity, and the shield-piercing Sniper Rifle, while Assault, Medium, Heavy, and crawling BattleStar armors escalate close-range and base-siege firepower with Rocket Launchers, Fusion Rifles, Heat Lasers, and Nuclear Guns. Remote Inventory Stations are restricted from dispensing sniper, rocket, fusion, mortar, nuke, and turret gear, forcing teams to control base stations, and Deathmatch missions strip spawns down to a Blaster and Repair Kit with sensors disabled in FFA.",
+  "notes": [
+   "Classes and armors: S4L expands base Tribes from 3 armors to 7: Scout (spawn armor, speed 15, 0.50 maxDamage, 2 weapons, 0.1x Laser/Sniper/Heat damage), Light (speed 11, 0.66 maxDamage, 3 weapons), Sniper (speed 13, 0.66 maxDamage, invisible to sensors, 0.0x fall/impact damage), Assault (speed 8, 1.0 maxDamage, 4 weapons, crouchable, takes 2.8x Sniper damage), Medium (speed 8, 1.0 maxDamage, 4 weapons, engineer deployables), Heavy (speed 5, 1.32 maxDamage, 5 weapons, Nuke/Mortar), and BattleStar (speed 1.03, 5.00 maxDamage, 11 weapons, 500 ammo cap, no backpacks or Repair Kit).",
+   "Female Sniper Armor disparity: Female Sniper Armor (sfemale) carries 4 weapons instead of 3, can buy Laser Rifle, Grenade Launcher, and Shield Pack, and holds 10 mines, 10 grenades, and 10 beacons, whereas Male Sniper Armor (sarmor) is capped at 3 weapons, 2 mines, 5 grenades, and 0 beacons with none of those items.",
+   "Sniper Rifle and Energy Pack rules: Only Sniper Armor can equip the Sniper Rifle, which fires a 40-60 energy beam with a 10-second reload and bypasses 90% of Shield Pack absorption. Buying a Sniper Rifle or Laser Rifle automatically buys an Energy Pack, and selling or swapping away from an Energy Pack automatically sells them. Laser Rifle keeps its +30% headshot damage bonus.",
+   "New weapons: Heat Laser (100m sustained 35-degree cone beam, 5-15 energy) equips on Sniper, Assault, and BattleStar; Fusion Rifle (0.25-damage energy bolts) equips on Scout, Assault, Medium, Heavy, and BattleStar; Rocket Launcher (0.5-damage splash rockets with 250 kickback) equips on Assault, Medium, Heavy, and BattleStar; Nuclear Gun (Nuke, 8.05 direct-hit damage, 3s reload) equips on Heavy and BattleStar only.",
+   "Remote Inventory bans (RemoteInvList = 0): Deployable remote inventory stations cannot dispense Sniper Rifle, Laser Rifle, Heat Laser, Fusion Rifle, Fusion Ammo, Rocket Launcher, Rocket Ammo, Grenade Launcher, Mortar, Nuclear Gun (Nuke), Grenade, Sensor Jammer Pack, Deployable Sensor Jammer Pack, or Turret Pack. You must return to a main base Inventory Station for those loadouts.",
+   "Team caps and economy: Team energy defaults to Infinite in game.cs (unless overridden by a mission), while team-wide caps limit each side to 2 Nuclear Guns, 20 Nuclear Mortar rounds, 5 Deployable Inventory Stations, 7 Deployable Ammo Stations, 10 Turrets, 8 Deployable Sensor Jammers, 15 Cameras, 15 Pulse Sensors, 15 Motion Sensors, 40 Beacons, 2 Scout vehicles, 1 LAPC, and 1 HAPC.",
+   "Spawns and Deathmatch mode: In standard missions players spawn in Scout Armor with a Blaster, Disc Launcher, and Repair Kit; in Deathmatch (dm.cs), players spawn with only a Blaster and Repair Kit (no Disc Launcher), FFA disables the sensor network, and leaving the mission area triggers 3-second audio warnings before draining 5% health per second.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): DeployableSensorJammerPack (station.cs), FusionAmmo (station.cs), FusionRifle (station.cs), Grenade (station.cs), GrenadeLauncher (station.cs), HeatLaser (station.cs), LaserRifle (station.cs), Mortar (station.cs), Nuke (station.cs), RocketAmmo (station.cs), RocketLauncher (station.cs), SensorJammerPack (station.cs) (+2 more)."
+  ]
+ },
+ "items": {
+  "SniperArmor": {
+   "summary": "Stealth sniper armor built for high-perch drops and sensor evasion.",
+   "notes": [
+    "Hidden from enemy sensors (visibleToSensor is false) and immune to landing and impact damage (0.0x scale).",
+    "Runs at 13 forward speed with 30 max jet velocity, 0.66 maxDamage, and 60 maxEnergy; carries Sniper Rifle and Heat Laser.",
+    "Female Sniper Armor (sfemale) carries up to 4 weapons instead of 3, adds Laser Rifle, Grenade Launcher, and Shield Pack, and holds 10 mines, grenades, and beacons instead of 2, 5, and 0."
+   ],
+   "source": "ArmorData.cs, item.cs"
+  },
+  "ScoutArmor": {
+   "summary": "Default spawn armor and anti-sniper runner with 90% resistance to beam weapons.",
+   "notes": [
+    "Fastest armor in the mod (15 forward speed, 30 max jet velocity, 0.4 jet drain), with 0.50 maxDamage, 40 maxEnergy, and a 2-weapon limit.",
+    "Takes only 0.1x damage from Laser, Sniper, and Heat weapons, making it the hard counter to enemy snipers, though it takes 1.5x shrapnel and 1.5x-1.7x mortar damage.",
+    "Cannot equip Energy Pack, Shield Pack, or deployable packs, and only mounts Blaster, Chaingun, Disc Launcher, Plasma Gun, Fusion Rifle, ELF Gun, and Targeting Laser."
+   ],
+   "source": "ArmorData.cs, game.cs"
+  },
+  "BattleStarArmor": {
+   "summary": "Crawling siege juggernaut armor that trades mobility, packs, and self-healing for massive health and arsenal capacity.",
+   "notes": [
+    "5.00 maxDamage and 22.3 mass with a 1.03 forward walk speed and 5 max jet velocity; carries up to 11 weapons and 500 of every ammo, mine, grenade, and beacon.",
+    "Banned from carrying any backpack or Repair Kit, cannot use Laser Rifle or Sniper Rifle, and takes 1.3x Sniper Rifle damage.",
+    "Costs 70000 energy (free when DefaultTeamEnergy is Infinite, prohibitive on finite-energy maps)."
+   ],
+   "source": "ArmorData.cs, item.cs"
+  },
+  "SniperRifle": {
+   "summary": "High-powered sniper beam weapon that bypasses 90% of Shield Pack protection.",
+   "notes": [
+    "Fires an instant detached beam (SniperLaser, 0.02 damage conversion, 40 minEnergy to 60 maxEnergy, 10s reload) restricted to Sniper Armor.",
+    "Requires an Energy Pack mounted to fire; buying it auto-buys an Energy Pack, and selling or swapping off the Energy Pack auto-sells the Sniper Rifle.",
+    "Shield Packs absorb Sniper damage at only 10% effectiveness, punching straight through shielded targets, and Assault Armor takes 2.8x Sniper damage."
+   ],
+   "source": "item.cs, baseProjData.cs, player.cs, ArmorData.cs"
+  },
+  "Nuke": {
+   "summary": "Heavy siege Nuclear Gun firing devastating direct-impact warheads.",
+   "notes": [
+    "Fires a NuclearBolt (8.05 direct-hit damage, 0 splash radius, 55 velocity, 3s reload) using Nuclear Mortar rounds (500 price each).",
+    "Restricted to Heavy Armor (max 2 rounds) and BattleStar Armor (max 500 rounds), and capped at 2 launchers and 20 rounds per team.",
+    "Blocked at Remote Inventory Stations; must be bought at a full base Inventory Station."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs, station.cs"
+  },
+  "AssaultArmor": {
+   "summary": "Front-line assault medium armor packed with rockets and explosives but fragile against snipers.",
+   "notes": [
+    "Medium-chassis armor (1.0 maxDamage, 80 maxEnergy, speed 8, crouch enabled) carrying up to 4 weapons including Rocket Launcher, Fusion Rifle, and Heat Laser.",
+    "Carries 10 Mines, 10 Grenades, and 10 Beacons, plus Shield Pack, Energy Pack, Motion Sensor, and Deployable Sensor Jammer.",
+    "Suffers heavy vulnerability to beam sniping: takes 2.8x damage from Sniper Rifle and 1.6x from Laser Rifle."
+   ],
+   "source": "ArmorData.cs, item.cs"
+  }
+ }
+}

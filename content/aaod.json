@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "AAOD Mod 1.6Ex is a tactical team-combat and engineering modification built on the Balance of Power foundation by the AAOD clan. While its parent mod focused on specialized class armors and flying platforms, AAOD strips away those novelty armors to return to the core Light, Medium, and Heavy chassis, transforming them through a persistent 12-level RPG experience and talent system with customizable perks like Speed, Flight, Stealth, Durability, and Accuracy. Gameplay revolves around combined-arms base defense, tactical armor loadouts, and establishing self-sustaining forward outposts using extensive deployable power grids, automated defenses, and player-piloted Kodiak assault transports. Matches are played across standard objective-based game modes such as Capture the Flag, Defend and Destroy, and Siege, with an active Team Energy economy dictating equipment deployment and base expansion.",
+  "notes": [
+   "Classes and RPG Progression: Players choose between classic Light, Medium, and Heavy armors, earning persistent experience points from kills, assists, objective captures, flag touches, repairs, and deployable kills. Each of the 12 obtainable experience levels grants a skill point spendable in the Options menu across seven talents: Speed (swapping to higher-speed armor variants), Flight (doubling jet thrust and cutting energy consumption), Stealth (providing passive sensor suppression), Durability (reducing incoming damage up to 85 percent), Accuracy (scaling weapon damage up to 300 percent), Regeneration (passively restoring health every two seconds), and Energy Recovery (increasing armor recharge rates).",
+   "Menus and Remote Command Controls: Pressing the Options menu key opens the mod's interface, allowing players to spend talent points, review active skill tiers and experience tallies, toggle item pop-up help guides, and switch between personal and team armor skins. Equipping the Command BackPack (AODCmdPack) allows players to trigger remote command mode from anywhere on the field by pressing their Pack key, enabling direct manual piloting of remote turrets without standing at a physical base terminal.",
+   "Class-Specific Weaponry and Combat Effects: The arsenal features dedicated class roles, including the Light-only AODSniperX high-power rifle that applies massive kinetic impulse to shove targets backward according to armor mass, and the Medium-only AODStasisGun that fires micro-stasis shells to strip energy, disable recharge, and force victims into a slowed stasis armor state. Heavy armors wield the AODBBuster rocket launcher for high-yield structure demolition and the AODReaper autocannon for anti-infantry suppression, while the AODStinger launcher fires dumbfire rockets or locks onto targets using the Medium-only Advanced Targeting Pack.",
+   "Logistics, Power Grids, and Base Fortification: Deployable installations require logistical planning and active power connections, linking to local power grids through Mobile Generators, Solar Generators, Power Nodes, or Satellite Power Systems. Engineers can construct 5-wall deployable bunkers, blast shields, automated base alarm systems, and deployable shield generators that project energy shields onto nearby base assets via shield nodes, with undamaged deployables packable back into personal inventory.",
+   "Tactical Emplacements and Deceptive Traps: Field defenses include long-range Artillery Turrets that can be manually aimed, surface-to-air Anti-Air Batteries that fire salvos against airborne targets, pop-up underground ambush turrets, and Counter Battery Sensors that track incoming mortar and artillery fire to automatically designate the firing source for retaliation. Deployable Jump Pads launch friendly troops skyward along their mounting angles, but booby-trap trespassing enemies by launching them upward before reversing force after two seconds to slam them into the ground with triple velocity.",
+   "Instant Teleportation Networks: Engineers can deploy linked Teleporter Pads that establish an instantaneous two-way transit loop across unlimited distances on the map. Both paired teleporter pads must be deployed within five minutes of unpackaging, and damage inflicted upon either pad is automatically mirrored onto the other.",
+   "Armored Vehicles and Kodiak Assault APC: In addition to standard Scouts, LPCs, and HPCs, the vehicle bay offers the HoverBike, an agile low-altitude scout armed with twin chainguns for rapid strafing, and the Kodiak Assault APC (AAPC). The Kodiak cannot be captured by the opposing team, absorbs incoming damage using its internal energy to shield seated passengers, and steadily resupplies and repairs up to four riding heavies as they assault enemy bases.",
+   "Station Restrictions and Economic Rules: To prevent forward bases from self-replicating top-tier hardware without logistical supply runs, high-tier deployables including Anti-Air Batteries, Artillery Packs, Bunkers, Blast Shields, Mobile Generators, Mobile Inventory Stations, Satellite Power Systems, Shield Generators, and Team Energy Generators are strictly forbidden from remote inventory purchasing ($RemoteInvList = 0). Teams manage a shared Team Energy pool to finance equipment and vehicles, gaining income every 30 seconds that can be boosted by deploying Team Energy Generators, while a two-second delay on tossing grenades or mines after exiting inventory stations prevents terminal spamming.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): AODAAPack (AAOD_Deployables.cs), AODArtilleryPack (AAOD_Deployables.cs), AODBlastShield (AAOD_Deployables.cs), AODBunker (AAOD_Deployables.cs), AODMobileGen (AAOD_Deployables.cs), AODMobileInv (AAOD_Deployables.cs), AODSatPwrSys (AAOD_Deployables.cs), AODShieldGen (AAOD_Deployables.cs), AODTeamEGen (AAOD_Deployables.cs)."
+  ]
+ },
+ "items": {
+  "AODSuperRPack": {
+   "summary": "Heavy-only super repair pack that mounts in both the backpack and flag slots to deliver rapid, long-range repairs at the expense of flag-carrying capability.",
+   "notes": [
+    "Restricted to Heavy armor and occupies both the backpack slot and the flag slot simultaneously, making it impossible to carry the enemy flag while equipped.",
+    "Cannot be dropped in the field; must be sold at an inventory station to remove from the player.",
+    "Fires the Super-Repair Bolt through an integrated repair gun, repairing damaged friendly structures and vehicles at twice the speed and four times the range of standard repair packs."
+   ],
+   "source": "AAOD_Items.cs"
+  },
+  "AODStasisGun": {
+   "summary": "Medium-armor reality-distortion weapon that paralyzes targets by draining energy and trapping them in a sluggish stasis armor state.",
+   "notes": [
+    "Restricted exclusively to Medium armor and fires micro-stasis shells using specialized ammunition.",
+    "Inflicts stasis damage that immediately drains 20 percent of the victim's energy and reduces energy recharge rate to zero.",
+    "Forces the victim's armor model into a stasis-shocked variant for five seconds, crippling forward running speed to 1.25 and jetpack thrust to 96, with consecutive hits stacking the duration."
+   ],
+   "source": "AAOD_Items.cs"
+  },
+  "AODBeaconGun": {
+   "summary": "Utility launcher that fires beacon-tipped rockets to establish target designator markers from up to 250 meters away.",
+   "notes": [
+    "Available to Light, Medium, and Heavy armor classes, consuming both BeaconAmmo and a deployable Beacon item from personal inventory on each shot.",
+    "Fires a propelled rocket projectile that attaches to terrain or base structures, automatically deploying a target beacon upon impact without requiring the player to approach the target.",
+    "Subject to team beacon deployment limits, warning the player if the maximum number of team beacons is reached."
+   ],
+   "source": "AAOD_Items.cs"
+  },
+  "AODCombo1Pack": {
+   "summary": "Dual-system backpack combining energy generator and personal shield capabilities for Medium and Heavy armors.",
+   "notes": [
+    "Restricted to Medium and Heavy armor, mounting in the backpack slot while simultaneously locking the flag slot with a secondary pack unit to prevent flag running.",
+    "Cannot be dropped on the ground; players must sell the unit at an inventory station to unmount it.",
+    "Provides the combined advantages of a boosted energy pack for rapid jetting and an active personal shield to absorb incoming fire."
+   ],
+   "source": "AAOD_Items.cs"
+  },
+  "AODTeleporter": {
+   "summary": "Deployable two-way teleportation system consisting of two linked pads providing infinite-range transport between remote sites.",
+   "notes": [
+    "Available to Medium and Heavy classes, carrying a two-pack set where both teleporter pads must be deployed within five minutes of unpackaging.",
+    "Once linked, stepping onto either pad provides instant two-way transit across any distance on the map.",
+    "The two pads share linked damage states, so damaging or destroying one pad simultaneously damages or disables the other pad."
+   ],
+   "source": "AAOD_Deployables.cs"
+  },
+  "AODJumpPad": {
+   "summary": "Surface-mountable launch pad that flings friendly players along its surface vector and booby-traps enemy players.",
+   "notes": [
+    "Self-powered deployable that mounts onto any terrain or building surface at any angle.",
+    "Launches friendly players cleanly into the air in the direction the pad is facing after a half-second activation delay.",
+    "Detects enemy players who step on the pad, launching them upward before reversing direction 1.5 seconds later to smash them downward with triple force."
+   ],
+   "source": "AAOD_Deployables.cs"
+  }
+ }
+}

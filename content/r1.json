@@ -1,0 +1,61 @@
+{
+ "mod": {
+  "overview": "R1 v1.2 (Ryan Smith, November 1999) keeps a compact 53-item roster over Base while re-arming core slots into heavy-hitting conversions\u2014Energy Cannon, Plasma Chaingun, Sniper Gun, Rocket Launcher\u2014boosting jet efficiency, and adding a deployable AAA Turret.",
+  "notes": [
+   "Armor & jet overhaul (ArmorData.cs): Light ('Flying Armor') runs faster (11 -> 16) with zero jet energy drain (0.8 -> 0) and 300 jetForce (was 236); Medium ('Assult Armor') speeds up (8 -> 11) with 0.4 jet drain (was 1.0); Heavy moves slower (5 -> 3) with 0.6 jet drain (was 1.1). Blaster and Grenade Launcher are removed from Light/Medium, Medium also loses Plasma Gun, and Repair Kit / Mine / Grenade carry limits increase.",
+   "Weapon conversions: Blaster becomes a 90-energy Energy Cannon (15.0 splash damage, 4 s fireTime / 10 s reload); Chaingun becomes Plasma Chaingun firing PlasmaBolts (0.45 damage); PlasmaGun becomes Sniper Gun firing instant-hit-style accurate ChaingunBullets; DiscLauncher becomes Rocket launcher (90 m/s velocity/terminal, 45 trail); ELF Gun requires 8 minEnergy (was 3).",
+   "World & vehicles: adds a deployable AAATurret and buffs Scout speed (50 -> 75) and agility (0.5 -> 0.9 bank/pitch) plus HAPC 3.0 s reloadTime."
+  ]
+ },
+ "items": {
+  "LightArmor": {
+   "summary": "Renamed 'Flying Armor'; forward speed rises 11 -> 16 m/s with 0 jetEnergyDrain (infinite flight) and 300 jetForce.",
+   "notes": [
+    "Cannot carry Blaster, Chaingun, or Grenade Launcher; limited to 10 bullets."
+   ],
+   "source": "ArmorData.cs larmor"
+  },
+  "MediumArmor": {
+   "summary": "Renamed 'Assult Armor'; speed rises 8 -> 11 m/s with jetEnergyDrain cut 1.0 -> 0.4 and up to 4 Repair Kits.",
+   "notes": [
+    "Loses Blaster, Plasma Gun, and Grenade Launcher."
+   ],
+   "source": "ArmorData.cs marmor"
+  },
+  "Blaster": {
+   "summary": "Converted into 'Energy Cannon' (price 385): 15.0 splash damage per blast, 4.0 s fire / 10.0 s reload, draining 90 energy.",
+   "notes": [
+    "Replaces sidearm spam with a slow heavy energy cannon."
+   ],
+   "source": "item.cs; baseProjData.cs"
+  },
+  "Chaingun": {
+   "summary": "Converted into 'Plasma Chaingun' firing PlasmaBolts (0.45 splash damage, 0.01 spread) instead of bullets.",
+   "notes": [
+    "Retains rapid Chaingun fire rate with plasma projectiles."
+   ],
+   "source": "item.cs ChaingunImage"
+  },
+  "PlasmaGun": {
+   "summary": "Converted into 'sniper Gun' using BulletAmmo with zero aimDeflection (0.0) and 0.7 s fireTime.",
+   "notes": [
+    "Fires accurate ChaingunBullet rounds as a ballistic sniper rifle."
+   ],
+   "source": "item.cs PlasmaGunImage"
+  },
+  "DiscLauncher": {
+   "summary": "Converted into 'Rocket launcher' with faster projectile speed (65 -> 90 muzzle / 80 -> 90 terminal) and longer 45-unit trail.",
+   "notes": [
+    "Faster straight-line rockets in place of standard discs."
+   ],
+   "source": "baseProjData.cs DiscShell"
+  },
+  "EnergyRifle": {
+   "summary": "Minimum energy threshold raised from 3 to 8 before firing.",
+   "notes": [
+    "Beam stats otherwise remain Base."
+   ],
+   "source": "item.cs EnergyRifleImage"
+  }
+ }
+}

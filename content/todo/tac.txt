@@ -1,0 +1,8 @@
+# tac vs base (7 items)
+renamed+statsScoutVehicle                 FLPC
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+stats      EnergyRifle                  ELF Gun
+scripts    RepairPack                   Repair Pack
+scripts    ShieldPack                   Shield Pack

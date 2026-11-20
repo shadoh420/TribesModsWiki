@@ -1,0 +1,339 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades 'Modmgt' (the August 2002 mod-management build) is a reworked Ultra Renegades 2. It keeps UR2's Renegades class roster without the Alien and Commando. The Cyborg is split in two: a new heavy-armor 'Cyborg' and the old darmor renamed 'Dragoon'. What defines it relative to UR2 is that the Renegades class flavour is stripped back. Poison, burning and short-circuit effects, touch abilities and class beacons are gone, and every beacon is a speed booster. Repair items are back to Classic strength, and bullet and laser head shots do triple damage. New hardware includes the FGC-9000 cluster-nuke launcher, a Shockwave Cannon that needs an Energy Pack, auto-firing Mortar, ELF and Targeting turrets, and force fields that open like doors for teammates. It also adds an auto-admin-by-address list for server management.",
+    "notes": [
+      "Classes: ScoutArmor=sarmor, SpArmor=spyarmor, LightArmor (Sniper)=larmor, MediumArmor (Mercenary)=marmor, BursterArmor=barmor, EngArmor=earmor, HeavyArmor (Cyborg)=harmor, DragArmor (Dragoon)=darmor. UR2's Alien and Commando classes are gone.",
+      "Weapon slots ($MaxWeapons): Scout, Spy, Sniper and Engineer 6; Mercenary and Burster 8; Cyborg 10; Dragoon 12.",
+      "Everyone spawns as a Sniper (larmor). The spawn list buys Blaster, Chaingun, Disc Launcher, Grenade Launcher, Mortar, Sniper Rifle, Targeting Laser, Repair Pack, Beacon, Grenade and Repair Kit, as far as the Sniper's limits allow.",
+      "There are no status effects: the poison, burn and short-circuit routines are gone from Player::onDamage. Electricity damage no longer bypasses shields, and an Electricity kill no longer blows the body apart.",
+      "Head shots: a Laser hit to the head gets +30% (for the Cyborg only on mid-head hits). Bullet and Laser head hits on an enemy then get a further +200%, and both players see a 'Head Shot' message. UR2's Sniper-damage head bonus is removed.",
+      "Any Laser hit to the front-right torso knocks the target's weapon out of their hand, whatever the damage and whichever team the target is on. The hit still does its normal damage.",
+      "The Suicide DetPack, sniping a bomb on someone's back, and all touch abilities (Scout item theft, Alien life drain, Engineer touch-heal) are removed.",
+      "Only Scout, Sniper and Spy can pilot vehicles. Mounting the Wraith fades it out.",
+      "The Scout flier now fires FlierRocket missiles and is extremely fast. The Stinger's Nuke projectile change also affects anything else that fires Nuke.",
+      "Server management: server.cs runs CheckAutoAdmin on every connect. Any client whose address starts with a listed $AutoAdmin::AutoAdminAddr entry (and whose name matches, if one is given) is made super admin. The list is empty in this pack.",
+      "Several deployables reference datablocks this build does not define: DeployableComStation (Command Station) and LargeForceField (Tripwire Pack)."
+    ]
+  },
+  "items": {
+    "HeavyArmor": {
+      "summary": "The Cyborg is a new heavy-armor class (harmor) with a large energy pool, ten weapon slots and a Plastique grenade.",
+      "notes": [
+        "PlayerData harmor (heavy shape). It has less health than the Dragoon (1.32 against 1.6) but more energy (180) and ten weapon slots.",
+        "Grenade: throws a Nukebomb (Plastique): 1.5 Shrapnel damage in a 50 m radius after a 5 s fuse.",
+        "Weapons include the Stinger, Shockwave Cannon, Railgun, Vulcan, Magnum, ELF Gun and Plasma Gun. It may carry an FGC-9000 but not the FGC-9000 Pack or nukes, so it cannot fire it.",
+        "Packs include Shield, StealthShield, Cloaking Device, Energy, Repair and Ammo, plus most turrets and stations.",
+        "Cannot use teleport pads or pilot vehicles. The +30% Laser head bonus only applies on mid-head hits, but the separate +200% Bullet/Laser head-shot bonus applies normally."
+      ],
+      "source": "ArmorData.cs PlayerData harmor, $ItemMax, $MaxWeapons; item.cs HeavyArmor, Grenade::onUse, Mfgl::onUse; Mine.cs Nukebomb; staticshape.cs DeployableTeleport::onCollision"
+    },
+    "DragArmor": {
+      "summary": "The Dragoon is UR2's Cyborg (darmor) under a new name: the toughest class, and the only one that can carry the FGC-9000 Pack.",
+      "notes": [
+        "PlayerData darmor (heavy shape). It has the most health (1.6), 140 energy, a top speed of 11 and 12 weapon slots.",
+        "Grenade: Mortarbomb (1.0 Shrapnel in a 20 m radius after a 2 s fuse).",
+        "Beacon: speed booster like everyone else. UR2's Emergency Force Shields ability is gone.",
+        "The only class with FGC-9000, FGC-9000 Nukes (up to 50) and the FGC-9000 Pack. Note that the FGC items are not sold at stations.",
+        "Cannot use teleport pads or pilot vehicles."
+      ],
+      "source": "ArmorData.cs PlayerData darmor, $ItemMax, $MaxWeapons; item.cs DragArmor, Grenade::onUse, Beacon::onUse; staticshape.cs DeployableTeleport::onCollision"
+    },
+    "LAPCVehicle": {
+      "summary": "The BomberLPC is a heavily armored, very fast transport that now fires rockets.",
+      "notes": [
+        "Fires FlierRocket (Missile damage) every 0.3 s. UR2's Bomber dropped mortar shells.",
+        "Uses the small hover APC shape again. It is very tough (maxDamage 6), has a top speed of 500 and a ceiling of 500. Its driver is hidden.",
+        "Passengers of any class. Pilot must be a Scout, Sniper or Spy. Team limit 2."
+      ],
+      "source": "vehicle.cs LAPC, Vehicle::onCollision; baseProjData.cs FlierRocket; item.cs $TeamItemMax"
+    },
+    "HAPCVehicle": {
+      "summary": "The StealthHPC is a heavily armored transport that fires rockets. Despite the name, it is visible to sensors.",
+      "notes": [
+        "Fires FlierRocket every 0.3 s (UR2's Avenger fired discs).",
+        "Unlike Classic's and UR2's, visibleToSensor is true. It uses the large hover APC shape, is very tough (maxDamage 6), and is much faster than before.",
+        "Passengers of any class. Pilot must be a Scout, Sniper or Spy. Team limit 1."
+      ],
+      "source": "vehicle.cs HAPC, Vehicle::onCollision; baseProjData.cs FlierRocket; item.cs $TeamItemMax"
+    },
+    "EnergyRifle": {
+      "summary": "In this build the EnergyRifle is an ELF Gun: a short lightning beam that drains energy and does light damage.",
+      "notes": [
+        "Fires lightningCharge: 40 m beam, 0.1 Electricity damage per second and 60 energy per second drained. UR2's version fired the stronger boltCharge Thunderbolt.",
+        "Costs 3-11 energy per pulse, firing every 0.02 s.",
+        "Every class can carry it."
+      ],
+      "source": "item.cs EnergyRifleImage; baseProjData.cs lightningCharge"
+    },
+    "RocketLauncher": {
+      "summary": "The Stinger is a rapid-fire launcher that shoots big shockwave rockets.",
+      "notes": [
+        "Fires Nuke instead of StingerMissile, reloading every 0.05 s.",
+        "Nuke now does Missile damage in a 30.5 m radius with heavier kickback and the LargeShockwave explosion. In UR2 it was a 20.5 m Shrapnel blast.",
+        "Used by Spy, Mercenary, Burster, Engineer, Cyborg and Dragoon."
+      ],
+      "source": "item.cs RocketImage; baseProjData.cs Nuke"
+    },
+    "ConCun": {
+      "summary": "The Shockwave Cannon fires a slow-reloading energy blast that hits a wide area and throws players back. It only works with an Energy Pack.",
+      "notes": [
+        "ConCun::onUse refuses to equip it unless an Energy Pack is mounted ('Must have an Energy Pack to use the Shockwave Cannon').",
+        "Fires the Shock projectile: Missile damage in a 30 m radius with strong kickback. It is faster and harder-hitting than UR2's Shock.",
+        "Costs 25-26 energy per shot. UR2's WaveGun Shockwave Cannon is gone, and this item replaces it.",
+        "Used by Spy, Burster, Engineer, Cyborg and Dragoon."
+      ],
+      "source": "item.cs ConCun::onUse, ConCunImage; baseProjData.cs Shock"
+    },
+    "MfglAmmo": {
+      "summary": "FGC-9000 Nukes: ammunition for the FGC-9000 launcher.",
+      "notes": [
+        "The Dragoon can carry 50 and the Burster 10. An Ammo Pack adds capacity.",
+        "$InvList[MfglAmmo] is 0, so stations do not sell it."
+      ],
+      "source": "item.cs MfglAmmo, $AmmoPackItems; station.cs $InvList; ArmorData.cs $ItemMax"
+    },
+    "Mfgl": {
+      "summary": "The FGC-9000 is a cluster-nuke mortar. Two seconds after firing, its shell starts scattering 15 plasma bomblets. It only works with the FGC-9000 Pack mounted.",
+      "notes": [
+        "Mfgl::onUse refuses to equip it unless the FGC-9000 Pack is on your back.",
+        "Fires FgcShell: a heavy lobbed shell with Mortar damage in a 50 m radius.",
+        "Two seconds after the shell appears, FgcShell::onAdd starts DeployNukes. That drops three bomblets (Nuke1, Nuke2, Nuke3) every 0.5 s, five times, for 15 bomblets with 30 m Plasma blasts. Nuke2 and Nuke3 go off 2.25 and 2.5 s after landing. Nuke1 has no onAdd of its own.",
+        "Burster, Cyborg and Dragoon may carry it, and the Burster and Dragoon may carry nukes, but only the Dragoon can carry the pack, so only the Dragoon can fire it. $InvList[Mfgl] is 0, so stations do not sell it."
+      ],
+      "source": "item.cs Mfgl::onUse, MfglImage; baseProjData.cs FgcShell, FgcShell::onAdd, DeployNukes; Mine.cs Nuke1, Nuke2, Nuke3, Nuke2::onAdd, Nuke3::onAdd; station.cs $InvList"
+    },
+    "DeployableInvPack": {
+      "summary": "Deploys a remote Inventory Station.",
+      "notes": [
+        "Same placement as UR2: flat terrain, buildings or a Deployable Platform, with no station-spacing check.",
+        "Like Classic, the station records its last user again.",
+        "Team limit 5. Every class can carry one."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape; station.cs DeployableInvStation::onActivate; $TeamItemMax"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deploys a remote Ammo Station.",
+      "notes": [
+        "Same placement as UR2.",
+        "Using the station once more unmounts your weapon and links you to the station while it resupplies, as in Classic.",
+        "Team limit 20. Every class can carry one."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape; station.cs DeployableAmmoStation::onActivate; $TeamItemMax"
+    },
+    "DeployableComPack": {
+      "summary": "Meant to deploy a remote Command Station, but this build has no Command Station datablock.",
+      "notes": [
+        "deployShape still calls newObject with DeployableComStation, but no DeployableComStation datablock exists in Modmgt's scripts, so no station can be created.",
+        "The script still reports 'Command Station deployed', uses up the pack and counts it against the team limit of 5."
+      ],
+      "source": "item.cs DeployableComPack::deployShape; station.cs"
+    },
+    "CloakingDevice": {
+      "summary": "A backpack cloak that turns you invisible while active. Any class can now use it.",
+      "notes": [
+        "On activation it fades you out and adds 3 sensor suppression (UR2 5). Deactivating fades you back in.",
+        "UR2's guiLock flag is gone.",
+        "Every class can carry one. In UR2 it was Spy-only. It costs less energy to run than before."
+      ],
+      "source": "item.cs CloakingDeviceImage::onActivate, CloakingDeviceImage::onDeactivate; ArmorData.cs $ItemMax"
+    },
+    "StealthShieldPack": {
+      "summary": "A shield pack with a light sensor jammer, now open to every class.",
+      "notes": [
+        "While active: shield strength 0.012 (UR2 0.036) and only +3 sensor suppression (UR2 +20).",
+        "Uses 6-9 energy, as in Classic.",
+        "Every class can carry one, not just the heavy class."
+      ],
+      "source": "item.cs StealthShieldPackImage::onActivate, StealthShieldPackImage::onDeactivate"
+    },
+    "FgcPack": {
+      "summary": "The FGC-9000 Pack powers the FGC-9000 launcher and gives a little extra energy recharge.",
+      "notes": [
+        "Mounting it triggers the pack image, whose negative energy use (-1 to -3) works like a small Energy Pack.",
+        "The FGC-9000 only equips while this pack is mounted. Unmounting the pack also unmounts the launcher.",
+        "Dragoon only. $InvList[FgcPack] is 0, so stations do not sell it."
+      ],
+      "source": "item.cs FgcPack::onUse, FgcPack::onMount, FgcPack::onUnmount, FgcPackImage, Mfgl::onUse; station.cs $InvList"
+    },
+    "AmmoPack": {
+      "summary": "Raises how much ammo you can carry, including FGC-9000 nukes.",
+      "notes": [
+        "Covers 13 ammo types; MfglAmmo replaces UR2's Tranq and Silencer ammo in the list.",
+        "Dropping the pack moves excess ammo of all 13 types into it. The stored field names are offset from the $AmmoPackItems order. For example, Vulcan ammo is saved as MfglAmmo and MfglAmmo as MineAmmo."
+      ],
+      "source": "item.cs AmmoPack::onDrop, $AmmoPackItems"
+    },
+    "TurretPack": {
+      "summary": "Deploys a rapid-fire remote turret that shoots energy bolts.",
+      "notes": [
+        "DeployableTurret now fires MiniFusionBolt (Energy damage) every 0.04 s. UR2's Ion Turret fired Ion bolts every 0.4 s.",
+        "It has no shield (UR2 0.005). Placement and spacing are as in UR2.",
+        "Team limit 10. Every class can carry one."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret, DeployableTurret::onAdd; baseProjData.cs MiniFusionBolt"
+    },
+    "LaserTurret": {
+      "summary": "Despite the datablock name, this deploys a Plasma Turret. In this build it fires ten times as fast.",
+      "notes": [
+        "DeployablePlasma fires FusionBolt with a 0.08 s reload (UR2 0.8).",
+        "Placement is as in UR2: no open-area check, and Deployable Platforms are allowed.",
+        "Destruction now uses the plain Turret::onDestroyed, without UR2's debris blast.",
+        "Team limit 20. The Sniper can carry 8, other classes 1."
+      ],
+      "source": "item.cs LaserTurret::deployShape; turret.cs DeployablePlasma, DeployablePlasma::onDestroyed; ArmorData.cs $ItemMax"
+    },
+    "LaserPack": {
+      "summary": "The Laser Turret is back in place of UR2's Assassin Turret. It is a fragile, very fast-firing laser that mounts on building surfaces only.",
+      "notes": [
+        "DeployableLaser fires SniperLaser (Laser damage) with a 0.05 s reload, range 50. It is fragile (maxDamage 0.35).",
+        "Can only be placed on buildings (InteriorShape), on floors, walls or ceilings. The laser-turret spacing check is gone.",
+        "Laser hits disarm targets hit in the front-right torso and get the triple head-shot bonus.",
+        "Team limit 10. Every class can carry one."
+      ],
+      "source": "item.cs LaserPack::deployShape; turret.cs DeployableLaser, DeployableLaser::onAdd; player.cs Player::onDamage"
+    },
+    "ShockPack": {
+      "summary": "The ELF Turret replaces the Shock Turret. It fires a sustained energy-draining lightning beam.",
+      "notes": [
+        "DeployableShock now fires lightningCharge (0.1 Electricity damage per second, 60 energy per second drained) at range 40. Since the build has no short-circuit effect, it no longer shorts out enemies.",
+        "It has no shield, and the spacing check against other Shock turrets is removed.",
+        "Team limit 4. Engineer only."
+      ],
+      "source": "item.cs ShockPack::deployShape; turret.cs DeployableShock, DeployableShock::onAdd; baseProjData.cs lightningCharge"
+    },
+    "TargetPack": {
+      "summary": "The Targeting Turret replaces UR2's Mortar Turret pack. It is a camera-style turret that paints targets with a targeting laser.",
+      "notes": [
+        "Spawns TargetTurret, firing targetLaser (no damage) at range 100.",
+        "Mounts on terrain, buildings or a Deployable Platform at any angle (floors, walls, ceilings), with no spacing checks.",
+        "$InvList[TargetPack] is 0, so stations do not sell it, although every class may carry one. Team limit 5."
+      ],
+      "source": "item.cs TargetPack::deployShape; turret.cs TargetTurret; station.cs $InvList"
+    },
+    "DeployableMortar": {
+      "summary": "A new deployable Mortar Turret that, unlike UR2's manual one, aims and fires on its own.",
+      "notes": [
+        "Spawns DeployableMortarT firing MortarTurretShell, range 200. It is very sturdy (maxDamage 10), with shield strength 0.05 and energy recharge 15.",
+        "Flat terrain, buildings or a Deployable Platform.",
+        "The spacing checks count objects named DeployableMortar (the pack), not the DeployableMortarT turret, so they never find nearby mortar turrets.",
+        "Team limit 2. Every class can carry one."
+      ],
+      "source": "item.cs DeployableMortar::onUse, DeployableMortar::deployShape; turret.cs DeployableMortarT, DeployableMortarT::onAdd, DeployableMortarT::onDestroyed"
+    },
+    "RocketPack": {
+      "summary": "The Rocket Turret: a remote turret firing seeking missiles at hot targets, reloading much faster than UR2's.",
+      "notes": [
+        "DeployableRocket reloads every 0.5 s (UR2 2.5) using less energy per shot. It still only engages targets with heat factor 0.5 or more.",
+        "Uses the remote-turret shape. Destruction now uses the plain Turret::onDestroyed.",
+        "Team limit 3. Every class can carry one."
+      ],
+      "source": "item.cs RocketPack::deployShape; turret.cs DeployableRocket, DeployableRocket::verifyTarget, DeployableRocket::onDestroyed"
+    },
+    "ForceFieldPack": {
+      "summary": "Deploys a small 3x4 force field that opens like a door for your teammates.",
+      "notes": [
+        "Spawns medcForceFieldShape on any flat surface.",
+        "When a teammate touches it, the field fades out, moves 6 m up and drops back after 1 s. Enemies are blocked.",
+        "Fragile (maxDamage 10). When destroyed it does a small debris blast.",
+        "Team limit 50. Every class can carry one."
+      ],
+      "source": "item.cs ForceFieldPack::deployShape; staticshape.cs medcForceFieldShape::onCollision, openDoor, closeDoor, onDestroyed, doDamage"
+    },
+    "LargeForceFieldPack": {
+      "summary": "Deploys a 4x17 force-field wall that opens like a door for teammates.",
+      "notes": [
+        "Spawns lgaForceFieldShape on any flat surface. It has the same team-only door behavior as the small field: it opens for 1 s when a teammate touches it.",
+        "Fragile (maxDamage 10). When destroyed it does a small debris blast.",
+        "Team limit 50. Engineer only."
+      ],
+      "source": "item.cs LargeForceFieldPack::deployShape; staticshape.cs lgaForceFieldShape::onCollision, openDoor, closeDoor, onDestroyed"
+    },
+    "TripwirePack": {
+      "summary": "No longer a Blast Wall. The script now tries to place a large force field, but that datablock does not exist in this build.",
+      "notes": [
+        "Allowed on terrain or buildings, and refused if a LargeForceField is already nearby.",
+        "It calls newObject with LargeForceField, which Modmgt does not define, so nothing usable is created.",
+        "$InvList[TripwirePack] is 0, so stations do not sell it. Engineer only, team limit 2."
+      ],
+      "source": "item.cs TripwirePack::deployShape; staticshape.cs; station.cs $InvList"
+    },
+    "TreePack": {
+      "summary": "Deploys a Mechanical Tree for cover or camouflage. It can now go on buildings.",
+      "notes": [
+        "Spawns DeployableTree (40%) or DeployableTree2 (60%) on flat terrain or buildings. UR2 allowed terrain only.",
+        "Team limit 500. Used by the Sniper and Engineer."
+      ],
+      "source": "item.cs TreePack::deployShape; $TeamItemMax"
+    },
+    "PlatformPack": {
+      "summary": "Deploys a thin 6x6 platform you can stand on and build on.",
+      "notes": [
+        "Behavior is the same as UR2 (only internal variable names changed): it is placed where your 3 m line of sight hits, with no surface check.",
+        "Team limit 500. Engineer only."
+      ],
+      "source": "item.cs PlatformPack::deployShape; $TeamItemMax"
+    },
+    "TeleportPack": {
+      "summary": "Deploys a Teleport Pad that sends you to another of your team's pads.",
+      "notes": [
+        "Spies can no longer use enemy pads. Anyone on the wrong team is refused.",
+        "Each teleport has a 1-in-55 chance of 0.15 crush damage ('phased your molecular structure wrong').",
+        "Bug: the 5 s re-enable is only scheduled when that damage does not happen. After an unlucky teleport, both pads stay disabled ('recharging') for good.",
+        "Cyborgs and Dragoons cannot teleport. Team limit 4 pads. Engineer only."
+      ],
+      "source": "staticshape.cs DeployableTeleport::onCollision, DeployableTeleport::reenable; item.cs TeleportPack::deployShape; $TeamItemMax"
+    },
+    "MechPack": {
+      "summary": "The Interceptor Pack deploys a ready-to-fly Interceptor jet.",
+      "notes": [
+        "Spawns the Jet flier on flat terrain or buildings, as in UR2, and names it 'Mech Robot'.",
+        "In this build the Jet fires JetBolt every 0.03 s.",
+        "Counts against the JetVehicle team limit of 50. Scout only."
+      ],
+      "source": "item.cs MechPack::deployShape; vehicle.cs Jet; $TeamItemMax"
+    },
+    "RepairKit": {
+      "summary": "Single-use self repair, back to the Classic amount.",
+      "notes": [
+        "Repairs 0.2 (UR2 1.2). There is no poison to cure.",
+        "The Sniper can carry 9, other classes 1."
+      ],
+      "source": "item.cs RepairKit::onUse; ArmorData.cs $ItemMax"
+    },
+    "MineAmmo": {
+      "summary": "Thrown anti-personnel mine that only goes off for enemies.",
+      "notes": [
+        "Always throws an AntipersonelMine set to your team. UR2's Commando DMMine branch is gone.",
+        "Mines take 25% of incoming mine damage (UR2 35%).",
+        "Large carry limits: Spy 199, Sniper, Mercenary and Cyborg 99, Burster 60, Engineer and Dragoon 50, Scout 30. MineAmmo::onUse does not check the team limit."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine::onDamage; ArmorData.cs $ItemMax"
+    },
+    "Grenade": {
+      "summary": "Thrown explosive whose type depends on class. The set is reshuffled from UR2.",
+      "notes": [
+        "Sniper and Engineer: AntipersonelMine. Scout and Mercenary: Handgrenade. Spy: Hologram, a flag-model decoy mine that explodes when anyone touches it. Burster: Concussion (Plasma damage, which no longer ignites). Cyborg: Nukebomb Plastique with a 5 s fuse (UR2 15 s). Dragoon: Mortarbomb.",
+        "Nukebomb has no onCollision handler in this build, so Engineers can no longer disarm Plastique. It simply goes off after its 5 s fuse.",
+        "Firebomb::onAdd now scatters fragments (DeployFrags) and has a 5 s fuse, but no class throws a Firebomb any more.",
+        "Carry limits are high: Spy 199, Mercenary and Burster 60, Cyborg 50, Sniper, Engineer and Dragoon 30. The Scout's Grenade limit is 0, so it cannot carry any, although its grenade type is listed as Handgrenade."
+      ],
+      "source": "item.cs Grenade::onUse; Mine.cs Hologram, Nukebomb::onAdd, Concussion, Mortarbomb, Firebomb::onAdd, DeployFrags; ArmorData.cs $ItemMax"
+    },
+    "Beacon": {
+      "summary": "Every class's beacon is now a speed booster dropped at your feet. All UR2 class beacon abilities are gone.",
+      "notes": [
+        "Drops a 'boost' mine with zero throw force, at most one every 0.2 s (zero damage, 300 kickback, 20 m blast).",
+        "Boost has no onAdd or onCollision of its own, and its onDamage destroys it on any damage. When it goes off by itself was not determined from the scripts.",
+        "Carry limit 6 for most classes, Dragoon 5, Engineer 4."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost, Boost::onDamage; ArmorData.cs $ItemMax"
+    },
+    "RepairPatch": {
+      "summary": "Health pickup found in the world, back to the Classic heal amount.",
+      "notes": [
+        "Walking over it while damaged repairs 0.125 (UR2 1.125). If carried and used, it repairs 0.1."
+      ],
+      "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+    }
+  }
+}

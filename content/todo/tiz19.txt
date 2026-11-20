@@ -1,0 +1,64 @@
+# tiz19 vs alliance (63 items)
+new        Plastique                    Grenade Mode
+new        iarmorScout                  Kraken Armor
+new        iarmorMercenary              Assault Armor
+new        iarmorEngineer               Mechanic
+new        iarmorBurster                Demolitions Man
+new        iarmorCyborg                 Annihilator
+new        iarmorSniper                 Assasin
+renamed+statsiarmorDestroyer              Titanic
+stats+scriptsTargetingLaser               Targeting Laser
+stats+scriptsPlasmaGun                    Plasma Gun
+new        DiskAmmo                     Doom Shell
+new        DiscCannon                   Doom Cannon
+new        AutocannonBulletAmmo         Autocannon Shells
+new        Autocannon                   AutoCannon
+new        HyperB                       Laser Rifle
+renamed+statsBulletAmmo                   M-2 Bullets
+renamed+stats+scriptsChaingun                     Nailgun
+renamed+statsSilencerAmmo                 Pistol Clips
+renamed+stats+scriptsSilencer                     ERFP
+stats+scriptsSniperRifle                  Sniper Rifle
+new        LongAmmo                     Scorpion Rifle Ammo
+new        LongRifle                    Scorpion Rifle
+new        ShotgunAmmo                  Shotgun Shells
+new        Shotgun                      Storm Rager
+renamed+stats+scriptsFlamer                       Flamer
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+renamed+statsRocketAmmo                   Missiles
+stats+scriptsRocketLauncher               Rocket Launcher
+new        ELF                          ELF Gun
+renamed+stats+scriptsFixit                        Tech Repair Pistol
+stats+scriptsAmmoPack                     Ammo Pack
+stats      EnergyPack                   Energy Pack
+new        RegenerationPack             Regeneration Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+new        StealthShieldPack            StealthShield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+new        LRSensorJammerPack           Adv. Jammer Pack
+renamed+stats+scriptsPackOMen                     Hologram Pack
+stats      DeployableInvPack            Inventory Station
+scripts    DeployableComPack            Command Station
+renamed+stats+scriptsBlastWallPack                BlastWall
+scripts    TeleportPack                 Teleport Pad
+renamed+stats+scriptsSpringPack                   Launch Pad
+renamed+statsMechPack                     Vyper Pack
+renamed+statsDetPack                      Grav Tank Pack
+new        BikePack                     Jetbike Pack
+new        DogPack                      Vyper Var.3 Pack
+new        VyPack                       Vyper Var.2 Pack
+new        TempestPack                  Tempest Pack
+new        SpeedPack                    Landspeeder 1 Pack
+new        SpeederPack                  Landspeeder 2 Pack
+new        SpeedoPack                   Landspeeder 3 Pack
+renamed+stats+scriptsIonTurretPack                Fusion Turret
+stats+scriptsLaserTurretPack              Laser Turret
+stats+scriptsRocketPack                   Missile Turret
+scripts    PlasmaTurretPack             Plasma Turret
+renamed+statsScoutVehicle                 Blizzard
+renamed+statsInterceptorVehicle           Doom Rager
+renamed+statsHAPCVehicle                  APC Bomber
+renamed+statsLAPCVehicle                  LPC Shriker

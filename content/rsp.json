@@ -1,0 +1,44 @@
+{
+ "mod": {
+  "overview": "Redneck Slag Pack (RSP v1.18) is a class-based total-loadout expansion for Tribes Base that replaces the three default armors with seven specialized roles (Scout, Sniper, Engineer, Infiltrator, Demo Expert, Goliath, and Hacker) alongside new flyers, heavy weapons, and tactical deployables. Players spawn in mobile Infiltrator gear and visit base inventory stations to specialize into stealth vehicle piloting, extreme-range sniping, artillery siege, base teleportation/fortification, or electronic warfare via hacking and defensive viruses. Compared to Base Tribes, matches feel far more specialized and role-driven: Engineers build full forward bases with linked teleporters, forcefields, and anti-air/anti-matter turrets while Hackers and Demo Experts counter with object hijacking, stealth APC drops, and 30-second tactical nukes. The mod also includes a built-in Desert_Of_Death mission override that shifts spawning and Sniper loadouts for laser-heavy combat, plus automated Anti-TK redemption, Out-of-Bounds lethal timers, and Anti-Flood kill rules.",
+  "notes": [
+   "Classes and Roles: Base Light/Medium/Heavy armors are replaced by 7 specialized classes (plus female variants): Scout (fast maxForwardSpeed 23, fragile 0.35 maxDamage, 2 weapons, up to 20 Jump Mines, full vehicle pilot), Sniper (SniperRifle with instant-kill headshots and 5% armor-glance chance, LaserRifle, DiscLauncher, Sniper Pad, Sniper Decoy, Scout-only pilot), Engineer (2 weapons, 500m-range EngRepairPack, EnergyRifle, and all heavy base-building deployables), Infiltrator (default spawn armor, 3 weapons, FlakGun, GatBlaster, CloakPack, MPCPack, full vehicle pilot), Demo Expert (3 weapons, 25 grenades, 10 Concussion Grenades, 15 Jump Mines, Nuke Pack, Kamikaze Pack), Goliath (slow 5.0 speed, 5 weapons, PulseMortar, HellfireGun, Mortar, PlasmaCannon requiring an EnergyPack), and Hacker (1.5 maxDamage, 2 weapons, HackPack, ViralPack).",
+   "Spawns and Loadouts: On standard maps, players spawn in InfiltratorArmor with Blaster, DiscLauncher, PlasmaGun, RepairPack, RepairKit, and JumpMineAmmo (unless flagged as a team killer, which forces TKarmor and TKPack). On Desert_Of_Death, $LaserOverRide activates: players spawn in SniperArmor with Blaster, DiscLauncher, PlasmaGun, and RepairKit, Sniper gains 3 weapon slots plus Chaingun/PlasmaGun/EnergyRifle/MotionSensorPack, and Scout laser vulnerability jumps from 0.32 to 1.8.",
+   "Controls and Menus: No custom slash or #chat commands are added; server options, voting, and administration run through the standard Tab Options menu (Change Teams/Observe, Vote Menu, Player Menu, Admin Menu, and SAD Menu). Super Admins get a Redneck Slag Setup submenu under SAD Menu to toggle Allow Hacking, Anti Out of Bounds, Flood Killing, Anti TK, Allow Team Changes, and Allow Admin Vote live.",
+   "Weapons and Combat Mechanics: SniperRifle deals fatal headshots (%armor.maxDamage + 1) unless a shot triggers the 5% armor-glance roll; LaserRifle adds +30% headshot damage (+40% on Goliath). Jump Mines (BoosterMine) and Concussion Grenades (PushGrenade) deal zero direct damage and launch targets with 500 and 250 kickback respectively. PlasmaCannon is Goliath-only and checks that an EnergyPack is worn before firing, while FlakGun fires wide 100m-radius flak shells that deal 1.5x to 2.5x damage to flyers and only 0.01x to players.",
+   "Hacking and Virus Counterplay: When $RSP::AllowHacking is true, Hackers use HackGun to flip enemy turrets, sensors, deployed gear, or even an armed enemy Nuke Pack (awarding 2 points) after 5 seconds. Friendlies defend against this by uploading a 900-second virus with ViralGun, which kills any enemy Hacker who completes a hack on that object (with a 50% chance the virus is cleared) and can also be flushed by an enemy ViralGun.",
+   "Deployables and Base Engineering: Engineers deploy a wide array of structures including BigInvPack (full inventory station on flat building surfaces), Force Fields (standard and large 4x8), Remote Chain/ELF/AA Rocket/Anti-Matter Turrets (AA Rocket tracks heat signatures up to 350m; Anti-Matter mounts atop an elevated stand), Long Range Motion Sensors (100m), Base Alarms (team alert on enemy touch), Jump Pads, Sniper Pads (80m vertical), Decoys, and linked Teleport Pads (max 2 per team, blocked within 40m of flags).",
+   "Station Rules and Explicit Bans: FlashGrenade and TKPack are disabled at all stations ($InvList = 0, $RemoteInvList = 0). Remote inventory stations additionally ban ($RemoteInvList = 0) NukeGrenade, BigInvPack, AARocketPack, AntiMatterTurretPack, DeployableELFTurretPack, DeployableForceFieldPack, DeployableLForceFieldPack, DeployableJumpPadPack, DeployableTelePadPack, DeployableLRMotionSensorPack, and SniperPadPack so heavy deployables and nukes must be fetched from main base stations.",
+   "Anti-TK, Anti-OOB, and Flood Rules: Under $RSP::AntiTK, hitting $RSP::TKKickCount (default 5) team kills locks the offender into TKarmor with no weapons and station lockout until teammates kill them down to 0 or 300 seconds pass. Leaving the mission area under $RSP::AntiOOB starts a 20-second countdown before ticking lethal damage, and chat flooding past $RSP::FloodCount (default 7 lines) under $RSP::FloodKill kills the speaker immediately.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): FlashGrenade (station.cs), TKPack (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): AARocketPack (station.cs), AntiMatterTurretPack (station.cs), BigInvPack (station.cs), DeployableELFTurretPack (station.cs), DeployableForceFieldPack (station.cs), DeployableJumpPadPack (station.cs), DeployableLForceFieldPack (station.cs), DeployableLRMotionSensorPack (station.cs), DeployableTelePadPack (station.cs), NukeGrenade (station.cs), SniperPadPack (station.cs)."
+  ]
+ },
+ "items": {
+  "MPCPack": {
+   "summary": "High-output rechargeable energy capacitor pack with overheat damage and heat-signature risk.",
+   "notes": [
+    "Infiltrator Armor exclusive: increases energy recharge rate to 200 for up to 45 seconds ($RSP::MPCPackChargeTime) for sustained energy-pack/jet/weapon output.",
+    "As heat builds past critical in the final sixth of its charge, the containment field damages the wearer; turning it off triggers a cooldown (2x active duration, minimum 10s, when $RSP::MPCCoolAccordingToUse is true).",
+    "While active or cooling down, the wearer broadcasts a 1.0 heat factor to heat-seeking turrets."
+   ],
+   "source": "item.cs, player.cs, RedneckSlag.cs"
+  },
+  "NukeGrenade": {
+   "summary": "Team-limited tactical nuclear charge with a 30-second fuse and huge blast radius.",
+   "notes": [
+    "Demo Expert exclusive, limited to 1 active per team at a time ($RSP::NukeActive) and banned from remote stations ($RemoteInvList = 0).",
+    "Detonates after 30 seconds ($RSP::NukeDetTime) with a 150m-radius AtomGrenade blast (damageValue 25.0) and a rising mushroom cloud of firework shockwaves.",
+    "Broadcasts a server-wide alert when deployed and can be disarmed by an enemy Hacker's HackGun before detonation."
+   ],
+   "source": "item.cs, Mine.cs, station.cs"
+  },
+  "KamikazePack": {
+   "summary": "Suicide detonation pack that triggers four explosive charges after a 30-second countdown.",
+   "notes": [
+    "Demo Expert exclusive: activating starts a 30-second countdown (canceling if dropped, deactivated, or if the player dies).",
+    "At zero, spawns four KamikazeBomb charges around the wearer (15m radius, 5.0 damage each)."
+   ],
+   "source": "item.cs, Mine.cs, player.cs"
+  }
+ }
+}

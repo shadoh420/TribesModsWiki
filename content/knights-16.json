@@ -1,0 +1,92 @@
+{
+ "mod": {
+  "overview": "Knights v1.6 is a tactical total-conversion mod for Tribes 1 created by Dark Knight of the KR clan in September 2003. It rebalances base gameplay around seven specialized armor classes, an extensive armory of conventional and magical weapons, advanced deployable base fortifications, and custom status effects like bleeding, poison, blinding, and energy drain. Teams construct and defend fortified bases using deployable doors, blast floors, healing antennas, backup generators, teleport pads, and player-guided nuclear turrets. The mod runs on standard base game types such as Capture the Flag and Deathmatch, features full bot support with dynamic weapon switching, and defaults to infinite team energy.",
+  "notes": [
+   "Seven Armor Classes: Players choose from Scout (speed 40, health 0.3, energy 400, zero fall damage, 3 weapons), Assassin light armor (speed 14, health 0.66, 4 weapons), Sorceror (speed 15, health 1.2, energy 150, 3 weapons, casts spells), Worker medium armor (speed 8, health 1.0, 5 weapons, engineer and turret operator), Clytranium alien armor (speed 24, health 0.85, 4 weapons, alien weaponry), Knight heavy armor (speed 5, health 1.32, 6 weapons, quad heavy weapons), and Base Defender ultra armor (speed 2.5, health 3.0, energy 310, zero fall damage, 7 weapons).",
+   "Class Roles and Restrictions: The Worker medium armor can remote-control base and deployable turrets directly from the field without needing a Command Station. The Knight heavy armor carries exclusive multi-barrel heavy ordnance but is banned from using Teleport Pads. The Sorceror possesses exclusive access to magical spells including Bite of Lightning, Evil Soul, Sword of the Fallen Devil, and Energy Blade.",
+   "Joining Menu and Skins: Upon connecting, players receive a skin configuration menu prompting them to choose between their personal custom skin or the server team skin via the Knights UsePersonalSkin setting before their first spawn.",
+   "Combat Status Effects: Weapons apply debilitating status effects on impact. Poison Dart Rifle hits trigger ticking damage over time, the BAR machine gun causes prolonged excessive bleeding, the Alien Rifle blaster inflicts blinding white screen flashes, and EMP rockets drain all target energy to zero while forcing the victim to unmount their active weapon.",
+   "Spell Mechanics: Spells in the Sorceror arsenal feature custom behaviors. The Bite of Lightning spell uses a two-phase charge system where the initial trigger charges magic levels up to six, releasing rapid-fire lightning bursts at intermediate levels or a high-damage summon projectile at level six. Evil Soul manifests as a floating familiar above the player that fires soul shells.",
+   "Synchronized Multi-Barrel Weaponry: Heavy Knight weapons utilize automated sub-slot mounting to fire synchronized volleys. The Knight Chaingun mounts across three sub-slots to fire four chaingun barrels at once, the Knight Quad RPG launches four rockets simultaneously, the Knight Missile Launcher fires locking salvos, and the Knights Shotgun discharges twenty pellets per trigger pull.",
+   "Deployable Base Fortifications: Engineers can deploy team-filtered Defensive Doors, Large Force Field Doors, and Blast Floors that automatically slide away for teammates on contact and seal after six seconds. Backup Generators can be placed to power nearby unpowered stations, vehicle pads, elevators, and doors within a 20-unit radius, while Healing Antennas restore 0.3 health on contact.",
+   "Deployable Teleporters: Deployable Teleport Pads connect two locations for friendly teammates. Passing through a pad inflicts 0.15 crush damage and initiates a 5-second recharge window on both pads, with a 1-in-25 chance of catastrophic malfunction causing both pads to explode with 20 debris damage. Heavy armor cannot teleport.",
+   "Turret Deployables: Deployable defenses include Laser Turrets (cap 10), Striker Turrets (cap 10), Defender Turrets (cap 15), Slash Turrets (cap 5, firing explosive discs), and Nuke Turrets (cap 2). Nuke Turrets have a targeting range of zero and must be manually controlled by a Worker or Command Station operator to launch 9.0-damage nuclear shells.",
+   "Rules, Spawns, and Bot Support: Players spawn in Assassin light armor carrying an EMP launcher, Blaster, BAR, Disc Launcher, grenades, mines, beacons, and repair gear. Remote inventory stations restrict heavy weapons and high-tier packs, while the Darkness weapon is zeroed at base stations. Built-in bot AI automatically equips snipers at ranges exceeding 100 units, the BAR against airborne jetting targets, and the EMP against grounded foes.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Dark (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): AlienGat (station.cs), BAR (station.cs), ChronoLaser (station.cs), FlameL (station.cs), GeneratorPack (station.cs), KnightLaser (station.cs), MortarR (station.cs), NukePack (station.cs), Pistols (station.cs), ScoutM (station.cs), Stinger (station.cs), TankRPGLauncher (station.cs) (+2 more)."
+  ]
+ },
+ "items": {
+  "TeleportPack": {
+   "summary": "Deployable team teleportation pad that connects two base locations for rapid transit.",
+   "notes": [
+    "Limited to 2 pads per team; stepping on a pad instantly transports friendly players to the linked pad.",
+    "Inflicts 0.15 crush damage on transit and disables both pads for 5 seconds to recharge.",
+    "Heavy armor cannot use teleporters, and each teleport has a 1-in-25 chance of malfunction causing both pads to self-destruct with 20 debris damage."
+   ],
+   "source": "item.cs"
+  },
+  "Bite": {
+   "summary": "Chargeable lightning spell exclusive to the Sorceror armor class.",
+   "notes": [
+    "First trigger pull begins charging magic ammo every 2 seconds up to 6 charge levels.",
+    "Second trigger pull discharges the spell, firing bursts of 3, 5, 6, or 10 lightning projectiles for levels 2 through 5.",
+    "Reaching charge level 6 discharges a single high-damage summon projectile that deals 1.0 direct lightning damage."
+   ],
+   "source": "item.cs"
+  },
+  "NukePack": {
+   "summary": "Deployable nuclear artillery turret that launches catastrophic long-range warheads.",
+   "notes": [
+    "Limited to 2 deployed turrets per team and purchasable only by Worker medium armor.",
+    "Features a targeting range of zero and will not fire on its own; it requires manual control from a Command Station or Worker armor.",
+    "Fires high-yield NukeShell rounds dealing 9.0 mortar-type explosion damage over a wide blast area."
+   ],
+   "source": "item.cs"
+  },
+  "ChronoLaser": {
+   "summary": "Heavy space-time sniper beam weapon exclusive to the Worker armor class.",
+   "notes": [
+    "Costs 2500 credits at inventory stations and consumes 70 energy to fire.",
+    "Projects a continuous red energy beam that lasts for 7 full seconds, detonating with heavy explosions at the impact point.",
+    "Converts player energy into laser damage with a 0.67 damage conversion multiplier."
+   ],
+   "source": "item.cs"
+  },
+  "TankShredder": {
+   "summary": "Quad-barreled heavy rotary chaingun designed exclusively for Knight heavy armor.",
+   "notes": [
+    "Automatically mounts three secondary barrel attachments across weapon sub-slots 4, 5, and 6.",
+    "Holding the trigger synchronizes all four barrels to fire simultaneously, producing an extreme rate of fire.",
+    "Costs 7500 credits at main inventory stations and cannot be purchased at remote inventory stations."
+   ],
+   "source": "item.cs"
+  },
+  "GeneratorPack": {
+   "summary": "Deployable auxiliary generator used to restore base power infrastructure.",
+   "notes": [
+    "Exclusive to Worker armor, costing 2750 credits with a team cap of 3 deployed generators.",
+    "Periodically scans a 20-by-20-by-20 unit cubic area around itself for unpowered structures.",
+    "Restores operating power to nearby disabled inventory stations, ammo stations, vehicle stations, command stations, vehicle pads, elevators, and doors."
+   ],
+   "source": "item.cs"
+  },
+  "DepFFDoorPack": {
+   "summary": "Deployable defensive blast floor that functions as an automated team-filtered door.",
+   "notes": [
+    "Deploys an 8-health physical platform barrier that blocks hostile passage.",
+    "Fades out and moves 2000 units upward for 6 seconds when touched by teammates before resealing.",
+    "Team limit of 15 deployable blast floors, purchasable by Assassin and Worker armors."
+   ],
+   "source": "item.cs"
+  },
+  "Soul": {
+   "summary": "Summonable spirit familiar exclusive to the Sorceror that hovers overhead and fires energy shells.",
+   "notes": [
+    "When selected, an evil soul model hovers above the player character at a fixed vertical offset.",
+    "Fires homing soul shell projectiles every 0.9 seconds for 10 energy, dealing specialized soul damage.",
+    "Requires no physical ammunition and functions alongside other spell weapons."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

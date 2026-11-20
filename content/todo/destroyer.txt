@@ -1,0 +1,88 @@
+# destroyer vs base (87 items)
+new        FighterVehicle               Fighter
+new        InterceptorVehicle           Interceptor
+stats      LAPCVehicle                  LPC
+stats      HAPCVehicle                  HPC
+new        ChargerArmor                 Charger
+new        PsycicArmor                  Psycic
+new        WarriorArmor                 Warrior
+new        BuilderArmor                 Builder
+new        AvengerArmor                 Avenger
+new        MechArmor                    Mech
+new        FireBall                     Fire Ball
+new        EnChaingun                   Energy Chaingun
+new        Plasma                       Plasma
+new        EnBlast                      Blast Cannon
+new        DCannon                      Death Cannon
+new        EnergyDisc                   Energy Disc
+new        Laser                        Laser
+stats+scriptsChaingun                     Chaingun
+stats+scriptsPlasmaGun                    Plasma Gun
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        ShotgunShell                 Shotgun Shells
+new        Shotgun                      Shotgun
+stats+scriptsMortar                       Mortar
+new        NukeAmmo                     Nucelear Reactants
+new        FusionL                      Fusion Launcher
+new        FusionL2                     Fusion Launcher
+new        FusionL3                     Fusion Launcher
+new        FissionL                     Fission Launcher
+new        FissionL2                    Fission Launcher
+new        FissionL3                    Fission Launcher
+new        Rockets                      Rocket
+new        RocketL                      Rocket Launcher
+new        Nitrogen                     Nitrogen
+new        CSpray                       Chemical Sprayer
+new        LNitroPack                   Nitrogen Tank
+new        Fuel                         Fuel
+new        FlameT                       Flame Thrower
+new        FuelPack                     Fuel Tank
+new        FlameB                       Flame Blast
+new        NitroB                       Liquid Nitrogen Blast
+new        RailBolts                    Rail Bolts
+new        Railgun                      Railgun
+new        TractorBeam                  Grappler Beam
+new        RepRif                       Repair Rifle
+new        BRepGun                      Builder Repair-Gun
+new        BRepGun2                     Builder Repair-Gun
+new        BRepGun3                     Builder's Repair-Gun
+new        BRepGun4                     Builder Repair-Gun
+new        BRepGun5                     Builder Repair-Gun
+stats+scriptsTargetingLaser               Targeting Laser
+new        Lightning                    Lightning
+new        DBChainAmmo                  Fletchets
+new        DBChain                      Double Chaingun
+new        DBChain2                     Double Chaingun
+new        DBChain3                     Double Chaingun
+new        SuperGun                     Super Gun!!
+new        SChaingun                    Super Chaingun
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      AmmoPack                     Ammo Pack
+new        CloakingPack                 Cloaking Pack
+new        SuicidePack                  Suicide Pack
+new        PowerEnhPack                 Power Enhancement Pack
+stats      DeployableInvPack            Inventory Station
+stats      DeployableAmmoPack           Ammo Station
+stats      MotionSensorPack             Motion Sensor
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+stats      CameraPack                   Camera
+renamed+statsTurretPack                   Ion Turret
+new        FlameTurretPack              Flame Turret
+new        LaserPack                    Laser Turret
+new        ChaingunTurretPack           Chaingun Turret
+new        PlasmaPack                   Mini-Plasma Turret
+new        PlasFloorPack                Plasma Floor (opens)
+new        PlasFloor2pack               Plasma Floor (Static)
+new        ForceFieldDoorPack           Small Force Field Door
+new        LargeForceFieldDoorPack      Large Force Field Door
+new        BlastWallPack                Blast Wall
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsRepairPatch                  Repair Patch
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon

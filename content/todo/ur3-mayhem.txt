@@ -1,0 +1,51 @@
+ur3-mayhem: 60 of 88 need write-ups
+  LightArmor (Combat Flight Armor): renamed+stats
+  RidgeRunnerArmor (RidgeRunner Armor): new
+  MediumArmor (Mainstay Armor): renamed+stats
+  techArmor (tech Armor): new
+  HeavyArmor (Class IV Armor): new
+  HellBringerArmor (HellBringer Armor): new
+  JetVehicle (Avenger): renamed+stats
+  Jet2Vehicle (Devistator): new
+  BomberVehicle (EMP Bomber): new
+  LAPCVehicle (LPC): renamed+stats
+  HAPCVehicle (HPC): renamed+stats
+  GrenadeAmmo (GrenadeAmmo): renamed+stats
+  ForceFieldBusterAmmo (ForceFieldBusterAmmo): new
+  ForceFieldBuster (Force Field Buster): new
+  ShotgunShells (Shotgun Shells): new
+  Shotgun (Shotgun): new
+  MortarAmmo (MortarAmmo): renamed+stats
+  EnergyRifle (ELF Gun): renamed+stats
+  RifleAmmo (Rifle Ammo): new
+  SniperRifle (IX-2000 Sniper Rifle): renamed+stats
+  AssaultRifleAmmo (Assault Rifle Ammo): new
+  AssaultRifle (M-16 Assault Rifle): new
+  EMPGrenadeAmmo (EMP Grenade Ammo): new
+  EMPGrenadeLauncher (EMP Grenade Launcher): new
+  EMPRocketAmmo (EMP Rockets): new
+  EMPRocketLauncher (EMP Rocket Launcher): new
+  CloakGun (Cloaking Gun): new
+  DeployableInvPack (Inventory Station): scripts
+  PlasmaPack (Mini-Plasma Turret): new
+  DeployableAmmoPack (Ammo Station): scripts
+  ForceFieldPack (Small Force Field): renamed+stats+scripts
+  LargeFieldPack (Large Force Field): new
+  PlasmaPlatPack (Plasma Platform): new
+  doorfivebyfiveForceFieldPack (Force Field Door): new
+  EnergyPack (Energy Pack): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  CameraPack (Camera): scripts
+  TurretPack (Turret): renamed+stats+scripts
+  AssassinTurretPack (Assassin Turret): new
+  FlameTurretPack (Flame Turret): new
+  VulcanTurret (Vulcan Turret): stats+scripts
+  RailTurret (Rail Turret): stats+scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): stats+scripts
+  EMPMineAmmo (EMP Mine): new
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): scripts

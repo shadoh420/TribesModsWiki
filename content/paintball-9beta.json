@@ -1,0 +1,8 @@
+{
+ "mod": {
+  "overview": "Paintball v9.0 Beta (|K0RN| and [RR]MisterPibb, modified by GoHaN, March 2003) forks Paintball v.Speed (88 items, single 1-weapon Light suit, no jetpack, Base weapons/packs banned at stations), cutting run speeds back to tactical values (forward 27 -> 14, back 19 -> 6, side 10 -> 5), renaming several markers to 2002-2003 models, and adding the KT_CloneScan anti-clone tracker.",
+  "notes": [
+   "Speed & loadout shift vs Paintball v.Speed: cuts run speeds roughly in half while keeping 1-weapon carry cap and invulnerable map structures/antennas (999999999999 HP) plus station bans on Base guns/packs; adjusts carry caps (Angel 250 -> 200, Delta 30 -> 10, Grenades 2 -> 5), replaces Camo misc with Camopack, and renames 'New: WDP Angel' -> 'WDP IR3 Angel 2002', 'PGC Speed Gun' -> 'Diablo Inferno T3 Model', 'New:Speed Hand Gun' -> 'Psycho Ballistics Delta .68'."
+  ]
+ }
+}

@@ -1,0 +1,146 @@
+# meltdown-2 vs meltdown-classic (145 items)
+stats      LightArmor                   Peltast (Light)
+stats      BlastechArmor                Blastech
+renamed+statsMediumArmor                  Engineer
+renamed+statsMagIonArmor                  Hoplite (Medium)
+renamed+statsMECHArmor                    Assault
+stats      HeavyArmor                   Myrmidon (Heavy)
+stats      ArwingV                      Arwing
+stats      EPodV                        Lightning
+stats      CutterV                      Sky Cutter
+stats      ExplorerV                    3DFX Explorer
+stats      RangerV                      Sky Ranger
+stats      ScoutVehicle                 Scout
+stats      HammerV                      Star Hammer
+stats      FighterV                     Star Fighter
+stats      AvengerV                     ThunderTank
+stats      LAPCVehicle                  LPC -- LandSkimmer
+stats      ValkyrieV                    Valkyrie Interceptor
+stats      HAPCVehicle                  HPC
+stats      TankV                        Hover Tank
+stats      IcarusV                      Annihilator
+new        Grenade1                     Cannon
+new        Grenade2                     Cannon
+scripts    RepairKit                    Repair Kit
+scripts    Beacon                       Beacon
+scripts    Grenade                      Grenade
+stats+scriptsBlaster                      Blaster
+new        IonCannon                    Ion Cannon
+new        IonChargerA                  Ion Charger A
+new        IonChargerB                  Ion Charger B
+new        IonChargerC                  Ion Charger C
+new        OmegaRifle                   Omega Rifle
+new        VertigoCannon                GEP Gun
+new        Charger                      ELF Cannon
+new        ExtraCharger                 ELF Cannon
+new        ExtraCharger2                ELF Cannon
+new        ExtraCharger3                ELF Cannon
+new        MitziCore                    MBC Power Charge
+stats+scriptsMBCannon                     Mitzi Blast Cannon
+new        ExtraEnergyA                 Protron
+new        ExtraEnergyB                 Protron
+new        ExtraEnergyC                 Protron
+new        EnergyGun                    Protron
+stats+scriptsChaingun                     Chaingun
+stats+scriptsGatB                         Gatling Blaster
+stats+scriptsGauss                        Gauss Gun
+scripts    Minigun                      MiniGun
+stats      Minigun2                     MiniGun
+scripts    MMinigun                     MECHMinigun
+stats      MMinigun2                    MECHMinigun
+stats      MMinigun3                    MECHMinigun
+stats      MMinigun4                    MECHMinigun
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+scripts    ImpactMortar                 Impact Mortar
+scripts    EMPGrenadeLauncher           EMP Mortar Launcher
+scripts    MineLauncher                 Mine Launcher
+scripts    ImpGun                       Implosion Cannon
+scripts    BabyNukeMortar               FireBomb
+scripts    DiscLauncher                 Disc Launcher
+new        TwinFusorAmmo                TwinFusors
+new        DualDisc2                    TwinFusor
+new        TwinFusor                    TwinFusor
+scripts    AODStinger                   Missile Launcher
+scripts    RPGLauncher                  RPG
+renamed+statsMrpgAmmo                     Blaster Cartridges
+renamed+stats+scriptsMrpgLauncher                 MECHSHB
+stats      MrpgLauncher2                MECHRPG
+stats      MrpgLauncher3                MECHRPG
+stats      MrpgLauncher4                MECHRPG
+scripts    RPMLauncher                  RPM
+scripts    RPEMPLauncher                RPEMP
+scripts    MECHRocketLauncher           MECHRocketgun
+stats      MECHRocketLauncher4          MECHRocketgun
+new        LaserPistol                  Laser Pistol
+stats+scriptsLaserRifle                   Laser Rifle
+stats      PBW                          Particle Beam (PBW)
+renamed+stats+scriptsLasCannon                    Death Ray
+stats+scriptsDartGun                      Poison Dart Rifle
+new        RailGun2                     MD-1024
+new        scope                        MD-1024
+new        Rifle                        MD-1024
+stats+scriptsMassDriver                   Mass Driver
+new        SXAmmo                       HP Shots
+stats+scriptsAAODSniperX                  HP Sniper Rifle
+stats      EnergyRifle                  ELF Gun
+stats      Reassembler                  Reassembler
+stats+scriptsPlasmaGun                    Plasma Gun
+renamed+stats+scriptsPlasmaCannon                 Plasma Cannon
+stats+scriptsAODBeaconGun                 Beacon Gun
+new        LaserAmmo                    Smoke Bomb
+new        StasisCannon                 Smoke Bomb Launcher
+stats+scriptsStrykerChain                 Pull Beam
+stats      EnergyPack                   Energy Pack
+new        MitziCharger                 Mitzi Charger
+new        GravFieldPack                Gravitron Field Pack
+new        AutoPack                     AutoRepair Pack
+stats+scriptsCloakingDevice               3Dfx Cloaking Device
+stats      AmmoGeneratorPack            Ammo Generator
+scripts    TargPack                     Missile Targeting Pack
+renamed+stats+scriptsBugPack                      TeamChat Tapper
+new        HyperPack                    Hyperdrive Pack
+renamed+stats+scriptsSlipstream                   Slipstream Teleporter
+new        LeechPack                    Leech Pack
+new        GigaWatt                     GigaWatts: 
+new        Capacitor                    Capacitor
+new        SpeedPack                    SuperSpeed Pack
+new        PyroXLPack                   PyroXL Conversion
+new        JetPack                      Jet Pack
+stats+scriptsAODShieldNode                Remote Shield Node
+scripts    CNode                        Remote Cloaking Node
+scripts    MotionSensorPack             Motion Sensor
+scripts    CameraPack                   Camera
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+scripts    DummyPack                    Decoy Creator
+scripts    HoloPack                     Hologram Creator
+scripts    TreePack                     Tree Planter
+scripts    TurretPack                   Laser Turret
+new        TTurretPack                  Tractor Turret
+new        LELFPack                     ELF Turret
+scripts    FluxPack                     EMP Blast Turret
+scripts    Turret4Pack                  Fusion Turret
+scripts    DisruptorTurretPack          Plasma Turret
+scripts    IonTurretPack                Mitzi Blast Turret
+renamed+stats+scriptsPulseTurretPack              AA Battery
+scripts    DiscTurretPack               Disc Turret
+scripts    RocketPack                   Rocket Turret
+stats+scriptsElectroTurretPack            PBW Turret
+scripts    AODTeleporter                Mobile Teleporter Pad
+renamed+stats+scriptsTeleportPack                 Backup TelePads
+scripts    AODMobileInv                 Mobile Inventory Stn
+new        PortaComm                    Mobile Command Stn
+scripts    PortaAmmo                    Mobile Ammo Stn
+renamed+statsAODMobileGen                 Portable Generator
+stats+scriptsAODShieldGen                 Shield Generator
+new        DShieldPack                  Enhancement Beacon
+scripts    doorfivebyfiveForceFieldPack 5x5 Forcefield
+scripts    doorfourbyeightForceFieldPack4x8 Forcefield
+scripts    BlastDoor                    Blast Door
+scripts    BlastFloor                   Blast Floor
+scripts    AODBunker                    Mobile Bunker
+renamed+stats+scriptsC4Pack                       C-4 LAM
+stats      TNTPack                      Blast Pack
+new        MiniBase                     Mini-Base
+stats+scriptsHPCPack                      Dropship

@@ -1,0 +1,66 @@
+{
+ "mod": {
+  "overview": "Proud Man Down: World War II (v5.0) is a 2004 WWII total conversion for Tribes by Josh Buckingham (Sahbitar / Buletz) that strips away sci-fi jetpacks, energy shields, and futuristic weapons in favor of grounded infantry combat. Players spawn with WWII small arms, grenades, mines, and parachutes, fighting across trenches, fortified bunkers, and open battlefields where positioning and cover replace aerial skiing. Every armor class has its jetpack disabled and carries limited weapons with finite magazine clips that take several seconds to reload when emptied. Standard Tribes team objectives and Deathmatch modes are supported alongside AI bots, manned MG42 emplacements, deployable sandbags, tanks, fighter planes, and bombers.",
+  "notes": [
+   "Three infantry classes replace base armors, all with jetpacks disabled (jetForce = 0) and strict weapon limits: Scout (LightArmor) moves fastest, carries 1 primary weapon, pilots vehicles, and uniquely accesses the Sniper Rifle and Parachute; Assault (MediumArmor) carries 1 primary weapon plus field fortifications like Sandbags, MG42 turrets, and Explosives; Heavy Assault (HeavyArmor) carries 2 primary weapons with highest health and exclusive access to the FlameThrower and Rocket Launcher.",
+   "Standard spawning in team modes equips Scout armor with a Knife, Handgun, Rifle, Repair Kit, 3 Grenades, 3 Handgun Clips, 3 Rifle Clips, a Parachute, Binoculars, and a Landmine, while Deathmatch spawns players with only a Handgun, Rifle, and Repair Kit.",
+   "Firearms use realistic clip-based reloading rather than endless ammo pools: running a Handgun (12 rounds, 2s reload), SMG (30 rounds, 2.5s reload), Rifle (8 rounds, 3s reload), Machine Gun (100-round belt, 5s reload), Sniper Rifle (5 rounds, 5.5s reload), or Rocket Launcher (5.15s reload) dry triggers an automatic reload animation and progress bar if spare clips remain.",
+   "Default keybinds map keys 1 through 9 to WWII gear (1 Handgun, 2 Machine Gun, 3 SMG, 4 Rifle, 5 FlameThrower, 6 Sniper Rifle, 7 Shotgun slot, 8 Rocket Launcher, 9 Binoculars), with Q / Shift+Q cycling weapons, G throwing Grenades, M throwing Bouncing Betties, H using a Repair Kit, and P activating backpacks.",
+   "Combat emphasizes infantry cover and tactical explosives: Assault players can stack up to 80 team Sandbags and 10 MG42 turrets (which any friendly player can walk into to man directly, pressing C to exit), while soldiers carry fragmentation Grenades, 10-second timed Satchel Charges, Bouncing Betties, and incendiary Landmines.",
+   "Vehicles are piloted exclusively by Scout armor and adapted into WWII air and ground support: the Fighter Plane (ScoutVehicle, team max 10) fires rapid autocannon rounds, the Bomber Plane (HAPCVehicle, team max 8) drops heavy bombs, and the Tank (LAPCVehicle, team max 4) hugs terrain contours with a cannon and two passenger Machine Gun seats.",
+   "All sci-fi base packs like Energy, Shield, Sensor Jammer, Motion Sensor, Pulse Sensor, and deployable stations are removed from inventories, leaving only the Repair Pack and Parachute alongside static inventory, ammo, vehicle, and command stations.",
+   "Built-in bot AI support spawns computer-controlled soldiers in team and Deathmatch missions with basic combat loadouts and waypoint patrolling.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Parachuteart (WeaponParachuteArt.cs)."
+  ]
+ },
+ "items": {
+  "ParachutePack": {
+   "summary": "Single-use parachute backpack that cushions long falls and plane bailouts.",
+   "notes": [
+    "Activate while falling to slow your descent in pulses instead of using a jetpack, then watch for the automatic discard message on landing.",
+    "Only Scout armor can equip it, making it essential for pilots bailing out of damaged Fighter Planes or Bomber Planes."
+   ],
+   "source": "PackParachute.cs"
+  },
+  "TurretPack": {
+   "summary": "Deployable MG42 machine-gun emplacement that Assault troopers can place and teammates can manually man.",
+   "notes": [
+    "Deploys onto flat terrain or building interiors (up to 10 per team) and fires automatic machine-gun rounds.",
+    "Walk into a friendly deployed MG42 to take manual control of the gun; press C to leave it."
+   ],
+   "source": "DeployableTurret.cs"
+  },
+  "SmokeGrenade": {
+   "summary": "Heavy timed Satchel Charge explosive with a 10-second fuse and large blast radius.",
+   "notes": [
+    "Thrown onto the ground with an 8-second throw cooldown and detonates on a 10-second timer.",
+    "Spawns multiple wide-radius explosive and burning projectiles, making it suited for clearing fortified positions or destroying vehicles."
+   ],
+   "source": "MiscSmokeGrenade.cs"
+  },
+  "Sandbag": {
+   "summary": "Placeable defensive barrier used to build field fortifications and cover.",
+   "notes": [
+    "Carried up to 20 at a time by Assault armor with a team cap of 80; deploys up to 3 meters away on terrain or buildings.",
+    "Requires substantial gunfire to destroy, allowing squads to build makeshift bunkers and choke points."
+   ],
+   "source": "MiscSandBag.cs"
+  },
+  "LAPCVehicle": {
+   "summary": "Ground-hugging armored Tank with a main cannon for the driver and Machine Gun seats for passengers.",
+   "notes": [
+    "Driven by Scouts using custom ground-hugging hover steering while up to two passengers mount side positions armed with Machine Guns.",
+    "Vulnerable to explosives, mortars, and mines while shrugging off light small-arms fire."
+   ],
+   "source": "VehicleLAPC.cs"
+  },
+  "MineAmmo": {
+   "summary": "Anti-personnel and anti-vehicle mines that trigger on contact once settled.",
+   "notes": [
+    "Bouncing Betty (MineAmmo, max 35 per team) pops a shrapnel warhead into the air when triggered, while Landmine (MinenAmmo, max 5 per team) erupts in incendiary fireballs against infantry or vehicles.",
+    "Both are thrown short-range and arm once they come to rest on the ground."
+   ],
+   "source": "MiscMine.cs / MiscMinen.cs"
+  }
+ }
+}

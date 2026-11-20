@@ -1,0 +1,49 @@
+{
+ "mod": {
+  "overview": "Herc Havoc is an authentic Starsiege tactical simulation fork built upon Mech Mayhem that ports the complete 1:1 Starsiege mech combat system into Tribes. Players pilot faction-specific walking HERCs equipped with hardpoint weapon racks, managing reactor energy rather than ammunition or heat while fighting across attrition-based Combat Value battles, territorial zone control, flag captures, or cooperative survival waves. Combat abandons Tribes jetpacking and skiing entirely in favor of grounded, heavy armor warfare where players endure turn-rate caps, pitch-stabilized cockpit views, and granular damage that penetrates directional shields into individual body parts and internal components. Gameplay modes include Escalation attrition where mech destruction directly deducts the fallen chassis Combat Value from a team pool, Incursion cooperative defense against 10 escalating Cybrid waves, Groundwar zone domination, Deathmatch, and Capture the Flag.",
+  "notes": [
+   "Chassis Classes and Mobility: HERCs span light, medium, heavy, and assault chassis across human and Cybrid factions, each modeled with authentic Starsiege forward and reverse speeds, mass, and turn-rate clamps. HERCs cannot fly or jet, but light chassis (including Talon, Seeker, Goad, Shepherd, Minotaur, Pieman, and Emancipator) can activate a high-speed ground dash using the jump key.",
+   "Starsiege Damage and Internal Systems: Combat features a fully simulated 1:1 Starsiege hit model where damage penetrates directional shields, ablates quadrant armor across distinct body parts (head, pelvis, legs, calves, pods), and strikes internal systems. Damaging leg servos drops drive throttle into degraded speed tiers (Spd8, Crip, and Spd4), losing weapon mounts destroys attached weapons, and destroying the engine or reactor triggers a 3-second countdown to a violent staged meltdown explosion that heavily damages surrounding units.",
+   "Reactor Power and Weapon Grouping: Conventional ammunition and weapon heat are completely removed in favor of a central reactor battery that recharges continuously and powers all energy weapons, ballistic cannons, and shield regeneration. Hardpoint weapons are organized into three customizable weapon groups accessed through the menu, allowing pilots to toggle individual weapons between staggered chain firing or simultaneous linked volleys, while lock-on missile systems require maintaining continuous reticle tracking to achieve a lock before firing.",
+   "Special Components and Mounts: Every chassis spawns with its authentic Starsiege default internal components and can swap them via the TAB menu for the next spawn. Passives include Shield Amplifiers, Shield Capacitors, Shield Modulators that concentrate shield protection forward, Extra Batteries, Reactor Capacitors, and NanoRepair hull regenerators, while active gear like Chameleon cloaks, Cuttlefish cloaks, Rocket Boosters, and Turbine Boosters can be toggled in real time with the backpack pack key.",
+   "Last Stand Ejection System: Tier 5 and higher human chassis (such as the Apocalypse and Gorgon) or any HERC equipped with the Angel Life Support component feature an automatic emergency ejection seat. When the chassis suffers fatal destruction, the human pilot punches out through the canopy to fight on foot in a hardened MechPilot flight suit equipped with jump jets, a suit capacitor, an anti-personnel machine blaster, a seeking concussion lance, and a high-yield anti-mech demolition satchel.",
+   "Mine Packs and Arachnitron Crawlers: Pilots can opt to trade their weapon rack final gun hardpoint for a mine launcher pack through the TAB menu. Using the standard mine key expends reactor energy to deploy either high-blast Proximity mines or automated Arachnitron crawler mines that seek out locked targets across the terrain at up to 50 meters per second before detonating on impact.",
+   "Salvage Economy and Garage Menus: Pressing TAB opens menus to configure weapon groups, swap internal components, select mine packs, or access the Mech Garage to pick chassis for the next drop. Destroying enemy mechs awards salvage currency based on the target Combat Value (full CV for human opponents, reduced for bots), which players spend in the garage to permanently unlock higher-tier chassis, while pilots can secure their persistent career records via the console using remoteEval(2048, MMPass, password).",
+   "Game Modes and Service Pads: Matches run across Escalation (attrition where team CV pools drain by the exact Combat Value of destroyed mechs), Groundwar (zone majority control bleeding enemy CV), Incursion (co-op defense against 10 Cybrid waves ending with Prometheus), Deathmatch, and CTF. Maps also feature functional planetary repair and ammo pads where standing stationary repairs hull armor and recharges reactor batteries and mine reserves."
+  ]
+ },
+ "items": {
+  "PilotCharge": {
+   "summary": "Lobbed demolition satchel charge carried by ejected pilots to ambush heavy mechs from foot level.",
+   "notes": [
+    "Consumes nearly the pilot suit entire capacitor (50 energy) per throw with a 1-second firing delay.",
+    "Lobs a short-fuse explosive satchel with a 9-meter blast radius dealing 2.2 mine damage, designed to devastate mechs from beneath their stride."
+   ],
+   "source": "MechPilot.cs"
+  },
+  "PilotLance": {
+   "summary": "Shoulder-fired anti-armor missile launcher used by ejected pilots to strike enemy mechs at range.",
+   "notes": [
+    "Consumes 40 capacitor energy (half the suit maximum) per shot with a 3-second cycle time.",
+    "Fires shoulder-launched laser-designated seeking rockets with concussion warheads that punch 25 percent of their damage directly through mech shields."
+   ],
+   "source": "MechPilot.cs"
+  },
+  "PilotSidearm": {
+   "summary": "Rapid-fire machine blaster sidearm issued to ejected pilots for infantry defense.",
+   "notes": [
+    "Fires fast energy blaster bolts consuming 4 energy per shot at a rate of roughly 4.5 rounds per second.",
+    "Deals pure energy damage that is completely soaked by HERC shields, making it specifically tailored for pilot-versus-pilot duels."
+   ],
+   "source": "MechPilot.cs"
+  },
+  "HHSystems": {
+   "summary": "Internal systems backpack pack item that binds the pack key to active HERC components.",
+   "notes": [
+    "Equipped in the backpack slot only when the chassis mounts active systems such as optical cloaks or speed boosters.",
+    "Pressing the backpack activation key toggles Chameleon or Cuttlefish radar and visual stealth, or engages fuel-burning Rocket and Turbine forward thrusters."
+   ],
+   "source": "HHSystemsData.cs"
+  }
+ }
+}

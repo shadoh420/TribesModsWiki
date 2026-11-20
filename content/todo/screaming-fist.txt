@@ -1,0 +1,55 @@
+# screaming-fist vs base (54 items)
+new        Infantry                     Infantry
+new        ConsoleMan                   Technician
+new        SpecialOps                   Special Ops
+new        HeavyInfantry                Heavy Infantry
+renamed+statsScoutVehicle                 Attack Comanche
+new        OspreyVehicle                Osprey Transport
+new        GlockAmmo                    9mm Handgun Shells
+new        Glock                        Handgun
+new        AssRifleAmmo                 9mm Rifle Shells
+new        AssRifle                     Assault Rifle
+new        ShotgunAmmo                  Shotgun Shells
+new        Shotgun                      Shotgun
+new        SilencedGlock                Silenced Handgun
+new        SilencedAssRifle             Silenced Ass. Rifle
+new        FlamerAmmo                   Butane
+new        FlamerGun                    Flamethrower
+new        MAWAssRifle                  The MAW
+new        MAWIncendiaryRifleAmmo       MAW Napalm Shells
+new        MAWIncendiaryRifle           The MAW - Incendiary Rifle
+new        MAWGrenadeAmmo               Grenades
+new        MAWGrenadeLauncher           MAW - Gren. Launcher
+stats      GrenadeLauncher              Grenade Launcher
+new        MinigunAmmo                  Minigun Shells
+new        Minigun                      Minigun
+new        SniperRifleAmmo              50cal. Rifle Shells
+new        SniperRifle                  Sniper Rifle
+new        RocketLauncherAmmo           Rockets
+new        RocketLauncher               Rocket Launcher
+new        FBWRocketAmmo                FBW Rockets
+new        FBWRocketLauncher            FBW Rocket Launcher
+new        HomingFlareAmmo              GRoC
+new        HomingFlaregun               GRoC Gun
+new        ConsoleJack                  Console Jack
+new        Detonator                    Remote Detonator
+new        OspreyTurretAmmo             Turret Shells
+new        OspreyTurret                 Osprey Turret
+stats+scriptsAmmoPack                     Ammo Pack
+stats      DeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableMedicPack          Medic Station
+new        FuelPack                     Fuel Pack
+new        MinigunAmmoPack              Minigun Ammo Pack
+new        DeckPack                     Deck
+stats      RepairPack                   Repair Pack
+new        ReloaderPack                 Ammo Loader
+new        BugPack                      Bug Pack
+stats      CameraPack                   Camera
+stats+scriptsTurretPack                   Turret
+new        GRoCCannonPack               GRoC Cannon
+new        RemMineAmmo                  Remote Mine
+new        FlashGrenade                 Concussion Grenade
+renamed+stats+scriptsMineAmmo                     Proximity Mine
+stats      Grenade                      Grenade
+new        Detpack                      Detpack

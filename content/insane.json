@@ -1,0 +1,65 @@
+{
+ "mod": {
+  "overview": "INSANE (v1.0a) by [PLA]KeViN is a fast-paced, high-intensity conversion built upon Renegades and Anarchy that streamlines chaotic multi-mod elements into a focused class-based shooter. Combat revolves around nine specialized player classes ranging from the ultra-fast, blaster-only Super Fast Scout to heavily reinforced Demolition and Mine Layer armors. Matches run with infinite team energy, high deployable item ceilings, 999-round ballistic ammo capacities, and instant spawn kits that eliminate downtime. Ground combat is enriched by class-adaptive grenades, propulsion boosters, extensive base-building structures, and a vehicle bay featuring gunships, bombers, and stealth flyers across standard capture the flag, capture and hold, defend and destruct, and find and retrieve game modes.",
+  "notes": [
+   "Classes and Specialization: Players choose from 9 distinct armor configurations across light, medium, and heavy chassis with stark role differences. Super Fast Scout reaches blistering speeds of 20 with reduced traction but is restricted to a single weapon slot mounting only the basic Blaster and an energy pack for dedicated flag running. Standard Scout carries 2 weapons, while Sniper wields the 2000-velocity Sniper Rifle and Chainlaser. Spy features low bullet vulnerability, wielding the Magnum pistol and stealth cloaking. Soldier carries 4 weapons alongside a high-capacity Minigun; Demolition Man possesses 50 percent resistance against explosive, plasma, and mortar damage; Engineer carries 3 weapons and deploys extensive defense structures; Heavy Weapon Guy resists 70 percent bullet damage while mounting 5 heavy weapons including the Minigun and Shockwave Cannon; and Mine Layer carries up to 6 weapons with an enormous reserve of 25 mines.",
+   "Spawns and Instant Readiness: Players spawn fully equipped without needing an initial inventory run, dropping into matches outfitted with Scout Armor, Chaingun, Disclauncher, Repair Kit, Mine, Beacon, Grenade, and Repair Pack. Ammo limits for primary ballistic weapons like the Chaingun and Disclauncher are raised to 999 rounds, ensuring continuous combat momentum without ammunition shortages.",
+   "Class-Adaptive Ordnance and Boosters: Hand grenades dynamically adapt to the thrower's equipped armor class rather than acting as generic explosives. Throwing a grenade releases an Antipersonel Mine for Snipers and Engineers, a cluster Firebomb that scatters 5 sub-munitions for Scouts, a fake flag Hologram decoy for Spies, a standard Handgrenade for Soldiers, a high-yield Nukebomb with a 50-meter blast radius for Heavy Weapon Guys, a blinding Concussion grenade for Demolition Men, or a Mortarbomb for Mine Layers. Additionally, throwing a Beacon acts as an instant Speed Booster, detonating harmlessly with 300 kickback force to propel the runner forward.",
+   "Base Construction and Deployable Fortifications: Base building is heavily expanded through the Engineer and Mine Layer. Deployables include Small and Large Force Fields, Deployable Walls, deployable elevator Platforms, Mechanical Trees for camouflage, full interior Bunkers, and Teleport Pads that link friendly travel points with a 5-second recharge between jumps, though heavy armors are barred from teleporting. Deployable item limits are increased to 99 per team with minimal proximity spacing, allowing dense automated defense nests consisting of Plasma Turrets, Indoor Turrets, Sniper Turrets, ELF Shock Turrets, Mortar Turrets, and Rocket Turrets.",
+   "Command Laptop and Field Control: The Command Laptop backpack item allows Spies and Engineers to bypass the standard base Command Station requirement. Equipping the Command Laptop lets players enter the commander interface and take direct remote control of friendly automated base turrets and field installations from anywhere across the battlefield.",
+   "Expanded Air Fleet and Interceptor Deployment: Vehicle stations offer an expanded vehicle roster consisting of the agile Scout, high-speed Jet fighter cruising at speed 80 with rapid plasma bolts, stealth Wraith invisible to radar sensors and hiding pilot visibility, heavy Bomber firing BomberShell ordnance, Gunship launching rapid spinfusor discs, and Light and Heavy APC troop transports. Engineers and Scouts can also carry the Interceptor Pack to instantly spawn an active Jet flyer directly on the front lines.",
+   "Economy, Bans, and Server Administration: The mod grants infinite team energy by default, removing financial constraints from base station purchasing. Five items are explicitly banned and unavailable in both normal and remote stations: the Jump Launcher, FGC-9000 weapon, FGC-9000 Nukes, FgcPack, and TripwirePack, each set to zero in the station inventory lists. Administrators manage servers using integrated Insomniax menus, featuring team-kill tracking levels, kick and ban confirmations, team balancing toggles, and customizable plain admin lockouts under Server Options.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): FgcPack (station.cs), JumpLauncher (station.cs), Mfgl (station.cs), MfglAmmo (station.cs), TripwirePack (station.cs)."
+  ]
+ },
+ "items": {
+  "Laptop": {
+   "summary": "A specialized backpack that enables remote control of friendly automated turrets directly from the field.",
+   "notes": [
+    "Usable by the Spy and Engineer armor classes.",
+    "Allows entering the command interface and piloting friendly turrets without requiring a physical base Command Station."
+   ],
+   "source": "item.cs"
+  },
+  "Beacon": {
+   "summary": "A tactical mobility device deployed via the standard beacon slot that propels the player at extreme velocity.",
+   "notes": [
+    "Detonates on a short delay or impact dealing zero damage while delivering 300 kickback strength.",
+    "Serves as an instant propulsion aid for flag runners and high-speed maneuvers."
+   ],
+   "source": "item.cs"
+  },
+  "FastArmor": {
+   "summary": "An ultra-lightweight speed specialist armor stripped down for pure flag running and high-speed reconnaissance.",
+   "notes": [
+    "Reaches a maximum ground speed of 20 with reduced traction and accelerated jetting.",
+    "Restricted to a single weapon slot mounting only the basic Blaster and can carry no heavy backpacks or explosive equipment."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "TeleportPack": {
+   "summary": "A deployable transit station that establishes paired teleportation gates between team positions.",
+   "notes": [
+    "Friendly players stepping on an active pad are teleported to another deployed team pad after which both recharge for 5 seconds.",
+    "Heavy Weapon Guy and Mine Layer armors are barred from teleporting due to chassis mass limits, and teleports carry a rare malfunction risk that inflicts crush damage."
+   ],
+   "source": "item.cs"
+  },
+  "RepairgunPack": {
+   "summary": "An engineering backpack that equips an advanced handheld repair weapon with extended reach and self-repair.",
+   "notes": [
+    "Equipping or using the pack mounts a dedicated repair gun firing a high-intensity repair bolt extending up to 500 units.",
+    "Features an automatic self-repair mode that restores the user's own armor integrity when firing with no external target selected."
+   ],
+   "source": "item.cs"
+  },
+  "Mfgl": {
+   "summary": "A banned nuclear superweapon capable of launching catastrophic high-yield ordnance.",
+   "notes": [
+    "Priced at 3500 credits and requiring both FgcPack and FGC-9000 Nukes to operate.",
+    "Disabled on servers by having its station availability and associated ammunition set to zero in the station inventory lists."
+   ],
+   "source": "station.cs"
+  }
+ }
+}

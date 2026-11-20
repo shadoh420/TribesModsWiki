@@ -1,0 +1,76 @@
+{
+ "mod": {
+  "overview": "Apollo 11 Mod (v0.4 Alpha) by Bloodhype is a fast-paced, explosive combat modification for Starsiege: Tribes built upon the base game framework. Players automatically spawn into the hyper-agile Rocketeer armor armed with a Disc Launcher and Plasma Gun, dramatically accelerating standard base CTF and objective pacing. The mod transforms traditional open-field warfare into an intense aerial blitzkrieg by introducing devastating tactical superweapons, concussive impulse air guns, deployable force field walls, and deceptive traps. High-speed aerial maneuvers culminate in the Apollo 11 rocket craft, a dedicated ramming vessel accessible to all armor classes that pairs with tactical nuke silos to produce relentless, high-impact base raids.",
+  "notes": [
+   "Four armor types define team composition: Rocketeer (spawn armor, 2 weapons, mass 6.0, forward speed 18, jet forward speed 40), Light (3 weapons, speed 11), Medium (4 weapons, speed 8), and Heavy (5 weapons, speed 5). Rocketeer trades health (0.6 max damage) and heavy equipment for unmatched agility and aerial mobility.",
+   "Matches use default Tribes input bindings for movement, jetting, pack activation, and inventory or command screens, with team selection handled via the initial connection menu. There are no custom chat prefix commands; players manage their gear through station purchase menus and favorite loadout hotkeys.",
+   "The weapon arsenal introduces the near-instant hitscan Sniper Rifle (uses bullets, delivers 30 percent extra headshot damage), straight-shooting RPGs, Flamethrowers spitting napalm fireballs, Stormblast and Stormblast Shell air guns (inflicting massive 800-strength impulse knockback), Repair Mortars (lobbing shells that heal 1.0 damage over a 20-meter area), and tactical Mini Nuke and full Nuke Silos. Excessive explosive damage causes full player gibbing.",
+   "Engineers can deploy solid energy barriers in 5x5 Force Field (up to 10 per team) or 4x14 Large Force Field (up to 5 per team) configurations to barricade bases, place Decoy Flags (explosive proximity traps disguised as team flags, limit 4 per team), or deploy Apollo's Wrath, a 5500-credit tactical bomb with a 10-second timer dealing 100 damage over a 30-meter radius (limit 1 per team).",
+   "Specialized backpack systems include the Phantasm Pack, which repeatedly cycles the operator through 3 seconds of invisibility followed by 1.5 seconds of visibility at a 12 energy-per-second drain, alongside deployable inventory stations, ammo stations, pulse sensors, motion sensors, camera packs, and defensive turrets.",
+   "In addition to standard Scouts, LPCs, and HPCs, teams can deploy up to 10 Apollo 11 rocket fliers for 300 credits. Piloted by any armor class, the Apollo 11 rocket reaches a top speed of 80 with high acceleration and inflicts lethal ramming damage (factor of 8) on impact.",
+   "Every player spawns in Rocketeer armor equipped with a Disc Launcher, Plasma Gun, Hand Grenades, and a Repair Kit, ensuring immediate aerial combat readiness upon drop. Rocketeer armor is explicitly restricted from carrying the Blaster, Mortar, Laser Rifle, ELF Gun, Targeting Laser, full Nuke Silo, Apollo's Wrath, Shield Pack, sensor backpacks, camera packs, turrets, and deployable stations."
+  ]
+ },
+ "items": {
+  "RocketeerArmor": {
+   "summary": "The default hyper-mobile spawn armor designed for high-velocity dogfighting and rapid flag chasing.",
+   "notes": [
+    "Carries a maximum of 2 weapons and trades durability (0.6 max damage) for extreme speed.",
+    "Features a ground forward speed of 18, a light mass of 6.0, 70 max energy, and a forward jet velocity of 40.",
+    "Automatically provided on every spawn equipped with a Disc Launcher, Plasma Gun, Hand Grenades, and a Repair Kit.",
+    "Prohibited from equipping the Blaster, heavy mortars, laser rifles, personal shields, sensors, deployable turrets, and stations."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "Apollo11Vehicle": {
+   "summary": "A dedicated high-speed rocket vehicle built for aerial charges and lethal ramming attacks.",
+   "notes": [
+    "Uses the rocket shapefile, accelerates rapidly up to a maximum speed of 80, and costs 300 credits.",
+    "Can be piloted by players in any armor class, unlike scout fliers which require light armor.",
+    "Inflicts a massive 8 ramming damage on impact and takes amplified collision and ordnance damage.",
+    "Teams can field up to 10 Apollo 11 craft simultaneously."
+   ],
+   "source": "vehicle.cs"
+  },
+  "WrathPack": {
+   "summary": "An ultra-heavy strategic demolition charge codenamed Apollo's Wrath.",
+   "notes": [
+    "Costs 5500 credits at standard inventory stations and cannot be purchased from deployable inventory stations.",
+    "Strictly restricted to Medium and Heavy armors with an absolute limit of 1 deployable per team.",
+    "Deploys a mortar pack shape that activates a 10-second countdown before detonating.",
+    "Unleashes a massive small nuke explosion dealing 100 damage and 400 knockback over a 30-meter radius, obliterating nearby players and base assets."
+   ],
+   "source": "item.cs"
+  },
+  "DecoyFlagPack": {
+   "summary": "A deceptive proximity mine camouflaged as a standard team flag.",
+   "notes": [
+    "Deploys a simulated team flag directly onto terrain or interior surfaces.",
+    "Detonates on collision with players, vehicles, or moving objects within a 2.5-meter trigger radius.",
+    "Inflicts 0.8 explosive damage and 150 kickback across a 12-meter radius.",
+    "Teams are restricted to a maximum of 4 deployed decoy flags at any time."
+   ],
+   "source": "item.cs"
+  },
+  "AirGun": {
+   "summary": "A pneumatic heavy disruptor named the Stormblast that propels targets with massive concussive force.",
+   "notes": [
+    "Fires rapid Airjet rockets using Air Canister ammo costing 10 credits each.",
+    "Deals a modest 0.2 damage over a 15-meter explosion radius while delivering a colossal 800-strength impulse.",
+    "Can be used offensively to violently launch enemy flag runners off course or defensively for extreme explosive jumping.",
+    "A lobbed grenade variant named Stormblast Shell is also available sharing the same ammunition and 800 impulse force."
+   ],
+   "source": "item.cs"
+  },
+  "PhantasmPack": {
+   "summary": "An active camouflage stealth pack that repeatedly phases the user between visibility and invisibility.",
+   "notes": [
+    "Mounts in the backpack slot and consumes 12 energy per second while activated.",
+    "Initiates a rhythmic cloaking cycle that renders the wearer fully transparent for 3 seconds before fading back in for 1.5 seconds.",
+    "Accessible to Light, Rocketeer, Medium, and Heavy armors for 750 credits.",
+    "Provides intermittent tactical concealment while moving or contesting objectives without granting permanent stealth."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

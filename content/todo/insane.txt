@@ -1,0 +1,63 @@
+# insane vs anarchy (62 items)
+new        ScoutArmor                   Scout
+new        FastArmor                    Super Fast Scout
+renamed+statsMediumArmor                  Soldier
+renamed+statsBursterArmor                 Demolition Man
+new        HeavyArmor                   Heavy Weapon Guy
+renamed+statsDragArmor                    Mine Layer
+new        BomberVehicle                Bomber
+new        GunshipVehicle               Gunship
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+renamed+statsEnergyRifle                  ELF Gun
+renamed+statsRocketLauncher               RPG
+new        JumpAmmo                     Jump Discs
+new        JumpLauncher                 Jump Pack
+stats      SniperRifle                  Sniper Rifle
+new        ConCun                       Shockwave Cannon
+stats      Railgun                      Railgun
+new        MinigunAmmo                  Minigun Bullet
+new        Minigun                      Minigun
+new        Chainlaser                   Chainlaser
+new        MfglAmmo                     FGC-9000 Nukes
+new        Mfgl                         FGC-9000
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsDeployableComPack            Command Station
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats+scriptsCloakingDevice               Cloaking Device
+stats+scriptsStealthShieldPack            StealthShield Pack
+stats      Laptop                       Command Laptop
+new        FgcPack                      FGC-9000 Pack
+stats+scriptsAmmoPack                     Ammo Pack
+renamed+stats+scriptsTurretPack                   Turret
+new        IndoorPack                   Indoor Turret
+new        RepairgunPack                Repair Gun Pack
+stats+scriptsLaserPack                    Laser Turret
+new        FirePack                     Sniper Turret
+renamed+stats+scriptsShockPack                    ELF Turret
+stats+scriptsTargetPack                   Mortar Turret
+stats+scriptsLaserTurret                  Plasma Turret
+renamed+stats+scriptsRocketPack                   Rocket Turret
+renamed+stats+scriptsForceFieldPack               Small Force Field
+stats+scriptsLargeForceFieldPack          Large Force Field
+renamed+stats+scriptsTripwirePack                 Large Force Field
+stats+scriptsTreePack                     Mechanical Tree
+stats+scriptsPlatformPack                 Deployable Platform
+scripts    TeleportPack                 Teleport Pad
+stats+scriptsMechPack                     Interceptor Pack
+new        wallPack                     Deployable wall
+new        BunkerPack                   Deployable Bunker
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch

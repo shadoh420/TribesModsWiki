@@ -1,0 +1,305 @@
+{
+ "mod": {
+  "overview": "Shifter_v1Y (Yukichigai's 10-24-2007 Beta release, advancing the 11-27-2004 release) adds the Engineer Power-Gun (PowerIt), Ice Shell mode for the Mortar (freezing non-Arbitor players' controls via Shifter_startFreeze), Bouncin' Betty mines (BBMine) for Heavy and DreadNaught armors, dual Standard/Equalizer modes for the Chaingun, a server BuilderMode switch bypassing deployable limits, and unified Weapon::onUse equip messaging.",
+  "notes": [
+   "Unified equip messages (itemmsgs.cs, item.cs Weapon::onUse): individual Weapon::onUse stubs for single-mode weapons were removed from itemmsgs.cs because Weapon::onUse now checks ammo, clears spawn invulnerability ($Shifter::JustSpawned), and prints 'Using <description>' automatically.",
+   "Adds $Shifter::IceMortar (enables Mortar mode 4 Ice Shell and Shifter_startFreeze), $Shifter::BuilderMode (bypasses $TeamItemMax checks on HoloPack, TreePack, TeleportPack, MechPack, AirAmmoPad, LaunchPack, AccelPPack, and CoolLauncher), $Shifter::OOBBounce, $Shifter::TurretTrack, and $Shifter::Infiltration.",
+   "Ice damage ($IceDamageType 34, damage.cs, player.cs): hits on non-Arbitor players call Shifter_startFreeze, locking the victim's control object and GUI for ~9 seconds (15 s on repeat hits; Chemeleons thaw twice as fast) and clearing burning. Damage scales: Arbitor 0.4, Goliath 1.6, Chemeleon 0.7.",
+   "Adds Engineer Power-Gun (PowerIt) to the Engineer tool line alongside Fixit, Hackit, and DisIt; adds BBMine (Bouncin' Betty) for Heavy armor and DreadNaught (%client.dmines == 1); and adds Chaingun Options switching between Standard (JetBullet) and Equalizer (ChaingunBullet) modes.",
+   "Launcher wrapper projectiles: MortarImage and MfglImage set FakeMortarShell and FakeFgcShell on the image datablock, whose ::onAdd calls FindProjectileFirer to delegate to MortarImage::onFire / MfglImage::onFire."
+  ]
+ },
+ "items": {
+  "Blaster": {
+   "summary": "Starting energy sidearm now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Blaster::onUse was removed from itemmsgs.cs; Weapon::onUse now prints 'Using Blaster'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Chaingun": {
+   "summary": "Renamed back to Chaingun with selectable Standard (JetBullet) and Equalizer (ChaingunBullet) firing modes.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Chaingun.description changes from 'Equalizer' to 'Chaingun', ChaingunImage clears projectileType, and ChaingunImage::onFire spawns ChaingunBullet when %client.Chaingun == 1 or JetBullet otherwise.",
+    "Chaingun::onUse announces 'Using Chaingun - Equalizer Mode' or 'Using Chaingun - Standard Mode'."
+   ],
+   "source": "item.cs Chaingun, ChaingunImage, ChaingunImage::onFire; itemmsgs.cs Chaingun::onUse; admin.cs"
+  },
+  "GrenadeLauncher": {
+   "summary": "Grenade Launcher now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, GrenadeLauncher::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Grenade Launcher'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Mortar": {
+   "summary": "Mortar replacing mode 4 SatchelShell with the remotely detonated Ice Shell and wrapping firing through FakeMortarShell.",
+   "notes": [
+    "Unlike the 2004-11-27 release, MortarImage sets projectileType FakeMortarShell (whose ::onAdd locates the firer via FindProjectileFirer and runs MortarImage::onFire).",
+    "Mode 4 is now Ice Shell (falls back to mode 3 MDM if $Shifter::IceMortar is false): fires IceMortarShell and on second fire detonates IceBlast (20 m $IceDamageType blast that freezes non-Arbitor victims' controls); onUse checks %playerId.firemortar and cleans up $Firer on shell removal."
+   ],
+   "source": "item.cs MortarImage, MortarImage::onFire, FakeMortarShell::onAdd; itemmsgs.cs Mortar::onUse; baseProjData.cs IceMortarShell; blasts.cs IceBlast"
+  },
+  "LaserRifle": {
+   "summary": "Laser Rifle now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, LaserRifle::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Laser Rifle'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "EnergyRifle": {
+   "summary": "ELF Gun using the shared Weapon::onUse handler and $ArmorName lookup in damageTarget.",
+   "notes": [
+    "Unlike the 2004-11-27 release, EnergyRifle::onUse was removed from itemmsgs.cs, and lightningCharge::damageTarget checks $ArmorName[Player::getArmor(%player)] != 'AlArmor' instead of comparing aarmor/afemale directly."
+   ],
+   "source": "item.cs Weapon::onUse; baseProjData.cs lightningCharge::damageTarget"
+  },
+  "HyperB": {
+   "summary": "Hyper Blaster now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, HyperB::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Hyper Blaster'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "SniperRifle": {
+   "summary": "Sniper Rifle with slightly higher SniperRound damage and shared Weapon::onUse equip handling.",
+   "notes": [
+    "Unlike the 2004-11-27 release, SniperRound damageValue increases from 0.69 to 0.73 and SniperRifle::onUse was removed from itemmsgs.cs in favor of Weapon::onUse."
+   ],
+   "source": "baseProjData.cs SniperRound; item.cs Weapon::onUse"
+  },
+  "BoomStick": {
+   "summary": "Boom Stick now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, BoomStick::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Boom Stick'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Silencer": {
+   "summary": "Magnum now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Silencer::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Magnum'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "ConCun": {
+   "summary": "Shockwave Cannon now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, ConCun::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Shockwave Cannon'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Railgun": {
+   "summary": "Railgun now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Railgun::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Railgun'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Vulcan": {
+   "summary": "Vulcan rotary cannon with tighter aim deflection and shared Weapon::onUse equip handling.",
+   "notes": [
+    "Unlike the 2004-11-27 release, VulcanBullet aimDeflection decreases from 0.007 to 0.005 and Vulcan::onUse was removed from itemmsgs.cs in favor of Weapon::onUse."
+   ],
+   "source": "baseProjData.cs VulcanBullet; item.cs Weapon::onUse"
+  },
+  "Mfgl": {
+   "summary": "Tactical Nuke launcher routing firing through FakeFgcShell and enforcing the team nuke cap on fire.",
+   "notes": [
+    "Unlike the 2004-11-27 release, MfglImage sets projectileType FakeFgcShell (whose ::onAdd calls FindProjectileFirer and runs MfglImage::onFire), checks $Nukecount[team] < $Shifter::AllNukeLimit before firing, and spawns an accompanying FgcShell3 linked via $Nuker[%nuker] = %fired with deaddeploy tracking."
+   ],
+   "source": "item.cs MfglImage, MfglImage::onFire, FakeFgcShell::onAdd"
+  },
+  "Flamer": {
+   "summary": "Flame Thrower now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Flamer::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Flame Thrower'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "IonGun": {
+   "summary": "Ion Rifle now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, IonGun::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Ion Rifle'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Volter": {
+   "summary": "Volter now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Volter::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Volter'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "TargetingLaser": {
+   "summary": "Targeting Laser now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, TargetingLaser::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Targeting Laser'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Fixit": {
+   "summary": "Engineer Repair-Gun now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Fixit::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Engineer Repair-Gun'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "RegenerationPack": {
+   "summary": "Regeneration Pack / Gun halving self-heal rate and cleaning up station power shutoff.",
+   "notes": [
+    "Unlike the 2004-11-27 release, DrainBolt::checkDone heals the user by %damage / 30 (calling both GameBase::repairDamage and setting damageLevel) instead of / 15, and uses StopTempPower(%target) when temporary station power expires."
+   ],
+   "source": "baseProjData.cs DrainBolt::checkDone, StopTempPower"
+  },
+  "LightningPack": {
+   "summary": "Teleport Pack fixing the waypoint LOS probe object variable.",
+   "notes": [
+    "Unlike the 2004-11-27 release, LightningPackImage::onActivate passes %dpos instead of the uninitialized %zpos to GameBase::setPosition and GameBase::getLOSInfo during mode 1 waypoint validation."
+   ],
+   "source": "item.cs LightningPackImage::onActivate"
+  },
+  "HoloPack": {
+   "summary": "Hologram pack bypassing the team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, HoloPack::onDeploy allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs HoloPack::onDeploy"
+  },
+  "TreePack": {
+   "summary": "Mechanical Tree pack bypassing the team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, TreePack::deployShape allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs TreePack::deployShape"
+  },
+  "TeleportPack": {
+   "summary": "Teleport Pad pack bypassing the team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, TeleportPack::deployShape allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs TeleportPack::deployShape"
+  },
+  "MechPack": {
+   "summary": "Interceptor Pack bypassing the ScoutVehicle team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, MechPack::deployShape allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs MechPack::deployShape"
+  },
+  "MineAmmo": {
+   "summary": "Mine thrower adding Bouncin' Betty (BBMine) for Heavy and DreadNaught armors and removing Engineer laser-mine restrictions.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Heavy armor (harmor) throws BBMine, DreadNaught (darmor) throws BBMine when %playerId.dmines == '1' (otherwise LaserMine), and Engineer EngMine 2 always calls LaserMine without Deathmatch/possession exemptions.",
+    "When a BBMine is destroyed or triggered, BBMine::onDestroyed launches a BBShell upward (0 0 25, 0.35 mine damage in a 20 m radius)."
+   ],
+   "source": "item.cs MineAmmo::onUse; Mine.cs BBMine, BBMine::onAdd/deployCheck/onCollision/onDamage/onDestroyed"
+  },
+  "Beacon": {
+   "summary": "Beacon ability slot refusing use while standing in a station.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Beacon::onUse checks '%player.Station == \"\"' alongside $matchStarted, and Mercenary speed boosts store %ClientId.tacklevec."
+   ],
+   "source": "item.cs Beacon::onUse"
+  },
+  "AirAmmoPad": {
+   "summary": "Air Ammo Pad bypassing the team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, AirAmmoPad::deployShape allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs AirAmmoPad::deployShape"
+  },
+  "LaunchPack": {
+   "summary": "Launch Pad pack deployable on StaticShapes and bypassing the team limit in BuilderMode.",
+   "notes": [
+    "Unlike the 2004-11-27 release, LaunchPack::deployShape allows deployment on StaticShape objects in addition to terrain/interiors, and skips the team limit when $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs LaunchPack::deployShape"
+  },
+  "AccelPPack": {
+   "summary": "Accelerator Pad pack bypassing the team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, AccelPPack::deployShape allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs AccelPPack::deployShape"
+  },
+  "Hackit": {
+   "summary": "Engineer Hack-Gun now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Hackit::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Engineer Hack-Gun'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "DisIt": {
+   "summary": "Engineer Disassembler-Gun now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, DisIt::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Engineer Disassymbler-Gun'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "Regen": {
+   "summary": "Regeneration Gun sharing the halved self-heal rate and StopTempPower shutoff from RegenerationPack.",
+   "notes": [
+    "Same DrainBolt::checkDone changes noted under RegenerationPack (/ 30 self-heal and StopTempPower)."
+   ],
+   "source": "baseProjData.cs DrainBolt::checkDone, StopTempPower"
+  },
+  "CoolLauncher": {
+   "summary": "Missile Control Station bypassing the team limit when $Shifter::BuilderMode is enabled.",
+   "notes": [
+    "Unlike the 2004-11-27 release, CoolLauncher::deployShape allows deployment if $Shifter::BuilderMode is true."
+   ],
+   "source": "item.cs CoolLauncher::deployShape"
+  },
+  "DetBug": {
+   "summary": "Det Bug allowing collision pickup even when the dropped item's team is -1.",
+   "notes": [
+    "Unlike the 2004-11-27 release, DetBug::onCollision removes the 'GameBase::getTeam(%this) != -1' guard so neutral-tagged dropped Det Bugs can trigger on players."
+   ],
+   "source": "item.cs DetBug::onCollision"
+  },
+  "LasCannon": {
+   "summary": "Gattling Laser Cannon now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, LasCannon::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Gattling Laser Cannon'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "PlasmaCannon": {
+   "summary": "Heavy Plasma Cannon now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, PlasmaCannon::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Heavy Plasma Cannon'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "TranqGun2": {
+   "summary": "Flare Rifle stand-in item updated to use the bulletExp4 explosion effect.",
+   "notes": [
+    "Stat-only change from the 2004-11-27 release: FlareDart explosionTag changed from bulletExp2 to bulletExp4."
+   ],
+   "source": "baseProjData.cs FlareDart"
+  },
+  "MegaDiscLauncher": {
+   "summary": "Unused Mega-Disc Launcher with its itemmsgs.cs stub removed.",
+   "notes": [
+    "Unlike the 2004-11-27 release, MegaDiscLauncher::onUse was removed from itemmsgs.cs; still has zero ItemMax on all armors."
+   ],
+   "source": "item.cs MegaDiscLauncher; ArmorData.cs"
+  },
+  "Boomer": {
+   "summary": "Arbitor energy shotgun now using the shared Weapon::onUse equip handler.",
+   "notes": [
+    "Unlike the 2004-11-27 release, Boomer::onUse was removed from itemmsgs.cs; Weapon::onUse prints 'Using Boomer'."
+   ],
+   "source": "item.cs Weapon::onUse; itemmsgs.cs"
+  },
+  "PowerIt": {
+   "summary": "New Engineer Power-Gun tool that drains the Engineer's energy to temporarily power an unpowered friendly base station.",
+   "notes": [
+    "Carried only by Engineer (earmor/efemale). PowerBolt::onAcquire checks for a friendly unpowered InventoryStation, CommandStation, or AmmoStation (shapeFiles inventory_sta, cmdpnl, ammounit) and starts a 5-second charge.",
+    "After 5 seconds, PowerBolt::checkDone empties the Engineer's energy and powers the station for 2 * (energy / rechargeRate) seconds via StopTempPower."
+   ],
+   "source": "item.cs PowerIt, PowerItImage; baseProjData.cs PowerBolt, PowerBolt::onAcquire/checkDone/onRelease, StopTempPower; ArmorData.cs"
+  }
+ }
+}

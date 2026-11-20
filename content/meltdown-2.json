@@ -1,0 +1,83 @@
+{
+ "mod": {
+  "overview": "Meltdown 2 is a high-tech tactical combat and engineering modification for Tribes developed by INH DynaBlade as the successor to Meltdown Classic. The mod centers on intense base defense, combined-arms vehicle warfare, and expansive fortification building across Capture the Flag and Deathmatch gametypes. Compared to the parent mods extreme weapon bloat, Meltdown 2 reins in weapon limits to distinct tiers of three, four, and five weapons per armor, while adding armor-specific Beacon abilities, in-game fire mode selectors, and tactical status effects like EMP malfunctions, burning, and poison. Players construct forward outposts with deployable teleporter networks, mobile generators, forcefield bunkers, and heavy automated turrets while piloting an expanded roster of gunships, hover tanks, and steerable camera drones. The mod fully integrates Spoonbot Bioderm artificial intelligence with distinct combat roles, dedicated voice taunts, and in-game bot management menus.",
+  "notes": [
+   "Armor Chassis and Carry Limits: Six playable armor frames are divided into Light, Medium, Heavy, and their specialized variants Blastech, Mag-Ion, and MECH. To resolve the parent mods carry bloat, maximum weapon loadouts are strictly capped at 3 for Light and Blastech, 4 for Medium and Mag-Ion, and 5 for Heavy and MECH. Heavy and MECH armors cannot crouch, but boast high damage resistance and heavy kickback dampening. In addition, walking over any fallen players corpse automatically siphons and strips their remaining inventory directly into your gear.",
+   "Beacon Tactical Abilities: The Beacon key functions as an armor-specific special power trigger rather than dropping a passive marker. Activating a beacon deploys a 20-second personal energy shield in Light armor, a speed booster dash in Medium and Mag-Ion armors (consuming less energy if equipped with a HeatSink pack), personal optical cloaking in Blastech armor, weapon charging for the LasCannon and PlasmaCannon in Heavy or MECH armor, or a stationary Flaker blast if resting.",
+   "Armor-Specific Grenades and Repairs: The Grenade key throws ordnance tailored to your armor class: Light and Blastech toss SmallGrenades, Medium and Mag-Ion throw standard HandGrenades, Heavy hurls two PocketNukes simultaneously, and MECH unleashes torso and shoulder missile salvos that cause small self-damage kickback. The Repair Kit can be used on yourself or aimed at friendly teammates, turrets, and stations in line of sight to mend damage while immediately curing poison infections and clearing electrical malfunctions.",
+   "Weapon Fire Modes via Tab Menu: Players can open the Options menu from the Tab key to access a dedicated Weapon Options submenu for live fire mode switching. The Mitzi Blast Cannon can be toggled across six specialized ammunition profiles including Standard Mitzi Blast, EMP Haywire, Mitzi Booster, Area Poisoning, Internal Flaming, and Annihilator Blast. The Chaingun can be toggled between standard sustained fire and high-spread three-bullet Vulcan bursts, while the Mortar switches between standard high-explosive shells, Bouncing Betty fragmentation, and anti-armor Vertigo Bombs.",
+   "Combat Mechanics, Sniping, and Status Effects: Combat features targeted hit locations where sniper, laser, and methane shots to the head deal 30 to 60 percent bonus damage, and direct shots to the right torso can disarm a player or knock a carried flag off their back. Weapons apply distinct status ailments: EMP fire disables suit energy regeneration and shocks health once depleted, methane darts inflict lingering poison damage that must be treated, and plasma weapons ignite targets with internal fire that burns over time until extinguished.",
+   "Teleportation and Mobility Backpacks: Tactical backpacks offer high-speed mobility and team utility across large terrains. The Hyperdrive Pack enables instant 300-meter line-of-sight blinks, the Slipstream Teleporter Pack teleports players directly to their command map waypoints when suit energy is full (both teleport packs automatically drop carried flags to preserve objective balance), the Gravitron Field Pack lowers mass for effortless gliding, the AutoRepair Pack constantly heals health until topped off, and the Leech Pack projects a 45-meter vampiric aura that drains enemy health and energy to recharge the user.",
+   "Base Fortification and Engineering: Engineers can establish self-sufficient field bases using advanced deployables, including blast doors, reinforced blast floors, forcefield panels, mobile stations, portable power generators, and The Borg Cube (BaseOpsPack). Base defense includes laser, ion, grog, disruptor, rocket, and long-range artillery turrets, as well as deployable two-way teleporters (AODTeleporter) which must have their receiver pads deployed within 300 seconds to prevent catastrophic self-destruction.",
+   "Piloting and Flyable Munitions: Vehicle stations supply heavy assault craft such as the Arwing fighter armed with miniguns, Escape Pods with attached ELF projectors, StarHammer bombers, LAPC and HAPC transports, and HoverTanks. Players can also pilot flyable ordnance and surveillance craft, including remote-controlled cruise missiles (EOMissile and ScouterMissile) and flyable camera drones (SurveyDrone and ProbeDroid). Heavy armor can even equip the PyroXL Pack to transform directly into a flying PyroXL gunship.",
+   "Spawn Loadouts and Server Administration: Players spawn directly in Mag-Ion Armor equipped with a versatile default kit consisting of a Blaster, Chaingun, Plasma Gun, Reassembler repair beam, Power Gun electricity rifle, grenades, beacons, mines, a repair kit, and an energy pack. Servers enforce anti-hogging station ejection rules that launch players away from inventory stations after 50 seconds of continuous use, support team chat commands like AFK and return for spectator pausing, and restrict major fortification deployables from being purchased at remote inventory stations.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): AODArtilleryPack (deployables.cs), AODBunker (deployables.cs), AODMobileGen (deployables.cs), AODMobileInv (deployables.cs), AODShieldGen (deployables.cs), AODTeleporter (deployables.cs), BlastDoor (deployables.cs), BlastFloor (deployables.cs), CNode (deployables.cs), DiscTurretPack (deployables.cs), DisruptorTurretPack (deployables.cs), DronePack (deployables.cs) (+13 more)."
+  ]
+ },
+ "items": {
+  "MBCannon": {
+   "summary": "Multi-mode heavy energy cannon powered by MitziCore ammunition.",
+   "notes": [
+    "Configurable through the Tab Weapon Options menu into six distinct firing modes: Standard Mitzi Blast, EMP Haywire, Mitzi Booster, Area Poisoning, Internal Flaming, and Annihilator Blast.",
+    "Each firing mode expends different quantities of MitziCore ammunition, from 10 units for basic blasts up to 100 units for the devastating Annihilator payload."
+   ],
+   "source": "weapons.cs"
+  },
+  "AODTeleporter": {
+   "summary": "Two-way deployable tactical teleportation terminal.",
+   "notes": [
+    "Placing the primary teleport pad initiates a 300-second overload countdown, requiring the deployer to place the second receiver node before the timer expires or the unit self-destructs.",
+    "Once both pads are active and powered, players walking onto either terminal are smoothly phased and transported across the map to the other end."
+   ],
+   "source": "deployables.cs"
+  },
+  "HyperPack": {
+   "summary": "Short-range line-of-sight blink propulsion backpack.",
+   "notes": [
+    "Consumes 30 energy to instantly teleport the user to any valid terrain or interior surface in line of sight up to 300 meters away.",
+    "Automatically forces the user to drop the flag if carried, and refuses to teleport within 50 meters of any flag location."
+   ],
+   "source": "packs.cs"
+  },
+  "Slipstream": {
+   "summary": "Long-range waypoint navigation teleporter backpack.",
+   "notes": [
+    "Teleports the player across arbitrary map distances directly to the coordinates marked by their command map waypoint.",
+    "Requires full suit energy to initiate, expends 60 energy upon jump, forces flag drops, and cannot be used within 50 meters of a flag."
+   ],
+   "source": "packs.cs"
+  },
+  "LeechPack": {
+   "summary": "Area-of-effect vampiric siphon backpack.",
+   "notes": [
+    "Emits an active 45-meter energy field that siphons energy and health from enemy soldiers and enemy deployable mines 20 times per second.",
+    "Siphoned enemy reserves are continuously transferred to replenish the wearers current health and suit energy."
+   ],
+   "source": "packs.cs"
+  },
+  "PyroXLPack": {
+   "summary": "Heavy armor airborne vehicle transformation pack.",
+   "notes": [
+    "Exclusive to Heavy armor, activating this module converts the infantry player directly into a flying PyroXL combat craft.",
+    "Carries over existing player damage levels into the vehicle hull while stowing hand weapons and dropping carried flags."
+   ],
+   "source": "packs.cs"
+  },
+  "BugPack": {
+   "summary": "Espionage passive communications interceptor backpack.",
+   "notes": [
+    "Known internally as the Coyote Ear Pack and described in stations as the TeamChat Tapper.",
+    "Intercepts all enemy team communications and copies their private team chat messages directly into the wearers console feed."
+   ],
+   "source": "packs.cs"
+  },
+  "BaseOpsPack": {
+   "summary": "Deployable self-contained fortified forward operating base.",
+   "notes": [
+    "Described as The Borg Cube, deploying this module erects a massive fortified multi-panel outpost in the field complete with its own dedicated power generator.",
+    "If the central generator is destroyed, the entire structure suffers sympathetic overloads and collapses."
+   ],
+   "source": "deployables.cs"
+  }
+ }
+}

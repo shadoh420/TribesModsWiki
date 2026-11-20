@@ -1,0 +1,77 @@
+{
+ "mod": {
+  "overview": "Created by hvPalantirion of House Vagoroth in July 1999, hvTactical v1 is a server-side tactical overhaul of Renegades 1.3 built entirely using stock Starsiege: Tribes assets. The mod strips away the fantasy and sci-fi gimmickry of its parent mod, removing weapons like the wave gun, freezer, and lightning packs to refocus gameplay on disciplined military squad roles and lethal fortifications. Teams clash in objective-based warfare where specialized operatives coordinate combined-arms assaults using air vehicles, tactical deployables, and lethal small-arms arsenals. Supported by Insomniax server administration and Labrat custom skin selection, the mod delivers a fast, grounded, and intensely lethal combat experience where positioning, reconnaissance, and equipment limits dictate the flow of battle.",
+  "notes": [
+   "Classes and Armor Loadouts: Nine specialized armor classes across three weight classes define player roles: the Kestrel scout (speed 13, 2 weapons), Nighthawk spy (speed 12, 3 weapons, cloaking and hacking), Peregrine sniper (speed 11, 3 weapons, laser disarm), Wolverine skirmisher (speed 10, 4 weapons), Mongoose mercenary (speed 9, 5 weapons, versatile combatant), Badger burster (speed 8, 4 weapons, mortar-capable medium), Owl engineer (speed 8, 3 weapons, master of all deployable emplacements), Grizzly cyborg (speed 6, 6 weapons, concussion and particle weapons), and Kodiak dragoon (speed 6, 6 weapons, heavily armored fortress with stealth shields).",
+   "Spawning and Skin Customization: Players spawn directly into battle in Medium Armor equipped with a combat loadout featuring the blaster, chaingun, disc launcher, assault rifle, repair kit, mine ammo, beacons, grenades, targeting laser, and an energy pack. Upon initial connection, Labrat's personal skin menu appears, allowing each player to select whether they want to use their own personal client skin or adopt the team's default livery.",
+   "Sniper Disarm and Precision Hitboxes: Headshots with laser sniper rifles deal an extra 35 percent bonus damage, rewarding long-range precision marksmanship. In addition, scoring a laser sniper hit on an enemy operative's front-right torso (weapon arm) with sufficient damage forcefully shoots the equipped weapon out of their hand, dropping it onto the ground for them to retrieve.",
+   "EMP Disruption and Radiation Status Effects: Hits from EMP weaponry trigger an electromagnetic wave across a 40-meter radius that instantly zeroes suit energy and freezes energy recharge to zero. Afflicted players endure a 16-second debuff characterized by recurring radiation health drain and intense, blinding white damage flashes every two seconds, leaving them unable to jet until the effect dissipates.",
+   "Unique Ballistics and Shield Bypass: Advanced weaponry offers specialized combat dynamics, including the shotgun with 13 buckshot pellets, the Light Railgun with near-instant 2000 muzzle velocity and heavy knockback, the 12-shell Particle Accelerator cluster burst, and the MAG gun which ignores standard energy shield absorption (reducing absorption to 0.005) to rip targets apart directly. Concussion weapons like the Shockwave Cannon exert extreme 350-force knockback across a 30-meter radius.",
+   "Deployable Fortifications and Logistics: The Owl engineer and support roles deploy a formidable defense grid governed by strict team caps: 1 Demolition Pack (C4), 2 Vulcan bullet turrets, 2 Breath of Ra flamethrower turrets, 2 Guard Dog concussion turrets, 2 MAG turrets, 3 heat-seeking anti-air Flak turrets, 4 Watchdog laser turrets, 2 Teleport Pads for rapid team transit, and 2 Mech Robot interceptor pods. Team energy is set to Infinite by default, shifting game balance from credits to strict deployable limits.",
+   "Administration and Banned Equipment: The mod does not use #commands or text chat commands; all server management, tournament settings, and mission voting are operated via the Tab score menu powered by Insomniax Public Admin lockouts, where super admins configure permissions under Tab > Server Options > Public Admin Lockouts. The FgcPack flight glider pack is explicitly banned and zeroed out in all main and remote inventory stations.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): FgcPack (station.cs)."
+  ]
+ },
+ "items": {
+  "C4Pack": {
+   "summary": "Demolition Pack deploying a timed 30-second explosive charge that deals massive structural damage.",
+   "notes": [
+    "Deployed on terrain or interior structures as a small sensor shape.",
+    "Automatically detonates after a 30-second countdown or on proximity contact within a 5-meter trigger radius.",
+    "Generates a 20-meter explosion dealing 10.0 damage and 600 knockback to level generators and base structures.",
+    "Strictly restricted to a maximum of 1 active pack per team."
+   ],
+   "source": "item.cs"
+  },
+  "EMPLauncher": {
+   "summary": "Heavy mortar-style cannon that discharges devastating electromagnetic pulse shells.",
+   "notes": [
+    "Fires an EMP shell that detonates across a massive 40-meter radius on impact.",
+    "Immediately zeroes suit energy and freezes suit recharge rate.",
+    "Inflicts lasting radiation damage and blinding white-out damage flashes over a 16-second duration.",
+    "Operates on a slow refire rate of one shot every two seconds using EMP ammo."
+   ],
+   "source": "item.cs"
+  },
+  "ConCun": {
+   "summary": "Shockwave Cannon firing wide-area concussion blasts that deliver extreme kinetic knockback.",
+   "notes": [
+    "Discharges an energy-based concussion projectile with an effective 30-meter blast radius.",
+    "Imparts a massive 350 knockback impulse that hurls enemy operatives off ledges and disorients defensive lines.",
+    "Consumes 25 to 40 energy per shot with a 0.9-second refire delay.",
+    "Equippable by heavy Cyborg and specialized frontline shock classes."
+   ],
+   "source": "item.cs"
+  },
+  "ClusterBomb": {
+   "summary": "Particle Accelerator weapon firing a simultaneous salvo of 12 explosive cluster shells.",
+   "notes": [
+    "Consumes 30 suit energy to release an immediate 12-projectile cluster burst from the muzzle.",
+    "Each cluster shell detonates with shrapnel damage and 100 knockback across an 8-meter area.",
+    "Provides devastating multi-projectile area denial against enemy infantry and clustered deployables.",
+    "Usable exclusively by heavy Cyborg and Dragoon armor chassis."
+   ],
+   "source": "item.cs"
+  },
+  "FlakPack": {
+   "summary": "Deployable anti-aircraft defense turret designed specifically to engage airborne targets.",
+   "notes": [
+    "Deploys a Hellfire turret shape that tracks and fires explosive flak shells.",
+    "Features target verification that specifically engages targets with a heat factor of 0.5 or greater.",
+    "Guards team installations by prioritizing enemy aircraft and high-heat jetting operatives.",
+    "Restricted to a maximum of 3 deployable flak turrets per team."
+   ],
+   "source": "item.cs"
+  },
+  "CloakingDevice": {
+   "summary": "Infiltration backpack module granting complete optical and sensor invisibility.",
+   "notes": [
+    "Backpack module exclusive to the Nighthawk Spy armor class.",
+    "Activates optical camouflage via game fadeout, rendering the operative completely invisible.",
+    "Increases sensor suppression by 3, preventing detection by pulse radars and base motion sensors.",
+    "Allows spies to bypass perimeter defenses for base reconnaissance and terminal sabotage."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

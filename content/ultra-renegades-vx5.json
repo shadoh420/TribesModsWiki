@@ -1,0 +1,474 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades VX5 5.01 is the root of the VX line. It keeps the three stock armors but lets every armor buy everything, adds a shop of VX weapons (Taser Rifle, LiL POO rifles, LiLRocket launchers, LiLForce Field Buster, Beam Of Pain), five ammo-fed Psionics abilities, eight wall-mountable VX turrets, five force-field doors, teleport pads and a set of special grenades and mines. Damage types carry side effects (EMP and beam hits knock items out of your hands, bullet head shots gib the victim), the grenade key is an air brake and the beacon key a speed booster. Two independent switches in vxmod.cs, a mod profile (normal, OGL, NOTOR) and a difficulty (Defaults, MEDIUM, HARD), are re-applied at every mission load and can be changed by admins or by vote.",
+    "notes": [
+      "Armors: the stock light, medium and heavy (plus the two female models). Every armor may carry every item; weapon slots ($MaxWeapons) are light 10, medium 8 (female medium 10) and heavy 8. Heavy armor has 100 max energy against 500 for the others, which matters for the energy weapons and packs.",
+      "Shop headings are the mod's own: TWeapons (weapons), WPsionics (the five Psionics abilities), xAmmunition, cBackpacks, dDeployables, LTurretsVX (deployable turrets), kForce Fields and eMiscellany.",
+      "Spawn loadout in the default profile ($spawnBuyList): light armor with Taser Rifle, LiLRocket Launcher, Disc Launcher, LiLForce Field Buster, Beam Of Pain, Plasma Gun, Mortar, LiL POO mkii and mki, Repair Pack, mines, beacons, grenades and a Repair Kit. OGL swaps the Taser Rifle and rockets for Blaster and LiLFFB and drops Beam Of Pain and Mortar; NOTOR drops Taser Rifle, LiLFFB, Beam Of Pain and Mortar.",
+      "Mod profile (vxmode in vxmod.cs, loaded from UltraVX5.cs, UltraVX5_OGL.cs or UltraVX5_NOTOR.cs): sets the shop lists and team limits. The default profile allows 10 of each VX turret, 12 of each force field, 4 teleport pads, 7 ammo stations, 5 inventory stations and 1 radius mine per team. OGL removes all Psionics and the Cloaking Device from the shop, sets the radius mine's team limit to 0, and cuts other team limits to 2-3 (2 of each force field, 3 of each turret). NOTOR additionally removes every turret except the Tracking Turret (3 per team), all deployable stations, sensors and cameras, Land Camo, flash grenades, radius mines and VX Gas Attack, and allows 1 of each force field and 2 teleport pads.",
+      "Difficulty (vxDIFmode): Defaults runs UltraVX5_EASY.cs, which the settings file labels single-shot kills: armors keep stock health (light 0.66, medium 1.0, heavy 2.0) while most weapons hit for 1-2, LiLForce Field Buster for 150 and LairWaster for 280. MEDIUM (labelled 4-shot kills) raises armor health to 1/2/3 and drops most weapon damage to 0.3-0.4. HARD (6-8-shot kills) uses 1.2/2.2/3.2 armor health and 0.1-0.2 weapon damage. Force-field doors have 250 health on Defaults, 15 on MEDIUM and 5 on HARD; the Tracking Turret 15, 5 and 5.",
+      "Both switches are applied in Server::finishMissionLoad on every mission. Admins change them from the Tab menu (UltraVX Mode, Difficulty); players can vote on them while $Ultra_RenegadesVX5::modvoting / difficultyvoting are \"true\" (the shipped default).",
+      "The Defaults difficulty file never sets armor maxDamage, so after switching from MEDIUM or HARD back to Defaults the armors keep the MEDIUM/HARD health values.",
+      "Damage-type side effects in Player::onDamage: EMP damage zeroes the victim's energy, lowers their recharge rate to 6 and drops their pack, weapon and flag. Beam Of Pain damage drops pack, weapon and flag. MiniELF damage (Mini-ELF and Mini-Beam Of Pain turrets) drops pack and weapon. Flash damage zeroes energy, sets recharge to 6 and gives a full white damage flash. Smoke damage prints a toxic gas warning.",
+      "The recharge rate set by EMP or Flash damage (6, against the normal 8 set in Player::onAdd) is never restored, so it lasts until the victim respawns.",
+      "Bullet-type and LiLPOOmkii-type hits to an enemy's head call Player::blowUp on the victim and triple the hit's damage, with a Head Shot message to both players. Laser head shots keep the stock +30%.",
+      "Fair-play rule: every deployable in the mod (stations, motion sensor, camera, all turrets, force fields, teleport pads) refuses to deploy unless some static object belonging to your team is inside a 150 x 150 x 150 box around the deploy point. Otherwise it prints Fair play distance exceeded.",
+      "Deployable turrets, except the camera, now take team damage scaled by $Server::TeamDamageScale; stock Tribes made the remote turret take full damage from teammates.",
+      "Shield packs absorb less: 0.008 damage per point of energy, against the stock 0.012 (0.75 times that against shrapnel and mortar)."
+    ]
+  },
+  "items": {
+    "TaserRifle": {
+      "summary": "A sniper-style energy rifle that fires an instant laser beam. It is the default spawn weapon and hits much harder per shot than the Laser Rifle.",
+      "notes": [
+        "Uses the TaserRfLaser beam (laser damage type, damage conversion 3 against the Laser Rifle's 0.7 on Defaults), so laser head shots get the +30% bonus.",
+        "Unlike the Laser Rifle it has no onUse check, so it works without an Energy Pack.",
+        "Draws from your own energy (1-15 per shot) with a 0.08 s reload."
+      ],
+      "source": "item.cs TaserRifleImage/TaserRifle; baseProjData.cs TaserRfLaser"
+    },
+    "FireballAbilityAmmo": {
+      "summary": "Fire Implants, the ammunition consumed by the Fireball Ability Psionic.",
+      "notes": [
+        "Carry limit 275 for every armor.",
+        "Not sold in the OGL or NOTOR profiles."
+      ],
+      "source": "item.cs FireballAbilityAmmo; ArmorData.cs $ItemMax"
+    },
+    "FireballAbility": {
+      "summary": "A Psionics weapon that throws fast fireballs which burst in a wide shrapnel blast.",
+      "notes": [
+        "Fires Fireball bullets at 600 m/s that explode with a 15 m radius (shrapnel damage type), one per Fire Implant, with a 0.05 s reload.",
+        "Psionics are removed from the shop in the OGL and NOTOR profiles."
+      ],
+      "source": "item.cs FireballAbilityImage; baseProjData.cs Fireball"
+    },
+    "SmScreenAbilityAmmo": {
+      "summary": "Smoke Implants, the ammunition consumed by the SmokeScreen Ability.",
+      "notes": [
+        "Carry limit 125 for every armor."
+      ],
+      "source": "item.cs SmScreenAbilityAmmo"
+    },
+    "SmScreenAbility": {
+      "summary": "A Psionics launcher that lobs smoke grenades. Each blast does light smoke damage and triggers the toxic gas warning.",
+      "notes": [
+        "Fires SmScreen grenades (smoke damage type, 5 m radius, no knockback) with a 0.1 s reload.",
+        "Smoke damage prints WARNING - Toxic Gas Detected to the victim."
+      ],
+      "source": "item.cs SmScreenAbilityImage; baseProjData.cs SmScreen; player.cs Player::onDamage"
+    },
+    "ExSmScreenAbilityAmmo": {
+      "summary": "Lair Implants, the ammunition consumed by the LairWaster.",
+      "notes": [
+        "Carry limit 60 for every armor."
+      ],
+      "source": "item.cs ExSmScreenAbilityAmmo"
+    },
+    "ExSmScreenAbility": {
+      "summary": "LairWaster, a Psionics grenade launcher whose shells carry the biggest damage value in the mod. Meant for wrecking base equipment.",
+      "notes": [
+        "Fires ExSmScreen grenades: shrapnel damage in a 5 m radius, 280 damage on Defaults, but only 0.4 on MEDIUM and 0.2 on HARD.",
+        "0.5 s reload, the slowest of the Psionics."
+      ],
+      "source": "item.cs ExSmScreenAbilityImage; baseProjData.cs ExSmScreen; UltraVX5_*.cs"
+    },
+    "FireScreenAbilityAmmo": {
+      "summary": "FireWall Bombs, the ammunition consumed by the FireWall Psionic.",
+      "notes": [
+        "Carry limit 160 for every armor."
+      ],
+      "source": "item.cs FireScreenAbilityAmmo"
+    },
+    "FireScreenAbility": {
+      "summary": "FireWall, a Psionics weapon that fires slow rockets with a very large explosion.",
+      "notes": [
+        "Fires FireScreen rockets that start at 80 m/s and burst with a 20 m radius of shrapnel damage, with a 0.05 s reload."
+      ],
+      "source": "item.cs FireScreenAbilityImage; baseProjData.cs FireScreen"
+    },
+    "SpellAbilityAmmo": {
+      "summary": "SpellHeart, the ammunition consumed by the Spell Psionic.",
+      "notes": [
+        "Carry limit 500 for every armor."
+      ],
+      "source": "item.cs SpellAbilityAmmo"
+    },
+    "SpellAbility": {
+      "summary": "Spell, a rapid-fire Psionic that sprays slow, wide-spread bullets drawn with the female armor model.",
+      "notes": [
+        "Fires SpellAbilityProj: bullet damage type, 30 m/s, aim deflection 0.25, every 0.1 s.",
+        "Because it is bullet damage, a hit to an enemy's head gibs them and does triple damage."
+      ],
+      "source": "item.cs SpellAbilityImage; baseProjData.cs SpellAbilityProj; player.cs Player::onDamage"
+    },
+    "LiLPOOmkiAmmo": {
+      "summary": "Bullet mki, the free ammunition for the LiL POO mki.",
+      "notes": [
+        "Costs nothing; carry limit 999 for every armor."
+      ],
+      "source": "item.cs LiLPOOmkiAmmo; ArmorData.cs"
+    },
+    "LiLPOOmki": {
+      "summary": "A rapid-fire rifle that shoots near-instant bullets (9000 m/s).",
+      "notes": [
+        "Bullet damage type, so enemy head shots gib the victim and triple the damage.",
+        "Fires every 0.01 s with no aim deflection."
+      ],
+      "source": "item.cs LiLPOOmkiImage; baseProjData.cs LiLPOOmkiBullet; player.cs Player::onDamage"
+    },
+    "LiLPOOmkiiAmmo": {
+      "summary": "Bullet mkii, the free ammunition for the LiL POO mkii.",
+      "notes": [
+        "Costs nothing; carry limit 999 for every armor."
+      ],
+      "source": "item.cs LiLPOOmkiiAmmo"
+    },
+    "LiLPOOmkii": {
+      "summary": "A faster-bullet version of the LiL POO (20000 m/s) with its own damage type and firing sound.",
+      "notes": [
+        "LiLPOOmkii damage type gets the same head-shot rule as bullets: an enemy head hit gibs the victim and triples the damage.",
+        "Fires every 0.02 s and does not inherit the shooter's velocity."
+      ],
+      "source": "item.cs LiLPOOmkiiImage; baseProjData.cs LiLPOOmkiiBullet; player.cs Player::onDamage"
+    },
+    "LiLFFBAmmo": {
+      "summary": "Shells for the LiLForce Field Buster.",
+      "notes": [
+        "Carry limit 8 for every armor."
+      ],
+      "source": "item.cs LiLFFBAmmo"
+    },
+    "LiLFFB": {
+      "summary": "LiLForce Field Buster, a mortar-style launcher whose heavy shells are meant for breaking force fields and base equipment.",
+      "notes": [
+        "Fires LiLFFBShell grenades: shrapnel damage in a 15 m radius with strong knockback (300). Damage is 150 on Defaults, enough to take most of a force-field door's 250 health, but only 0.4 on MEDIUM and 0.2 on HARD.",
+        "1 s reload."
+      ],
+      "source": "item.cs LiLFFBImage; baseProjData.cs LiLFFBShell; UltraVX5_*.cs"
+    },
+    "LiLRocketLauncherAmmo": {
+      "summary": "LiLRockets, ammunition for the LiLRocket Launcher.",
+      "notes": [
+        "Carry limit 80 (100 for heavy armor and female medium)."
+      ],
+      "source": "item.cs LiLRocketLauncherAmmo; ArmorData.cs"
+    },
+    "LiLRocketLauncher": {
+      "summary": "A lock-on rocket launcher. Aimed at a player or flyer, it fires a guided three-missile volley; otherwise it fires a single fast dumb-fire rocket.",
+      "notes": [
+        "On fire it checks line of sight out to 350 m. If that hits a Player or Flier it sends a lock warning to both sides and launches three seeking missiles at the target: LiLRocketEMP (EMP damage), LiLRocket and the slower, longer-lived LiLRocketSubmission.",
+        "The EMP missile zeroes the target's energy, lowers their recharge rate and knocks their pack, weapon and flag loose.",
+        "Without a lock it fires LiLRocketalt, an unguided 850 m/s missile.",
+        "Each shot uses one LiLRocket; reload 0.2 s."
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire; server.cs RocketLockWarning; baseProjData.cs LiLRocket*"
+    },
+    "LiLEMPRocketLauncherAmmo": {
+      "summary": "LiLEMPRockets, ammunition for the LiLEMPRocket Launcher.",
+      "notes": [
+        "Carry limit 80 (100 for heavy armor and female medium)."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherAmmo"
+    },
+    "LiLEMPRocketLauncher": {
+      "summary": "A lock-on launcher that fires only EMP rockets, built to strip a target's energy and gear.",
+      "notes": [
+        "With a 350 m line-of-sight lock on a Player or Flier it fires two seeking EMP missiles (LiLEMPRocketONE and TWO) and warns the target; otherwise one unguided 600 m/s EMP rocket.",
+        "Every hit is EMP damage: energy zeroed, recharge rate cut to 6, and pack, weapon and flag dropped.",
+        "Small 3 m blasts with no knockback."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherImage::onFire; baseProjData.cs LiLEMPRocket*; player.cs Player::onDamage"
+    },
+    "BeamOfPain": {
+      "summary": "A sustained lightning beam that hurts, drains energy and shoves the target, and makes them drop what they are holding.",
+      "notes": [
+        "Beam reaches 100 m and drains 500 energy per second from the target along with its damage.",
+        "Each damage tick applies an 80-strength impulse to the target built from the shooter's facing direction.",
+        "Beam Of Pain damage drops the victim's pack, weapon and flag.",
+        "Costs the shooter 3-11 energy per second."
+      ],
+      "source": "item.cs BeamOfPainImage; baseProjData.cs BeamOfPainProj, BeamOfPainproj::damageTarget; player.cs Player::onDamage"
+    },
+    "DeployableInvPack": {
+      "summary": "Deploys a remote inventory station so your team can re-equip in the field.",
+      "notes": [
+        "Unlike stock Tribes it can only be deployed near your base: a team-owned static object must be within a 150 x 150 x 150 box of the spot, or it prints Fair play distance exceeded.",
+        "Any armor can carry it. Still needs flat ground or a building floor.",
+        "5 per team in the default profile, 2 in OGL, none in NOTOR."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deploys a remote ammo station for restocking in the field.",
+      "notes": [
+        "Same fair-play rule as the inventory station: a team-owned static object must be within a 150 x 150 x 150 box of the deploy point.",
+        "Any armor can carry it.",
+        "7 per team in the default profile, 2 in OGL, none in NOTOR."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape"
+    },
+    "ShieldPack": {
+      "summary": "Projects an energy shield that absorbs damage, paid for out of your energy pool. Weaker than the stock shield.",
+      "notes": [
+        "Each point of energy absorbs 0.008 damage (0.75 times that against shrapnel and mortar), against the stock 0.012.",
+        "Costs up to 18 energy per second while on."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate; player.cs Player::onDamage"
+    },
+    "SensorJammerPack": {
+      "summary": "StealthShield Pack: a sensor jammer and an energy shield in one pack.",
+      "notes": [
+        "While on it adds 20 to your sensor suppression (as the stock jammer) and also turns on a 0.008 energy shield, the same strength as the Shield Pack.",
+        "Costs up to 18 energy per second."
+      ],
+      "source": "item.cs SensorJammerPackImage::onActivate/onDeactivate"
+    },
+    "CloakingDevice": {
+      "summary": "A backpack that fades your player model out while it is switched on.",
+      "notes": [
+        "Activating calls GameBase::startFadeout on you and adds 3 to your sensor suppression; deactivating fades you back in.",
+        "Drains up to 18 energy per second.",
+        "Not sold in the OGL or NOTOR profiles."
+      ],
+      "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate"
+    },
+    "MotionSensorPack": {
+      "summary": "Deploys a small motion sensor that detects moving enemies nearby.",
+      "notes": [
+        "Unlike stock Tribes it obeys the fair-play rule: a team-owned static object must be within a 150 x 150 x 150 box of the deploy point.",
+        "Still mounts on floors, walls and ceilings.",
+        "10 per team in the default profile, 4 in OGL, none in NOTOR."
+      ],
+      "source": "item.cs MotionSensorPack::deployShape"
+    },
+    "CameraPack": {
+      "summary": "Deploys a remote camera your team can view through from a command station.",
+      "notes": [
+        "Unlike stock Tribes it obeys the fair-play rule: a team-owned static object must be within a 150 x 150 x 150 box of the deploy point.",
+        "Still mounts on walls and ceilings. 5 per team; none in NOTOR."
+      ],
+      "source": "item.cs CameraPack::deployShape"
+    },
+    "LaserTurretPack": {
+      "summary": "Deploys a Laser Turret, a remote turret that fires rapid laser pulses at enemies within 40 m.",
+      "notes": [
+        "Mounts on floors, walls or ceilings (the camera placement code) with no turret-spacing limit, but obeys the fair-play rule.",
+        "Kills by the turret are credited to the player who deployed it.",
+        "Fires LaserTrtLaser every 0.08 s."
+      ],
+      "source": "item.cs LaserTurretPack::deployShape; turret.cs LaserTurret"
+    },
+    "TurretPack": {
+      "summary": "LiL Turret: the stock remote turret, renamed. It fires small energy bolts at enemies within 40 m.",
+      "notes": [
+        "Any armor can carry it (stock Tribes limited it to medium and heavy).",
+        "Keeps the stock spacing check (at least 10 m from another LiL Turret) but allows 20 turrets in a 50 x 50 x 25 m area instead of 2, and adds the fair-play rule.",
+        "Must go on a flat surface. Takes scaled team damage like the other VX turrets.",
+        "10 per team in the default profile, 3 in OGL, none in NOTOR."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret, Turret::onDamage; game.cs $MaxNumTurretsInBox"
+    },
+    "TaserTrtBPack": {
+      "summary": "Deploys a Taser Turret, a small camera-sized turret that hits targets within 60 m with a long laser beam every 2 seconds.",
+      "notes": [
+        "Its TaserTrtBLaser beam lasts 2 s per shot; it is sensor-suppressable.",
+        "Mounts on floors, walls or ceilings, obeys the fair-play rule, no spacing limit.",
+        "Kill credit to the deployer is commented out in the deploy code."
+      ],
+      "source": "item.cs TaserTrtBPack::deployShape; turret.cs DeployableTaserTrtB; baseProjData.cs TaserTrtBLaser"
+    },
+    "TaserTrtCPack": {
+      "summary": "Deploys a Tracking Turret (Taser Tracker), a long-range turret whose laser does almost no damage. It marks and tracks targets rather than killing them.",
+      "notes": [
+        "Range 500 m; its TaserTrtCLaser has a damage conversion of 0.0001.",
+        "Its health depends on difficulty: 15 on Defaults, 5 on MEDIUM and HARD.",
+        "Mounts on floors, walls or ceilings and obeys the fair-play rule. No kill credit to the deployer.",
+        "The only turret left in the NOTOR profile (3 per team)."
+      ],
+      "source": "item.cs TaserTrtCPack::deployShape; turret.cs DeployableTaserTrtC; UltraVX5_*.cs"
+    },
+    "LaserTurretBPack": {
+      "summary": "Deploys a Mini-Plasma Turret that fires plasma bolts at enemies within 40 m.",
+      "notes": [
+        "Uses the Plasma Gun's PlasmaBolt projectile every 0.08 s.",
+        "Mounts on floors, walls or ceilings, obeys the fair-play rule, and credits kills to the deployer."
+      ],
+      "source": "item.cs LaserTurretBPack::deployShape; turret.cs LaserTurretB"
+    },
+    "MiniFlakTurretPack": {
+      "summary": "Deploys a Mini-Flak Turret that launches short-lived seeking flak missiles every 2 seconds.",
+      "notes": [
+        "MiniFlakproj missiles seek for 3 s and burst in a 9.5 m radius (LiLRocket damage type, 175 knockback). Range 75 m.",
+        "Mounts on floors, walls or ceilings, obeys the fair-play rule, and credits kills to the deployer."
+      ],
+      "source": "item.cs MiniFlakTurretPack::deployShape; turret.cs MiniFlakTurret; baseProjData.cs MiniFlakproj"
+    },
+    "MiniSAMTurretPack": {
+      "summary": "Deploys a Mini-S.A.M Turret that fires slow, long-lived seeking missiles every 4 seconds.",
+      "notes": [
+        "MiniSAMproj missiles start at 30 m/s, accelerate to 100 m/s and seek for up to 20 s. Range 100 m.",
+        "Mounts on floors, walls or ceilings, obeys the fair-play rule, and credits kills to the deployer."
+      ],
+      "source": "item.cs MiniSAMTurretPack::deployShape; turret.cs MiniSAMTurret; baseProjData.cs MiniSAMproj"
+    },
+    "MiniELFTurretPack": {
+      "summary": "Deploys a Mini-ELF Turret, a wide-cone lightning turret that drains energy and makes victims drop their gear.",
+      "notes": [
+        "Its MiniELFTurretproj beam has a 35-degree cone and drains 1000 energy per second while doing little direct damage on Defaults (0.01 per second).",
+        "MiniELF damage makes the victim drop their pack and weapon.",
+        "Range 60 m. Mounts on floors, walls or ceilings, obeys the fair-play rule, and credits kills to the deployer."
+      ],
+      "source": "item.cs MiniELFTurretPack::deployShape; turret.cs MiniELFTurret; baseProjData.cs MiniELFTurretproj; player.cs Player::onDamage"
+    },
+    "MiniSmokeTurretPack": {
+      "summary": "Deploys a Mini-Beam Of Pain, a turret that fires a thick damaging beam in 2-second bursts.",
+      "notes": [
+        "Its MiniSmokeTurretproj beam does damage but no energy drain, and uses the MiniELF damage type, so victims drop their pack and weapon.",
+        "Range 40 m. Mounts on floors, walls or ceilings, obeys the fair-play rule, and credits kills to the deployer."
+      ],
+      "source": "item.cs MiniSmokeTurretPack::deployShape; turret.cs MiniSmokeTurret; baseProjData.cs MiniSmokeTurretproj"
+    },
+    "lgaForceFieldPack": {
+      "summary": "Deploys the largest force-field door (4x17). It blocks enemies, and opens briefly when a teammate touches it.",
+      "notes": [
+        "When a living player of the field's team collides with it, the door fades out, moves up 6 m and drops back into place 1 s later. Enemies get no reaction.",
+        "Placed at the point you aim at within 3 m, rotated to your facing, with no surface or clearance check; only the fair-play rule applies.",
+        "Health 250 on Defaults, 15 on MEDIUM, 5 on HARD. When destroyed it deals radius debris damage around itself.",
+        "12 per team in the default profile, 2 in OGL, 1 in NOTOR."
+      ],
+      "source": "item.cs lgaForceFieldPack::deployShape; staticshape.cs lgaForceFieldShape::onCollision/openDoor/closeDoor/onDestroyed"
+    },
+    "lgbForceFieldPack": {
+      "summary": "Deploys a 4x14 force-field door that lets teammates through and blocks enemies.",
+      "notes": [
+        "Same behavior as the 4x17 door: a teammate's touch lifts it 6 m and fades it out for 1 s.",
+        "No surface or clearance check when deploying; fair-play rule applies.",
+        "Health 250 on Defaults, 15 on MEDIUM, 5 on HARD; explodes with debris damage when destroyed."
+      ],
+      "source": "item.cs lgbForceFieldPack::deployShape; staticshape.cs lgbForceFieldShape"
+    },
+    "medaForceFieldPack": {
+      "summary": "Deploys a 4x8 force-field door that lets teammates through and blocks enemies.",
+      "notes": [
+        "A teammate's touch lifts it 6 m and fades it out for 1 s.",
+        "No surface or clearance check when deploying; fair-play rule applies.",
+        "Health 250 on Defaults, 15 on MEDIUM, 5 on HARD; explodes with debris damage when destroyed."
+      ],
+      "source": "item.cs medaForceFieldPack::deployShape; staticshape.cs medaForceFieldShape"
+    },
+    "medbForceFieldPack": {
+      "summary": "Deploys a 5x5 force-field door that lets teammates through and blocks enemies.",
+      "notes": [
+        "A teammate's touch lifts it 6 m and fades it out for 1 s.",
+        "No surface or clearance check when deploying; fair-play rule applies.",
+        "Health 250 on Defaults, 15 on MEDIUM, 5 on HARD; explodes with debris damage when destroyed."
+      ],
+      "source": "item.cs medbForceFieldPack::deployShape; staticshape.cs medbForceFieldShape"
+    },
+    "medcForceFieldPack": {
+      "summary": "Deploys the smallest force-field door (3x4), sized for doorways. It lets teammates through and blocks enemies.",
+      "notes": [
+        "A teammate's touch lifts it 6 m and fades it out for 1 s.",
+        "No surface or clearance check when deploying; fair-play rule applies.",
+        "Health 250 on Defaults, 15 on MEDIUM, 5 on HARD; explodes with debris damage when destroyed."
+      ],
+      "source": "item.cs medcForceFieldPack::deployShape; staticshape.cs medcForceFieldShape"
+    },
+    "TeleportPack": {
+      "summary": "Deploys a teleport pad. Stepping on one of your team's pads moves you to another of your team's pads.",
+      "notes": [
+        "Needs flat ground or a building floor and obeys the fair-play rule. The pad sits 1 m above the surface with an electrical beam on it. Limit is 4 per team ($TeamItemMax[DeployableTeleport]), 2 in OGL and NOTOR.",
+        "Touching a pad sends you to the first other pad of your team in the teleport set; both pads then recharge for 5 s. Enemies get Wrong team, and a lone pad says No other pad to teleport to.",
+        "Heavy and medium armor are refused (Cannot teleport in this character class). The check compares against harmor and marmor only, so the female medium armor (mfemale) can teleport.",
+        "Each jump has a 1 in 55 chance to do 0.15 crush damage (Teleport phased your molecular structure wrong). On that path the code never schedules the re-enable, so both pads stay disabled for good.",
+        "A pad has 20 health. When one is destroyed it applies 20 damage to another pad of the same team, destroying its partner too."
+      ],
+      "source": "item.cs TeleportPack::onDeploy/deployShape; staticshape.cs DeployableTeleport::onCollision/onDestroyed/Reenable"
+    },
+    "RepairKit": {
+      "summary": "A one-use medkit that heals almost all damage.",
+      "notes": [
+        "Repairs 0.99 damage, against 0.2 in stock Tribes. On Defaults that is a full heal for light and medium armor and about half of heavy armor's 2.0."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "MineAmmo": {
+      "summary": "Thrown mines that arm once they come to rest and explode on contact, hitting with EMP damage.",
+      "notes": [
+        "Unlike stock Tribes the mine is set to the thrower's team and only enemy players, vehicles and moving objects set it off.",
+        "Its blast uses the EMP damage type, so a victim's energy is zeroed, their recharge rate cut, and their pack, weapon and flag dropped.",
+        "A mine that lands on top of another mine detonates, as in stock.",
+        "Up to 35 carried by light armor. Throwing a mine never adds to the team count, so the 500-per-team limit is never reached."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine"
+    },
+    "RadiusMineAmmo": {
+      "summary": "A big area mine: thrown like a mine, it arms at rest and goes off when an enemy comes within 10 m, with a 20 m blast.",
+      "notes": [
+        "Team-tagged like the VX mine: only enemies, vehicles and moving objects trigger it. Mine damage type.",
+        "The default profile sets a team limit of 1 (0 in OGL), but throwing one never adds to the team count, so the limit does not stop more being thrown; the count only drops when one is destroyed.",
+        "Carry limit 1. Not sold in NOTOR."
+      ],
+      "source": "item.cs RadiusMineAmmo::onUse; Mine.cs RadiusMine"
+    },
+    "Grenade": {
+      "summary": "Not a grenade in VX5: using it is an air brake that cuts your current speed to one sixth.",
+      "notes": [
+        "Divides your velocity on all three axes by 6 and prints You use an AirBrake. Nothing is thrown.",
+        "Uses one Grenade each time; unlike stock there is no throw delay. Only works once the match has started."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "FlashGrenade": {
+      "summary": "A thrown flash grenade that blinds and drains everyone caught in its large blast.",
+      "notes": [
+        "Thrown like a stock grenade (force 9 x throw strength) and goes off 2 s later with a 30 m radius.",
+        "Flash damage gives a full white damage flash, zeroes energy and cuts the victim's recharge rate to 6 until they respawn. There is no team check, so it affects the thrower and teammates too.",
+        "Carry limit 35. Not sold in NOTOR."
+      ],
+      "source": "item.cs FlashGrenade::onUse; Mine.cs Flash; player.cs Player::onDamage"
+    },
+    "LiLBoostammo": {
+      "summary": "LiL Booster: drops a small zero-damage charge at your feet whose blast knocks you along, a weaker version of the beacon's speed boost.",
+      "notes": [
+        "Places a LiLBoost mine with no throw force: 0 damage, 8 m radius, 113 knockback (the beacon's boost has 500). How it is set off is not determined from scripts.",
+        "0.5 s between uses. The team limit is set under the name lilboost, which doesn't match the item, so no team limit applies."
+      ],
+      "source": "item.cs LiLBoostammo::onUse; Mine.cs lilBoost"
+    },
+    "VXGasAttackAmmo": {
+      "summary": "A thrown gas mine that arms at rest and releases toxic gas on an enemy who comes close.",
+      "notes": [
+        "Team-tagged: only enemies, vehicles and moving objects within its 4 m trigger radius set it off. The blast is 8 m of smoke damage, which prints the toxic gas warning.",
+        "Its onDamage quarters incoming smoke damage rather than mine damage, so other mines' blasts hit it at full strength.",
+        "Carry limit 35. Not sold in NOTOR."
+      ],
+      "source": "item.cs VXGasAttackAmmo::onUse; Mine.cs VXGasAttack"
+    },
+    "Beacon": {
+      "summary": "Not a target beacon in VX5: using it is a speed booster that drops a charge at your feet to launch you.",
+      "notes": [
+        "Places a Boost mine with no throw force: 0 damage and 0 health, 20 m radius, 500 knockback. Prints You use a Speed Booster.",
+        "0.2 s between uses; one Beacon used each time. Beacon::deployShape is no longer called, so no target beacons can be placed.",
+        "Light armor carries 35, medium 30, heavy 10."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost"
+    },
+    "RepairPatch": {
+      "summary": "A repair pickup found lying in missions. Running over it heals a large chunk of damage if you're hurt.",
+      "notes": [
+        "Heals 0.5 on pickup, against 0.125 in stock Tribes. Used from inventory it still heals 0.1."
+      ],
+      "source": "item.cs RepairPatch::onCollision/onUse"
+    },
+    "cactusPack": {
+      "summary": "Land Camo: a backpack that hangs a desert cactus model over you. It has no scripted effect.",
+      "notes": [
+        "The pack image is the cactus2 shape mounted low on your back (offset 0, 0.2, -1.7), so the cactus stands over the wearer.",
+        "No functions of its own; it uses the generic Backpack handlers. 4 per team, 2 in OGL, none in NOTOR."
+      ],
+      "source": "item.cs cactuspackImage/cactusPack"
+    }
+  }
+}

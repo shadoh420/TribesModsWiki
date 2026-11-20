@@ -1,0 +1,58 @@
+{
+ "mod": {
+  "overview": "Paintball (v.Tactical_XCal) by +]-[+Armageddon+] and +]-[+WorstAim+] (Team Hybrid, March 2004) converts Tribes into a grounded, one-hit-elimination tactical paintball shooter. Jetpacks, vehicles, heavy armors, and base Tribes weapons are stripped out so everyone moves on foot in a single Player Suit with a two-gun limit, leaning on cover, camo props, smoke screens, and flashbangs across standard CTF, C&H, D&D, and F&R missions. Players spawn with 5-second SafeSpawn protection and can customize their spawn loadout or toggle marker fire modes (Full-Auto, Burst, Semi-Auto, Safety) directly from the TAB XCalibur Options menu, while inventory stations auto-eject campers. Expanded static-shape and elevator packs also support custom paintball arenas and obstacle courses.",
+  "notes": [
+   "Single ground-based class: Every player uses LightArmor (Player Suit, maxDamage 0.66) with a 2-weapon limit, crouch support, and jetpacks effectively disabled (jetForce 1, maxEnergy 1.0, maxJetForwardVelocity 1.0). Forward/back/strafe speeds are 16/8/7 with jumpImpulse 70.",
+   "One-shot paintball lethality and canisters: All 12 standard markers fire 500 m/s Blaster-type paintballs at 1.0 damage against a 5x Blaster damage scale, so any direct hit splats the target instantly. Each marker holds 250 rounds and reloads via 1 spare 250-round canister (Clip::onUse or auto-reload on empty, taking 0.5 s on ADG MiniMag, 2.03 s on WarMachine Assault 80, and 3.0-3.03 s on others).",
+   "Heavy specialty weapons: Beyond the 12 rapid/precision markers (ADG MiniMag, Angel, Autococker, Dragun, Inferno, Intimidator, Mongoose, PsychoBallistic Lightning, Smart Parts Vision, Spyder E-99, Tippmann 98 Sniper, WarMachine Assault 80), players can carry the AWPT Shotgun (12 pellets per shot, 24 shells), AWTP Bunker Thumper (6 rockets, 6.5 m splash), or M-79 PB Gren Launcher (10 shells, hold trigger to charge Pump Gage range up to 250 m).",
+   "TAB menu fire modes and spawn favorites: Press TAB for XCalibur Options to open LCD Options (switch equipped marker between Full-Auto, 3Shot-Burst, 6Shot-Burst, Semi-Auto, and Safety on Angel/Mongoose/Spyder/WarMachine, or Semi-Auto/Safety on the rest) and Spawn In Favs (configure spawn marker, field item, camo suit, and addon without visiting a station). Default spawn equips ADG MiniMag with 250 paintballs and 1 spare canister.",
+   "Tactical grenades, mines, and packs: Inventory sells Paint Grenades (max 4, 2 s fuse, bursts into 40 PaintSplat rounds), Smoke Bombs (max 1, 27 s smoke screen, 1 active globally), Flash Bangs (max 3, ~7.2 s screen blind and forces flag drop), Antipersonnel Mines (max 1 carried, 35 per team), Flash Light and Laser Scope packs (+20 sensor suppression when toggled on), 5 Camo Suits, and the single-use Supply Pack.",
+   "Spawn protection, station ejection, and bans: Players spawn with 5-second SafeSpawn invulnerability (faded, auto-repairing, weapon holstered until expired). Inventory stations automatically launch lingering players off the pad after 10-45 seconds ($Paintball::StationKickTime). MediumArmor, HeavyArmor, all vehicles, all base Tribes weapons, and Beacons are removed or set to $InvList 0; standalone ammo and clip items cannot be bought directly at inventory stations ($InvList 0), and remote stations only dispense Paint Grenades and Smoke Bombs.",
+   "Chat commands, bots, and scoring: Public chat commands include !whereis <player>, !listadmins, !stop (halts player velocity), and !V.XC; team-kills penalize 5 points. Bot/AI mission drones (ai.cs) spawn in marmor armed with Spyder markers on non-DM missions, and CTF/C&H/D&D/F&R matches end with a Hybrid Score System summary listing score, kills, deaths, and flag captures.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AngelAmmo (Weapon_Angel.cs), AngelClip (station.cs), AutoCockerAmmo (Weapon_AutoCocker.cs), AutoCockerClip (station.cs), AWPTShotgunAmmo (Weapon_AWPTShotgun.cs), Beacon (station.cs), BunkerAmmo (Weapon_BunkerThumper.cs), DeltaAmmo (Weapon_ADG_MiniMag.cs), DeltaClip (station.cs), DragunAmmo (Weapon_Dragun.cs), DragunClip (station.cs), InfernoAmmo (Weapon_Inferno.cs), IntimidatorAmmo (Weapon_Intimidator.cs), M79Ammo (Weapon_M79.cs), MongooseAmmo (Weapon_Mongoose.cs) (+9 more)."
+  ]
+ },
+ "items": {
+  "LightArmor": {
+   "summary": "Player Suit (LightArmor) — the sole playable armor class, stripped of jetpacks for grounded tactical paintball combat.",
+   "notes": [
+    "Male (larmor) and female (lfemale) variants share identical stats: maxDamage 0.66, forward speed 16, backward speed 8, side speed 7, jumpImpulse 70, canCrouch true, and a 2-weapon carry limit.",
+    "Jetpacks are effectively disabled (jetForce 1, maxEnergy 1.0, jetEnergyDrain 2, maxJetSideForceFactor 0.0, maxJetForwardVelocity 1.0), keeping all movement grounded.",
+    "Blaster damage scale is 5.0, making every standard paintball hit an instant one-shot elimination."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "M79": {
+   "summary": "M-79 PB Gren Launcher — a variable-range paintball grenade launcher charged by holding the trigger.",
+   "notes": [
+    "Carries up to 10 shells with no spare clip canisters; refills via AmmoStation or Supply Pack.",
+    "Holding fire increments the Pump Gage up to 250 m and releasing fires a shell matched to that range (8 m explosion radius, 5.0 Blaster damage).",
+    "Carrying a Laser Scope (TLPack) halves the charge rate from 2 to 1 per tick for finer distance control."
+   ],
+   "source": "Weapon_M79.cs"
+  },
+  "FlareGrenade": {
+   "summary": "Flash Bang (FlareGrenade) — tactical stun grenade that blinds opponents and forces flag drops.",
+   "notes": [
+    "Carries up to 3 per player and detonates on a 2-second fuse (10 m radius, $BangDamageType).",
+    "Blinded victims have their HUD flooded by sun-glare overlays for 9 ticks (~7.2 seconds) and automatically drop any carried flag."
+   ],
+   "source": "Mine.cs, player.cs, item.cs"
+  },
+  "SmokerGrenade": {
+   "summary": "Smoke Bomb (SmokerGrenade) — deploys a sustained smoke screen for cover during pushes or flag escapes.",
+   "notes": [
+    "Carries 1 per player; after a 3-second delay it emits 270 smoke bursts over 27 seconds.",
+    "Globally throttled ($GrenadeIsSmoking) so only one smoke bomb can emit clouds at a time across the server to prevent lag."
+   ],
+   "source": "Mine.cs, item.cs"
+  },
+  "SuPack": {
+   "summary": "Supply Pack (SuPack) — single-use field resupply pack that tops off paintballs, spare canisters, and mines.",
+   "notes": [
+    "First activation mounts the pack; activating it while mounted consumes it after 0.4 seconds to refill carried weapon ammo (250 paintballs, 10 M-79, 6 Bunker, or 24 Shotgun), 1 spare clip per marker, and 1 mine."
+   ],
+   "source": "Pack_Supply.cs"
+  }
+ }
+}

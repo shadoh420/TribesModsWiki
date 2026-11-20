@@ -1,0 +1,10 @@
+{
+ "mod": {
+  "overview": "Shifter v1Y Xtreme (Yukichigai's 09-12-2004 release) merges Shifter_v1Y's weapon/mode customization and server switches with Shifter Xtreme's expanded arsenal, buyable Neo-Juggernaught and WeaponSmith armors, and dozens of extra turrets.",
+  "notes": [
+   "Expands the buyable armor roster to 11 classes by adding HeavyArmor ('Neo-Juggernaught', harmor, 4 weapons) and WeaponSmith (dmarmor, 4 weapons), and raises $MaxWeapons for Goliath (5) and DreadNaught (7).",
+   "Adds Shifter Xtreme weapons and packs onto the v1Y base: FusionBlaster, MineLauncher (MinelAmmo), ALaserRifle, HammerGun, HammerGun2, HammerPack, OpticPack ('Cybernetic Laser'), DeployableInv2Pack, and ShockForceFieldPack.",
+   "Adds 13 turret deployables: Godhammer Turret (GHPack), Grav Turret (DeployableGrav), Boomstick Turret (BoomPack), Chaos Turret (HyperBPack), Frag/Super Frag/EMP Frag/Ultra Frag Turrets, Tactical Nuke Turret (NukePack), Fusion Turret, Dart Turret (TranqPack), and Flamer Turret (FlamerPack), plus FlagHunter.cs."
+  ]
+ }
+}

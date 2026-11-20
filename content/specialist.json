@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "Specialist (v2000d) by |PTi| and |V| overhauls base Tribes into a class-based tactical warfare mod built around nine distinct armor classes and modular Grenade, Mine, and Beacon Cores. Players spawn in Infantry armor and visit inventory stations to specialize into Recon, Espionage, Infantry, Fallout, Engineer, Demolitions, Assault, Artillery, or Commander roles, each with tailored weapon slots, speeds, vehicles, and battlefield abilities. Compared to base Tribes, matches revolve around coordinated base engineering, electronic and communications warfare, persistent chemical and elemental status effects, and specialized vehicle crews rather than uniform loadouts. Standard CTF and DM missions are supported alongside optional server toggles such as Anti-Rape mode for invincible base power and configurable Leave Mission Area penalties.",
+  "notes": [
+   "Nine Specialist Classes: Recon (0.66 HP, speed 12, 3 weapons, expanded sensor range, Sniper Rifle), Espionage (0.66 HP, speed 11, 3 weapons, hacks enemy turrets/sensors on contact, Stealth and Infiltration Packs), Infantry (1.0 HP, speed 9.0, 4 weapons, melee punch on enemy collision), Fallout (1.0 HP, speed 8.0, 4 weapons, immune to gas/radiation, chemical/radiation weapons), Engineer (1.0 HP, speed 8.0, 4 weapons, contact repair, undeploying, remote turret control, base deployables), Demolitions (1.1 HP, speed 7.5, 5 weapons, up to 12 grenade cores, Remote Bombs, Demolitions Pack), Assault (1.32 HP, speed 6.0, 5 weapons, Mortar, Fieldpiece, Rocket Launcher, EMP Cannon), Artillery (1.32 HP, speed 5.0, 6 weapons, Artillery Cannon, Field Mortar, no Teleporters), and Commander (1.32 HP, speed 3.5, 6 weapons, 0.02 auto-repair, turret control, Engineer Repair-Gun, cannot enter vehicles or use Teleporters).",
+   "Modular Core System & Menus: Press Tab and open Equipment options to pick your active Grenade Core (Shrapnel, Incendiary, Flash, EMP, Acid, Poison Gas, Radiation, Smoke Line, Remote Bomb), Mine Core (Normal, Decoy, EMP, Flash, Incendiary, Flag Decoy), and Beacon Core (Personal Shield, Force Shield, RepairBot, Alarm, Loudmouth, Camera, Spy Camera, Motion Sensor, Pulse Sensor, Sensor Jammer, Circuit Explosive, Timed Explosive, Comm Silencer, Eavesdropper). Buying any core automatically buys its matching Grenade, Mine, or Beacon shell; throwing or deploying without a matching core falls back to another carried core or a harmless Null Grenade, Null Mine, or standard Target Beacon.",
+   "Keybinds & Controls: Standard Tribes movement, inventory, and command binds apply, with one major pack-key twist for Engineers—pressing the Backpack key while not wearing a pack undeploys a friendly deployable in front of you back into your inventory. All players can vote via the Tab menu for Anti-Rape mode (making generators and stations invincible) and admins can set Leave Mission Area penalties to Warn, Damage, Delayed Kill, or Instant Death (10-second default grace period). No custom chat commands are added.",
+   "Locational Damage & Status Effects: Sniper Rifle and Laser hits deal multiplied damage on head and face shots (upper head/face on heavy armors, any head hit on lighter armors), while Sniper or Laser hits to the back torso can knock off flags or drop/trigger packs, front-right hits can drop/fire weapons, and front-left hits can drop/deploy beacons. Combat applies persistent effects: Poison Gas (blinds and ticks damage until cured by a Repair Kit or wearing off), Fire and Acid burns, Flash blindness, Radiation, and EMP (drains energy to 0, halts recharge for 7-9 seconds, and unmounts energy weapons).",
+   "Base Warfare, Hacking & Comms Warfare: Espionage players hack enemy turrets and sensors on contact (with multiple hackers raising success up to 50%, reverting after 240 seconds), while Engineers can re-hack stolen friendly gear. Circuit Explosives booby-trap enemy stations to detonate on use or destruction, Smart Mines ignore teammates by default, Comm Silencer beacons mute enemy team chat within 40m, and Eavesdropper beacons relay enemy team chat within 40m to your team.",
+   "Custom Vehicles & Transport Rules: Base Scout, LAPC, and HAPC vehicles are replaced by eight vehicles—APC, Bomber, Cargo, Fighter, Helicopter, Outrider, Supply Vehicle, and shielded Tank—with armor-gated pilot rules (only Recon and Espionage can fly Bomber, Fighter, and Helicopter; Demolitions, Assault, and Artillery can only pilot APC, Cargo, Supply, and Tank; Commander cannot ride in any vehicle). Deployable Teleporters allow fast base-to-field transit for all classes except Artillery and Commander.",
+   "Explicit Bans & Defaults: Base Light, Medium, and Heavy armors are banned from both main and remote inventory ($InvList = 0, $RemoteInvList = 0). Base CameraPack, MotionSensorPack, PulseSensorPack, DeployableSensorJammerPack, and TurretPack are also zeroed at stations (and $TeamItemMax[TurretPack] = 0), replaced by Specialist's custom turrets and beacon cores. Team Energy defaults to Infinite, and players spawn in Infantry armor with a Disc Launcher, Shotgun, Grenade Launcher, Energy Pack, Repair Kit, Grenades, and Shrapnel Cores.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): CameraPack (station.cs), DeployableSensorJammerPack (station.cs), HeavyArmor (removeBase.cs), LightArmor (removeBase.cs), MediumArmor (removeBase.cs), MotionSensorPack (station.cs), PulseSensorPack (station.cs), TurretPack (station.cs); Team limit zeroed ($TeamItemMax = 0): TurretPack=0 (item.cs)."
+  ]
+ },
+ "items": {
+  "iEspionageArmor": {
+   "summary": "Fast covert infiltrator armor built for electronic warfare, stealth, and hacking enemy base defenses.",
+   "notes": [
+    "Stats: 0.66 maxDamage, 11 forward speed (10 side/back), 3 weapons max.",
+    "Hacks enemy turrets and sensors on physical contact; hacked objects revert after 240 seconds ($Specialist::unHackTime).",
+    "Exclusive access to the Laser Pistol, Stealth Pack, and Infiltration Pack, plus Spy Cameras, Circuit Explosives, Eavesdroppers, and Comm Silencers."
+   ],
+   "source": "armorEspionage.cs, sensor.cs, turret.cs, utils.cs"
+  },
+  "iEngineerArmor": {
+   "summary": "Master builder and field mechanic capable of deploying fortified forward bases, undeploying gear, and repairing on contact.",
+   "notes": [
+    "Stats: 1.0 maxDamage, 8.0 forward speed, 4 weapons max.",
+    "Repairs friendly players, stations, sensors, turrets, and static shapes on collision, and re-hacks stolen friendly sensors/turrets.",
+    "Pressing the Backpack key with no pack mounted undeploys a friendly deployable in front of the player back into their pack slot.",
+    "Controls friendly turrets remotely without a Command Station and carries 13 custom turrets plus teleporters, force fields, generators, accelerators, and Flag Stands."
+   ],
+   "source": "armorEngineer.cs, utils.cs, player.cs, item.cs"
+  },
+  "iFalloutArmor": {
+   "summary": "Hazmat specialist immune to poison gas and radiation, wielding persistent area-denial chemical and radiological weapons.",
+   "notes": [
+    "Stats: 1.0 maxDamage, 8.0 forward speed, 4 weapons max.",
+    "Passive 0.0 damage scaling against Poison Gas and Radiation and 0.8 scaling against Acid.",
+    "Exclusive user of the Acid Sprayer, Gas Delivery Device, Radiation Canister launcher, Nuclear Waste deployable, Poison Gas Cores, and Radiation Cores."
+   ],
+   "source": "armorFallout.cs, grenadePoisonGas.cs, grenadeRadiation.cs, deployNuclearWaste.cs"
+  },
+  "InfiltrationPack": {
+   "summary": "Espionage-only blink pack that warps the wearer forward along their aim vector to bypass base defenses and walls.",
+   "notes": [
+    "Restricted to Espionage armor; drains all suit energy to warp forward by energy / 12 units if space is clear.",
+    "Blocked with a 'Too much mass' warning while carrying a flag, or 'Mass detected at destination' if obstructed."
+   ],
+   "source": "packInfiltration.cs"
+  },
+  "FlagCarrierPack": {
+   "summary": "Tactical pack that lets an Engineer or Commander pick up and relocate their own team's flag to a deployed Flag Stand.",
+   "notes": [
+    "Restricted to Engineer and Commander armors; allows picking up your own team's flag instead of only enemy flags.",
+    "Starts a 30-second countdown to place the flag onto a deployed Flag Stand before the flag fades and returns to its original position."
+   ],
+   "source": "packFlagCarrier.cs, deployFlagStand.cs"
+  },
+  "TankVehicle": {
+   "summary": "Heavy shielded hover-tank carrying dual cannons and four passenger slots for armored base assaults.",
+   "notes": [
+    "Team limit 1; 5.0 maxDamage, 35 maxSpeed, 4 passenger seats, and activatable energy shields that protect passengers.",
+    "Mounts the Tank Artillery Cannon and Tank Secondary Cannon for crew combat; cannot be piloted by Commander armor."
+   ],
+   "source": "vehicleTank.cs, vehicle.cs, player.cs"
+  }
+ }
+}

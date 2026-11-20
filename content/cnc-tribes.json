@@ -1,0 +1,61 @@
+{
+ "mod": {
+  "overview": "C&C Tribes V2 reimagines Starsiege Tribes as a hybrid tactical shooter and real-time strategy battle inspired by Command and Conquer and Starsiegecraft. Core infantry jetpacks are disabled, grounding the majority of combatants and emphasizing methodical base defense, mechanized transports, and deployable movement infrastructure like launch pads and teleporters. Gameplay revolves around a team-wide resource economy driven by Harvester vehicles gathering Tiberium ore from the field and depositing it at vehicle pads to finance fortifications, advanced weaponry, and autonomous combat bots. Combat blends realistic firearms with futuristic psionics and energy weapons across standard objective maps and specialized Deathmatch modes supported by integrated Spoonbot AI.",
+  "notes": [
+   "Classes and Mobility: Infantry armors are divided into Universal, GDI, and NOD units, with core classes like Rifle Infantry, Engineer, Pyro Engineer, Commando, Grenadier, Railgunner, Harvester, and Artillery Infantry stripped of jetpacks (jetForce set to 0), while select mobile classes like Scout, Guardian, and Assault Marine retain jet capability or high-velocity booster beacons.",
+   "Carry Limits and Touch Abilities: Armors carry a strict limit of 2 weapons, but possess unique passive physical contact traits: Rifle Infantry drains energy and health from enemies on touch, Scouts disarm and steal gear, and Engineers automatically repair friendly players upon contact.",
+   "Beacon Abilities: Activating the beacon item triggers class-specific utility rather than a simple marker: Rifle Infantry, Commandos, Cyborgs, Railgunners, and Harvesters generate temporary personal Impact Shields, while Scouts, Guardians, and Spies activate forward directional Speed Boosters ranging from 250 to 500 impulse power.",
+   "Grenade Ordnance and Status Effects: The grenade key discharges specialized explosives unique to each class, including tranquilizer gas, concussion blasts, energy-draining psionic disruptors, and 12-second delayed nuclear Melta bombs, subjecting targets to lingering burn, shock, and poison effects that must be cured using a Repair Kit.",
+   "Economy and Harvesting: Field ore rocks (worth 500, 1000, or 1500 credits) spawn in contested territory and can be collected by Harvester vehicles up to an 8000-credit limit, which must return to a team VehiclePad to convert the haul into shared team energy for buying equipment and base structures.",
+   "Base Construction and Deployables: Teams can build elaborate outposts using deployable Powerplants, Construction Yards, NOD plasma turrets, pillboxes, bolter cannons, bulkhead blast walls, grav platforms, and linked teleporters that can be remotely hacked by enemies carrying a Command Uplink Laptop.",
+   "Bot Deployment and AI System: Integrated Spoonbot and Stormbots waypoint systems power AI combatants, allowing teams to deploy Bot Purchase Stations to buy autonomous Guard, Mortar, Demolition, Medic, Sniper, and Target bots, or spawn roaming and stationary bots via the Bot Controls menu.",
+   "In-Game Menus and Weapon Options: The Options menu provides access to Help references, team and enemy flag locators with real-time distance tracking, and a Weapon Options sub-menu allowing players to switch weapon munitions between mortar, missile, spread, slug, inferno, or shell configurations.",
+   "Spawns and Game Modes: Standard team matches spawn players as Rifle Infantry equipped with an M4 Carbine, Beretta pistol, Repair Kit, Tranq grenades, and Impact Shield beacons, while Deathmatch modes equip players in specialized Deathmatch armor with a Shotgun, Boltgun, Meltagun, deployable inventory station, and a Plastique module for cycling grenade detonation types."
+  ]
+ },
+ "items": {
+  "BotStationPack": {
+   "summary": "Deployable troop purchase station enabling teams to purchase automated AI combat bots.",
+   "notes": [
+    "Costs 6000 team credits and deploys a stationary terminal on flat terrain.",
+    "Allows teammates to purchase autonomous Guard, Mortar, Demolition, Medic, Minelayer, Sniper, and Target bots using team energy funds.",
+    "Limited to a maximum of 3 active stations per team."
+   ],
+   "source": "bot.cs"
+  },
+  "ore1": {
+   "summary": "Harvestable low-tier Tiberium ore deposit that provides team credits when collected.",
+   "notes": [
+    "Found across the battlefield representing raw crystalline Tiberium worth 500 credits.",
+    "Collected on collision by Harvester vehicles and converted into spendable team energy once brought to a team VehiclePad.",
+    "Accompanied in the field by higher-tier ore2 (1000 credits) and ore3 (1500 credits) deposits."
+   ],
+   "source": "ore.cs"
+  },
+  "TeleportPack": {
+   "summary": "Deployable teleporter pad that links with a second pad to enable instant transit between base points.",
+   "notes": [
+    "Teams can deploy up to two teleporter pads that automatically establish a bidirectional transit link.",
+    "When one pad is destroyed, a catastrophic damage pulse is transmitted across the link to destroy the paired pad.",
+    "Enemy players can bypass team access locks and use foreign teleporters if they carry a Command Uplink Laptop pack."
+   ],
+   "source": "deployTeleporter.cs"
+  },
+  "Plastique": {
+   "summary": "Grenade mode selector item that dynamically cycles the player's active grenade payload.",
+   "notes": [
+    "Used by Deathmatch armor loadouts to switch between Normal, Fire, Shock, Poison, Mortar, Firebomb, and Plastique Explosive grenade types.",
+    "Mounted as hand ammunition that rotates the throw type each time it is activated."
+   ],
+   "source": "item.cs"
+  },
+  "iarmorSprint": {
+   "summary": "Specialized Harvester armor chassis tailored for field ore collection and logistical defense.",
+   "notes": [
+    "Stripped of jetpack capability (jetForce set to 0) to enforce ground-based vehicular harvesting.",
+    "Equipped with standard hand grenades and an emergency personal Impact Shield activated via the beacon key."
+   ],
+   "source": "armorSprint.cs"
+  }
+ }
+}

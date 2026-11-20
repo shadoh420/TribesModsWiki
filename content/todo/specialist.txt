@@ -1,0 +1,136 @@
+# specialist vs base (135 items)
+scripts    CameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Ion Turret
+scripts    RepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+scripts    RepairPatch                  Repair Patch
+new        iArtilleryArmor              Artillery
+new        iAssaultArmor                Assault
+new        iCommanderArmor              Commander
+new        iDemolitionsArmor            Demolitions
+new        iEngineerArmor               Engineer
+new        iEspionageArmor              Espionage
+new        iFalloutArmor                Fallout
+new        iInfantryArmor               Infantry
+new        iReconArmor                  Recon
+new        AcidCanisterAmmo             Acid Canister
+new        AcidCanister                 Acid Canisters
+new        AcidSprayerAmmo              Acid Spray
+new        AcidSprayer                  Acid Sprayer
+new        ArtilleryShellAmmo           Artillery Shell
+new        ArtilleryShell               Artillery Cannon
+stats      Chaingun                     Chaingun
+new        EMPCannonAmmo                EMP Shell
+new        EMPCannon                    EMP Cannon
+stats      EnergyRifle                  ELF Gun
+new        ExplosiveGatAmmo             Explosive Round
+new        ExplosiveGat                 Explosive Gatling
+new        FieldMortarAmmo              Field Mortar Ammo
+new        FieldMortar                  Field Mortar
+new        AntiPersonnelCannonAmmo      High Caliber Round
+new        AntiPersonnelCannon          Fieldpiece
+new        FlakCannonAmmo               Flak Round
+new        FlakCannon                   Flak Cannon
+new        FlamethrowerAmmo             Flamethrower Fuel
+new        Flamethrower                 Flamethrower
+new        GasCanisterAmmo              Gas Canisters
+new        GasCanister                  Gas Delivery Device
+scripts    GrenadeLauncher              Grenade Launcher
+new        LaserPistol                  Laser Pistol
+scripts    LaserRifle                   Laser Rifle
+renamed+statsMortarAmmo                   Urban Mortar Ammo
+renamed+stats+scriptsMortar                       Urban Mortar
+scripts    PlasmaGun                    Plasma Gun
+new        RadiationCanisterAmmo        Radiation Canister
+new        RadiationCanister            Radiation Canisters
+new        RocketLauncherAmmo           Rocket
+new        RocketLauncher               Rocket Launcher
+new        ShotgunAmmo                  Shotgun Shell
+new        Shotgun                      Shotgun
+new        SniperRifleAmmo              Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+new        NullGrenade                  Null Core
+new        AcidGrenade                  - Acid Core
+new        EMPGrenade                   - EMP Core
+new        FlashGrenade                 - Flash Core
+new        IncendiaryGrenade            - Napalm Core
+new        PoisonGasGrenade             - Poison Gas Core
+new        RadiationGrenade             - Radiation Core
+new        ShrapnelGrenade              - Shrapnel Core
+new        SmokeLineGrenade             - Smokescreen Core
+new        RemoteBomb                   - Remote Bomb Core
+new        NullMine                     Null Mine Core
+new        DecoyMine                    + Decoy Core
+new        EMPMine                      + EMP Core
+new        FlagMine                     + Flag Decoy Core
+new        FlashMine                    + Flash Core
+new        IncendiaryMine               + Incendiary Core
+new        NormalMine                   + Normal Core
+scripts    AmmoPack                     Ammo Pack
+new        DemolitionsPack              Demolitions Pack
+new        TriggeredDemolitionsPack     Triggered Demolitions Pack
+new        FalloutPack                  Fallout Pack
+new        FlagCarrierPack              Flag Carrier Pack
+new        FlamePack                    Flame Pack
+new        InfiltrationPack             Infiltration Pack
+new        MedicPack                    Medic Pack
+new        MinePack                     Mine Pack
+new        RocketPack                   Rocket Pack
+new        Seed                         Seed
+new        SeedPack                     Seed Pack
+new        StealthPack                  Stealth Pack
+new        Alarm                        * Alarm Core
+new        Camera                       * Camera Core
+new        CircuitExplosive             * Circuit Explosive Core
+new        CommSilencer                 * Comm Silencer Core
+new        Eavesdropper                 * Eavesdropper Core
+new        ForceShield                  * Force Shield Core
+new        Loudmouth                    * Loudmouth Core
+new        MotionSensor                 * Motion Sensor Core
+new        PersonalShield               * Personal Shield Core
+new        iPulseSensor                 * Pulse Sensor Core
+new        TimedExplosiveGrenade        * Timed Explosive Core
+new        RepairBot                    * RepairBot Core
+new        SensorJammer                 * Sensor Jammer Core
+new        SpyCamera                    * Spy Camera Core
+new        EngRepairGun                 Engineer Repair-Gun
+new        RemoteDetonator              Remote Detonator
+stats      TargetingLaser               Targeting Laser
+new        iChainTurret                 Chain Turret
+new        iELFTurret                   ELF Turret
+new        iEMPTurret                   EMP Turret
+new        iFlakTurret                  Flak Turret
+new        iFlameTurret                 Flame Turret
+new        iIndoorTurret                Indoor Turret
+new        iIonTurret                   Ion Turret
+new        iLaserTurret                 Laser Turret
+new        iMortarTurret                Mortar Turret
+new        iPlasmaTurret                Plasma Turret
+new        iRocketTurret                Rocket Turret
+new        iSmokeTurret                 Smoke Turret
+new        iTargetingTurret             Targeting Turret
+new        iAccelerator                 Accelerator
+new        iBackupGenerator             Backup Generator
+new        iBarricade                   Barricade
+new        iBlastCover                  Blast Cover
+new        iBlastPlatform               Blast Platform
+new        iBlastWall                   Blast Wall
+new        iFlagStand                   Flag Stand
+new        iHoverPad                    Hover Pad
+new        iForceField                  Large Force Field
+new        iNuclearWaste                Nuclear Waste
+new        iShieldGenerator             Shield Generator
+new        iSmallForceField             Small Force Field
+new        iTeleporter                  Teleporter
+new        APCVehicle                   APC
+new        BomberVehicle                Bomber
+new        CargoVehicle                 Cargo Vehicle
+new        FighterVehicle               Fighter
+new        HelicopterVehicle            Chopper
+new        OutriderVehicle              Outrider
+new        SupplyVehicle                Supply Vehicle
+new        TankVehicle                  Tank
+new        TankArtilleryShell           Tank Artillery Cannon
+new        TankCannon                   Tank Secondary Cannon

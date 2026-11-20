@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "ISN Rift 4.0a Beta ((TF)Ryath & (TF)SlayerMonk, October 2000) builds directly on Dynamix Plus MOD 1.1 (inheriting its horzVelClamp caps, Medium Armor speed/HP buff, and tuned Chaingun/Mortar/ELF stats), stripping all five stock ammo items for energy/pack-fed firing and adding 18 weapons, packs, deployables, and a Scout Armour.",
+  "notes": [
+   "Loadout & ammo shift vs Dynamix Plus: removes BulletAmmo, PlasmaAmmo, GrenadeAmmo, MortarAmmo, and DiscAmmo so stock Chaingun, PlasmaGun, GrenadeLauncher, Mortar, and DiscLauncher fire without separate ammo clips.",
+   "Adds 18 items: iarmorScout (Scout Armour), FlamerGun, LightFlamer, Fusion, GravGun, ConCun (Shock Launcher), RocketLauncher, BoltRifle, MultiPlasma, DisCannon (LasCannon), RepairTool, Cloak, Warppack ($warpRange = 350, 65% success), ScoutPack, FlightPack, PlasmaTurretPack, ForceFieldPack, and LargeForceFieldPack."
+  ]
+ }
+}

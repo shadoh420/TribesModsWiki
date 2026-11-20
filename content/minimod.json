@@ -1,0 +1,65 @@
+{
+ "mod": {
+  "overview": "MiniMod (v1.0) is a modular 1999 Tribes plugin framework that bundles features from Ideal, TriCon, Renegades, Ultra Renegades, Redneck Slag Pack, hvTactical, Z-Tek, Orion, Bio, and SpoonBot into a single sandbox over base Tribes. Matches keep the standard mission and CTF objectives but replace stock play with multi-mode weapons, status-effect munitions, specialized role armors, sky-fortress deployables, and AI bots. By default, teams operate on infinite team energy and earn granular Shifter-style points for flag plays, asset destruction, full repairs, and long-range kills, while server hosts can enable or disable individual plugins simply by moving folders out of the plugins directory. All weapon firing modes, SCV building blueprints, flag-locating waypoints, and bot spawning are driven through the Tab menu rather than chat commands.",
+  "notes": [
+   "Armors and Roles: Standard Light, Medium, and Heavy armors share inventory access with plugin classes including Engineer (FixIt/HackIt/DisIt gun and heavy deployables), SCV (slow constructor using Nanite Assembler and Tab-configured SCV Building Pack), Specialist (fast stealth suit with Mass Gun, Chaos Gun, ELF Gun, Handheld Cloak, and immunity to mines but extreme vulnerability to bullets and plasma), Transformer (morphs into a JetFire flyer via JetfirePack), and Changeling (uses Changeling Pack to switch apparent team affiliation between team 0 and team 1).",
+   "Tab Menu Controls and Keybinds: No # chat commands are used; press Tab to configure Weapon Options (Blaster Overload Capacitor 7-bolt burst with melt risk; Plasma Rapid/Multi/Unregulated/High-Speed/Distance/Flamethrower; Homing Disc at 3 discs per shot; ECM Grenades; EMP/Frag Mortar; Short/Mid/Long ELF; Mass Gun SlowPod/FastPod; Chaos Gun Jitterbug/Concussion; Engineer Gun and Mine modes), SCV Deployment Options, Help System with friendly/enemy flag Locate waypoints, Spoonbot controls, and super-admin Penis Curse; press Ctrl+B to toggle the SpoonBot status HUD.",
+   "Status Effects and Combat Quirks: EMP Mortar shells drain energy and halt recharge for 10 seconds; Stun Grenades freeze movement; Jitterbug shots bounce targets erratically; Concussion shots spin victims around; Mass Gun SlowPod weighs players down with DeadWeight while FastPod lightens them; Laser Rifle and Marlin Rifle hits to the right torso or back can knock weapons or the flag off unshielded players; carrying multiple C4 charges gives a 10 percent chance per hit to ignite one, while thrown C4 has a 5 percent early-detonation and 5 percent dud chance.",
+   "Weapons, Turrets, and Vehicles: Plugins add 30-pellet Shotguns, Fusion Blasters, Plasma Cannons, Repair Rifles (requiring an Energizer Pack), Marlin Rifles (usable only inside the mission area), Mine Launchers, Particle Accelerators, Jailers Guns (warping hit enemies into team jails for 20 seconds), Suicide/Kamikaze bombs, Obelisks of Light (requiring nearby Obelisk Power Sources), Nuclear and Flame Turrets, Shield Generators, PhaseLok missile turrets, Anti-Grav/Hyper-Grav turrets, Arbitor cloaking devices, TriCon AirBases, and two pack-deployed flyers (JetFire and Interceptor).",
+   "Explicit Bans and Team Caps: Stock MineAmmo, standard Grenade, and FlagMine are disabled at all stations ($InvList=0 and $RemoteInvList=0) in favor of replacement mines and grenades; heavy packs including JetfirePack, DShieldPack, ArbitorBoxPack, ObeliskPack, ObeliskPowerPack, AntiMatterTurretPack, DeployableLRMotionSensorPack, SeekerPack, DissectionPack, DoBPack, and jailpack are banned from Remote Inventory Stations ($RemoteInvList=0); strict team caps limit Nuclear Turret, Arbitor Device, Death of Bots, Dissection Turret, Jail Pack, and Seeker to 1 per team, and Obelisks, Shield Generators, Flame/Anti-Matter Turrets, Guard Dogs, LR Motion Sensors, and Suicide DetPacks to 2 per team.",
+   "Bots and Spawns: Built-in SpoonBot AI provides 7 role types (Guard, Demo, Painter, Sniper, Medic, Miner, Mortar) in Male/Female Roaming or Commander-controlled modes, navigating via map tree routes (BT_<map>.cs) and respawning after 10 seconds by default; auto-spawning at match start is off by default so players add or remove bots through Tab -> Spoonbot controls.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Grenade (plugins/Macro Plugins/Ideal/Ideal Weapons and Armors.Mine.cs), MineAmmo (plugins/Macro Plugins/Ideal/Ideal Weapons and Armors.Mine.cs); Blocked at Remote Stations ($RemoteInvList = 0): AntiMatterTurretPack (plugins/Redneck Slag Pack/ObeliskOfDeath.station.cs), ArbitorBoxPack (plugins/Ideal/Arbitor Box.CodeFusion.cs), DeployableLRMotionSensorPack (plugins/Redneck Slag Pack/LRMotionSensor.station.cs), DissectionPack (plugins/MiniMod/Dissection Turret.CodeFusion.cs), DoBPack (plugins/MiniMod/Death of Bots.CodeFusion.cs), DShieldPack (plugins/Macro Plugins/Z-Tek/Z-Tek.station.cs), jailpack (plugins/TriCon/JailPack.station.cs), JetfirePack (plugins/Macro Plugins/Ideal/Ideal Weapons and Armors.station.cs), ObeliskPack (plugins/Ideal/Obelisk Of Light.CodeFusion.cs), ObeliskPowerPack (plugins/Ideal/Obelisk Of Light.CodeFusion.cs), SeekerPack (plugins/hvTactical/SeekerTurret.CodeFusion.cs), TeleportPack (plugins/Renegades/Teleport Pad.station.cs)."
+  ]
+ },
+ "items": {
+  "EngArmor": {
+   "summary": "Base engineer and saboteur armor (250 energy) with a multi-mode Engineer Gun and broad access to heavy fort-building deployables.",
+   "notes": [
+    "Carries up to 3 weapons and swaps the Engineer Gun in Weapon Options between Repair (FixIt), Hack (HackIt), and Disassemble (DisIt) modes.",
+    "Hacking converts enemy generators, stations, turrets, doors, forcefields, and sensors to your team for 120 seconds, or disarms planted charges with a 1-in-10 mishap risk.",
+    "Selects from 4 mine types (Proximity Warning, Cloaking, Point Defense Laser, or Anti-Personnel) in Weapon Options."
+   ],
+   "source": "plugins/TriCon/Engineer.CodeFusion.cs"
+  },
+  "BuildingArmor": {
+   "summary": "Dedicated constructor armor (1500 energy) whose SCV Building Pack deploys whatever station, turret, or sensor is selected in the Tab menu's SCV Deployment Options.",
+   "notes": [
+    "Limited to 1 weapon (the Nanite Assembler, which repairs friendlies and damages enemies on beam contact) and slow 7.5 forward speed.",
+    "Deployed stations, turrets, and sensors spawn at 30 percent health so the SCV must finish building them with the Nanite Assembler."
+   ],
+   "source": "plugins/Ideal/SCV-Armor.CodeFusion.cs"
+  },
+  "TransformerArmor": {
+   "summary": "Assault armor (1000 energy, 4-weapon limit) equipped with the Jetfire Transformation pack to morph mid-flight into a fighter.",
+   "notes": [
+    "Activating the Jetfire Transformation pack launches you upward, drops any carried flag, and mounts you in a JetFire flyer with 55 max speed while preserving your current damage.",
+    "Dismounting returns you to armor form and transfers the flyer's damage back onto your suit."
+   ],
+   "source": "plugins/Macro Plugins/Ideal/Ideal Weapons and Armors.item.cs"
+  },
+  "SpecialistArmor": {
+   "summary": "Fast stealth-and-disruption armor (600 energy, 5-weapon limit, 18 speed, hidden from sensors) built around cloaking and status-effect weapons.",
+   "notes": [
+    "Cannot buy standard ballistic or explosive weapons, relying instead on Handheld Cloak, Mass Gun, Chaos Gun, ELF Gun, and Targeting Laser.",
+    "Immune to mine damage and resistant to explosives and mortars, but takes 6x to 8x damage from bullet, plasma, energy, and blaster fire."
+   ],
+   "source": "plugins/Macro Plugins/Ideal/Ideal Weapons and Armors.ArmorData.cs"
+  },
+  "ArbitorBoxPack": {
+   "summary": "Cloaking field generator that hides all friendly players, base structures, vehicles, and mines within a 200x200x50 area.",
+   "notes": [
+    "Must be deployed on flat interior building surfaces, capped at 1 per team, and cannot be bought at Remote Inventory Stations.",
+    "Periodically refreshes its cloak field every 6 seconds and decloaks everything if disabled or destroyed."
+   ],
+   "source": "plugins/Ideal/Arbitor Box.CodeFusion.cs"
+  },
+  "airbase": {
+   "summary": "Portable sky-base pack that deploys a self-powered generator platform complete with radar, Command Station, Inventory Station, Vehicle Station, and Vehicle Pad.",
+   "notes": [
+    "Must be placed at least 20 meters away from your team's flag and is capped at 4 per team.",
+    "Allows teammates to resupply, swap gear, command turrets, and spawn flyers from an aerial foothold."
+   ],
+   "source": "plugins/TriCon/AirBase.CodeFusion.cs"
+  }
+ }
+}

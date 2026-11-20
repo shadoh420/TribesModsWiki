@@ -1,0 +1,103 @@
+apteryx: 103 of 132 need write-ups
+  RepairKit (Repair Kit): scripts
+  iarmorAngel (Scorpion): renamed+stats
+  iarmorSpy (Berserker): renamed+stats
+  iarmorNecro (Lynx): renamed+stats
+  iarmorWarrior (Firth): renamed+stats
+  iarmorBuilder (Drone Commander): renamed+stats
+  iarmorTroll (Energy Artillery): renamed+stats
+  iarmorTitan (Destroyer): renamed+stats
+  SoulSucker (Healing Laser): renamed+stats+scripts
+  TankRPGLauncher (Quicksilver): renamed+stats+scripts
+  Shotgun (Terra Arcus): renamed+stats+scripts
+  TankShredderAmmo (Lasher Charges): renamed+stats
+  TankShredder (Lasher): renamed+stats+scripts
+  DeathRay (Light Laser): renamed+stats+scripts
+  PulseCannon (Pulse Cannon): new
+  Railgun (Railgun): stats+scripts
+  Railgun2 (Railgun): new
+  PlasmaAmmo (Acid Canister): renamed+stats
+  PlasmaGun (Acid Cloud): renamed+stats+scripts
+  GrenadeAmmo (ESGRound): renamed+stats
+  GrenadeLauncher (Electro-Static Grenade): renamed+stats+scripts
+  RubberAmmo (Air Mine): renamed+stats
+  RubberMortar (Air Mine): renamed+stats+scripts
+  AngelFire (Star Flare): renamed+stats+scripts
+  FlameStrike (Plasma Flame Thrower): renamed+stats+scripts
+  ShockingGrasp (Nano Virus): renamed+stats+scripts
+  Stasis (Kinetic Maul): renamed+stats+scripts
+  SpellFlameThrower (Electro-Magnetic Lance): renamed+stats+scripts
+  Heavensfury (Energy Rift): renamed+stats+scripts
+  SniperRifle (Magnetic Mirror): renamed+stats+scripts
+  TRocketLauncherAmmo (Shatter Storm Ammo): renamed+stats
+  TRocketLauncher (Shatter Storm): renamed+stats+scripts
+  TBlastCannonAmmo (Hydra Ammo): renamed+stats
+  TBlastCannon (Hydra Machine Gun): renamed+stats+scripts
+  ShockwaveGun (EMP cannon): renamed+stats+scripts
+  RocketAmmo (Dust Mites): renamed+stats
+  RocketLauncher (Particle Gun): renamed+stats+scripts
+  FlameThrower (Plasma Cannon): renamed+stats+scripts
+  DiscAmmo (Batteries): renamed+stats
+  DiscLauncher (Reactor Capacitor): renamed+stats+scripts
+  MortarAmmo (Antimatter Container): renamed+stats
+  Mortar (Anti-Matter Launcher): renamed+stats+scripts
+  HDiscLauncherAmmo (Railgun2 Ammo): new
+  HDiscLauncher1 (Railgun 2): new
+  HDiscLauncher2 (Railgun 2): new
+  HDiscLauncher (Railgun 2): new
+  DisarmerSpell (MFAC): renamed+stats+scripts
+  BabyNukeAmmo (Drone): renamed+stats
+  BabyNukeMortar (Drone Deployer): renamed+stats+scripts
+  PhaseDisrupterAmmo (ArtilleryShell): new
+  PhaseDisrupter (Energy Artillery): renamed+stats+scripts
+  StingerAmmo (ShieldCapacitor): renamed+stats
+  Stinger (Shield Projector): renamed+stats+scripts
+  OSAmmo (Cluster Missiles): renamed+stats
+  OSLauncher (Cluster Missile Launcher): renamed+stats+scripts
+  JailGun (SpotterLaser): renamed+stats+scripts
+  Vulcan (Vulcan): scripts
+  TargetingLaser (Targeting Laser): stats+scripts
+  AmmoPack (Ammo Pack): stats+scripts
+  EnergyPack (Energy Pack): scripts
+  PhaseShifterPack (Distortion Pack): renamed+stats+scripts
+  RepairPack (Repair Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  GhostPack (EMP Pack): renamed+stats+scripts
+  SuicidePack (Drone Selector): renamed+stats+scripts
+  SightPack (Reversion Pack): new
+  Beacon (Beacon): scripts
+  Grenade (Grenade): scripts
+  MineAmmo (Mine): scripts
+  CameraPack (Camera): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  PulseSensorPack (Pulse Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  DeployableAmmoPack (Ammo Station): new
+  DeployableComPack (Command Station): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  TransportPack (Transport Vehicle Pack): renamed+stats+scripts
+  BlastWallPack (Blast Wall): stats+scripts
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldDoorPack (Large Force Field Door): stats+scripts
+  PlatformPack (Deployable Platform): scripts
+  JumpPadPack (FireWall): renamed+stats+scripts
+  MobileInventoryPack (Mobile Inventory Station): renamed+stats+scripts
+  PortableGeneratorPack (Portable Generator): stats+scripts
+  PortableSolarPack (Portable Solar Panel): stats+scripts
+  BunkerPack (Deployable Bunker): stats+scripts
+  InterceptorVehicle (Wyvern fighter): renamed+stats
+  ScoutVehicle (Rubicant Gunship): renamed+stats
+  LAPCVehicle (Bahamut Bomber): renamed+stats
+  HAPCVehicle (Dropship): new
+  LaserTurretPack (Targeting Turret): renamed+stats+scripts
+  vortexTurretPack (Vortex Turret): scripts
+  TurretPack (Ion Turret): stats+scripts
+  FlameTurretPack (Flame Turret): stats+scripts
+  NuclearTurretPack (EMP Turret): renamed+stats+scripts
+  PlasmaTurretPack (Laser Turret): renamed+stats+scripts
+  FusionTurretPack (MFAC Turret): renamed+stats+scripts
+  RocketPack (Missile Turret): stats+scripts
+  MortarTurretPack (Anti-Matter Turret): renamed+stats+scripts
+  IrradiationTurretPack (Gatling Ion Gun): renamed+stats+scripts
+  ParticleBeamTurretPack (Energy Artillery Turret): new

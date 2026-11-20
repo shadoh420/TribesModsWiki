@@ -1,0 +1,36 @@
+# duel vs base (35 items)
+scripts    RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+new        WeedEater                    Weed Eater
+new        TreeGun                      Tree Growth
+new        CloneGun                     Clone Gun
+new        FireWorksGun                 Fireworks Gun
+new        ScoutSeeka                   ScoutSeeka
+new        PlasSeeka                    PlasSeeka
+new        DiscSeeka                    DiscSeeka
+new        GateGun                      Heavens Gate
+new        Grabbler                     Object Manipulator
+new        Orbital3                     ORBITAL-KANONE
+new        Orbital2                     ORBITAL-KANONE
+new        Orbital1                     V E R B O T E N
+new        Flaggy                       Flaggy
+new        MotherOfGod                  MotherOfGod
+new        SlowBouncy                   SlowBouncy
+new        Bouncy                       Bouncy
+new        LeGun                        LeGun
+new        LeNade                       LeNade
+new        Sweeper                      Sweeper
+new        ThreeG                       ThreeG
+new        EveryGun                     EveryGun
+new        KingHalo                     Crown
+new        DiscLauncherKing             King Disc Launcher
+new        DiscLauncherBlue             Blue Disc Launcher
+new        DiscLauncherGreen            Green Disc Launcher
+new        DiscLauncherYellow           Yellow Disc Launcher
+new        DiscLauncherPink             Pink Disc Launcher
+new        DiscLauncherBlack            Black Disc Launcher
+new        DiscLauncherPurple           Purple Disc Launcher
+new        Thebigtwig                   Legendary Busted Ass Twig Mk.II
+new        Themrtwig                    Legendary Busted Ass Twig

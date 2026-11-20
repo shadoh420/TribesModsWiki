@@ -1,0 +1,170 @@
+# atf vs base (169 items)
+renamed+statsScoutVehicle                 Star Shooter
+new        ScoutVehicle2                Raider
+new        ScoutVehicle3                Fog Maker
+new        ScoutVehicle4                Energy Burster
+new        ScoutVehicle5                Kamakazi Scout
+new        ScoutVehicle6                Dragoon Scout
+renamed+statsLAPCVehicle                  Bomber
+renamed+statsHAPCVehicle                  Heavy Bomber
+new        ForceFieldPack               Force Field
+new        BuilderArmor                 Mechanic Armor
+new        MachArmor                    Mach 5 Armor
+new        AlienArmor                   Xythilian Armor
+new        ThiefArmor                   Bounty Hunter Armor
+new        ZombieArmor                  Undead Armor
+stats      MediumArmor                  Medium Armor
+new        GokuArmor                    Saiyan Armor
+stats      HeavyArmor                   Heavy Armor
+new        HaCkArmor                    HaCk Armor
+new        SlowArmor                    Goliath Armor
+renamed+stats+scriptsBlaster                      Energy Blaster
+new        Hammer1Pack                  SMBlast
+new        Hammer2Pack                  SMBlast 2
+new        Blaster2                     Rocket Blaster2
+new        Chaingunb                    MiniGun
+new        SniperGun                    Sniper Rifle
+renamed+stats+scriptsChaingun                     Auto-Rocket ChainGun
+new        Chainguni                    C.U.G.O.M.S. Gun
+new        XLChaingun                   XLChaingun
+stats+scriptsPlasmaGun                    Plasma Gun
+new        ChaingunOs                   -OS- Cannon
+new        PlasmaGun2                   BFP
+new        PlasmaGun3                   EnergyBeam Cannon
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+new        AMortar                      Mortar
+new        Mortari                      The Punisher
+new        MortarX                      Plasma Stream
+new        MortarS                      Solar Flare
+stats+scriptsDiscLauncher                 Disc Launcher
+new        HaCkNuke                     HaCk's Nuke
+stats+scriptsLaserRifle                   Laser Rifle
+new        Kaioken                      Kaioken Ability
+new        PhantomC                     Phantom Converter
+stats+scriptsTargetingLaser               Targeting Laser
+stats+scriptsEnergyRifle                  ELF Gun
+new        EnergyRifle2                 Electro Grapple
+new        EnergyRifle3                 Electro Blast
+new        BR                           Builder Gun
+new        RocketLauncher               Misanka DiscLauncher
+new        ESAmmo                       ELectro Static Ammo
+new        Money                        Credit Disk
+new        RocketLauncherHG             E.S. Ball Launcher
+new        Ufo                          Alien Object Launcher
+new        ARL                          Death Head Missile
+new        LF2                          Sparkle Bomb
+new        SentinelAmmo                 Sentinel Ammo
+new        StrikeAmmo                   Radio Strikes
+new        Nuke                         Sentinel Gun
+new        RocketLauncher2sky           Air Strike
+new        FlameGun                     FlameThrower
+new        Admin                        Admin Gun
+new        TN                           Thermal Nuke Launcher
+new        GAmmo                        G. Objects
+new        SWA                          G.Object Placer
+new        SWA2                         Phoenix Rifle
+new        AGG                          I.R.S.
+new        BlasterM                     Blaster
+new        HBL                          L Decoy Launcher
+new        HBM                          M Decoy Launcher
+new        HBH                          H Decoy Launcher
+new        BlasterD                     Mach Boost
+new        LF                           Cluster Bomb
+new        SmokeAmmo                    Smoke Shells
+new        SK                           Smoke Nuke
+new        SD                           Freeman's Rifle
+new        Bounty                       Bounty Exchange
+new        FlameGun2                    Pyro-Kinesis
+new        FlameGun2SS                  Pyro-Kinesis
+new        Xrad                         -=Radiate=-
+new        StrikeXAmmo                  Core Power
+new        RocketLauncher2X             Cosmic Plasma
+new        RocketLauncher2i             Automeha
+new        RocketLauncher2s             Spirit Bomb
+new        RocketLauncher2si            Mouse Strike
+new        RocketLauncher2sSS           Spirit Bomb
+new        EnergyAmmo                   Energy Ammo
+new        RocketLauncher3              BFG
+new        SE                           ESD Gun
+new        BB                           Ass Ripper
+new        BBi                          Ass Ripper 2
+new        BB2                          Gallic Gun
+new        BB2SS                        Gallic Gun
+new        FireAmmo                     Fire Cell
+new        FW                           Energy Blast
+new        FWss                         Energy Blast
+new        GhostAmmo                    Ghost Rockets
+new        RocketLauncher5              Ghost-Rocket Launcher
+new        Chaingun2                    Energy ChainGun
+new        Chaingun2i                   Star Cannon
+new        RocketLauncher7              Tri-Beam
+new        RocketLauncher6              HaCk's Gun
+new        RocketLauncher8              **DiSrUpTeR**
+new        CometRifle                   Comet Rifle
+new        CometRifleSS                 SaiCannon
+new        HD                           Heavy DiscLauncher
+new        RocketLauncher2              Kama-Ha-Ma-Ha
+new        RocketLauncher2ss            Kame-Ha-Me-Ha
+new        SM                           Heavy Laser
+new        RocketLauncher9              Multi-Rocket Launcher
+stats      EnergyPack                   Energy Pack
+new        EnergyPackS                  Super Saiyan Energy
+new        ShieldPackS                  Super Saiyan Shield
+new        EnergyPack2                  Energizer Pack
+new        PhantomPack                  Phantom Pack
+new        ShieldPack2                  Shield Generator
+new        EnergyPack3                  D-Cell Pack
+new        EnergyPack4                  Core Generator
+new        EnergyPack5                  Heavy Core Gen.
+new        FlashPack                    Light Modifier
+new        FirePack                     Fire Modifier
+new        EmpPack                      Emp Modifier
+new        PoisonPack                   Poison Modifier
+new        EnerBurstPack                Energy Burst Modifier
+stats      RepairPack                   Repair Pack
+new        BoosterPack                  Booster Pack
+new        BoosterPack2                 Mega-Booster Pack
+stats      ShieldPack                   Shield Pack
+new        EnergyVortexPack             Energy Sucker
+new        EnergyFieldGeneratorPack     Energy Field Generator
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      AmmoPack                     Ammo Pack
+new        JumpAmmo                     Teleport Charge
+new        JumpGun                      Jacker
+new        JumperPack                   Warp pack
+new        TreePack                     Camo-Tree
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsMotionSensorPack             Motion Sensor
+new        SpringPadPack                Spring Pad
+new        GenPack                      Porta-Gen
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Energy Turret
+new        TurretPack6                  Beam Turret
+new        TurretPack2                  Sting Turret
+new        TurretPack3                  Auto Sentry Turret
+new        AirPlatformPack              Air Platform
+new        TurretPack4                  Barrier Turret
+new        TurretPack5                  HellFire Turret
+new        TripwirePack                 Metal Wall
+new        TeleportPack                 Warp Pad
+new        HoloPack                     Decoy
+new        LargeForceFieldPack          Large Force Field
+stats+scriptsRepairKit                    Repair Kit
+scripts    RepairPatch                  Repair Patch
+stats      MineAmmo                     Mine
+new        MineAmmo2                    Enemy Displacer Mine
+new        MineAmmo4                    Inviso-Mines
+new        MineAmmo3                    Proxy Decoy
+new        BF                           The Big One
+new        BF2                          Enemy Displacer Bomb
+new        AS                           Neutron Beam
+new        AS2                          Phantom Beam
+new        BF3                          Plastique Bombs
+new        BF4                          Self-Destruct Mechanism
+new        BF5                          Death Tree
+stats+scriptsGrenade                      Grenade
+stats      Beacon                       Beacon

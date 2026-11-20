@@ -1,0 +1,191 @@
+# meltdown-classic vs base (190 items)
+renamed+statsLightArmor                   Peltast (Light)
+new        BlastechArmor                Blastech
+renamed+statsMediumArmor                  Hoplite (Engineer)
+new        MagIonArmor                  Magnetic Ion
+renamed+statsHeavyArmor                   Myrmidon (Heavy)
+new        MECHArmor                    MECH/Gundam
+new        JetFireVehicle               JetFire
+new        ArwingV                      Arwing
+new        EPodV                        Lightning
+new        CutterV                      Sky Cutter
+new        ExplorerV                    3DFX Explorer
+new        RangerV                      Sky Ranger
+new        AvengerV                     ThunderTank
+new        HammerV                      Star Hammer
+new        FighterV                     Star Fighter
+renamed+statsLAPCVehicle                  LPC -- LandSkimmer
+new        ValkyrieV                    Valkyrie Interceptor
+stats      HAPCVehicle                  HPC
+new        TankV                        Hover Tank
+new        IcarusV                      Annihilator
+stats      RepairPatch                  Repair Patch
+stats      RepairKit                    Repair Kit
+stats+scriptsBeacon                       Beacon
+stats+scriptsGrenade                      Grenade
+stats+scriptsMineAmmo                     Mine
+stats      Blaster                      Blaster
+new        HyperB1                      Enforcers
+new        HyperB2                      Enforcers
+new        HyperB                       Enforcers
+new        gatlingammo                  Quantum Cartridges
+new        HChain1                      Super Hyper Blaster
+new        HChain2                      Super Hyper Blaster
+new        HChaingun                    Super Hyper Blaster
+new        PTCannon                     Plasma Cannon
+new        MBCannon                     Mitzi Blast Cannon
+new        FusionCannon                 Fusion Cannon
+stats      BulletAmmo                   Bullet
+stats      Chaingun                     Chaingun
+new        GatB                         Gatling Blaster
+new        ChainsmaGun                  Plasma Chaingun
+new        GaussAmmo                    Explosive Bullets
+new        Gauss                        Gauss Gun
+new        LaserGatling                 Laser Gatling Gun
+new        ATCAmmo                      Cannon Shells
+new        ATC                          Auto-Cannon
+new        MinigunAmmo                  MiniGun Ammo
+new        Minigun                      MiniGun
+new        Minigun2                     MiniGun
+new        MMinigunAmmo                 MMinigun Ammo
+new        MMinigun                     MECHMinigun
+new        MMinigun2                    MECHMinigun
+new        MMinigun3                    MECHMinigun
+new        MMinigun4                    MECHMinigun
+stats      GrenadeAmmo                  Grenade Ammo
+stats      GrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+stats      Mortar                       Mortar
+new        ImpactAmmo                   IE Mortar Ammo
+new        ImpactMortar                 Impact Mortar
+new        EMPGrenadeAmmo               EMP Mortars
+new        EMPGrenadeLauncher           EMP Mortar Launcher
+new        MultiMineAmmo                Spawning Mines
+new        MineLauncher                 Mine Launcher
+new        IMPAmmo                      Implosion Shells
+new        ImpGun                       Implosion Cannon
+new        BabyNukeMortar               FireBomb
+stats      DiscAmmo                     Disc
+stats+scriptsDiscLauncher                 Disc Launcher
+new        DualDiscs                    Dual Discs
+new        HDisc1                       Dual Disc Launcher
+new        HDisc2                       Dual Disc Launcher
+new        HDiscLauncher                Dual Disc Launcher
+new        MissileAmmo                  Std Missile Ammo
+new        AODStinger                   Missile Launcher
+new        AODStinger2                  Missile Launcher
+new        RPGLauncher                  RPG
+new        MrpgAmmo                     RPGs
+new        MrpgLauncher                 MECHRPG
+new        MrpgLauncher2                MECHRPG
+new        MrpgLauncher3                MECHRPG
+new        MrpgLauncher4                MECHRPG
+new        RPMLauncher                  RPM
+new        RPEMPAmmo                    RPEMP Ammo
+new        RPEMPLauncher                RPEMP
+new        Pies                         Ecstacy Shots
+new        PoontangPie                  Ecstacy Cannon
+new        MECHRocketLauncher           MECHRocketgun
+new        MECHRocketLauncher2          MECHRocketgun
+new        MECHRocketLauncher3          MECHRocketgun
+new        MECHRocketLauncher4          MECHRocketgun
+new        JugAmmo                      Juggalo Missiles
+new        JugLauncher                  Juggalo Laucher
+new        ScoLauncher                  Scouter Laucher
+stats+scriptsLaserRifle                   Laser Rifle
+new        PBW                          Particle Beam (PBW)
+new        LasCannon                    Gundam Death Ray
+new        Darts                        Poison Darts
+new        DartGun                      Poison Dart Rifle
+new        Shells                       Shells
+new        StubberShells                Stubber Shells
+new        Stubber                      Stubber
+new        Bolts                        Mass Driver Bolts
+new        MassDriver                   Mass Driver
+new        AAODSniperX                  HP Sniper Rifle
+stats      EnergyRifle                  ELF Gun
+new        ElectricityRifle             Power Gun
+new        Reassembler                  Reassembler
+new        SwarmerAmmo                  Swarmer Rack
+new        Swarmer                      Swarmer
+new        ExtraSwarmerA                Swarmer
+new        ExtraSwarmerB                Swarmer
+new        ExtraSwarmerC                Swarmer
+new        Shotgun                      Shotgun
+stats      PlasmaAmmo                   Plasma Bolt
+stats      PlasmaGun                    Plasma Gun
+new        PlasmaCannon                 Gundam Super Plasma
+new        Flamer                       Flamer
+new        BeaconAmmo                   Beacon Ammo
+new        AODBeaconGun                 Beacon Gun
+stats+scriptsTargetingLaser               Targeting Laser
+new        StrykerChain                 Pull Beam
+stats+scriptsEnergyPack                   Energy Pack
+new        Accelerator                  Particle Accelerator
+new        Reactor                      Mini-Reactor
+stats      RepairPack                   Repair Pack
+new        AODSuperRPack                Super-Repair Pack
+new        SuperR2Pack                  Super-Repair Pack
+stats      ShieldPack                   Shield Pack
+new        AODCombo1Pack                Energy + Shield Pack
+new        Combo1APack                  COMBO 1 Energy/Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+new        CloakingDevice               3Dfx Cloaking Device
+stats      AmmoPack                     Ammo Pack
+new        AmmoGeneratorPack            Ammo Generator
+new        TargPack                     Missile Targeting Pack
+new        BugPack                      Coyote Ear
+new        AODCmdPack                   Turret Control pack
+new        Warpxpack                    Hyperdrive Pack
+new        Slipstream                   Personal Teleporter
+new        JumpPack                     Jump Pack
+new        ExtraJumpPack                Jump Pack
+new        EnergyJumpPack               Jump Pack
+new        JetfirePack                  Jetfire Transformer
+new        AODShieldNode                Remote Shield Node
+new        CNode                        Remote Cloaking Node
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+stats      MotionSensorPack             Motion Sensor
+stats      CameraPack                   Camera
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DummyPack                    Decoy Creator
+new        HoloPack                     Hologram Creator
+new        TreePack                     Tree Planter
+new        DronePack                    Drone
+new        AODDefender                  Defender Designator
+renamed+stats+scriptsTurretPack                   Laser Turret
+new        AODGrogPack                  Chaingun Turret
+new        AODVelcroPack                Velcro Turret
+new        FluxPack                     EMP Blast Turret
+new        Turret4Pack                  Fusion Turret
+new        DisruptorTurretPack          Plasma Turret
+new        IonTurretPack                Mitzi Blast Turret
+new        PulseTurretPack              Anti-Flier Turret
+new        DiscTurretPack               Disc Turret
+new        RocketPack                   Rocket Turret
+new        AODArtilleryPack             SHB Turret
+new        ElectroTurretPack            PBW Turret
+new        DefenderSatPack              Defender Satelite
+new        AODTeleporter                Mobile Teleporter Pad
+new        TeleportPack                 Backup Teleporter Pad
+new        AODMobileInv                 Mobile Inventory Stn
+new        PortaAmmo                    Mobile Ammo Stn
+new        AODMobileGen                 Mobile Generator
+new        AODShieldGen                 Shield Generator
+new        AccelPPack                   Jump Pad
+new        doorfivebyfiveForceFieldPack 5x5 Forcefield
+new        doorfourbyeightForceFieldPack4x8 Forcefield
+new        BlastDoor                    Blast Door
+new        BlastFloor                   Blast Floor
+new        AODBunker                    Mobile Bunker
+new        C4Pack                       C-4 Pack
+new        TNTPack                      Blast Pack
+new        BNukePack                    Baby Nuke Pack
+new        NukePack                     Nuke Pack
+new        groundbase                   Ground Base
+new        jailpack                     Jail
+new        JailCapPack                  Jail Capture Pad
+new        BaseOpsPack                  The Borg Cube
+new        HPCPack                      Dropship

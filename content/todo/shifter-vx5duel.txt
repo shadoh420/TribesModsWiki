@@ -1,0 +1,16 @@
+shifter-vx5duel: 43 of 182 need write-ups
+  Chaingun (Chaingun): renamed+stats
+  PlasmaGun (Plasma Gun): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SuperSPRifleAmmo (Sniper Bullet): new
+  SuperSPRifle (Sniper  Rifle): new
+  SBoomAmmo (Boom  Shell): new
+  SBoomStick (Boom  Stick): new
+  Fixit (Engineer Repair-Gun): stats+scripts
+  ConPack (Guard Dog): new
+  airbase (AirBase): scripts
+  EmplacementPack (Emplacement): scripts
+  Booster1Pack (Booster): stats+scripts
+  Booster2Pack (Booster): stats+scripts

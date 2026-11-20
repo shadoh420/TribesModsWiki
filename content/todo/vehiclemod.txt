@@ -1,0 +1,32 @@
+# vehiclemod vs base-plus (31 items)
+renamed+statsLightArmor                   Peltast Armor
+renamed+statsMediumArmor                  Hoplite Armor
+renamed+statsHeavyArmor                   Myrmidon Armor
+renamed+statsScoutVehicle                 Gyrefalcon Scout
+new        FighterVehicle               Shrike Fighter
+new        InterceptorVehicle           Archon Interceptor
+new        BomberVehicle                Thundersword Bomber
+new        LichVehicle                  Lich AP Craft
+renamed+statsLAPCVehicle                  Wyvern LPC
+renamed+statsHAPCVehicle                  Dragon HPC
+renamed+stats+scriptsBlaster                      Starloc Wiren
+scripts    Chaingun                     Chaingun
+renamed+stats+scriptsPlasmaGun                    Vulcarion
+renamed+statsGrenadeAmmo                  62mm Grenades
+renamed+stats+scriptsGrenadeLauncher              Crader-Dukek 62mm
+renamed+statsMortarAmmo                   Heavy Mortar Shells
+renamed+stats+scriptsMortar                       Heavy Mortar
+renamed+statsDiscAmmo                     Discs
+renamed+stats+scriptsDiscLauncher                 Stormhammer
+renamed+stats+scriptsLaserRifle                   Artemis
+renamed+stats+scriptsTargetingLaser               Delphi
+renamed+stats+scriptsEnergyRifle                  Electron Flux Gun
+renamed+stats+scriptsMotionSensorPack             Cerberus Motion Sensor
+renamed+stats+scriptsPulseSensorPack              Argus Pulse Sensor
+renamed+stats+scriptsDeployableSensorJammerPack   Buzzbox Sensor Jammer
+renamed+stats+scriptsCameraPack                   Scryer Field Camera
+renamed+stats+scriptsTurretPack                   Claptrap Turret
+scripts    RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+scripts    Beacon                       Beacon
+scripts    RepairPatch                  Repair Patch

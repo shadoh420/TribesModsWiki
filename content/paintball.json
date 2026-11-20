@@ -1,0 +1,64 @@
+{
+ "mod": {
+  "overview": "Paintball Mod v2.6 converts Starsiege Tribes into a grounded, one-hit-elimination paintball game inspired by tournament speedball and woodsball. Jetpacks are completely disabled, every player runs in Light Armor, and every Tribes blaster, disc, and vehicle is replaced by 11 real-world-inspired paintball markers, paint-splattering Bunker Buster grenades, and tactical packs such as Land Camo and Laser Sight. By default the mod runs a persistent Client Spending economy where players create password-protected chat accounts, earn cash for eliminations, mask headshots, and flag plays, and buy upgraded markers and auto-loadouts at inventory stations. Without the aerial skiing and heavy armor of base Tribes, matches play as fast, tense ground skirmishes built around cover, canister reloads, programmable fire modes, and instant-elimination peeking.",
+  "notes": [
+   "Single grounded class: Everyone spawns in Light Armor (male or female) with jetpacks disabled (jetForce = 0), forcing ground-based movement, crouching, and jumping around terrain and bunkers. With 0.66 health and 1.3x blaster scaling, any 1.0-damage paintball hit eliminates the target immediately.",
+   "Mask headshots: Shots landing on a player's head hitbox play a distinct chime, print a mask-shot notice, award +1 bonus point to the shooter's score, and double the cash kill payout when Client Spending is active.",
+   "Persistent Client Spending economy: Enabled by default ($Money::Enabled = true), requiring players to register or log into a password-protected account in chat (.create <password>, .login <password>, .pass <newpass>, or .spending for help) before capturing flags or saving loadouts. Players start with $200.00, earn $5.00 per kill, $10.00 per headshot, $20.00 per flag capture, and $10.00 per flag return (capped at 3 returns per minute), and lose $5.00 per suicide or $10.00 per team kill; sold gear refunds 50% of its cost.",
+   "Markers and LCD fire modes: Eleven active paintball markers ($120 to $1300) replace all Tribes weapons. Most markers hold up to 500 paintballs in 250-round canister clips with a 3.03-second reload, and feature programmable LCD Switch fire modes (Full-Auto, 3-Shot Burst, 6-Shot Burst, Semi-Auto, and Safety, varying by marker) selectable through the Tab menu.",
+   "Sidearm and spawn loadouts: The $120 Psycho Ballistics Delta .68 is categorized as a Tool rather than a Weapon, allowing players to carry it as a backup alongside their primary marker. When Client Spending is disabled on a server, players spawn with a Delta and configure a free primary weapon and backpack via a Spawn Items menu.",
+   "Bunker Buster grenades and utility packs: Thrown grenades detonate after 2 seconds into 30 radial paint splats; players with at least $1200.00 can toggle automatic grenade resupply on spawn under Tab -> Client spending options. Only three custom backpacks (Flash Light, Laser Sight, Land Camo) plus the Repair Pack exist, replacing all base energy, shield, and ammo packs.",
+   "Controls and chat features: Open the Tab menu to switch marker LCD fire modes, toggle grenade auto-buy, manage spawn loadouts (when spending is off), or select a player to mute or target for .pm <message> private chats. Triggering FakeDeath plays a random death animation on a 5-second cooldown to feign elimination.",
+   "Removed base Tribes gear: Medium Armor, Heavy Armor, all base Tribes weapons and ammo, vehicles, deployables, mines, and beacons are stripped from inventory stations, and the MiniGun is commented out and banned ($InvList[MiniGun] = 0). Only the RepairKit remains in remote station inventories ($RemoteInvList[RepairKit] = 1).",
+   "Optional Recruit Mode and anti-cheat checks: Server admins can enable $PB::RecruitMode for queued 1v1 tryout duels to 10 points against an admin, and observers/admins can monitor shot intervals for rapid-fire scripts or apply accuracy penalties to suspected cheaters.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AngelAmmo (Weapon_Angel.cs), AngelClip (station.cs), AutoCockerAmmo (Weapon_AutoCocker.cs), AutoCockerClip (station.cs), DeltaAmmo (Weapon_Delta.cs), DeltaClip (station.cs), DragunAmmo (Weapon_Dragun.cs), DragunClip (station.cs), IntimidatorAmmo (Weapon_Intimidator.cs), MiniGun (Weapon_MiniGun.cs), MiniGunAmmo (Weapon_MiniGun.cs), MongooseAmmo (Weapon_Mongoose.cs), PsychoAmmo (Weapon_Psycho.cs), RepairKit (station.cs), ShockerAmmo (Weapon_Shocker.cs) (+4 more)."
+  ]
+ },
+ "items": {
+  "LightArmor": {
+   "summary": "The sole playable armor class (male larmor and female lfemale), rebuilt for grounded, jetpack-free paintball combat.",
+   "notes": [
+    "Only available armor type in the mod; Medium and Heavy armors are removed.",
+    "Jetpacks are completely disabled (jetForce = 0, jetEnergyDrain = 0), limiting players to running (14 forward, 6 back, 5 strafe) and jumping (jumpImpulse = 40).",
+    "Max health is 0.66 with a 1.3x blaster damage multiplier, making every 1.0-damage paintball hit an instant elimination.",
+    "Carry limits: 1 primary Weapon, 1 Tool sidearm (Delta), 1 Backpack, 5 Grenades, and 1 spare canister clip (3 clips for the Delta)."
+   ],
+   "source": "ArmorData.cs, item.cs"
+  },
+  "Angel": {
+   "summary": "WDP IR3 Angel 2002, the top-tier programmable paintball marker with burst and full-auto LCD modes.",
+   "notes": [
+    "Most expensive marker in the shop at $1300 (other markers range from $150 to $1000).",
+    "Supports 4 active firing modes plus Safety via the Tab menu's LCD Switch: Full-Auto, 3Shot-Burst, 6Shot-Burst, and Semi-Auto.",
+    "Uses a 500-round ammo cap with 250-round clips and a 3.03-second canister reload when depleted."
+   ],
+   "source": "Weapon_Angel.cs, item.cs, admin.cs"
+  },
+  "Delta": {
+   "summary": "Psycho Ballistics Delta .68 sidearm marker that bypasses the one-weapon carry limit.",
+   "notes": [
+    "Assigned className = \"Tool\" instead of \"Weapon\", letting players carry it alongside a primary marker without hitting the 1-weapon limit.",
+    "Semi-automatic starter sidearm carrying 100 paintballs max in 25-round clips (up to 3 spare clips).",
+    "Automatically issued free on spawn when Client Spending mode is disabled, or purchasable at inventory stations for $120 when spending is enabled."
+   ],
+   "source": "Weapon_Delta.cs, game.cs, KT_Paintball.cs"
+  },
+  "Grenade": {
+   "summary": "Bunker Buster paint grenade that detonates 2 seconds after being thrown, spraying 30 radial paint splats.",
+   "notes": [
+    "Priced at $10 at inventory stations; players can carry up to 5 at a time.",
+    "Can be set to auto-buy on every spawn via Tab -> Client spending options once your account reaches $1200.00.",
+    "Cannot be used safely as a grenade jump; spawns 30 radius-damage paintballs with 3.0m splash each."
+   ],
+   "source": "Mine.cs, item.cs, KT_Money.cs, KT_Paintball.cs"
+  },
+  "Camo": {
+   "summary": "Land Camo backpack ($180) that disguises the wearer behind a cactus prop for sneaking across terrain.",
+   "notes": [
+    "Mounts a cactus shape over the player's model as low-tech field camouflage.",
+    "Replaces base tactical packs alongside the Flash Light (FLPack, $50) and Laser Sight (TLPack, $80)."
+   ],
+   "source": "Pack_Camo.cs"
+  }
+ }
+}

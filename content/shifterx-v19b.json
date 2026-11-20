@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "ShifterX v19b (2003-06-02) updates ShifterX v18h by replacing the Tactical Nuke (Mfgl) and Containment Pack (FgcPack) with modular ICBM (Mfgl3) and MLRS (Mfgl4) launchers, adding modular Chaingun and Fusion Cutter Particle Stream scripts, and adjusting heavy armor durability.",
+  "notes": [
+   "Replaces Mfgl, MfglAmmo, and FgcPack with data_nuke3.cs (Mfgl3 'ICBM' / Mfgl3Ammo) and data_nuke4.cs (Mfgl4 'MLRS' / Mfgl4Ammo), and adds data_chaingun.cs and FusionCutterGunFake.",
+   "Armor adjustments from v18h: Goliath maxDamage raised from 1.0 to 1.1 and DreadNaught maxDamage raised from 1.32 to 1.4."
+  ]
+ }
+}

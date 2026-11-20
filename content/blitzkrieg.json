@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Blitzkrieg is a September 2000 beta total combat overhaul created by I/O deRost that transforms standard Tribes warfare into a faster, more lethal vehicular and ballistic conflict. The core gameplay loop focuses on high-impact combined-arms operations where teams clash using specialized combat vehicles, deployable anti-air and infantry turrets, and an expanded arsenal of heavy cannons and rapid-fire ballistics. Compared to base Tribes, the action is significantly more volatile due to high-damage projectile weapons, momentum-based player-to-player collision physics that shove players upon impact, and airborne minefields deployed directly from gunships. Standard match types utilize an enhanced objective system with infinite default team energy, while players immediately spawn equipped for battle in Light Armor with a Blaster, Chaingun, Disclauncher, and Repair Kit.",
+  "notes": [
+   "Classes and carry limits: Three armor classes dictate battlefield roles: Light Armor carries 3 weapons and remains the only class permitted to pilot vehicles; Medium Armor carries 4 weapons and gains access to the rapid-firing Vulcan rotary gun, high-powered sniper rifles, and deployable base equipment; Heavy Armor carries 5 weapons and commands devastating siege ordnance including the Masterson Cannon and Bounce Mortar.",
+   "Physical collisions and mobility: Player collisions feature active momentum and mass transfer, meaning running or jetting into another player calculates relative mass and velocity to impart a heavy physical impulse that bounces or pushes both combatants. Horizontal speed clamp variables (44 for light, 38 for medium, 30 for heavy) exist in the code but are commented out in this release, leaving standard Tribes jetting intact.",
+   "Vehicle overhaul and visual damage: Stock vehicles are entirely replaced by three specialized combat craft: the nimble Interceptor fighter armed with rapid-fire fighter guns, the Minelayer hovercraft that drops clusters of three anti-personnel mines mid-flight, and the armored APC transport that shields up to four passengers. Damaged vehicles emit thick smoke when their damage reaches 40 percent and burst into flames at 70 percent, while APC passengers ejecting at speed receive an upward velocity launch scaled to their armor weight.",
+   "Anti-vehicle flak and defenses: Vehicles are highly vulnerable to explosive Flak damage, which inflicts 200 percent damage against all hull types. Teams can deploy Automated Flak Turrets using Hellfire mount shapes that specifically track and engage enemy vehicles up to 170 meters away, ignoring foot soldiers entirely.",
+   "Heavy and ballistic arsenal: The mod expands weaponry across all weight classes: the Vulcan fires high-velocity chaingun rounds at blistering speeds for Medium armor; the Gauss Cannon delivers spinning plasma bolts with splash damage for all armors; the Hornet Rifle fires rapid-fire explosive micro-rockets with heavy kickback; the Heavy-exclusive Masterson Cannon fires hyper-velocity 700 m/s direct-fire shells; and the Bounce Mortar fires high-elasticity explosives with a 20-meter blast radius that ricochet off obstacles before detonating.",
+   "Target acquisition and sniper combat: The Laser Rifle HP is a dedicated projectile sniper rifle available to both Light and Medium armors that fires 500 m/s energy slugs without requiring an Energy Pack, dealing massive damage capable of instantly killing Light and Medium targets. Complementing this is the TAG system, where TAG Turret rockets or TAG damage types mount a visible target beacon onto an enemy player for 10 seconds, locking them as an automated target for friendly base defenses.",
+   "Deployables and team limits: Engineers can field Deployable Chain Turrets for anti-infantry defense, Deployable Flak Turrets for airspace denial, and portable Inventory and Ammo Stations. The mod enforces strict team caps, permitting a maximum of 3 Interceptors, 2 Minelayers, 1 APC, 4 Chain Turrets, 2 Flak Turrets, 6 Plasma Turrets, 5 Deployable Inventory Stations, 7 Deployable Ammo Stations, 35 deployed mines, and 40 beacons per team.",
+   "Economy and station restrictions: Team energy defaults to infinite, allowing rapid loadout acquisition at base stations. While standard fixed Inventory Stations offer the entire weapon and deployable catalog, portable Remote Inventory Stations will resupply all weapons and ammunition but will not stock Deployable Inventory Packs or Deployable Ammo Packs, and the TAG Turret Pack is intentionally disabled from station purchase lists.",
+   "Spawns and controls: Players respawn fully combat-ready with Light Armor, a Blaster, Chaingun, Disclauncher, and Repair Kit, bypassing the vulnerable unarmed drop of base Tribes. Control options include client speed checks via remoteGetSpeed, full Commander and turret takeover from Command Stations via remoteCmdrMountObject, and administrative testing commands such as remoteGiveAll under test cheat mode."
+  ]
+ },
+ "items": {
+  "MastersonCannon": {
+   "summary": "A Heavy armor direct-fire siege cannon firing high-velocity shells for devastating kinetic impact.",
+   "notes": [
+    "Heavy armor exclusive weapon costing 675 credits.",
+    "Fires shells at 700 meters per second with zero aim deflection, functioning as a high-speed flat-trajectory cannon rather than an arcing mortar.",
+    "Deals 2.10 raw cannon damage on direct impact, capable of obliterating hardened targets and defenses."
+   ],
+   "source": "item.cs, baseProjData.cs"
+  },
+  "BounceMortar": {
+   "summary": "A Heavy armor ordnance launcher that fires bouncy demolition shells with extreme blast radius.",
+   "notes": [
+    "Heavy armor exclusive weapon costing 675 credits.",
+    "Shells bounce off terrain and structures with 50 percent elasticity, detonating after a 3-second live timer.",
+    "Deals massive 5.0 mortar damage across a huge 20-meter explosion radius with 350 kickback strength."
+   ],
+   "source": "item.cs, baseProjData.cs"
+  },
+  "LaserRifleHP": {
+   "summary": "A high-powered projectile sniper rifle accessible to Light and Medium armors without needing an Energy Pack.",
+   "notes": [
+    "Equippable by Light and Medium armors and costs 320 credits.",
+    "Fires visible projectile slugs at 500 meters per second rather than hitscan beams, consuming dedicated Laser HP Battery ammo.",
+    "Deals specialized laser damage scaled up to 160 percent against Light armor and 170 percent against Medium armor, delivering reliable one-shot eliminations."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs"
+  },
+  "MinelayerVehicle": {
+   "summary": "A specialized heavy hover craft that disperses aerial minefields across the terrain.",
+   "notes": [
+    "Requires Light armor to pilot and supports up to 2 active vehicles per team.",
+    "Primary weapon launches mine shells that automatically scatter clusters of three anti-personnel mines behind the craft.",
+    "Features 1.5 maximum damage durability, emits smoke at 40 percent damage, catches fire at 70 percent damage, and suffers double damage from Flak weapons."
+   ],
+   "source": "vehicle.cs, baseProjData.cs, item.cs"
+  },
+  "FlakTurretPack": {
+   "summary": "A deployable heavy anti-aircraft turret pack using the Hellfire turret chassis to engage enemy vehicles.",
+   "notes": [
+    "Equippable by Medium and Heavy armors and limited to 2 deployed units per team.",
+    "Automatically verifies targets and exclusively fires at vehicles, completely ignoring enemy infantry.",
+    "Fires Flak rockets up to 170 meters that accelerate to 250 meters per second, exploiting the 200 percent Flak damage vulnerability on all aircraft."
+   ],
+   "source": "turret.cs, baseProjData.cs, item.cs"
+  },
+  "TAGTurretPack": {
+   "summary": "A deployable targeting beacon turret designed to paint targets for automated base defenses, disabled from station purchase.",
+   "notes": [
+    "Uses a camera model to launch TAG rockets at enemy positions within a 70-meter range.",
+    "Impacts inflict TAG damage that attaches an active target beacon to the victim for 10 seconds, forcing enemy players to register as primary targets for base turrets.",
+    "Commented out in station sale lists ($InvList and $RemoteInvList) in the beta release, making it unobtainable in standard play without cheats."
+   ],
+   "source": "turret.cs, station.cs, player.cs"
+  }
+ }
+}

@@ -1,0 +1,26 @@
+# modx vs base (25 items)
+stats      PlasmaGun                    Plasma Gun
+stats      Chaingun                     Chaingun
+stats      DiscLauncher                 Disc Launcher
+stats      GrenadeLauncher              Grenade Launcher
+stats      EnergyRifle                  ELF Gun
+stats      Mortar                       Mortar
+scripts    AmmoPack                     Ammo Pack
+scripts    RepairPack                   Repair Pack
+new        RepulsePack                  Repulse Pack
+new        Creator                      Object Creator
+new        Grabbler                     Object Manipulator
+new        Destructor                   Object Deletor
+new        Dest1                        --
+new        Welder                       Object Welder
+new        Weld1                        --
+new        Weld2                        --
+new        Warper                       Warper
+new        StrykerChain                 Pull Beam
+stats+scriptsTargetingLaser               Targeting Laser
+stats      MediumArmor                  Medium Armor
+stats      HeavyArmor                   Heavy Armor
+new        SLightArmor                  Slower Builder
+scripts    Beacon                       Beacon
+new        LaserTagRifle                Laser Tag Rifle
+new        RapidLaserTagRifle           Rapid Laser Tag Rifle

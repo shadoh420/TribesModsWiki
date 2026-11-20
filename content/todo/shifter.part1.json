@@ -1,0 +1,631 @@
+{
+  "mod": {
+    "overview": "Shifter (Emo1313's 09-28-2000 release for Dopplegangers, a flat mod that replaces most of stock Tribes 1.11's game scripts) turns the armor choice into a class system: nine buyable armors (Scout, Chemeleon, Assassin, Mercenary, Goliath, Engineer, Arbitor, DreadNaught, Juggernaught) that each get their own weapon list, damage resistances, special touch effects and a different meaning for the grenade, mine, beacon and repair-kit keys. On top of that it adds a large arsenal of new weapons (Equalizer, Magnum, Railgun, Vulcan, Flame Thrower, Ion Rifle, Tactical Nuke and more), switchable fire modes for the Plasma Gun, Mortar and Rocket Launcher, hit reactions and status effects (EMP, poison, burning, ammo explosions), and server-side scoring, anti-teamkill, vote and admin systems. It reuses some Renegades datablock names, but the items described here are Shifter's own.",
+    "notes": [
+      "Armor classes sold in the shop (armor items, male/female PlayerData): Scout (sarmor), Chemeleon (spyarmor), Assassin (larmor), Mercenary (marmor), Goliath (barmor), Engineer (earmor), Arbitor (aarmor), DreadNaught (darmor), Juggernaught (jarmor). Also defined: stimarmor (a temporary Scout form), harmor (Heavy; the PlayerData and item limits exist but Shifter's item.cs has no ItemData HeavyArmor, so it is not in the shop), dmarmor (Death Match armor) and parmor (the Penis Curse armor).",
+      "Each armor has its own carry list ($ItemMax in ArmorData.cs) and a maximum weapon count ($MaxWeapons): Scout 2, Stim 2, Chemeleon 3, Assassin 3, Mercenary 5, Goliath 4, Engineer 4, Arbitor 4, DreadNaught 4, Heavy 5, Juggernaught 3, Penis 1. Buying past the limit is refused ('To many weapons for ... to carry'); changing armor sells off whatever the new armor cannot carry (checkMax).",
+      "With $Shifter::ItemLimit on (it is in serverConfig.cs), the inventory station list only shows items that the wearer's current armor can carry; armors themselves are always listed.",
+      "Light-class armors (Assassin, Scout, Stim, Chemeleon) are the only ones that can pilot fliers; other armors who touch the Scout flier get the message 'You must be in Light Armor to pilot the vehicles', and only ride as passengers on the LPC/HPC.",
+      "Damage is scaled per armor and per damage type ($DamageScale in damage.cs, 25 types). Examples: Goliath takes half damage from explosion, mine, missile, mortar, plasma and shrapnel but 1.3x from bullets; DreadNaught takes 0.5x from bullets and 0.6-0.8x from most others; Arbitor takes 0.2x electricity, 0.3x energy and 0.5x blaster/laser/flash but 1.5x from mortar and plasma and 1.7x from grav; Scout/Stim take 0.5x crush, impact and landing damage. All armors take 0.1x grav damage except Arbitor (1.7x). The Penis armor takes no damage from any listed type.",
+      "Class kit: the grenade, mine, beacon and repair-kit use functions branch on armor. Grenade: Assassin throws a hologram, Engineer an EMP grenade, Scout/Stim a firebomb, Chemeleon a timed plastique (delay set from the Plastique Options menu), Mercenary a hand grenade, Arbitor a tranq grenade, Heavy a nuke bomb, Goliath a concussion grenade, DreadNaught a mortar bomb. Mine: Assassin drops a hologram, Engineer picks a proximity, cloaking, point-defense laser, anti-personnel or replicator mine, Chemeleon a cloaking (subspace) mine, Arbitor a shockwave mine, DreadNaught a point-defense laser mine or standard mine (menu option), everyone else an anti-personnel mine; the Juggernaught has no mines or grenades.",
+      "Class kit, beacon key: Assassin throws a detonating bomb, Engineer places a standard beacon, a cloaking camera or drops a medi kit (menu option), Scout/Stim injects a stim (see Scout), Chemeleon deploys a satchel turret, Mercenary fires a speed booster, Arbitor cloaks for about 20 seconds, Goliath throws a concussion grenade, Heavy/DreadNaught trigger an emergency shield, Juggernaught charges its PlasmaCannon or LasCannon. Repair kit heals 0.1 for Scout/Stim/Assassin, 0.3 for Engineer and DreadNaught, 0.5 for Juggernaught and 0.2 for the rest; any repair kit use also cures poison.",
+      "Spawn loadouts: the spawn type is Standard, Random or Favorites ($Shifter::SpawnType, saved profile or menu). Standard is Mercenary with Hyper Blaster, Equalizer, Disc Launcher, Grenade Launcher, grenades, beacons, Targeting Laser and Repair Pack. Random rolls 0-50: about 42% Standard Mercenary, 30% DreadNaught (Mortar, Vulcan, Energy Pack), 10% Goliath (Mortar, Rocket Launcher, Flame Thrower), 10% Arbitor (Hyper Blaster, Volter, Ion Rifle, Shockwave Cannon) and the rest Engineer (Railgun, Repair-Gun/Disc/Rocket, or a Deployable Inventory Station). With $Shifter::PowerCheck on, a player whose team's power is down always spawns Standard.",
+      "Hit reactions ($Shifter::Reactions, on): damage knocks the player back by an amount scaled to the hit and its quadrant; a strong hit to the back also knocks the backpack off. Head hits do 1.5x damage (Heavy armor gets only +20%, and only from some angles); laser and sniper head hits do double. A laser shot to the front-right torso shoots the weapon out of the victim's hand; a laser or sniper hit to the back of the head can knock the carried flag off.",
+      "Status effects: any flash or nuke damage EMPs the victim (weapon unmounted, energy zeroed, recharge stopped; an Engineer keeps some energy and recovers sooner). Enemy energy damage (Dart Rifle, Assassin touch) poisons the victim for several ticks of extra damage; Arbitors are immune. Enemy plasma or nuke hits ignite a victim about one time in five (Goliaths cannot be ignited). Electricity damage ignores the Shield Pack and Hyper Blaster damage is not absorbed by it.",
+      "Ammo explosions ($Shifter::AmmoBoom, on): a player badly overkilled by someone else, more than 150 m from their flag, can blow up carried grenades, mines, rockets, mortar shells, bullets and above all nuclear warheads, with a chance that depends on the armor's size (200 for Assassin, Scout, Chemeleon and Arbitor up to 1000 for Heavy/Juggernaught).",
+      "Weapon options: the Weapon Options menu (and remoteweapon_ commands) switches the Plasma Gun (standard, rapid, multi), Mortar (standard, EMP, frag, MDM; Heavy/DreadNaught/Juggernaught/Goliath only), Rocket Launcher (stinger, locking, LockJaw, wire guided), Grav Gun (tractor or repulse) and the Engineer's gun (repair, hack, disassembler). Servers can turn the locking stinger off ($Shifter::LockOn).",
+      "Deployables go through one generic function, deployable(), with per-item switches: line of sight within a few meters, flat-surface test, clearance box, no-inside test, at most 3 of the same type in a 10 m box, and a per-team item limit ($TeamItemMax). Remote stations keep their own energy pool that is spent when players buy from them.",
+      "Hacking and engineering: Engineers heal teammates and friendly objects by touching them ($Shifter::EngHealAll), and hacked objects stay hacked for $Shifter::HackedTime (90) seconds after $Shifter::HackTime (5) seconds of work, then are locked for $Shifter::HackLock (90).",
+      "Game modes: Mission types are the stock ones that objectives.cs handles (CTF, Capture and Hold, Defend and Destroy, Find and Retrieve), plus a Deathmatch script (dm.cs, free-for-all and team). Flag changes: with $Shifter::FlagNoReturn on, touching a dropped own flag does not return it; a return check is scheduled after $Shifter::FlagReturnTime (400). The losing team's scores are multiplied by $Shifter::LooseScore (0.75) at mission end. Players outside the mission area in CTF die after a short warning ($Shifter::NoOutside).",
+      "Scoring (scoring.cs and $Score:: values): points scale with distance to the flag, kill range, flag carrier kills, head shots ($Shifter::HeadShot 5), how long the killer lived, and an armor-class value (Assassin 1 ... DreadNaught 5, Juggernaught 6) so killing a bigger armor than yours pays extra. Killing within $Shifter::SpawnSafe seconds of spawning pays half. Repairing friendly objects scores, repairing enemy objects loses points.",
+      "Server rules in serverConfig.cs: team damage on, 2 teamkills kick-ban (600 s), swearing filter, score tracker that warns at -10/-20/-30 and kicks at -40, random mission rotation, teams re-juggled every 3 missions, fair-teams off, 70 minute limit, 10 players, spawn respawn time 2, DetPack and nuke limits 15 per match, tourney mode off, a two-minute warning and optional auto-admin by name, IP and password.",
+      "The admin player menu lets a super admin give or remove the Penis Curse, which swaps the target into a damage-immune armor with only a joke weapon; the victim cannot buy, sell, drop or use stations, and suiciding re-applies the curse after 10-40 seconds.",
+      "Script bugs and quirks in the code: Mortar mode 4 and Plasma mode 3 exist in the fire functions but no menu or key sets them, and the TacMortar datablock is not defined; ArmorData.cs lists a nonexistent item named Equalizer; MortarImage::onFire tests %client.firemortar before %client is set; the Rocket Launcher's Chemeleon lock check uses '!= spyarmor || != spyfemale' (always true) so Chemeleons can be locked; the flag-snipe test in Player::onDamage assigns instead of compares ('%type = $SniperDamageType'), so it passes for any damage type; checkMaxDrop is defined only as an empty stub by the port's ShifterCompat.cs."
+    ]
+  },
+  "items": {
+    "ScoutArmor": {
+      "summary": "Scout (sarmor) is a fast, light, low-health armor with only two weapon slots. It steals from enemies it bumps into and can stim itself into a faster, healing form.",
+      "notes": [
+        "Item stealing: when an enemy player collides with a Scout, that player's backpack and flag are dropped and every item they carry that the Scout can hold is transferred to the Scout; the victim's weapon is unmounted.",
+        "Beacon key: ScoutStim switches the Scout into stimarmor (much faster, stronger jets) for about 10 seconds, healing a little every two seconds while building an overdose chance; a bad roll kills the Scout ('overdosed'). Using a repair kit lowers the overdose percentage and cures poison. When the stim ends the Scout returns to sarmor.",
+        "Grenade key throws a firebomb; mine key drops a standard anti-personnel mine.",
+        "Carry list includes Blaster, Equalizer, Plasma Gun, Grenade Launcher, Disc Launcher, ELF, Laser Rifle, Hyper Blaster, Boom Stick, Flame Thrower, Flight Pack, Mech Pack and Laptop; max 2 weapons.",
+        "Takes only 0.5x crush, impact and landing damage but 1.2-1.3x from blaster, bullet, energy, laser, mine, mortar and shrapnel. Light armor, so it can pilot fliers.",
+        "Max 2 weapons."
+      ],
+      "source": "item.cs ($ArmorType, ItemData ScoutArmor, Beacon::onUse, Grenade::onUse, MineAmmo::onUse); itemfuncs.cs ScoutStim/CheckStim/OverDoseStim; player.cs Player::onCollision (Scout Steal Items); ArmorData.cs; damage.cs"
+    },
+    "SpArmor": {
+      "summary": "Chemeleon (spyarmor) is the infiltrator class: invisible to sensors, able to use enemy stations, force fields and teleporters, and able to take an enemy's skin.",
+      "notes": [
+        "Not visible to sensors (visibleToSensor false).",
+        "Skin snatch: when a Chemeleon collides with an enemy player it takes that player's skin for about 120 seconds ('You went undercover disguised as ...').",
+        "Enemy infrastructure: it can open enemy-team deployable stations and station units (the team check is skipped for spyarmor), walks through enemy force fields as if they were friendly, passes through enemy teleporters and can use a teleporter to reach an enemy telepad.",
+        "With the Laptop (Scout, Stim, Chemeleon and Engineer can carry it) and its hack setting on, it can take over an enemy turret for $Shifter::HackedTime seconds.",
+        "Grenade key throws a timed plastique (delay set from Plastique Options); beacon key deploys a satchel turret; mine key drops a cloaking (subspace) mine.",
+        "Only Chemeleon and Arbitor can carry the Cloaking Device; Chemeleon also carries Dart Rifle, Magnum, Equalizer, Boom Stick, Laser Rifle and Laser Pack. Max 3 weapons. Light armor, so it can pilot fliers.",
+        "Takes 0.5x bullet damage and 0.9x equalizer, nuke and shell, but 1.2-1.3x from blaster, debris, energy, explosion, mine, missile, mortar, plasma and shrapnel."
+      ],
+      "source": "ArmorData.cs; player.cs Player::onCollision (Spy Disguise); station_func.cs / station_dep.cs collision checks; StaticShape.cs force field and teleporter handlers; turret.cs laptop hack; item.cs Grenade::onUse, Beacon::onUse, MineAmmo::onUse; damage.cs"
+    },
+    "LightArmor": {
+      "summary": "Assassin (larmor, the stock Light armor renamed and retuned) is a fragile, sensor-invisible sniper/ambusher with a death touch and hologram decoys.",
+      "notes": [
+        "Death touch: when an enemy collides with an Assassin the enemy takes 0.25 energy damage, which also poisons them (Arbitors are immune).",
+        "Not visible to sensors (visibleToSensor false).",
+        "Grenade key and mine key both drop a hologram decoy; beacon key throws a detonating bomb.",
+        "Only the Assassin can carry the Sniper Rifle; it also carries Laser Rifle, Railgun, Dart Rifle, Boom Stick, Equalizer, ELF and Optic Pack. Max 3 weapons.",
+        "Takes 1.2-1.3x from blaster, bullet, debris, energy, mine, mortar and shrapnel; 1.0x from most other types. Light armor, so it can pilot fliers."
+      ],
+      "source": "ArmorData.cs; item.cs ($ArmorType, Grenade::onUse, Beacon::onUse, MineAmmo::onUse); player.cs Player::onCollision (Assassin Death Touch); damage.cs"
+    },
+    "MediumArmor": {
+      "summary": "Mercenary (marmor, the stock Medium armor renamed) is the all-round standard-spawn class, with the broadest weapon access (five weapons) and a speed booster.",
+      "notes": [
+        "Buying the armor mounts a Booster1Pack and Booster2Pack on the player. The beacon key fires a speed booster (an impulse in the facing direction, or a directional boost if 'Advanced Booster' is chosen in Booster Options).",
+        "Booster pop: while the booster is cooling down, an enemy laser/sniper/bullet hit to the back has a 50% chance, and explosion/shrapnel/mortar/missile/electricity/nuke a 40% chance, of blowing the Mercenary up ('Your booster popped!').",
+        "Grenade key throws a standard hand grenade; mine key drops an anti-personnel mine.",
+        "Carries Blaster, Hyper Blaster, Equalizer, Vulcan, Magnum, Boom Stick, Plasma Gun, Grenade Launcher, Disc Launcher, ELF, Rocket Launcher (small ammo) and Targeting Laser; max 5 weapons. Cannot crouch.",
+        "Takes 0.6x electricity damage; other types are 1.0x (besides the 0.1x grav every armor but Arbitor shares). The default spawn armor."
+      ],
+      "source": "item.cs (buyItem, Beacon::onUse, Grenade::onUse, MineAmmo::onUse); player.cs Player::onDamage (Merc Booster Pop); ArmorData.cs; damage.cs; spawn.cs"
+    },
+    "BursterArmor": {
+      "summary": "Goliath (barmor) is a tough mid-heavy anti-armor class that shrugs off explosives and fire and is the home of the Flame Thrower.",
+      "notes": [
+        "Cannot be set on fire: the plasma/nuke burn check skips Goliaths.",
+        "Takes only 0.5x explosion, mine, missile, mortar, plasma and shrapnel damage and 0.1x grav, but 1.2-1.3x from blaster, bullet and laser.",
+        "Grenade key throws a concussion grenade; beacon key throws a second concussion grenade type (Concussion2) and mine key drops an anti-personnel mine.",
+        "Carries Mortar (can switch mortar shell type), Rocket Launcher, Flame Thrower, Plasma Gun, Grenade Launcher, Disc Launcher, Rocket Pack, Suicide Pack and Air Ammo Pad; max 4 weapons. Cannot crouch.",
+        "Does not get the Blaster, Equalizer, ELF or Laser Rifle."
+      ],
+      "source": "ArmorData.cs; player.cs Player::onDamage (burn check); item.cs Grenade::onUse, Beacon::onUse, MineAmmo::onUse; admin.cs weaponoptions; damage.cs"
+    },
+    "EngArmor": {
+      "summary": "Engineer (earmor) is the support class: it heals teammates and friendly objects just by touching them, resists EMP and carries the repair, hack and disassembler gun and many deployables.",
+      "notes": [
+        "Touch healing: touching a teammate repairs them by 0.10 per contact; with $Shifter::EngHealAll on, touching a friendly object (that is not hackable) repairs it the same way.",
+        "EMP resistance: hit by EMP, an Engineer is left with 45 energy and a slow recharge for 8 time units, instead of zero energy and no recharge for 12.",
+        "Can use the Laptop and hack objects; Items only the Engineer's carry list has include Fixit/Hackit/Disit (the repair, hack and disassembler gun), power generator, platform, emplacement, teleport, launch and plant packs; it also carries the Laptop.",
+        "Class kit: beacon key places an engineer beacon, cloaking camera or drops a medi kit; mine key chooses proximity, cloaking, laser, anti-personnel or replicator mine; grenade key throws an EMP grenade. Repair kits heal 0.3.",
+        "Carries Railgun, Grav Gun, Equalizer, Plasma Gun, Disc Launcher, Rocket Launcher, ELF and Fixit; max 4 weapons. Cannot crouch.",
+        "Takes 0.7x equalizer and flash damage; 1.0x for everything else."
+      ],
+      "source": "player.cs Player::onCollision (Eng Medic Touch, Eng Touch Heal All), Insomniax_startEMP; ArmorData.cs; item.cs; bindings.cs; damage.cs"
+    },
+    "AlArmor": {
+      "summary": "Arbitor (aarmor) is the energy-weapon class: it drains enemies it touches, is immune to poison, resists energy attacks and carries the Ion Rifle, Volter and Shockwave Cannon.",
+      "notes": [
+        "Drain touch: when an Arbitor collides with an enemy wearing anything other than Arbitor, Assassin or Mercenary armor, the enemy takes 0.10 flash damage (which triggers the EMP effect) and the Arbitor repairs 0.30 ('You drain ...'s energy').",
+        "Immune to the poison caused by enemy energy damage. Takes 0.2x electricity, 0.3x energy and 0.5x blaster, laser and flash, but 1.5x mortar and plasma, 1.3x nuke, and 1.7x grav.",
+        "Beacon key cloaks the Arbitor for about 20 seconds. Using the Cloaking Device instead triggers a cloak blast (radius 25) that fades out everything in range rather than cloaking the Arbitor itself.",
+        "Grenade key throws a tranq grenade; mine key drops a shockwave mine. Teleport pack users can also clear a saved telepoint from the menu.",
+        "Only the Arbitor can carry the Ion Rifle; it also carries Volter, Shockwave Cannon, Hyper Blaster, Grav Gun and Blaster; max 4 weapons. Cannot crouch."
+      ],
+      "source": "player.cs Player::onCollision (Arbitor Death Touch), Player::onDamage; item.cs Beacon::onUse, CloakingDeviceImage::onActivate, Grenade::onUse, MineAmmo::onUse; ArmorData.cs; damage.cs; blasts.cs CloakBlast"
+    },
+    "DragArmor": {
+      "summary": "DreadNaught (darmor) is a heavy armor between the Goliath and the Juggernaught, built for suppressive firepower with Vulcan, Mortar and the Tactical Nuke.",
+      "notes": [
+        "Takes 0.5x bullet, 0.6x explosion, laser, missile and sniper, 0.7x blaster, energy, mortar and plasma and 0.1x grav damage.",
+        "Beacon key activates an emergency shield (Renegades_startShield); grenade key throws a mortar bomb; mine key drops a point-defense laser mine (default) or a standard mine ('Mine Options').",
+        "Can carry the Containment Pack (FgcPack) and fire the Tactical Nuke, and also Vulcan, Mortar, Rocket Launcher, Shockwave Cannon, Plasma Gun, Disc Launcher, ELF and Equalizer, plus the Command Station pack; max 4 weapons.",
+        "Cannot use teleporters ('Cannot teleport in this armor type') and cannot crouch. Has its own Weapon Options entries for Mortar shell type and mine type.",
+        "Repair kits heal 0.3. Its female form is the same datablock."
+      ],
+      "source": "ArmorData.cs; item.cs Beacon::onUse, Grenade::onUse, MineAmmo::onUse, Mfgl handling; itemfuncs.cs Renegades_startShield; StaticShape.cs teleporter handler; damage.cs"
+    },
+    "Juggernaught": {
+      "summary": "Juggernaught (jarmor) is the top-tier, very slow, very heavy armor. It spawns with a Rocket Launcher, Mortar and an Auto Rocket pack and cannot sell or drop them.",
+      "notes": [
+        "Buying it sets Juggernaught, Rocket Launcher, Mortar, 25 rockets, SMR Pack 2 with 25 auto rockets (above the 20 carry limit) and 20 mortar shells and mounts the Rocket Launcher and the pack. If a spawn weapon is set, a spawning Juggernaught has the Mortar mounted.",
+        "The inventory station will not let a Juggernaught sell or drop the Mortar, Rocket Launcher, PlasmaCannon, LasCannon or Tactical Nuke, and it does not take Beacons when looting a dead player's items.",
+        "Carries no mines or grenades (admin help text says so). Its heavy weapon choices are PlasmaCannon, LasCannon, Tactical Nuke or the Hammer packs, which are mutually exclusive when bought.",
+        "Fires the Tactical Nuke without a Containment Pack; the beacon key charges a PlasmaCannon or LasCannon.",
+        "When damaged it automatically raises an emergency shield (Renegades_startShield with a stronger setting than other armors).",
+        "Takes 1.5x blaster and flash damage, 1.3x energy, 1.2x electricity and mortar, 2.0x plasma, but 0.6x crush, 0.5x impact and laser, 0.2x landing and 0.1x grav. Repair kits heal 0.5."
+      ],
+      "source": "item.cs buyItem, sell/drop checks; game.cs Game::playerSetSpawned; itemfuncs.cs Renegades_startShield; player.cs Player::onDamage; ArmorData.cs; damage.cs"
+    },
+    "WraithVehicle": {
+      "summary": "Wraith is a shop entry for a cloaked flier, limited to 2 per team, but the scripts never define a flier datablock for it.",
+      "notes": [
+        "Vehicle station: $DataBlockName maps WraithVehicle to a datablock named Wraith, and vehicle.cs checks for it (fading it back in when the pilot leaves), but there is no FlierData Wraith anywhere in Shifter's scripts and $VehicleInvList does not list WraithVehicle, so it is not offered by the vehicle station.",
+        "The separate Wraith Module (vehicle.cs) is what actually cloaks a Scout or APC: with the module loaded and ammo remaining, mounting fades out the vehicle and pilot and adds sensor suppression.",
+        "Flight and weapon behavior of the Wraith vehicle itself: Behavior not determined from scripts."
+      ],
+      "source": "item.cs ItemData WraithVehicle, $TeamItemMax; station_list.cs; vehicle.cs Vehicle::onCollision, Vehicle::dismount"
+    },
+    "JetVehicle": {
+      "summary": "Interceptor is a shop entry for a flier, limited to 5 per team, but no flier datablock named Jet is defined in the scripts.",
+      "notes": [
+        "$DataBlockName maps JetVehicle to Jet, but there is no FlierData Jet and $VehicleInvList does not list JetVehicle, so the vehicle station does not offer it; vehicle.cs only names Jet in the check that keeps it from taking passengers.",
+        "The Interceptor Module (vehicle.cs) is a separate module that fires paired InterceptorAmmo bolts from a Scout or APC.",
+        "Flight and weapon behavior of the Interceptor vehicle itself: Behavior not determined from scripts."
+      ],
+      "source": "item.cs ItemData JetVehicle, $TeamItemMax; station_list.cs; vehicle.cs"
+    },
+    "Blaster": {
+      "summary": "The starting energy sidearm, tuned for a little more kick than stock; usable by most light and medium armors.",
+      "notes": [
+        "Unlike stock, using it prints 'Using Blaster' (ItemMsgs.cs Blaster::onUse); firing is the normal image path (energy-based, no ammo).",
+        "Carried by Assassin, Scout/Stim, Chemeleon, Mercenary, Engineer, Arbitor, DreadNaught and Heavy; not by Goliath or Juggernaught.",
+        "Also the weapon given in Deathmatch spawns."
+      ],
+      "source": "item.cs ItemData/ItemImageData Blaster; itemmsgs.cs Blaster::onUse; ArmorData.cs; dm.cs Game::playerSpawned"
+    },
+    "Chaingun": {
+      "summary": "Shown as the Equalizer in this mod: a spinning-barrel bullet weapon whose rounds are explosive-tipped and have their own damage type.",
+      "notes": [
+        "Unlike stock, the datablock is still Chaingun but the display name is 'Equalizer'; ChaingunBullet uses the Equalizer damage type and has a small blast radius.",
+        "Using it prints 'Using Equalizer'. ItemMsgs also defines Equalizer::onUse, but no Equalizer item exists (ArmorData lists one as well).",
+        "Not carried by Goliath, Arbitor or Juggernaught.",
+        "Equalizer damage is scaled by armor: Heavy 1.3x, Arbitor 1.2x, Goliath 1.1x, DreadNaught 0.8x, Engineer 0.7x."
+      ],
+      "source": "item.cs ItemData Chaingun, ChaingunImage; baseProjData.cs ChaingunBullet; itemmsgs.cs; ArmorData.cs; damage.cs"
+    },
+    "PlasmaGun": {
+      "summary": "Plasma Gun with three selectable fire modes: standard bolt, rapid-fire pair or multi-bolt spread.",
+      "notes": [
+        "Unlike stock, PlasmaGunImage::onFire reads the player's Plasma setting from Weapon Options: 0 fires one PlasmaBolt2, 1 (rapid) fires two fast short-lived bolts for 1 ammo, 2 (multi) fires three small bolts in a spread for 2 ammo.",
+        "A fourth setting (3) that fires a bolt which spawns frags at 0.5, 1.0 and 1.5 seconds exists in the code, but no menu or key sets it.",
+        "Hits on enemies by plasma damage ignite them about 20% of the time (not Goliaths). Arbitor takes 1.5x plasma, Goliath 0.5x.",
+        "Using it prints the current mode ('Using Plasma Gun - Rapid Fire', etc.)."
+      ],
+      "source": "item.cs PlasmaGunImage::onFire; itemmsgs.cs PlasmaGun::onUse; bindings.cs remoteweapon_plasma_*; baseProjData.cs PlasmaBolt2/PlasmaBoltRapid/PlasmaBoltMulti; player.cs"
+    },
+    "GrenadeLauncher": {
+      "summary": "The stock-style grenade launcher with Shifter's tweaked shell stats.",
+      "notes": [
+        "The only script difference from stock is the 'Using Grenade Launcher' bottom print on equip; firing is the standard image path with GrenadeShell (shrapnel damage type, large blast radius).",
+        "Not carried by Arbitor or Juggernaught; Goliath and DreadNaught can carry it."
+      ],
+      "source": "item.cs ItemData GrenadeLauncher; itemmsgs.cs; baseProjData.cs GrenadeShell; ArmorData.cs"
+    },
+    "Mortar": {
+      "summary": "The heavy artillery piece, with four selectable shell types: standard, EMP, frag and a remotely detonated MDM shell.",
+      "notes": [
+        "Unlike stock, MortarImage::onFire picks its projectile from the Mortar Options menu: standard MortarShell, EMPMortar (flash damage, big radius, triggers EMP), BomberShell (frag shell that, after a second, drops bomblets every half second five times), or DelayMortarShell (MDM).",
+        "MDM shell: the first shot launches a slow, heavy shell that flies up to 10 seconds; firing again while it is out deletes it and detonates a HavocBlast (nuke-type) at its position instead.",
+        "A fifth mode (TacMortar) is in the code but its datablock is not defined and no menu selects it.",
+        "The remote-detonate check reads %client.firemortar before %client is set, so the second shot does not register when the Mortar is out of ammo.",
+        "Menu access is limited to Heavy, DreadNaught, Juggernaught and Goliath. Goliath, DreadNaught, Heavy and Juggernaught can carry it."
+      ],
+      "source": "item.cs MortarImage::onFire; itemmsgs.cs Mortar::onUse; bindings.cs remoteweapon_mortar_*; baseProjData.cs MortarShell, EMPMortar, BomberShell, DelayMortarShell, DeployBomblets; blasts.cs HavocBlast; admin.cs weaponoptions"
+    },
+    "DiscLauncher": {
+      "summary": "The disc launcher with a small projectile speed upgrade, usable by most armors.",
+      "notes": [
+        "The only script difference from stock is the 'Using Disc Launcher' bottom print; firing uses DiscShell (explosion damage, radius about 7.5).",
+        "Carried by every armor except Arbitor and Juggernaught."
+      ],
+      "source": "item.cs ItemData DiscLauncher; itemmsgs.cs; baseProjData.cs DiscShell; ArmorData.cs"
+    },
+    "LaserRifle": {
+      "summary": "The long-range laser rifle, still a light-armor sniper weapon bought together with an Energy Pack.",
+      "notes": [
+        "Buying it auto-buys an Energy Pack, and selling the Energy Pack auto-sells the Laser Rifle; unmounting the Energy Pack (or a Flight Pack) also unmounts the rifle.",
+        "Unlike stock, the 'Must have an Energy Pack to use Laser Rifle' check in item.cs is replaced by ItemMsgs.cs LaserRifle::onUse (loaded later), which has no pack check and just prints 'Using Laser Rifle'.",
+        "Laser damage to the front-right torso shoots the victim's weapon out of their hand; headshots double laser damage; a laser hit to the back of the head can knock off a carried flag.",
+        "Only Assassin, Scout/Stim and Chemeleon can carry it."
+      ],
+      "source": "item.cs LaserRifle::onUse, buyItem, EnergyPack::onUnmount; itemmsgs.cs LaserRifle::onUse; player.cs Player::onDamage; ArmorData.cs"
+    },
+    "EnergyRifle": {
+      "summary": "The ELF gun: a sustained lightning beam that drains the target's energy while hurting them.",
+      "notes": [
+        "The only script difference from stock is the 'Using ELF Gun' bottom print; the beam does electricity damage and drains energy.",
+        "Electricity damage ignores the Shield Pack. Arbitor takes 0.2x, Mercenary 0.6x and Heavy 1.5x electricity damage.",
+        "Carried by DreadNaught, Engineer, Heavy, Assassin, Mercenary, Scout/Stim and Chemeleon."
+      ],
+      "source": "item.cs ItemData EnergyRifle; itemmsgs.cs EnergyRifle::onUse; baseProjData.cs lightningCharge1, Lightning::damageTarget; player.cs; damage.cs"
+    },
+    "HyperB": {
+      "summary": "Hyper Blaster: the light, rapid-firing little brother of the Blaster, using energy rather than ammo.",
+      "notes": [
+        "Fires HyperBolt very quickly at low damage with its own HBlaster damage type, which the Shield Pack does not absorb.",
+        "Using it prints 'Using Hyper Blaster'.",
+        "Carried by Mercenary, Arbitor, Scout/Stim; part of the standard spawn loadout."
+      ],
+      "source": "item.cs ItemData HyperB, HyperBImage; baseProjData.cs HyperBolt; itemmsgs.cs; player.cs shield handling; ArmorData.cs"
+    },
+    "RocketAmmo": {
+      "summary": "Ammunition for the Rocket Launcher.",
+      "notes": [
+        "One round per stinger, locking stinger, LockJaw or wire-guided shot.",
+        "Carried by Goliath (12), DreadNaught (15), Heavy (15), Juggernaught (25), Mercenary (5) and Engineer (5); sold in 3-round lots; ammo packs hold up to 10.",
+        "On death it can detonate as StingerMissile shells (AmmoBoom)."
+      ],
+      "source": "item.cs ItemData RocketAmmo, $SellAmmo, $AmmoPackMax; itemfuncs.cs itemFuncs::AmmoBoom; ArmorData.cs"
+    },
+    "RocketLauncher": {
+      "summary": "Rocket Launcher with four modes chosen from the Weapon Options menu: plain stinger, target-locking stinger, LockJaw and wire-guided.",
+      "notes": [
+        "Stinger: a straight unguided missile (StingerMissile).",
+        "Locking: if the crosshair is on a player or flier within 500 m, the missile is a seeking StingerMissileTracker and the target gets a missile-lock warning; otherwise it is an unlocked stinger. Server admins can disable this mode ($Shifter::LockOn). The Chemeleon exemption check is written with '||' and is always true, so Chemeleons can be locked.",
+        "LockJaw: pointing at a player, flier or turret and firing paints the target for 15 seconds ('LockJaw Acquired - Fire Now To Launch'); the next shot launches a MiniMissileTracker at it. Friendlies and non-targetable objects fail, and there is a 20% chance to fail the lock.",
+        "Wire guided: fires a GodHammerMortar that re-spawns a GodHammer missile every 0.25 seconds from the player's current muzzle aim (up to 50 times), so the missile follows where you aim.",
+        "Carried by Goliath, DreadNaught, Engineer, Juggernaught and Mercenary. Using it prints the current mode."
+      ],
+      "source": "item.cs RocketImage::onFire, Tracker; baseProjData.cs LockJaw*, StingerMissile*, GodHammerMortar; itemmsgs.cs RocketLauncher::onUse; bindings.cs remoteweapon_rocket*"
+    },
+    "SniperAmmo": {
+      "summary": "Ammunition for the Sniper Rifle.",
+      "notes": [
+        "Only the Assassin can carry it (25); sold in 15-round lots and ammo packs hold up to 15.",
+        "Not part of the AmmoBoom explosion list."
+      ],
+      "source": "item.cs ItemData SniperAmmo, $SellAmmo, $AmmoPackMax; ArmorData.cs"
+    },
+    "SniperRifle": {
+      "summary": "A projectile-based sniper rifle that fires a very fast bullet instead of a laser; Assassin only.",
+      "notes": [
+        "Fires SniperRound, a near-instant bullet with its own Sniper damage type and strong knockback.",
+        "Headshots double sniper damage; a sniper or laser hit to the back of the head can knock a carried flag off.",
+        "Using it prints 'Using Sniper Rifle'."
+      ],
+      "source": "item.cs ItemData SniperRifle, SniperRifleImage; baseProjData.cs SniperRound; itemmsgs.cs; player.cs; ArmorData.cs"
+    },
+    "BoomAmmo": {
+      "summary": "Shells for the Boom Stick shotgun.",
+      "notes": [
+        "One shell fires 19 pellets. Carried by Assassin (10), Scout/Stim (10), Chemeleon (10) and Mercenary (15); sold in 5-shell lots.",
+        "Not part of the AmmoBoom explosion list."
+      ],
+      "source": "item.cs ItemData BoomAmmo, BoomStickImage::onFire; ArmorData.cs"
+    },
+    "BoomStick": {
+      "summary": "The Boom Stick shotgun: a close-range weapon that lets the smaller armors take on heavier ones.",
+      "notes": [
+        "Each trigger pull uses 1 shell and spawns 19 BoomStickBlast pellets in one go (own BoomStick damage type, 'Out Of Shells' message when empty).",
+        "Using it prints 'Using Boom Stick'.",
+        "Carried by Assassin, Scout/Stim, Chemeleon and Mercenary."
+      ],
+      "source": "item.cs BoomStickImage::onFire; baseProjData.cs BoomStickBlast; itemmsgs.cs; ArmorData.cs"
+    },
+    "TranqAmmo": {
+      "summary": "Poison darts for the Dart Rifle.",
+      "notes": [
+        "Every armor except the Juggernaught can carry 20 (even those without a Dart Rifle); sold 2 at a time. Ammo packs hold up to 20.",
+        "Dart hits do energy damage; enemy energy damage poisons the victim over several ticks (Arbitor immune)."
+      ],
+      "source": "item.cs ItemData TranqAmmo; baseProjData.cs TranqDart; player.cs Player::onDamage; ArmorData.cs"
+    },
+    "TranqGun": {
+      "summary": "Dart Rifle: like a sniper rifle, it deals little initial damage but poisons the target.",
+      "notes": [
+        "Fires TranqDart, an energy-damage bullet. An enemy hit by energy damage is poisoned: for roughly the next 40 seconds they take extra damage every five seconds, and using a repair kit cures it. Arbitors are immune.",
+        "Using it prints 'Using Dart Rifle'. Carried only by Assassin and Chemeleon."
+      ],
+      "source": "item.cs ItemData TranqGun; baseProjData.cs TranqDart; player.cs Renegades_startBlind/checkPlayerBlind; itemmsgs.cs; ArmorData.cs"
+    },
+    "SilencerAmmo": {
+      "summary": "Ammunition for the Magnum.",
+      "notes": [
+        "Carried only by Mercenary and Chemeleon (25); sold in 25-round lots.",
+        "Not part of the AmmoBoom explosion list."
+      ],
+      "source": "item.cs ItemData SilencerAmmo, $SellAmmo; ArmorData.cs"
+    },
+    "Silencer": {
+      "summary": "The Magnum: a lighter, faster-firing cousin of the Railgun firing fast bullets.",
+      "notes": [
+        "Fires SilencerBullet (standard bullet damage type, very tight aim). Using it prints 'Using Magnum'.",
+        "Carried only by Mercenary and Chemeleon."
+      ],
+      "source": "item.cs ItemData Silencer, SilencerImage; baseProjData.cs SilencerBullet; itemmsgs.cs; ArmorData.cs"
+    },
+    "ConCun": {
+      "summary": "Shockwave Cannon: a concussion weapon that does little damage but blasts players away.",
+      "notes": [
+        "Fires a slow Shock projectile with a very large blast radius and strong knockback, listed under the missile damage type.",
+        "Each shot costs a large chunk of energy rather than ammo.",
+        "Carried only by Arbitor and DreadNaught. Using it prints 'Using Shockwave Cannon'."
+      ],
+      "source": "item.cs ItemData ConCun, ConCunImage; baseProjData.cs Shock; itemmsgs.cs; ArmorData.cs"
+    },
+    "RailAmmo": {
+      "summary": "Ammunition for the Railgun.",
+      "notes": [
+        "Every armor can carry 10; sold in 25-round lots in the code but ammo packs hold 5.",
+        "Not part of the AmmoBoom explosion list."
+      ],
+      "source": "item.cs ItemData RailAmmo, $SellAmmo, $AmmoPackMax; ArmorData.cs"
+    },
+    "Railgun": {
+      "summary": "A high-speed, high-damage single-shot projectile weapon with very little ammo; carried only by Assassin and Engineer.",
+      "notes": [
+        "Fires RailRound at very high velocity with a long visible trail; one shot is enough to kill a light or medium armor according to the in-game help text.",
+        "Long fire delay between shots. Using it prints 'Using Railgun'."
+      ],
+      "source": "item.cs ItemData Railgun, RailgunImage; baseProjData.cs RailRound; admin.cs help text; ArmorData.cs"
+    },
+    "VulcanAmmo": {
+      "summary": "Ammunition for the Vulcan.",
+      "notes": [
+        "Carried by DreadNaught (400), Heavy (400) and Mercenary (300); sold in 100-round lots.",
+        "Can detonate on the carrier's death (AmmoBoom, small chance per round)."
+      ],
+      "source": "item.cs ItemData VulcanAmmo, $SellAmmo; itemfuncs.cs itemFuncs::AmmoBoom; ArmorData.cs"
+    },
+    "Vulcan": {
+      "summary": "A spinning rotary cannon, the big brother of the Equalizer, firing very many low-damage rounds a second.",
+      "notes": [
+        "Spin-up weapon with bullet-type damage; ItemMsgs prints 'Using Vulcan'.",
+        "Carried by Mercenary, DreadNaught and Heavy; the DreadNaught random spawn uses it."
+      ],
+      "source": "item.cs ItemData Vulcan, VulcanImage; baseProjData.cs VulcanBullet; itemmsgs.cs; spawn.cs"
+    },
+    "MfglAmmo": {
+      "summary": "Nuclear warhead ammunition for the Tactical Nuke.",
+      "notes": [
+        "Carried by DreadNaught (1), Heavy (4) and Juggernaught (4); not sold at remote inventory stations. Sells in single rounds.",
+        "Team limit: each launch counts against $Shifter::NukeLimit (15) per team; once reached, buying the Tactical Nuke gives no warheads ('Could Not Purchace Ammo. Limit Exceeded').",
+        "Carried warheads can detonate as FgcShell nukes when the carrier is killed by someone else (large chance per warhead)."
+      ],
+      "source": "item.cs ItemData MfglAmmo, buyItem, $TeamItemMax; itemfuncs.cs itemFuncs::AmmoBoom; station_list.cs; serverConfig.cs"
+    },
+    "Mfgl": {
+      "summary": "Tactical Nuke: a heavy launcher that fires a slow shell which detonates in a massive nuclear explosion; it needs a Containment Pack unless worn by a Juggernaught.",
+      "notes": [
+        "Firing requires a Containment Pack (FgcPack) on the back or Juggernaught armor; without it, the launcher blows up in the user's face (radius 3, 15 damage, nuke type) and tells them 'Firing A Tactical Nuke With Out A Containment Pack Can Be Dangerous'. Using it prints the same requirement if not met.",
+        "Fires FgcShell. The shell is launched with a strong kickback; once it is at rest, 3 seconds later NuclearExplosion deals 1.5 nuke damage to everything in a 15x15x25 box and spawns the nuclear blast and cloud effect projectiles.",
+        "Buying it auto-buys a Containment Pack; selling the pack auto-sells the nuke. The Juggernaught's buying a PlasmaCannon, LasCannon or Hammer pack removes the nuke.",
+        "Team limit of 1 Mfgl; carried only by Heavy, DreadNaught and Juggernaught (only the DreadNaught can carry the Containment Pack, so a Heavy cannot fire it safely); not sold at remote stations. The admin help text says kills made with it do not earn credit.",
+        "Remove the pack and the nuke is unmounted (FgcPack::onUnmount)."
+      ],
+      "source": "item.cs MfglImage::onFire, Mfgl::onUse, buyItem; baseProjData.cs FgcShell, NuclearExplosion; admin.cs help text; station_list.cs"
+    },
+    "Flamer": {
+      "summary": "Flame Thrower: a short-range plasma-bolt weapon for Goliaths (and Scouts), very strong at close range.",
+      "notes": [
+        "Fires FlamerBolt, a slow plasma-damage projectile with a short lifetime; enemies hit by plasma can catch fire (not Goliaths).",
+        "Uses energy, not ammo. The in-game help text calls it great at close range but poor against turrets and stations (not verified in code).",
+        "Carried by Goliath, Scout and Stim. Using it prints 'Using Flame Thrower'."
+      ],
+      "source": "item.cs ItemData Flamer, FlamerImage; baseProjData.cs FlamerBolt; player.cs burn check; itemmsgs.cs; admin.cs"
+    },
+    "IonGun": {
+      "summary": "Ion Rifle: an Arbitor-only energy weapon that fires fast ion bolts.",
+      "notes": [
+        "Fires IonBolt (electricity damage, small blast radius) and consumes a large amount of energy per shot; the electricity type bypasses Shield Packs.",
+        "Using it prints 'Using Ion Rifle'. The Ion Turret pack fires the same bolt."
+      ],
+      "source": "item.cs ItemData IonGun, IonGunImage; baseProjData.cs IonBolt; itemmsgs.cs; admin.cs help text"
+    },
+    "Volter": {
+      "summary": "Volter: an ion-charged burst weapon for Arbitors and Heavies that discharges at very short range.",
+      "notes": [
+        "Fires a very short-lived FlameBurst grenade projectile (electricity damage, 5 m blast radius, liveTime 0.02), so it only hurts targets at point-blank range.",
+        "Energy-based. Carried only by Arbitor and Heavy. Using it prints 'Using Volter'."
+      ],
+      "source": "item.cs ItemData Volter, VolterImage; baseProjData.cs FlameBurst; itemmsgs.cs; ArmorData.cs"
+    },
+    "TargetingLaser": {
+      "summary": "The targeting laser for painting targets (for mortars and turrets), carried by nearly every armor.",
+      "notes": [
+        "The only script difference from stock is the 'Using Targeting Laser' bottom print on equip; the laser itself is the stock targetLaser (no damage).",
+        "Every armor including the Juggernaught can carry it; it is part of every spawn loadout."
+      ],
+      "source": "item.cs ItemData TargetingLaser; itemmsgs.cs TargetingLaser::onUse; baseProjData.cs targetLaser; ArmorData.cs; spawn.cs"
+    },
+    "Fixit": {
+      "summary": "Engineer Repair-Gun: a free built-in repair beam that does not need a Repair Pack.",
+      "notes": [
+        "Fires RepairBolt: aimed at a teammate or object it repairs at 0.1, aimed at itself it auto-repairs at 0.05. It scores repair points on completion and loses points for repairing enemy objects; if you were the last to damage the object you get nothing.",
+        "The Engineer gun has three switchable forms (repair, hack, disassembler) chosen from Engineer Options; switching swaps Fixit for Hackit or DisIt.",
+        "Engineer only. Using it prints 'Using Engineer Repair-Gun'."
+      ],
+      "source": "item.cs ItemData Fixit; baseProjData.cs RepairBolt::onAcquire/onRelease/checkDone; bindings.cs remoteweapon_eng_*; itemmsgs.cs; ArmorData.cs"
+    },
+    "GravGun": {
+      "summary": "Grav Gun: a beam that pulls enemies toward you or pushes them away, depending on the selected setting.",
+      "notes": [
+        "Tractor setting applies an impulse toward the shooter; repulse applies the opposite impulse; both do a little electricity damage.",
+        "Setting chosen from GravGun Options (shown only to Arbitor and Engineer).",
+        "Carried by Arbitor and Engineer. Using it prints 'Using Grav Gun'."
+      ],
+      "source": "item.cs ItemData GravGun; baseProjData.cs gravCharge, gravCharge::damageTarget; bindings.cs remoteweapon_gravgun_*; admin.cs; damage.cs"
+    },
+    "Penis": {
+      "summary": "The joke weapon of the Penis Curse, a punishment armor for players an admin has cursed.",
+      "notes": [
+        "It is only obtained through the super-admin Penis Curse (parmor armor), or when a cursed player kills themselves and the curse is re-applied after 10-40 seconds.",
+        "The cursed player cannot drop it ('The curse of the penis can not be removed so easily'), cannot buy items and cannot use stations.",
+        "Its projectile is named Pee, which is not defined in the scripts, and the only fire handler is Penis::onFire, not an image handler. Behavior not determined from scripts."
+      ],
+      "source": "item.cs ItemData Penis; player.cs penisCurse; admin.cs peniscurse; remote.cs remoteKill; ArmorData.cs parmor"
+    },
+    "DeployableInvPack": {
+      "summary": "Deployable Inventory Station: a backpack that places a small remote inventory station, letting a player buy gear far from base.",
+      "notes": [
+        "Unlike stock, deployment goes through the generic deployable() function with a flat-surface, clearance, frequency (max 3 of the same type in a 10 m box and nothing within 2.5 m) and no-inside check, and it may be placed on deployed platforms and blast floors as well as terrain and buildings. Team limit 5.",
+        "The remote station has its own energy pool (7500) that is spent by purchases; it sells from the remote list (no Tactical Nuke, and no Inventory or Ammo station packs), and respects $Shifter::ItemLimit.",
+        "A Chemeleon can use enemy stations.",
+        "Carried by Arbitor, Goliath, DreadNaught, Engineer, Heavy and Mercenary."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape; itemfuncs.cs deployable; station_dep.cs; station_func.cs; station_list.cs"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deployable Ammo Station: a backpack that places a small remote ammo/resupply station.",
+      "notes": [
+        "Unlike stock, deployment goes through deployable() with the same checks as the Inventory Station (flat surface, clearance, frequency, may be placed on deployed platforms). Team limit 7.",
+        "The station keeps an energy pool of 2500 that resupplies draw on.",
+        "Carried by Arbitor, Goliath, DreadNaught, Engineer, Heavy and Mercenary."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape; itemfuncs.cs deployable; station_amo.cs; station_dep.cs"
+    },
+    "DeployableComPack": {
+      "summary": "Command Station pack: a deployable command station that gives remote command access without going back to base.",
+      "notes": [
+        "Deployed through deployable() like the other station packs; team limit 5. The deployed station keeps an energy pool (3000).",
+        "Standing in it gives 'Command Access On', switching the player into the command view so they can control turrets and other remote items; it turns off when they leave.",
+        "Carried by DreadNaught, Engineer and Heavy only."
+      ],
+      "source": "item.cs DeployableComPack; station_com.cs DeployableComStation; itemfuncs.cs deployable; ArmorData.cs"
+    },
+    "ShieldPack": {
+      "summary": "Shield Pack: converts the wearer's energy into a damage shield.",
+      "notes": [
+        "Unlike stock, activating the pack sets a stronger shield (shieldStrength 0.022 instead of 0.012) and a shieldon flag.",
+        "The shield absorbs damage by draining energy; it absorbs less per energy against shrapnel and mortar damage, does not absorb electricity, and does not absorb Hyper Blaster damage at all.",
+        "Carried by every buyable armor except Juggernaught."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate/onDeactivate; player.cs Player::onDamage; ArmorData.cs"
+    },
+    "CloakingDevice": {
+      "summary": "Cloaking Device: a backpack that makes the wearer invisible, with an area-cloaking side effect for Arbitors.",
+      "notes": [
+        "For armors other than the Arbitor, activating fades the wearer out and raises sensor suppression by 5; deactivating reverses it.",
+        "For an Arbitor the pack instead spawns a CloakBlast 3.5 m above (radius 25, cloak damage type) that fades everything in range out for a while, and then turns itself off.",
+        "Carried only by Arbitor and Chemeleon."
+      ],
+      "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate; blasts.cs CloakBlast; player.cs Player::onDamage; ArmorData.cs"
+    },
+    "StealthShieldPack": {
+      "summary": "StealthShield Pack: a light shield that also hides the wearer from sensors, turrets and missile locks.",
+      "notes": [
+        "Activating gives a weaker shield than the Shield Pack (0.012) and adds 20 points of sensor suppression; deactivating removes both.",
+        "The admin help text says it hides the user from turrets and locking missiles.",
+        "Carried by every buyable armor except Juggernaught."
+      ],
+      "source": "item.cs StealthShieldPackImage::onActivate/onDeactivate; admin.cs help text; ArmorData.cs"
+    },
+    "RegenerationPack": {
+      "summary": "Regeneration Pack: a backpack that, on a second use, swaps the player's weapon for a Regeneration Gun that drains enemy targets to heal the wearer and powers up friendly equipment.",
+      "notes": [
+        "First use mounts the pack; using it again mounts the Regen tool in the weapon slot (unmounting or dropping the pack removes it).",
+        "On an enemy-team player or object the beam deals flash damage (one twentieth of the target's max damage per check) and repairs the user by a fraction of that; it refuses to work on hackable objects ('RegenPack does not work on this').",
+        "On a friendly target it first builds up for $Shifter::HackTime (5) seconds, then: shields a teammate or flier (shieldStrength 0.025 for 240 s), switches on an unpowered inventory, ammo or command station for $Shifter::HackedTime seconds, upgrades the shielding of a friendly turret or pulse sensor, or adds 1000 energy to a deployable inventory/ammo station (up to a cap).",
+        "The overload warnings meant for repeatedly charging a deployable station sit after a return in the code and cannot run.",
+        "Carried only by Arbitor and Heavy. The in-game help text says it lets you heal yourself, which is only partly what the code does."
+      ],
+      "source": "item.cs RegenerationPack::onUse/onUnmount/onDrop, ItemData Regen; baseProjData.cs DrainBolt::onAcquire/checkDone/onRelease; admin.cs help text"
+    },
+    "LightningPack": {
+      "summary": "Teleport Pack: an Arbitor-only backpack that teleports the wearer to a personal telepoint set by a thrown Telebeacon.",
+      "notes": [
+        "Activating with no telepoint throws a Telebeacon mine; once it comes to rest it sets the player's telepoint. Activating again with a telepoint teleports the player there.",
+        "The code refuses if the telepoint is more than 300 m away (the message says 350 m). If a flag is carried there is a 50% chance it is dropped ('Teleport malfunction').",
+        "If the Telebeacon has been destroyed or disabled the telepoint is cleared and the player is told to set a new one. The 'Clear Telepoint' entry in Weapon Options lets an Arbitor reset it with an EMP blast at the old point.",
+        "The pack switches itself off after each use; the team limit on Telebeacons is 10."
+      ],
+      "source": "item.cs LightningPackImage::onActivate/onDeactivate; itemfuncs.cs telebeacon; Mine.cs Telebeacon; admin.cs cleartelepoint; ArmorData.cs"
+    },
+    "FlightPack": {
+      "summary": "Flight Pack: an energy-boosting backpack for the light armors that keeps their jets running longer and recharges faster.",
+      "notes": [
+        "Its pack image has negative energy use, like the Energy Pack, so it adds energy instead of draining it; mounting it switches it on automatically. The admin help text says it gives lighter armors a much greater energy supply and quicker regeneration.",
+        "Unmounting it unmounts a Laser Rifle in the weapon slot, so it can stand in for the Energy Pack that rifle needs.",
+        "Carried by Scout, Stim and Chemeleon only."
+      ],
+      "source": "item.cs FlightPackImage, FlightPack::onUse/onMount/onUnmount; admin.cs help text; ArmorData.cs"
+    },
+    "AutoRocketAmmo": {
+      "summary": "Ammunition for the Rocket Launcher Packs (SMR packs).",
+      "notes": [
+        "Carried by DreadNaught (20), Juggernaught (20) and Engineer (10, though neither SMR pack is on the Engineer's list).",
+        "Can detonate as stinger missiles when the carrier is killed hard enough (AmmoBoom)."
+      ],
+      "source": "item.cs ItemData AutoRocketAmmo, $WeaponAmmo[SMRPack]; itemfuncs.cs itemFuncs::AmmoBoom; ArmorData.cs"
+    },
+    "SMRPack": {
+      "summary": "Rocket Launcher Pack: a shoulder-mounted auto-rocket launcher for the DreadNaught that fires one rocket each time it is activated.",
+      "notes": [
+        "Activating it spends one Auto Rocket and fires a stinger: if the crosshair is on a player or flier within 950 m it fires a seeking StingerMissileTracker, shows 'Lock Aquired' and warns the target; otherwise it fires a plain stinger.",
+        "Its Chemeleon check is written '!= spyarmor || != spyfemale', which is always true, so Chemeleons can be locked.",
+        "With no ammo: 'You have no Ammo for the Auto Rocket Launcher'. Carried only by the DreadNaught."
+      ],
+      "source": "item.cs SMRPackImage::onActivate, Tracker; ArmorData.cs"
+    },
+    "SMRPack2": {
+      "summary": "Rocket Launcher Pack variant given to the Juggernaught, with the same auto-rocket behavior as the DreadNaught's pack.",
+      "notes": [
+        "Buying the Juggernaught armor gives this pack and mounts it. SMRPack2Image::onActivate runs the same lock-and-fire code as SMRPackImage (950 m lock on players and fliers, otherwise a plain stinger) and uses the same Auto Rocket ammo.",
+        "For a Juggernaught, buying this pack removes the Hammer packs and Hammer ammo, and buying a Hammer1Pack removes this pack: the heavy-weapon choices are mutually exclusive.",
+        "Same always-true Chemeleon check as SMRPack. Juggernaught only."
+      ],
+      "source": "item.cs SMRPack2Image::onActivate/onDeactivate, buyItem; ArmorData.cs"
+    },
+    "BarragePack": {
+      "summary": "Anti-Aircraft Turret pack: a deployable missile turret that only fires at targets sitting in a vehicle.",
+      "notes": [
+        "Deployed with deployable(): within 4 m, flat surface, clearance, frequency and no-inside checks, a flag-defense score bonus within 100 m of the flag, and a team limit of 3.",
+        "The BarrageTurret fires BarrageBolt, a fast seeking missile (missile damage type), range 325 m. Its verifyTarget returns true only for targets that have a mount object (vehicle riders and fliers) and raises the turret's shield strength while it has such a target.",
+        "Carried by DreadNaught, Engineer and Mercenary."
+      ],
+      "source": "item.cs BarragePack::deployShape; turret.cs BarrageTurret; baseProjData.cs BarrageBolt"
+    },
+    "BlastFloorPack": {
+      "summary": "Blast Floor pack: an Engineer-only deployable armored floor panel.",
+      "notes": [
+        "Deployed with deployable() (up to 7 m, on any surface, rotated to the player's facing, team limit 6) as a BlastFloor static shape with very high hit points (maxDamage 12).",
+        "Other deployables treat a BlastFloor as a valid surface, so engineers can build on it."
+      ],
+      "source": "item.cs BlastFloorPack::deployShape; StaticShape.cs BlastFloor; itemfuncs.cs deployable, checkDeployArea; ArmorData.cs"
+    },
+    "Laptop": {
+      "summary": "Command Laptop: a backpack that gives command access and hacking from the field.",
+      "notes": [
+        "Turning it on sets the client's Laptop flag; Client::takeControl then lets the wearer take control of turrets and other remote items without standing in a Command Station, and Chemeleon and Engineer wearers can use it (with hack mode on) to re-program enemy turrets (turret.cs).",
+        "While on it checks every 3 seconds for enemy deployable sensor jammers within 200 m and prints the distance.",
+        "Carried by Engineer, Scout, Stim and Chemeleon."
+      ],
+      "source": "item.cs LaptopImage::onActivate/onDeactivate, LapTopImage::check; player.cs Client::takeControl; turret.cs; ArmorData.cs"
+    },
+    "SuicidePack": {
+      "summary": "Suicide DetPack: a Goliath backpack that is a drop-and-run bomb which blows up 20 seconds after it is dropped.",
+      "notes": [
+        "Using it twice throws a Suicidebomb2 ('Det Pack will destruct in 20 seconds'), which explodes with a huge radius (100) and a nuclear blast effect. Team limit is $Shifter::DetPackLimit (15).",
+        "An Engineer who touches the armed bomb has a 50% chance to blow it up ('You cut the wrong wire') and otherwise disarms it.",
+        "If a Goliath carrying it kills themselves with the kill command, the pack goes off half a second later; an enemy laser, sniper or bullet hit to the torso sets it off on the wearer ('sniped the huge bomb')."
+      ],
+      "source": "item.cs SuicidePack::deployShape; bombs.cs Suicidebomb2/Suicidebomb; remote.cs remoteKill; player.cs Player::onDamage; ArmorData.cs"
+    },
+    "FgcPack": {
+      "summary": "Containment Pack: the backpack the Tactical Nuke needs in order to fire safely; DreadNaught only.",
+      "notes": [
+        "Its image has negative energy use like the Energy Pack, and mounting switches it on.",
+        "Unmounting it unmounts a mounted Tactical Nuke; buying a Tactical Nuke auto-buys this pack, and selling the pack auto-sells the nuke.",
+        "Juggernaughts do not need it (the nuke checks for the pack or Juggernaught armor)."
+      ],
+      "source": "item.cs FgcPack::onUse/onMount/onUnmount, MfglImage::onFire, buyItem; admin.cs help text; ArmorData.cs"
+    },
+    "MotionSensorPack": {
+      "summary": "Motion Sensor pack: a deployable sensor that lets your turrets see cloaked or sensor-suppressed targets.",
+      "notes": [
+        "Unlike stock, it is deployed with deployable() (within 5 m, surface check, team limit 10), so it may also be placed on deployed platforms and blast floors, not only terrain and buildings.",
+        "Carried by every buyable armor except Juggernaught."
+      ],
+      "source": "item.cs MotionSensorPack::deployShape; itemfuncs.cs deployable; ArmorData.cs"
+    },
+    "AmmoPack": {
+      "summary": "Ammo Pack: a backpack that lets the wearer carry extra ammunition, with an expanded list of ammo types for Shifter's weapons.",
+      "notes": [
+        "Unlike stock (7 ammo types), fillAmmoPack tops up 13 types (bullets, plasma, discs, grenade ammo, grenades, mines, mortar shells, beacons, boom shells, rockets, rail rounds, Vulcan rounds and dart ammo), but only for items the current armor can carry; with the pack mounted each type's $AmmoPackMax is added on top of the armor limit.",
+        "Dropping the pack hands whatever you hold above your normal limit to the pack, and picking it up gives it back; the drop and pickup code only handles the first 12 ammo types in the list.",
+        "Selling the pack re-runs checkMax so the extra ammo is sold off.",
+        "Carried by every buyable armor except Juggernaught."
+      ],
+      "source": "item.cs $AmmoPackItems/$AmmoPackMax, fillAmmoPack, AmmoPack::onDrop/onCollision, checkPacksAmmo, checkResources"
+    },
+    "PulseSensorPack": {
+      "summary": "Pulse Sensor pack: a deployable pulse sensor, a smaller version of the pulse sensors found in bases.",
+      "notes": [
+        "Unlike stock, it deploys through Shifter's Item::deployShape as 'Remote Pulse Sensor', which also accepts deployed platforms as a surface; team limit 10.",
+        "Carried by every buyable armor except Juggernaught."
+      ],
+      "source": "item.cs PulseSensorPack::onDeploy; itemfuncs.cs Item::deployShape; admin.cs help text; ArmorData.cs"
+    },
+    "DeployableSensorJammerPack": {
+      "summary": "Sensor Jammer pack: a deployable jammer that hides you and your teammates from enemy sensors.",
+      "notes": [
+        "Unlike stock, it deploys through deployable() (within 5 m, surface check, team limit 10) and can be placed on deployed platforms.",
+        "The Command Laptop detects enemy sensor jammers within 200 m.",
+        "Carried only by Engineer, Mercenary and Chemeleon."
+      ],
+      "source": "item.cs DeployableSensorJammerPack::deployShape; itemfuncs.cs deployable; item.cs LapTopImage::check; ArmorData.cs"
+    }
+  }
+}

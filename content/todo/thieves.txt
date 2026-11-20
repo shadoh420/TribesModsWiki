@@ -1,0 +1,68 @@
+# thieves vs shifter (67 items)
+new        InfiltratorArmor             Infiltrator
+renamed+statsLightArmor                   Sniper
+new        SoldierArmor                 Psycho
+stats      MediumArmor                  Mercenary
+new        AvengerArmor                 Kamikaze
+new        PredatorArmor                Murderer
+new        HeavyArmor                   Engineer
+new        DreadnaughtArmor             Tank
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Turret
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch
+stats+scriptsBlaster                      Blaster
+new        HyperBlaster                 Hyper Blaster
+stats+scriptsPlasmaGun                    Plasma Gun
+new        Incinerator                  Incinerator
+renamed+stats+scriptsChaingun                     Chaingun
+new        ATCAmmo                      ATC Round
+new        ATC                          AutoCannon
+new        BlastCannonAmmo              BC Round
+new        BlastCannon                  Blast Cannon
+new        HeavyATCAmmo                 Heavy ATC Round
+new        HeavyATC                     Heavy AutoCannon
+new        HeavyBlastCannonAmmo         HBC Round
+new        HeavyBlastCannon             Heavy Blast Cannon
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        DisruptorShellAmmo           Disruptor Shell
+new        Disruptor                    Disruptor Cannon
+stats+scriptsLaserRifle                   Laser Rifle
+stats+scriptsRailgun                      Railgun
+new        NaniteBurstAmmo              Nanite Burst
+new        NaniteBurstRifle             Nanite Burst Rifle
+stats+scriptsMortar                       Mortar
+new        MinionAmmo                   Minion Missile
+new        Minion                       Minion
+stats+scriptsEnergyRifle                  ELF Gun
+renamed+stats+scriptsGravGun                      GravGun
+new        AntiGravGun                  AntiGravGun
+new        DimensionalRifter            Dimensional Rifter
+stats+scriptsTargetingLaser               Targeting Laser
+new        RocketTurretPack             Rocket Turret
+new        DShieldPack                  Shield Generator
+stats+scriptsTeleportPack                 Teleport Pad
+new        CloakPack                    Cloaking Pack
+new        IntercoolerPack              Intercooler Pack
+new        BlastDoorPack                Blast Door
+stats+scriptsForceFieldPack               Small Force Field
+stats+scriptsLargeForceFieldPack          Large Force Field
+stats+scriptsPlatformPack                 Deployable Platform
+new        BaseOpsPack                  R. B. O.
+new        PDSPack                      P. D. S.
+new        TNTPak                       TNT Pack
+new        PhaseLokPack                 PhaseLok

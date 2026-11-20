@@ -1,0 +1,62 @@
+{
+ "mod": {
+  "overview": "Advanced War is a high-firepower combat overhaul built on base Starsiege: Tribes by DKClan modder DKSlipKnot. The mod accelerates gameplay by substantially boosting movement speeds and jet thrust across all armor classes while multiplying player firepower through dual-wielded chainguns, twin-barrel disc launchers, and rapid-firing plasma guns. Tactical operations expand beyond standard base assault with Tribes 2 style heat-seeking missile launchers, devastating multi-bomb carpet airstrikes, and deployable sky fortresses summoned 150 meters in the air. Base installations receive heightened defenses to match this lethal arsenal, featuring rapid-fire vulcan chaingun turrets and sniper-accurate indoor laser turrets that punish reckless base intruders.",
+  "notes": [
+   "Armor Classes and Mobility: Light, Medium, and Heavy armors receive significant movement speed and jet thrust increases over base Tribes, with Light pushing forward speeds to 20 and jet forward velocity to 37. Carry limits remain standard at 3 weapons for Light, 4 for Medium, and 5 for Heavy. Light and Medium armors share medium-class meshes, while Heavy alone retains heavy siege capability with the Mortar.",
+   "Twin-Barrel Weaponry: Stock ballistic and energy weapons are heavily upgraded. The Chaingun automatically mounts a second weapon barrel that spins and fires simultaneously for double bullet output; the Disc Launcher mounts dual barrels that fire alternately; and the Plasma Gun mounts twin emitters for rapid alternating bursts. The Blaster is replaced by a semi-automatic 9mm Pistol firing physical bullets with high velocity instead of consuming suit energy.",
+   "Lock-On Missile Launcher: Available to Medium and Heavy armors, the Missile Launcher emulates Tribes 2 mechanics by scanning targets up to 500 meters away. If aimed at an enemy player or aircraft, it achieves a target lock and launches a seeking Phoenix missile; if lock fails or no target is acquired, it defaults to a dumbfire explosive rocket.",
+   "Airstrike Gun: All armor classes can equip the Air-Strike Gun, which uses Target Beacon ammunition to launch a targeting rocket up to 900 meters away. Upon beacon contact, a phased Gunship dropship sweeps overhead and executes a lethal carpet-bombing run of 25 heavy explosive shells, each inflicting 180 shrapnel damage across a 75-meter blast radius with massive shockwaves. Only one airstrike can be active on the server at any given time.",
+   "Air Base Pack: Medium armor players can purchase the Air Base Pack to construct a massive floating fortress 150 meters directly above terrain. The skybase features upper and lower floating pads protected by 50000-health forcefield walls, fully stocked with its own vehicle station, vehicle pad, inventory station, command console, medium pulse radar, and twin solar panels for power. It requires line-of-sight to SimTerrain and cannot be placed within 50 meters of the team flag.",
+   "Shock Grenades and Defense Turrets: Hand Grenades are overhauled into Shock Grenades that emit an initial 37.5-meter radius shockwave blast right before detonating. Base installations receive upgraded defenses where outdoor plasma turrets are converted into rapid-firing Vulcan Chaingun turrets, and indoor turrets fire hitscan sniper laser beams with minimal energy consumption.",
+   "Weapon Cycling and Interface: Weapon switching is managed through custom remote next and previous weapon functions that step sequentially through a ten-weapon roster from Pistol to Missile Launcher. If a player triggers weapon switching with an empty loadout, the server displays an on-screen prompt indicating no weapons are available.",
+   "Inventory Limits and Bans: The Air Base Pack is strictly limited to 1 per team ($TeamItemMax = 1) and cannot be purchased from remote inventory stations ($RemoteInvList = 0), forcing players to buy it at main base terminals. Ammo packs hold only 1 beacon to prevent airstrike spamming, and total team beacon capacity is capped at 20."
+  ]
+ },
+ "items": {
+  "AirBasePack": {
+   "summary": "A deployable backpack exclusive to Medium Armor that spawns a full floating sky fortress 150 meters in the air.",
+   "notes": [
+    "Can only be equipped by Medium Armor and is restricted to base inventory stations ($RemoteInvList = 0).",
+    "Must be deployed onto SimTerrain at least 50 meters away from the friendly team flag, with a strict limit of 1 per team.",
+    "Spawns floating floor and roof pads, four forcefield barriers with 50000 health, a vehicle pad, vehicle station, inventory station, command station, medium radar, and two solar panels."
+   ],
+   "source": "Airbase.cs"
+  },
+  "AODBeaconGun": {
+   "summary": "A specialized heavy ordnance weapon that calls down an overhead gunship carpet-bombing run.",
+   "notes": [
+    "Available to all armor classes and consumes Target Beacons as ammunition.",
+    "Fires a beacon rocket up to 900 meters to designate the bombing coordinates.",
+    "Summons a phased dropship that releases 25 heavy explosive bombs dealing 180 damage across 75-meter blast radii; restricted to one active strike server-wide."
+   ],
+   "source": "item.cs"
+  },
+  "RocketLauncher": {
+   "summary": "A Tribes 2 inspired missile launcher capable of locking onto players and flying vehicles.",
+   "notes": [
+    "Can be carried by Medium and Heavy armor loadouts.",
+    "Automatically scans line of sight up to 500 meters to lock onto enemy players or fliers and launch seeking Phoenix missiles.",
+    "Fails over to firing unguided dumbfire rockets if no target lock is established."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncher": {
+   "summary": "A dual-barrel overhaul of the iconic Spinfusor disc launcher.",
+   "notes": [
+    "Mounts two distinct disc firing nodes in slots 5 and 6 upon equipping.",
+    "Alternates firing between barrels with reduced reload times to significantly increase sustained projectile barrage.",
+    "Consumes 0.5 disc ammo per barrel cycle."
+   ],
+   "source": "item.cs"
+  },
+  "Blaster": {
+   "summary": "A 9mm semi-automatic sidearm that replaces the stock energy blaster.",
+   "notes": [
+    "Carried by all armor classes as standard secondary armament.",
+    "Consumes dedicated 9mm PistalAmmo bullets rather than relying on suit energy recharge.",
+    "Fires high-velocity ballistic rounds traveling at 2000 meters per second."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

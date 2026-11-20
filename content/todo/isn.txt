@@ -1,0 +1,28 @@
+# isn vs base-plus (27 items)
+scripts    Blaster                      Blaster
+stats+scriptsChaingun                     Chaingun
+stats+scriptsPlasmaGun                    Plasma Gun
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+stats+scriptsDiscLauncher                 Disc Launcher
+scripts    LaserRifle                   Laser Rifle
+scripts    TargetingLaser               Targeting Laser
+scripts    EnergyRifle                  ELF Gun
+new        FlamerGun                    Heavy Flamer
+new        LightFlamer                  Light Flamer
+new        Fusion                       Fusion Cannon
+new        GravGun                      Grav Gun
+new        ConCun                       Shock Launcher
+new        RocketLauncher               Rocket Launcher
+new        BoltRifle                    IX Bolt Rifle
+new        MultiPlasma                  Multi Plasma
+new        DisCannon                    LasCannon
+new        iarmorScout                  Scout Armour
+new        RepairTool                   Repair Gun
+new        Cloak                        Conceal
+new        Warppack                     Warp Pack
+new        ScoutPack                    Scout Pack
+new        FlightPack                   Flight Pack
+new        PlasmaTurretPack             Plasma Turret
+new        ForceFieldPack               Force Field
+new        LargeForceFieldPack          Large Force Field

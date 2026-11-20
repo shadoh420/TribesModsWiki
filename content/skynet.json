@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "SkyNet Tribes Pack v1.0 is an early-1999 base-plus mod by Mephisto that keeps standard Tribes armor speeds, vehicles, and mission objectives intact while expanding each armor class with distinct weapons, fortifications, and trick throwables. Instead of letting every suit carry every new gun, SkyNet carves out clear roles: Light Armor gains a physical-ammo Sniper Rifle, Medium Armor unlocks the Nuke-firing Stinger, Railgun, and Gauss Gun, and Heavy Armor adds the zero-damage Shockwave Cannon for massive area knockback. Combat and base defense feel noticeably trickier and more fortified than base Tribes because players can launch themselves across terrain with Speed Booster beacons, plant exploding decoy Flag Bombs in place of hand grenades, and seal bases with Small Force Fields, Laser Turrets, Plasma Turrets, and heat-seeking Rocket Turrets. All new gear is available right from standard Inventory and Remote Stations, and the mod runs on standard Tribes maps with no separate game modes or custom chat commands.",
+  "notes": [
+   "Core premise and spawns: Built on base Tribes with infinite default team energy, players spawn in Light Armor carrying a Blaster, Chaingun, Disc Launcher, and Repair Kit, with all custom weapons, ammo, and deployable packs sold at both main Inventory Stations and Remote Inventory Stations.",
+   "Armor class specialization: Light Armor (0.66 health, speed 11, 3 weapons) gets the Laser Rifle and new Sniper Rifle; Medium Armor (1.0 health, speed 8, 4 weapons) gets exclusive access to the Stinger rocket launcher, Railgun, and Gauss Gun; Heavy Armor (1.32 health, speed 6, 5 weapons) keeps the Mortar and gets exclusive access to the Shockwave Cannon and Plasma Turret.",
+   "New Medium and Heavy weapons: Mediums can pair the high-knockback Nuke-firing Stinger (5 rockets) with the rapid-firing Railgun (0.1s reload, 50 bolts) or energy-based Gauss Gun (15 energy per shot, 0.3s fire interval), while Heavies can pair an Energy Pack with the Shockwave Cannon to blast enemies back across a 40m radius with zero damage.",
+   "New Light sniper option: Light Armor gains the Sniper Rifle (825 m/s visible tracer rounds, 0.53 Laser damage with +30% headshot bonus, 25-round SniperAmmo cap), giving scouts a hitscan-like high-velocity rifle without needing an Energy Pack.",
+   "Repurposed throwables: Pressing the Beacon key throws a Speed Booster (zero-damage 200-kickback blast in an 8m radius to launch yourself or teammates), while pressing the Grenade key tosses a decoy Flag Bomb (a glowing flag hologram that explodes for 0.75 damage in a 5m radius when touched or shot).",
+   "Expanded base fortifications: Teams can deploy Small Force Fields (limit 10, 4.50 health) to block doorways alongside three new remote turrets—ceiling/wall-mountable Laser Turrets (limit 5, 125m range), Heavy-only Plasma Turrets (limit 3, 100m range), and heat-seeking Rocket Turrets (limit 3, 125m range, Medium/Heavy)—within a raised 50m turret-box height limit.",
+   "Vehicles and controls: Scout, LAPC, and HAPC vehicles keep base stats and team limits (3 Scout, 2 LAPC, 1 HAPC) with no custom chat commands or extra HUD menus beyond standard Tribes inventory, command, and objective screens."
+  ]
+ },
+ "items": {
+  "SniperRifle": {
+   "summary": "Physical-ammo long-range sniper rifle exclusive to Light Armor.",
+   "notes": [
+    "Light Armor only (375 energy, uses SniperAmmo up to 25 rounds at 5 energy each).",
+    "Fires visible 825 m/s SniperBullet rounds dealing 0.53 Laser damage with a 30% headshot bonus and a 1.5s reload.",
+    "Does not require an Energy Pack, freeing the backpack slot for an Ammo Pack, Shield Pack, or Speed Boosters."
+   ],
+   "source": "item.cs:1395-1438; baseProjData.cs:42-62; ArmorData.cs:35,46"
+  },
+  "RocketLauncher": {
+   "summary": "Stinger rocket launcher exclusive to Medium Armor that fires wide-blast Nuke warheads.",
+   "notes": [
+    "Medium Armor only (375 energy, uses RocketAmmo up to 5 rounds at 50 energy each).",
+    "Fires Nuke rockets with a 30.5m blast radius, 0.5 Missile damage, and 550 kickback strength at a 2.0s fire interval.",
+    "Sold at both main Inventory Stations and Remote Inventory Stations."
+   ],
+   "source": "item.cs:1346-1390; baseProjData.cs:378-406; ArmorData.cs:105,116,317,329"
+  },
+  "ConCun": {
+   "summary": "Shockwave Cannon exclusive to Heavy Armor for massive zero-damage area knockback.",
+   "notes": [
+    "Heavy Armor only (250 energy, 0.5s fireTime, drains 15-16 energy per shot).",
+    "Requires an Energy Pack mounted in the backpack slot to equip and fire.",
+    "Fires Shock projectiles dealing 0.0 damage across a 40m radius with 550 kickback to launch enemies away from flags or bases."
+   ],
+   "source": "item.cs:1445-1491; baseProjData.cs:409-437; ArmorData.cs:176"
+  },
+  "Beacon": {
+   "summary": "Replaces the standard target Beacon with a throwable Speed Booster blast.",
+   "notes": [
+    "Throws a Boost mine object that immediately detonates on impact with 0.0 damage and 200 kickback across an 8m radius.",
+    "Displays 'You use a Speed Booster.' and counts against the team's 40 Beacon limit."
+   ],
+   "source": "item.cs:3152-3182; Mine.cs:73-137"
+  },
+  "Grenade": {
+   "summary": "Replaces standard hand grenades with a decoy Flag Bomb trap.",
+   "notes": [
+    "Spawns a Hologram mine shaped like a pulsing white Flag instead of exploding on a timer.",
+    "Detonates on contact with a player, vehicle, or moveable object (or when damaged) for 0.75 Mine damage in a 5m radius.",
+    "Light Female carries up to 5 and Medium Female carries up to 6, compared to 1-3 for male armors."
+   ],
+   "source": "item.cs:3125-3147; Mine.cs:143-213; ArmorData.cs:32,103,172,243,315"
+  },
+  "ForceFieldPack": {
+   "summary": "Deployable Small Force Field barrier for blocking base chokepoints.",
+   "notes": [
+    "Available to all armors (600 energy, team limit of 10).",
+    "Deploys a 3x4 translucent barrier (4.50 maxDamage) on flat terrain or interior surfaces to seal entrances and protect assets.",
+    "Deployable Rocket Turrets (RocketPack, Medium/Heavy, limit 3), Plasma Turrets (LaserTurret, Heavy, limit 3), and Laser Turrets (LaserPack, limit 5) round out the new fortifications."
+   ],
+   "source": "item.cs:2940-3028; staticshape.cs:642-657; ArmorData.cs:65,136,207"
+  }
+ }
+}

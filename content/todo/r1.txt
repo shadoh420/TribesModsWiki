@@ -1,0 +1,8 @@
+# r1 vs base (7 items)
+renamed+statsLightArmor                   Flying Armor
+renamed+statsMediumArmor                  Assult Armor
+renamed+statsBlaster                      Energy Cannon
+renamed+statsChaingun                     Plasma Chaingun
+renamed+statsPlasmaGun                    sniper Gun
+renamed+statsDiscLauncher                 Rocket launcher
+stats      EnergyRifle                  ELF Gun

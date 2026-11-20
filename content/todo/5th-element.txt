@@ -1,0 +1,115 @@
+# 5th-element vs base (114 items)
+new        ScoutArmor                   Neo-Scout
+new        SpArmor                      Neo-Spy
+renamed+statsLightArmor                   Neo-Sniper
+renamed+statsMediumArmor                  Neo-Mercenary
+new        BursterArmor                 Neo-Burster
+new        EngArmor                     Neo-Engineer
+new        AlArmor                      Neo-Alien
+new        CyboArmor                    Neo-Cyborg
+new        DragArmor                    Neo-Dragoon
+new        DeathArmor                   Death Angel
+new        WraithVehicle                Wraith
+new        JetVehicle                   Interceptor
+new        CorAirVehicle                Corsair
+new        SLAPCVehicle                 EMP Bomber LPC
+renamed+statsLAPCVehicle                  Bomber LPC
+renamed+statsHAPCVehicle                  Stealth HPC
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+new        HDiscAmmo                    Hyper Disc
+new        HDiscLauncher                Hyper Spinfuser
+stats+scriptsLaserRifle                   Laser Rifle
+new        HyperB                       Hyper Blaster
+new        RocketAmmo                   RocketAmmo
+new        RocketLauncher               Rocket Launcher
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+new        SilencerAmmo                 Magnum Bullets
+new        Silencer                     Magnum
+new        WaveGun                      Shockwave Cannon
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      Railgun
+new        VulcanAmmo                   Vulcan Bullet
+new        Vulcan                       Vulcan Cannon
+new        FlamerAmmo                   Flame Capsules
+new        Flamer                       Flame Thrower
+new        IonGun                       Ion Rifle
+new        Omega                        Omega Rifle
+new        PlasmaCannon                 Plasma Cannon
+stats      EnergyRifle                  ELF Gun
+stats      TargetingLaser               Targeting Laser
+new        Fixit                        Repair Gun
+new        TargetMarkLaser              Target Marking Laser
+new        LockingLaser                 Targeting Laser
+new        LongLockingLaser             Targeting Laser
+new        MediumLockingLaser           Targeting Laser
+new        ShortLockingLaser            Targeting Laser
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+new        CloakingDevice               Cloaking Device-Shield
+new        HeatSink                     Nitrogen Jetpack
+new        StealthShieldPack            StealthShield Pack
+new        VengeanceAmmo                Vengeance Ammo
+new        Vengeance                    Vengeance Missile Pack
+new        ImpulsePack                  Impulse Pack
+new        Laptop                       Command Laptop
+new        SuicidePack                  DetPack
+scripts    AmmoPack                     Ammo Pack
+new        TrackerMissileAmmo           Homing Missiles
+new        TrackerMissilePack           Homing Missile Cannon
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+new        DeployableLRMotionSensorPack LR Motion Sensor
+new        DeployableFieldSensorPack    Field Sensor
+scripts    CameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Ion Turret
+new        FlameTurretPack              Flame Turret
+new        LaserPack                    Laser Turret
+new        ShockPack                    Shock Turret
+new        TargetPack                   Mortar Turret
+new        LaserTurret                  Plasma Turret
+new        VulcanTurret                 Anti-Aircraft/Vulcan Turret
+new        RailTurret                   Rail Turret
+new        RocketPack                   Missile Turret
+new        ForceFieldPack               Force Field
+new        ForceFieldDoorPack           Force Field Door
+new        LargeForceFieldPack          Large Force Field
+new        LargeForceFieldDoorPack      Large Force Field Door
+new        TripwirePack                 Blast Wall
+new        HoloPack                     Hologram
+new        SpringPack                   Springboard
+new        PlatformPack                 Deployable Platform
+new        TeleportPack                 Teleport Pad
+new        MechPack                     Interceptor Pack
+new        ScoutPack                    Scout Pack
+new        HPCPack                      Stealth HPC Pack
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+new        Plastique                    Grenade Mode
+new        DetBug                       Det Bug
+stats+scriptsRepairPatch                  Repair Patch
+new        HM                           Holy Mortar
+new        WG                           Tornado
+new        AB                           Angel Blaster
+new        Quake                        Quake
+new        GodTear                      God Tear
+new        PLA                          Plague
+new        DFA                          DFA
+new        Fireball                     Wing Span
+new        ESP                          ESP
+new        Freeze                       Freeze
+new        Flamer2                      Angle Fire
+new        Heal                         Heal Spell
+new        Implode                      Implode Spell
+new        PhoenixPack                  War Angel Wings

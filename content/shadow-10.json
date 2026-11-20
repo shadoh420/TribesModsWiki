@@ -1,0 +1,64 @@
+{
+ "mod": {
+  "overview": "SHaDoW v1.0 by VoOdOo is a fast-paced Tribes 1.50 combat and loadout mod built directly on base Tribes rather than introducing custom game modes or chat commands. Players spawn in SoulArmor with a Blaster, Chaingun, DiscLauncher, and RepairKit, then customize into three rebalanced armor classes—SoulArmor, GhostArmor, and DemonArmor—with distinct weapon restrictions and damage resistances. Compared to base Tribes, fights feature sustained field pressure because every ammo-using weapon automatically regenerates shells while unmounted, alongside expanded tactical gear like the Shotgun, TimedGrenadeLauncher, EMPRocket, and three specialized types each of mines and grenades. Aerial movement and counter-play are heavily emphasized through the WingedPack for lighter flight, the HoverPack for mid-air freezes, the AntiELFPack to punish ELF users, and deployable ceiling-mountable Laser Turrets.",
+  "notes": [
+   "Classes and Armors: Three renamed classes replace Light, Medium, and Heavy: SoulArmor (3 weapons max, fastest at 11 m/s, 0.66 health, 60 energy, exclusive LaserRifle user), GhostArmor (4 weapons max, 1.0 health, 80 energy, 0.6x plasma resistance, exclusive Shotgun user, unlocks EMPRocket and all deployables), and DemonArmor (5 weapons max, 1.32 health, 110 energy, heavy resistances including 0.4x plasma, exclusive Mortar user, unlocks EMPRocket and all deployables).",
+   "Spawns and Auto-Refill Ammo: Everyone spawns in SoulArmor with a Blaster, Chaingun, DiscLauncher, and RepairKit. All ammo-fed weapons (Chaingun, PlasmaGun, Shotgun, GrenadeLauncher, TimedGrenadeLauncher, Mortar, and DiscLauncher) automatically regenerate ammunition back to your armor's cap while holstered, letting skirmishers stay in the field longer without visiting stations.",
+   "New Weapons and Combat Tweaks: GhostArmor gains the 30-pellet Shotgun, all armors can carry the short-fuse TimedGrenadeLauncher (1.2s fuse vs 30s on the standard GrenadeLauncher), and GhostArmor/DemonArmor gain the EMPRocket (costs 30-35 energy, triggers a 10-second EnergyOverload that zeroes enemy energy and recharge while throwing off EMPBurst sparks). LaserRifle headshots deal 30% bonus damage, and buying LaserRifle automatically purchases the required EnergyPack.",
+   "Specialized Grenades and Mines: Stations stock three grenade variants (standard Handgrenade, zero-damage high-impulse Concussiongrenade with 200 kickback, and multi-stage Flashgrenade that scatters secondary flash bursts) and three mine variants (OriginalMine, overload-inducing EMPMine, and StickyMine with negative elasticity). You can only carry one grenade type and one mine type at a time; buying another sells your existing stack.",
+   "Mobility and Counter-Play Packs: WingedPack trims one-quarter of your armor's mass via LessWeight and trickle-charges energy for extended flight; HoverPack zeroes your velocity and applies LessWeight2 to suspend you in mid-air until you jet or toggle it off; AntiELFPack halves ELF damage and converts enemy ELF drain into suit energy gain.",
+   "Deployables and Base Defense: GhostArmor and DemonArmor can deploy the LaserPack (team cap 4), placing a 125m-range DeployableLaser sniper turret up to 10m away on flat ground, walls, or ceilings. Standard DeployableTurret, sensors, camera, jammer, and field stations remain available, with DeployableInvPack and DeployableAmmoPack restricted to main InventoryStations.",
+   "Rules, Limits, and Vehicles: There are no custom chat commands or extra mission modes; standard Tribes CTF/C&H/DM mission rules apply with Infinite default team energy (or 700 energy replenished every 30s on finite maps). Team item caps allow 3 Scouts, 2 LPCs, 1 HPC, 10 TurretPacks, 4 LaserPacks, 5 DeployableInvPacks, 7 DeployableAmmoPacks, 8 DeployableSensorJammerPacks, 15 each of Motion/Pulse Sensors and Cameras, 35 mines, and 40 beacons."
+  ]
+ },
+ "items": {
+  "WingedPack": {
+   "summary": "Flight-enhancing backpack that reduces player mass and trickle-charges energy for sustained airborne maneuvering.",
+   "notes": [
+    "Auto-activates on mount and equips LessWeight in slot 4 to subtract one-quarter of the armor's mass.",
+    "Provides slight passive energy generation (minEnergy -1, maxEnergy -3) while active, usable by all three armors."
+   ],
+   "source": "item.cs:2117-2216"
+  },
+  "HoverPack": {
+   "summary": "Toggled mid-air suspension pack that halts momentum and lets you hover stationary in the sky.",
+   "notes": [
+    "Freezes player velocity to zero and mounts LessWeight2 (-2x armor mass) to hold position in mid-air.",
+    "Disables energy recharge (rate 0) while active and automatically shuts off as soon as you press jet."
+   ],
+   "source": "item.cs:2141-2277"
+  },
+  "AntiELFPack": {
+   "summary": "Counter-ELF backpack that protects against lightning streams and turns enemy ELF fire into free suit energy.",
+   "notes": [
+    "Halves damage taken from EnergyRifle and ELFTurret lightning streams.",
+    "Reverses energy drain into a +50% energy gain (up to 100 energy) instead of draining your suit."
+   ],
+   "source": "item.cs:2281-2321, baseProjData.cs:480-508"
+  },
+  "EMPRocket": {
+   "summary": "Energy-draining launcher for Ghost and Demon armors that shuts down enemy suits with a 10-second energy overload.",
+   "notes": [
+    "Uses 30 to 35 suit energy per shot and deals 0 direct health damage in a 6m blast radius.",
+    "Triggers EnergyOverload on hit, zeroing energy and blocking recharge for 10 seconds while emitting periodic EMPBurst flashes."
+   ],
+   "source": "item.cs:1730-1771, baseProjData.cs:268-305, player.cs:294-324"
+  },
+  "Shotgun": {
+   "summary": "GhostArmor-exclusive close-range scattergun firing a 30-pellet volley per ShotgunShell.",
+   "notes": [
+    "Restricted to GhostArmor ($ItemMax = 1; 0 on Soul and Demon armors).",
+    "Fires 30 high-velocity ShotgunBullet pellets per trigger pull and auto-refills 1 shell every 3 seconds when holstered."
+   ],
+   "source": "item.cs:1216-1322, baseProjData.cs:131-149, ArmorData.cs:29,97,165"
+  },
+  "LaserPack": {
+   "summary": "Deployable remote sniper turret that can be mounted on terrain, walls, or ceilings.",
+   "notes": [
+    "Deployable by Ghost and Demon armors up to a team cap of 4 (max 10m placement range).",
+    "Deploys a DeployableLaser turret (125m range, SniperLaser projectile) that can attach to floors, walls, or ceilings."
+   ],
+   "source": "item.cs:98,3053-3125, turret.cs:266-329"
+  }
+ }
+}

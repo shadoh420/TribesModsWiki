@@ -1,0 +1,108 @@
+shifter-v1y-2002: 107 of 191 need write-ups
+  Chaingun (Equalizer): stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats
+  EnergyRifle (ELF Gun): stats+scripts
+  HyperB (Hyper Blaster): stats
+  RocketAmmo (Rocket Ammo): renamed+stats
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SniperRifle (Sniper Rifle): stats
+  BoomStick (Boom Stick): stats
+  TranqGun (Dart Rifle): stats+scripts
+  Silencer (Magnum): stats
+  ConCun (Shockwave Cannon): stats
+  Railgun (Railgun): stats
+  Mfgl (Tactical Nuke): stats+scripts
+  Flamer (Flame Thrower): stats
+  IonGun (Ion Rifle): stats
+  Fixit (Engineer Repair-Gun): stats
+  GravGun (Grav Gun): stats+scripts
+  Penis (Penis): stats
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  EnergyPack (Energy Pack): stats
+  RepairPack (Repair Pack): stats
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): stats+scripts
+  CloakingDevice (Cloaking Device): stats+scripts
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  LightningPack (Teleport Pack): stats+scripts
+  FlightPack (Flight Pack): stats
+  SMRPack (Rocket Launcher Pack): stats+scripts
+  SMRPack2 (Rocket Launcher Pack): stats+scripts
+  BarragePack (Anti-Aircraft Turret): scripts
+  BlastFloorPack (Blast Floor): scripts
+  Laptop (Command Laptop): stats+scripts
+  SuicidePack (Suicide DetPack): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  CameraPack (Camera): stats+scripts
+  TurretPack (Ion Turret): scripts
+  LaserPack (Laser Turret): stats+scripts
+  DeployableElf (Deployable Elf Turret): scripts
+  ShockPack (EMP Turret): scripts
+  TargetPack (Mortar Turret): scripts
+  PlasmaTurretPack (Plasma Turret): scripts
+  RocketPack (Rocket Turret): scripts
+  ForceFieldPack (Small Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  BlastWallPack (Blast Wall): scripts
+  HoloPack (Hologram): scripts
+  TreePack (Mechanical Tree): scripts
+  PlantPack (Healing Plant): stats+scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): stats+scripts
+  airbase (AirBase): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Hackit (Engineer Hack-Gun): stats+scripts
+  DisIt (Engineer Disassymbler-Gun): stats
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  Plastique (Plastique): scripts
+  RepairPatch (Repair Patch): stats+scripts
+  EmplacementPack (Emplacement): scripts
+  LargeShockForceFieldPack (Large Shock Force Field): scripts
+  ArbitorBeaconPack (Arbitor Device): scripts
+  EMPBeaconPack (EMP Device): scripts
+  ShieldBeaconPack (Shield Device): scripts
+  PowerGeneratorPack (Power Device): scripts
+  LasCannon (Gattling Laser Cannon): renamed+stats+scripts
+  PlasmaCannon (Heavy Plasma Cannon): renamed+stats+scripts
+  Hammer1Pack (God Hammer Cannon): stats+scripts
+  Hammer2Pack (God Hammer Cannon 2): stats+scripts
+  ShockFloorPack (Shock Floor): scripts
+  NapalmModule (Valkyrie Module): renamed+stats
+  HellFireModule (HellFire Module): renamed+stats
+  BomberModule (Bomber Module): renamed+stats
+  PickUpModule (PickUp Module): renamed+stats
+  MineNetModule (MineNet Module): renamed+stats
+  StealthModule (Stealth Module): renamed+stats
+  WraithModule (Wraith Module): renamed+stats
+  InterceptorModule (Interceptor Module): renamed+stats
+  GodHammerModule (GodHammer Module): renamed+stats
+  JammerBeaconPack (Jammer Device): scripts
+  Booster1Pack (Booster): stats+scripts
+  Booster2Pack (Booster): stats+scripts
+  AutoGrenadeAmmo (20mm HE ammo): new
+  GrenPack (Underarm 20mm HE): new
+  TranqGun1 (EMP Rifle): new
+  TranqGun2 (Flare Rifle): new
+  TranqGun0 (Dart Rifle): new
+  EnergyBelt (Energy Belt): new
+  LJ (Lockjaw): new
+  MegaDiscAmmo (Mega-Disc): new
+  MegaDiscLauncher (Mega-Disc Launcher): new
+  Boomer (Boomer): new

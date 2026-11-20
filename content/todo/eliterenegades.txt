@@ -1,0 +1,25 @@
+eliterenegades: 34 of 105 need write-ups
+  ScoutVehicle (Scout): renamed+stats
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  CameraPack (Camera): scripts
+  TargetPack (Mortar Turret): scripts
+  LaserTurret (Plasma Turret): scripts
+  VulcanTurret (Vulcan Turret): scripts
+  RailTurret (Rail Turret): scripts
+  RocketPack (Missile Turret): stats+scripts
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  TripwirePack (Blast Wall): stats+scripts
+  HoloPack (Hologram): stats+scripts
+  TreePack (Mechanical Tree): stats+scripts
+  SpringPack (Springboard): scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): stats+scripts
+  DetPack (StealthHPC Pack): stats+scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

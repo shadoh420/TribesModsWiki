@@ -1,0 +1,23 @@
+shifter-renegades: 61 of 114 need write-ups
+  HeavyArmor (Defender): new
+  ScoutVehicle (Scout): renamed+stats
+  VehFixit (Vehicle Repair-Gun): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableComPack (Command Station): stats+scripts
+  EspPack (Espionage Pack): new
+  TurretPack (Ion Turret): stats+scripts
+  LaserTurret (Plasma Turret): stats+scripts
+  VulcanTurret (Vulcan Turret): stats+scripts
+  RailTurret (Rail Turret): stats+scripts
+  RocketPack (Missile Turret): stats+scripts
+  ForceFieldPack (Force Field): stats+scripts
+  LargeForceFieldPack (Large Force Field): stats+scripts
+  TripwirePack (Blast Wall): stats+scripts
+  DeathStarPack (DeathStar): new
+  PlatformPack (Deployable Platform): stats+scripts
+  TeleportPack (Teleport Pad): stats+scripts
+  ScoutPack (Scout Pack): new
+  WraithPack (Wraith Pack): new
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

@@ -1,0 +1,104 @@
+# deltaairforce vs delta-force (103 items)
+new        GrenadierArmor               Grenadier
+new        FighterVehicle               F-16 Falcon
+new        Fighter2Vehicle              F-14 Tomcat
+stats      ApacheVehicle                AH-64 Apache
+new        HindVehicle                  Mi-24 Hind
+stats      WarthogVehicle               A-10 Warthog
+new        BomberVehicle                B-52 Stratofortress
+new        HerculesVehicle              C-130 Hercules
+new        GunshipVehicle               AC-130U Gunship
+stats      BlackhawkVehicle             UH-60 Blackhawk
+stats      HumveeVehicle                HMMWV
+stats      AbramsVehicle                M1A1 Abrams Tank
+stats      BradleyVehicle               M113 APC
+new        LineBackerVehicle            M6 Bradley LineBacker
+new        MLRSVehicle                  M270 MLRS SPLL
+new        MineLayerVehicle             M548A3 W/ Volcano
+new        SideWinderModule             AIM-9 SideWinder Missile
+new        PhoenixModule                AIM-54 Phoenix Missiles
+new        HellFireModule               AGM-114 HellFire Missiles
+new        HydraModule                  HYDRA-70/2.75 Inch Rocket System
+new        MaverickModule               AGM-65 Maverick Missile
+new        HARMModule                   AGM-88 HARM Missile
+new        Mk82Module                   Mk-82 500Lb Bomb
+new        Mk84Module                   Mk84 2000Lb Bomb
+new        APClusterModule              CBU-59 APAM ClusterBomb
+new        MineClusterModule            CBU-89 GatorMine ClusterBomb
+new        BombletClusterModule         CBU-87 CEM ClusterBomb
+new        BunkerBusterModule           BLU-113 Penetrator
+new        TankSmokeModule              M-10 Tank: Smoke screen
+new        TankNerveGasModule           M-10 Tank: Nerve Gas
+new        IncendiaryNapamModule        Mk-77 Incendiary Bomb
+new        NuclearModule                Mk-53 Hydrogen Bomb
+new        EMCModule                    ALQ-131 EMC Pod
+new        Mk82PackageModule            [4]Mk-82 500Lb Bomb
+new        Mk84PackageModule            [2]Mk84 2000Lb Bomb
+new        DaisyCutterModule            BLU-82B Daisy Cutter Bomb
+new        SupplyCrateModule            Supply Crate
+new        GhostTarget                  Ghost Target
+new        SOCOMClip                    M9 Clip
+new        OICWClip                     M16 Clip
+new        SAWClip                      SAW Mag
+new        MP5Clip                      MP5 Clip
+new        PSG1Clip                     PSG1 Mag
+new        FiftyCalClip                 FiftyCal Mag
+new        AutoShotgunClip              AutoShotgun Mag
+new        StingerClip                  Stinger Missile
+new        Knife                        Combat Knife
+renamed+statsSOCOMAmmo                    M9 Bullet
+renamed+statsSOCOM                        M9 Beretta
+renamed+statsOICWAmmo                     M16 Bullet
+renamed+statsOICW                         M16 Rifle
+renamed+statsSAWAmmo                      M249 Bullet
+stats      SAW                          M249 SAW
+renamed+statsMP5Ammo                      MP5 Bullet
+stats+scriptsMP5                          Silenced MP5
+renamed+statsPSG1Ammo                     PSG-1 Bullet
+renamed+statsFiftyCalAmmo                 FiftyCal Bullet
+renamed+statsFiftyCal                     M40A1 Sniper Rifle
+renamed+statsAutoShotgunAmmo              Shotgun Shell
+stats+scriptsLAW                          LAW
+stats      Flamethrower                 Flamethrower
+renamed+statsStingerAmmo                  Stinger Missile
+scripts    Stinger                      Stinger SAM Launcher
+stats      Howitzer                     Howitzer
+stats      AbramsGun                    Abrams Gun
+scripts    Airstrike                    Airstrike
+new        StingerLauncherAmmo          Stinger Missiles
+new        StingerLauncherGun           Fixed Stinger Launcher
+new        MLRSAmmo                     MLRS Rockets
+new        MLRSLauncher                 MLRS Launcher
+new        TwentyFivemmAmmo             25mm Rounds
+new        TwentyFivemmgun              25mm Gun
+new        FortymmAmmo                  40mm Rounds
+new        Fortymmgun                   40mm Gun
+scripts    Reloader                     Reloader
+scripts    Parachute                    Parachute
+scripts    GrappleHook                  Grappling Hook
+stats      TargetingLaser               Targeting Laser
+scripts    EnergyRifle                  ELF Gun
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableHealthPack         Medical Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    RepairPack                   Repair Toolkit
+scripts    MedicPack                    Medikit
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPackSmall                Light Ammo Pack
+scripts    AmmoPackHeavy                Heavy Ammo Pack
+scripts    AmmoPackExp                  Explosive Ammo Pack
+new        Sandbagpack                  Sand Bag
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Remote Machine Gun
+scripts    PortGenPack                  Deployable Generator
+scripts    HowitzerPack                 Howitzer
+scripts    SAMPack                      SAM Launcher
+new        TripodPack                   M240G Machine Gun
+scripts    RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+new        BouncingMinePack             M16 APMine
+new        APMinePack                   M14 APMine
+new        AAMinePack                   M15 AAMine
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+scripts    Charge                       Explosive Charge

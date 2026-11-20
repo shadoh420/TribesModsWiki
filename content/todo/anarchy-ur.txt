@@ -1,0 +1,8 @@
+anarchy-ur: 8 of 76 need write-ups
+  lflame (lflame): new
+  mflame (mflame): new
+  hflame (hflame): new
+  HellPack (Hellraiser Turret): renamed+stats+scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): scripts

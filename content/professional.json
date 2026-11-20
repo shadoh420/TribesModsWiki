@@ -1,0 +1,61 @@
+{
+ "mod": {
+  "overview": "Tribes Professional (February 2000, by Desrtfox) is a competitive-minded, Orion-derived Tribes mod packed with MiniMod and HaVoC extensions that emphasizes structured class roles, match discipline, and expanded base engineering. Teams fight across Capture the Flag, Balanced, and Open Call missions under match rules that enforce team skins, a 30-second suicide respawn penalty, strict anti-teamkill enforcement, and high-value objective scoring (20 points per flag cap, 10 per switch, 5 per return, 1 per kill). Compared to standard Orion, gameplay shifts around five distinct armors—most notably the fragile, nanorepairing Hyperlight scout and the exclusive Engineer builder/sapper—alongside an arsenal ofEMP disruptors, demolition charges, waypoint teleporters, and specialized deployable turrets. Matches are further shaken up roughly every 10 minutes by random map-wide environmental hazards: meteor showers, EMP-inducing lightning storms, and solar radiation flares that punish heavier armors hardest.",
+  "notes": [
+   "Classes and Armors: Five armors define clear team roles. Hyperlight Armor (speed 14, health 0.5, 2 weapons) is the sole class with passive nanorepair; Light Armor (speed 11, health 0.75, 3 weapons) adds sniper rifles and EMP launchers; Medium Armor (speed 8, health 1.0, 4 weapons) is the versatile field fighter with Fusion Blaster, Shotgun, Particle Accelerator, and Mine Launcher; Heavy Armor (speed 5, health 1.25, 5 weapons) carries Mortar, lock-on Rocket Launcher, and Plasma Cannon; Engineer (speed 8, health 1.0, 3 weapons) is the sole class that can buy deployable stations, Field Doors, Blast Walls, Shield Generators, Rail/Flak/Missile/Mini-Plasma/Pulse Laser turrets, hack Field Doors, or attempt to disarm Plastique and Demolition Packs.",
+   "Controls, Menus, and Commands: No custom chat commands are added. Waypoints set on the Command screen double as the destination for the Teleport Pack. Equipping a Command Laptop in the backpack slot allows remote turret control from anywhere via Command Mode without visiting a Command Station. When match rules are disabled, newly joined players get a skin-selection menu to keep a personal skin, use the team skin, or spectate.",
+   "Combat and Status Effects: Headshots deal +30% damage to Heavy armor and +20% to other armors, with Laser Rifle and Marlin Rifle adding an extra +50% on Heavy headshots and +40% on others. EMP Grenades, the EMP Grenade Launcher, and lightning storm strikes drain target energy to 0, slash recharge by 60 for 7-9 seconds, and unmount energy weapons. The Scout vehicle (Light Assault Craft) is armed with a rapid-fire nose gun.",
+   "Weapons, Packs, and Deployables: Standout gear includes the Plasma Cannon (requires an active Energizer Pack), Particle Accelerator (12-pellet energy flak blast), Fusion Blaster (anti-forcefield/base weapon), Mine Launcher, Repair Rifle, Marlin Rifle (cannot fire outside the mission area), Flag Decoy, Heat Sink (zeros heat signature), Cloaking Device (hides from players and pulse sensors, but not motion sensors), Kamikaze Pack (triggers a 30m blast manually or automatically on lethal damage), Demolition Pack (20s fuse, 50m blast to breach forcefields), Teleport Pads, Springboards, Base Alarms, and Hologram decoy bots.",
+   "Rules and Explicit Bans: Match mode is enabled by default, enforcing team skins, a 30-second respawn lockout after suiciding (waived for Kamikaze Pack deaths), anti-teamkill kickbanning after 3 teamkills, and zero player score credit for turret kills. Stock Energy Pack, Seed Pack (TreePack), and Mini-ELF Turret (ShockPack) are banned from all inventory stations; remote inventory stations also exclude Teleport Pad, Shield Generator, Seeker, Pulse Laser (DoBPack), and LR Motion Sensor.",
+   "Bots and Spawns: Players spawn in Light Armor at team spawn markers. Standard mission AI drone paths are supported, and deploying a Hologram spawns a fast Kamikaze-equipped AI decoy that pursues enemies on sight.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): EnergyPack (station.cs), ShockPack (station.cs), TreePack (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): DeployableLRMotionSensorPack (station.cs), DeployableTeleportPack (station.cs), DoBPack (station.cs), DShieldPack (station.cs), SeekerPack (station.cs)."
+  ]
+ },
+ "items": {
+  "HyperArmor": {
+   "summary": "Hyperlight Armor: ultra-fast nanorepair scout and infiltrator armor",
+   "notes": [
+    "Fastest armor in the mod (speed 14, health 0.5, energy 50, max 2 weapons) and the only class with passive nanorepair (0.015 auto-repair rate).",
+    "Limited to light weapons (Blaster, Chaingun, Disc Launcher, Plasma Gun, ELF Gun) and utility packs like Cloaking Device, Teleport Pack, Flag Decoy, Command Laptop, and Heat Sink."
+   ],
+   "source": "ArmorData.cs, item.cs"
+  },
+  "EngArmor": {
+   "summary": "Engineer Armor: exclusive base builder, forcefield hacker, and bomb-disposal specialist",
+   "notes": [
+    "Medium-speed builder class (speed 8, health 1.0, energy 90, max 3 weapons) with exclusive access to deployable stations, Shield Generators, Blast Walls, five Field Door sizes, and heavy turrets.",
+    "On contact, Engineers are the only class able to try unlocking enemy Field Doors (1-in-30 chance per touch) or disarming enemy Plastique and Demolition Packs (50% disarm, 50% immediate detonation)."
+   ],
+   "source": "ArmorData.cs, item.cs, staticshape.cs, Mine.cs"
+  },
+  "TeleportPack": {
+   "summary": "Teleport Pack: experimental squad-capable waypoint teleporter",
+   "notes": [
+    "Usable by Hyperlight and Light Armor; set a waypoint on the Command screen and activate to warp yourself and teammates within 5m on a 45-second cooldown.",
+    "Drops any carried flag, aborts if the waypoint is within 100m of an enemy flag, and rolls against total passenger mass so heavier or crowded jumps risk an explosive malfunction."
+   ],
+   "source": "item.cs, comchat.cs"
+  },
+  "DShieldPack": {
+   "summary": "Shield Generator: Engineer deployable providing a 60m team energy and shield aura",
+   "notes": [
+    "Engineer-only deployable (team max 2, banned from remote inventory stations) that boosts energy recharge and grants protective shields to friendly players within 60m."
+   ],
+   "source": "item.cs, station.cs, ArmorData.cs"
+  },
+  "HoloPack": {
+   "summary": "Hologram: deployable decoy bot that hunts nearby enemies and explodes",
+   "notes": [
+    "Deploys a fast botarmor AI decoy (lbot) armed with a Kamikaze Pack that locks onto and chases enemies it spots in line of sight."
+   ],
+   "source": "item.cs, ai.cs, ArmorData.cs"
+  },
+  "EnergyPack": {
+   "summary": "Energy Pack (Banned): removed everywhere in favor of the Energizer Pack",
+   "notes": [
+    "Explicitly disabled at both main and remote inventory stations and set to zero carry limit across every armor, replaced by the faster-recharging Energizer Pack (which Hyperlight Armor cannot carry)."
+   ],
+   "source": "station.cs, ArmorData.cs, item.cs"
+  }
+ }
+}

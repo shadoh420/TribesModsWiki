@@ -1,0 +1,110 @@
+ultrannihilation: 118 of 144 need write-ups
+  DiscLauncher (Disc Launcher): stats+scripts
+  GrenadeAmmo (Grenade Ammo): renamed+stats
+  GrenadeLauncher (Grenade Launcher): renamed+stats+scripts
+  PlasmaAmmo (Plasma Bolt): renamed+stats
+  PlasmaGun (Plasma Gun): stats+scripts
+  Shotgun (Shotgun): stats+scripts
+  Flamer (Flamer): stats+scripts
+  FlameThrower (Flame Thrower): stats+scripts
+  HDiscLauncherAmmo (Hyper Disc): new
+  HDiscLauncher1 (Hyper Spinfusor): new
+  HDiscLauncher2 (Hyper Spinfusor): new
+  HDiscLauncher (Hyper Spinfusor): new
+  JailGun (Jailers Gun): stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  MineLauncherAmmo (Mine Launcher Ammo): new
+  MineLauncher (Mine Launcher): new
+  Mortar (Mortar): stats+scripts
+  RubberMortar (Rubbery Mortar): stats+scripts
+  Battery (500 Volt Battery): new
+  PulseCannon (Pulse Cannon): new
+  ShockwaveGun (Shockwave Cannon): stats+scripts
+  Stinger (Stinger Missle): stats+scripts
+  Vulcan (Vulcan): stats+scripts
+  AngelFire (Angel Fire): stats+scripts
+  Heavensfury (Heaven's Fury): stats+scripts
+  SniperRifle (Sniper Rifle): stats+scripts
+  Fixit (Builder Repair-Gun): renamed+stats+scripts
+  Fixit2 (Builder's Repair-Gun): new
+  Railgun (Railgun): stats+scripts
+  PhaseDisrupterAmmo (Disrupter Ammo): new
+  PhaseDisrupter (Phase Disrupter): stats+scripts
+  TBlastCannon (Tank Blast Cannon): stats+scripts
+  TankShredder (Tank Shredder): stats+scripts
+  TRocketLauncher (Tank Rocketgun): stats+scripts
+  TankRPGAmmo (RPGs): renamed+stats
+  TankRPGLauncher (Tank RPG): stats+scripts
+  BabyNukeMortar (Baby Nuke Launcher): stats+scripts
+  OSLauncher (OS Laucher): scripts
+  ParticleBeamWeapon (Particle Beam): stats+scripts
+  TargetingLaser (Targeting Laser): stats+scripts
+  DeathRay (Spell: Death Ray): stats+scripts
+  DisarmerSpell (Spell: Disarm): stats+scripts
+  FlameStrike (Spell: Flame Strike): stats+scripts
+  SpellFlameThrower (Spell: Flame Thrower): stats+scripts
+  ShockingGrasp (Spell: Shocking Grasp): stats+scripts
+  Stasis (Spell: Stasis): stats+scripts
+  AmmoPack (Ammo Pack): stats+scripts
+  ChameleonPack (Chameleon Pack): stats+scripts
+  CloakingDevice (Cloaking Device): new
+  Laptop (Laptop): scripts
+  EnergyPack (Energy Pack): scripts
+  SensorJammerPack (Sensor Jammer Pack): scripts
+  PhaseShifterPack (Phase Shifter): stats+scripts
+  RepairPack (Repair Pack): stats+scripts
+  ShieldPack (Shield Pack): scripts
+  StealthShieldPack (StealthShield Pack): scripts
+  SuicidePack (Suicide DetPack): stats+scripts
+  RegenerationPack (Troll Pack): stats+scripts
+  Beacon (Beacon): scripts
+  Grenade (Grenade): scripts
+  MineAmmo (Mine): scripts
+  RepairKit (Repair Kit): scripts
+  RepairPatch (Repair Patch): scripts
+  PulseSensorPack (Pulse Sensor): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  CameraPack (Camera): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  DeployableAmmoPack (Ammo Station): new
+  DeployableComPack (Command Station): new
+  DeployableInvPack (Inventory Station): scripts
+  AcceleratorDevicePack (Accelerator Device): renamed+stats+scripts
+  BaseCloakPack (Base Cloaking Device): new
+  BlastWallPack (Blast Wall): stats+scripts
+  ControlJammerPack (Control Jammer Device): renamed+stats+scripts
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  ForceFieldDoorPack (Force Field Door): scripts
+  LargeForceFieldDoorPack (Large Force Field Door): scripts
+  PlatformPack (Deployable Platform): scripts
+  SpringPack (Springboard): renamed+stats+scripts
+  TeleportPack (Teleport Pad): stats+scripts
+  FighterPack (Fighter Vehicle Pack): new
+  TransportPack (Transport Vehicle Pack): renamed+stats+scripts
+  JailPack (Jail Cell): new
+  CommandShipPack (Command Ship): new
+  GunShipPack (Gun Ship): renamed+stats+scripts
+  airbasepack (Air Base): new
+  BunkerPack (Deployable Bunker): stats+scripts
+  MobileInvPack (Mobile Inventory Stn): new
+  MobileGenPack (Portable Generator): new
+  PortableSolarPack (Portable Solar Panel): stats+scripts
+  SurveyDroidPack (Survey Droid): scripts
+  TeleDroidPack (Tele Droid): new
+  ProbeDroidPack (Probe Droid): scripts
+  SuicideDroidPack (Suicide Droid): scripts
+  FlameTurretPack (Flame Turret): scripts
+  FusionTurretPack (Fusion Turret): scripts
+  IonTurretPack (Ion Turret): new
+  IrradiationTurretPack (Irradiation Cannon): stats+scripts
+  LaserTurretPack (Laser Turret): scripts
+  RocketPack (Missile Turret): stats+scripts
+  MortarTurretPack (Mortar Turret): stats+scripts
+  NuclearTurretPack (Nuclear Turret): scripts
+  ParticleBeamTurretPack (Particle Beam Turret): new
+  PlasmaTurretPack (Plasma Turret): scripts
+  ShockTurretPack (Shock Turret): scripts
+  vortexTurretPack (Vortex Turret): scripts
+  FighterVehicle (Fighter): new
+  HAPCVehicle (Transport): new

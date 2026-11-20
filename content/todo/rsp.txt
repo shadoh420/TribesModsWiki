@@ -1,0 +1,54 @@
+# rsp vs base (53 items)
+new        ScoutArmor                   Scout Armor
+new        SniperArmor                  Sniper Armor
+new        EngineerArmor                Engineer Armor
+new        InfiltratorArmor             Infiltrator Armor
+new        DemoExpertArmor              Demo. Expert Armor
+new        GoliathArmor                 Goliath Armor
+new        HackerArmor                  Hacker Armor
+new        CHAPCVehicle                 Cloaking HPC
+new        FighterVehicle               Fighter
+new        BLAPCVehicle                 Bomber LPC
+stats      LaserRifle                   Laser Rifle
+stats      EnergyRifle                  ELF Gun
+new        JumpMineAmmo                 Jump Mine
+new        PulseMortarAmmo              Pulse Mortar Ammo
+new        PulseMortar                  Pulse Mortar
+new        PowerCellAmmo                Power Cell
+new        GatBlaster                   Gat. Blaster
+new        ConGrenade                   Concussion Grenade
+new        SniperShell                  Sniper Rounds
+new        SniperRifle                  Sniper Rifle
+new        FlashGrenade                 Flash Grenade
+new        NukeGrenade                  Nuke Pack
+new        PlasmaCannon                 Plas Cannon
+new        HellfireAmmo                 Hellfire Ammo
+new        HellfireGun                  Hellfire Gun
+new        FlakAmmo                     Flak Ammo
+new        FlakGun                      Flak Gun
+new        HackPack                     Hack Pack
+new        ViralPack                    Viral Pack
+new        EngRepairPack                Engineer Repair Pack
+new        KamikazePack                 Kamikaze Pack
+new        MPCPack                      MPC Pack
+new        TKPack                       TK Pack
+new        CloakPack                    Cloaking Pack
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    EnergyPack                   Energy Pack
+scripts    AmmoPack                     Ammo Pack
+scripts    TurretPack                   Turret
+new        DeployableDecoyPack          Sniper Decoy
+new        DeployableForceFieldPack     Force Field
+new        DeployableLForceFieldPack    Large Force Field
+new        ChainTurretPack              Chain Turret
+new        BaseAlarm                    Base Alarm
+new        BigInvPack                   Full Size Inv
+new        AARocketPack                 AA Rocket Turret
+new        AntiMatterTurretPack         Anti Matter Turret
+new        DeployableELFTurretPack      ELF Turret
+new        DeployableJumpPadPack        Jump Pad
+new        DeployableTelePadPack        Teleport Pad
+new        DeployableLRMotionSensorPack LR Motion Sensor
+new        SniperPadPack                Sniper Pad
+scripts    MineAmmo                     Mine

@@ -1,0 +1,153 @@
+# rampage vs base (152 items)
+new        PackOMen                     Raining HellFire
+renamed+statsLightArmor                   Sniper Armor
+renamed+statsMediumArmor                  Assault Armor
+new        BursterArmor                 Fighter Armor
+new        EngArmor                     Engineer Armor
+new        DragArmor                    Mech Armor
+renamed+statsScoutVehicle                 Assault Bike
+new        WraithVehicle                Hover Bike
+new        JetVehicle                   Fighter Jet
+renamed+statsLAPCVehicle                  Attack Jeep
+renamed+statsHAPCVehicle                  Destroyer Tank
+stats+scriptsEnergyPack                   Energy Pack
+renamed+stats+scriptsRepairPack                   Medic Pack
+stats+scriptsShieldPack                   Shield Pack
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+new        CloakingDevice               Cloaking Pack
+new        StealthShieldPack            Stealth Pack
+new        RegenerationPack             Regeneration Pack
+new        OpticPack                    Cybernetic Laser
+new        TLPack                       Sniper's Pack
+new        MissileAmmo                  Missiles
+new        SMRPack                      Auto-Rocket Cannon
+new        BoosterCharge                Jet Boost Fuel
+new        RocketBooster                Jet Booster Pack
+new        AntiGravPack                 Anti-Grav Pack
+new        SuicidePack                  Suicide DetPack
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+new        Boost                        Boost
+new        Plastique                    Grenade Mode
+stats+scriptsRepairPatch                  Repair Patch
+new        AntiAirPack                  Scud Missile Turret
+new        DeployableElfTurret          Elf Turret
+new        IndoorPack                   Indoor Turret
+renamed+stats+scriptsTurretPack                   Ion Turret
+new        LaserPack                    Laser Turret
+new        RocketPack                   Missile Turret
+new        TargetPack                   Mortar Turret
+new        LaserTurret                  Plasma Turret
+new        RailTurret                   Rail Turret
+new        ShockPack                    Shock Turret
+new        VulcanTurret                 Vulcan Turret
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+new        DeployablevhclPack           Vehicle Station
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+new        BlastDoorPack                Blast Door
+new        doorthreebyfourForceFieldPack3x4 Field Door
+new        doorfourbyeightForceFieldPack4x8 Field Door
+new        doorfourbyfourteenForceFieldPack4x14 Field Door
+new        doorfourbyseventeenForceFieldPack4x17 Field Door
+new        doorfivebyfiveForceFieldPack 5x5 Field Door
+new        PlatformDoorPack             Platform Door
+new        MedPlatform                  Medium Platform
+new        LrgPltPack                   LargePlatform
+new        JailCapPack                  Jail Capture Pad
+new        jailpack                     Jail Cell
+new        ArbitorBoxPack               Arbitor Device
+new        BaseAlarm                    Base Alarm
+new        BuilderPole                  Builder Pole
+new        PlatformPack                 Deployable Platform
+new        FlagstandPack                Flag Stand
+new        HoloPack                     Hologram
+new        RemoteBase                   Remote Base
+new        SniperHut                    Sniper Hut
+new        SpringPack                   Springboard
+new        TeleportPack                 Teleport Pad
+new        TreePack                     Tree
+new        AODMobileInv                 Mobile Inventory
+new        AODMobileGen                 Portable Generator
+new        AODShieldGen                 Shield Generator
+new        DShieldPack                  Power Core
+new        AODBunker                    Riot Wall
+new        MiniBase                     Air-Base
+new        ObeliskPack                  Guard Turret
+new        ObeliskPowerPack             Guard Power Cell
+new        AirBase2Pack                 Space Station
+new        GunShipPack                  Destroyer |X| BattleShip
+new        DeathStarPack                Dooms Day Device
+stats+scriptsBlaster                      Blaster
+renamed+statsBulletAmmo                   Assault Bullet
+renamed+stats+scriptsChaingun                     Assault Gun
+new        TranqAmmo                    Venom Darts
+new        TranqGun                     Venom Fang Rilfe
+renamed+statsDiscAmmo                     Discs
+stats+scriptsDiscLauncher                 Disc Launcher
+stats      GrenadeAmmo                  Grenade Ammo
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        PlasCAmmo                    F.F.M.L Ammo
+new        PlasmaCannon                 F.F.M.L
+stats+scriptsLaserRifle                   Laser Rifle
+new        SilencerAmmo                 Armageddon Bullets
+new        Silencer                     Armageddon Rifle
+stats      MortarAmmo                   Mortar Ammo
+renamed+stats+scriptsMortar                       Impact Mortar
+new        NapalmAmmo                   Napalm Shell
+new        Napalm                       Napalm Strike
+new        Omega                        Auto Electric Shotgun
+stats      PlasmaAmmo                   Plasma Bolt
+new        Plas1                        Plas1
+new        Plas2                        Plas2
+new        Plasmagun                    Plasma Gun
+new        RailAmmo                     Plasma Rifle Bolt
+new        Railgun                      Plasma Rifle
+new        RocketAmmo                   Rockets
+new        RocketLauncher               Missile Launcher
+new        WaveGun                      Blast Cannon
+new        ShotgunAmmo                  Plasma ShotGun Shells
+new        Shotgun                      Plasma Shotgun
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+stats+scriptsEnergyRifle                  ELF Gun
+new        VulcanAmmo                   Annihillation Disks
+new        Vulcan                       Annihillation Disk
+new        MinigunAmmo                  Mini-Ammo
+new        Mini1                        Mini1
+new        Mini2                        Mini2
+new        Minigun                      Dual Fighter Assault
+new        SRAmmo                       Elite Sniper Bullets
+new        SR                           Elite Sniper
+new        AssFlakAmmo                  Assault Flak Shells
+new        AssFlak1                     AssFlak1
+new        AssFlak2                     AssFlak2
+new        AssFlak                      Assault Flak Gun
+new        TankRPGAmmo                  Dual Flak
+new        TankRPGLauncher              Dual Flak Launcher
+new        ShriekAmmo                   Shriek Ammo
+new        R                            Shriek Rocket Launcher
+new        KineticAmmo                  Atom Disruptor Ammo
+new        KineticRifle                 Atom Disruptor
+new        FlamerAmmo                   Mini Atom Disruptor
+new        Flamer                       Mini Atom Disruptor
+new        plasmatAmmo                  Plasmatic Ammo
+new        Plasmat                      Plasmatic Fragger
+new        NukexAmmo                    Nuke Bomb
+new        Nukex                        Nuker Blast
+new        Flame                        Flame Thrower
+new        ParticleBeamWeapon           IX Beam Cannon
+stats+scriptsTargetingLaser               Targeting Laser
+new        Fixit                        Repair-Gun
+new        JailGun                      Jail-Gun
+new        FlareAmmo                    Flare Ammo
+new        F                            Emergency Flare
+new        Grap                         Grappling Hook
+new        push                         Repulse Beam

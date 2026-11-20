@@ -1,0 +1,10 @@
+{
+ "mod": {
+  "overview": "Shifter vSiyx (2001-10-10 build from Siyx's Shifter Server, based on Shifter v1 2000-07-30b) heavily buffs the Engineer class and tweaks light/vehicle options. Engineers gain access to the Mortar, four-turret carry limits on Ion/Laser/Engineer turrets, doubled ammunition limits, and the Small Shock Force Field pack.",
+  "notes": [
+   "Engineer buffs in ArmorData.cs: gains Mortar and 20 MortarAmmo, raises carry limits to 4 for TurretPack, LaserPack, and EngineerTurretPack, doubles ammo caps (400 Vulcan, 300 Chaingun, 80 Plasma, 30 Disc, 20 Grenade/Rail, 12 Mine/Grenade, 10 Rocket), and can carry ShockForceFieldPack.",
+   "Scout buffs in ArmorData.cs: $MaxWeapons raised from 2 to 3, ammo/grenade/mine/beacon caps doubled, and gains DeployableSensorJammerPack.",
+   "Vehicles and other changes: LAPCVehicle renamed to BomberLPC and HAPCVehicle to StealthHPC; removes HammerAmmo, Hammer1Pack, Hammer2Pack, JammerBeaconPack, Booster1Pack, and Booster2Pack; adds FlagHunter.cs."
+  ]
+ }
+}

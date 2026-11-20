@@ -1,0 +1,16 @@
+ultra-vx5-god: 21 of 100 need write-ups
+  GoDRifle (GoD Rifle): new
+  PLiLPOOmkiAmmo (Blood Shells): new
+  PLiLPOOmki (Blood Rifle): new
+  GhostPack2 (gpack): new
+  GhostPack3 (Ghost Pack): new
+  RepairPack (Repair Pack): scripts
+  RepairPack1 (Repair Pack): new
+  RepairPack2 (Repair Pack): new
+  RepairPack3 (Repair Pack): new
+  RepairKit (Repair Kit): stats+scripts
+  BlastWallPack (Blast Wall): new
+  BunkerPack (Deployable Bunker): new
+  AirBasePack (Air Base): new
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "BaseDuel (Drink|Kahlua, May 2000, DuelMOD.cs & DuelData.cs) runs Base 1.11 physics unchanged while locking duelists into Light Armor without Mortar, deployable turrets, or stations\u2014using a 7-weapon/4-pack duel menu, arena isolation, countdown locks, and Mortal Kombat-style audio cues.",
+  "notes": [
+   "Restricted duel loadout (DuelMOD.cs): duelists spawn forced into Light Armor (larmor/lfemale) and pick 1 to 3 weapons from 7 Base guns ($DuelWeaponMax = 7: Blaster, Chaingun, Disc Launcher, Grenade Launcher, Laser Rifle, Plasma Gun, ELF Gun \u2014 Mortar is omitted) plus 1 of 4 packs ($DuelPackMax = 4: Energy, Repair, Shield, Ammo Pack), 3 Mines, and a Repair Kit.",
+   "Match rules: DuelCheckPlayers/StartDuel pairs challengers across 12 duel arenas (Duel1..Duel12), enforces 4 s pre-duel lockouts ($DuelDelayTime) and 2 s damage protection ($DuelHurtDelay), blocks stray third-party damage, clears leftover mines between bouts (ClearMines), and plays DuelStart/Excellent/Fatality/Flawless cues."
+  ]
+ }
+}

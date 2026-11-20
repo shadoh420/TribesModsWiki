@@ -1,0 +1,85 @@
+# snipers-base vs alliance (84 items)
+new        EngineerArmor                Engineer
+stats      SniperAmmo                   Sniper Bullet
+stats+scriptsSniperRifle                  Sniper Rifle
+stats+scriptsLaserRifle                   Laser Rifle
+new        AlienLaser                   Alien Laser
+new        HCAmmo                       High Cal. Bullet
+new        HCRifle                      High Cal. Rifle
+stats      RailAmmo                     Railgun Bolt
+stats+scriptsRailgun                      Railgun
+new        ShotgunAmmo                  Shotgun Shells
+new        Shotgun                      Shotgun
+stats      TranqAmmo                    Poison Dart
+renamed+stats+scriptsTranqGun                     Poison Dart Rifle
+new        HyperLaser                   Hyper Laser
+new        ELF                          ELF Gun
+new        FlameAmmo                    Uranium Slug
+new        FlameRifle                   Flame Rifle
+new        ShockRifle                   Ion Rifle
+new        CuttingLaser                 Cutting Laser
+new        RepeaterAmmo                 Repeater Bolt
+new        Repeater                     Repeater
+new        CloakGun                     HH-Cloak Gun
+new        RepairRifle                  Repair Rifle
+new        AntiGrav                     Anti-Grav Gun
+stats+scriptsTargetingLaser               Targeting Laser
+new        JailGun                      Jailers Gun
+renamed+stats+scriptsTractorDevice                Energy Grappling Hook
+new        HHRepairGun                  Repair Gun
+new        JailCapPack                  Jail Capture Pad
+new        jailpack                     Jail Cell
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsCameraPack                   Camera
+new        BaseAlarm                    Base Alarm
+new        WatchdogPack                 Watchdog
+new        TurretPack                   Ion Turret
+new        MiniELF                      Mini-ELF Turret
+new        RailTurret                   Rail Turret
+new        IceTurretPack                Ice Turret
+new        HGravTurretPack              Hyper-Grav Turret
+stats+scriptsRocketPack                   Missile Turret
+new        FlakPack                     Flak Turret
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        HoloPack                     Hologram
+stats      TeleportPack                 Teleport Pad
+new        PortableTree                 Portable Tree
+renamed+statsPlatformPack                 Plasma Floor
+new        AirPlatformPack              Air Platform
+new        LargeAirPlatPack             Large Air Platform
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats+scriptsAmmoPack                     Ammo Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+new        MortarPack                   MortarPack
+new        Booster1Pack                 Booster
+new        Booster2Pack                 Booster
+new        RiflePack                    Rifle Pack
+new        RiflePack1                   Rifle Pack
+renamed+stats+scriptsTreePack                     Seed Pack
+new        LaserPack                    Cybernetic Laser
+new        LightningPack                Shock Pack
+new        RocketBooster                Rocket Booster
+new        BoosterCharge                Rocket Fuel
+new        AntiGravPack                 Anti-Grav Pack
+new        FakeFlag                     Flag Decoy Pack
+new        CommPack                     Comm. Listener Pack
+new        KamikazePack                 Kamikaze Pack
+renamed+statsSuicidePack                  DetPack
+stats      Laptop                       Laptop
+stats+scriptsRepairKit                    Repair Kit
+stats      MineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch
+new        Smoker                       Demo. Grenade
+new        FlightArmor                  Flight Sniper
+new        LightArmor                   Light Sniper
+new        MediumArmor                  Medium Sniper
+renamed+statsHAPCVehicle                  HAPC
+new        PenisPack                    Penis
+new        flagmineammo                 Flag Mine

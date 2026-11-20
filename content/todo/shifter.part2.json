@@ -1,0 +1,639 @@
+{
+ "items": {
+  "CameraPack": {
+   "summary": "Backpack that places a Camera, a weaponless turret that can be dropped on terrain, buildings or deployable platforms. Shifter replaced Classic's custom camera placement code with the shared deployable() helper.",
+   "notes": [
+    "Unlike Classic, which had its own placement code that only allowed terrain and interiors within 3 m, Shifter lets you place it up to 5 m away on terrain, interiors, Deployable Platforms, Blast Walls and similar deployed surfaces. It is not required to be a flat surface; the camera is turned to face along the surface it hits (up, down or sideways).",
+    "The deployed CameraTurret has no projectile (it is only a viewing/spotting turret, range 50, narrow field of view) and very low health. Turret::onDamage lists CameraTurret as exempt from the server team-damage scale, so teammates damage it at full strength.",
+    "An Engineer can also create the same CameraTurret from a Beacon (Cloaking Camera beacon mode); that version is faded out (cloaked) and costs a Beacon instead of the pack.",
+    "The Disassymbler-Gun can dismantle a deployed camera and give the pack back.",
+    "Script bug: CameraTurret::onDestroyed decrements the CameraPack count correctly but then also decrements an 'EngBeacons' count using an undefined %player variable.",
+    "Viewing the camera feed (command station or laptop) is only described by the in-game help text; the camera code itself does not show how the feed is accessed."
+   ],
+   "source": "item.cs CameraPack::onUse/onDeploy/deployShape; itemfuncs.cs deployable(); turret.cs CameraTurret; itemfuncs.cs EngCamera"
+  },
+  "TurretPack": {
+   "summary": "Backpack that deploys the Ion Turret, Shifter's renamed version of Classic's remote turret. It fires ion bolts instead of Classic's mini fusion bolts and reaches farther.",
+   "notes": [
+    "Renamed from Classic's 'Turret'. The deployed DeployableTurret uses the IonBolt projectile (electricity damage) in place of Classic's MiniFusionBolt, and its range was extended (see stats).",
+    "Deployed through the shared deployable() helper in itemfuncs.cs: it needs a flat surface (normal within about 45 degrees of vertical), a clear spot, and passes the 'Frequency Overload' checks (no more than $MaxNumTurretsInBox=3 turrets of this type inside the large box, and nothing already within 2.5 units). Classic's version only worked on terrain or interiors; Shifter also allows deployable platforms and blast walls, and reach is 4 m instead of 3 m.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (Ion Turret: within 35 of the flag).",
+    "Turret::onDamage lists DeployableTurret as exempt from the team-damage scale, so teammates damage it at full strength.",
+    "The Disassymbler-Gun recognizes the name 'Ion Turret' and can pick it up again as a pack."
+   ],
+   "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret; itemfuncs.cs deployable(); baseProjData.cs IonBolt"
+  },
+  "LaserPack": {
+   "summary": "Backpack that deploys a Laser Turret, a camera-shaped remote turret firing a sniper laser at long range with a very slow reload.",
+   "notes": [
+    "Fires the SniperLaser projectile with a reload delay of 10 seconds, so it is a slow sniper rather than a rapid-fire gun; it has moderate health and no shield (shieldStrength 0).",
+    "Deployed through the shared deployable() helper in itemfuncs.cs; it is oriented to the surface it is placed on (not required to be flat), needs a clear spot, and has 5 m reach on terrain, buildings, platforms or blast walls.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (within 55 of the flag).",
+    "Destroying it decrements the LaserPack team count. The Disassymbler-Gun can pick it up ('Laser Turret').",
+    "A related, separate datablock DeployableLaserM (the DreadNaught's Point Defense Laser mine) reuses the same shape and projectile but explodes after Shifter::LaserMineLive seconds (default 5)."
+   ],
+   "source": "item.cs LaserPack::deployShape; turret.cs DeployableLaser; itemfuncs.cs deployable()"
+  },
+  "DeployableElf": {
+   "summary": "Backpack that deploys a small ELF turret that fires a sustained charge beam at targets.",
+   "notes": [
+    "The DeployableELFTurret is a sustained-fire turret (className 'ELF Turret', turretCharge projectile, 750 ms firing time, energy rate 30) with fairly high health and a fast recharge rate of 20.",
+    "Deployed through the shared deployable() helper in itemfuncs.cs; it is oriented to the surface, needs a clear spot, 5 m reach, terrain/buildings/platforms only.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (within 20 of the flag).",
+    "When destroyed it deactivates and its recharge stops, then Turret::onDestroyed runs 0.8 seconds later. It decrements the 'DeployableELF' team count (the pack itself is named DeployableElf).",
+    "The Disassymbler-Gun recognizes 'Deployable Elf Turret'."
+   ],
+   "source": "item.cs DeployableElf::deployShape; turret.cs DeployableELFTurret; itemfuncs.cs deployable()"
+  },
+  "ShockPack": {
+   "summary": "Backpack that deploys an EMP Turret, which lobs EMP shells that drain energy and disable gear rather than doing normal damage.",
+   "notes": [
+    "The DeployableShock turret fires the EMPShell projectile, which does flash (EMP) damage in a 30-unit blast radius; in this mod flash damage triggers the EMP effect on players (weapon unmounted, energy zeroed for several seconds). The in-game help text warns that it also affects friendly players.",
+    "It has high health, a 2 second reload, and a shield strength of 0.010.",
+    "Deployed through the shared deployable() helper in itemfuncs.cs; no flat-surface or clearance requirement beyond 5 m reach on terrain/buildings/platforms.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (within 15 of the flag).",
+    "The Disassymbler-Gun can pick it up ('EMP Turret')."
+   ],
+   "source": "item.cs ShockPack::deployShape; turret.cs DeployableShock; baseProjData.cs EMPShell; player.cs Insomniax_startEMP"
+  },
+  "TargetPack": {
+   "summary": "Backpack that deploys a remote Mortar Turret that lobs mortar shells at long range.",
+   "notes": [
+    "The DeployableMortar turret uses the MortarShell projectile at range 150 with a 1.8 second reload. Its onFire override only echoes a debug line.",
+    "The in-game help text says it only fires when commanded; the scripts add no target filter or command logic for it (there is no verifyTarget), so how it chooses targets is not determined from scripts.",
+    "Deployed through the shared deployable() helper in itemfuncs.cs: flat surface, 'Frequency Overload' proximity limit, a headroom check (it refuses to deploy where the 14 units above the spot are blocked, 'space too enclosed'), clear spot, 4 m reach.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (within 25 of the flag).",
+    "Turret::onDamage lists DeployableMortar as exempt from the team-damage scale (teammates damage it at full strength).",
+    "Script bug: the deployed turret's map name is 'Mortar Turret # N <player>', but the Disassymbler-Gun looks for the name 'RMT Mortar Turret', so it can never be dismantled that way."
+   ],
+   "source": "item.cs TargetPack::deployShape; turret.cs DeployableMortar; itemfuncs.cs deployable(); baseProjData.cs objectColapsable"
+  },
+  "PlasmaTurretPack": {
+   "summary": "Backpack that deploys an RMT Plasma Turret, a portable version of the base plasma turret.",
+   "notes": [
+    "The DeployablePlasma turret fires FusionBolt projectiles at a 0.8 second reload with range 100, high health and a shield strength of 0.010. Its shape is the hellfire gun.",
+    "Deployed through the shared deployable() helper in itemfuncs.cs: flat surface, 'Frequency Overload' proximity limit, clear spot, 4 m reach.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (within 25 of the flag).",
+    "The Disassymbler-Gun recognizes 'RMT Plasma Turret'."
+   ],
+   "source": "item.cs PlasmaTurretPack::deployShape; turret.cs DeployablePlasma; itemfuncs.cs deployable()"
+  },
+  "RocketPack": {
+   "summary": "Backpack that deploys an RMT Rocket Turret, a seeking-missile turret that only engages high-heat targets and can shoot down enemy guided missiles.",
+   "notes": [
+    "Fires TurretMissile seeking missiles with a 2.5 second reload at range 125. DeployableRocket::verifyTarget only allows targets whose heat factor is at least 0.5 (fliers report 1.0), so it ignores cold targets.",
+    "Once its deploy animation ends it runs DeployableRocket::missilecheck every 1.5 seconds: any enemy missile of the Missile Control Station family (Phoenix, Napalm, HaVoC, EMP, Toxin) within a 175-unit box is attacked by a MiniMissileTracker fired from the turret.",
+    "The same check also looks for an enemy DeployableSensorJammer in range; if one is found the turret takes 0.15 impact damage on each pass, so sensor jammers wear it down.",
+    "Deployed through the shared deployable() helper in itemfuncs.cs: flat surface, proximity limit, a 2.5 unit clearance, headroom check, 4 m reach.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "Deploying it within the listed range of your own flag stand awards flag-defense score to the deployer. (within 100 of the flag).",
+    "The Disassymbler-Gun recognizes 'RMT Rocket Turret'."
+   ],
+   "source": "item.cs RocketPack::deployShape; turret.cs DeployableRocket (verifyTarget, missilecheck)"
+  },
+  "ForceFieldPack": {
+   "summary": "Backpack that places a Small Force Field that your team can walk through but enemies cannot.",
+   "notes": [
+    "A teammate walking into the field opens it: the shape is moved 5000 units up for about 2.75 seconds and then put back, and touches while it is open are ignored. Enemies never open it, so it blocks them until it is destroyed. Any rocket-shaped missile that touches it is set to a damage level of 10, which destroys the missile.",
+    "Chameleon (spy) armor wearers can also open it regardless of team.",
+    "It is placed on flat ground facing the same way as the player, within 4 m. The deployable StaticShape has a health of 5.5, can be shot down, and is translucent.",
+    "Script quirk: the open/close toggle compares an isactive field to the string 'false', but nothing initializes it, so the very first teammate touch takes the 'close' branch and does not visibly open the field; later touches open it. The close timer reuses LargeForceField::Open.",
+    "The Disassymbler-Gun can pick it up ('Small Force Field'). The in-game help text warns not to block your only entrance with it."
+   ],
+   "source": "item.cs ForceFieldPack::deployShape; StaticShape.cs DeployableForceField (onCollision/Open); itemfuncs.cs deployable()"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Backpack that places a Large Force Field, a bigger and much tougher wall that teammates can pass through.",
+   "notes": [
+    "A teammate walking into the field opens it: the shape is moved 5000 units up for about 2.75 seconds and then put back, and touches while it is open are ignored. Enemies never open it, so it blocks them until it is destroyed. Any rocket-shaped missile that touches it is set to a damage level of 10, which destroys the missile.",
+    "Chameleon (spy) armor wearers can open it regardless of team.",
+    "The LargeForceField is a full-size force field shape with a health of 8, higher than the small one. It re-closes about 3 seconds after opening.",
+    "Same first-touch quirk as the small field: the toggle tests isactive == 'false' without it ever being initialized.",
+    "The Disassymbler-Gun can pick it up ('Large Force Field')."
+   ],
+   "source": "item.cs LargeForceFieldPack::deployShape; StaticShape.cs LargeForceField (onCollision/Open)"
+  },
+  "BlastWallPack": {
+   "summary": "Backpack that places a Blast Wall, a solid door-shaped wall with a lot of health.",
+   "notes": [
+    "The BlastWall StaticShape uses the 'newdoor5' door model with a health of 12 and large debris. It has no power, door or opening behavior; it simply blocks movement until destroyed.",
+    "It is placed on flat ground, with 4 m reach, aligned to the player's facing.",
+    "Blast Walls count as valid surfaces: other deployables that are restricted to 'terrain or buildings' (turrets, platforms and so on) may be placed on top of them, and the deploy-area clear check ignores them.",
+    "The Disassymbler-Gun can pick it up ('Blast Wall')."
+   ],
+   "source": "item.cs BlastWallPack::deployShape; StaticShape.cs BlastWall; itemfuncs.cs checkDeployArea"
+  },
+  "HoloPack": {
+   "summary": "Backpack that creates a Hologram: an AI bot copy of the player that wears the same armor, holds the same weapon and follows its owner around.",
+   "notes": [
+    "Unlike a static decoy, HoloPack::onDeploy calls hologram() in hologram.cs, which spawns an AI player (named after the owner) with the owner's armor, a copy of the weapon in the owner's weapon slot (or a Blaster if none), on the owner's team.",
+    "Every 5 seconds Hologram::Think steers it: it wanders to random points near its owner, jumps or simulates jetting when it is more than 50 or 100 units away, and when under 25 units away it is given a target-laser directive aimed at the owner. If it carries an enemy flag it heads for its own flag stand.",
+    "The in-game help text calls it a decoy that just stands there; the AI script shows it moves, but whether it shoots enemies is not determined from scripts.",
+    "Limit is tracked with the 'hologram' team count (maximum 10). If the limit is reached the pack is not consumed ('Hologram generator overloaded').",
+    "The static Hologram1/2/3 shapes and HoloPack::deployShape exist in the scripts but nothing calls them."
+   ],
+   "source": "item.cs HoloPack::onDeploy; hologram.cs Hologram/Hologram::Think/AI::onDroneKilled; StaticShape.cs Hologram1-3"
+  },
+  "TreePack": {
+   "summary": "Backpack that plants a Mechanical Tree, a cosmetic tree that works as cover.",
+   "notes": [
+    "Terrain only (not interiors): must be placed on flat terrain with a clear spot. It randomly picks tree model 1 (4 in 10) or tree model 2 (6 in 10); both are decorative StaticShapes with a health of 6.5 that do not show to sensors.",
+    "The proximity count for other trees is computed but its check is commented out, so trees can be packed together.",
+    "The in-game help text says it serves little purpose except for cover. The Disassymbler-Gun cannot dismantle it (no entry for it)."
+   ],
+   "source": "item.cs TreePack::deployShape; StaticShape.cs DeployableTree/DeployableTree2"
+  },
+  "PlantPack": {
+   "summary": "Backpack that plants a Healing Plant, a cactus that repairs any damaged player who touches it.",
+   "notes": [
+    "While a damaged player touches DeployableCactus2, GameBase::repairDamage heals them by 0.3 and plays the force-field sound. There is no team check, so enemies are healed too. Rocket-shaped missiles that touch it are destroyed.",
+    "On deployment it randomly picks DeployableCactus2 (6 in 10) or DeployableCactus1 (4 in 10). Script bug: no DeployableCactus1 datablock is defined anywhere in the scripts, so about 4 in 10 deployments ask for a missing object while still reporting 'Healing Plant Deployed' and using up the pack.",
+    "Placed on flat terrain or buildings, 3 m reach, clear spot needed. Very low health (0.5). The Disassymbler-Gun can pick it up ('Healing Plant')."
+   ],
+   "source": "item.cs PlantPack::deployShape; StaticShape.cs DeployableCactus2"
+  },
+  "PlatformPack": {
+   "summary": "Backpack that places a Deployable Platform, a flat square slab for bridging, covering holes or building on.",
+   "notes": [
+    "The DeployablePlatform uses the 4x4 elevator shape with a health of 4, is translucent and invisible to sensors. It is deployed with the player's own rotation and 7 m reach, onto any surface.",
+    "Platforms (like Blast Walls, Air Base and Emplacement platforms) are accepted as valid ground by the deployable helper and by the deploy clear-area check, so turrets and other 'terrain or buildings' items can be stacked on them.",
+    "The in-game help text suggests covering things up and blocking floor or ceiling entrances. The Disassymbler-Gun can pick it up."
+   ],
+   "source": "item.cs PlatformPack::deployShape; itemfuncs.cs deployable()/checkDeployArea; StaticShape.cs DeployablePlatform"
+  },
+  "TeleportPack": {
+   "summary": "Backpack that places a Teleport Pad; a team that deploys two pads can step between them.",
+   "notes": [
+    "Deployed on flat ground 5 m away; it is raised 1 unit and gets an electrical beam effect. Pad count uses the team 'DeployableTeleport' limit.",
+    "Walking onto a pad sends you to the first other pad of your team, then both pads are disabled for 5 seconds ('Teleport Pad is recharging'). With no second pad you get 'No other pad to teleport to'.",
+    "Heavy and DreadNaught armor (harmor, darmor) cannot teleport. Enemies get 'Wrong Team' unless they wear Chameleon armor, which can phase through and is sent to an enemy pad ('Transporting To Enemy Telepad').",
+    "Destroying one pad deals heavy damage (20) to one other pad of the same team, so the pair dies together.",
+    "Rocket-shaped missiles touching a pad are destroyed."
+   ],
+   "source": "item.cs TeleportPack::deployShape; StaticShape.cs DeployableTeleport (onCollision/onDestroyed/Reenable)"
+  },
+  "MechPack": {
+   "summary": "Backpack that deploys an armed Scout flier (the 'Interceptor') at the spot you aim at.",
+   "notes": [
+    "MechPack::deployShape spawns a standard Scout flier on the player's team with an InterceptorModule already loaded (module 9, 150 shots). The in-game help text says it is weaponless, but the script preloads the Interceptor gun module.",
+    "Its fire button launches two InterceptorAmmo bullets at a time, 0.1 seconds apart, using one of the 150 shots each time.",
+    "Needs a flat spot within 10 m that passes the clear-area check; counted by the 'MechPack' team limit.",
+    "Only light-class armors (Assassin, Scout, Chameleon, Stim) can pilot Shifter fliers; see the Vehicle::onCollision code."
+   ],
+   "source": "item.cs MechPack::deployShape; vehicle.cs Scout::OnFire (module 9), Vehicle::onCollision"
+  },
+  "DetPack": {
+   "summary": "Backpack that deploys an HAPC flier (heavy personnel carrier), named 'Stealth HPC' in the shop.",
+   "notes": [
+    "DetPack::deployShape places a regular HAPC flier on the player's team with the map name 'HPC Pack'. It must be set on terrain or an interior, on flat ground, within 3 m.",
+    "It is counted against the shared HAPC vehicle team limit ('HAPCVehicle'), not a pack-specific limit.",
+    "The vehicle comes with no module loaded. HAPCs accept the Stealth, GodHammer and Bomber modules (see those items). The name suggests stealth, but the pack itself adds no cloaking.",
+    "The item named 'Suicide DetPack' in item.cs and the 'DetPack Module' for Scout fliers are different things."
+   ],
+   "source": "item.cs DetPack::deployShape; vehicle.cs Vehicle::onCollision (HAPC modules)"
+  },
+  "RepairKit": {
+   "summary": "A carried medical kit that heals the user and cures poison, with a different amount of healing per armor.",
+   "notes": [
+    "Unlike Classic (a flat 0.2 repair for everyone), the heal depends on the armor: Juggernaught 0.5; Engineer and DreadNaught 0.3; Chameleon, Mercenary, Arbitor, Heavy and Goliath 0.2; Scout, Assassin and any other armor 0.1.",
+    "It also cures poison ($poisonTime reset to 0, 'Poison cured').",
+    "Scout armors (including the Stim variant) also lower their overdose counter by 20 to 44 points if it is above 15.",
+    "Juggernaught additionally reduces its heat-up counter by 20 when above 50.",
+    "The Engineer's Beacon in 'MediKit' mode throws a RepairKit item to teammates."
+   ],
+   "source": "item.cs RepairKit::onUse (Classic: item.cs RepairKit::onUse)"
+  },
+  "MineAmmo": {
+   "summary": "The mine item. Instead of Classic's single antipersonnel mine, each armor class throws a different kind of mine.",
+   "notes": [
+    "Assassin: a flag-shaped decoy mine ('Hologram' mine) that explodes on enemy contact.",
+    "Chameleon: a cloaking Subspace mine (fades out).",
+    "Arbitor: a ShockWave mine that fades out after 8 seconds, detonates 0.2 seconds after an enemy touches it.",
+    "Scout, Mercenary, Heavy and Goliath: the standard Antipersonel mine.",
+    "Engineer: depends on the mine mode set in the weapon options: Proximity Detector (a radar mine that only announces 'Incoming Enemies' to the team, at most once per 10 seconds, within about 20 units), Cloaking mine, Point Defense Laser mine (costs 15 energy and is placed on the surface you look at), Standard mine, or Replicator mine (when destroyed it spawns two copies up to a fixed generation).",
+    "DreadNaught: by default a Point Defense Laser mine (costs 10 energy, explodes after Shifter::LaserMineLive seconds, default 5); can be switched to standard mines with the DMine option.",
+    "Juggernaught, P-armor and the temporary Stim Scout armor have no matching branch, so they throw no usable mine.",
+    "All mines are thrown from the player, set to the thrower's team and do not trigger on teammates. They only work after the match starts."
+   ],
+   "source": "item.cs MineAmmo::onUse/LaserMine; Mine.cs mine datablocks (Classic: item.cs MineAmmo::onUse)"
+  },
+  "Grenade": {
+   "summary": "The grenade item. Instead of Classic's single hand grenade, the thrown grenade depends on armor class.",
+   "notes": [
+    "Mercenary: the standard fragmentation Handgrenade (2 second fuse).",
+    "Scout (and Stim): a Firebomb with an electric blast radius of 35 and strong knockback.",
+    "Assassin: a 'HoloMine', a mine that looks like an armor/repair pack, detonates when an enemy touches it, and blows itself up after 120 seconds.",
+    "Engineer: an EMP grenade (flash damage, radius 25).",
+    "Chameleon: a Plastique charge (the sticky 'Nukebomb') that explodes after the delay the player chose in the Plastique options (2, 5, 10 or 15 seconds).",
+    "Arbitor: a Tranquilizer grenade that does energy damage.",
+    "Goliath: a Concussion grenade (plasma damage, radius 15).",
+    "DreadNaught: a Mortar grenade that explodes after 5 seconds or 0.1 seconds after a player touches it. Heavy: a Plastique-type 'Nukebomb' with no fuse scheduled in the grenade code, so it only goes off if damaged.",
+    "Juggernaught and the P-armor have no matching branch. Thrown grenades are team-tagged. Any Engineer who touches a Plastique has a 70 percent chance to disarm it (and 30 percent to set it off).",
+    "Throw speed is 15 times the player's throw strength, versus 9 times in Classic.",
+    "Note: the comment block at the top of grenade.cs lists a different assignment (Scout concussion, Goliath firebomb); the item.cs code is what applies."
+   ],
+   "source": "item.cs Grenade::onUse/Plastic_Detonate; grenade.cs grenade datablocks (Classic: item.cs Grenade::onUse)"
+  },
+  "Beacon": {
+   "summary": "The Beacon item has been turned into a multi-purpose armor ability. Instead of Classic's simple target beacon, each armor class gets a different action.",
+   "notes": [
+    "Assassin: tosses a Detbomb mine (negative throw strength) with a 5 second fuse, or 0.1 seconds after any player touches it.",
+    "Engineer: depends on the Engineer Beacon option: standard Target Beacon, a cloaked Camera, or a MediKit (throws a RepairKit to teammates). The 'Anti-Missile Screen' option can be selected in the menu but Beacon::onUse has no branch for it. Limited by the 'EngBeacons' team limit (10).",
+    "Scout (and Stim): a Stim Pack. Swaps to Stim armor for about 10 seconds and heals 0.035 every 2 seconds, with a growing overdose chance that can kill the player; at the end the armor reverts.",
+    "Chameleon: deploys a Satchel Charge (a DeployableSatchel turret, up to 25 per team) on the surface you aim at; it applies mine-type radius damage when triggered (onFire/onControl).",
+    "Juggernaught: begins charging the LasCannon or HeavyPlasmaCannon (10 or 8 second charge); fails with a message if neither is carried.",
+    "Mercenary: fires the Speed Booster, a mass-scaled impulse (normal mode forward and up; advanced mode in the aim direction) with a cooldown. The Booster is consumed per use.",
+    "Arbitor: starts a 20-second cloak (fade-out plus sensor suppression); the Beacon is consumed.",
+    "Goliath: throws a Concussion2 grenade (plasma damage, radius 35, 5 second fuse, 0.15 second throw delay).",
+    "DreadNaught and Heavy: activate an emergency force shield (shield strength 0.006) that lasts 20 seconds. The shield-check function only keeps the timer going for DreadNaught/Juggernaught armor, so the Heavy's shield ends at its next 2 second check.",
+    "Script observation: SniperJammer and ScoutSensor exist in itemfuncs.cs but nothing calls them."
+   ],
+   "source": "item.cs Beacon::onUse/DeploySatchel; itemfuncs.cs EngBeacon/EngCamera/ScoutStim/Renegades_startShield/Renegades_startCloak (Classic: item.cs Beacon::onUse)"
+  },
+  "AirAmmoPad": {
+   "summary": "Backpack that drops a Spy Station base pad with an ammo station on it, for air vehicles to resupply.",
+   "notes": [
+    "Placed at the player's own position (not the line of sight). It needs a 15x15x10 clear area and must be more than 10 units from your own flag stand ('You are too close to your flag').",
+    "It creates two objects: an AirAmmoBasePad platform (6x6 thin elevator, health 5) and a DeployableAmmoStation on it, both on the player's team.",
+    "Script bug: the function never increments the AirAmmoPad team count, so the team limit of 4 is never reached."
+   ],
+   "source": "item.cs AirAmmoPad::deployshape; StaticShape.cs AirAmmoBasePad"
+  },
+  "airbase": {
+   "summary": "Backpack that builds a complete floating Air Base 50 units above the player: platforms, generator, command station, inventory station, vehicle pad and station, and a pulse sensor.",
+   "notes": [
+    "airbase::deployshape builds ten team-owned pieces relative to the player: four LargeAirBasePlatform slabs (two lower, two upper, health 36 each), a Portable Generator, a Command Station, an Inventory Station, a Vehicle Pad with a Vehicle Station, and a Pulse Sensor, all flagged as part of the base and in a per-player set.",
+    "It needs a 45x45x25 clear volume at the build position.",
+    "Script bug: the code reads the airbase team count to name the pieces but never compares it with the limit of 3, so the limit is not enforced here, and nothing decrements the count.",
+    "Leaving the mission area while carrying this pack blows the carrier up (Player::leaveMissionArea)."
+   ],
+   "source": "item.cs airbase::deployshape; player.cs Player::leaveMissionArea"
+  },
+  "LaunchPack": {
+   "summary": "Backpack that places a Launch Pad that flings anything that touches it forward and up.",
+   "notes": [
+    "Any object that collides with the DeployableLaunch pad (player or otherwise, friend or foe, there is no team check) gets an impulse of 200 forward and 600 up relative to the object's own rotation, plus a mortar sound and a 'SPROING!' message.",
+    "Placed on flat terrain or interiors, 3 m reach, health 1.5, invisible to sensors. Rocket-shaped missiles touching it are destroyed.",
+    "The Disassymbler-Gun can pick it up ('Launchboard')."
+   ],
+   "source": "item.cs LaunchPack::deployShape; StaticShape.cs DeployableLaunch::onCollision"
+  },
+  "AccelPPack": {
+   "summary": "Backpack that places an Accelerator Pad, which boosts teammates who jump or jet off it.",
+   "notes": [
+    "Only teammates are affected. When a teammate stands on top of the pad, a message tells them to face the desired direction and then jump or jet; you can walk off to avoid being launched.",
+    "A 0.05 second check detects the player rising above the pad, then applies an impulse in their facing direction scaled by their armor mass: full strength (50 forward, 50 up per unit of mass) for Scout, Chameleon, Assassin and Stim, reduced for Mercenary, Goliath, Engineer and Arbitor (40 and 35), and strongly reduced (15 and 15) for DreadNaught, Juggernaught and P-armor. The base Heavy armor appears in none of these lists, so it gets the full default.",
+    "The pad is health 3.3 and when placed the deployer is moved on top of it. Rocket-shaped missiles touching it are destroyed.",
+    "Per-team limit comes from AccelPPack; the count is raised in onDeploy."
+   ],
+   "source": "item.cs AccelPPack::deployShape; StaticShape.cs AccelPadPack (onCollision/CheckPlayer)"
+  },
+  "Hackit": {
+   "summary": "The Engineer's Hack-Gun, an alternate mode of the Engineer gun that takes over powered enemy gear or protects your own gear from hacking.",
+   "notes": [
+    "An Engineer swaps between Repair, Hack and Disassymbler modes using the weapon options menu; each one is a separate item and the swap only works if the player already holds one of the three.",
+    "Only works when the server option Shifter::AllowHacking is on (it defaults to on). Hold the beam on a target for Shifter::HackTime seconds (default 5).",
+    "Enemy targets: only objects whose model is on checkHackable's list can be hacked (generators, stations, sensors, command panels and some turret models such as the camera, indoor gun, hellfire gun, mortar and missile turrets); players cannot be hacked. On success the target switches to the hacker's team, then reverts after Shifter::HackedTime seconds (default 90; 0 means it stays until hacked back).",
+    "Friendly targets: the same hold 'infects' your own object with a protection virus. An enemy trying to hack an infected object must first disarm it, with a 50 percent chance of a 0.9 flash-damage backlash to the hacker; otherwise the virus is removed safely."
+   ],
+   "source": "item.cs Hackit; baseProjData.cs HackBolt; itemfuncs.cs checkHackable/hackingItem"
+  },
+  "DisIt": {
+   "summary": "The Engineer's Disassymbler-Gun, which dismantles a deployed object and returns it as a backpack to the user.",
+   "notes": [
+    "Chosen from the Engineer weapon options menu (replaces the Repair or Hack gun). The beam takes 5 seconds on a target and aborts if released.",
+    "The user's backpack slot must be empty ('drop your current pack first'). On success the target is deleted, the matching team count is decremented and the pack item is placed in the user's backpack.",
+    "Which objects work is decided by name matching in objectColapsable: accelerator pad, launch pad, teleport pad, camera, Ion, Plasma, Rocket, EMP, Laser and Elf turrets, force fields, shock fields and floors, blast walls, platforms, healing plants, remote command station, sensor jammer, pulse and motion sensors, and the Arbitor, EMP and Jammer devices. Dismantling a turret near your own flag removes the flag-defense score it gave.",
+    "Script bugs: there is no team check, so it can dismantle enemy deployables as well. The Mortar Turret and the Shield Device never match their name in the list (they are named differently), so those cannot be dismantled."
+   ],
+   "source": "item.cs DisIt; baseProjData.cs DisaBolt/objectColapsable/objectTearup"
+  },
+  "Regen": {
+   "summary": "The Regeneration Gun, a drain beam mounted from the Regeneration Pack that damages powered enemy equipment while healing the user, and can power up friendly equipment.",
+   "notes": [
+    "It is not sold or listed in the inventory; RegenerationPack::onUse mounts it into the weapon slot on a second use.",
+    "Used on an enemy structure from the checkHackable list, it applies flash damage each tick equal to one twentieth of the target's max damage and repairs the user by 1/25 of that amount.",
+    "Used on friendly equipment for the hack time, it can: give a teammate a 0.025 shield for 240 seconds, shield a flier, power an inventory/ammo/command station for Shifter::HackedTime seconds, upgrade shielding on base turrets and pulse sensors to 0.03, or add 1000 energy to deployable stations.",
+    "checkDone first rejects any shape not on checkHackable's list ('RegenPack does not work on this'), which appears to make the player and flier branches unreachable."
+   ],
+   "source": "item.cs Regen/RegenerationPack::onUse; baseProjData.cs DrainBolt (onAcquire/checkDone)"
+  },
+  "CoolLauncher": {
+   "summary": "Backpack that deploys a Missile Control Station: a missile launcher turret plus a control panel that players load with guided missile packs and then pilot.",
+   "notes": [
+    "Needs a very flat spot (normal within about 20 degrees of vertical) on terrain, buildings, Emplacement platforms or Blast Floors; it creates the DeployableCoolMortar launcher turret and a DeployableCoolStation panel 2.5 behind it.",
+    "A player carrying a missile from the 'Guided Missiles' pack group loads it by using the panel; with it loaded, using the panel again gives control. Press JUMP to launch; the missile (a Flier) is then controlled by the player until it detonates. It cannot fire if something is in the way within 5 units.",
+    "The pack warns 'no remote control and must be controlled manually to fire'. Team limit 2. Only Engineer, Goliath, DreadNaught and Heavy armors can carry it.",
+    "Destroying either part destroys the other. Script bug: DeployableCoolStation::onDestroyed decrements the count using an undefined %player.",
+    "Leaving the mission area while carrying this pack blows the carrier up."
+   ],
+   "source": "item.cs CoolLauncher::deployShape; coolturret.cs; station_dep.cs; turret.cs Turret::Jump"
+  },
+  "EmpM": {
+   "summary": "A guided EMP missile for the Missile Control Station; it creates an EMP blast and a lingering flash-damage field.",
+   "notes": [
+    "Loaded at a Missile Control Station by using the station while the pack is mounted; the missile is then fired by pressing JUMP at the station and flown by the player. Pressing fire detonates it in flight.",
+    "EmpProj is a missile flier with very low health. On detonation it spawns two EMPBlast effects, an area-of-effect field (radius 18, flash damage 0.25 per pulse, lasting 15 seconds) and radius flash damage of 0.75 at radius 20; in this mod flash damage shuts down players' energy and weapons."
+   ],
+   "source": "item.cs EmpM; coolturret.cs EmpProj; vehicle.cs Vehicle::onDestroyed"
+  },
+  "GasM": {
+   "summary": "A guided Toxin missile for the Missile Control Station; it leaves a long-lasting energy-damage cloud.",
+   "notes": [
+    "Loaded at a Missile Control Station by using the station while the pack is mounted; the missile is then fired by pressing JUMP at the station and flown by the player. Pressing fire detonates it in flight.",
+    "On detonation GasProj creates an area-of-effect field (radius 35, energy damage 0.30 per pulse, lasting 25 seconds, shrinking about 10 percent each second) plus a 30-unit radius energy blast. Energy damage is the type that blinds non-Arbitor victims elsewhere in the mod (Renegades_startBlind).",
+    "It is slower than the Phoenix (minimum speed 30)."
+   ],
+   "source": "item.cs GasM; coolturret.cs GasProj/Aoe::check; vehicle.cs Vehicle::onDestroyed"
+  },
+  "PhoenixM": {
+   "summary": "A fast guided Phoenix missile for the Missile Control Station; a pure explosive warhead.",
+   "notes": [
+    "Loaded at a Missile Control Station by using the station while the pack is mounted; the missile is then fired by pressing JUMP at the station and flown by the player. Pressing fire detonates it in flight.",
+    "CoolProj is among the fastest missiles of the family (up to 90). On detonation it applies missile radius damage of 1.0 at radius 8 with heavy knockback, with no lingering field.",
+    "It is the missile the Rocket Turret expects, and can be shot down by an enemy Rocket Turret or popped by a Jammer Device."
+   ],
+   "source": "item.cs PhoenixM; coolturret.cs CoolProj; vehicle.cs Vehicle::onDestroyed"
+  },
+  "NapM": {
+   "summary": "A guided Napalm missile for the Missile Control Station; a fire bomb that leaves burning plasma.",
+   "notes": [
+    "Loaded at a Missile Control Station by using the station while the pack is mounted; the missile is then fired by pressing JUMP at the station and flown by the player. Pressing fire detonates it in flight.",
+    "NapProj is slower than the Phoenix. On detonation it creates an area-of-effect plasma field (radius 35, 0.32 per pulse, 10 seconds, with falling-fragment effects), spawns debris fragments, and applies 0.5 plasma radius damage at radius 25."
+   ],
+   "source": "item.cs NapM; coolturret.cs NapProj/Aoe::check; vehicle.cs Vehicle::onDestroyed"
+  },
+  "BooM": {
+   "summary": "A guided HaVoC missile for the Missile Control Station; the most destructive and expensive warhead.",
+   "notes": [
+    "Loaded at a Missile Control Station by using the station while the pack is mounted; the missile is then fired by pressing JUMP at the station and flown by the player. Pressing fire detonates it in flight.",
+    "BooProj has the same speed as the Phoenix. On detonation it applies nuke-type damage (5.8 at radius 6) and creates a nuke area-of-effect field (radius 35, 0.55 per pulse, 10 seconds) with nuclear cloud and ring effects."
+   ],
+   "source": "item.cs BooM; coolturret.cs BooProj/Aoe::check; vehicle.cs Vehicle::onDestroyed"
+  },
+  "SpyPod": {
+   "summary": "A slow, controllable SpyPod missile for the Missile Control Station: a flying disc for scouting, which can still be detonated.",
+   "notes": [
+    "Loaded at a Missile Control Station by using the station while the pack is mounted; the missile is then fired by pressing JUMP at the station and flown by the player. Pressing fire detonates it in flight.",
+    "SpyPodProj is a slow disc flier (top speed 20, can reverse) with very low health. It does not use the missile-style Aoe field; on detonation it only applies missile radius damage of 1.52 at radius 10. Any collision destroys it.",
+    "Like the other missile fliers it is not shown to sensors (visibleToSensor false). Whether it gives any special view is not determined from scripts."
+   ],
+   "source": "item.cs SpyPod; coolturret.cs SpyPodProj; vehicle.cs Vehicle::onCollision/onDestroyed"
+  },
+  "DetBug": {
+   "summary": "A tiny ammo-class item named 'Det Bug'. No script gives it any behavior.",
+   "notes": [
+    "DetBug is defined as a plain Ammo item (price 2, 'xAmmunition') with a sell value of 5, but no function, armor limit, inventory list or other script refers to it, so it cannot be obtained or used. Behavior not determined from scripts."
+   ],
+   "source": "item.cs DetBug"
+  },
+  "Plastique": {
+   "summary": "A throwable Plastique charge item that is not stocked in any inventory.",
+   "notes": [
+    "Plastique::onUse throws the sticky 'Nukebomb' charge at a gentle throw speed of 4 times throw strength, on the thrower's team, after the match has started.",
+    "The message promises it will explode in a number of seconds but the item code never schedules the detonation (unlike the Chameleon's Grenade, which does) and reads the delay from the player, not the client, so it is likely blank. The charge only goes off if damaged. An Engineer who touches an enemy charge has a 70 percent chance of disarming it and a 30 percent chance of setting it off.",
+    "$InvList and $RemoteInvList for Plastique are 0 and no armor lists it, so players cannot buy or carry it; the Chameleon's Plastique comes through the Grenade key instead."
+   ],
+   "source": "item.cs Plastique::onUse; grenade.cs Nukebomb; station_list.cs"
+  },
+  "RepairPatch": {
+   "summary": "The floor/pickup repair patch, now healing by armor class and curing poison.",
+   "notes": [
+    "Unlike Classic, where touching a patch repairs a flat 0.125 and using one repairs 0.1, Shifter's onCollision (touch) now runs the same armor-based repair as RepairPatch::onUse: Engineer and DreadNaught 0.3; Chameleon, Mercenary, Arbitor, Heavy, Goliath 0.2; Scout, Assassin and others 0.1.",
+    "It also cures poison and gives scout armors an overdose reduction, like the Repair Kit.",
+    "Touch healing only happens if the player is damaged, after which the patch plays its pickup sound and respawns.",
+    "Unlike the Repair Kit, there is no special case for the Juggernaught (it gets the default 0.1), and RepairPatch::onUse no longer calls Player::decItemCount, so using a carried patch would not use it up."
+   ],
+   "source": "item.cs RepairPatch::onCollision/onUse (Classic: item.cs RepairPatch)"
+  },
+  "EmplacementPack": {
+   "summary": "Backpack that builds a Defense Emplacement: a raised platform with an inventory station and force fields, built around the player.",
+   "notes": [
+    "Deploys on flat terrain only within 6 m, with a clear area. It spawns two LargeEmplacementPlatform slabs (one low, one stacked above), an Inventory Station, a Portable Generator buried below, and five static force-field panels (three 4x8 and two 3x4) set around the front and sides. No opening script is defined for those panels in the scripts, so they act as solid translucent walls. All pieces are team-owned and flagged as part of the base.",
+    "Script bug: the team limit check is commented out, so the limit of 2 is not enforced.",
+    "It also provides the rotVector() helper used by the vehicle smoke code.",
+    "Leaving the mission area while carrying this pack blows the carrier up.",
+    "It is flagged in $CanAlwaysTeamDestroy, so teammates can destroy it."
+   ],
+   "source": "item.cs EmplacementPack::deployShape/rotVector; player.cs Player::leaveMissionArea"
+  },
+  "LargeShockForceFieldPack": {
+   "summary": "Backpack that places a Large Shock Force Field that teammates can pass through and that zaps enemies who touch it.",
+   "notes": [
+    "A teammate walking into the field opens it: the shape is moved 5000 units up for about 2.75 seconds and then put back, and touches while it is open are ignored. Enemies never open it, so it blocks them until it is destroyed.",
+    "Unlike the plain Large Force Field, an enemy that touches it takes 0.30 flash (EMP) damage with a warning sound, and Chameleon armor does not get a free pass. Missiles are also destroyed.",
+    "Health 8. If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it.",
+    "The Disassymbler-Gun can pick it up ('Large Shock Force Field')."
+   ],
+   "source": "item.cs LargeShockForceFieldPack::deployShape; StaticShape.cs LargeShockForceField"
+  },
+  "ArbitorBeaconPack": {
+   "summary": "Backpack that deploys an Arbitor Device that cloaks friendly objects around it.",
+   "notes": [
+    "Every 6 seconds it fades out friendly players, structures and vehicles within a 25-unit box around it (not other Arbitor Devices), then schedules them to fade back in after 6 seconds; since it re-checks every 6 seconds, they stay cloaked while it keeps running. It is visual cloaking only; the code does not touch sensor suppression.",
+    "When the device is disabled or destroyed it fades everything back in.",
+    "It can be placed on terrain or buildings at 5 m, oriented to the surface. The map name is 'Arbitor Box'.",
+    "The Disassymbler-Gun can pick it up ('ArbitorBeacon')."
+   ],
+   "source": "item.cs ArbitorBeaconPack::deployShape; turret.cs ArbitorBeacon"
+  },
+  "EMPBeaconPack": {
+   "summary": "Backpack that deploys an EMP Device that periodically EMPs enemies around it.",
+   "notes": [
+    "Every 10 seconds, every enemy object in a 35-unit box (players, vehicles, statics, mines) takes 0.01 flash damage with a warning sound; for players this triggers the EMP effect.",
+    "Script bug: the intended armor exclusion list is written as a chain of '!=' tests joined by '||', which is always true, so it excludes nobody.",
+    "Flat surface needed, proximity limited, 5 m reach, placed on terrain or platforms. Map name 'EMP Box'. The Disassymbler-Gun can pick it up ('EMPBeacon')."
+   ],
+   "source": "item.cs EMPBeaconPack::deployShape; turret.cs EMPBeacon::checkEMPBeacon"
+  },
+  "ShieldBeaconPack": {
+   "summary": "Backpack that deploys a Shield Device that gives nearby teammates a protective shield.",
+   "notes": [
+    "Every 15 seconds, every friendly object within a 35-unit box (players, vehicles, structures) gets a shieldStrength of 0.024, which resets to 0 after 15 seconds. Enemies are unaffected.",
+    "Flat surface, proximity limit, 5 m reach. Map name 'Shield Box'.",
+    "Script bug: the Disassymbler-Gun looks for the name 'Shield Device', but the object is named 'ShieldBeacon', so it cannot be dismantled."
+   ],
+   "source": "item.cs ShieldBeaconPack::deployShape; turret.cs ShieldBeacon::checkShieldBeacon"
+  },
+  "PowerGeneratorPack": {
+   "summary": "Backpack that deploys a Portable Generator that powers the team's deployed equipment.",
+   "notes": [
+    "Deploys a PortGenerator StaticShape and adds it to the team's mission group so team gear is powered. The pack is shown as 'Power Device'. Team limit is 1 and kill credit is off.",
+    "No script decrements the team count when the generator is destroyed, so the slot is not freed until the mission reloads.",
+    "Leaving the mission area with the pack kills the carrier and costs 25 score ('naughty naughty').",
+    "Only the Engineer can carry it."
+   ],
+   "source": "item.cs PowerGeneratorPack::deployShape; player.cs Player::leaveMissionArea; StaticShape.cs Generator"
+  },
+  "LasCannon": {
+   "summary": "A Juggernaught-only heavy weapon charged with Beacons that unleashes a barrage of laser bolts, but overloads and kills the user if held too long.",
+   "notes": [
+    "Press the Beacon key to start charging (consumes a Beacon): the weapon mounts and charges one level per second for 10 seconds, then sets full charge (15).",
+    "Firing releases a burst whose size depends on the charge: LasCannonBolts at any charge, extra bolts and LasCannonShock at above 3, GatlingLaser at above 5 and above 7, more at above 9, and a LasCannonBolt2 at full charge. Firing without a charge only says it uses Beacons.",
+    "At full charge the user has 15 seconds to fire; otherwise they explode (HavocBlast).",
+    "Only Juggernaught can carry it ($ItemMax). Buying it clears the Plasma Cannon and God Hammer cannons from the player's inventory."
+   ],
+   "source": "item.cs LasCannon/LasCannonImage::onFire/LasCannoner::Charge/Detonate"
+  },
+  "PlasmaCannon": {
+   "summary": "A Juggernaught-only heavy plasma weapon charged with Beacons that fires a heavy plasma barrage and explodes the user if left overloaded.",
+   "notes": [
+    "Press the Beacon key to start an 8 second charge (consumes a Beacon); the charge level rises one per second then sets full charge (15).",
+    "Firing releases PlasmaCannonBolt and PlasmaCannonBolt2 bolts and PlasmaCannonShock shells in a pattern that grows with charge. At full charge it also launches two PlasmaCannonShock2 shells that scatter frag debris when they are removed.",
+    "At full charge the user has 15 seconds to fire; otherwise they explode (HavocBlast plus extra plasma damage).",
+    "Firing without a charge only says it uses Beacons."
+   ],
+   "source": "item.cs PlasmaCannon/PlasmaCannonImage::onFire/PlasmaCannoner::Charge/Detonate"
+  },
+  "HammerAmmo": {
+   "summary": "Ammunition for the Juggernaught's twin God Hammer Cannons.",
+   "notes": [
+    "Jugg-only: $ItemMax allows 150. The inventory station resupplies it with the cannon through AmmoStation::resupply.",
+    "Each fire of the paired cannons uses ammo; 'No God Hammer Ammo!' is shown when empty."
+   ],
+   "source": "item.cs HammerAmmo; station_func.cs; item.cs remoteUseItem"
+  },
+  "Hammer1Pack": {
+   "summary": "The right-hand God Hammer Cannon, one of a Juggernaught's twin shoulder cannons that fire explosive rockets.",
+   "notes": [
+    "Buying Hammer1Pack automatically grants Hammer2Pack and mounts the two into shoulder slots 4 and 5. Using the weapon key via the backpack path fires both cannons together (a GodHammer rocket, explosion damage, radius 15) if the player has any HammerAmmo.",
+    "Each volley adds 5 heat: above 50 percent the cannon shows an overheating warning, above 65 it burns the user lightly, above 80 it does steady plasma damage, and over 99 it detonates the user with frag fragments. Heat drains gradually (4 per cooling tick).",
+    "Only Juggernaught can carry it. Buying it removes the Las and Plasma cannons."
+   ],
+   "source": "item.cs Hammer1Pack, remoteUseItem, GodHammer::HeatUp/HeatCheck/CoolDown; baseProjData.cs GodHammer"
+  },
+  "Hammer2Pack": {
+   "summary": "The left-hand God Hammer Cannon, the hidden second half of the Juggernaught's paired shoulder cannons.",
+   "notes": [
+    "Hidden from the inventory (showInventory false). It is added with Hammer1Pack and fired together with it; it shares the same GodHammer projectile and HammerAmmo.",
+    "Mounted in slot 5 beside Hammer1Pack's slot 4. Selling Hammer1Pack removes it."
+   ],
+   "source": "item.cs Hammer2Pack, Hammer1Pack sell/buy code"
+  },
+  "ShockFloorPack": {
+   "summary": "Backpack that places a Shock Floor, a horizontal force-field panel that teammates can walk through and that zaps enemies who touch it.",
+   "notes": [
+    "The deployable is laid flat (the 'Flat' orientation) using the 5x5 force field shape, with a health of 12. A teammate walking into the field opens it: the shape is moved 5000 units up for about 2.75 seconds and then put back, and touches while it is open are ignored. Enemies never open it, so it blocks them until it is destroyed.",
+    "An enemy player who touches it takes 0.30 flash (EMP) damage with a warning sound. Missiles are destroyed.",
+    "If the server option Shifter::TurretKill is on (default False), kills by this turret are credited to the player who deployed it. Credit: the original design is noted in the script as Mark Williamson's, edited by Emo1313 to open for teammates.",
+    "The Disassymbler-Gun can pick it up ('Shock Floor')."
+   ],
+   "source": "item.cs ShockFloorPack::deployShape; StaticShape.cs ShockFloor"
+  },
+  "NapalmModule": {
+   "summary": "A Scout flier module for napalm bombing.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads into the Scout with 15 shots. Script bug: the Napalm branch of Scout::OnFire sets a 1.5 second refire and spends ammo but spawns no projectile, so firing does nothing visible in this release."
+   ],
+   "source": "vehicle.cs Scout::OnFire (module 1), Vehicle::onCollision"
+  },
+  "HellFireModule": {
+   "summary": "A Scout flier module for fire-bomb strikes.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads into the Scout with 15 shots. Each fire drops three Frag projectiles in a small spread, with a 3 second refire."
+   ],
+   "source": "vehicle.cs Scout::OnFire (module 2)"
+  },
+  "DetPackModule": {
+   "summary": "A one-shot Scout flier module that turns the flier into a bomb.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads with 1 shot. Firing throws 8 random Frag mines, creates a nuclear ring, cloud and HaVoC-style blast near the flier and applies radius impact damage around it, a suicide run."
+   ],
+   "source": "vehicle.cs Scout::OnFire (module 3)"
+  },
+  "BomberModule": {
+   "summary": "A bomber module for the LAPC and HAPC fliers.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads into the LAPC with 4 shots or the HAPC with 6. Each fire drops a ModuleBomb with a 2 second refire.",
+    "Scout::OnFire also has a Bomber branch, but the Scout loading code cannot load this module."
+   ],
+   "source": "vehicle.cs LAPC::OnFire/HAPC::OnFire (module 4), Vehicle::onCollision"
+  },
+  "PickUpModule": {
+   "summary": "A Scout flier module that drops pick-up cargo.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads into the Scout with 3 shots. Each fire drops a PickUpPack under the flier (a cargo crate that checks resupply energy of 5000 and is deleted after 120 seconds); 2 second refire. Exactly what the crate gives players is not fully determined from scripts."
+   ],
+   "source": "vehicle.cs Scout::OnFire (module 5); Mine.cs PickUpPack"
+  },
+  "MineNetModule": {
+   "summary": "A Scout flier module that lays a net of seeking mines.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads with 4 shots. Each fire creates a MineNet turret that, after 0.7 seconds, places five rows of five MineNetKnot turrets (up to 25) in a grid below the flier, skipping spots blocked by objects. Knots last 120 seconds and detonate on contact with enemies or when an enemy comes within 27 units."
+   ],
+   "source": "vehicle.cs Scout::OnFire (module 6); Mine.cs MineNet/MineNetKnot"
+  },
+  "StealthModule": {
+   "summary": "A stealth module for the LAPC and HAPC fliers.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads with 3 shots in the LAPC or 4 in the HAPC. Firing starts Stealth: sensor suppression for 120 seconds ('Stealth Activated For 120 Seconds'), then StealthOff clears it.",
+    "Firing while already stealthed only clears the stealth flag without calling StealthOff, so the suppression is not removed early."
+   ],
+   "source": "vehicle.cs LAPC::OnFire (module 7), StealthOff"
+  },
+  "WraithModule": {
+   "summary": "A cloaking module for the Scout flier.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads with 4 uses. Each time a pilot mounts the loaded Scout, the flier and pilot fade out and gain +100 sensor suppression, costing one use; when out of uses the module is cleared. Dismounting or destroying the flier restores visibility.",
+    "Firing only prints 'Cloaking Activated Automatically'."
+   ],
+   "source": "vehicle.cs Vehicle::onCollision (module 8), Scout::OnFire"
+  },
+  "InterceptorModule": {
+   "summary": "A gun module for the Scout flier.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads with 150 shots. Each fire launches two InterceptorAmmo bullets 17 units ahead of the nose, with a 0.1 second refire. This is the module preloaded on the Interceptor Pack flier."
+   ],
+   "source": "vehicle.cs Scout::OnFire (module 9), Vehicle::onCollision"
+  },
+  "GodHammerModule": {
+   "summary": "A rocket-pod module for the LAPC and HAPC fliers.",
+   "notes": [
+    "Vehicle modules are loaded by walking into the matching flier while carrying the module; the flier must have no module loaded, and the module is consumed from your inventory.",
+    "Loads with 7 shots in the LAPC or 15 in the HAPC. Each fire drops a line of five GodHammerPod mines spread along the flier, with a 0.8 second refire."
+   ],
+   "source": "vehicle.cs LAPC::OnFire (module 10), Vehicle::onCollision"
+  },
+  "JammerBeaconPack": {
+   "summary": "Backpack that deploys a Jammer Device, an anti-missile and anti-sensor-jammer emitter.",
+   "notes": [
+    "Every second, it checks a 75-unit box. Enemy guided missiles from the Missile Control Station (Phoenix, Napalm, HaVoC, EMP, Toxin) in range are popped: a DeadRocket dud projectile is spawned in their place, the missile is destroyed without its warhead, and the Jammer takes 0.2 impact damage per missile; the pilot sees 'Control Lock Failed, War Head Did NOT Detonate'.",
+    "An enemy DeployableSensorJammer in range damages the device by 0.15 per pass.",
+    "Flat surface, proximity limit, 5 m reach, map name 'Jammer Box'. The Disassymbler-Gun can pick it up ('JammerBeacon')."
+   ],
+   "source": "item.cs JammerBeaconPack::deployShape; turret.cs JammerBeacon::checkJammerBeacon"
+  },
+  "Booster1Pack": {
+   "summary": "Hidden tool item that represents the Mercenary's right shoulder booster.",
+   "notes": [
+    "Not sold: it is given and mounted in tool slot 4 whenever a player takes Mercenary armor, and unmounted when changing to any other armor.",
+    "Its image only fires a short Booster puff projectile (no damage). The Mercenary's actual boost comes from the Beacon key (Beacon::onUse).",
+    "A boosted Mercenary is vulnerable while the booster is cooling: back-shots from laser, sniper or bullet fire can pop the booster (50 percent chance) and explosion, mortar, missile and electric damage can too (40 percent); a pop blows the player up with a big plasma blast."
+   ],
+   "source": "item.cs Booster1Pack, armor swap code; player.cs Merc Booster Pop"
+  },
+  "Booster2Pack": {
+   "summary": "Hidden tool item that represents the Mercenary's left shoulder booster.",
+   "notes": [
+    "Not sold: given and mounted in tool slot 5 together with Booster1Pack when a player takes Mercenary armor. It also only shows a Booster puff; the boost itself is applied by the Beacon key.",
+    "Booster mode (normal or advanced) is set in the Booster Options menu: normal pushes forward and up with a 4 second booster cooldown, advanced pushes in the exact aim direction with a 6 second cooldown."
+   ],
+   "source": "item.cs Booster2Pack; admin.cs Booster Options; item.cs Beacon::onUse"
+  }
+ }
+}

@@ -1,0 +1,114 @@
+# omega-mod vs base (113 items)
+renamed+statsLightArmor                   Scout|Sniper
+renamed+statsMediumArmor                  Engineer
+renamed+statsHeavyArmor                   Confederate Herc
+renamed+statsScoutVehicle                 Hyper Laser Fighter
+renamed+statsLAPCVehicle                  Heavy Bomber
+renamed+stats+scriptsBlaster                      Cyclone Blaster
+renamed+stats+scriptsChaingun                     4 Barrelled Chaingun
+new        VulcanAmmo                   Vulcan Ammo
+new        Vulcan                       10mm Vulcan
+renamed+statsPlasmaAmmo                   Dominion Cartridge
+renamed+stats+scriptsPlasmaGun                    Dominion II
+renamed+statsGrenadeAmmo                  Replicating Nades
+renamed+stats+scriptsGrenadeLauncher              Replicating Nade Launcher
+renamed+stats+scriptsMortar                       Anti-Matter Mortar
+new        Discammo                     FrizBeez
+new        DiscLauncher1                Viper Disc Launcher
+new        DiscLauncher2                ThisisPlasmaticsstuff
+renamed+stats+scriptsDiscLauncher                 Viper Disc Launcher
+renamed+stats+scriptsLaserRifle                   M.P.P.A.
+new        DemLas                       Demolition Laser
+new        Mlas                         Meson Cannon
+scripts    TargetingLaser               Targeting Laser
+renamed+statsEnergyRifle                  Cyclone ELF
+renamed+statsEnergyPack                   Jet Pack
+stats      ShieldPack                   Shield Pack
+stats+scriptsMotionSensorPack             Motion Sensor
+stats      TurretPack                   Turret
+new        FlameTurret                  Variable Turret
+scripts    RepairKit                    Repair Kit
+scripts    Grenade                      Grenade
+new        PLAmmo                       Firey Beams
+new        PL                           P.L.C.
+new        ChromeShotgunAmmo            Chrome Shells
+new        ChromeShotgun                Chrome Shotgun
+new        SRAmmo                       7.62mm Shells
+new        SR                           Sniper Rifle
+new        DevCannonAmmo                Devastator Blasts
+new        DevCannon                    Devastator Cannon
+new        RGAmmo                       70mm Magneto Rails
+new        RG                           70mm Rail Cannon
+new        IcannonAmmo                  Ion Pax
+new        Icannon                      Ion Cannon
+new        FlakcannonAmmo               Flak Shells
+new        Flakcannon                   Flak Cannon
+new        AnniChainAmmo                Annihilator Shells
+new        AnniChain                    Annihilation ChainGun
+new        FlameThrowerAmmo             Methane Fuel Cells
+new        FlameThrower                 M.J.I.T.
+new        MRLAmmo                      Mini Rockets
+new        MRL                          Mini-Rocket Launcher
+new        FalconAmmo                   Quad-Bullets
+new        Falcon                       T.B.L.G. Falcon Rifle
+new        AssasinToolAmmo              Body Blenders
+new        AssasinTool                  H.S.C
+new        BlastWallPack                Blast Wall
+new        LargeForceFieldDoorPack      Large Force Field Door
+new        BurTCAmmo                    Neptunium Cases
+new        BurTC                        Burster Torpedo Cannon
+new        AirBasePack                  Air Base
+new        ProtonTurret                 Proton Amp Turret
+new        HawkTCAmmo                   Uranium Packets
+new        HawkTC                       Hawk Torpedo Launcher
+new        DevestatorTurret             Mini DevestatorTurret
+new        MissileTurret                Scud missile Launcher
+new        PBCAmmo                      PBC Ammo
+new        PBC                          Power Blast Cannon
+new        SpeedyModemPack              Dial-up Modem
+new        IceStormSpell                Ice Storm Spell
+new        GammaChainAmmo               Gamma Ray Packets
+new        GammaChain                   G.R.P. Cannon
+new        ObeliskOfDoom                Obelisk of Doom
+new        EarthQuakeSpell              Earth Quake Spell
+new        StarFlare                    Star Flare
+new        FoehnWind                    Foehn Spell
+new        DeathPoint                   Death Point
+new        DivineWave                   Divine Wave
+new        LaternPack                   Lantern Pack
+new        RazorChaingunAmmo            Utility Razors
+new        RazorChaingun                Razor chaingun
+new        PhasePack                    Sprout Manuever Pack
+new        RazorTurret                  Razor Chain turret
+new        PlatformPack                 Deployable Platform
+new        LargeForceFieldPack          Large Force Field
+new        BunkerPack                   Hover Pad
+new        QThumperAmmo                 Thumper Shells
+new        QThumper                     Quad Thumper Cannon
+new        PaintBallGunAmmo             Paintball Pods
+new        PaintBallGun                 Angel LCD Paintball Gun
+new        RPGAmmo                      RPG Shells
+new        RPG                          RPG
+new        HMAmmo                       Healing Shells
+new        HM                           Healing Mortar
+new        SmokyHandsAmmo               Smoke Bombs
+new        SmokyHands                   Smoke Bombs
+new        C4PlacerAmmo                 C4 Bombs
+new        C4Placer                     Special Bomb Pack
+new        BridgePack                   Bridge Kit
+new        OBCannonAmmo                 Ohm Shells
+new        OBCannon                     Omega Blast Cannon
+new        Forcefield5x5                Force Field [5x5]
+new        FissionSniperAmmo            Fission Batterys
+new        FissionSniper                E.F.G.S.R.
+new        NapalmSetterAmmo             Slippery Napalm Balls
+new        NapalmSetter                 Napalm Setter
+new        SpikeRifleAmmo               Tripod Spike  Pellets
+new        SpikeRifle                   Spike Rifle
+new        HealingTurret                Healing Turret
+new        CommonRailGunAmmo            22mm Rail Slides
+new        CommonRailGun                22mm Rail Gun
+new        QRLCAmmo                     120mm Rockets
+new        QRLC                         Guided Rocket Launcher
+new        ObeliskofLight               Obelisk of Light
+new        HunterTurret                 Hunter Turret

@@ -1,0 +1,25 @@
+# retro vs devious-land (24 items)
+renamed+statsLightArmor                   Flack Jacket
+renamed+statsMediumArmor                  Urban Assault Gear
+renamed+statsHeavyArmor                   Kevlar Body Armor
+new        AK47ammo                     AK-47 Clip
+new        AK47                         AK-47
+new        MP5ammo                      MP5 10mm Clip
+new        MP5                          H&K MP5
+new        AKSUammo                     AKSU-74 Clip
+new        AKSU                         AKSU-74
+new        DSHKammo                     DShK Clip
+new        DSHK                         DShK Hvy MG
+new        SVDammo                      SVD Magazine
+new        SVD                          Dragunov SVD
+new        RPGammo                      RPGs
+new        RPG                          RPG
+new        ShotgunAmmo                  Shot
+new        Shotgun                      Combat Shotgun
+new        HellfireAmmo                 HellfireAmmo
+new        HellfirePack                 Hellfire Artillery
+stats      Blaster                      Blaster
+stats      EnergyRifle                  ELF Gun
+new        RPGPack                      RPG Support Unit
+new        HFSPack                      Hellfire Ammo Feed
+scripts    AmmoPack                     Ammo Pack

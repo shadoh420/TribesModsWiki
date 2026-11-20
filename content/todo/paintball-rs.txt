@@ -1,0 +1,15 @@
+# paintball-rs vs paintball-9beta (14 items)
+renamed+statsAngel                        UnhOlYAngl BuRstEr
+renamed+statsDragun                       DrAGoN SniPeR
+renamed+statsAutoCocker                   i2k AuToCocKeR
+renamed+statsSpyder                       SpiI)eR 980
+new        Camo                         Land Camo
+renamed+statsTipmannS                     RaPiD SnYpeR A1
+renamed+statsMiniGun                      MiNi RaPtoR 30-6
+renamed+statsMongoose                     MoNGooSe 2350
+renamed+statsIntimidator                  TeRmiNaToR F5
+renamed+statsPsycho                       SniPeR MaRinE GuN
+renamed+statsInferno                      StiNgRaY
+stats      FLPack                       Flash Light
+renamed+statsDelta                        HeAvy OrDaniNcE PP7
+renamed+statsShocker                      A1 ShoCkEr

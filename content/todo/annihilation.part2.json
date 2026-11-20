@@ -1,0 +1,805 @@
+{
+  "items": {
+    "TRocketLauncherAmmo": {
+      "summary": "Ammunition for the Tank Rocketgun. Each trigger pull spends two rounds.",
+      "notes": [
+        "Only the Tank armor can carry it.",
+        "Not listed among the Ammo Pack's extra-capacity types."
+      ],
+      "source": "tankrocketlauncher.cs, serveritemusage.cs, packammo.cs"
+    },
+    "TRocketLauncher": {
+      "summary": "A Tank-only twin rocket launcher. Aimed at a player or flier, it fires two heat-seeking Tank Missiles that lock onto that target; aimed at anything else, it fires two unguided Tank Rockets.",
+      "notes": [
+        "The lock check is a line-of-sight trace out to 1500 m. On a lock both the shooter and the target get a message (\"lock acquired\" / \"lock detected\").",
+        "Every shot spends 2 ammo, whatever the shot type.",
+        "Equipping it also mounts three hidden copies (TRocketLauncher2-4) that are triggered alongside the main gun. They have no projectile type and no fire handler, so only the two projectiles from the main gun's onFire are actually launched.",
+        "The file defines TRocketLauncher::MountExtras twice. The second definition (which mounts the extra copies) replaces the first.",
+        "Script bug: the out-of-ammo message uses a client variable that is only set when ammo is present, so that message never reaches the player."
+      ],
+      "source": "tankrocketlauncher.cs TRocketLauncherImage::onFire, TRocketLauncher::MountExtras, CheckTRocketLauncher; baseprojdata.cs TankMissile, TankRocket; serveritemusage.cs"
+    },
+    "TankRPGAmmo": {
+      "summary": "Ammunition for the Tank RPG.",
+      "notes": [
+        "Tank armor only.",
+        "With an Ammo Pack the wearer can carry up to 300 extra rounds."
+      ],
+      "source": "tankrpg.cs, packammo.cs, serveritemusage.cs"
+    },
+    "TankRPGLauncher": {
+      "summary": "A Tank-only quad launcher that fires a volley of four RPG rockets per shot.",
+      "notes": [
+        "The main gun's onFire spawns one RPG rocket. Three side launchers (TankRPGLauncher2-4) are mounted in extra slots and kept firing while the trigger is held, each launching its own RPG, so a volley is four rockets.",
+        "The side launchers use the same RPG Ammo type, so they draw on the same ammo.",
+        "RPG is a radius-damage shrapnel rocket with a wide blast."
+      ],
+      "source": "tankrpg.cs TankRPGLauncherImage::onFire, TankRPGLauncher::MountExtras, CheckTankRPGLauncher"
+    },
+    "TankShredderAmmo": {
+      "summary": "Bullets for the Tank Shredder.",
+      "notes": [
+        "Tank armor only.",
+        "An Ammo Pack adds room for 100 more."
+      ],
+      "source": "tankshredder.cs, packammo.cs, serveritemusage.cs"
+    },
+    "TankShredder": {
+      "summary": "A Tank-only quad chaingun: four barrels spray Shredder bullets for as long as the trigger is held.",
+      "notes": [
+        "The main gun's onFire fires one ShredderBullet and uses 1 ammo. Three extra chainguns (TankShredder2-4) in other mount slots fire ShredderBullets on their own while the trigger is held.",
+        "Has a 3-second spin-down like the chaingun.",
+        "TankShredderImage::spawnProjectile is defined but nothing calls it."
+      ],
+      "source": "tankshredder.cs TankShredderImage::onFire, TankShredder::MountExtras, CheckTankShredder"
+    },
+    "TargetingLaser": {
+      "summary": "A non-damaging range-finding and target-painting beam. Every armor can carry one.",
+      "notes": [
+        "Unlike stock Tribes, when Building mode is on the Use Laser/Use Blaster mode keys switch it to a Cutting Laser and back. Using the item while that mode is set mounts the Cutting Laser instead.",
+        "Shows a help line when equipped (if weapon help is on)."
+      ],
+      "source": "targetlaser.cs TargetingLaser::onUse, MountExtras; weapon.cs Weapon::Mode; serveritemusage.cs"
+    },
+    "VulcanAmmo": {
+      "summary": "Ammunition for the Vulcan.",
+      "notes": [
+        "In standard-round mode each shot uses 1 round. In Fiery Vulcan mode each shot uses 2.",
+        "The Ammo Pack adds room for 100 more."
+      ],
+      "source": "vulcan.cs VulcanImage::onFire, packammo.cs"
+    },
+    "Vulcan": {
+      "summary": "A rapid-fire rotary gun with two switchable round types: standard chaingun bullets, or Fiery Vulcan rounds that use double ammo.",
+      "notes": [
+        "Press Use Laser or Use Blaster (keys 1 and 6) to switch modes. Mode 0 fires ChaingunBullet; mode 1 fires VulcanBullet.",
+        "While firing it also triggers a hidden Ejector in slot 4 that spits out harmless spent-shell casings.",
+        "Commando, Warrior and Builder only."
+      ],
+      "source": "vulcan.cs VulcanImage::onFire, vulcan::Ejector, Vulcan::MountExtras; weapon.cs Weapon::Mode; baseprojdata.cs VulcanBullet; serveritemusage.cs"
+    },
+    "VulcanEjector": {
+      "summary": "A hidden helper image the Vulcan mounts in slot 4. While the Vulcan fires it throws out shell casings for show.",
+      "notes": [
+        "Fires SpentShell, a grenade-type projectile with zero damage and zero kickback.",
+        "It isn't on the inventory lists, so it can't be bought. vulcan::Ejector keeps it triggered while the Vulcan's trigger is held and ammo remains."
+      ],
+      "source": "vulcan.cs VulcanEjectorimage, vulcan::Ejector"
+    },
+    "MinigunAmmo": {
+      "summary": "Bolts for the Troll's Minigun.",
+      "notes": [
+        "Troll armor only."
+      ],
+      "source": "minigun.cs, serveritemusage.cs"
+    },
+    "Minigun": {
+      "summary": "A Troll-only rotary gun firing very fast, long-range Minigun bullets, with two extra barrels mounted alongside.",
+      "notes": [
+        "Equipping it mounts Minigun2 and Minigun3 in slots 6 and 7.",
+        "The main image has both a MinigunBullet projectile type and a scripted onFire. That onFire spawns another MinigunBullet (without spending ammo) and starts CheckMinigun, which triggers slots 6 and 7 while the trigger is held. Whether the engine runs that script onFire when a projectile type is also set can't be determined from scripts, so it's not certain the extra barrels fire.",
+        "Minigun::Ejector is defined but never called."
+      ],
+      "source": "minigun.cs MinigunImage::onFire, Minigun::MountExtras, CheckMinigun"
+    },
+    "Minigun2": {
+      "summary": "The Minigun's second barrel, mounted automatically in slot 6. It has its own MinigunBullet projectile and is triggered by CheckMinigun, which only the main image's scripted onFire starts.",
+      "notes": [
+        "It isn't on the inventory lists, so it isn't sold on its own."
+      ],
+      "source": "minigun.cs Minigun::MountExtras, CheckMinigun"
+    },
+    "Minigun3": {
+      "summary": "The Minigun's third barrel, mounted automatically in slot 7. It has its own MinigunBullet projectile and is triggered by CheckMinigun, which only the main image's scripted onFire starts.",
+      "notes": [
+        "It isn't on the inventory lists, so it isn't sold on its own."
+      ],
+      "source": "minigun.cs Minigun::MountExtras, CheckMinigun"
+    },
+    "ThumperAmmo": {
+      "summary": "Shells for the Thumper.",
+      "notes": [
+        "Carried by Commando, Chameleon Assassin, Warrior, Builder, Troll and Titan."
+      ],
+      "source": "thumper.cs, serveritemusage.cs"
+    },
+    "Thumper": {
+      "summary": "A short-range blast launcher. Its very short-lived, high-kickback shell can hit enemies or boost the shooter.",
+      "notes": [
+        "Fires ThumperGren, a fast grenade-type shell. It can hit its owner after a short grace period, which is what makes the self-boost work.",
+        "Commando, Chameleon Assassin, Warrior, Builder, Troll and Titan.",
+        "ThumperImage::onFireXX, ThumperGren::Arm and the ThumperGrenMine functions (which would turn the shell into a small mine) are never called. Only onFire runs."
+      ],
+      "source": "thumper.cs ThumperImage::onFire, Thumper::MountExtras; serveritemusage.cs"
+    },
+    "Slapper": {
+      "summary": "A build-mode tool that drops a chosen static model wherever the player aims. The available models are every eligible .dts shape found on the server.",
+      "notes": [
+        "Works only while Building is on. Otherwise it refuses with a message.",
+        "Press keys 1 and 6 to cycle the selected model. The aim point must be within 7 m.",
+        "At load time it scans the server's .dts files, skips effect and base shapes by name, and creates a 1-health Slapper datablock for each one.",
+        "Each placement also fires a blaster bolt. Placed objects can be moved with the Pitchfork or Gravity Gun.",
+        "Players without isGoated wait 3 seconds between placements.",
+        "Advanced Building makes it available to every armor; otherwise its carry limit is zero.",
+        "Script bug: the cooldown message prints an empty model name."
+      ],
+      "source": "zz_slapper.cs SlapperImage::onFire, Slapper::Mode, Slapper::MountExtras; adminset.cs Admin::setABuild"
+    },
+    "GravityGun": {
+      "summary": "A build-mode tractor beam. It grabs doors, interiors, turrets, static shapes or players at any range and drags them along the player's aim until fired again.",
+      "notes": [
+        "Works only while Building is on.",
+        "Doors move only up and down. Other objects keep their offset and distance from the muzzle.",
+        "Players are pulled toward the aim point every 0.1 s, either by setting their velocity (magnetic tractor) or by applying impulses (momentum tractor).",
+        "While holding something, keys 1 and 6 toggle object rotation, or the player-pull mode if a player is held.",
+        "Advanced Building makes it available to every armor.",
+        "GravityGun::boost (fling a held player) is defined but nothing calls it."
+      ],
+      "source": "zz_gravitygun.cs GravityGunImage::onFire, doorLoop, moveLoop, gravityLoop; weapon.cs Weapon::Mode; adminset.cs"
+    },
+    "AmmoPack": {
+      "summary": "Raises ammo capacity for many of the mod's ammo types. Commando, Warrior and Builder only.",
+      "notes": [
+        "Extra capacity: +100 Vulcan, +300 RPG, +100 Tank Shredder, +30 plasma, +25 flamer and flamethrower, +15 disc, grenade-launcher and phase ammo, +10 mortar, rubber, rocket, rail, shotgun, sniper, stinger and blast-cannon ammo, +5 hand grenades, +5 mines.",
+        "Unlike stock Tribes, the list covers 19 ammo types. Buying it at a station tops up those extras.",
+        "Script bug: onDrop and checkPacksAmmo store the overflow ammo under an undefined key. Every dropped Ammo Pack shares the same saved counts, so picking one up returns whatever ammo was last dropped from any pack.",
+        "Dropping the pack does nothing before the match has started."
+      ],
+      "source": "packammo.cs AmmoPack::onDrop, onCollision, checkPacksAmmo, fillAmmoPack; serveritemusage.cs"
+    },
+    "ChameleonPack": {
+      "summary": "A Chameleon Assassin pack that disguises the wearer as the enemy team. While it's active they count as an enemy teammate, so they can use enemy teleport pads.",
+      "notes": [
+        "Activating it drops any carried flag and moves the wearer onto the other team until the pack is turned off. It only works with two teams.",
+        "Only one chameleon per team at a time.",
+        "While disguised the wearer can't carry the enemy flag; touching it gives a damage flash and a refusal message.",
+        "Inventory stations refuse chameleons while the disguise is active.",
+        "Enemy Deployable Cats within 50 m can detect the wearer and announce it to their team. Each check has a chance of collapsing the disguise, roughly 150 divided by the distance in m, capped at 100%.",
+        "Airstrike Pack users are given a Chameleon Pack after a successful strike."
+      ],
+      "source": "packchameleon.cs ChameleonPackImage::onActivate, onDeactivate, ChameleonPack::Buffer; turret.cs (cat targeting); objectives.cs"
+    },
+    "Laptop": {
+      "summary": "A Builder pack for hacking. The wearer can take manual control of enemy turrets by touching them, and can use enemy teleport pads.",
+      "notes": [
+        "When an enemy turret is touched, it switches to the wearer's team during manual control. Its internal diagnostics switch it back once control ends.",
+        "Laptop users can control a turret that is recharging. They are refused only while it is recalibrating or on alert.",
+        "An enemy Teleport Pad accepts a laptop wearer, reporting \"Enemy teleport override successful\".",
+        "The pack turns itself on when mounted and adds a little energy regeneration."
+      ],
+      "source": "packcommand.cs Laptop::onUse, onMount, IsAvailable; turret.cs Turret::onCollision; teleporter.cs DeployableTeleport::onCollision"
+    },
+    "EnergyPack": {
+      "summary": "Adds energy regeneration while worn. Using it again while it's on fires an energy-powered jump boost. Every armor can carry it.",
+      "notes": [
+        "Unlike stock Tribes, using the pack while it's already on launches the wearer if they have at least 20% energy. The boost costs a third of current energy, scales with energy, and pushes along their aim if standing still or along their current motion if moving.",
+        "The boost is skipped in TALT mode.",
+        "Unlike stock Tribes, there is no unmount handler, so removing the pack doesn't unequip any weapon."
+      ],
+      "source": "packenergy.cs EnergyPack::onUse, onMount; grenadelauncher.cs SplitMines"
+    },
+    "GhostArmor": {
+      "summary": "The hidden inventory marker for the Ghost armor that the Necromancer's Ghost Pack switches into. It can't be bought.",
+      "notes": [
+        "The Ghost PlayerData (lghost/fghost) takes 2.8x kickback.",
+        "In Ghost armor the grenade key throws a HoloMine and the beacon key cloaks, as for the Necromancer.",
+        "Opening the inventory screen doesn't grant global (quick) inventory access while it's held, even in Building or Quick Inventory mode."
+      ],
+      "source": "ghost.cs, packghost.cs GhostPack::onUse, game.cs, item.cs remoteUseItem"
+    },
+    "GhostPack": {
+      "summary": "A Necromancer pack that turns the wearer into a Ghost (meant to pass through vertical walls). While ghosting they lose health every 0.75 s and die if it runs out.",
+      "notes": [
+        "Use the pack once to wear it, then again to toggle ghosting. Turning ghosting on swaps the armor to Ghost and keeps energy. Turning it off swaps back to Necromancer, but only if the wearer isn't inside a wall.",
+        "While ghosting, every 0.75 s it adds 0.03 damage and flashes a shield effect. Past maximum health the wearer is blown up, unless player damage is disabled.",
+        "Removing the pack while ghosting blows the wearer up (\"You became a dead shadow\").",
+        "Worn but not ghosting, it gives a small auto-repair rate.",
+        "Script bugs: onMount checks an undefined client, so its help text never shows. onUnmount calls noghost(), which is defined nowhere. Deactivation always restores Necromancer armor."
+      ],
+      "source": "packghost.cs GhostPack::onUse, onMount, onUnmount, Casper; serveritemusage.cs"
+    },
+    "GhostPack2": {
+      "summary": "A hidden helper image the Ghost Pack mounts in slot 7 whenever it's worn.",
+      "notes": [
+        "Has no functions of its own. It's removed when the Ghost Pack is unmounted."
+      ],
+      "source": "packghost.cs GhostPack::onMount, onUnmount"
+    },
+    "GhostPack3": {
+      "summary": "A hidden helper image mounted in slot 6 while ghosting is active, and removed when ghosting ends.",
+      "notes": [
+        "Has no functions of its own."
+      ],
+      "source": "packghost.cs GhostPack::onUse, Casper"
+    },
+    "SensorJammerPack": {
+      "summary": "Hides the wearer from enemy sensors while active. Carried by Commando, Rogue Angel, Warrior, Builder, Tank and Titan.",
+      "notes": [
+        "Adds 20 to sensor suppression while on, as in stock Tribes.",
+        "Per its help text, enemies looking at the wearer and deployed motion sensors override the jamming (engine sensor behavior).",
+        "Cameras' help text says jamming enemies in a camera's view become detectable by turrets."
+      ],
+      "source": "packjammer.cs SensorJammerPackImage::onActivate, onDeactivate; serveritemusage.cs"
+    },
+    "NovaPack": {
+      "summary": "A Rogue Angel pack that releases a burst of electrical bolts in all directions, one bolt per point of the wearer's energy, then empties their energy.",
+      "notes": [
+        "At exactly 40 energy (a full Rogue Angel) the burst uses the stronger NovaBoltB. At any other level it fires weaker NovaBoltA bolts.",
+        "The bolts deal electricity damage, which player shield packs can't absorb.",
+        "The held weapon is unmounted during the burst and remounted 0.5 s later."
+      ],
+      "source": "packnova.cs NovaPackImage::onActivate; player.cs (shield absorption); angel.cs"
+    },
+    "PhaseShifterPack": {
+      "summary": "A Necromancer teleport pack. The wearer phases to the point under their crosshair, or swaps places with any player they aim at.",
+      "notes": [
+        "Range 550 m. It refuses to target fliers or anywhere within the 30 m box around an enemy flag.",
+        "A location jump parks the wearer out of the map for 1.5 s, then drops them at the target. A 7.5 s recharge starts after arrival.",
+        "Swapping exchanges positions and velocities instantly. The wearer gets the shock effect and the other player gets the burn effect. Swaps don't start the recharge.",
+        "It can't be used while connected to an inventory unless Building or Quick Inventory is on.",
+        "Swaps are blocked for human players when Spoonbot auto-spawn is on."
+      ],
+      "source": "packphaseshifter.cs PhaseShifterPackImage::onActivate, phaseShiftProcess, phaseShiftComplete, phaseShiftRecharge"
+    },
+    "RegenerationPack": {
+      "summary": "The Troll Pack: a Troll-only pack that repairs the wearer a little every second while worn.",
+      "notes": [
+        "Turns itself on when mounted and checks once a second. A Troll heals 0.0275 damage per tick.",
+        "Any other armor wearing it takes 0.275 damage per tick instead. Only the Troll can normally carry it.",
+        "Stops while the wearer is frozen."
+      ],
+      "source": "packregeneration.cs RegenerationPack::OnMount, checkRegeneration; serveritemusage.cs"
+    },
+    "RepairPack": {
+      "summary": "Gives the wearer a repair gun. Using the pack again equips the gun, which heals damaged players, turrets and base equipment. Every armor can carry it.",
+      "notes": [
+        "Unlike stock Tribes, mounting the pack switches it on immediately.",
+        "Unlike stock Tribes, a Repair Pack lying in the world isn't picked up normally. Any player without a pack who touches it (Ghost armor excepted) is given a new Repair Pack, and the world item stays where it is. The packs placed at Air Bases and Gunships use this.",
+        "Dropping or swapping the pack removes the repair gun, as in stock."
+      ],
+      "source": "packrepair.cs RepairPack::onCollision, onMount, onUse, onDrop, onUnmount; baseprojdata.cs RepairBolt"
+    },
+    "Airstrike": {
+      "summary": "The hidden designator tool the Airstrike Pack puts in the weapon slot. Holding fire on a target calls in the strike.",
+      "notes": [
+        "Can't be bought separately."
+      ],
+      "source": "packairstrike.cs AirstrikeImage::onFire, decAirstrike"
+    },
+    "AirstrikePack": {
+      "summary": "A Chameleon Assassin pack that calls in an air strike. The player must hold the designator on a target for 10 seconds without moving.",
+      "notes": [
+        "Use the pack once to wear it, then again to equip the Airstrike designator. The target must be within 280 m.",
+        "The strike is cancelled if the player moves or stops firing. It is refused if their own team's flag is within the 40 m box around the target.",
+        "On success, three AirstrikeShell mortar rounds fall from 200 m above the aim point. The Airstrike Pack is then removed and replaced by a Chameleon Pack.",
+        "A second mode that drops a line of AirFlame shells exists in the code, but $ASMode is never set anywhere, so it can't be reached.",
+        "A team limit of 10 is defined, but nothing in the airstrike code checks or counts it."
+      ],
+      "source": "packairstrike.cs AirstrikePack::onUse, AirstrikeImage::onFire, decAirstrike; serveritemusage.cs"
+    },
+    "ShieldPack": {
+      "summary": "Projects an energy shield that absorbs damage, paid for out of the wearer's energy. Troll and Titan only.",
+      "notes": [
+        "Same activation as stock Tribes (shield strength 0.012). Grenade and mortar hits are absorbed at 75% efficiency.",
+        "Electricity damage bypasses the shield entirely. That covers the Ion Turret, Nova Pack and Rogue Angel beacon bolts.",
+        "Unlike stock Tribes, other armors can't carry it."
+      ],
+      "source": "packshield.cs ShieldPackImage::onActivate, onDeactivate; player.cs (shield absorption); serveritemusage.cs"
+    },
+    "StealthShieldPack": {
+      "summary": "A Shield Pack and Sensor Jammer Pack in one: while active, the wearer has an energy shield and +20 sensor suppression.",
+      "notes": [
+        "Uses the same 0.012 shield strength as the Shield Pack. Electricity damage still bypasses it.",
+        "Commando and Warrior only."
+      ],
+      "source": "packstealthshield.cs StealthShieldPackImage::onActivate, onDeactivate; player.cs; serveritemusage.cs"
+    },
+    "SuicidePack": {
+      "summary": "A Troll pack that throws a large explosive charge. It detonates instantly or after a timer the player sets in Personal Options.",
+      "notes": [
+        "Activating it removes the pack and throws a Suicidebomb2 charge with a very large blast radius.",
+        "8.5 s cooldown between charges.",
+        "A Builder who touches a planted charge disarms it 90% of the time and sets it off the other 10%.",
+        "Troll only."
+      ],
+      "source": "packsuicide.cs SuicidePackImage::onActivate; miscmine.cs Suicidebomb2::onCollision; serveritemusage.cs"
+    },
+    "FlameTurretPack": {
+      "summary": "A Builder-deployed short-range turret that sprays a stream of fire. It comes with a separate fuel canister placed just behind it.",
+      "notes": [
+        "Fires FlameShell, a plasma-damage projectile, very rapidly at close range.",
+        "If either the turret or its fuel canister is destroyed, the other is damaged past its limit as well.",
+        "Placement: flat ground within 5 m but not closer than 1.75 m, away from other remote turrets, and not near the enemy flag.",
+        "Up to 6 per team. Builders can repack it with the Builder's Tool."
+      ],
+      "source": "flameturret.cs FlameTurretPack::deployShape, FlameTurret::onDestroyed, Canister::onDestroyed; baseprojdata.cs FlameShell; serveritemusage.cs; fixit.cs"
+    },
+    "FusionTurretPack": {
+      "summary": "A long-range deployable turret that fires Fusion charges. It can be manually controlled.",
+      "notes": [
+        "Deploys on flat ground only, through the shared Turret::deployShape checks (5 m range, terrain or buildings, not near the enemy flag, turret spacing).",
+        "The help text calls it electrical, but its FusionCharge projectile is set to energy damage, not electricity.",
+        "Has its own small shield. Its destruction causes a large debris blast.",
+        "Carried by Commando, Warrior, Builder and Troll. Up to 4 per team.",
+        "Not on the Builder's Tool repack list."
+      ],
+      "source": "fusionturret.cs FusionTurretPack::deployShape, DeployableFusionTurret; turret.cs Turret::deployShape; baseprojdata.cs FusionCharge"
+    },
+    "TurretPack": {
+      "summary": "The Ion Turret: a short-range deployable turret that fires electrical Ion bolts.",
+      "notes": [
+        "Unlike stock Tribes, it can go on walls and ceilings as well as floors.",
+        "Ion bolts deal electricity damage, which player shield packs can't absorb.",
+        "Carried by Warrior, Builder and Titan. Up to 10 per team. Builders can repack it."
+      ],
+      "source": "ionturret.cs TurretPack::deployShape, DeployableTurret; turret.cs Turret::deployShape; baseprojdata.cs IonBolt; player.cs"
+    },
+    "IrradiationTurretPack": {
+      "summary": "The Irradiation Cannon: a long-range turret that rapidly fires blast rounds. It can be manually controlled.",
+      "notes": [
+        "Fires IrradiationBlast, a radius-damage round with strong kickback.",
+        "Flat ground only.",
+        "Carried by Commando, Warrior, Builder and Titan. Up to 2 per team."
+      ],
+      "source": "irradiationturret.cs IrradiationTurretPack::deployShape, IrradiationTurret; baseprojdata.cs IrradiationBlast"
+    },
+    "LaserTurretPack": {
+      "summary": "A deployable turret that fires an instant-hit laser, with a long recharge between shots.",
+      "notes": [
+        "Can be placed on floors, walls or ceilings.",
+        "Has no shield.",
+        "Builder only. Up to 16 per team."
+      ],
+      "source": "laserturret.cs LaserTurretPack::deployShape, DeployableLaserTurret; baseprojdata.cs TurretLaser"
+    },
+    "RocketPack": {
+      "summary": "The Missile Turret: a long-range turret that fires homing missiles at jetting players and vehicles.",
+      "notes": [
+        "Only engages targets with a heat factor of 0.5 or more, meaning jetting players and vehicles. Per its help text, it sees only enemies inside the team's sensor network.",
+        "Flat ground only. Can be manually controlled.",
+        "Carried by Builder and Troll. Up to 3 per team."
+      ],
+      "source": "missileturret.cs RocketPack::deployShape, DeployableRocket::verifyTarget; baseprojdata.cs TurretMissileDeployed"
+    },
+    "MortarTurretPack": {
+      "summary": "A deployable mortar turret that lobs heavy mortar shells at enemies in range.",
+      "notes": [
+        "Flat ground only. It can't be manually controlled.",
+        "Builder only. Up to 2 per team."
+      ],
+      "source": "mortarturret.cs MortarTurretPack::deployShape, DeployableMortar; baseprojdata.cs MortarTurretShell"
+    },
+    "NeuroTurretPack": {
+      "summary": "The Neuro Basher: a three-part anti-air installation. Its turret picks a different attack for each target: seeking shock missiles at jetting enemies, a close-range shock charge at anyone within 30 m, and missiles at enemy droids and OS missiles.",
+      "notes": [
+        "Its own bullet does nothing. All attacks are scripted in verifyTarget, with a 2 s pause between volleys.",
+        "Enemies within 200 m with a heat factor of 0.65 or more get neuroShock1 and neuroShock2 seekers. Within 30 m it fires the neuroShock3 shock grenade. Enemy-piloted Probe, Suicide or Survey droids and OS missiles more than 2 m above it, within 150 m, get neuroShock4.",
+        "Ignores disguised chameleons.",
+        "Deploys a cannon, base and turret together; destroying any one destroys the others. It needs 35 m of clear space overhead and must be 70 m from another Neuro Turret.",
+        "Builder only. Up to 4 per team.",
+        "The turret's fallback map name is \"Mortar Turret\" (left over from copied code)."
+      ],
+      "source": "neuroturret.cs NeuroTurretPack::deployShape, NeuroTurret::verifyTarget, Neurobase/NeuroCannon::onDestroyed"
+    },
+    "NuclearTurretPack": {
+      "summary": "A very short-range turret that fires an enormously powerful nuclear shell on a rocket.",
+      "notes": [
+        "Can be placed on floors, walls or ceilings.",
+        "Builder only. Up to 2 per team."
+      ],
+      "source": "nuclearturret.cs NuclearTurretPack::deployShape, DeployableNuclearTurret; baseprojdata.cs NukeShell"
+    },
+    "PlasmaTurretPack": {
+      "summary": "A long-range deployable turret that fires plasma charges. It can be manually controlled.",
+      "notes": [
+        "Flat ground only.",
+        "Carried by Warrior, Builder and Troll. Up to 8 per team."
+      ],
+      "source": "plasmaturret.cs PlasmaTurretPack::deployShape, DeployablePlasmaTurret; baseprojdata.cs PlasmaCharge"
+    },
+    "ShockTurretPack": {
+      "summary": "A short-range turret that drops wide-radius shock shells.",
+      "notes": [
+        "Can be placed on floors, walls or ceilings.",
+        "ShockShell has a 30 m blast radius but low damage.",
+        "Builder only. Up to 8 per team."
+      ],
+      "source": "shockturret.cs ShockTurretPack::deployShape, DeployableShockTurret; baseprojdata.cs ShockShell"
+    },
+    "vortexTurretPack": {
+      "summary": "The Vortex Turret: fires vortex bolts whose blast pulls enemies toward the impact instead of pushing them away.",
+      "notes": [
+        "VortexBolt does almost no damage. Its kickback is negative, which is what produces the pull.",
+        "Can be placed on floors, walls or ceilings. Has no shield.",
+        "Builder only. Up to 6 per team."
+      ],
+      "source": "vortexturret.cs vortexTurretPack::deployShape, deployableVortexTurret; baseprojdata.cs VortexBolt"
+    },
+    "ScoutVehicle": {
+      "summary": "The Fighter: a single-seat attack flier that fires Scout missiles.",
+      "notes": [
+        "Unlike stock Tribes, it fires ScoutMissile, a wide-blast shrapnel rocket.",
+        "Can be piloted by every armor except Builder, Troll, Tank and Titan, who can only ride.",
+        "When it's destroyed the pilot and passengers are dismounted and a debris blast goes off.",
+        "Up to 5 per team."
+      ],
+      "source": "vehiclefighter.cs Scout, Scout::onDestroyed; baseprojdata.cs ScoutMissile; serveritemusage.cs PopulateCanPilot"
+    },
+    "InterceptorVehicle": {
+      "summary": "The Interceptor: a fast single-seat flier with a rapid-fire Ion bolt gun.",
+      "notes": [
+        "Fires IonBolt (electricity damage) with a very short reload.",
+        "Same pilot rules as the Fighter: no Builder, Troll, Tank or Titan pilots.",
+        "Up to 4 per team, including those deployed from an Interceptor Pack."
+      ],
+      "source": "vehicleinterceptor.cs Interceptor; serveritemusage.cs"
+    },
+    "LAPCVehicle": {
+      "summary": "The Bomber: a slow, heavily armored flier with two passenger seats that drops bombs below itself.",
+      "notes": [
+        "Unlike stock Tribes' unarmed light APC, firing drops a BombShell, a large mortar-type bomb. Each bomb costs the vehicle 30 energy, with at least 0.25 s between drops.",
+        "Every armor except Tank and Titan can pilot it.",
+        "Up to 3 per team."
+      ],
+      "source": "vehiclebomber.cs LAPC::onFire, LAPC::onDestroyed; baseprojdata.cs BombShell; serveritemusage.cs"
+    },
+    "TransportVehicle": {
+      "summary": "The Transport: a slow, unarmed, heavily armored flier with four passenger seats.",
+      "notes": [
+        "Every armor except Tank and Titan can pilot it.",
+        "Explodes on destruction and dismounts everyone aboard.",
+        "Up to 3 per team. The Transport Vehicle pack counts toward the same limit."
+      ],
+      "source": "vehicletransport.cs Transport, Transport::onDestroyed; serveritemusage.cs"
+    },
+    "AirBasePack": {
+      "summary": "Deploys a complete floating air base high above the deployer and teleports them up to it. It includes a vehicle station and pad, an inventory station, a command station, a pulse sensor, solar panels, force fields and a repair pack.",
+      "notes": [
+        "Only on terrain, at least 200 m from the deployer's own flag and 150 m from the enemy flag. It needs a clear 40 m box about 150 m up, and is blocked on CTF Indoor maps and near Gunship landing zones.",
+        "The base's health object takes half damage from enemies. The hit that destroys it costs a teammate 5 points or earns an enemy 2.",
+        "Once the health object is destroyed, a 60-second countdown starts. Without repairs the whole base blows up.",
+        "Carried by Commando, Warrior and Builder. 1 per team, and the limit applies even in Building mode."
+      ],
+      "source": "airbase.cs AirBasePack::deployshape, CommandStation2::onDamage, ABWarpCoreCheck, ABBlowShitUp; serveritemusage.cs"
+    },
+    "BigCratePack": {
+      "summary": "Deploys a large, sturdy crate, mainly used to shield turrets.",
+      "notes": [
+        "Can be placed on floors, walls or ceilings within 5 m.",
+        "Carried by Warrior, Builder and Titan. Up to 20 per team. Builders can repack it."
+      ],
+      "source": "bigcrate.cs BigCratePack::deployShape, BigCrate::onDestroyed; serveritemusage.cs; fixit.cs"
+    },
+    "BlastWallPack": {
+      "summary": "Deploys a large blast wall for covering turrets and chokepoints.",
+      "notes": [
+        "Flat surfaces only, and not on an enemy base.",
+        "Builder only. Up to 20 per team.",
+        "The file also contains unused helpers (stickyBlastWall::onDamage, DamageMarker)."
+      ],
+      "source": "blastwall.cs BlastWallPack::deployShape, BlastWall::onDestroyed; serveritemusage.cs"
+    },
+    "BunkerPack": {
+      "summary": "Deploys a round bunker with firing slits near the team's flag. Destroying any one of its outer panels collapses the whole bunker in a large explosion.",
+      "notes": [
+        "Only on flat terrain within 450 m of the team's own flag, and not near Gunship landing zones.",
+        "Four outer panels are tied together: when one is destroyed, every part of the bunker is destroyed and a BombHellHalo blast goes off.",
+        "Carried by Builder and Titan. 1 per team."
+      ],
+      "source": "bunkerpack.cs BunkerPack::deployShape, DestroyBunker, BunkerExplosion"
+    },
+    "SpringPack": {
+      "summary": "The Starwolf Springboard: a launch pad that throws players high into the air. It also flings grenades, mines, ammo and bots that touch it.",
+      "notes": [
+        "Players get an upward launch scaled by their armor's mass, with random strength. About 1 launch in 10 gets a bigger boost, and about 1 in 40 is a \"Springboard Malfunction\" with a far larger kick.",
+        "Non-player objects have their horizontal speed doubled and get a vertical speed of 90, 120 or 150. A bounced mine or hologram destroys itself 3.5 s later.",
+        "Flat surfaces only. Builder only. Up to 2 per team."
+      ],
+      "source": "springpack.cs SpringPack::deployShape, Springboard::onCollision"
+    },
+    "AcceleratorDevicePack": {
+      "summary": "The Starwolf Accelerator: a pad that shoots players and objects forward horizontally at high speed.",
+      "notes": [
+        "Players get a mostly horizontal impulse along their facing, scaled by armor mass and random strength. About 1 in 40 launches is an \"Accelerator Malfunction\" with a much larger kick.",
+        "Objects get their horizontal speed multiplied by 20, 45 or occasionally 100.",
+        "Deploys a center pad plus two side pieces. Destroying any piece destroys the rest.",
+        "Builder only. Up to 2 per team."
+      ],
+      "source": "acceleratordevicepack.cs AcceleratorDevicePack::deployShape, AcceleratorDeviceFS::onCollision, onDestroyed"
+    },
+    "CameraPack": {
+      "summary": "Deploys a remote camera that can be viewed from a Command Station or through a Laptop.",
+      "notes": [
+        "Can be placed on floors, walls or ceilings of terrain, buildings or deployable platforms. Unlike stock Tribes, deploy range is 5 m.",
+        "Carried by Rogue Angel, Necromancer, Builder, Troll, Tank and Titan. Up to 10 per team. Builders can repack it."
+      ],
+      "source": "camera.cs CameraPack::deployShape, CameraTurret; serveritemusage.cs; fixit.cs"
+    },
+    "ControlJammerPack": {
+      "summary": "Deploys a jammer that, every second, destroys enemy-piloted droids and Titan OS missiles within a large area and shocks their pilots.",
+      "notes": [
+        "Covers a 400 x 400 x 250 m box. Each pass deals 0.2 damage to the remote pilot. Droids are destroyed outright. An OS missile is destroyed only if its pilot survives the shock.",
+        "Takes half damage from enemies. Destroying it earns an enemy 2 points or costs a teammate 2.",
+        "Only on flat terrain with room above it, and not near Gunship landing zones.",
+        "Builder only. 1 per team.",
+        "Script bug: if the remote pilot is invulnerable, frozen or jailed, the check function returns without rescheduling itself, and the jammer stops working permanently."
+      ],
+      "source": "controljammer.cs ControlJammerPack::deployShape, ControlJammer::checkControlJammer, ControlJammer::onDamage"
+    },
+    "TransportPack": {
+      "summary": "Deploys a Transport flier on the spot, with no vehicle station needed.",
+      "notes": [
+        "Flat terrain or buildings within 5 m, with room for the vehicle.",
+        "Counts against the team's Transport vehicle limit (3), not its own team limit of 5.",
+        "Builder only."
+      ],
+      "source": "deploytransport.cs TransportPack::deployShape; serveritemusage.cs"
+    },
+    "InterceptorPack": {
+      "summary": "Deploys an Interceptor flier on the spot, with no vehicle pad needed.",
+      "notes": [
+        "Flat terrain or buildings within 5 m. Counts against the team's Interceptor limit (4).",
+        "It prints \"Piloting Interceptor...\" but the script doesn't put the player into the vehicle.",
+        "Rogue Angel only."
+      ],
+      "source": "interceptor.cs InterceptorPack::deployShape; serveritemusage.cs"
+    },
+    "ForceFieldPack": {
+      "summary": "Deploys a small solid force field, used to cover turrets or block passages.",
+      "notes": [
+        "Flat surfaces only.",
+        "Carried by every armor except Chameleon Assassin. Up to 16 per team. Builders can repack it."
+      ],
+      "source": "forcefield.cs ForceFieldPack::deployShape, DeployableForceField; serveritemusage.cs; fixit.cs"
+    },
+    "ForceFieldDoorPack": {
+      "summary": "Deploys a small force-field door. It opens for teammates and blocks everyone else.",
+      "notes": [
+        "When a teammate touches it, the door fades and moves 1000 m up for 2 seconds, then returns.",
+        "Fliers that hit it take damage proportional to their speed.",
+        "Builder only. Up to 8 per team."
+      ],
+      "source": "forcefielddoor.cs ForceFieldDoorPack::deployShape, ForceFieldDoorShape::onCollision, openDoor, closeDoor"
+    },
+    "JailTower": {
+      "summary": "Deploys a team jail tower. Enemies hit with the Jailer's Gun are sent there for 20 seconds unless they escape or are freed.",
+      "notes": [
+        "Only on terrain within 2 m, at least 150 m from both flags, with a clear 27 m area and 35 m of open space above, and not near Gunship landing zones.",
+        "A prisoner who gets more than 10 m from the cell is announced as escaped. When the sentence ends, a prisoner still inside is placed 10 m higher.",
+        "Touching the release switch, or hitting it for more than 0.3 damage, raises the walls for about 10 seconds.",
+        "Destroying any jail wall destroys the whole tower.",
+        "Builder only. 1 per team."
+      ],
+      "source": "jailtower.cs JailTower::deployshape, ToJail, JailBird, JailBreak, JailReleaseSwitch::onCollision, DestroyJail"
+    },
+    "JumpPadPack": {
+      "summary": "Deploys a jump pad. A player standing on it who jumps or jets is launched in the direction they're aiming.",
+      "notes": [
+        "Launch strength scales with armor mass and is random. About a third of launches are boosted.",
+        "Stepping off the pad cancels the launch.",
+        "Can't go on ceilings.",
+        "Builder only. Up to 5 per team."
+      ],
+      "source": "jumppad.cs JumpPadPack::deployShape, JumpPad::onCollision, JumpPadPack::CheckPlayer"
+    },
+    "LargeForceFieldPack": {
+      "summary": "Deploys a large solid force field, a bigger version of the Force Field.",
+      "notes": [
+        "Flat surfaces only. Unlike the small Force Field, it can't be deployed out of bounds even in Building mode.",
+        "Builder only. Up to 8 per team."
+      ],
+      "source": "largeforcefield.cs LargeForceFieldPack::deployShape, LargeForceField"
+    },
+    "LargeForceFieldDoorPack": {
+      "summary": "Deploys a large force-field door that opens for teammates and blocks everyone else.",
+      "notes": [
+        "Same behavior as the Force Field Door, with a larger field shape: it fades out for 2 seconds when a teammate touches it, and damages fliers that hit it.",
+        "Builder only. Up to 4 per team."
+      ],
+      "source": "largeforcefielddoor.cs LargeForceFieldDoorPack::deployShape, LargeForceFieldDoorShape::onCollision"
+    },
+    "MobileInventoryPack": {
+      "summary": "Deploys a large inventory station that powers itself, independent of the base generators.",
+      "notes": [
+        "Generates its own power on deploy, and reconnects itself if it loses power.",
+        "Offers the mobile inventory list.",
+        "Flat terrain, buildings or deployable platforms.",
+        "Builder only. Up to 5 per team. Builders can repack it."
+      ],
+      "source": "mobileinventory.cs MobileInventoryPack::deployShape, MobileInventory::onPower; powerfunctions.cs MAnn::PowerTap"
+    },
+    "MotionSensorPack": {
+      "summary": "Deploys a motion sensor that detects nearby moving enemies, overrides their sensor jamming, and makes them targetable by turrets.",
+      "notes": [
+        "Can be placed on floors, walls or ceilings of terrain, buildings or platforms. Unlike stock Tribes, deploy range is 5 m and the team limit is 10.",
+        "Carried by Rogue Angel, Necromancer, Warrior, Builder, Troll, Tank and Titan."
+      ],
+      "source": "motionsensor.cs MotionSensorPack::deployShape, DeployableMotionSensor; serveritemusage.cs"
+    },
+    "PlasmafloorPack": {
+      "summary": "Deploys a small plasma floor panel for blocking areas or shielding against Laser Turrets above or below.",
+      "notes": [
+        "Can be placed upright or flipped against a ceiling.",
+        "Fliers that touch it take a small amount of damage.",
+        "Carried by Warrior, Builder and Titan. Up to 20 per team."
+      ],
+      "source": "plasmafloor.cs PlasmafloorPack::deployShape, DeployablePlasmaFloor::onCollision"
+    },
+    "PlatformPack": {
+      "summary": "Deploys a flat platform. Aiming at the edge of an existing platform snaps the new one alongside it.",
+      "notes": [
+        "Aiming within 0.5 m of a platform's edge marker places the new platform 6 m over, in line with the old one.",
+        "Turrets, cameras, sensors and teleporters accept platforms as a base.",
+        "Carried by Warrior, Builder and Titan. Up to 20 per team."
+      ],
+      "source": "platform.cs PlatformPack::deployShape, DeployablePlatform"
+    },
+    "PortableGeneratorPack": {
+      "summary": "Deploys a backup generator that keeps the team's base stations, turrets and sensors powered.",
+      "notes": [
+        "Only on flat building floors (not terrain), within 450 m of the team's flag.",
+        "When enabled it calls Ann::Powering. That makes every same-team inventory and ammo station, vehicle pad and station, command station, base turret and pulse sensor among the first 128 targets generate its own power.",
+        "Takes half damage from enemies. Destroying it earns an enemy 2 points or costs a teammate 2.",
+        "Builder only. 1 per team. Builders can't repack it.",
+        "Code note: gunship.cs redefines Generator::onDisabled and is loaded after staticshape.cs. That replaces the version that checks for a portable generator or solar panel backup."
+      ],
+      "source": "portablegenerator.cs PortableGeneratorPack::deployShape, PortableGenerator::onEnabled, onDamage; powerfunctions.cs Ann::Powering; staticshape.cs, gunship.cs Generator::onDisabled; serverannihilation.cs"
+    },
+    "DeployableInvPack": {
+      "summary": "Deploys a small remote inventory station so the team can re-equip in the field.",
+      "notes": [
+        "Flat terrain or buildings within 5 m. The station has its own energy pool for purchases, which is kept if a Builder repacks it.",
+        "Builders can also place one of these stations with the beacon key, and it counts toward the same team limit.",
+        "Carried by Commando, Warrior and Builder. Up to 10 per team."
+      ],
+      "source": "portableinventorystation.cs DeployableInvPack::deployShape, DeployableInvStation::onActivate; item.cs remoteUseItem; fixit.cs"
+    },
+    "PortableSolarPack": {
+      "summary": "Deploys a solar panel that backs up the team's base power, like the Portable Generator.",
+      "notes": [
+        "Only on flat terrain within 450 m of the team's flag, and not near Gunship landing zones.",
+        "When enabled it runs the same Ann::Powering routine as the Portable Generator.",
+        "Takes half damage from enemies.",
+        "Builder only. 1 per team. Builders can't repack it."
+      ],
+      "source": "portablesolar.cs PortableSolarPack::deployShape, PortableSolar::onEnabled, onDamage; powerfunctions.cs Ann::Powering"
+    },
+    "PulseSensorPack": {
+      "summary": "Deploys a remote pulse sensor that extends the team's sensor network. Unlike motion sensors, it can be jammed.",
+      "notes": [
+        "Uses the shared Item::deployShape checks: flat terrain or buildings within 5 m.",
+        "Unlike stock Tribes, the team limit is 10, and it's carried by Rogue Angel, Necromancer, Warrior, Builder, Troll, Tank and Titan."
+      ],
+      "source": "pulsesensor.cs PulseSensorPack::DeployShape; item.cs Item::deployShape; serveritemusage.cs"
+    },
+    "CatPack": {
+      "summary": "The Deployable Cat: a sensor that detects enemy chameleons nearby, alerts its team, and may collapse their disguise.",
+      "notes": [
+        "Never fires at anyone. When a disguised enemy is within 50 m it announces them to its team, at most once per 5 seconds per cat.",
+        "Each check has a chance of shutting off the chameleon's pack, roughly 150 divided by the distance in m, capped at 100%. Each nearby cat rolls separately. The interference total that ChameleonPack::Buffer prints is display only and doesn't affect the roll.",
+        "Deploys with a separate Chameleon Detector piece. It can't be placed within 10 m of another of the team's cats.",
+        "Builder only. Up to 10 per team. Builders can repack it.",
+        "Destroying the cat and the detector each decrement the team's cat count."
+      ],
+      "source": "sensorcat.cs CatPack::deployShape, DeployableCat, PCDsensor::onDestroyed; turret.cs (cat targeting); packchameleon.cs ChameleonPack::Buffer"
+    },
+    "DeployableSensorJammerPack": {
+      "summary": "Deploys a stationary jammer that hides a small area from enemy pulse sensors.",
+      "notes": [
+        "Uses the shared Item::deployShape checks: flat terrain or buildings within 5 m.",
+        "Unlike stock Tribes, the team limit is 10, and it's carried by Rogue Angel, Necromancer, Warrior, Builder, Troll, Tank and Titan."
+      ],
+      "source": "sensorjammer.cs DeployableSensorJammerPack::DeployShape; item.cs Item::deployShape; serveritemusage.cs"
+    },
+    "TeleportPack": {
+      "summary": "Deploys a teleport pad. Players (and thrown objects) that step on it are sent to another of the team's pads.",
+      "notes": [
+        "After a player teleports, both pads recharge for 5 seconds.",
+        "A damaged pad can scramble: the chance is 1% plus its damage percentage. On a scramble the player takes damage and is sent to a random team spawn point instead, and both pads take a little damage.",
+        "Enemy players are refused unless they wear a Laptop. Disguised chameleons count as teammates.",
+        "Mines, grenades and other objects are also teleported, and thrown out with a much stronger push.",
+        "Carried by Commando, Warrior and Builder. Up to 3 per team. Builders can repack it."
+      ],
+      "source": "teleporter.cs TeleportPack::deployShape, DeployableTeleport::onCollision"
+    },
+    "GunShipPack": {
+      "summary": "A beacon that marks a landing pad and summons a Gunship from orbit. The ship carries a generator, two inventory stations, plasma and indoor turrets, a pulse sensor and a repair pack.",
+      "notes": [
+        "About 15 seconds after the pad is placed, the Gunship begins its descent. If the landing pad has been destroyed by then, the ship is lost.",
+        "Uses the DropShip deploy checks: terrain only, at least 150 m from both flags.",
+        "The beacon is used up even in Building mode.",
+        "Carried by Troll, Tank and Titan. 1 per team."
+      ],
+      "source": "gunship.cs GunShipPack::deployShape, GunShip::deployShape, GunShip::DeployItems; dropshipfunctions.cs DropShip::deployShape"
+    },
+    "SurveyDroidPack": {
+      "summary": "Deploys an unarmed, remote-controlled scouting droid. The player flies it in place of their own body.",
+      "notes": [
+        "On deploy the player's view and controls switch to the droid. Its destruction returns control to them.",
+        "Very fragile. Touching any player destroys it.",
+        "Script bugs: running into a teammate also kills the droid's pilot. Survey Droid collisions call SuicideDroid::onDestroyed, which decrements the wrong team counter and prints the Suicide Droid message.",
+        "Builder only. Up to 3 per team."
+      ],
+      "source": "droidsurveydroid.cs SurveyDroidPack::onDeploy, DeploySurveyDroid, SurveyDroid::onCollision, onDestroyed"
+    },
+    "ProbeDroidPack": {
+      "summary": "Deploys a remote-controlled droid armed with Irradiation blasts that the player pilots in place of their own body.",
+      "notes": [
+        "Fires IrradiationBlast every 2 seconds.",
+        "If deployed while facing a wall within 2 m, it self-destructs after 2 seconds.",
+        "Touching any player destroys it. Script bug: running into a teammate also kills its pilot.",
+        "Builder only. Up to 3 per team."
+      ],
+      "source": "probedroid.cs DeployProbeDroid, ProbeDroid::onCollision, onDestroyed"
+    },
+    "SuicideDroidPack": {
+      "summary": "Deploys a remote-controlled droid that the player flies close to enemies and detonates by firing.",
+      "notes": [
+        "Firing releases suicideShell, a 20 m plasma-damage blast that goes off almost instantly at the droid.",
+        "Touching any player destroys it.",
+        "Builder only. Up to 3 per team."
+      ],
+      "source": "suicidedroid.cs DeploySuicideDroid, SuicideDroid::onCollision; baseprojdata.cs suicideShell"
+    },
+    "Beacon": {
+      "summary": "Beacons are spent on the beacon key, and what that key does depends on the player's armor. Each use consumes one beacon outside Building mode.",
+      "notes": [
+        "Rogue Angel: emergency brake. Stops dead and releases a Nova-style burst of electrical bolts, one per energy point (stronger bolts at exactly 40 energy), without draining energy. 2.5 s cooldown.",
+        "Chameleon Assassin, Necromancer and Ghost: cloak, with a cooldown. Can't cloak while carrying a flag.",
+        "Commando and Warrior: speed boost. A strong impulse along their aim if standing, or along their motion if moving.",
+        "Builder: places a Portable Inventory station (counts toward the Inventory Station team limit).",
+        "Troll: emergency defenses. A ring of burning TrollBurn projectiles. 4.5 s cooldown.",
+        "Tank: vents a smoke grenade. 7 s cooldown.",
+        "Titan: emergency shield, with a cooldown.",
+        "The beacon key is handled entirely in remoteUseItem. The per-armor ::onBeacon functions and the Beacon::deployShape target beacon aren't reached through it (the latter is used only by the legacy Light Armor branch)."
+      ],
+      "source": "item.cs remoteUseItem; beacon.cs Beacon::onUse, Beacon::deployShape; armor files ::onBeacon"
+    },
+    "Grenade": {
+      "summary": "Hand grenades, thrown with the grenade key. What is thrown depends on the player's armor.",
+      "notes": [
+        "Commando and Warrior: standard hand grenade (2 s fuse). Commando's grenade has unused alternate modes; $modeTime is never set.",
+        "Rogue Angel: cluster bomb (2 s fuse).",
+        "Chameleon Assassin: Plastique (Nukebomb), a powerful charge that explodes after 15 s.",
+        "Necromancer and Ghost: HoloMine, a mirror-image decoy that explodes when an enemy touches it and self-destructs after 70 s.",
+        "Builder: shock grenade with a wide blast.",
+        "Troll: firebomb with a wide blast. Tank: TankBomb, a heavy mortar-type bomb. Titan: mortar bomb (2 s fuse).",
+        "Outside Building mode every throw uses a grenade. In Building mode a grenade is still used unless the server sets $vxmod or the player is isGoated.",
+        "Each armor has its own carry limit."
+      ],
+      "source": "grenade.cs Grenade::onUse; armor files ::onGrenade; armordm.cs DoGrenade; miscmine.cs; serveritemusage.cs"
+    },
+    "MineAmmo": {
+      "summary": "Thrown team mines that arm once they come to rest and explode when touched by an enemy or anything else not on the thrower's team.",
+      "notes": [
+        "Unlike stock Tribes, the mine takes the thrower's team, and teammates don't set it off. The collision check also tests the mine's own datablock name (always true), so once armed, any object of another team triggers it. Moveable objects trigger it regardless of team.",
+        "Rogue Angels are immune to enemy mines (\"Enemy mine averted\").",
+        "Mine damage also drains 40 energy from Chameleon Assassins and Necromancers.",
+        "In Deathmatch mode a DMMine is thrown instead.",
+        "Mines can't be placed while jailed. If the player's grappling hook is active, the mine key works the grapple instead.",
+        "Not used up in Building mode."
+      ],
+      "source": "miscmine.cs MineAmmo::onUse, AntipersonelMine::onCollision; player.cs; serveritemusage.cs"
+    }
+  }
+}

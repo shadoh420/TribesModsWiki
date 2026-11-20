@@ -1,0 +1,43 @@
+ur3-league: 45 of 75 need write-ups
+  Blaster (Blaster): stats+scripts
+  BulletAmmo (Bullet): renamed+stats
+  Chaingun (Verminator): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  TargetingLaser (Targeting Laser): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  RifleAmmo (IX-2000 Ammo): renamed+stats
+  MayhemAmmo (IX-2000 Ammo Mayhem): new
+  AssaultRifle (IX-2000 Mayhem Rifle): new
+  Railgun (Railgun): stats+scripts
+  FFBLauncher (Force Field Buster): stats+scripts
+  RocketAmmo (Rockets): new
+  RocketLauncher (Rocket Launcher): new
+  CloakGun (Cloaking Gun): stats+scripts
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  ForceFieldPack (Small Force Field): stats+scripts
+  LargeFieldPack (Large Force Field): scripts
+  EnergyPack (Energy Pack): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  ResupplyPack (Resupply Pack): new
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): stats+scripts
+  FakeFlagPack (Fake Flag Pack): new
+  StealthShieldPack (StealthShield Pack): new
+  CameraPack (Camera): stats+scripts
+  SpySatellitePack (Spy Satellite): new
+  TurretPack (Sentry Turret): renamed+stats+scripts
+  RocketPack (Rocket Turret): scripts
+  HellPack (Wall Turret): new
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): stats+scripts
+  TaserRifle (Taser Rifle): new
+  m16Ammo (Bullet): new
+  m16 (LiL POO mki): new
+  LiLPOOmkiiAmmo (Bullet mkii): new
+  LiLPOOmkii (LiL POO mkii): new

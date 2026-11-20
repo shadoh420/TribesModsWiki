@@ -1,0 +1,62 @@
+{
+ "mod": {
+  "overview": "ModX (v3.0 Open Source) by Vage (Jacob B. Gohlke) is a creative sandbox construction and social role-playing mod built on base Tribes. In normal play, players are completely invulnerable to damage, have regenerating jetpack energy, and spawn with seven specialized building and movement tools to construct bases, obstacle courses, teleporter hubs, custom-pathed elevators, and lighted arenas anywhere on the map while the scoreboard tracks deploy counts instead of kills. Players register a password-protected account on first join to save and restore their builds across sessions, collaborate in shared builder groups, isolate structures into working layers, and optionally visit a deployable Role-Playing Station for standard combat weapons. When builders want combat in the arenas they created, players can vote to switch the server into Free-for-All or Team Laser Tag mode, trading building tools and invulnerability for team-colored laser rifles and finite jets.",
+  "notes": [
+   "Classes and Armor: Light, Medium, and Heavy Armors all share identical builder stats in normal mode—full immunity to all damage types (-0.0 damage scale), regenerating jetpack energy (-0.1 drain), 21 forward speed, and 7 weapon slots. Only the custom Slower Builder armor (SLightArmor) differs, cutting max weapons to 3 and halving lateral/forward jet speed for fine-grained building; toggle it anytime with !slow and !fast.",
+   "Spawn Loadout and Stations: Players spawn in Light Armor with 7 building tools—Creator, Grabbler (Object Manipulator), Destructor (Object Deletor), Welder, Warper (500m line-of-sight teleport), TargetingLaser, and StrykerChain (150m Pull Beam). Standard base deployable packs (DeployableInvPack, DeployableAmmoPack, MotionSensorPack, PulseSensorPack, DeployableSensorJammerPack, CameraPack, TurretPack, and RepairPatch) are removed, and all combat weapons, backpacks, and Medium/Heavy armors are moved off standard inventories onto the deployable Role-Playing Station ($RPList).",
+   "Controls and Keybinds: Through the name-based account system (password set in chat on first join), weapon keys 1 through 9, G, and M are rebound by default to cycle tool modes forward/back (1/2), undo the last deploy (3), equip the 7 tools (4-9), trigger a forward air Boost (G), and zero player velocity as an Air Brake (M). These binds can be customized in the TAB Account Management menu.",
+   "TAB Menus and Persistence: The TAB menu provides ModX Object Options (surface molding, deployable category browser, Elevator Path Designer for custom multi-waypoint elevators, Working Layer management to isolate/hide build layers, and Bot Control), Undo/Redo Last Deploy, Account Management (save/restore 1 server-side 50-object slot or up to 4 client-side 400-object slots, plus a bumping toggle), Vote Menu, and Player Index.",
+   "Chat Commands: Prefix commands with ! in chat—!help (!what, !cfg, !rules, !commands, !ctrl, !quit) for guides, !rot <X|Y|Z> <deg> and !pos <X|Y|Z> <m> (plus reset) for deploy offsets, !radius <m> for Grabbler radius range, !joingroup <name> / !leavegroup / !ok / !no / !savegroups / !restoregroups for shared group building, !chan <name> / !chanlist for private chat channels, and !togglehelp.",
+   "Building Rules and Limits: Non-super-admins face deploy flood protection (more than 6 deploys in 5 seconds triggers a 10-second lockout), generators power nearby stations and turrets within 300m, and hitting the server-wide $MaximumDeployCap (750 objects) wipes all deployed objects after warning players past 650.",
+   "Laser Tag Mode: Players can vote via TAB (or admins can enable) FFA or Team Laser Tag, which strips building tools, restores finite jet energy (4.5 drain) and 1.0 health on Light Armor, and equips everyone with LaserTagRifle and RapidLaserTagRifle; builders can deploy LTSafeBeacon domes to create no-fire safe zones inside custom arenas.",
+   "Bots and Vehicles: Mission AI squads are supported via ai.cs, and builders can also spawn VageBot (Light, Medium, or Heavy) dummies armed with Blaster, DiscLauncher, and Chaingun through the Creator and take direct control of them via Bot Control; Scout, LAPC, and HAPC vehicles are bought from deployed Vehicle Stations (up to 500 per team)."
+  ]
+ },
+ "items": {
+  "Creator": {
+   "summary": "Primary building gun that spawns structures, functional stations, elevators, pads, lights, and bots along the player's line of sight.",
+   "notes": [
+    "150m deploy range with configurable surface molding, positional offsets (!pos), and rotational offsets (!rot).",
+    "Deploys 11 categories of items: structures/doors/elevators, stations/pads, generators/solar panels, sensors, turrets, props/dummies, interior .dis buildings, panels, colored flood lights, Laser-Tag safe beacons, and VageBot AI.",
+    "Subject to deploy flood protection (6 deploys per 5s window triggers a 10s lockout for non-super-admins) and a server-wide cap of 750 deployed objects."
+   ],
+   "source": "toolCreator.cs"
+  },
+  "Grabbler": {
+   "summary": "Object Manipulator tool with 31 movement modes for repositioning, rotating, flipping, and batch-moving deployed builds.",
+   "notes": [
+    "Supports Free Move plus 30 precision modes for X/Y/Z axis rotation, directional nudging, flipping, and Radius batch operations.",
+    "Radius operations affect all owned (or group-shared) objects in the active working layer within the player's !radius setting (default 15m, max 1000m).",
+    "Cannot move welded objects unless unlocked with the Welder first."
+   ],
+   "source": "toolGrabbler.cs"
+  },
+  "Welder": {
+   "summary": "Dual-mode utility tool that locks objects, toggles elevators, and copies existing object types into the Creator.",
+   "notes": [
+    "Welder mode locks an object in place against Grabbler moves and Destructor deletion, and activates or stops ModXElevator path movement.",
+    "Copier mode targets any deployed ModX object and sets the player's Creator selection to match its deployable type.",
+    "Auto-weld on deploy can be toggled in the Account Management TAB menu."
+   ],
+   "source": "toolWelder.cs"
+  },
+  "SLightArmor": {
+   "summary": "Slower Builder armor variant tuned for tight aerial control and precision object placement.",
+   "notes": [
+    "Reduces maxJetForwardVelocity from 22 to 11, maxJetSideForceFactor from 0.8 to 0.4, and jumpImpulse from 75 to 25 while raising jetForce to 669.",
+    "Carries up to 3 weapons/tools instead of 7 while keeping the base Light Armor damage immunity and regenerating jet energy.",
+    "Players can switch between Light Armor and Slower Builder at any time by typing !slow and !fast in chat."
+   ],
+   "source": "armorSlowLightMale.cs"
+  },
+  "LaserTagRifle": {
+   "summary": "Precision laser tag weapon automatically issued when Laser Tag mode is voted on or toggled by an admin.",
+   "notes": [
+    "Single-shot LaserTagRifle deals 0.5 base damage and RapidLaserTagRifle deals 0.2 per shot against 1.0 maxDamage Light Armor, with +33% headshot bonus and -33% leg damage.",
+    "Both firing and taking damage are blocked inside the radius of an active LTSafeBeacon.",
+    "In Team Laser Tag mode, team-colored red or blue beams are fired and friendly fire is blocked."
+   ],
+   "source": "weaponLaserTagRifle.cs"
+  }
+ }
+}

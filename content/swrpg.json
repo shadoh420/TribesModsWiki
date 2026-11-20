@@ -1,0 +1,73 @@
+{
+ "mod": {
+  "overview": "Star Wars RPG (SWRPG) is a total conversion role-playing mod for Starsiege: Tribes developed by Hazor and RoAd-DoGg, adapting the classic Tribes RPG framework into an expansive Star Wars universe inspired by Knights of the Old Republic. Players create custom Human or Wookiee characters across Jedi, Military, or Rogue paths, exploring planetary maps such as Tatooine while battling hostile creatures, completing quests, mastering Force powers, and accumulating credits. The gameplay fundamentally departs from base Tribes team combat by replacing jetpack aerial combat with persistent character progression, skill-based weapon accuracy, melee and blaster combat, Force alignment mechanics, and an NPC-driven economy. Playing requires dedicated RPG missions featuring configured safe town zones, enemy spawning territories, merchant bots, crystal resource deposits, and vehicle support.",
+  "notes": [
+   "Character creation lets players choose between Human and Wookiee races across three primary archetypes: Jedi (Jedi Apprentice, Gray Apprentice, Sith Apprentice), Military (Soldier and Pilot), and Rogue (Mercenary Bounty Hunter and Smuggler). Each class features tailored skill multipliers ranging from 0.1 to 2.0; for example, Jedi specialize in Lightsabers and Force Attunement, Soldiers dominate with Blasters and Vitality, and Smugglers excel in Weight Capacity and Stealing. Leveling awards skill points capped by character level, and reaching level 101 stops normal experience gain, allowing players to cast the remort spell to reset to level 1 with an advanced class title, higher maximum skill caps, and permanent multiplier bonuses.",
+   "The main Tab interface opens menus for viewing character statistics, distributing skill points, organizing party groups, adjusting user settings, and navigating the Belt inventory. Standard Tribes weapon selection keys (such as Disc Launcher, Grenade Launcher, Laser Rifle, ELF Gun, and Mortar) can be mapped in the Belt menu to chat binds, enabling players to trigger assigned Force powers or text commands with a single button press. Interacting with NPC merchants, bankers, and trainers is handled by approaching within speaking distance and saying hello, which reveals conversational keywords like BUY, DEPOSIT, or WITHDRAW to open specialized inventory displays.",
+   "Players utilize a wide suite of chat commands for field utility and social interaction. Common commands include the w lookup command to inspect stats and requirements for items or skills, the recall command to channel a teleport back to the nearest safe settlement, the bash command to ready a melee shield bash, the shove command to physically knock back nearby players, and the hide command for stealth. Characters can use the sleep command in designated sleeping quarters or the meditate command anywhere in the field to vastly accelerate health and Force recovery rates until the wake command is issued.",
+   "Force abilities are governed by an alignment scale spanning from negative 50 (Dark Side) to positive 50 (Light Side) with zero as Neutral or Gray. Light Jedi master defensive and restorative powers including Force Absorb, Battle Meditation, Heal, Full Heal, and protective barriers, while Sith tap into offensive powers like Force Blind, Choke, Drain, Fear, Force Lightning, Plague, and Rage. Neutral techniques accessible across paths include Force Jump, Force Speed, Teleport, Line of Sight Teleport, Push, Pull, Grip, and Stealth. In combat, lightsaber attack ratings dynamically scale based on the square roots of both the player Lightsabers skill and their Energy skill.",
+   "Base Tribes projectile weaponry is replaced with authentic Star Wars blasters, melee weapons, and thrown ordnance. Blaster options span Holdout Blasters, BlasTech DL-44 pistols, E-11 carbines, Boba Fett EE-3, DLT-19 heavy rifles, and Bowcasters, but ranged weapons cannot fire until players manually load appropriate ammunition (such as Energy Cells, Tibanna Gas Cells, or Ion Cells) via the Belt menu, which modifies bolt power and beam color. Melee weapons include training and color-crystal lightsabers, Vibroblades, Vibroswords, and Gamorrean Cleavers. Thrown explosives include Frag, Concussion, Ion, Sonic, CryoBan, Plasma Grenades, and Thermal Detonators.",
+   "The mod runs on a credit-based economy where currency is carried on hand or stored securely inside bank vaults to protect against loss on death. Players who equip a Pickaxe can prospect naturally occurring Crystal deposits across the terrain, chipping away at nodes to train the Mining skill and obtain valuable gems such as Quartz, Opal, Turquoise, Ruby, Sapphire, Diamond, and rare Keldrinite. Mined ores and collected ingredients can be taken to NPC smiths along with credits to assemble custom armor, weapons, and accessories through the smith chat command.",
+   "Characters possess a Luck (LCK) attribute starting at 8 points, with behavior configurable in user settings between miss and death modes. In miss mode, any blow that would otherwise be lethal instead deducts a Luck point and converts the hit into a miss. When a player dies with at least one Luck remaining, all carried credits and equipped items drop inside a protected loot pack that cannot be looted by other players or roaming AI bots unless granted access through the sharepack command. If a player dies with zero Luck, their dropped corpse pack is completely unprotected for anyone to loot, all faction rank points are lost, and the player is expelled from their faction.",
+   "Players can spend credits and rank points to enlist in one of three major galactic factions: the Rebel Alliance, the Galactic Empire, or the Mercenary Guild. Vehicles can be purchased and spawned in the field using a Vehicle Beacon, giving access to flyable craft including X-wings, A-wings, Y-wings, Snowspeeders, TIE fighters, TIE interceptors, TIE bombers, and swoop speeders. Additionally, players who purchase a Deployable Base Pack can activate it outside protected settlements to instantly assemble a prefabricated outpost structure in the wilderness."
+  ]
+ },
+ "items": {
+  "VehicleBeacon": {
+   "summary": "Portable beacon transmitter that summons player-owned landspeeders and starfighters directly to their position.",
+   "notes": [
+    "Using the beacon opens a menu listing all currently owned vehicle assets, including X-wings, A-wings, Y-wings, TIE craft, and speeder bikes.",
+    "Spawns the selected craft along the player line of sight and deducts one count from the player vehicle inventory."
+   ],
+   "source": "Accessory.cs"
+  },
+  "RecallBeacon": {
+   "summary": "Emergency homing device that teleports the user out of danger to the nearest safe settlement.",
+   "notes": [
+    "Activates an emergency jump that transports the player to the nearest safe town or spaceport zone drop point.",
+    "Flagged as steal-protected so hostile players and thieves cannot pickpocket or loot it from inventory."
+   ],
+   "source": "Accessory.cs"
+  },
+  "PDA": {
+   "summary": "Personal digital assistant providing remote access to the portable HazOS terminal interface anywhere in the world.",
+   "notes": [
+    "Interacting with the device opens the root terminal system in the field without needing to locate a physical computer console.",
+    "Allows players to review active bounties, read system logs, and access the Global Positioning Satellite network for map coordinates."
+   ],
+   "source": "Accessory.cs"
+  },
+  "BactaCanister": {
+   "summary": "High-grade personal medical canister that restores health points and advances the user Healing skill.",
+   "notes": [
+    "Consuming the canister instantly restores 60 hit points to the player character.",
+    "Each successful application that recovers lost hit points actively trains the player Healing skill attribute."
+   ],
+   "source": "Accessory.cs"
+  },
+  "KoltoCanister": {
+   "summary": "Advanced medical canister filled with Kolto fluid used to replenish Force energy reserves.",
+   "notes": [
+    "Consuming the canister replenishes 50 Force points directly into the player mana pool.",
+    "Acts as an essential consumable supply for Jedi and Sith casters engaging in extended Force combat without resting."
+   ],
+   "source": "Accessory.cs"
+  },
+  "JediHolocron": {
+   "summary": "Ancient Force knowledge repository that projects a holographic teaching avatar when invoked.",
+   "notes": [
+    "Using the holocron spawns a robed hologram figure facing the player for ten seconds.",
+    "Functions as a lore artifact restricted to Force-attuned characters to impart training techniques and lightsaber knowledge."
+   ],
+   "source": "Accessory.cs"
+  },
+  "PickAxe": {
+   "summary": "Heavy mining tool utilized to extract raw mineral ores and gemstones from terrain crystal formations.",
+   "notes": [
+    "Striking map crystal shapes with the pickaxe rolls mining chances for minerals ranging from Quartz and Granite up to Diamond and Keldrinite.",
+    "Successfully extracting mineral resources deposits the ore into inventory and trains the player Mining skill."
+   ],
+   "source": "weapons.cs"
+  }
+ }
+}

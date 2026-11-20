@@ -1,0 +1,12 @@
+shifter-sg1: 22 of 183 need write-ups
+  DarthAngel (DarthAngel): new
+  ArkAngel (ArkAngel): new
+  Blaster (BlastCannon): renamed+stats+scripts
+  DiscAmmo (CherryDisc): renamed+stats
+  DiscLauncher (PopTart Launcher): renamed+stats+scripts
+  LaserRifle (Phaser Rifle): renamed+stats+scripts
+  ConPack (Guard Dog): new
+  FlakPack (FlakNuk Turret): new
+  LaserPack (Phaser Turret): renamed+stats
+  RailTurretPack (PhaserRail Turret): new
+  BlastCannon (HeavyBlastCannon): new

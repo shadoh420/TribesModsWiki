@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Ideal Mod, created by Ziktar in mid-1999, transforms Tribes base combat into a feature-rich tactical sandbox with expanded armors, dynamic weapon fire modes, and RTS-inspired team engineering. Every standard armor gains an extra weapon carry slot, while players choose between new specialized archetypes including the speedy, stealth-oriented Specialist Armor, the vehicle-morphing Transformer Armor, and the base-building SCV Armor. In place of the standard scoreboard, pressing TAB opens an interactive weapon and deployable mode menu, letting combatants toggle homing discs, flamethrower plasma, overload blasters, EMP mortars, or build elaborate forward defenses on the fly. Gameplay feels faster and much more lethal than base Tribes, featuring directional disarms, headshot multipliers, flag repositioning mechanics, and devastating deployable fortifications like the Obelisk of Light and Arbiter Device.",
+  "notes": [
+   "Classes and Roles: Standard Light, Medium, and Heavy armors each receive one additional weapon slot, carrying 4, 5, and 6 weapons respectively. Three new specialized armors are introduced: Specialist Armor is an ultrafast, naturally sensor-invisible infiltration suit immune to mine damage but taking extreme ballistic and energy damage; Transformer Armor is a rugged medium-style suit capable of transforming mid-flight into an aerial fighter jet; and SCV Armor is a dedicated engineering class limited to one weapon that uses a Nanite Assembler beam to construct and repair installations.",
+   "Firing Modes and TAB Menu: Pressing TAB opens the Ideal Mod weapon mode menu instead of the standard scoreboard. Players can switch fire modes for their equipped arsenal: Blasters can engage an overload capacitor for high-spread burst fire at the risk of melting the gun; Disc Launchers can fire homing discs at the cost of triple ammo; Plasma Guns can switch to continuous flamethrower fire; Grenade Launchers fire decloaking ECM rounds; Mortars fire energy-draining EMP shells; Mass Guns alter target weight; and ELF rifles switch between short-, mid-, and long-range beam profiles.",
+   "SCV Engineering: When wearing SCV Armor, using the TAB menu opens a deployable construction menu to place inventory stations, ammo stations, cameras, sensors, turrets, and advanced base assets without buying separate backpacks. Structures placed by an SCV spawn at 70 percent damage and must be constructed to full integrity using the Nanite Assembler tool, which can also repair teammates and self.",
+   "Unique Heavy Deployables: Heavy Armor and SCV engineers can place game-changing defensive structures. The Obelisk of Light erects a massive defensive spire with a long-range laser turret atop it, requiring an adjacent Obelisk Power Source within 70 meters to operate. The Arbiter Device generates a large cloaking field (200 by 200 by 50 meters) that conceals all friendly players, mines, deployables, vehicles, and even base interiors. Additionally, Nuclear Turrets fire devastating guided missiles, and Seed Packs let any class plant infinite decorative trees, plants, or cacti for natural cover.",
+   "Advanced Combat Mechanics: Unshielded players suffer precision hit effects: headshots from a Laser Rifle or Marlin Sniper Rifle deal 30 percent bonus damage; shooting a player torso on the front right knocks their equipped weapon out of their hands; and shooting their rear torso knocks the flag off their back. Angular laser and concussion hits impart physical spin to the victim view, and taking hits while carrying multiple C4 charges has a 10 percent chance of cooking off an accidental detonation.",
+   "Status Effects and Specialty Weapons: The Mass Gun fires pods that either weigh down enemies with DeadWeight or lighten allies for 8 seconds. The Chaos Gun fires Concussion rounds that spin targets or Jitterbug rounds that force victims into a dance animation. The Marlin Sniper Rifle is a high-velocity, single-shot ballistic rifle requiring the user to be inside the mission area to fire. The Tractor Beam continuously pulls targeted players toward the shooter with force scaling inversely with distance.",
+   "Mines and Grenades Economy: Base hand grenades and standard mine ammo are replaced by specialized purchases where buying a new type replaces existing inventory. Grenade options include sticky 10-second timed C4, multi-burst Flash Grenades, movement-stopping Stun Grenades, and catastrophic Suicide Bombs. Mine choices feature standard Original Mines, Replicating Mines that split into two new mines when detonated (up to generation four), and Fake Flag mines that masquerade as dropped objective flags to lure and ambush enemies.",
+   "CTF Flag Repositioning and Specialist Rules: The Flag Movement Pack allows players to pick up their own team flag and reposition it anywhere inside a friendly interior structure up to 5 times per match. Specialists are prohibited from capturing flags; touching a dropped enemy flag immediately returns it to the enemy base.",
+   "Spawns and Bot Support: Players spawn automatically equipped with Light Armor, Blaster, Chaingun, Disc Launcher, four Repair Kits, two Hand Grenades, and one Original Mine. Integrated AI bot logic supports waypoint navigation, target acquisition, and automatic distance-based weapon switching between Blaster, Chaingun, and Disc Launcher."
+  ]
+ },
+ "items": {
+  "SpecialistArmor": {
+   "summary": "Ultra-agile stealth infiltration armor that trades physical survivability for extreme speed, stealth, and mine immunity.",
+   "notes": [
+    "Equipped with near-weightless jetting, naturally invisible to sensors, and completely immune to mine damage while heavily resisting explosive blasts.",
+    "Suffers severe damage multiplication from bullets (8 times), plasma (6 times), and energy weapons (8 times), and cannot equip standard heavy projectile firearms.",
+    "Cannot capture enemy flags in CTF, and touching a dropped enemy flag instantly returns it to the enemy base."
+   ],
+   "source": "sources/ideal/ArmorData.cs"
+  },
+  "BuildingArmor": {
+   "summary": "StarCraft-inspired SCV engineer armor equipped with a Nanite Assembler and automated field construction capabilities.",
+   "notes": [
+    "Restricted to a single weapon slot occupied by the Nanite Assembler, which channels an automatic repair beam into allies, structures, or self.",
+    "Equipped with the SCV Building Pack, which allows the wearer to deploy any station, sensor, or turret selected via the TAB options menu without purchasing individual packs.",
+    "All structures deployed by an SCV spawn at 70 percent damage and must be constructed to full integrity using the Nanite Assembler."
+   ],
+   "source": "sources/ideal/item.cs"
+  },
+  "TransformerArmor": {
+   "summary": "Heavy-duty chassis armor capable of converting mid-stride into a flyable fighter aircraft.",
+   "notes": [
+    "Features a durable medium frame that can equip the Jetfire Transformation backpack.",
+    "Activating the Jetfire pack immediately converts the player into an armed Jetfire aircraft in mid-air, dropping any carried flag.",
+    "Dismounting converts the craft back into player form at matching health levels, destroying the temporary vehicle."
+   ],
+   "source": "sources/ideal/vehicle.cs"
+  },
+  "ArbitorBoxPack": {
+   "summary": "Heavy deployable base device that generates a massive team-wide cloaking field.",
+   "notes": [
+    "Must be deployed on a flat surface inside an interior building structure.",
+    "Periodically scans a 200 by 200 by 50 meter zone, cloaking all friendly players, deployables, vehicles, mines, and interior geometry within range.",
+    "Limited to a maximum of 1 per team."
+   ],
+   "source": "sources/ideal/turret.cs"
+  },
+  "ObeliskPack": {
+   "summary": "Heavy base defense turret that builds a Command and Conquer style Obelisk of Light.",
+   "notes": [
+    "Constructs a tall defensive tower with an automated laser turret perched 11.5 meters above ground.",
+    "Can only be deployed outdoors on flat ground within 70 meters of an unlinked, friendly Obelisk Power Source.",
+    "Fires powerful Obelisk Beam energy strikes at enemies up to 100 meters away."
+   ],
+   "source": "sources/ideal/turret.cs"
+  },
+  "FlagMovePack": {
+   "summary": "Utility backpack allowing defensive repositioning of a team home flag.",
+   "notes": [
+    "Allows a defender to pick up their own team flag and carry it to a new location inside a base structure.",
+    "Repositioning can only be performed on flat interior surfaces and is limited to 5 moves per flag per match.",
+    "Prevents dropping the pack while carrying the flag to avoid accidental loss."
+   ],
+   "source": "sources/ideal/objectives.cs"
+  }
+ }
+}

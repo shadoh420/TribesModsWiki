@@ -1,0 +1,35 @@
+# asylum vs apollo11 (34 items)
+new        ResistorArmor                Resistor Armor
+new        AssasinArmor                 Assasin Armor
+new        RadConArmor                  RadCon Armor
+new        ValkyrieArmor                Valkyrie Armor
+new        DevastatorArmor              Devastator Armor
+new        ColossusArmor                Colossus Armor
+new        DefenderVehicle              Defender
+new        BAPCVehicle                  BHPC
+new        EarthquakeCannon             Earthquake Cannon
+new        Equalizer                    Equalizer
+new        BlastAmmo                    Blast Ammo
+new        BlastLauncher                Blast Launcher
+new        ShockAmmo                    Shock Ammo
+new        SoulStealer                  Soul Stealer
+stats      Mortar                       Mortar
+new        CloakGun                     Cloaking Gun
+stats      NukeAmmo                     Nuke Ammo
+new        FalloutCannon                Fallout Cannon
+stats      DiscLauncher                 Disc Launcher
+new        LaserShredder                Laser Shredder
+new        GravityGun                   Gravity Gun
+scripts    AmmoPack                     Ammo Pack
+new        LaserTurretPack              Laser Turret
+scripts    MineAmmo                     Mine
+new        flagmineammo                 Flag Mine
+new        AirPlatformPack              Air Platform
+new        LargeAirPlatPack             Large Air Platform
+new        ForceFieldPack               Small Force Field
+new        LargeFieldPack               Large Force Field
+new        SatCameraPack                Satellite Camera
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+new        ShotgunShells                Shotgun Shells
+new        Shotgun                      Shotgun

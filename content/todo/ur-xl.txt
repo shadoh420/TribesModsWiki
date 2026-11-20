@@ -1,0 +1,38 @@
+ur-xl: 48 of 89 need write-ups
+  LightArmor (Light Armor): renamed+stats
+  MediumArmor (Medium Armor): renamed+stats
+  HeavyArmor (Heavy Armor): renamed+stats
+  Blaster (Laser Pistol): renamed+stats
+  PlasmaAmmo (Flamer Tank): renamed+stats
+  PlasmaGun (Flamer): renamed+stats
+  PlasmaBombAmmo (PlasmaBombAmmo): new
+  PlasmaBomb (PlasmaBomb): new
+  SmokeScreenAmmo (SmokerAmmo): new
+  SmokeScreen (Smoker): new
+  Fixit (Engineer Repair Gun): new
+  TranqAmmo (FEB Pellets): renamed+stats
+  EMPGrenadeAmmo (EMPGrenadeAmmo): renamed+stats
+  NepalmAmmo (NepalmAmmo): new
+  NepalmLauncher (Nepalm Launcher): new
+  ForceFieldBuster (Defense Buster): renamed+stats
+  RocketAmmo (Rockets): new
+  Rocketlauncher (Rocket Launcher): new
+  LiberatorAmmo (Neutron Rocket): new
+  Liberator (Liberator): new
+  ShieldPack (Shield Pack): stats+scripts
+  StealthShieldPack (StealthShield Pack): scripts
+  WatchdogPack (Watchdog): new
+  AmmoPack (Ammo Pack): scripts
+  ForceFieldPack (Small Force Field): stats+scripts
+  LargeForceFieldPack (Large Force Field): new
+  BA (Base Alarm): new
+  TurretPack (Turret): scripts
+  RepairKit (Repair Kit): scripts
+  ArbitorBoxPack (Arbitor Device): new
+  FlameTurretPack (Flame Turret): scripts
+  PlasmaPack (Mini-Plasma Turret): scripts
+  Hologram (FakeFlag): new
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): scripts
+  AntiMatterTurretPack (Obelisk of Death): new

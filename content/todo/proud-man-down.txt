@@ -1,0 +1,48 @@
+# proud-man-down vs base (47 items)
+renamed+statsScoutVehicle                 Fighter Plane
+renamed+statsLAPCVehicle                  Tank
+renamed+statsHAPCVehicle                  Bomber Plane
+renamed+statsLightArmor                   Scout
+renamed+statsMediumArmor                  Assault
+renamed+statsHeavyArmor                   Heavy Assault
+new        HandgunAmmo                  Handgun Ammo
+renamed+statsBlaster                      Handgun
+renamed+statsBulletAmmo                   SMG Ammo
+renamed+stats+scriptsChaingun                     SMG
+new        Chaingun2                    SMG
+renamed+statsPlasmaAmmo                   Machine Gun Ammo
+renamed+stats+scriptsPlasmaGun                    Machine Gun
+new        PlasmaGun2                   Machine Gun
+new        Knife                        Knife
+renamed+statsGrenadeAmmo                  Flame Thrower Pack
+renamed+stats+scriptsGrenadeLauncher              FlameThrower
+new        GrenadeLauncher2             FlameThrower
+renamed+stats+scriptsMortar                       Rocket Launcher
+new        Mortar2                      Rocket Launcher
+new        MortarShield                 RocketGrenade
+renamed+statsDiscAmmo                     Rifle Ammo
+renamed+stats+scriptsDiscLauncher                 Rifle
+new        DiscLauncher2                Rifle
+new        SniperAmmo                   SniperRifle Ammo
+renamed+stats+scriptsLaserRifle                   Sniper Rifle
+new        LaserRifleScope              SniperScope
+new        LaserRifleClip               SniperRifleClip
+renamed+stats+scriptsTargetingLaser               Binoculars
+new        TargetingLaser2              Binoculars
+stats      RepairPack                   Repair Pack
+new        ParachutePack                Parachute
+renamed+stats+scriptsCameraPack                   Explosives
+renamed+stats+scriptsTurretPack                   MG42
+stats      RepairKit                    Repair Kit
+renamed+stats+scriptsMineAmmo                     Bouncing Betty
+scripts    Grenade                      Grenade
+new        SmokeGrenade                 Satchel Charge
+stats      Beacon                       Beacon
+new        Sandbag                      SandBag
+new        MinenAmmo                    Landmine
+new        RifleClip                    Rifle Clip
+new        SMGClip                      SMG Clip
+new        SniperClip                   Sniper Rifle Rounds
+new        MGClip                       Machine Gun Belt
+new        HandgunClip                  Handgun Clip
+new        RocketClip                   Extra Rocket

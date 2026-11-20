@@ -1,0 +1,64 @@
+{
+ "mod": {
+  "overview": "Shazbot (v.Beta) is a May 2004 combat and base-building modification of base Tribes created by }|S|{jInZo. It transforms standard Tribes into an ultra-fast aerial sandbox where Beacons act as zero-damage rocket boosts, Grenades act as instant mid-air brakes, and players spawn into Light Armor already loaded with four weapons and boosted, low-drain jetpacks. Compared to base Tribes, firefights are dramatically deadlier and more chaotic thanks to multi-disc spinfusers, zero-spinup chainguns, railguns, rocket chainguns, shotguns, and Heavy-only tactical nukes, while Medium and Heavy players can construct forts out of platforms, blast walls, force field doors, and laser turrets. The original release shipped with the Jumpers_Wheel map and supports standard team missions as well as Deathmatch and Team Deathmatch via dm.cs.",
+  "notes": [
+   "Armors and carry limits: All armors carry more weapons than base Tribes (Light 5, Medium 6, Heavy 8). Male Light Armor is heavily buffed for speed and low-drain jetting (15 forward speed, 300 jet force, 0.0002 jet energy drain) compared to Female Light (11 speed, 236 jet force, 0.8 drain), while Medium and Heavy also get near-zero jet drain. Only Light Armor can pilot vehicles or buy the LaserRifle, only Light and Medium can buy the .45 APC Pistol, only Medium and Heavy can deploy fortification packs, and only Heavy Armor can buy Mortar, Missle Launcher, Tactical Nuke, and RegenerationPack.",
+   "Spawn loadouts and modes: In standard matches (game.cs), players spawn in Light Armor with Jinzo Laser (XLaser), Enforcer (Chaingun), Hyper Fuser (DiscLauncher), Sniper Rifle (Railgun), RepairKit, RepairPack, Beacon, and Grenade, with Infinite default team energy so inventory purchases are free. In Deathmatch (dm.cs), players spawn with only Hyper Blaster, Jinzo Laser, and 5 RepairKits; stepping outside the mission area gives 3 seconds before dealing 0.05 damage per second, and Team DM has a scoring quirk in dm.cs that subtracts 1 from the killer's team score on any kill.",
+   "Boost and Air Brake movement: Hand Grenades no longer throw explosives and instead divide your X/Y/Z velocity by 6 on use to brake mid-air. Beacons no longer place target beacons and instead trigger a zero-damage 500-kickback Boost explosion at your feet to launch you across the map.",
+   "Overhauled stock and custom weapons: Stock favorites are supercharged into the rapid-fire Hyper Blaster, zero-spinup Enforcer chaingun (0.0005s fire time), and 3-disc spread Hyper Fuser. Fourteen custom weapons are added, including the dual-projectile Shock Rifle (laser plus 3.0-damage rocket), RailGun (energy-consuming 2000-velocity sniper), Jinzo Laser, Blastoid Rifle, 28-pellet Shotgun, Flamer Thrower, Rocket Chaingun, Nitrous Grenader, .45 APC Pistol, Machinery kk345, Titty Gun (30m low-damage 750-kickback mortar launcher), and Heavy-only Missle Launcher and Tactical Nuke (8.5 missile damage over a 30m blast radius).",
+   "Packs and critical bugs: CloakingDevice drains 9 energy per second to fade the wearer out of sight and add sensor suppression. RegenerationPack is restricted to Heavy Armor (harmor), but a script bug in Regenpack.cs adds 0.475 damage per second instead of healing when worn in harmor, rapidly killing the user.",
+   "Base-building deployables: Medium and Heavy armors can build bases using BlastWallPack (50 HP wall, team max 20), ForceFieldPack (10 HP small field, max 20), ForceFieldDoorPack (30 HP team-only sliding door, max 20), and PlatformPack (10 HP flat scaffolding, max 50), none of which can be placed within 3m of the team flag. Any armor can deploy LaserTurretPack (team max 10), which fires SniperLaser beams at 60m range but can only be placed within 200m of the home flag stand.",
+   "Vehicles and station access: Vehicle stations add the Gunner flyer (team max 5, 1.6 HP, 50m max altitude, 2.75 lift, rapid BlasterBolt cannon) alongside Scout (max 3), LAPC (max 2), and HAPC (max 1). Most new weapons and packs are enabled on both fixed and remote inventory stations, except Machinery kk345 (Mach1), which has a typo in $RemoteInvList[Mach1n] and is only buyable at fixed inventory stations. Station lists also reference Deployablevortex, which has no item definition in the scripts."
+  ]
+ },
+ "items": {
+  "Beacon": {
+   "summary": "Replaces the standard target beacon with an instant self-boosting impulse charge (Spanking your Monkey).",
+   "notes": [
+    "Consumes a Beacon to spawn a zero-damage Boost mine (20m radius, 500 kickback) right at the player with a near-zero cooldown (0.00005s).",
+    "Light Armor carries up to 10, Medium 3, and Heavy 30, making Beacons a primary movement tool for rapid launches and flag routes."
+   ],
+   "source": "item.cs, Mine.cs"
+  },
+  "Grenade": {
+   "summary": "Replaces thrown hand grenades with an instant mid-air velocity brake.",
+   "notes": [
+    "Divides the player's current X, Y, and Z velocity by 6 immediately on use, stopping mid-air momentum without dealing damage.",
+    "Light and Heavy armors can carry up to 20 Air Brakes (Medium carries 6), pairing directly with Boost Beacons for aerial control."
+   ],
+   "source": "item.cs"
+  },
+  "RegenerationPack": {
+   "summary": "Heavy-only backpack intended for health regeneration, but bugged to damage Heavy Armor instead.",
+   "notes": [
+    "Restricted to Heavy Armor ($ItemMax[harmor, RegenerationPack] = 1), priced at 275.",
+    "In Regenpack.cs, checkRegeneration adds 0.475 damage per second when worn in harmor instead of subtracting damage, rapidly killing the wearer."
+   ],
+   "source": "Regenpack.cs"
+  },
+  "ForceFieldDoorPack": {
+   "summary": "Deployable 30-HP team-gated force field barrier that opens automatically for teammates.",
+   "notes": [
+    "Available to Medium and Heavy armors (up to 20 per team, 350 energy price) and cannot be deployed within 3m of the team flag.",
+    "Rises 6m and fades out for 4 seconds when a friendly player collides with it, then closes again; explodes for debris radius damage if destroyed."
+   ],
+   "source": "ForceFieldDoor.cs"
+  },
+  "LaserTurretPack": {
+   "summary": "Deployable base-defense turret that fires SniperLaser beams.",
+   "notes": [
+    "Usable by all armors (up to 10 per team, 500 energy price) with 2.5 HP, shields, 60m range, and 0.35s reload delay.",
+    "Must be placed on flat terrain or interiors within 200m of the team's original flag position and obeys the 2-turret proximity box limit."
+   ],
+   "source": "LaserTurret.cs"
+  },
+  "GunnerVehicle": {
+   "summary": "Heavy-lift, high-altitude combat flyer added alongside the Scout, LAPC, and HAPC.",
+   "notes": [
+    "Up to 5 Gunner vehicles can be fielded per team, piloted only by Light Armor.",
+    "Fires rapid BlasterBolt shots (0.007s reload delay) like the Scout, but has 1.6 max damage, 2.75 lift, 50 max altitude, and 1.5 max pitch."
+   ],
+   "source": "vehicle.cs, station.cs, item.cs"
+  }
+ }
+}

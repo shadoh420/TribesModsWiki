@@ -1,0 +1,21 @@
+ur-rx: 22 of 41 need write-ups
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): scripts
+  LaserRifle (Raptor Rifle): renamed+stats+scripts
+  RailAmmo (Rail Ammo): new
+  Blaster (RailGun): renamed+stats
+  ShredderAmmo (Shredder Ammo): new
+  Chaingun (Shredder): renamed+stats+scripts
+  TorqueAmmo (Torque Cell): new
+  PlasmaGun (Torque): renamed+stats
+  NapalmAmmo (Napalm Ammo): new
+  GrenadeLauncher (Napalm Launcher): renamed+stats
+  VaporAmmo (Vapor Ammo): new
+  Mortar (Vaporizer): renamed+stats
+  RocketAmmo (Rocket Ammo): new
+  EnergyRifle (Rocket Launcher): renamed+stats+scripts
+  Booster1Pack (Booster Pack): new
+  Booster2Pack (Booster Pack): new

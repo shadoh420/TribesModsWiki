@@ -1,0 +1,61 @@
+{
+ "mod": {
+  "overview": "Team Aerial Combat v1.41 ([TPG]SaNTa[DTM] and Wizard_TPG, 2000-2001) tunes Base Tribes for competitive midair and aerial team combat (Anzac Gamers League defaults in TAC_Settings.cs), boosting Disc damage, shortening Grenade/Mortar fuses, doubling ELF beam range, and adding TACBot AI.",
+  "notes": [
+   "Weapon & pack tuning: Disc Launcher damage jumps from 0.5 to 0.7 (40% stronger midair/splash); GrenadeLauncher totalTime drops 30 s -> 1.5 s (airburst timing); Mortar totalTime drops 30 s -> 2.5 s; ELF Gun beam doubles in length from 40 m to 80 m; Repair Pack and Shield Pack scripts adjust flight/repair interactions.",
+   "Vehicles & deployables: Scout is renamed FLPC with slower maxSpeed (50 -> 35), higher maxDamage (0.6 -> 0.8), and tighter bank/pitch (0.35/0.25); LAPC speeds up (25 -> 30); HAPC durability rises (2.0 -> 2.8); adds SpringPad.",
+   "League rules (TAC_Settings.cs, tac.cs, tacbot.cs): enforces 25 min match limits ($TAC::matchTimeLimit), controlled tourney mode, anti-llama-swap, auto-anti-TK, smurf logging, personal skin menus, and custom TACBot AI."
+  ]
+ },
+ "items": {
+  "ScoutVehicle": {
+   "summary": "Renamed FLPC; slows top speed from 50 to 35, raises maxDamage from 0.6 to 0.8, and dials bank/pitch from 0.5 to 0.35/0.25.",
+   "notes": [
+    "Turns the fast Base Scout into a tougher, steadier light carrier."
+   ],
+   "source": "vehicle.cs Scout"
+  },
+  "DiscLauncher": {
+   "summary": "Spinfusor disc damageValue rises from 0.5 to 0.7 (+40% damage).",
+   "notes": [
+    "Rewards midair and direct hits in aerial dogfighting."
+   ],
+   "source": "baseProjData.cs DiscShell"
+  },
+  "GrenadeLauncher": {
+   "summary": "Grenade fuse lifetime drops from 30.0 s to 1.5 s (totalTime).",
+   "notes": [
+    "Forces timed airbursts and short-range engagements rather than rolling long-fuse spam."
+   ],
+   "source": "baseProjData.cs GrenadeShell"
+  },
+  "Mortar": {
+   "summary": "Mortar shell max totalTime tightens from 30.0 s to 2.5 s.",
+   "notes": [
+    "Caps long-range mortar arcing time to fit aerial mid-range pacing."
+   ],
+   "source": "baseProjData.cs MortarShell"
+  },
+  "EnergyRifle": {
+   "summary": "ELF Gun beam extends from 40.0 m to 80.0 m.",
+   "notes": [
+    "Doubles effective reach for slowing airborne targets."
+   ],
+   "source": "baseProjData.cs lightningCharge"
+  },
+  "RepairPack": {
+   "summary": "Includes custom Repair Pack activation/mount logic in TAC's item scripts.",
+   "notes": [
+    "Works alongside TAC's airborne combat mechanics."
+   ],
+   "source": "item.cs"
+  },
+  "ShieldPack": {
+   "summary": "Includes custom Shield Pack script handling.",
+   "notes": [
+    "Tuned for TAC's higher-damage Disc environment."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

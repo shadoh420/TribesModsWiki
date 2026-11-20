@@ -1,0 +1,22 @@
+ultra-vx-elite: 21 of 79 need write-ups
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  MotionSensorPack (Motion Sen. Network): scripts
+  CameraPack (Spy Camera Network): scripts
+  LaserTurretPack (Laser Turret System): scripts
+  TurretPack (Sentry Turret System): scripts
+  TaserTrtBPack (Taser Turret System): scripts
+  TaserTrtCPack (Scan Tracking Network): scripts
+  LaserTurretBPack (Plasma Turret System): scripts
+  MiniFlakTurretPack (Flak Turret System): scripts
+  MiniSAMTurretPack (S.A.M Turret System): scripts
+  MiniGripTurretPack (GRIP Turret System): scripts
+  MiniELFTurretPack (ELF Turret System): scripts
+  MiniSmokeTurretPack (B.o.P Turret System): scripts
+  ElectricWeb (Electric Web): scripts
+  lgaForceFieldPack (Lrg A: Force Field): scripts
+  lgbForceFieldPack (Lrg B: Force Field): scripts
+  medaForceFieldPack (Med A: Force Field): scripts
+  medbForceFieldPack (Med B: Force Field): scripts
+  medcForceFieldPack (Med C: Force Field): scripts
+  Beacon (Beacon): scripts

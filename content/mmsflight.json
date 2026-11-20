@@ -1,0 +1,80 @@
+{
+ "mod": {
+  "overview": "MMSFlight (MMS) leaves Base infantry combat untouched and focuses entirely on vehicle.cs, lowering Scout price (600 -> 500) while adding seven new combat aircraft at the Vehicle Station.",
+  "notes": [
+   "Adds Interceptor (600), Destroyer (650), Bomber (1500), Small Fortress (2000), Large Fortress (3000), Adv. Interceptor (3000), and Kamikaze (100) alongside tweaked LAPC (675 -> 750) and HAPC (875 -> 900) pricing."
+  ]
+ },
+ "items": {
+  "ScoutVehicle": {
+   "summary": "Vehicle Station price lowered from 600 to 500.",
+   "notes": [
+    "All infantry weapons, armors, and packs remain stock Base."
+   ],
+   "source": "item.cs"
+  },
+  "LAPCVehicle": {
+   "summary": "Price raised from 675 to 750 to fit the expanded seven-aircraft roster.",
+   "notes": [
+    "Base flight handling preserved."
+   ],
+   "source": "item.cs"
+  },
+  "HAPCVehicle": {
+   "summary": "Price raised from 875 to 900 alongside Heavy Fortress additions.",
+   "notes": [
+    "Base flight handling preserved."
+   ],
+   "source": "item.cs"
+  },
+  "DestroyerVehicle": {
+   "summary": "Added Destroyer gunship chassis available at the Vehicle Station for 650.",
+   "notes": [
+    "Part of MMSFlight's 7 new aircraft in vehicle.cs."
+   ],
+   "source": "vehicle.cs Destroyer"
+  },
+  "IcptVehicle": {
+   "summary": "Added fast Interceptor fighter priced at 600.",
+   "notes": [
+    "Sits above Scout as an air-superiority option."
+   ],
+   "source": "vehicle.cs Interceptor"
+  },
+  "BomberVehicle": {
+   "summary": "Added heavy Bomber aircraft priced at 1500.",
+   "notes": [
+    "Designed for ground bombing passes."
+   ],
+   "source": "vehicle.cs Bomber"
+  },
+  "SFortressVehicle": {
+   "summary": "Added Small Fortress aerial gun platform priced at 2000.",
+   "notes": [
+    "Mid-tier heavy airborne fortress."
+   ],
+   "source": "vehicle.cs SFortress"
+  },
+  "LFortressVehicle": {
+   "summary": "Added Large Fortress flying dreadnought priced at 3000.",
+   "notes": [
+    "Top-end siege aircraft."
+   ],
+   "source": "vehicle.cs LFortress"
+  },
+  "AIcptVehicle": {
+   "summary": "Added Adv. Interceptor high-performance fighter priced at 3000.",
+   "notes": [
+    "Top-end interceptor alongside Large Fortress."
+   ],
+   "source": "vehicle.cs AInterceptor"
+  },
+  "KamikazeVehicle": {
+   "summary": "Added cheap 100-cost Kamikaze attack craft.",
+   "notes": [
+    "Low-cost expendable strike flyer."
+   ],
+   "source": "vehicle.cs Kamikaze"
+  }
+ }
+}

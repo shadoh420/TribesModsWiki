@@ -1,0 +1,168 @@
+{
+  "mod": {
+    "overview": "VX-Elite (August 2005, Armageddon and WorstAim) is a cleaned-up release of Ultra Renegades VX6 with the same armors, weapons, Psionics, turrets, force fields and vehicles. It removes VX6's five area Devices (Cloak, Flux, Jammer, Shield and Healing), drops the 2-point score bonus for deploying, takes the freeze effect off mines while making them hit much harder, and adds a stats tracker and flag fireworks effects.",
+    "notes": [
+      "The Cloak, Flux, Jammer, Shield and Healing Device packs are gone from the shop, armor limits and scripts (item.cs, station.cs, ArmorData.cs, turret.cs, staticshape.cs). The Jammer Device's JammerBeacon sensor datablock is still defined but nothing deploys it.",
+      "No deployable awards score any more: every 'Deffence Bonus: 2 points' message and +2 score on deploy (including the generic Item::deployShape used by Pulse and Jammer networks) was removed.",
+      "Mine damage no longer calls Freeze, so mines no longer pin victims with the DeadWeight item; in exchange the Antipersonel Mine's damage was raised a lot (0.2 to 0.85).",
+      "The vehicle weapon default before a pilot cycles weapons is now ChainGunBullet instead of the undefined 'swordHit'.",
+      "Shop headings are the same ten $InvHead categories as VX6, restyled with parentheses (for example 'a-=([Turret Systems])=-').",
+      "ServStats.cs adds a StatsSystem that records kills, deaths, suicides, flag captures and flag returns per player.",
+      "SpecialEffects scripts (Snipers::InitGroups, Snipers::InitFlagFX, enabled by $FlagFX) add sparkle and firework effects around flags. EliteTrails.cs replaces VX6Trails.cs with the same trail helpers.",
+      "Head-shot messages are simplified (no skull bitmaps); the head-shot damage bonus and blow-up are unchanged.",
+      "admin.cs keeps the same menu functions and adds String::containsCrash (a crash-string filter), dbecho and Client::wPort."
+    ]
+  },
+  "items": {
+    "DeployableInvPack": {
+      "summary": "The deployable Inventory Station works as in VX6: placed on flat ground near a structure your team owns, it gives a remote shop with its own energy pool.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score (and the broken scoreboard refresh call is gone)."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape"
+    },
+    "DeployableAmmoPack": {
+      "summary": "The deployable Ammo Station works as in VX6: placed near a friendly structure, it restocks kits, grenades, mines and missing weapons.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape"
+    },
+    "MotionSensorPack": {
+      "summary": "The Motion Sen. Network deploys a motion sensor on floors, walls or ceilings near a friendly structure, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs MotionSensorPack::deployShape"
+    },
+    "CameraPack": {
+      "summary": "The Spy Camera Network deploys a remote camera near a friendly structure, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs CameraPack::deployShape"
+    },
+    "LaserTurretPack": {
+      "summary": "The Laser Turret System deploys a fast-firing hitscan laser turret on flat ground near a friendly structure, with the same spacing rules as VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs LaserTurretPack::deployShape"
+    },
+    "TurretPack": {
+      "summary": "The Sentry Turret System deploys the rapid-fire energy sentry turret as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score.",
+        "The VX6 spacing bug is kept: its spacing checks still count Laser Turrets rather than other sentry turrets."
+      ],
+      "source": "item.cs TurretPack::deployShape"
+    },
+    "TaserTrtBPack": {
+      "summary": "The Taser Turret System deploys a small laser turret that fires every two seconds, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs TaserTrtBPack::deployShape"
+    },
+    "TaserTrtCPack": {
+      "summary": "The Scan Tracking Network deploys a sturdy long-range turret whose laser does almost no damage, acting as a tracker, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs TaserTrtCPack::deployShape"
+    },
+    "LaserTurretBPack": {
+      "summary": "The Plasma Turret System deploys a rapid plasma turret on any surface angle near a friendly structure, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs LaserTurretBPack::deployShape"
+    },
+    "MiniFlakTurretPack": {
+      "summary": "The Flak Turret System deploys a launcher of short-lived seeking flak missiles, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs MiniFlakTurretPack::deployShape"
+    },
+    "MiniSAMTurretPack": {
+      "summary": "The S.A.M Turret System deploys a launcher of slow-starting, long-lived seeking missiles, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs MiniSAMTurretPack::deployShape"
+    },
+    "MiniGripTurretPack": {
+      "summary": "The GRIP Turret System fires ion bolts that pull targets toward the blast and empty their energy, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs MiniGripTurretPack::deployShape"
+    },
+    "MiniELFTurretPack": {
+      "summary": "The ELF Turret System deploys a small beam turret that drains energy very fast and knocks weapons and packs loose, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs MiniELFTurretPack::deployShape"
+    },
+    "MiniSmokeTurretPack": {
+      "summary": "The B.o.P Turret System deploys a small turret with a long damaging beam fired in bursts, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs MiniSmokeTurretPack::deployShape"
+    },
+    "ElectricWeb": {
+      "summary": "The Electric Web spins a lethal electric wall just above your head, as in VX6; enemies inside it die almost instantly.",
+      "notes": [
+        "Unlike VX6, spinning a web no longer awards 2 score.",
+        "The VX6 bug remains: deployShape never returns true, so the pack is never used up and can keep spinning webs until the team limit of 5."
+      ],
+      "source": "item.cs ElectricWeb::deployShape; turret.cs PlasmaDoorTurr"
+    },
+    "lgaForceFieldPack": {
+      "summary": "Lrg A: Force Field deploys a large 4x17 door that blocks enemies and opens for teammates, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs lgaForceFieldPack::deployShape"
+    },
+    "lgbForceFieldPack": {
+      "summary": "Lrg B: Force Field deploys a 4x14 door that blocks enemies and opens for teammates, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs lgbForceFieldPack::deployShape"
+    },
+    "medaForceFieldPack": {
+      "summary": "Med A: Force Field deploys a 4x8 door that blocks enemies and opens for teammates, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs medaForceFieldPack::deployShape"
+    },
+    "medbForceFieldPack": {
+      "summary": "Med B: Force Field deploys a 5x5 door that blocks enemies and opens for teammates, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs medbForceFieldPack::deployShape"
+    },
+    "medcForceFieldPack": {
+      "summary": "Med C: Force Field deploys a small 3x4 door that blocks enemies and opens for teammates, as in VX6.",
+      "notes": [
+        "Unlike VX6, deploying it no longer awards 2 score."
+      ],
+      "source": "item.cs medcForceFieldPack::deployShape"
+    },
+    "Beacon": {
+      "summary": "The Beacon drops a no-damage Boost charge at your feet whose blast throws players with strong knockback, as in VX6; it is never used up.",
+      "notes": [
+        "Unlike VX6, the cooldown between drops is 0.2 seconds instead of 0.15.",
+        "Boost detonates as soon as it takes any damage; whether the 2-second Mine::Detonate timer alone sets it off is not determined from scripts."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost, Boost::onDamage, Handgrenade::onAdd"
+    }
+  }
+}

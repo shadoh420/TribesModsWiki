@@ -1,0 +1,190 @@
+# rb2 vs minimod (189 items)
+new        HyperArmor                   Recon
+renamed+statsLightArmor                   Sniper
+stats      EngArmor                     Engineer
+renamed+statsMediumArmor                  Grenadier
+renamed+statsHeavyArmor                   Commando
+new        UltraArmor                   Heavy Gunner
+renamed+statsScoutVehicle                 AH64 Apache
+renamed+statsLAPCVehicle                  Huey
+renamed+statsHAPCVehicle                  Chinook
+new        Guard_CMD                    Guard Bot
+new        Mortar_CMD                   Mortar Bot
+new        Demo_CMD                     Demolitions Bot
+new        Medic_CMD                    Medic Bot
+new        Miner_CMD                    Minelayer Bot
+new        Sniper_CMD                   Sniper Bot
+new        Painter_CMD                  Painter Bot
+stats+scriptsTargetingLaser               Targeting Laser
+new        LavaAmmo                     M4 Ammo
+new        LavaCannon                   M4 Machinegun
+new        EagleAmmo                    DE 50 Ammo
+renamed+stats+scriptsBlaster                      Desert Eagle 50
+renamed+stats+scriptsEnergyRifle                  Cattle Prod
+stats      BulletAmmo                   Bullet
+renamed+stats+scriptsChaingun                     Minigun
+renamed+statsPlasmaAmmo                   HK G36 Ammo
+renamed+stats+scriptsPlasmaGun                    HK G36 Rifle
+renamed+statsDiscAmmo                     M60 Round
+renamed+stats+scriptsDiscLauncher                 M60
+new        SniperAmmo                   50 Cal. Ammo
+new        SniperRifle                  50 Cal. Barett
+new        BGunScope                    BGunScope
+new        BGunClip                     ammopack
+new        BGunSpew                     ammopack
+stats+scriptsLaserRifle                   Laser Rifle
+renamed+statsGrenadeAmmo                  M29 Grenade
+renamed+stats+scriptsGrenadeLauncher              M29 Gren. Launcher
+new        RocketAmmo                   Rocket Ammo
+new        RocketLauncher               Stinger
+renamed+stats+scriptsRealTargetingLaser           Lance swing
+stats      FlareAmmo                    Flares
+renamed+stats+scriptsFlareGun                     Lance (bladed spear)
+renamed+statsMinelAmmo                    Napalm
+renamed+stats+scriptsMineLauncher                 Flamethrower
+renamed+stats+scriptsFusionGun                    Bot OICW Nader
+new        ShotgunAmmo                  Shotgun Shell
+renamed+stats+scriptsPlasmaCannon                 Pellet Shotgun
+stats+scriptsShieldPack                   Shield Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsAmmoPack                     Ammo Pack
+new        ConstructorPack              Ramp Pack
+renamed+stats+scriptsChaingunTurretPack           Defense Turret
+renamed+stats+scriptsFlakPack                     Anti Aircraft Gun
+new        IonPack                      Mobile Artillery
+renamed+stats+scriptsSeekerPack                   Claymore
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        BotStationPack               Overcharge station
+new        UtilityPack                  Utility Device
+stats+scriptsDeployableLRMotionSensorPack LR Motion Sensor
+stats+scriptsObeliskPowerPack             Obelisk Power Source
+new        OutpostPack                  Outpost
+stats      RepairKit                    Repair Kit
+renamed+statsOriginalMine                 Anti-personnel Mine
+new        SatchelCharge                Satchel Charge
+new        SpringMine                   Springboard
+new        PhaseLokMine                 PhaseLok
+new        OriginalGrenade              Frag Grenade
+new        EMPGrenade                   EMP Grenade
+new        ECMGrenade                   ECM Grenade
+new        FlareGrenade                 Flash Grenade
+new        PoisonGrenade                Jiffypop
+new        TearGasGrenade               Tear Gas Grenade
+new        ConcussionGrenade            Concussion Grenade
+new        Scrambler                    Incindiary Grenade
+new        Plastique                    Plastique
+new        GasCanGrenade                Gas Can
+new        StoneThrowGrenade            Bag of rocks
+new        DefenderGrenade              Sticky Bomb
+new        SmokerGrenade                Smoke Grenade
+new        MolotovGrenade               Molotov
+new        SuicideBomb                  Bungee Ball
+new        TargetBeacon                 Airstrike Beacon
+new        MotionBeacon                 Motion Sensor
+new        JammerBeacon                 Sensor Jammer
+new        CameraBeacon                 Camera
+new        AlarmBeacon                  Base Alarm
+new        ShieldBeacon                 Extra Gun Clip
+new        TeleportBeacon               OICW Grenades
+stats      RepairPatch                  Repair Patch
+new        AttackDronePack              RC Army Drone
+new        FighterGun                   Rotary Cannon
+new        VehicleRocket                LAU Rockets
+new        NapalmLauncher               Flame Thrower
+new        VehicleMineLauncher          Mine Launcher
+new        VehicleShockCannon           Shockwave Cannon
+new        VehicleClusterCannon         Cluster Cannon
+new        VehicleEMPLauncher           EMP Grenade Launcher
+new        VehicleBomb                  High-Explosive Bomb
+new        DecoyAmmo                    Mp5 Rounds
+new        DecoyGun                     HK MP5
+new        Runner_CMD                   Runner Bot
+new        Guard_NRS                    Roaming Guard
+new        Mortar_NRS                   Roaming Mortarman
+new        Demo_NRS                     Roaming Demo Bot
+new        Medic_NRS                    Roaming Medic
+new        Miner_NRS                    Roaming Minelayer
+new        Sniper_NRS                   Roaming Sniper
+new        Painter_NRS                  Roaming Painter
+new        Runner_NRS                   Roaming Runner
+new        KlashnikovAmmo               Klashnikov Ammo
+new        Klashnikov                   Klashnikov AK74
+new        KlashnikovScope              KlashnikovScope
+new        AutoShotgunAmmo              AutoShotgun Shells
+new        AutoShotgun                  H&K AutoShotgun
+new        AutoShotgunScope             AutoShotgunScope
+new        AutoShotgunClip              AutoShotgunClip
+new        AutoShotgunMount             AutoShotgunClip
+new        berettaSMGAmmo               Beretta M12 Ammo
+new        berettaSMG                   Beretta M12 SMG
+new        berettaSMGScope              berettaSMGScope
+new        berettaSMGClip               berettaSMGClip
+new        britMagAmmo                  M177 Ammo
+new        britMag                      M177 AA Machinegun
+new        britMAGScope                 britMAGScope
+new        britMAGClip                  britMAGClip
+new        britMAGMount                 britMAGClip
+new        FamasAmmo                    FA-MAS Ammo
+new        DummyAmmo                    Dummy Ammo
+new        Famas                        FA-MAS Machinegun
+new        FamasScope                   FamasScope
+new        FamasClip                    FamasClip
+new        FamasMount                   FamasClip
+new        FireSuit                     Environ. Suit
+new        FlakJacket                   Flak Jacket
+new        GasserAmmo                   Teargas Ammo
+new        Gasser                       M5 Teargas Launcher
+new        GasserScope                  GasserScope
+new        GasserClip                   GasserClip
+new        GlockAmmo                    Glock Ammo
+new        Glock                        Glock 9mm
+new        MountPack                    Machinegun Mount
+new        Helmet                       Kevlar Helmet
+new        ingramAmmo                   Ingram Ammo
+new        ingram                       Ingram MAC 10
+new        ingramScope                  ingramScope
+new        ingramClip                   ingramClip
+new        KevlarVest                   Kevlar Vest
+new        KneePack                     Knee Mortar
+new        HeavyMGPack                  M2 Mounted Gun
+new        MiniUziAmmo                  Mini Uzi Ammo
+new        MiniUzi                      Mini Uzi
+new        MiniUziScope                 MiniUziScope
+new        MiniUziClip                  MiniUziClip
+new        MusketAmmo                   Musket Loads
+new        Musket                       Musket
+new        OICWAmmo                     OICW Ammo
+new        OICW                         OICW
+new        OICWScope                    OICWScope
+new        OICWClip                     OICWClip
+new        OpenableDoorPack             Automatic Door
+new        QuadCannon                   QuadCannon
+new        QUADScope                    
+new        QUADClip                     
+new        QUADMount                    QUADClip
+new        RemingtonAmmo                Remington Ammo
+new        Remington                    Remington 7.62 Snipe
+new        RemingtonScope               RemingtonScope
+new        RemingtonClip                RemingtonClip
+new        RugerAmmo                    Ruger Ammo
+new        Ruger                        Ruger .22 Cal
+new        RugerScope                   RugerScope
+new        RugerClip                    RugerClip
+new        SandbagPack                  Sand Bag
+new        sawAmmo                      SAW Ammo
+new        saw                          M249 SAW
+new        sawScope                     sawScope
+new        sawClip                      sawClip
+new        sawMount                     sawClip
+new        ShotgunSlugAmmo              Shotgun Slugs
+new        ShotgunSlug                  Slug Shotgun
+new        SniperPerchPack              Guard Tower
+new        SPASAmmo                     SPAS Shells
+new        SPAS                         SPAS Shotgun
+new        TaurusAmmo                   Taurus Ammo
+new        Taurus                       Taurus 44 magnum
+new        TommyGunAmmo                 TommyGun Ammo
+new        TommyGun                     Tommy Gun
+new        TommyGunScope                TommyGunScope
+new        TommyGunClip                 TommyGunClip

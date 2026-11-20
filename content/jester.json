@@ -1,0 +1,78 @@
+{
+ "mod": {
+  "overview": "JesterMOD is a high-octane action modification created by Casey D'Angelo in late 2000, derived from Ultra Renegades VX4 while removing its fantasy spellcasting mechanics in favor of intensified sci-fi gunplay. Matches revolve around frenetic base assaults and aerial skirmishes driven by massive arsenals of up to fifteen carried weapons, near-limitless jetpack stamina, and an infinite team energy economy. Players fight using an expanded arsenal termed Casey's Custom Gunz, featuring instant-kill siege cannons and lock-on homing rocket salvos alongside deceptive camo packs and deployable forcefield doors. The mod supports objective-based gametypes like Capture the Flag alongside Deathmatch, delivering fast-paced combat with immediate heavy spawn gear and extreme vehicle velocities.",
+  "notes": [
+   "Classes and Carry Limits: Four main armor classes are offered: Light, Skipper, Medium, and Heavy, alongside light and medium female models. Light Armor carries up to 12 weapons, Medium carries 8 with 7 health damage, and Heavy carries 8 with 10 health damage and 100 energy. Skipper Armor acts as a hyper-speed glass cannon with 3 health damage, 7.5 mass, a running speed of 25, forward jet velocity of 45, and a massive 15-weapon capacity. Light and Skipper armors feature a 0.1 jet drain against 500 max energy for virtually infinite flight.",
+   "Spawns and Starting Loadout: Players do not spawn unequipped or reliant on sidearms. Every spawn automatically provides Light Armor along with a Plasma Gun, Mortar, Disc Launcher, Laser Rifle, Mine Ammo, Hand Grenades, and a Repair Pack, allowing players to jump immediately into heavy artillery, dueling, or base infiltration.",
+   "Appearance Menus and Skin Selection: When joining a server, players are prompted with a custom appearance menu in addition to team selection. The usecustom menu lets players choose between displaying the team default uniform or retaining their own custom personal skin. Standard remote game commands govern player actions, and no chat-based commands like #cmd are utilized.",
+   "Casey's Custom Gunz and Guided Weaponry: Stations stock a unique arsenal including the devastating Annihilator cannon that deals 15 damage across a 35-meter radius to kill any target in one hit. The J22 Burst Gun and J22 EMP Burst Gun seek targets up to 350 units away, send audible missile lock warnings to victims via RocketLockWarning, and launch homing missile clusters. Other armaments include rapid-fire ZRifle and ZRifle II machine guns, the Green Beam O' Death sniper taser, the Shock Therapy Gun, and bouncing Electrode Flares.",
+   "Stealth and Camouflage Packs: Infiltration gameplay features active and passive disguise options. The Cloaking Device turns the user visually transparent and boosts sensor suppression by 3 while draining 18 energy per second. Players can also equip cosmetic Camo packs like Cactus Camo, Tree Camo, Turret Camo, Satellite Camo, and Generator Camo to mount terrain props directly on their backs and fool enemy defenders.",
+   "Deployable Defenses and Forcefields: Defensive engineers can deploy modular light and medium forcefield doors around friendly base infrastructure to block enemy entry routes. Deployable automated defenses are expanded with tracking laser turrets, Mini-Plasma turrets, Mini-Flak guns, Mini-SAM anti-air batteries, Mini-ELF drainers, and Electrode turrets up to designated team placement caps.",
+   "High-Speed Gunship Vehicles: Flying vehicles are modified for extreme combat velocity. The Scout flyer, Light APC, and Heavy APC reach maximum flight speeds between 300 and 500 units with ceilings up to 550. Transport hulls and scouts are outfitted with rapid-fire aerial cannons with refire delays as brief as 0.01 to 0.03 seconds, turning craft into fast-response strike gunships.",
+   "Economy and Banned Gear: Team energy defaults to Infinite across all teams, removing economic restrictions on buying high-tier weapons, packs, and vehicles. Both the Deployable Sensor Jammer Pack and Pulse Sensor Pack are explicitly banned from stations and capped at zero deployables ($InvList=0, $RemoteInvList=0, $TeamItemMax=0). To prevent station camping, a 2-second throw restriction ($WaitThrowTime=2) blocks throwing mines or grenades right after leaving a station.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): DeployableSensorJammerPack (station.cs), PulseSensorPack (station.cs); Team limit zeroed ($TeamItemMax = 0): DeployableSensorJammerPack=0 (item.cs), PulseSensorPack=0 (item.cs)."
+  ]
+ },
+ "items": {
+  "SkipperArmor": {
+   "summary": "Ultra-fast skirmisher armor class boasting an immense 15-weapon inventory, low mass, and near-limitless jetting potential at the expense of fragile armor integrity.",
+   "notes": [
+    "Based on the light armor chassis but with mass reduced to 7.5 and maximum health damage threshold lowered to 3.",
+    "Features extreme movement characteristics including a max forward running speed of 25, a forward jetting velocity of 45, and a jump impulse of 125.",
+    "Possesses a 500 energy reserve and a tiny 0.1 jet energy drain rate, giving players near-infinite jetting endurance.",
+    "Carries up to 15 weapons simultaneously, representing the highest weapon carrying capacity in the mod."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "Annihilator": {
+   "summary": "Ultra-heavy siege weapon firing high-velocity blast projectiles that instantly destroy any player caught within its colossal explosion radius.",
+   "notes": [
+    "Sold from inventory stations for 450 credits under the Casey's Custom Gunz category using a mortar gun model.",
+    "Launches a high-velocity shield projectile at 800 muzzle velocity with an inherited shooter velocity factor of 5.",
+    "Inflicts 15 explosion damage across a wide 35-meter radius, instantly eliminating even heavy armor players possessing 10 health.",
+    "Balanced by a 2.5-second reload cycle and a restricted reserve of specialized Annihilator Ammo."
+   ],
+   "source": "item.cs"
+  },
+  "J22BurstGun": {
+   "summary": "Advanced lock-on missile launcher capable of tracking targets up to 350 units away and releasing a coordinated salvo of three homing rockets.",
+   "notes": [
+    "Checks line of sight up to 350 units ahead for an enemy player or aircraft when fired.",
+    "Acquiring a lock triggers the RocketLockWarning routine, broadcasting a three-tone warning alert and threat message to the target.",
+    "Simultaneously launches three homing projectiles toward the locked target: an EMP missile, a standard explosive missile, and a submission missile.",
+    "Fires an unguided alternate rocket if no target lock is achieved at the time of firing."
+   ],
+   "source": "item.cs"
+  },
+  "CloakingDevice": {
+   "summary": "Active stealth backpack that renders the wearer fully invisible and removes them from radar at the expense of continuous energy consumption.",
+   "notes": [
+    "Equipped in the backpack slot and activated via the standard backpack toggle.",
+    "Fades out the player model completely using GameBase startFadeout, rendering the operative visually transparent.",
+    "Increases sensor suppression by 3 units to avoid detection by automated enemy radar networks.",
+    "Drains energy at a continuous rate of 18 energy units per second while active."
+   ],
+   "source": "item.cs"
+  },
+  "cactusPack": {
+   "summary": "Deception backpack that attaches a physical desert cactus prop directly onto the wearer to blend into exterior environments.",
+   "notes": [
+    "Purchased for 200 credits under the Camo inventory menu heading.",
+    "Directly mounts a cactus scenery model over the player character with a defined offset to hide the armored silhouette.",
+    "Provides passive visual deception in outdoor and desert terrain against players looking for humanoid silhouettes.",
+    "Part of a wider camo equipment suite that includes Tree Camo, Turret Camo, Satellite Camo, and Generator Camo packs."
+   ],
+   "source": "item.cs"
+  },
+  "DeployableSensorJammerPack": {
+   "summary": "Deployable sensor jammer pack that is strictly prohibited from purchase or deployment in the modification.",
+   "notes": [
+    "Explicitly disabled in base inventory station purchase lists with InvList set to 0.",
+    "Explicitly disabled in remote inventory station purchase lists with RemoteInvList set to 0.",
+    "Has its team deployment allowance strictly restricted to 0 with TeamItemMax set to 0.",
+    "Shared with the Pulse Sensor Pack as one of the two completely banned items in the mod."
+   ],
+   "source": "station.cs"
+  }
+ }
+}

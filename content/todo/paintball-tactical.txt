@@ -1,0 +1,59 @@
+# paintball-tactical vs base (58 items)
+new        PsychoClip                   Paintballs
+new        DeltaClip                    Paintballs
+new        InfernoClip                  Paintballs
+new        AngelClip                    Paintballs
+new        IntimidatorClip              Paintballs
+new        MongooseClip                 Paintballs
+new        AutoCockerClip               Paintballs
+new        SpyderClip                   Paintballs
+new        DragunClip                   Paintballs
+new        TipmannSClip                 Paintballs
+new        SmartPartsClip               Paintballs
+new        WMAssaultClip                Paintballs
+renamed+statsLightArmor                   Player Suit
+stats      RepairKit                    Repair Kit
+new        OriginalGrenade              Paint Grenade
+new        SmokerGrenade                Smoke Bomb
+new        FlareGrenade                 Flash Bang
+new        mineAmmo                     Mine
+stats      Beacon                       Beacon
+stats      RepairPatch                  Repair Patch
+new        DeltaAmmo                    Paintballs
+new        Delta                        ADG MiniMag
+new        IntimidatorAmmo              Intimidator Paintballs
+new        Intimidator                  Bob Long Intimidator
+new        InfernoAmmo                  Paintballs
+new        Inferno                      Diablo Inferno T3
+new        MongooseAmmo                 Paintballs
+new        Mongoose                     Diablo Mongoose LCD
+new        DragunAmmo                   Dragun Paintballs
+new        Dragun                       M3 Dragun LCD
+new        PsychoAmmo                   Psycho Paintballs
+new        Psycho                       PsychoBallistic Lightning
+new        AutoCockerAmmo               Paintballs
+new        AutoCocker                   Shocktech Autococker
+new        SmartPartsAmmo               SmartParts Paintballs
+new        SmartParts                   Smart Parts Vision
+new        SpyderAmmo                   Paintballs
+new        Spyder                       Spyder E-99
+new        TipmannSAmmo                 Paintballs
+new        TipmannS                     Tippmann 98 Sniper
+new        WMAssaultAmmo                WMAssault Paintballs
+new        WMAssault                    WarMachine Assault 80
+new        AngelAmmo                    Paintballs
+new        Angel                        WDP IR3 Angel 2002
+new        M79Ammo                      M79 Pre-Mix
+new        M79                          M-79 PB Gren Launcher
+new        BunkerAmmo                   Bunker Ammo
+new        Bunker                       AWTP Bunker Thumper
+new        AWPTShotgunAmmo              AWPT Shotgun Shells
+new        AWPTShotgun                  AWPT Shotgun
+new        TLPack                       Laser Scope
+new        FLPack                       Flash Light
+new        SuPack                       Supply Pack
+new        Camo                         Desert Camo
+new        Camo2                        Forest Camo
+new        Camo3                        Jungle Camo
+new        MicroBlk                     Micro Mesh Black
+new        MicroBrn                     Micro Mesh Brown

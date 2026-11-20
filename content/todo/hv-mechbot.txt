@@ -1,0 +1,85 @@
+# hv-mechbot vs hv-mechwarrior (84 items)
+new        TreePoint                    Tree point vis
+new        TreePointRoute               Tree Point Route vis
+new        DriverArmor                  Driver
+renamed+statsDeathMatchArmor              DM Panther Armor
+stats      PantherArmor                 Panther
+stats      BattleMasterArmor            BattleMaster
+stats      AtlasArmor                   Atlas
+stats+scriptsPPC                          PPC
+stats+scriptsUltra5                       Ultra-AC5
+stats+scriptsUltra10                      Ultra-AC10
+stats+scriptsUltra20                      Ultra-AC20
+stats+scriptsAC5                          LBX-AC5
+stats+scriptsAC10                         LBX-AC10
+stats+scriptsAC20                         LBX-AC20
+stats+scriptsGaussRifle                   Gauss Rifle
+renamed+stats+scriptsLRM5                         LRM-5 Missile Launcher
+renamed+stats+scriptsLRM10                        LRM-10 Missile Launcher
+renamed+stats+scriptsLRM20                        LRM-15 Missile Launcher
+renamed+stats+scriptsSTR2                         STR-2 Missile Launcher
+renamed+stats+scriptsSTR6                         STR-6 Missile Launcher
+renamed+statsArrowIVAmmo                  Arrow IV Missile
+renamed+stats+scriptsArrowIV                      Arrow IV
+renamed+statsSniperGunAmmo                Sniper Cannon Bullet
+renamed+stats+scriptsSniperCannon                 Sniper Cannon
+new        Blaster                      PPC
+stats+scriptsMedLas                       Medium ER Laser
+stats+scriptsLrgLas                       Large ER Laser
+stats+scriptsMedPLas                      Medium Pulse Laser
+stats+scriptsLrgPLas                      Large Pulse Laser
+stats+scriptsTargetingLaser               Targeting Laser
+renamed+stats+scriptsMachineGun                   Machine Gun
+renamed+stats+scriptsFlamer                       Flamer
+stats+scriptsSmokeLauncher                Smoke Launcher
+stats+scriptsDeployableMechBay            Mobile Mech Bay
+stats+scriptsDeployableMunitionsPack      Mobile Munitions Bay
+stats      DoubleHeatSink               Double Heat Sinks
+renamed+stats+scriptsMASCPack                     Hunter Light Tank
+stats      RepairPack                   Welding Torch
+stats      FerroFibrousArmor            Ferro-Fibrous Armor
+stats+scriptsMunitionsPack                Munitions Pod
+stats+scriptsECMPod                       ECM Pod
+stats      FCCPod                       Fire-Control Computer
+stats+scriptsRadarPack                    Portable Radar Dish
+stats+scriptsBeagleActiveProbe            Beagle Active Probe
+stats+scriptsDeployableECMPod             Portable ECM Pod
+stats      CameraPack                   Camera
+renamed+stats+scriptsMedLasPack                   ER Laser Turret
+renamed+stats+scriptsMedPLasPack                  Pulse Laser Turret
+renamed+stats+scriptsLRM5Pack                     Streak Turret
+renamed+stats+scriptsSTR2Pack                     Streak Turret
+stats+scriptsFlamerPack                   Flamer Turret
+stats+scriptsUltra20Pack                  Ultra-AC20 Turret
+stats+scriptsPPCPack                      PPC Turret
+stats+scriptsLongTomPack                  Long Tom Artillery
+stats      RepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+renamed+statsNukeGrenade                  Pentaglycerine
+stats      InfernoGrenade               Inferno Grenade
+stats      SmokeHandGrenade             Smoke Grenade
+stats      a                            a
+stats      b                            b
+stats      c                            c
+stats      d                            d
+stats      e                            e
+stats      f                            f
+stats+scriptsBeacon                       Beacon
+stats      RepairPatch                  Repair Patch
+stats      STRPackL                     Med Las
+stats      STRPackP                     Med Las
+stats      MLPackC2                     Med Las
+stats      MLPackC                      Med Las
+stats      UltraPackM                   Ultra-AC20
+stats      MLPackHB                     Med Las
+stats      GaussPackHB                  GaussRifle
+stats      LRMPackA                     LRM-15
+stats      MLPackA                      Med Las
+stats      LRMPackB                     LRM-15
+stats      MLPackB                      Med Las
+stats      MLPackB2                     Med Las
+stats      RadarPackH                   Radar
+stats      MLPackH                      LRM-15
+stats      LRMPackH                     LRM-15
+stats      GaussPackH                   GaussRifle

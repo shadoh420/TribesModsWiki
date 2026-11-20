@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "DBZ_3k (December 2000) re-skins Base Tribes into a Dragon Ball Z energy-combat mod (59 items) without changing Base weapon projectile damages\u2014focusing instead on much higher energy pools, faster/cheaper flight on Android/Namek/Super Sayain classes, and 7 added ki-beam/energy-ball attacks (including Goku's Kame-Hame-Ha!).",
+  "notes": [
+   "Armor energy, flight & bans vs Base: explicitly bans Chaingun, BulletAmmo, GrenadeLauncher, and GrenadeAmmo at stations ($InvList = 0, Chaingun $ItemMax = 0); boosts Android (larmor) energy 60 -> 100 with 4x cheaper jets (0.8 -> 0.2), Namek (marmor) energy 80 -> 110 (jet drain 1.0 -> 0.4), and Super Sayain (harmor) energy 110 -> 120 (jet drain 1.1 -> 0.5).",
+   "Arsenal transformation: Blaster becomes Gohan's Kame-Hame-Ha! (fusion explosion radius), Mortar becomes Spirit Bomb!, DiscLauncher becomes Distructo Disk!, LaserRifle becomes Piccolo's Eye Laser, ELF Gun becomes Lightning Attack, and adds HyperB (Beam Attack), EnBeam (Energy Ball Attack), and Light-exclusive Goku (Kame-Hame-Ha!)."
+  ]
+ }
+}

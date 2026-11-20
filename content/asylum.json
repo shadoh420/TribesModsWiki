@@ -1,0 +1,71 @@
+{
+ "mod": {
+  "overview": "Asylum 2.5 (Asylum2) is a total-conversion combat and base-defense mod developed by PlanetStarsiege.com in June 2000 as a successor to Apollo 11. The mod completely replaces stock and Apollo armors with a specialized six-class hierarchy ranging from the fragile, high-speed Resistor scout up to the towering Colossus juggernaut. Gameplay revolves around aggressive base assault, elaborate aerial engineering, and tactical combat enriched by exotic weapons and punishing status effects such as nuclear poisoning and energy-draining soul theft. Teams construct sky bases with deployable mid-air platforms and force fields while fielding specialized combat flyers and carpet-bombing gunships across standard objective-based maps.",
+  "notes": [
+   "Classes and Roles: The mod discards standard armor classes in favor of six distinct roles: Resistor (speed 15, 0.50 health, 5 weapons) as a fast scout; Assassin (speed 13, 0.66 health, 4 weapons) as a long-range sniper and engineer; RadCon (speed 10, 1.0 health, 4 weapons) as a specialized hazmat operative immune to nuclear fallout; Valkyrie (speed 11, 1.0 health, 6 weapons) as a balanced medium assault soldier; Devastator (speed 7, 1.32 health, 7 weapons) as a heavy ordnance specialist; and Colossus (speed 5, 2.0 health, 9 weapons) as an ultra-heavy juggernaut carrying almost the entire weapon arsenal.",
+   "Crouching Mechanics: Light armors (Resistor and Assassin) retain normal crouching capabilities, whereas crouching is disabled entirely on Medium and Heavy armors (RadCon, Valkyrie, Devastator, and Colossus).",
+   "Status Effect Weapons: The Soul Stealer fires heavy EMP shock shells that immediately unmount the target's weapon, wipe their energy meter, and freeze energy regeneration for 14 seconds. The Fallout Cannon launches nuclear shells that inflict 30 seconds of radiation poisoning with severe damage flash and lingering damage that melts unprotected players, while RadCon Armor remains completely immune.",
+   "Heavy Ordnance and Ballistics: Combat features the spinning Laser Shredder chaingun which requires an Energy Pack to operate, the high-impulse Earthquake Cannon that blasts enemies with concussive shockwaves, the high-knockback Blast Launcher, a 10-pellet point-blank Shotgun, and a high-velocity ballistic Sniper Rifle that fires near-instant projectile rounds.",
+   "Deceptive Traps and Invisibility: The Flag Mine is a disguised antipersonnel explosive that uses the visual model of a team flag to deceive enemies into detonating it. The Cloaking Gun fires a sustained beam that causes targeted players or deployables to fade into total invisibility for 30 seconds.",
+   "Sky Bases and Deployables: Players can construct floating fortresses using deployable Air Platforms and Large Air Platforms anchored in mid-air, translucent small and large force field barriers, aerial Satellite Cameras that look down from the sky, and automated tripod Laser Turrets. Defensive deployables cannot be placed within close proximity (3 to 10 meters) of the team flag.",
+   "Combat Aircraft and Limits: Vehicle stations offer five flyers governed by strict team caps: the rocket-equipped Scout (limit 3), the rapid-plasma Defender (limit 2), the mortar-armed LPC (limit 2), the shock-cannon HPC (limit 1), and the heavily armored BHPC bomber (limit 2) that drops massive 60-meter blast radius bomb shells. The Gravity Gun is permanently banned from station inventories.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): GravityGun (station.cs)."
+  ]
+ },
+ "items": {
+  "flagmineammo": {
+   "summary": "A deceptive antipersonnel mine disguised as a full-size team flag to ambush unwary flag runners.",
+   "notes": [
+    "Uses the standard flag shape model to bait enemies into detonating it.",
+    "Inflicts 0.65 explosive damage across a 10-meter blast radius upon collision.",
+    "Teams are limited to deploying a maximum of 10 flag mines at any time."
+   ],
+   "source": "mine.cs"
+  },
+  "FalloutCannon": {
+   "summary": "A heavy siege mortar that fires radioactive shells inflicting lethal radiation poisoning.",
+   "notes": [
+    "Detonates in a wide nuclear blast that applies a 30-second fallout poisoning effect to victims.",
+    "Victims suffer continuous damage and heavy screen flash, eventually melting in a pool of radiation upon death.",
+    "Exclusive to RadCon Armor, which takes zero damage from nuclear explosions and radiation."
+   ],
+   "source": "item.cs"
+  },
+  "SoulStealer": {
+   "summary": "A heavy launcher firing EMP shock shells that completely disarm and immobilize an enemy's energy pool.",
+   "notes": [
+    "Forces the victim to unmount their active weapon immediately upon taking EMP radius damage.",
+    "Empties the target's energy to zero and stops energy regeneration for 14 seconds.",
+    "Restricted to the Devastator and Colossus heavy armor classes."
+   ],
+   "source": "item.cs"
+  },
+  "CloakGun": {
+   "summary": "A directed energy beam tool that renders teammates, enemies, or objects completely invisible for 30 seconds.",
+   "notes": [
+    "Fires a sustained electrical beam with a 40-meter effective range.",
+    "Triggers an immediate fade-out effect on the target that lasts for 30 seconds before fading back in.",
+    "Available to RadCon and Colossus armor loadouts."
+   ],
+   "source": "item.cs"
+  },
+  "LargeAirPlatPack": {
+   "summary": "A deployable engineering backpack that creates a massive floating octagon platform mid-air for sky bases.",
+   "notes": [
+    "Spawns a floating 16x16 octagon platform at the player's current airborne coordinates.",
+    "Features 15.0 structural hit points to withstand heavy enemy assault.",
+    "Teams are restricted to 1 large platform, and placement within 10 meters of the team flag is prohibited."
+   ],
+   "source": "item.cs"
+  },
+  "GravityGun": {
+   "summary": "An unobtainable experimental weapon that is explicitly banned from station purchasing.",
+   "notes": [
+    "Configured to fire a sustained crushing beam that rapidly drains 60 energy per second.",
+    "Excluded from inventory and remote inventory stations by setting purchase flags to zero.",
+    "Remains accessible only when developer cheats are enabled via console."
+   ],
+   "source": "station.cs"
+  }
+ }
+}

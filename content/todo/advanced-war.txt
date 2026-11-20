@@ -1,0 +1,27 @@
+# advanced-war vs base (26 items)
+renamed+statsLightArmor                   Soldier mki
+renamed+statsMediumArmor                  Soldier mkii
+renamed+statsHeavyArmor                   Soldier mkiii
+new        PistalAmmo                   9mm Bullet
+renamed+stats+scriptsBlaster                      9.mm Pistal
+stats+scriptsChaingun                     Chaingun
+new        Chaingun2                    Chaingun2
+stats      PlasmaAmmo                   Plasma Bolt
+new        Plas1                        Plas1
+new        Plas2                        Plas2
+new        Plasmagun                    Plasma Gun
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        RocketAmmo                   Missile Ammo
+new        RocketLauncher               Missile Launcher
+new        GunBox                       Central GunBox-targetLaser
+new        RocketAAmmo                  Multi-Rocket Ammo
+new        RocketA                      Rocket A
+new        RocketB                      Rocket B
+new        HDisc1                       Twin Fuser
+new        HDisc2                       Twin Fuser
+stats+scriptsDiscLauncher                 Disc Launcher
+stats      TargetingLaser               Targeting Laser
+new        BeaconAID                    Central targetLaser
+new        AODBeaconGun                 Air-Strike Gun
+scripts    Grenade                      Grenade
+new        AirBasePack                  Air Base

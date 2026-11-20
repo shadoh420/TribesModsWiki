@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Attack Team Force (ATF) Mod is a high-octane total-conversion clan mod built upon Foundation Mod by HaCk between 2001 and 2004, introducing over fifty custom weapons, fifteen specialized armor classes, and elaborate base-engineering gear. Rather than the measured, role-strict pacing of base Tribes, ATF plays like an exaggerated sci-fi action anime sandbox featuring blazing travel speeds, high-elasticity terrain, Dragon Ball Z energy techniques, and an armory of cluster bombs, tactical nukes, and laser tripwires. Players spawn heavily armed with explosive automatic weaponry, energy blasters, and flamethrowers, while an interactive Server God automated host presides over matches with running commentary, duel countdowns, and instant punishment for disrespect. Standard capture the flag, deathmatch, and find-and-retrieve modes are transformed into frenzied skirmishes where sky bases hover on midair platforms, snipers hide inside deployable trees, and players can power up into flying Super Saiyans or feign death as resurrecting zombies.",
+  "notes": [
+   "Light armors range from the fleet 4-weapon male and female scouts to the 1000-energy Builder Mechanic Armor, the blindingly fast Mach 5 Armor running at speed 40 with only 2 weapon slots, and the alien Xythilian Armor wielding nuclear core discharges. Bounty Hunter armor carries up to 1500 credits to purchase permanent stat increases, while Undead Armor automatically cheats death by entering an immobile downed state that revives upon taking subsequent damage.",
+   "Medium and Heavy classes feature extreme combat variants: the Saiyan Medium Armor carries Dragon Ball Z energy moves, the rapid HaCk Heavy Armor moves at speed 19, and the colossal Goliath Armor sacrifices movement for an astounding 15-weapon capacity and massive damage resistance. King Kai's Kaioken technique temporarily propels Medium armor to speed 81 and 800 energy, which can overcharge into a game-changing Super Saiyan state with 10,000 energy, zero jet drain, and God-mode beam weaponry.",
+   "Players spawn fully geared with Light Armor, an Auto-Rocket Chaingun, a Neutron Beam sniper weapon, an Energy Blaster, a Flamethrower, a Repair Kit, and a starting Credit Disk. Every player receives an elevated passive energy recharge rate of 8, allowing continuous jetting and rapid recovery in open field combat.",
+   "The expansive arsenal includes the Death Head Missile carpet-bombing launcher, the Ass Ripper sniper rifle converting disc ammo into high-velocity slugs, the 32-pellet Impact Rocket Shotgun, multi-lock rocket pods, and elemental modifier packs. Equipping Light, Fire, EMP, Poison, or Energy Burst modifier packs imbues multi-shot blasters and sniper rifles with corresponding flash blinding, damage over time, shield stripping, or toxic status effects.",
+   "Builders have access to midair Air Platforms for constructing floating fortresses, deployable Warp Pads for instantaneous transit, Spring Pads for jumping boosts, and portable generators. Automated defenses include perimeter Metal Walls, Camo-Trees for sniper concealment, Line-of-Sight Beam Turrets serving as laser door tripwires, Sting Turrets, HellFire Turrets, and Energy Vortex drains that siphon enemy capacitor charge.",
+   "Explosives range from lethal Plastique Bombs and self-destruct mechanisms to tactical disruption devices like the Enemy Displacer Bomb, which inflicts zero damage but blasts everyone within 300 meters flying across the map. Defenses are bolstered by invisible proximity mines, decoy holograms, and displacer mines designed to violently knock flag runners off their course.",
+   "Vehicle stations offer eight distinct aircraft, including the standard Star Shooter, the 80-speed Raider, the smoke-screening Fog Maker, the Energy Burster, a 200-speed Kamakazi Scout designed for high-velocity intercepts, a high-altitude Dragoon Scout gunship, and heavy multi-passenger bombers.",
+   "An interactive automated host named Server God monitors matches, posting humorous tips, parodies, and weather reports to the global chat. Players can trigger official 10-second duel countdowns by typing ServerGod: Duel, request items via ServerGod: GiveMe, or trigger bot spawns via ServerGod: Spawn, while insulting the Server God results in instant smiting and expulsion to observer mode.",
+   "Dead players drop their inventory including Credit Disks, creating an in-round currency system. Bounty Hunters collect enemy credits and activate the Bounty Exchange upgrade to trade 300, 600, 1200, or 2400 credits for permanent boosts to maximum energy, instant ammunition resupply, and amplified energy recharge rates."
+  ]
+ },
+ "items": {
+  "GokuArmor": {
+   "summary": "Saiyan Medium Armor engineered for martial energy attacks and dramatic Kaioken transformations.",
+   "notes": [
+    "Features 300 maximum energy and speed 21 while carrying up to 5 weapons.",
+    "Armed with Dragon Ball Z style energy techniques including Kamehameha, Spirit Bomb, Gallic Gun, and Tri-Beam.",
+    "Activating the Kaioken Ability item transforms the player into King Kai armor with speed 81 and 800 energy, with an overcharge pathway directly into Super Saiyan."
+   ],
+   "source": "ArmourMedium.cs"
+  },
+  "ThiefArmor": {
+   "summary": "High-mobility Bounty Hunter light armor with custom credit capacity and persistent stat progression.",
+   "notes": [
+    "Moves at speed 20 with 300 energy and can store up to 1500 Credit Disks compared to the normal limit of 100.",
+    "Defeated enemies drop credit disks that the Bounty Hunter collects across the battlefield.",
+    "Spending collected credits through the Bounty Exchange item permanently increases maximum energy and recharge speed while restocking full ammunition."
+   ],
+   "source": "ArmourLightF.cs"
+  },
+  "ZombieArmor": {
+   "summary": "Undead light armor that cheats elimination through a two-stage death and resurrection cycle.",
+   "notes": [
+    "Moves at slow speed 5 with 10 max damage and a 2-weapon maximum carry limit.",
+    "Upon sustaining fatal damage, triggers the ZombieRevive projectile and morphs into immobile Zombie2Armor playing death animations.",
+    "Taking damage or dying while in the downed Zombie2Armor state immediately resurrects the player back into active ZombieArmor."
+   ],
+   "source": "ArmourLightF.cs"
+  },
+  "AirPlatformPack": {
+   "summary": "Deployable midair platform pack that creates floating steel foundations anywhere in the sky.",
+   "notes": [
+    "Can be activated in midair or at high altitudes to deploy a solid horizontal steel surface.",
+    "Used by builders to construct elevated forward bases, sniper perches, and sky-turret nests above objective paths.",
+    "Regularly paired with deployable warp pads and portable generators to establish fully functional aerial staging grounds."
+   ],
+   "source": "DeployableTurret3.cs"
+  },
+  "BF2": {
+   "summary": "Enemy Displacer Bomb designed for massive non-lethal crowd control and objective clearance.",
+   "notes": [
+    "Requires 20 seconds of arming time before detonating.",
+    "Deals zero hit point damage to players and structures upon detonation.",
+    "Generates an immense shockwave hurling all players within a 300-meter radius hundreds of feet away."
+   ],
+   "source": "MiscB2.cs"
+  },
+  "ScoutVehicle5": {
+   "summary": "Kamakazi Scout interceptor flier configured for extreme velocity flight.",
+   "notes": [
+    "Features a maximum forward airspeed of 200, four times faster than the standard scout flier.",
+    "Costs 1067 energy credits at vehicle stations and mounts specialized interceptor flier rockets.",
+    "Designed for lightning-fast flag pursuit, emergency base defense intercepts, and high-speed collision attacks."
+   ],
+   "source": "VehicleScout.cs"
+  }
+ }
+}

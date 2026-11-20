@@ -1,0 +1,55 @@
+# meltdown-total-war vs meltdown-hell (54 items)
+renamed+statsArwingV                      Attack Comanche
+scripts    Grenade                      Grenade
+scripts    MineAmmo                     Mine
+new        Flamer                       Flame Thrower
+new        InfantryAmmo                 Infantry Cannon Shell
+new        Infantry                     Infantry Cannon
+new        SR100Ammo                    Sniper Rounds
+new        SR100                        SR100 Sniper Rifle
+stats      Blaster                      Blaster
+new        HyperLaser                   ChainGun-Laser
+new        ATCAmmo                      Cannon Shells
+new        ATC                          Auto-Cannon
+scripts    OmegaRifle                   Omega Rifle
+stats+scriptsAlienLaser                   Alien Laser Rifle
+stats      MaserRifle                   Maser Rifle
+scripts    VertigoCannon                GEP Gun
+stats      MBCannon                     Mitzi Blast Cannon
+scripts    EnergyGun                    Protron
+stats+scriptsChaingun                     Chaingun
+renamed+statsGauss                        Auto-Gauss Gun
+stats+scriptsMMinigun                     MECHMinigun
+stats      MMinigun2                    MECHMinigun
+stats      MMinigun3                    MECHMinigun
+stats      MMinigun4                    MECHMinigun
+stats      GrenadeLauncher              Grenade Launcher
+stats      MineLauncher                 Mine Launcher
+stats+scriptsImpGun                       Implosion Cannon
+scripts    BabyNukeMortar               FireBomb
+scripts    StasisCannon                 Smoke Bomb Launcher
+stats      DiscLauncher                 Disc Launcher
+stats      DualDisc2                    TwinFusor
+stats      RPGLauncher                  RPG
+stats      MrpgLauncher                 MECHRPG
+stats      MrpgLauncher2                MECHRPG
+stats      MrpgLauncher3                MECHRPG
+stats      MrpgLauncher4                MECHRPG
+stats+scriptsLaserPistol                  Laser Pistol
+stats      LaserRifle                   HP Laser Rifle
+stats      PBW                          Particle Beam (PBW)
+stats      DartGun                      Poison Dart Rifle
+stats+scriptsAR                           Assault Rifle
+stats+scriptsRailgun                      80MM RailGun
+stats+scriptsRailGun2                     60MM RailGun
+stats      Rifle                        60MM RailGun
+stats      MassDriver                   40MM Sniper Rifle
+renamed+stats+scriptsSniperRifle                  20MM Sniper Rifle
+stats      AAODSniperX                  HP Sniper Rifle
+stats      EnergyRifle                  ELF Gun
+new        Shotgun                      Shotgun
+stats      PlasmaGun                    Plasma Gun
+stats      TargetingLaser               Targeting Laser
+scripts    TeleportPack                 Teleport Pad
+scripts    DShieldPack                  Enhancement Beacon
+new        groundbase                   Vehicle Base

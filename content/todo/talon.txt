@@ -1,0 +1,143 @@
+# talon vs base (142 items)
+new        ScoutArmor                   Infiltrator
+renamed+statsLightArmor                   Assassin
+renamed+statsMediumArmor                  Artificer
+new        KamikazeArmor                Kamikaze Armor
+new        FighterArmor                 Warrior
+renamed+statsHeavyArmor                   Marauder
+new        TrooperArmor                 Titan
+renamed+statsScoutVehicle                 ("@$TeamItemMax[ScoutVehicle]@")'Hawk' Light Scout
+new        InterceptorVehicle           ("@$TeamItemMax[InterceptorVehicle]@")VK-5 'Zero' Interceptor
+new        BomberVehicle                ("@$TeamItemMax[BomberVehicle]@")ADB-90 'Behemoth'
+new        StealthVehicle               ("@$TeamItemMax[StealthVehicle]@")V-48 'Spirit' Stealth
+renamed+statsLAPCVehicle                  ("@$TeamItemMax[LAPCVehicle]@")'Wyvren' LPC
+renamed+statsHAPCVehicle                  ("@$TeamItemMax[HAPCVehicle]@")'Dragon' HPC
+new        KamikazeVehicle              ("@$TeamItemMax[KamikazeVehicle]@")DB-29 'Kamikaze' BombPlane
+renamed+stats+scriptsBlaster                      Plasma Pistol
+renamed+stats+scriptsPlasmaGun                    Plasma Rifle
+scripts    DiscAmmo                     Disc
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+renamed+stats+scriptsLaserRifle                   Scout Laser
+stats      TargetingLaser               Targeting Laser
+stats+scriptsEnergyRifle                  ELF Gun
+new        SMAmmo                       Support Mortar Ammo
+new        SupportMortar                Support Mortar
+new        ArtemisAmmo                  Artemis Missile
+new        Artemis                      Artemis Artillery
+new        ArtemisA                     Artemis Artillery
+new        ArtemisB                     Artemis Artillery
+new        MineGrenadeAmmo              Mine Ammo
+new        MineLauncher                 Mine Launcher
+new        ReasonAmmo                   Reason Rail Dart
+new        Reason                       Reason Mchn-Railgun
+new        ReasonExtra                  Reason Extra Barrel
+new        ReasonExtra2                 Reason Extra Barrel 2
+new        SuperGaussAmmo               Disc
+new        SuperGauss                   Gauss Rifle
+new        SuperGaussSec                Gauss Rifle PT2
+new        SniperAmmo                   Sniper Rounds
+new        SR100                        SR-100 Sniper Rifle
+new        AssaultAmmo                  AR-900 Shell
+new        AR900                        AR-900 Assault Rifle
+new        HyperLaser                   Implosion Rifle
+new        Flamer                       Devestator FlameThrower
+new        RPGAmmo                      Rckt Prpld Grenade
+new        RPG                          RPG
+new        PheonixAmmo                  Pheonix Charge Packs
+new        Pheonix                      The Pheonix SSDG
+new        NMLAmmo                      Nuclear Missile
+new        NML                          DOOMSDAY NukeLnchr
+new        SlotTaker                    Weapon Slot Taker
+new        SlotTaker2                   Pheonix Extra Weapon image
+new        SwarmerAmmo                  Swarmer Rack
+new        Swarmer                      Swarmer
+new        ExtraSwarmerA                Swarmer Extra Barrel
+new        ExtraSwarmerB                Swarmer Extra Barrel
+new        ExtraSwarmerC                Swarmer Extra Barrel
+new        ExtraSwarmerD                Swarmer Extra Barrel
+new        SMLAmmo                      Shockwave Missile
+new        SML                          Shockwave Launcher
+new        GasAmmo                      ZX-2 Shell
+new        GasMortar                    Pestilence Gas Mortar
+new        EnGun                        Energon Cannon
+new        Thunderbolt                  Thunderbolt
+new        BlastAmmo                    BlastRifle Charge
+new        BlastRifle                   Blast Rifle
+new        Disarmer                     Disarmer Cannon
+new        BoreAmmo                     Cerebral Bore
+new        BoreGun                      Cerebral Bore Launcher
+new        HealRifle                    Engineer Heal Gun
+stats      DeployableInvPack            Inventory Station
+stats      DeployableAmmoPack           Ammo Station
+stats      EnergyPack                   Energy Pack
+renamed+statsRepairPack                   Heavy Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Hanging Turret
+new        MiniPlanePack                Gargoyle MiniPlane
+new        AFIDPack                     AFID
+new        NukeShieldPack               Nuclear Shield
+new        JumpPack                     Orbital Insertion Pack
+new        Laptop                       Command Control Pack
+new        C4Pack                       Antimatter Explosive
+new        Detonator                    AME Detonator
+new        Weight                       something heavy
+new        NMLPack                      Heavy Weapons Pack
+new        NukePlatformPack             Heavy Weapons Pad
+new        NegPack                      Negative Mass Pack
+new        BunkerPack                   Deployable Bunker
+new        ASensorPack                  Aerial Spy Base
+new        ALaserPack                   Aerial Laser Base
+new        PlasmaTurretPack             Plasma Turret
+new        RunePack                     Teleport Marker
+new        NanoBasePack                 NanoBuilder Node
+new        TeleporterPack               Teleport Rift
+new        LaserTurretPack              Proximity Laser
+new        ChainTurretPack              Chaingun Turret
+new        StingerPack                  Stinger AAA Missile
+new        ShellTurretPack              RPG Seige Turret
+new        PlasWallPack                 Platform
+new        ForceWallPack                Basic Forcefield (4x8)
+new        MassWallPack                 Large Forcefield (4x17)
+new        DTreePack                    Deployable Tree
+new        DecoyPack                    Hunting Decoy
+new        HDecoyPack                   Heavy Armor Decoy
+new        NanoPack                     NanoPack Builder
+new        BasicGrenadeIcon             Basic Grenades
+new        ShockwaveGrenadeIcon         Shockwave Grenades
+new        DistortionGrenadeIcon        Distortion Grenades
+new        IncendiaryGrenadeIcon        Incendiary Grenades
+new        MineGrenadeIcon              Use Mines
+new        HeavyGrenadeIcon             Heavy Grenades
+new        TripGrenadeIcon              Trip Bombs
+new        EnergyGrenadeIcon            Energy Grenades
+new        NuclearGrenadeIcon           Fission Grenades
+stats+scriptsGrenade                      Grenade
+new        HeavyBeaconIcon              Heavy Beacons
+new        TempFFBeaconIcon             Temporary FFs
+new        ECMBeaconIcon                ECM Emitters
+new        PlastiqueBeaconIcon          Plastique Charges
+new        NanokitBeaconIcon            NanoRepair Modules
+new        SpRocketBoostIcon            Rocket Packs
+new        AmmoRechargeIcon             NanoRecharge Modules
+new        HackingIcon                  Infiltration Modules
+new        EnergyBoostIcon              Overdrive Charges
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats      RepairPatch                  Repair Patch
+new        Funky                        Test Gun
+new        AssasScope                   Targeting Laser
+new        EngBeaconA                   Armor Detail
+new        EnerBattery                  Armor Detail
+new        AssasScopeFemale             Targeting Laser
+new        ArmorBuff                    Armor Marker
+new        ConstrBuff                   NanoPack Marker
+new        Wrath                        Wrath

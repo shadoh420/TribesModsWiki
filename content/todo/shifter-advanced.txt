@@ -1,0 +1,61 @@
+shifter-advanced: 60 of 177 need write-ups
+  Chaingun (Equalizer): stats
+  PlasmaGun (Plasma Gun): scripts
+  EnergyRifle (ELF Gun): stats
+  HyperB (Hyper Blaster): stats
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SniperRifle (Sniper Rifle): stats
+  BoomStick (Boom Stick): stats
+  TranqGun (Dart Rifle): stats
+  Magnum (Magnum): new
+  Flamer (Flame Thrower): stats
+  IonGun (Ion Rifle): stats
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  StealthShieldPack (StealthShield Pack): scripts
+  RegenerationPack (Regeneration Pack): scripts
+  BarragePack (Anti-Aircraft Turret): scripts
+  BlastFloorPack (Blast Floor): scripts
+  Laptop (Command Laptop): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  CameraPack (Camera): scripts
+  TurretPack (Ion Turret): scripts
+  LaserPack (Laser Turret): scripts
+  DeployableElf (Deployable Elf Turret): scripts
+  ShockPack (EMP Turret): scripts
+  TargetPack (Mortar Turret): scripts
+  PlasmaTurretPack (Plasma Turret): scripts
+  RocketPack (Rocket Turret): scripts
+  ForceFieldPack (Small Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  BlastWallPack (Blast Wall): scripts
+  HoloPack (Hologram): scripts
+  TreePack (Mechanical Tree): scripts
+  PlantPack (Healing Plant): scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  airbase (AirBase): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Hackit (Engineer Hack-Gun): scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  EmplacementPack (Emplacement): scripts
+  LargeShockForceFieldPack (Large Shock Force Field): scripts
+  ArbitorBeaconPack (Arbitor Device): stats+scripts
+  EMPBeaconPack (EMP Device): scripts
+  ShieldBeaconPack (Shield Device): scripts
+  PowerGeneratorPack (Power Device): scripts
+  ShockFloorPack (Shock Floor): scripts
+  Silencer (Magnum): stats
+  Silencer2 (Magnum): new
+  Sil (Magnum): new
+  Sil2 (Magnum): new

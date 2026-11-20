@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "VehicleMod Tribes 1 (April 2003) inherits Dynamix Plus MOD 1.1's exact infantry/armor balance (horzVelClamp speed caps, buffed Medium Armor, 0.15 s Chaingun, 345 m Mortar, 59 m ELF Gun), renames stock gear with Tribes 2 labels (Peltast/Hoplite/Myrmidon, Stormhammer, Vulcarion, Gyrefalcon), and adds four custom aircraft.",
+  "notes": [
+   "Inherits Dynamix Plus physics: keeps Base Plus speed caps (38 Light, 32 Med, 21 Heavy), Medium Armor speed/HP buff, faster Chaingun (0.15 s fireTime, 0.0825 dmg), longer Mortar (345 m) & ELF (59 m), and vehicle HP/speed buffs.",
+   "Tribes 2-themed roster & 4 new aircraft: adds Shrike Fighter, Archon Interceptor, Thundersword Bomber, and Lich AP Craft at the Vehicle Station, adds $FighterDamageType/$IntDamageType armor scalings, and renames Base gear (Blaster -> Starloc Wiren, PlasmaGun -> Vulcarion, DiscLauncher -> Stormhammer, LaserRifle -> Artemis, TargetingLaser -> Delphi)."
+  ]
+ }
+}

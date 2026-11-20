@@ -1,0 +1,74 @@
+# delta-force vs base (73 items)
+new        InfantryArmor                Infantry
+new        MedicArmor                   Medic
+new        SniperArmor                  Sniper
+new        SpecOpsArmor                 SpecOps
+new        EngineerArmor                Army Engineer
+new        PilotArmor                   Pilot
+new        ArtilleryArmor               Artillery
+new        ApacheVehicle                AH-64 Apache
+new        WarthogVehicle               A-10 Warthog
+new        BlackhawkVehicle             UH-60 Blackhawk
+new        HumveeVehicle                HMMWV
+new        AbramsVehicle                M1A1 Abrams Tank
+new        BradleyVehicle               M113 APC
+new        SOCOMAmmo                    SOCOM Clip
+new        SOCOM                        SOCOM Pistol
+new        OICWAmmo                     OICW Clip
+new        OICW                         OICW Rifle
+new        SAWAmmo                      M249 Belt
+new        SAW                          M249 SAW
+new        MP5Ammo                      MP5 Clip
+new        MP5                          Silenced MP5
+new        PSG1Ammo                     PSG-1 Clip
+new        PSG1                         PSG-1 Sniper Rifle
+new        FiftyCalAmmo                 Robar Clip
+new        FiftyCal                     Robar Sniper Rifle
+new        AutoShotgunAmmo              Shotgun Shells
+new        AutoShotgun                  SPAS-12 Auto Shotgun
+new        LAWAmmo                      LAW Rounds
+new        LAW                          LAW
+new        FlameAmmo                    Flamethrower Ammo
+new        Flamethrower                 Flamethrower
+new        StingerAmmo                  Stinger Missiles
+new        Stinger                      Stinger SAM Launcher
+new        HowitzerAmmo                 Howitzer Shells
+new        Howitzer                     Howitzer
+new        AbramsAmmo                   105mm Shells
+new        AbramsGun                    Abrams Gun
+new        Airstrike                    Airstrike
+new        TOWAmmo                      TOW Rounds
+new        TOW                          TOW Launcher
+new        AutoGrenAmmo                 Grenades
+new        AutoGrenLauncher             MK-19-3 Auto Grenade Launcher
+new        MinigunAmmo                  Minigun Rounds
+new        Minigun                      Minigun
+new        Reloader                     Reloader
+new        ReloaderPack                 Reloader
+new        FuelPack                     Fuel Pack
+new        Parachute                    Parachute
+new        GrappleHook                  Grappling Hook
+new        GrapplePack                  Grappling Hook
+stats      LaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+stats      EnergyRifle                  ELF Gun
+new        DeployableHealthPack         Medical Station
+renamed+statsRepairPack                   Repair Toolkit
+new        MedicPack                    Medikit
+renamed+statsSensorJammerPack             Radar Jammer Pack
+new        AmmoPackSmall                Light Ammo Pack
+new        AmmoPackHeavy                Heavy Ammo Pack
+new        AmmoPackExp                  Explosive Ammo Pack
+renamed+statsPulseSensorPack              Radar Sensor
+renamed+statsDeployableSensorJammerPack   Radar Jammer
+renamed+stats+scriptsTurretPack                   Remote Machine Gun
+new        AirstrikePack                Airstrike
+new        TwentyPack                   20mm Cannon Turret
+new        AAPack                       AA Flak Gun
+new        PortGenPack                  Deployable Generator
+new        HowitzerPack                 Howitzer
+new        SAMPack                      SAM Launcher
+scripts    MineAmmo                     Mine
+scripts    Grenade                      Grenade
+new        Charge                       Explosive Charge
+renamed+statsRepairPatch                  Stimulants

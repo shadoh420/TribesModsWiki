@@ -1,0 +1,56 @@
+# scout-skirmish vs thunderstruck (55 items)
+new        ELFEliteforceArmor           ELF Elite Force
+new        PyroArmor                    Pyro
+new        MedicArmor                   Medic
+new        EngineerArmor                Engineer
+new        SniperArmor                  Sniper
+new        JuggernautArmor              Goliath Warrior
+renamed+statsScoutVehicle                 Assault Jet
+new        ChaneVehicle                 Hellfire Jet
+renamed+statsLAPCVehicle                  SpazZ Jet
+renamed+statsHAPCVehicle                  Shockwave Jet
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      TargetingLaser               Targeting Laser
+stats      RealTargetingLaser           Targeting Laser
+scripts    TractorBeam                  Tractor Beam
+scripts    Grapple                      Grappling Hook
+scripts    Scouter                      Spy Drone
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+scripts    MineAmmo                     Mine
+stats      DiscLauncher                 Disc Launcher
+new        Enerdisc                     Energy Spinfuser
+renamed+statsRocketAmmo                   Oblivian Rockets
+renamed+statsRocketLauncher               Oblivian Launcher
+renamed+statsIXRocketLauncher             Poilarni
+renamed+statsEMPGrenadeLauncher           Poison Thorn
+renamed+statsSniperAmmo                   Sniper Bullet
+renamed+statsSilencer                     silencer
+renamed+statsTranqGun                     Tranquilzer
+stats      Railgun                      Railgun
+renamed+statsSniperRifle                  Sniper Rifle
+renamed+statsBlaster                      Setera Blaster
+stats      EnergyRifle                  ELF Gun
+new        tase                         Taser
+renamed+statsWaveGun                      EMP Shockwave
+renamed+statsFlamer                       Plasmatic Ion Launcher
+new        plasflam                     Flame Thrower
+stats+scriptsLaserRifle                   Laser Rifle
+stats+scriptsFixit                        Engineer Repair Gun
+scripts    CoolLauncher                 Missile Control Station
+renamed+statsBooM                         HaVoC Missile
+scripts    AirAmmoPad                   Air Pad
+scripts    AmmoPack                     Ammo Pack
+stats+scriptsTPack                        Teleport Pack
+renamed+statsTurretPack                   Sector Turret
+new        OrbPack                      Orb Turret
+stats      PlasmaPack                   Flame Turret
+stats+scriptsSuicidePack                  Demolition Pack
+renamed+statsLaserTurret                  Plasma Turret
+scripts    LaserPack                    Laser Turret
+renamed+statsAAPack                       AA Turret
+scripts    Hider                        Cloaking Device
+scripts    TeleportPack                 Teleport Pad
+new        MechPack                     Interceptor Pack
+new        DetPack                      HAPC Pack

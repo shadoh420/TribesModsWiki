@@ -1,0 +1,4 @@
+shifterx-v20c: 3 of 130 need write-ups
+  SuicidePack (Suicide DetPack): scripts
+  ANuke (N.D. System): new
+  Mfgl4Ammo (MLRS Missiles): stats

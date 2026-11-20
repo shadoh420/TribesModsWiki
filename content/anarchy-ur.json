@@ -1,0 +1,82 @@
+{
+  "mod": {
+    "overview": "UR3 vs Anarchy (beta, February 2003) is the Anarchy tribe's edit of UR3 League. The weapons, armors and most deployables are League's. What sets it apart is that League's competitive safeguards are stripped out: there is no anti-spawn-kill shield, no absolute height limit, no item-drop flood protection, no anti-K-pack chat filter and no vehicle-pad kick. Gear is far more plentiful: players spawn with 100 Grenades and 100 Beacons. The Grenade air brake becomes a dead stop, the Beacon drops a knockback mine at your feet, Repair Patches heal almost fully, and the Resupply Pack and Spy Satellite are removed.",
+    "notes": [
+      "The spawn loadout swaps League's order: the IX-2000 Mayhem Rifle (AssaultRifle) is the weapon put in hand at spawn instead of LiL POO mki (m16). Spawning sets Beacon and Grenade to 100 each (League: 15 each).",
+      "Carry limits: every armor may hold 100 Grenades, 100 Beacons and 25 Mines (League: 15, 15, and 5 or 10). Team limits for Beacon and mineammo rise from 100 to 9999.",
+      "A completed ammo-station resupply sets Beacons to 12 and Grenades to 24 (League: 15 each). That is below the 100 a player spawns with.",
+      "Removed from League: the Resupply Pack and the Spy Satellite pack, along with its SpySatellite shape and the 'SpySat: ... has been destroyed' team messages on turrets and sensors. Both are gone from the inventory lists and from every armor's $ItemMax.",
+      "Removed League rules: the 1.5-second spawn shield (gwASK); the absolute 3000-height kill (GWHeightLimit) and its altitude-sickness death messages; drop-flood protection (gwDropFlood); the anti-K-pack chat filter; and the vehicle-pad kick that pushed players off the pad.",
+      "Flag-carrier height check: rewritten with fixed numbers instead of League's $GWAntiTurtleHeight. A carrier more than 300 above the carried flag's original position gets a 10-second warning. If still more than 600 above it at the next check, Flag::PlayerLeaveMissionArea is called. League's 'returned to an acceptable height' message is gone.",
+      "Admin: the mission-change menu goes back to a single list without League's 'More mission types..' paging. Kicks add a timed ban again (BanList::add with $ultra_renegades::BanKickTime), which League had commented out. The 'Brake Settings' admin option is removed, since the hard and soft brake tables no longer exist.",
+      "On joining, players get a 'Choose skin option' menu (personal skin or team default) instead of League's controls hint.",
+      "AnarchyUR.cs sets the League 1.6 server settings ($ultra_renegades::*). Among them: SafeStation true, StationTime 15, fair teams on, team-kill auto-vote level 2, and a 180-second kick ban.",
+      "The suicide path in player.cs calls Client::onKilled without League's -2 death type."
+    ]
+  },
+  "items": {
+    "lflame": {
+      "summary": "A shape-validation stub for the light armor's jet flame model (lflame), not a usable weapon. flamevalidate.cs defines it as a Tool item so the server validates the flame model players use.",
+      "notes": [
+        "It replaces League's Lvalidator StaticShapeData, which staticshape.cs no longer defines.",
+        "It is listed under the weapons heading with a price, but it is not in the inventory station lists or any armor's $ItemMax, so it cannot be bought or carried.",
+        "larmor and lfemale reference the model through flameShapeName = \"lflame\"."
+      ],
+      "source": "flamevalidate.cs (lflame, Lflameimage); ArmorData.cs flameShapeName"
+    },
+    "mflame": {
+      "summary": "A shape-validation stub for the medium armor's jet flame model (mflame), not a usable weapon. flamevalidate.cs defines it as a Tool item so the server validates the flame model players use.",
+      "notes": [
+        "It replaces League's Mvalidator StaticShapeData.",
+        "It is not in the inventory station lists or any armor's $ItemMax, so it cannot be bought or carried.",
+        "marmor and mfemale reference the model through flameShapeName = \"mflame\"."
+      ],
+      "source": "flamevalidate.cs (mflame, mflameimage); ArmorData.cs flameShapeName"
+    },
+    "hflame": {
+      "summary": "A shape-validation stub for the heavy armor's jet flame model (hflame), not a usable weapon. flamevalidate.cs defines it as a Tool item so the server validates the flame model players use.",
+      "notes": [
+        "It replaces League's Hvalidator StaticShapeData.",
+        "It is not in the inventory station lists or any armor's $ItemMax, so it cannot be bought or carried.",
+        "harmor references the model through flameShapeName = \"hflame\"."
+      ],
+      "source": "flamevalidate.cs (hflame, hflameimage); ArmorData.cs flameShapeName"
+    },
+    "HellPack": {
+      "summary": "League's Wall Turret renamed to Hellraiser Turret. Deployment and the deployed DeployableHellPack turret work exactly as in UR3 League.",
+      "notes": [
+        "Only the text changed: the item description, the 'Hellraiser Turret deployed' message, and the map name 'Hell Turret#<n> <owner>'.",
+        "As in League, it deploys only on terrain or interiors, within 200 of your own flag. It is subject to the same turret box-spacing checks against Sentry, Rocket and Hellraiser turrets.",
+        "The surface-angle test in HellPack::deployShape reads '> 0.7 || 1==1', so it is always true and walls and ceilings are accepted (inherited from League)."
+      ],
+      "source": "item.cs HellPack::onUse, HellPack::onDeploy, HellPack::deployShape"
+    },
+    "Grenade": {
+      "summary": "An air brake that stops you dead: using a Grenade sets your velocity to zero and plays a landing sound.",
+      "notes": [
+        "Unlike League, it is a full stop rather than a per-armor scaled slowdown. League multiplied velocity by a negative $BrakeSpeed factor that depended on how close you were to your armor's top speed. It also no longer throws a Boost mine.",
+        "Unlike League, it has no $matchStarted check and no throw cooldown, so it works before the match starts and can be used again immediately.",
+        "Message: 'Air Break Applied.' With 100 carried at spawn, it is effectively unlimited."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "A speed booster that drops a Boost mine at your feet (throw force 0). The mine is a zero-damage blast with strong knockback over a wide radius, so you get launched by the explosion instead of having your velocity multiplied.",
+      "notes": [
+        "Unlike League, it no longer scales your own velocity by $BoostSpeed. Those tables and VelocityCheck are gone. The push comes entirely from the mine.",
+        "Boost mine: damageValue 0, kickBackStrength 575 (League 0), explosionRadius 20 (League 8). Any damage to it sets its damage level to 2, destroying it at once. The kickback applies to everything in the radius, not only the user.",
+        "It still requires $matchStarted. The cooldown drops from 0.5 to 0.2 seconds, and League's refusal when vertical speed exceeds 1000 is removed.",
+        "Boost's className is now Handgrenade, but this build's Mine.cs replaces stock Mine.cs and defines no Handgrenade::onAdd timer or Boost::onCollision. What sets the mine off, other than damage, is not determined from scripts."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs MineData Boost, Boost::onDamage"
+    },
+    "RepairPatch": {
+      "summary": "A repair pickup that now heals 0.99 of damage, both when you touch a placed patch and when you use one from inventory.",
+      "notes": [
+        "League healed 0.45 on pickup and 0.25 on use.",
+        "Against the armors' maxDamage (light 0.66, medium 1.0, heavy 1.32), 0.99 is a full heal for light and medium armor and about three quarters of a heavy's health."
+      ],
+      "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+    }
+  }
+}

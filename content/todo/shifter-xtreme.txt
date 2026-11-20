@@ -1,0 +1,90 @@
+shifter-xtreme: 108 of 214 need write-ups
+  HeavyArmor (Neo-Juggernaught): new
+  DtmArmor (Death Match): new
+  Blaster (Blaster o' Death): renamed+stats+scripts
+  FusionBlaster (Fusion Blaster): new
+  PlasmaGun (Plasma Gun): stats+scripts
+  Mortar (Mortar): stats+scripts
+  MinelAmmo (Mine Launcher Ammo): new
+  MineLauncher (Mine Launcher): new
+  Boomer (Boomer): new
+  HyperB (SpoogeHammer): renamed+stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  BoomStick (Boom Stick): stats+scripts
+  Mfgl (Tactical Nuke): stats+scripts
+  IonGun (Ion Rifle): stats+scripts
+  Fixit (Engineer Repair-Gun): scripts
+  GravGun (Grav Gun): scripts
+  Penis (Penis): stats+scripts
+  Penisd (Penis): new
+  DeployableInvPack (Inventory Station): scripts
+  DeployableInv2Pack (Inventory Station): new
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): scripts
+  LightningPack (Teleport Pack): scripts
+  BarragePack (Anti-Aircraft Turret): scripts
+  BlastFloorPack (Blast Floor): scripts
+  Laptop (Command Laptop): scripts
+  FgcPack (Containment Pack): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  CameraPack (Camera): scripts
+  TurretPack (Ion Turret): scripts
+  GHPack (Godhammer Turret): new
+  DeployableGrav (Grav Turret): new
+  LaserPack (Laser Turret): scripts
+  BoomPack (Mini-Vulcan Turret): new
+  HyperBPack (HyperBlaster Turret): new
+  DeployableElf (Deployable Elf Turret): scripts
+  ShockPack (EMP Turret): scripts
+  TargetPack (Mortar Turret): scripts
+  FragPack (Frag Turret): new
+  NukePack (Tactical Nuke Turret): new
+  PlasmaTurretPack (Plasma Turret): scripts
+  FusionTurretPack (Fusion Turret): new
+  RocketPack (Rocket Turret): scripts
+  ForceFieldPack (Small Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  BlastWallPack (Blast Wall): scripts
+  HoloPack (Hologram): scripts
+  TreePack (Mechanical Tree): scripts
+  PlantPack (Healing Plant): scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  airbase (AirBase): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Hackit (Engineer Hack-Gun): stats+scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  RepairPatch (Repair Patch): scripts
+  EmplacementPack (Emplacement): scripts
+  LargeShockForceFieldPack (Large Shock Force Field): scripts
+  ArbitorBeaconPack (Arbitor Device): scripts
+  EMPBeaconPack (EMP Device): scripts
+  ShieldBeaconPack (Shield Device): scripts
+  PowerGeneratorPack (Power Device): scripts
+  HammerPack (God Hammer Cannon): new
+  Hammer1Pack (God Hammer Cannon): stats+scripts
+  Hammer2Pack (God Hammer Cannon 2): stats+scripts
+  HammerGun (God Hammer Cannon): new
+  HammerGun2 (God Hammer Cannon): new
+  ShockForceFieldPack (Small Shock Force Field): new
+  ShockFloorPack (Shock Floor): scripts
+  OpticPack (Cybernetic Laser): new
+  Frag1Pack (Super Frag Turret): new
+  Frag2Pack (EMP Frag Turret): new
+  FragXPack (Ultra Frag Turret): new
+  ALaserRifle (Arbitor Laser Rifle): new
+  TranqPack (Dart Turret): new
+  FlamerPack (Flamer Turret): new
+  LJ (Lockjaw): new

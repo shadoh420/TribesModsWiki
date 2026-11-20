@@ -1,0 +1,73 @@
+{
+ "mod": {
+  "overview": "Devastator Mod (BETA v0.99), created by Ice in May 2002, transforms base Tribes into a hyper-specialized combat mod featuring distinct class archetypes, magazine-based reloading, multifaceted vehicle combat, and an autonomous server chatbot. Players choose from nine specialized player roles ranging from the high-speed Strider and invisible Specialist to the damage-harnessing Psycho and massive Titan. Tactical depth is reinforced through manual magazine swapping on projectile weapons, alternative firing modes for energy arsenals, eight grenade types, and bizarre status effects like freezing, blinding, and alcohol intoxication. In addition to team-oriented CTF and deathmatch battles, the mod introduces multi-weapon aircraft, deployable engineering stations, and single-player training missions equipped with weapon tutorials and bot support.",
+  "notes": [
+   "Classes and Roles: Nine distinct player classes replace standard loadouts. Striders (PantherArmor, max speed 15) serve as lightning-fast flag runners carrying 3 weapons. Specialists (SpecialArmor) are permanently cloaked, wield the Assault Rifle and Virus Upload tool, and carry 3 weapons. Pilots (LightArmor) are the only class permitted to operate vehicles and carry 3 weapons. Snipers (SniperArmor) carry 3 weapons and deploy Gun-Buddy bot decoys. Engineers (MediumArmor, 4 weapons) deploy maintenance pads, floating plasma decks, and turret bunk beds. Pyros (PyroArmor, 4 weapons) field heavy incendiary weapons. Heavy Infantry (HeavyArmor, 5 weapons) and Titans (TigerArmor, speed 4, 5 weapons) provide massive frontline suppression. The Psycho! class (PsychoArmor, 3 weapons) absorbs incoming damage to charge Anger for explosive releases.",
+   "Controls, Firing Modes, and Menus: Players configure their loadout through the in-game Options menu under Weapon Options, which lets them choose primary, secondary, or tertiary firing modes for multi-mode weapons such as the Adv. Blaster, Adv. Shotgun meson shot, Confetti Launcher burst counts, or Disruptor Cannon black hole versus repulsion modes. The menu also selects between eight distinct Hand Grenade modes (Normal, Flash, Frag, Smoke Screen, Mine Sweeper, EMP, Blast Tazer, and Incendiary) and toggles on-screen mount descriptions or shopping receipts. In single-player training, beacon deployment cycles weapon firing modes.",
+   "Magazine Reload Mechanics: Ballistic weapons including the Assault Rifle (30-round mag), Silenced Pistol (8-round mag), Sniper Rifle (5-round mag), and Adv. Shotgun (2 shells) operate on physical ammunition magazines. When a magazine empties or an ammo clip is used, players undergo a manual reload sequence complete with staggered sound effects, an animation lock, and a real-time percentage progress bar printed at the bottom of the screen.",
+   "Status Effects and Exotic Combat: Combat incorporates diverse status ailments. The Freeze Gun shoots liquid nitrogen to freeze opponents solid, the Tazer and EMP stun players and electronics, the Flamethrower and incendiaries set targets ablaze, and the Syndicate launcher spawns three homing flesh-eating bugs. The Keg weapon sprays beer that intoxicates victims; once sufficiently drunk, players lose all energy, stagger uncontrollably with forced random turning impulses, slur their chat messages through DrunkSpeech, and violently vomit during the hangover.",
+   "Specialist Sabotage and Antidotes: Specialists carry the Virus Upload tool, which automatically mounts a fake repair pack to deceive enemies. Channeling the device into an enemy displays a deceptive repair message before planting a damaging virus. Infected victims take sustained damage over time and can only cure the infection by purchasing and consuming Virus Antidote from an inventory station.",
+   "Multi-Weapon Vehicles and Maintenance: Piloted craft feature expanded arsenals switched in the cockpit with Next Weapon and Prev Weapon keys. The Scout (Black Falcon) cycles between rockets, shock missiles, grenades, and sidewinders; the Jet mounts chainguns and dual stinger missile types; the Kamikaze flyer offers dive and self-detonation attacks; and LAPC and HAPC transports drop light or heavy bombs, cluster mines, and deflectors. Engineers can deploy a Vehicle Maintenance bay onto a vehicle pad to automatically repair and restock landing aircraft. Players can also deploy a Remote Pack to pilot an unmanned flying surveillance drone.",
+   "Deployable Engineering and Decoys: Engineers and specialists wield unique deployables. Engineers can construct floating Plasma Decks in mid-air, erect personal deployable inventory stations, or stack Turret-Buddy defenses directly on top of existing remote turrets and cameras. Snipers carry the Gun-Buddy pack, which deploys an AI clone that mimics the sniper's weapon and fires when the player activates their remote trigger, briefly turning the real sniper invisible.",
+   "Server Intelligence and Administration: The mod features Server Intelligence (SI), an automated chatbot that scans public and team communications. Players can converse with SI or ask it to kill them, while admins can issue server commands or declare a server-wide Kegger party. SI automatically enforces language rules, warning or kicking players who use profanity. Admins and Super Admins also gain access to Demi-God, Light God, and Dark God loadouts, as well as a Manipulation menu to remotely burn, freeze, taze, emp, blind, or teleport players.",
+   "Station Inventory Restrictions: Certain specialized items are explicitly excluded from standard purchasing. Acid Gun and Acid Pack, Blast Cannon, Distraction Device (PCDPack), and Bunker Pack are locked to zero in station inventory ($InvList=0, $RemoteInvList=0). In addition, tactical gear such as the Plasma Deck (ForceFloorPack), Personal Inventory station (PerInv), Virus Upload (V), and Vehicle Maintenance pad (VehMaint) have $RemoteInvList=0 and can only be acquired from main inventory stations.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AG (station.cs), AGPack (Weapon_Beam.cs), BlastC (Weapon_BlastCannon.cs), BunkerPack (station.cs), PCDPack (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): ForceFloorPack (Pack_ForceFloor.cs), PAttack (Weapon_Pattack.cs), PerInv (Pack_PerInv.cs), V (Weapon_V.cs), VehMaint (Pack_VehicleMaint.cs)."
+  ]
+ },
+ "items": {
+  "SpecialArmor": {
+   "summary": "A stealth armor class that permanently cloaks the player in an optical fade.",
+   "notes": [
+    "Automatically triggers an optical fade out upon mounting, rendering the specialist permanently cloaked until death.",
+    "Restricted to 3 carried weapons with a brisk forward movement speed of 11.",
+    "Serves as the dedicated stealth and sabotage platform equipped for the Assault Rifle and Virus Upload tool."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "PAttack": {
+   "summary": "An anger-fueled weapon utilized by the Psycho class that converts received damage into explosive blasts or healing waves.",
+   "notes": [
+    "Gathers RageAmmo (Anger) up to a capacity of 100 whenever the player sustains damage while the weapon is drawn.",
+    "Features two firing modes selected in the weapon options menu: Attack Mode for a high-damage radial detonation, and Heal Mode for a massive restorative wave.",
+    "Requires at least 50 percent armor energy to trigger and expends all accumulated Anger upon release."
+   ],
+   "source": "Weapon_Pattack.cs"
+  },
+  "GunBuddyPack": {
+   "summary": "A deployable sniper decoy pack that creates an armed bot duplicate to confuse enemies.",
+   "notes": [
+    "Restricted to the Sniper class and deployed onto terrain or interior surfaces within 3 meters.",
+    "Spawns an AI bot duplicate holding the sniper's active weapon while fading out the real player for 20 seconds.",
+    "Equips the player with a Gun-Buddy Trigger weapon to remotely command the decoy to fire, after which the decoy automatically detonates."
+   ],
+   "source": "Pack_GunBuddy.cs"
+  },
+  "Keg": {
+   "summary": "A heavy weapon that sprays beer to rapidly intoxicate, disorient, and incapacitate opponents.",
+   "notes": [
+    "Fires streaming bursts of beer that register escalating intoxication counts on struck players.",
+    "After 25 hits, victims enter a 60-second drunken state that drains all energy and recharge, applies erratic stumbling rotation impulses, pulses screen damage flash, and slurs chat through DrunkSpeech.",
+    "Forces victims to unmount weapons and violently puke through an attached HangOverPuke emitter when the hangover concludes."
+   ],
+   "source": "Weapon_KEG.cs"
+  },
+  "V": {
+   "summary": "A specialist infiltration device that disguises the user as a medic while injecting victims with a lethal digital virus.",
+   "notes": [
+    "Equips a deceptive FakeRepairPack upon mounting so enemies believe the specialist is an unarmed medic.",
+    "Channels a beam that transmits a misleading repair notification to the target before completing the infection payload.",
+    "Drains health over time until neutralized by consuming a Virus Antidote purchased from an inventory station."
+   ],
+   "source": "Weapon_V.cs"
+  },
+  "VehMaint": {
+   "summary": "An engineer deployable pack that converts a friendly vehicle pad into a full service repair and rearming dock.",
+   "notes": [
+    "Restricted to the Engineer class and disabled at remote inventory stations ($RemoteInvList=0).",
+    "Must be deployed directly on a friendly team Vehicle Pad to erect an automated service station.",
+    "Generates plasma barricades and an active maintenance trigger that automatically repairs and rearms all docked aircraft."
+   ],
+   "source": "Pack_VehicleMaint.cs"
+  }
+ }
+}

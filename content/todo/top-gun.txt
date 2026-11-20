@@ -1,0 +1,17 @@
+# top-gun vs delta-force (16 items)
+renamed+statsSpecOpsArmor                 Paratrooper
+renamed+statsArtilleryArmor               Engineer
+new        HornetVehicle                F/A-18 Hornet
+new        TomcatVehicle                F-14 Tomcat
+new        FalconVehicle                F-16 Falcon
+new        EagleVehicle                 F-15 Eagle
+stats      WarthogVehicle               A-10 Warthog
+new        BomberVehicle                B-52 Stratofortress
+new        HerculesVehicle              C-130A Hercules
+renamed+statsSOCOMAmmo                    Colt 45 Clip
+renamed+statsSOCOM                        Colt 45 Pistol
+renamed+statsOICWAmmo                     M-16 Clip
+renamed+statsOICW                         M-16 Assault Rifle
+scripts    Stinger                      Stinger SAM Launcher
+renamed+statsTOWAmmo                      Cruise Missile Rounds
+renamed+statsTOW                          CALCM Cruise Missile

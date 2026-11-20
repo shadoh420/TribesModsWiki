@@ -1,0 +1,90 @@
+{
+ "mod": {
+  "overview": "NovaMorpher is a high-concept total conversion combat mod created by VRWarper in 2002 that transforms classic Tribes warfare into a dynamic battle of shapeshifters, mages, cyborgs, and tactical engineers. Players can morph on the fly into alternative armor weights, scout jets, automated plasma turrets, or indestructible blast walls, while countering specialists use shapeshifting disruption beams, collective damage adaptation, and elemental spells. Standard objectives like Capture the Flag and dedicated Jail modes are deeply altered by active base power grids, where communications go dark if generators fall without deployable relay stations. The pace is rapid and volatile, featuring random orbital meteoroid bombardments, custom deployable floating sky bases, and integrated SpoonBot artificial intelligence.",
+  "notes": [
+   "Classes and Armor Roles: The core NovaMorpher class carries four weapons and an unremovable Atomic Morpher pack, allowing instant transformation between light, medium, and heavy armor, a flying MorpherJet, an active MorpherPlasmaTurret, or a solid MorpherBlastWall. The heavy AntiMorpher acts as the direct counter, armed with the Morph Control gun to force enemy morphers into specific forms. The fragile Mage possesses massive energy and mana to cast spells, is fully immune to electrical and energy damage, but dies instantly to laser fire. The Cyborg Drone represents a Borg collective that becomes temporarily immune to any incoming damage type once analyzed, while the SniperX features high strafe speed for distance marksmanship. The SpecialRepair class is an invincible, weaponless combat engineer equipped with a five-times speed repair pack for base restoration.",
+   "Controls and Configuration Menus: Players can bind F12 to remoteToggleMorph to change morph configurations on the fly and F8 to remoteToggleWepSetting to cycle firing modes on multi-mode weapons. Pressing the Tab menu opens Configurations, where players can adjust settings for Morph Control targets, rocket homing behavior, shotgun spread, station auto-favorite collision, vehicle auto-mounting, and spawn loadouts. Selecting Save Config in the Tab menu writes player choices to persistent server storage via saveinfo.cs so configurations persist across map changes. Players trapped in vehicle, turret, or blast wall forms simply press the jump key to dismount and return to their standard armor.",
+   "Chat Commands: Players can manage server roles and profiles via chat commands, using #admin with a password to request administrator status, #logout to drop admin rights, and #login with username and password to authenticate against the user database. The #id command followed by a player name queries the IpLogger to review identification history and aliases for server moderation. The #me command broadcasts emote text to the entire team, while super administrators can invoke #invMenu to summon a remote satellite inventory interface anywhere on the map.",
+   "Multi-Mode Weaponry: Many primary weapons feature multiple firing settings selectable via F8 or the configuration menu. The Rocket Launcher switches between dumbfire Normal rockets, heat-seeking HeatSeek missiles, and agile turning Heat LockJaw missiles. The Shotgun toggles between Single, Double, Compressed x1 tight choke, and Compressed x2 blasts, while the Mortar offers standard bouncing shells or Impact shells that detonate immediately on surface contact. The AirStrike calls in devastating bombardments of mortar shells at target coordinates in either Random Dropping or Visual Bombing patterns, but requires an operational friendly radar sensor to activate.",
+   "Mage Spellcasting: The Mage armor replaces standard firearms with an arsenal of mana-consuming spells drawn from a self-replenishing mana pool. Offensive spells include the explosive Fireball, the high-velocity Wind spell that projects a massive shockwave to blow enemies across the landscape, and the rapid-fire Rage barrage. Tactical spells include Teleport for instant line-of-sight repositioning, Holy Shield to grant an ally an unbreakable protective barrier until death, Undead to walk straight through solid walls, and Body Swap to exchange physical bodies and team allegiances with a target enemy. The Parasite spell fires an infectious bug that mind-controls enemy players and forces them onto the caster team as an enslaved ally.",
+   "Tactical Deployables and Bases: Engineers have access to extensive battlefield construction packs. The AirBase pack constructs a complete airborne sky base fifty units above ground, featuring a dedicated generator, sensor array, inventory station, command console, and vehicle pad. The BaseSwitchPack deploys a control tower that captures all linked base electronics when touched by a player, reverting ownership only when demolished. Other specialized gear includes C4 explosive charges detonated remotely with the C4Activator tool, deployable jump Spring Pads, Velocity Enhancer acceleration strips, portable Mobile Supply Unit inventory stations, and directional force fields.",
+   "Armor-Specific Grenades, Mines, and Beacons: Grenades, mines, and beacons dynamically adapt their function based on the wearer class. Light armor throws cluster grenades that split into submunitions, deployable EMP beacons, and ground spike caltrops. Medium armor drops needle grenades and defensive guard partner mines, while heavy armor fires rocket grenades and deployable booster jump pads. Mages convert mines into Air Brakes that cancel downward falling velocity, or spend one hundred mana to Hover motionless in midair. Repair Kits do not restore a fixed health amount, but instead roll a randomized repair between ten and one hundred percent of maximum class durability.",
+   "Communications, Vehicles, and Environmental Hazard Rules: Team communication is strictly linked to base power; if a team generator is destroyed and backup power fails, com chat is disabled for players unless they stand within range of a deployable ComChat Server. The Adaptor flier vehicle dynamically links its onboard weapon system to whatever handheld gun the pilot is holding. Servers feature an automatic spawn grace period with ten seconds of complete invulnerability, team damage reflection that rebounds friendly fire back onto the shooter, and random falling meteoroid strikes that bombard the map.",
+   "Game Modes and AI Bot Support: NovaMorpher supports standard objective types like Capture the Flag and Deathmatch, alongside an integrated Jail game mode where defeated opponents are arrested, given prison sentences, and transported to holding cells until broken out. The mod natively integrates SpoonBot artificial intelligence with automated route calculation, custom weapon support, retreat behavior based on damage thresholds, and bot chat routines.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): SpecialRepair (itemdata/armors/SpecialRepairArmor.cs), UltraRepairPack (itemdata/packs/UltraRepairPack.cs), UndeadMage (itemdata/armors/Mage.cs); Blocked at Remote Stations ($RemoteInvList = 0): AirStrike (itemdata/weapons/AirStrike.cs), AntiMorpher (itemdata/armors/AntiMorpher.cs), AntiSniperTurretPack (itemdata/packs/AntiSniperTurret.cs), AtomicMorpher (itemdata/packs/AtomicMorpher.cs), BaseSwitchPack (itemdata/packs/BaseSwitch.cs), BlastFloorPack (itemdata/packs/BlastFloor.cs), BlastWallPack (itemdata/packs/BlastWall.cs), Borg (itemdata/armors/Cyborg.cs), C4Pack (itemdata/packs/C4.cs), DepRocketTurretPack (itemdata/packs/RocketTurret.cs), LargeForceFieldPack (itemdata/packs/LargeForceField.cs), MediumForceFieldPack (itemdata/packs/MediumForceField.cs) (+9 more)."
+  ]
+ },
+ "items": {
+  "AtomicMorpher": {
+   "summary": "Multi-state shapeshifting pack that allows the NovaMorpher class to transform into different armor weights, scout fliers, stationary turrets, or solid blast walls.",
+   "notes": [
+    "Exclusive to the NovaMorpher class and cannot be dropped.",
+    "Keybind F12 or the Tab Configurations menu selects the active form or sets the pack to cycle forms sequentially upon activation.",
+    "Pressing the jump key while transformed into a vehicle, turret, or blast wall dismounts the form and restores player control."
+   ],
+   "source": "itemdata/packs/AtomicMorpher.cs"
+  },
+  "MorphControl": {
+   "summary": "Directed energy tool used by the AntiMorpher class to remotely force enemy NovaMorphers into designated shapes.",
+   "notes": [
+    "Fires a sustained ELF-style beam that immediately triggers a forced transformation on contact.",
+    "Firing mode is set via F8 or the configuration menu to dictate whether targets become light, medium, or heavy armor, blast walls, flier vehicles, or turrets.",
+    "Restricted to the AntiMorpher heavy class and available at inventory stations."
+   ],
+   "source": "itemdata/weapons/MorphControl.cs"
+  },
+  "ParasiteSpell": {
+   "summary": "Mana-powered mind control spell for the Mage class that enslaves enemy players to fight for your team.",
+   "notes": [
+    "Fires a ParasiteBug projectile that changes the victim team alignment to the shooter team upon impact.",
+    "Opens a Parasite Ops submenu in the Tab menu allowing the master to manage or release the enslaved player.",
+    "The parasite bond is automatically terminated if either the master or the slave is killed."
+   ],
+   "source": "itemdata/weapons/ParasiteSpell.cs"
+  },
+  "AirStrike": {
+   "summary": "Heavy artillery targeting tool that calls down a shower of mortar explosives onto designated ground coordinates.",
+   "notes": [
+    "Requires an active, operational team radar or sensor network to fire.",
+    "Can be switched between Random Dropping and Visual Bombing delivery patterns.",
+    "Limited to heavy armor with a strict global team limit of five."
+   ],
+   "source": "itemdata/weapons/AirStrike.cs"
+  },
+  "BaseSwitchPack": {
+   "summary": "Deployable tactical relay tower that binds nearby base facilities to the controlling team.",
+   "notes": [
+    "Deploys a Base Control Switch tower that is captured whenever a player collides with it.",
+    "Capturing the switch transfers all registered linked base objects to the capturing player team.",
+    "Destroying the switch restores all captured structures to their original team."
+   ],
+   "source": "itemdata/packs/BaseSwitch.cs"
+  },
+  "airbase": {
+   "summary": "Large-scale engineering pack that deploys a complete floating sky installation fifty units above the ground.",
+   "notes": [
+    "Deploys a full suspended platform equipped with a generator, sensor, inventory station, command station, and vehicle pad.",
+    "Requires substantial open airspace clear of map geometry to successfully build.",
+    "Limited to a maximum of five active deployed airbases per team."
+   ],
+   "source": "itemdata/packs/AirBase.cs"
+  },
+  "C4Pack": {
+   "summary": "Contact-placed demolition satchel with manual remote detonation via an assigned activator device.",
+   "notes": [
+    "Must be deployed while standing in direct contact with a target wall or terrain surface.",
+    "Automatically places a C4Activator weapon into the player inventory to detonate the charge on fire.",
+    "Each player can maintain only one active deployed C4 charge at a time."
+   ],
+   "source": "itemdata/packs/C4.cs"
+  },
+  "BSwapSpell": {
+   "summary": "Exotic Mage spell that instantaneously swaps player bodies, controls, and team identities with a target.",
+   "notes": [
+    "Immediately transfers control object and team affiliation between the caster and the targeted opponent.",
+    "Initiates a continuous body rejection check that inflicts instant death if the foreign body rejection reaches sixty percent."
+   ],
+   "source": "itemdata/weapons/BSwapSpell.cs"
+  }
+ }
+}

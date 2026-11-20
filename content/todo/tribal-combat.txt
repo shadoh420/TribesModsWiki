@@ -1,0 +1,90 @@
+# tribal-combat vs base (89 items)
+new        CombatArmor                  Combat Armor
+new        AssaultArmor                 Assault Armor
+new        DefenderArmor                Defender Armor
+new        SpeederVehicle               Fighter
+new        HTVehicle                    Assault Craft
+new        BomberVehicle                Bomber
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+new        Special                      Special
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        ForceScreen                  Force Screen
+new        Barricade                    Barricade
+new        TeleportPad                  Teleport Pad
+new        TeleportField                Teleport Field
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+new        DGNPack                      Defense Grid Node
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+new        DronePack                    Drone
+new        GuidedBombPack               Guided Bomb
+new        SurveyDronePack              Survey Drone
+new        AttackDronePack              Attack Drone
+stats+scriptsEnergyPack                   Energy Pack
+stats+scriptsRepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats+scriptsAmmoPack                     Ammo Pack
+new        StealthPack                  Stealth Pack
+new        TelePack                     Teleport Pack
+new        RelocatePack                 Relocator Pack
+new        VehicleRepairPack            Vehicle Repair Pack
+new        ComPack                      CommLink Pack
+new        CoolantPack                  Coolant Pack
+stats      Blaster                      Blaster
+new        EDGun                        EDGun
+new        FusionPack                   Fusion Pack
+new        FusionRifle                  Fusion Rifle
+new        GaussAmmo                    23mm Ammo
+new        GaussRifle                   23mm Gauss Cannon
+new        ACAmmo                       25mm Ammo
+new        AutoCannon                   25mm AutoCannon
+new        HvyBulletAmmo                14.5mm Ammo
+new        HvyChaingun                  14.5mm Chaingun
+new        PistolAmmo                   12mm Ammo
+new        SilencedPistol               12mm Machine Pistol
+renamed+statsBulletAmmo                   7mm Ammo
+renamed+stats+scriptsChaingun                     7mm Chaingun
+stats      PlasmaGun                    Plasma Gun
+new        PlasmaRepeater               Plasma Repeater
+new        EnergyCannon                 Energy Cannon
+stats+scriptsGrenadeLauncher              Grenade Launcher
+new        RLAmmo                       Rocket Ammo
+new        RocketLauncher               RocketLauncher
+new        MLAmmo                       Missile Ammo
+new        MissileLauncher              MissileLauncher
+stats      Mortar                       Mortar
+new        AMortar                      Assault Mortar
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+new        CutterBeam                   Pulse Laser
+stats      TargetingLaser               Targeting Laser
+stats      EnergyRifle                  ELF Gun
+new        TransferGun                  Transfer Gun
+new        FieldRepairGun               Field Repair Unit
+new        DemoCharge                   Demolitions Satchel
+new        SniperAmmo                   12.5mm Ammo
+new        SniperRifle                  12.5mm Rifle
+new        KineticAmmo                  Particle Ammo
+new        KineticRifle                 Particle Cannon
+stats+scriptsCameraPack                   Camera
+stats+scriptsTurretPack                   Turret
+new        LaserTurretPack              Laser Turret
+new        ChaingunTurret               Chaingun Turret
+new        RemoteELF                    ELF Turret
+new        RemoteAutoCannon             Remote AutoCannon
+new        RemoteAACannon               Anti Aircraft Cannon
+new        RemotePlasmaTurret           Plasma Turret
+new        MissileTurret                Missile Turret
+new        MRL                          MRL
+new        SniperNest                   Remote Sniper
+new        VehicleBaseControl           Vehicle Base Control
+new        VehicleBasePad               Vehicle Base Pad
+new        FloatingPad                  FloatingPad
+new        StealthMine                  Stealth Mine
+new        AntiArmorMine                Anti Armor Mine

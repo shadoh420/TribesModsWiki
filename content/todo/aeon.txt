@@ -1,0 +1,105 @@
+# aeon vs base (104 items)
+new        Armor0                       Life 1
+new        Armor1                       Life 2
+new        Armor2                       Life 3
+new        Armor3                       Life 4
+new        Cigg                         Cigarette
+new        Blunt                        Blunt
+new        Coconut                      Coconut
+new        Gun                          Pea Shooter
+new        LATMk1                       Laser Analyzation Tool
+new        Wallet_1                     Small Wallet
+new        CnTool                       Construction Tool
+stats      RepairKit                    Repair Kit
+stats      RepairPatch                  Repair Patch
+new        Mine                         Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+new        Activator1                   Blaster
+new        Activator2                   Plasma Gun
+new        Activator3                   Chaingun
+new        Activator4                   Disc Launcher
+new        Activator5                   Grenade Launcher
+new        Activator6                   Laser Rifle
+new        Activator7                   ELF Gun
+new        Activator8                   Mortar
+new        Activator9                   Targeting Laser
+new        Mass_Less                    Reduce Mass
+new        Vege_MariJ                   Piece of Cannabis
+new        Seed_MariJ                   Cannabis Seed
+new        Vege_Corn                    Ear of Corn
+new        Seed_Corn                    Corn Sprout
+new        Vege_Potatoe                 Potatoe
+new        Seed_Potatoe                 Potatoe Sprout
+new        Vege_Tomatoe                 Tomatoe
+new        Seed_Tomatoe                 Tomatoe Sprout
+new        Vege_Soybean                 Soy Bean
+new        Seed_Soybean                 Soybean Seed
+new        Vege_Hevea                   Piece of Hevea
+new        Seed_Hevea                   Hevea Seed
+new        Vege_Indigo                  Piece of Indigo
+new        Seed_Indigo                  Indigo Seed
+new        Vege_Wheat                   Piece of Wheat
+new        Seed_Wheat                   Wheat Seed
+new        Vege_Yam                     Yam
+new        Seed_Yam                     Yam Sprout
+new        Vege_Bamboo                  Piece of Bamboo
+new        Seed_Bamboo                  Bamboo Shoot
+new        Ore_Lead                     Piece of Lead Ore
+new        Ore_Iron                     Piece of Iron Ore
+new        Ore_Tin                      Piece of Tin Ore
+new        Ore_Aluminum                 Piece of Aluminum Ore
+new        Ore_Copper                   Piece of Copper Ore
+new        Ore_Titanium                 Piece of Titanium Ore
+new        Ore_Silver                   Piece of Silver Ore
+new        Ore_Gold                     Piece of Gold Ore
+new        Ore_Platinum                 Piece of Platinum Ore
+new        Book                         Book
+new        RepairGun                    Repair Tool
+new        Metal_Cinder                 Piece of Cinder
+new        Metal_Lead                   Piece of Lead
+new        Metal_Iron                   Piece of Iron
+new        Metal_Tin                    Piece of Tin
+new        Metal_Aluminum               Piece of Aluminum
+new        Metal_Copper                 Piece of Copper
+new        Metal_Titanium               Piece of Titanium
+new        Metal_Silver                 Piece of Silver
+new        Metal_Gold                   Piece of Gold
+new        Metal_Platinum               Piece of Platinum
+new        Alloy_Steel                  Piece of Steel
+new        Alloy_Bronze                 Piece of Bronze
+new        Alloy_Pewter                 Piece of Pewter
+new        Alloy_Electrum               Piece of Electrum
+new        Alloy_Duralumin              Piece of Duralumin
+new        Mineral_Carbon               Piece of Carbon
+new        Mineral_Sulfur               Piece of Sulfur
+new        Mineral_Phosph               Piece of Phosphate
+new        Mineral_Powder               Mix of X Powder
+new        Exp_C1                       C1 Explosive
+new        Exp_C2                       C2 Explosive
+new        Exp_C3                       C3 Explosive
+new        Exp_C4                       C4 Explosive
+new        Exp_C5                       C5 Explosive
+new        Material_Plastic             Piece of Plastic
+new        Material_Rubber              Piece of Rubber
+new        Material_Hemp                Piece of Hemp
+new        Material_Wood                Piece of Wood
+new        PistolRounds                 Pistol Round
+new        PistolMagazine               Pistol Magazine
+new        RifleRounds                  Rifle Round
+new        RifleMagazine                Rifle Magazine
+new        ShotgunRounds                Shotgun Round
+new        ShotgunMagazine              Shotgun Magazine
+new        EmptyRounds                  Empty Round
+new        EmptyMagazine                Empty Magazine
+new        SingleActionPistol           Single Action Pistol
+new        DoubleActionPistol           Double Action Pistol
+new        AutomaticPistol              Automatic Pistol
+new        PumpActionShotgun            Pump Action Shotgun
+new        SemiAutomaticShotgun         Semi-Automatic Shotgun
+new        AutomaticShotgun             Automatic Shotgun
+new        BoltActionRifle              Bolt Action Rifle
+new        SemiAutomaticRifle           Semi-Automatic Rifle
+new        AutomaticRifle               Automatic Rifle
+new        DeployPack                   Package
+new        RazorVehicle                 Razor

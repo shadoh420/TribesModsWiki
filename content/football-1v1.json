@@ -1,0 +1,8 @@
+{
+ "mod": {
+  "overview": "Football 1vs1 Mod (Taserman, September 2003, fb1vs1mod.cs, built on Football 1.32) adapts Tribes Football for automated 1v1 arena matchups, retaining the non-lethal 54-item Football roster while replacing multi-player field rules with duel countdowns, mine cleanup, spyarmor removal, shortest-touchdown best-time records ($DuelBestTime), and full field resets.",
+  "notes": [
+   "Retains Football's exact non-lethal knockback weapons and armor physics while replacing field scripts with 1v1 duel resets (BeginDuel/FinalizeDuel/EndDuel, 4 s delay, 1.5 s hurt delay, mine cleanup $DuelMine1..5, disables spyarmor, blocks post-touchdown tackles, and tracks $DuelBestTime)."
+  ]
+ }
+}

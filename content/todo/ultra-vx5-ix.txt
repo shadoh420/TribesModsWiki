@@ -1,0 +1,11 @@
+ultra-vx5-ix: 10 of 94 need write-ups
+  lgaForceFieldPack (LgaForceFieldDoor): scripts
+  lgbForceFieldPack (LgbForceFieldDoor): scripts
+  medaForceFieldPack (MedaForceFieldDoor): scripts
+  medbForceFieldPack (MedbForceFieldDoor): scripts
+  medcForceFieldPack (MedcForceFieldDoor): scripts
+  TeleportPack (Teleport Pad): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

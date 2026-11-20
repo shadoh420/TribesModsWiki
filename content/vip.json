@@ -1,0 +1,8 @@
+{
+ "mod": {
+  "overview": "VIP Assassination v1.3 (nagorak, ~2000, VIP.cs) keeps all 52 Base weapons, armors, and packs stock while replacing standard CTF objectives with an asymmetrical VIP escort/assassination gametype featuring Decoys, VIP aura regeneration, and VIP/Decoy-only objective captures.",
+  "notes": [
+   "VIP rules in VIP.cs: dynamically picks a VIP ($VIPname) and Decoy per team (both wear visible back flags), grants passive regeneration to VIPs and nearby teammates (VIPregeneration), ends the match immediately when the enemy VIP dies (blocking VIP suicide), awards tiebreaker points for Decoy kills, restricts switch claiming to VIPs and Decoys, and adds targetVIP/targetDecoy HUD waypoints."
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+# shadow-10 vs base (34 items)
+new        SoulArmor                    Soul Armor
+new        GhostArmor                   Ghost Armor
+new        DemonArmor                   Demon Armor
+scripts    Blaster                      Blaster
+scripts    Chaingun                     Chaingun
+scripts    PlasmaGun                    Plasma Gun
+new        ShotgunShells                Shotgun Shells
+new        Shotgun                      Shotgun
+scripts    GrenadeLauncher              Grenade Launcher
+new        TimedGrenadeAmmo             Timed Grenade Ammo
+new        TimedGrenadeLauncher         Timed Grenade Launcher
+scripts    Mortar                       Mortar
+scripts    DiscLauncher                 Disc Launcher
+scripts    LaserRifle                   Laser Rifle
+scripts    TargetingLaser               Targeting Laser
+new        EMPRocket                    EMP Rocket
+scripts    EnergyRifle                  ELF Gun
+new        LessWeight                   Deadweight
+new        LessWeight2                  Deadweight
+new        WingedPack                   Winged Pack
+new        HoverPack                    Hover Pack
+new        AntiELFPack                  Anti-ELF Pack
+scripts    AmmoPack                     Ammo Pack
+renamed+statsTurretPack                   Remote Turret
+new        LaserPack                    Laser Turret
+stats      RepairKit                    Repair Kit
+new        OriginalMineAmmo             Mine
+new        EMPMineAmmo                  EMP Mine
+new        StickyMineAmmo               Sticky Mine
+new        HandgrenadeAmmo              Grenade
+new        ConcussiongrenadeAmmo        Concussion Grenade
+new        FlashgrenadeAmmo             Flash Grenade
+stats      Beacon                       Beacon
+stats      RepairPatch                  Repair Patch

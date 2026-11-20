@@ -1,0 +1,22 @@
+shifterx-v19b: 21 of 129 need write-ups
+  PlasmaGun (Plasma Gun): stats
+  Mortar (Mortar): stats
+  EnergyRifle (ELF Gun): stats
+  BoomStick (Boom Stick): stats
+  Flamer (Flame Thrower): stats
+  SMRPack2 (Rocket Launcher Pack): stats
+  SuicidePack (Suicide DetPack): scripts
+  MechPack (Interceptor Pack): scripts
+  EmplacementPack (Emplacement): scripts
+  ALPCTurret (Fire Control Computer): stats
+  Chaingun (Chaingun): stats+scripts
+  FusionCutterGun (Fusion Cutter): stats+scripts
+  FusionCutterGunFake (Fusion Cutter Particle Stream): new
+  HeavyMGGun (Heavy Machinegun): stats
+  TargetingLaser (Targeting Laser): stats
+  Mfgl3Ammo (ICBM Warhead): new
+  Mfgl3 (ICBM): new
+  Mfgl4Ammo (MLRS Missiles): new
+  Mfgl4 (MLRS): new
+  RocketLauncher (Rocket Launcher): stats
+  SAMgun (SAM Launcher): scripts

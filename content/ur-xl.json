@@ -1,0 +1,316 @@
+{
+  "mod": {
+    "overview": "UltraXL beta (\"Ultra Renegades 3k\", scripts dated January 2001) is a trimmed-down rework of UR3 Mayhem. It cuts the roster back to the three stock armors and drops Mayhem's extra armors, its four extra jets, the Shotgun, the M-16 Assault Rifle and the Assassin, Vulcan and Rail turrets. In their place come fire and area weapons (Flamer, Nepalm Launcher, PlasmaBomb, Smoker, Rocket Launcher, Liberator) and new base-defense gear (Watchdog laser camera, Base Alarm, Arbitor cloaking device, Obelisk of Death). Shields are weaker, the repair gun is slower, repair kits now fully heal, and turrets can no longer be deployed on enemy-owned objects. Server administration uses the Insomniax (IX) admin system.",
+    "notes": [
+      "Armors: only Light (larmor/lfemale), Medium (marmor/mfemale) and Heavy (harmor) remain. UR3 Mayhem's RidgeRunner, Tech and HellBringer armors are gone, and with them the per-class Grenade cases that used them.",
+      "Medium and Heavy armor have canCrouch = false in this build (in UR3 Mayhem all three could crouch). Light armor can still crouch.",
+      "Removed relative to UR3 Mayhem: Avenger, Devistator, EMP Bomber and Wraith vehicles; Flame Thrower (Flamer item); Shotgun and Shotgun Shells; M-16 Assault Rifle and its ammo; the old Large Force Field (LargeFieldPack); Assassin, Vulcan and Rail turrets; EMP Mine.",
+      "Fire: hits of $FlameDamageType on an enemy have a 7 in 10 chance to set them burning (player.cs Player::onDamage). Burning lasts 10 seconds and adds 0.1 damage every 2 seconds; a fresh hit resets the timer. Armor damage scale for flame is 0.9 on all armors (an earlier 1.0 line in ArmorData.cs is overwritten).",
+      "No armor has a $DamageScale entry for $NukeDamageType (Liberator) or $SmokeDamageType (Smoker), so Player::onDamage scales those hits to zero against players. Structures take them unscaled, because StaticShape::onDamage and Turret::onDamage apply no damage-type scale.",
+      "Shield Pack and StealthShield Pack strength is halved compared with UR3 Mayhem, so each point of energy absorbs half as much damage.",
+      "The shared RepairBolt now adds a repair rate of 0.5 instead of 9.9. That slows both the stock repair gun and the new Engineer Repair Gun.",
+      "Repair Kit and Repair Patch heal 9.99/9.9 instead of 0.99/0.9. With armor maxDamage of 1.32 or less, that is a full heal for every armor.",
+      "Turret Pack, Mini-Plasma Turret and Flame Turret refuse to deploy when the aimed-at object belongs to another team (\"You can't deploy ...s on the enemies base!\").",
+      "Several items are in the scripts but cannot be bought: $InvList is 0 for Blaster (Laser Pistol), Base Alarm, EMP Grenade Launcher and its ammo, EMP Rocket Launcher and its ammo, and Railgun. Liberator and FakeFlag have no $InvList or $ItemMax entry at all.",
+      "Admin: Insomniax (IX) admin options ($Insomniax::PAKick, PABan, PAMission, fairTeams, team-kill limits and so on) gate what public admins may do. The entry script notes they start closed until a super admin or the host enables them."
+    ]
+  },
+  "items": {
+    "LightArmor": {
+      "summary": "The light armor, renamed from UR3 Mayhem's \"Combat Flight Armor\" to plain \"Light Armor\". It is one of only three armors in this build.",
+      "notes": [
+        "Light armor can still crouch; Medium and Heavy cannot in this build.",
+        "Its Grenade throws the flag-shaped HologramMine (see Grenade)."
+      ],
+      "source": "item.cs ItemData LightArmor; ArmorData.cs PlayerData larmor/lfemale"
+    },
+    "MediumArmor": {
+      "summary": "The medium armor, renamed from UR3 Mayhem's \"Mainstay Armor\" to \"Medium Armor\".",
+      "notes": [
+        "Unlike UR3 Mayhem, marmor and mfemale have canCrouch = false.",
+        "Its Grenade throws a standard Handgrenade."
+      ],
+      "source": "item.cs ItemData MediumArmor; ArmorData.cs PlayerData marmor/mfemale"
+    },
+    "HeavyArmor": {
+      "summary": "The heavy armor, renamed from UR3 Mayhem's \"Class IV Armor\" to \"Heavy Armor\", with a higher price.",
+      "notes": [
+        "Unlike UR3 Mayhem, harmor has canCrouch = false.",
+        "Heavy is the only armor allowed the Arbitor Device and the Obelisk of Death ($ItemMax 1; 0 for the others).",
+        "Its Grenade throws an AntipersonelMine."
+      ],
+      "source": "item.cs ItemData HeavyArmor; ArmorData.cs PlayerData harmor, $ItemMax"
+    },
+    "Blaster": {
+      "summary": "The Blaster renamed \"Laser Pistol\". It fires the same BlasterBolt as UR3 Mayhem, but faster and at a higher energy cost.",
+      "notes": [
+        "fireTime drops from 0.03 to 0.01, and maxEnergy per shot rises from 1 to 6.",
+        "$InvList[Blaster] is 0, so inventory stations do not sell it."
+      ],
+      "source": "item.cs ItemData Blaster, ItemImageData BlasterImage; station.cs $InvList"
+    },
+    "PlasmaAmmo": {
+      "summary": "Ammunition for the Flamer, renamed from \"Plasma Bolt\" to \"Flamer Tank\". It is the same item, now feeding the flame projectile.",
+      "notes": [
+        "It is entry 0 of $AmmoPackItems, so an Ammo Pack carries extra Flamer Tanks."
+      ],
+      "source": "item.cs ItemData PlasmaAmmo, $AmmoPackItems"
+    },
+    "PlasmaGun": {
+      "summary": "The Plasma Gun turned into the \"Flamer\". It now sprays the short-lived FlameThrow rocket projectile instead of plasma bolts, firing slightly faster.",
+      "notes": [
+        "projectileType changes from PlasmaBolt to FlameThrow: a RocketData with a 1 second life and an 8 m explosion radius, dealing $FlameDamageType. Its range is short.",
+        "Flame hits on enemies have a 7 in 10 chance to set them burning (10 seconds, 0.1 damage every 2 seconds).",
+        "reloadTime and fireTime drop from 0.05 to 0.03.",
+        "It replaces UR3 Mayhem's separate Flamer (\"Flame Thrower\") item, which this build removes."
+      ],
+      "source": "item.cs PlasmaGun, PlasmaGunImage; baseProjData.cs RocketData FlameThrow; player.cs Player::onDamage, Renegades_startBurn"
+    },
+    "PlasmaBombAmmo": {
+      "summary": "Ammunition for the PlasmaBomb. All three armors may carry up to 50.",
+      "notes": [],
+      "source": "item.cs ItemData PlasmaBombAmmo; ArmorData.cs $ItemMax"
+    },
+    "PlasmaBomb": {
+      "summary": "A new grenade-style weapon that lobs a single heavy plasma bomb with a 25 m blast. Its damage far exceeds any armor's health. It has a 10 second reload.",
+      "notes": [
+        "Fires BombPlasma, a GrenadeData with maxLevelFlightDist 0.1, so it leaves the launcher with almost no forward travel and lands close to the user.",
+        "The bomb lives up to 10 seconds (liveTime). It deals $PlasmaDamageType, which every armor takes at full scale, and explodes with the EMPPulseExp effect.",
+        "Available to all three armors ($ItemMax 1)."
+      ],
+      "source": "item.cs PlasmaBomb, PlasmaBombImage; baseProjData.cs GrenadeData BombPlasma"
+    },
+    "SmokeScreenAmmo": {
+      "summary": "Ammunition for the Smoker (display name \"SmokerAmmo\"). All three armors may carry up to 50.",
+      "notes": [],
+      "source": "item.cs ItemData SmokeScreenAmmo; ArmorData.cs $ItemMax"
+    },
+    "SmokeScreen": {
+      "summary": "The \"Smoker\": a new grenade-style launcher that fires a smoke canister (smoke.dts) with a 15 second life and a 15 second reload.",
+      "notes": [
+        "The Smoker projectile deals a token 0.01 of $SmokeDamageType over a 25 m radius. No armor has a damage scale for that type, so it does not hurt players.",
+        "Whether it produces a lasting smoke screen beyond the projectile's own smoke model is not determined from scripts."
+      ],
+      "source": "item.cs SmokeScreen, SmokeScreenImage; baseProjData.cs GrenadeData Smoker; ArmorData.cs $DamageScale"
+    },
+    "Fixit": {
+      "summary": "The \"Engineer Repair Gun\": a hand-held repair beam bought as a weapon-slot tool (heading \"Energy Weapons\") rather than as the Repair Pack's backpack gun.",
+      "notes": [
+        "Fires the shared RepairBolt. Aimed at yourself, it switches on auto-repair if you are damaged; aimed at another player or object, it repairs that target and tells a repaired player who is fixing them.",
+        "This build lowers RepairBolt's added repair rate from 9.9 to 0.5, so it and the Repair Pack gun repair far more slowly than in UR3 Mayhem.",
+        "Uses 5 to 15 energy (minEnergy/maxEnergy). All three armors may carry one."
+      ],
+      "source": "item.cs Fixit, FixitImage; item.cs RepairBolt::onAcquire"
+    },
+    "TranqAmmo": {
+      "summary": "Ammunition for the FEB Rifle, renamed from \"Poison Dart\" to \"FEB Pellets\".",
+      "notes": [],
+      "source": "item.cs ItemData TranqAmmo"
+    },
+    "EMPGrenadeAmmo": {
+      "summary": "Ammunition for the EMP Grenade Launcher. Only its display name changes, from \"EMP Grenade Ammo\" to \"EMPGrenadeAmmo\".",
+      "notes": [
+        "$InvList[EMPGrenadeAmmo] and $InvList[EMPGrenadeLauncher] are 0, so stations do not sell the launcher or its ammo in this build."
+      ],
+      "source": "item.cs ItemData EMPGrenadeAmmo; station.cs $InvList"
+    },
+    "NepalmAmmo": {
+      "summary": "Ammunition for the Nepalm Launcher. All three armors may carry up to 50.",
+      "notes": [
+        "It is listed as $AmmoPackItems[13], but the Ammo Pack drop and pickup loops only handle entries 0 to 9, so the Ammo Pack never stores it."
+      ],
+      "source": "item.cs ItemData NepalmAmmo, $AmmoPackItems, AmmoPack::onDrop"
+    },
+    "NepalmLauncher": {
+      "summary": "A new grenade launcher that fires fast-cycling fire shells (FlameShell). They burst into a 12 m fire explosion and can set enemies alight.",
+      "notes": [
+        "FlameShell is a GrenadeData dealing $FlameDamageType. Each enemy hit has a 7 in 10 chance to start burning (10 seconds, 0.1 damage every 2 seconds).",
+        "reloadTime is 0.2, much quicker than a standard grenade launcher.",
+        "Available to all three armors ($ItemMax 1)."
+      ],
+      "source": "item.cs NepalmLauncher, NepalmLauncherImage; baseProjData.cs GrenadeData FlameShell; player.cs Player::onDamage"
+    },
+    "ForceFieldBuster": {
+      "summary": "UR3 Mayhem's Force Field Buster renamed \"Defense Buster\" and reskinned as a grenade launcher. It fires the same shell, which wrecks structures but barely affects players.",
+      "notes": [
+        "It now has a short spin-up (0.05) with disc spin sounds, and the reload doubles from 1.0 to 2.0 seconds.",
+        "The shell is unchanged apart from its smoke trail. Its $FFBDamageType is scaled to 0.001 on Light armor and 0 on Medium and Heavy, while deployables take it in full."
+      ],
+      "source": "item.cs ForceFieldBuster, ForceFieldBusterImage; baseProjData.cs GrenadeData ForceFieldBusterShell; ArmorData.cs $DamageScale"
+    },
+    "RocketAmmo": {
+      "summary": "Rockets for the Rocket Launcher. Light armor carries 10, Medium 15 and Heavy 20.",
+      "notes": [],
+      "source": "item.cs ItemData RocketAmmo; ArmorData.cs $ItemMax"
+    },
+    "Rocketlauncher": {
+      "summary": "A new shoulder rocket launcher that fires the Scout flier's FlierRocket: a fast, straight-flying missile with a fiery explosion.",
+      "notes": [
+        "FlierRocket is shared with the Scout vehicle's gun. This build changes it to the firerocketExp explosion with 0.4 $MissileDamageType damage and 250 kickback, so the Scout's rockets change too.",
+        "1 second reload with a short spin-up.",
+        "$ItemMax allows it for larmor, lfemale, marmor and harmor, but there is no mfemale entry, so female Medium armor cannot carry it."
+      ],
+      "source": "item.cs Rocketlauncher, RocketlauncherImage; baseProjData.cs RocketData FlierRocket; vehicle.cs Scout; ArmorData.cs $ItemMax"
+    },
+    "LiberatorAmmo": {
+      "summary": "The \"Neutron Rocket\" fired by the Liberator.",
+      "notes": [
+        "No armor has an $ItemMax entry for it, and it is not in $InvList."
+      ],
+      "source": "item.cs ItemData LiberatorAmmo"
+    },
+    "Liberator": {
+      "summary": "A slow neutron rocket (Nuke projectile) with a 2000 m blast radius and a 10 second reload. In this build it can only hurt structures.",
+      "notes": [
+        "Nuke is a RocketData dealing 0.2 of $NukeDamageType. No armor or vehicle has a damage scale for that type, so players and vehicles take nothing; stations, generators, turrets and other static shapes take it unscaled.",
+        "The Liberator has no $InvList entry and no $ItemMax for any armor, so it cannot be bought or carried in normal play."
+      ],
+      "source": "item.cs Liberator, LiberatorImage; baseProjData.cs RocketData Nuke; ArmorData.cs $DamageScale; staticshape.cs StaticShape::onDamage"
+    },
+    "ShieldPack": {
+      "summary": "The energy shield pack, at half UR3 Mayhem's strength but with a lower energy draw while it runs.",
+      "notes": [
+        "shieldStrength is 0.024 instead of 0.048, so each point of energy absorbs half as much damage.",
+        "Image energy use drops from minEnergy 4 / maxEnergy 8 to 1 / 3."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate, ShieldPackImage"
+    },
+    "StealthShieldPack": {
+      "summary": "A shield that also hides the wearer from sensors. Its shield is halved compared with UR3 Mayhem.",
+      "notes": [
+        "On activation, shieldStrength is 0.018 instead of 0.036, and sensor suppression is still raised by 20."
+      ],
+      "source": "item.cs StealthShieldPackImage::onActivate"
+    },
+    "WatchdogPack": {
+      "summary": "A new deployable camera-shaped laser turret (\"Watchdog\") with long range and a weak pulse laser, for watching and harassing approaches.",
+      "notes": [
+        "Deploys on terrain, buildings or deployable platforms, at any angle (floor, wall or ceiling, the way a camera mounts).",
+        "DeployableWatchdog fires WatchdogLaser ($LaserDamageType, damageConversion 0.001) out to 300 m. It has its own shield (shieldStrength 0.010) and recharges at 5.",
+        "Team limit 2. Every armor may carry one."
+      ],
+      "source": "item.cs WatchdogPack::deployShape, onDeploy, onUse; turret.cs TurretData DeployableWatchdog, DeployableWatchdog::onAdd; baseProjData.cs LaserData WatchdogLaser"
+    },
+    "AmmoPack": {
+      "summary": "The extra-ammo backpack. This build rewrites the list of ammo it carries, and its drop and pickup code only partly matches that list.",
+      "notes": [
+        "$AmmoPackItems is now PlasmaAmmo, DiscAmmo, GrenadeAmmo, Grenade, MineAmmo, MortarAmmo, Beacon, RifleAmmo, TranqAmmo, RailAmmo, EMPGrenadeAmmo, EMPRocketAmmo, ForceFieldBusterAmmo, NepalmAmmo. Bullet, Shotgun and Assault Rifle ammo are gone.",
+        "AmmoPack::onDrop loops over entries 0 to 9 only (UR3 Mayhem: 0 to 10), and the Assault Rifle and EMP Mine branches are removed. EMP grenades and rockets, buster shells and Nepalm ammo are never stored in a dropped pack.",
+        "Script bug: in checkPacksAmmo, the branches for entries 7 and 8 assign %numpack instead of %numAdd. On pickup, RifleAmmo and TranqAmmo therefore receive the leftover count from entry 6 (Beacon), not their own stored count.",
+        "fillAmmoPack only fills the first 8 entries."
+      ],
+      "source": "item.cs $AmmoPackItems, AmmoPack::onDrop, checkPacksAmmo, fillAmmoPack"
+    },
+    "ForceFieldPack": {
+      "summary": "The small deployable force field. It is now an ammo-pack-shaped backpack that drops a destructible DeployableForceField on any flat surface.",
+      "notes": [
+        "It deploys DeployableForceField (maxDamage 4.5) instead of UR3 Mayhem's SmallForceField (maxDamage 250.5), so it can actually be shot down.",
+        "There is no longer a terrain/building check and no keep-away-from-your-flag rule (UR3 Mayhem refused within 3 m of the flag). Any surface whose normal points up more than 0.7 works.",
+        "It counts nearby force fields with $ForceFieldBox* sizes, but those globals are never set and the count is never checked, so there is no spacing limit.",
+        "It fades in with the ForceFieldOpen sound. Team limit is 10 (UR3 Mayhem: 6)."
+      ],
+      "source": "item.cs ForceFieldPack::deployShape; staticshape.cs DeployableForceField, DeployableForceField::onDestroyed"
+    },
+    "LargeForceFieldPack": {
+      "summary": "A new pack for the large force field, replacing UR3 Mayhem's LargeFieldPack. It deploys the same way as the small field but places the full-size LargeForceField shape.",
+      "notes": [
+        "Same rules as the Small Force Field: any flat surface, no flag-distance rule, no effective spacing check.",
+        "LargeForceField has maxDamage 5.0 (UR3 Mayhem's was 350.5), and its destruction now frees a LargeForceFieldPack slot.",
+        "Team limit 2. Medium and Heavy armor only; Light has no $ItemMax entry."
+      ],
+      "source": "item.cs LargeForceFieldPack::deployShape, onDeploy, onUse; staticshape.cs LargeForceField, LargeForceField::onDestroyed"
+    },
+    "BA": {
+      "summary": "\"Base Alarm\": a camera-shaped sensor turret meant to sound when enemies come within 19 m. As scripted, it cannot be deployed.",
+      "notes": [
+        "BAlarm is a SensorTurret firing Laker, an invisible 0.01-damage bullet, with SoundMineActivate as its fire sound. On destruction it messages the team \"Base Alarm has been destroyed.\"",
+        "Script bug: BA::onDeploy calls DeployAnyShape(), which is not defined anywhere in this build, so deploying fails and the pack is never used up.",
+        "$InvList[BA] is 0, so stations do not sell it either."
+      ],
+      "source": "item.cs BA::onDeploy, BA::onUse; turret.cs TurretData BAlarm, BAlarm::onDestroyed"
+    },
+    "TurretPack": {
+      "summary": "The standard remote turret pack. It is unchanged in what it places, but this build refuses enemy-owned surfaces and loses the outer turret-density check.",
+      "notes": [
+        "New: if the aimed-at object belongs to another team, deployment is refused (\"You can't deploy ...s on the enemies base!\").",
+        "Script bug: the outer containerBoxFillSet count was deleted but the deleteObject(%set) and $MaxNumTurretsInBox test remain. %num is empty there, so the \"Interference from other remote turrets\" limit never triggers. Only the close-range \"Frequency Overload\" check still applies.",
+        "Team limit 10 (UR3 Mayhem: 8)."
+      ],
+      "source": "item.cs TurretPack::deployShape"
+    },
+    "RepairKit": {
+      "summary": "The single-use repair kit. It now restores 9.99 damage instead of 0.99, a full heal for every armor in this build.",
+      "notes": [],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "ArbitorBoxPack": {
+      "summary": "\"Arbitor Device\": a new heavy-only deployable that cloaks every friendly player, structure, vehicle and mine around it while it stays enabled.",
+      "notes": [
+        "Deploys only inside buildings (InteriorShape), on flat floors. Team limit 1; only Heavy armor may carry it.",
+        "Once enabled, ArbitorBox fades out all same-team objects in a 200 x 200 x 50 box around it, then rescans every 6 seconds. Objects that have left the box fade back in, unless they have their own cloaking pack or cloaking-gun effect.",
+        "When it is disabled, everything it cloaked fades back in."
+      ],
+      "source": "item.cs ArbitorBoxPack::deployShape; turret.cs ArbitorBox::onEnabled, checkArbitorBox, onDisabled, onDestroyed"
+    },
+    "FlameTurretPack": {
+      "summary": "The indoor Flame Turret with its fuel canister. This build swaps UR3 Mayhem's must-be-near-your-base rule for a no-enemy-surface rule.",
+      "notes": [
+        "UR3 Mayhem required a friendly static object within a 70 x 70 x 50 box (\"You must be near your own base\"); that check is gone.",
+        "Instead, deploying is refused if the aimed-at object belongs to another team. It still deploys only on building floors and still places the fuel canister behind the turret.",
+        "Team limit 4 (UR3 Mayhem: 6)."
+      ],
+      "source": "item.cs FlameTurretPack::deployShape"
+    },
+    "PlasmaPack": {
+      "summary": "The Mini-Plasma Turret pack. It is now limited to terrain and buildings, refuses enemy-owned surfaces and checks the deploy area.",
+      "notes": [
+        "UR3 Mayhem placed it on any surface in range with no area check. This build requires SimTerrain or InteriorShape and passes checkDeployArea; otherwise it says \"Deploy position out of range\".",
+        "It refuses to deploy on objects belonging to another team.",
+        "The Client::setOwnedObject calls after deploying are removed.",
+        "Team limit 4 (UR3 Mayhem: 6)."
+      ],
+      "source": "item.cs PlasmaPack::deployShape"
+    },
+    "Hologram": {
+      "summary": "\"FakeFlag\": in this build Hologram is a flag-shaped hand item, no longer the decoy mine of UR3 Mayhem (that mine is now HologramMine, thrown by Light armor's Grenade).",
+      "notes": [
+        "No armor has an $ItemMax entry and stations do not list it. There is no Hologram::onUse, so how it would be used is not determined from scripts.",
+        "The Hologram:: mine callbacks in Mine.cs still exist, but they are named for this ItemData, not for the HologramMine datablock."
+      ],
+      "source": "item.cs ItemData Hologram; Mine.cs Hologram::*, MineData HologramMine"
+    },
+    "Grenade": {
+      "summary": "The grenade key throws a different object per armor: Heavy an AntipersonelMine, Light the flag-shaped HologramMine, Medium a Handgrenade.",
+      "notes": [
+        "UR3 Mayhem also had cases for RidgeRunner and HellBringer (EMP Mine) and Tech (Handgrenade). Those armors are gone here.",
+        "Light armor now throws HologramMine (a flag-shaped mine with the old Hologram's stats) instead of Hologram. No HologramMine:: functions exist, so the old arming and touch-to-detonate handlers do not run for it; only the generic Mine::onDamage applies, so it explodes only after it has taken enough damage.",
+        "0.5 second throw cooldown, throw strength scaled by the client's throwStrength."
+      ],
+      "source": "item.cs Grenade::onUse; Mine.cs MineData HologramMine, Mine::onDamage, AntipersonelMine::*, Handgrenade::onAdd"
+    },
+    "Beacon": {
+      "summary": "The beacon key throws a Speed Booster (Boost mine) as in UR3 Mayhem, but no longer while you carry the flag.",
+      "notes": [
+        "If the flag slot is occupied, it prints \"You can't use a speed booster while carrying the <flag>.\" instead of throwing.",
+        "Script bug: the beacon is used up and the Boost object is created before the flag check, so a flag carrier loses the beacon and leaves an unthrown Boost object behind.",
+        "Messages now go to the bottom print instead of the chat line."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost::*"
+    },
+    "RepairPatch": {
+      "summary": "The repair patch pickup heals 9.99 on touch (9.9 when used from inventory) instead of 0.99/0.9, a full heal for every armor in this build.",
+      "notes": [],
+      "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+    },
+    "AntiMatterTurretPack": {
+      "summary": "\"Obelisk of Death\": a heavy-only deployable that raises a tall antenna stand with an anti-matter turret mounted 14.75 m up. The turret fires hard-hitting AntiMatterShot bullets out to 200 m.",
+      "notes": [
+        "Deploys only on flat terrain (SimTerrain). At most one per 75 x 75 x 10 box, and none within a 40 x 40 x 10 box of another. Team limit 2.",
+        "AntiMatterShot deals 1.0 of $AntiMatterDamageType, which every armor takes at full scale, so one hit exceeds Light armor's 0.66 health.",
+        "Damage to the stand (AntiMatterStand) is passed on to the turret at 75%. AntiMatterStand::onDestroyed is empty, and the turret's onDestroyed only clears the link, so neither part removes the other.",
+        "The turret has no shield (shieldStrength 0). Only Heavy armor may carry the pack."
+      ],
+      "source": "item.cs AntiMatterTurretPack::deployShape; turret.cs DeployableAntiMatterTurret::*; staticshape.cs AntiMatterStand::onDamage, onDestroyed; baseProjData.cs BulletData AntiMatterShot"
+    }
+  }
+}

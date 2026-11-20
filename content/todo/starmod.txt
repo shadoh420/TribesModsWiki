@@ -1,0 +1,61 @@
+starmod: 67 of 130 need write-ups
+  Blaster (Blaster): scripts
+  Chaingun (Equalizer): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): scripts
+  GrenadeLauncher (Grenade Launcher): scripts
+  Mortar (Mortar): scripts
+  DiscLauncher (Disc Launcher): scripts
+  LaserRifle (Laser Rifle): scripts
+  EnergyRifle (ELF Gun): scripts
+  HyperB (Hyper Blaster): stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SniperRifle (Sniper Rifle): scripts
+  BoomStick (Boom Stick): scripts
+  TranqGun (Dart Rifle): scripts
+  Silencer (Magnum): scripts
+  ConCun (Shockwave Cannon): stats+scripts
+  Railgun (Railgun): scripts
+  Vulcan (Vulcan): stats+scripts
+  Mfgl (Tactical Nuke): scripts
+  Flamer (Flame Thrower): stats+scripts
+  IonGun (Ion Rifle): stats+scripts
+  Omega (Volter): scripts
+  TargetingLaser (Targeting Laser): scripts
+  Fixit (Engineer Repair-Gun): scripts
+  GravGun (Grav Gun): scripts
+  Penis (Penis): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  ShieldPack (Shield Pack): scripts
+  CloakingDevice (Cloaking Device): scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  LightningPack (Teleport Pack): scripts
+  Laptop (Command Laptop): stats+scripts
+  SuicidePack (Suicide DetPack): scripts
+  CameraPack (Camera): scripts
+  BlastWallPack (Blast Wall): stats+scripts
+  HoloPack (Hologram): stats+scripts
+  PlantPack (Healing Plant): stats+scripts
+  TeleportPack (Teleport Pad): stats+scripts
+  MechPack (Interceptor Pack): stats+scripts
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  AirAmmoPad (Air Ammo Pad): new
+  airbase (AirBase): new
+  LaunchPack (Launch Pad): stats+scripts
+  AccelPPack (Accelerator Pad): new
+  Hackit (Engineer Repair-Gun): stats+scripts
+  DisIt (Engineer Repair-Gun): stats+scripts
+  Regen (Regeneration Gun): new
+  CoolLauncher (Missile Control Station): new
+  EmpM (EMP Missile): new
+  GasM (Toxin Missile): new
+  PhoenixM (Phoenix Missile): new
+  NapM (Napalm Missile): new
+  BooM (HaVoC Missile): new
+  SpyPod (SpyPod Missile): new
+  DetBug (Det Bug): new
+  Plastique (Plastique): scripts
+  RepairPatch (Repair Patch): scripts

@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "hvMechWarrior converts Starsiege: Tribes into a server-side BattleTech mech combat simulation built entirely out of stock shapes and sounds without requiring client downloads. Players pilot customizable BattleMechs across four weight classes, managing reactor heat while engaging enemies with autocannons, pulse lasers, PPCs, and guided missile salvos. Traditional free-flight jetpacks are replaced with short-burst Jump Jet Boosters triggered by using the Beacon item, making movement heavier and momentum-driven. The mod supports objective-based team warfare and arena Deathmatch, while rewarding player combat efficiency with kill points that scale directly with the tonnage of the destroyed enemy mech.",
+  "notes": [
+   "Thirteen playable mechs across Light, Medium, Heavy, and Assault classes range from the agile 20-ton Wasp to the massive 100-ton Atlas. Heavier chassis sacrifice speed for superior armor and higher weapon limits (Atlas has 3.0 health, 5.0 speed, and 6 weapons, whereas Wasp has 0.6 health, 12.5 speed, and 3 weapons), while equipping visual hardpoint attachments on slots 4 through 6.",
+   "Standard jetpacks are replaced by the Jump Jet Booster system, activated by using the Beacon item to deliver powerful vertical or directional leaps at the expense of reactor energy. When initially spawning into a match, weapons are not automatically drawn, requiring pilots to press their Next Weapon key to ready their arsenal.",
+   "Mech energy functions as reactor heat; firing weapons, boosting, or sustaining hits from Flamers, Infernos, or Flash weapons builds heat and drains energy, threatening cockpit blinding or system shutdown. Equipping and activating the Fire-Control Computer (FCC Pod) overclocks weapons into high-burst or guided firing modes at the cost of higher heat generation.",
+   "The Phoenix Hawk Land-Air Mech (driver armor) features a unique transformation mechanic: using the Beacon item while standing motionless transforms the mech into an aerospace fighter flight mode, transferring damage and energy levels before reverting to mech form upon dismounting.",
+   "Light mechs can pilot specialized Aerotech combat craft including the ArrowIV-armed Riever, autocannon Corsair, and twin-PPC Stingray, or pilot multi-passenger dropships like the missile-barrage Leopard Class and mortar-dropping Union Class.",
+   "Weapon arsenals encompass ballistic autocannons (AC5, AC10, AC20, Ultra variants, and HVAC10), energy armaments (Medium and Large Lasers, Pulse Lasers, and PPCs), and missile launchers (Streak SRMs, LRMs, Thunderbolts, and steerable Arrow IV artillery). Deployables include deployable sensor probes, ECM pods, munitions stations, and automated turrets ranging from MedLas to Long Tom artillery.",
+   "Combat scoring awards points based on the tonnage of the defeated enemy mech, granting 8 points for lights up to 20 points for an Atlas alongside a 2-point headshot bonus, while excessive team damage kicks offenders at minus 50 points. Inventory stations explicitly ban JumpBooster, MedPLasPack, NARC, ScoutDrone, and ScoutDroneAmmo ($InvList=0), while remote stations also ban LongTomPack, PPCPack, and STR2Pack ($RemoteInvList=0).",
+   "Stock bot rosters are disabled by shipping an empty roster configuration so bots do not wander unarmed without base weapons, but custom mission maps with AI graph paths spawn autonomous AI drones piloting Panther, HellBringer, or BattleMaster mechs armed with PPCs.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): JumpBooster (station.cs), MedPLasPack (station.cs), NARC (station.cs), ScoutDrone (station.cs), ScoutDroneAmmo (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): LongTomPack (station.cs), PPCPack (station.cs), STR2Pack (station.cs)."
+  ]
+ },
+ "items": {
+  "Beacon": {
+   "summary": "Multipurpose item used to trigger the mech Jump Jet Booster or initiate Phoenix Hawk LAM transformation.",
+   "notes": [
+    "Draws a chunk of reactor energy to fire directional or vertical jump boosters.",
+    "Fails to engage if reactor energy is below 35 due to excessive heat buildup.",
+    "Triggers transformation into flight mode when used by a stationary Phoenix Hawk driver."
+   ],
+   "source": "tribes-wiki/sources/hv-mechwarrior/item.cs"
+  },
+  "FCCPod": {
+   "summary": "Fire-Control Computer backpack pod that enables smart guidance and high burst rates for compatible weapons.",
+   "notes": [
+    "Switches autocannons and missile racks into augmented burst configurations with increased projectile output.",
+    "Dramatically increases heat generation per volley while active.",
+    "Required equipment to arm, guide, and fire Arrow IV heavy artillery missiles."
+   ],
+   "source": "tribes-wiki/sources/hv-mechwarrior/item.cs"
+  },
+  "MASCPack": {
+   "summary": "MASC Overdrive backpack attachment that doubles forward sprint speed and triples jump impulse.",
+   "notes": [
+    "Dynamically scales speed and jump bonuses according to the specific chassis tonnage.",
+    "Rapidly consumes energy while active and shuts down with an overload warning if energy drops below 6."
+   ],
+   "source": "tribes-wiki/sources/hv-mechwarrior/item.cs"
+  },
+  "ArrowIV": {
+   "summary": "Heavy artillery missile system designed for extreme-range bombardment over 2000 meters.",
+   "notes": [
+    "Fires a flyable missile projectile that inflicts devastating area-of-effect damage.",
+    "Requires a Fire-Control Computer pod or target laser painter to guide effectively.",
+    "Features high heat production and an extremely slow rate of fire."
+   ],
+   "source": "tribes-wiki/sources/hv-mechwarrior/item.cs"
+  },
+  "MunitionsPack": {
+   "summary": "Volatile munitions pod backpack that dramatically expands carried ballistic and missile ammo reserves.",
+   "notes": [
+    "Supplies high-capacity extra ammunition across all autocannon and missile calibers.",
+    "Functions as an explosive hazard that detonates like a heavy bomb if destroyed or heavily damaged."
+   ],
+   "source": "tribes-wiki/sources/hv-mechwarrior/item.cs"
+  },
+  "LongTomPack": {
+   "summary": "Heavy deployable artillery turret providing long-range automated fire support.",
+   "notes": [
+    "Deploys a stationary mortar-type artillery emplacement to shell enemy fortifications.",
+    "Available at main base inventory terminals but strictly banned from remote deployable inventory stations."
+   ],
+   "source": "tribes-wiki/sources/hv-mechwarrior/item.cs"
+  }
+ }
+}

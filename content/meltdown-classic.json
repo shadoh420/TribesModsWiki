@@ -1,0 +1,71 @@
+{
+ "mod": {
+  "overview": "Meltdown Classic is a spinoff of the Meltdown mod created by INH DynaBlade, Mega Man 1024, Z_Dog, and the Meltdown Development Team, delivering an unconstrained high-power sandbox for players who preferred chaotic excess over strict tournament balance. Teams clash across Capture the Flag and Deathmatch battles equipped with infinite base energy reserves, extensive deployable fortifications, and randomized combat loadouts assigned automatically upon spawning. Gameplay radically accelerates Tribes mobility and lethality through damage-inverting armor variants, transforming aerial flight suits, steerable electro-optical cruise missiles, and constructible forward bases. Full Spoonbot AI integration provides autonomous bot squads equipped with distinct combat roles such as Demolition, Medic, Sniper, and Mortar gunner, complete with custom auto-routing paths and situational voice taunts.",
+  "notes": [
+   "Classes and Armor Loadouts: Alongside standard light, medium, and heavy chassis, the mod introduces Blastech, Magnetic Ion, and MECH frames. Blastech absorbs and heals from explosive weapons while carrying 4 weapons, MagIon boasts a bottomless 131,072 energy reservoir healed by electrical damage and packing 6 weapons, and MECH acts as a walking fortress carrying 10 weapons, 500 rounds of major ammunitions, 25.5 forward speed, 2.66 damage tolerance, and 90 percent bullet reduction.",
+   "Spawning and Loadout Economy: When spawning in standard team games, players roll a randomized spawn loadout that immediately outfits them with equipment tiers ranging from light shotgun-rifle skirmishers to heavy multi-launcher bombardiers. Base team energy is set to infinite by default, eliminating station resource starvation and enabling immediate purchase of heavy hardware.",
+   "Controls, Menus, and Commands: Standard GUI hotkeys toggle inventory, objectives, and play mode. Activating the AODCmdPack turret control pack allows medium, heavy, and MECH armors to trigger command mode remotely from anywhere on the battlefield without standing at a fixed command station. Administrators can manage matches using the admin menu system, voting to increase match duration or authenticating via console commands.",
+   "Unique Mobility and Transformation: Movement expands beyond standard jetting with the heavy Jump Pack, which equips a Jump Gun that rockets heavy wearers across terrain on fire. The Jetfire Transformer pack allows soldiers to instantaneously transform in mid-air into an armed Jetfire flyer, automatically dropping any carried flag before swapping between flight and bipedal modes.",
+   "Surveillance, Teleportation, and Heavy Deployables: The Coyote Ear BugPack allows infiltrators to tap enemy team chat and intercept enemy radio transmissions within 150 meters. Support players can use the Slipstream personal teleporter to transport nearby allies directly to commander waypoints, deploy Warpxpack hyperdrives for 210-meter line-of-sight blinks, construct entire Borg Cube forward bases, or lay down capture pads that teleport intruders into deployable jails.",
+   "Arsenal and Extreme Weaponry: Combat features high-impact weapons including the Juggalo Launcher, which fires a player-piloted electro-optical cruise missile, the multi-projectile Ecstacy Cannon, rapid-fire Chainsma plasma guns, firebomb baby nukes, and high-powered rail and bolt snipers like the AAOD SniperX.",
+   "Anti-Griefing Rules and Base Defense: Servers enforce strict automatic discipline through built-in threshold tracking, warning base destroyers after 3 friendly asset kills and kicking them at 5 base kills. Teamkillers face warnings after 2 friendly kills and automatic ejection upon reaching 3 teamkills, with repeated offenders permanently banned.",
+   "Integrated Spoonbot AI: Maps feature fully integrated Spoonbot bots equipped with designated tactical roles including Mortar, Guard, Demo, Medic, Miner, Sniper, Painter, and Standard. Bots utilize custom auto-calculating movement trees, reactive retreat damage thresholds, dynamic weapon switching for close, long, and jetting targets, and an extensive catalog of voice cheers and taunts."
+  ]
+ },
+ "items": {
+  "MECHArmor": {
+   "summary": "Super-heavy combat armor that transforms the operator into a high-speed walking fortress capable of carrying ten weapons.",
+   "notes": [
+    "Grants a massive health pool of 2.66 max damage, 512 energy capacity, and a brisk top forward running speed of 25.5.",
+    "Features 90 percent bullet damage resistance and inverts laser damage so enemy laser rifle fire restores health instead of damaging the chassis.",
+    "Can carry 10 weapons simultaneously along with 500 rounds of bullets, plasma, discs, grenades, mortars, and EMP grenades."
+   ],
+   "source": "armordata.cs"
+  },
+  "BlastechArmor": {
+   "summary": "Light combat armor that inverts explosive damage to heal the wearer from enemy splash attacks.",
+   "notes": [
+    "Possesses negative damage scaling against explosions, missiles, debris, shrapnel, mines, and mortars, turning blasts into armor repair.",
+    "Sacrifices resilience against direct energy and ballistic attacks, suffering 20 to 30 percent bonus damage from bullets, energy, and blasters.",
+    "Carries up to 4 weapons with agile 11.0 forward running speed and standard light jet mobility."
+   ],
+   "source": "armordata.cs"
+  },
+  "MagIonArmor": {
+   "summary": "Medium energy-specialized chassis with a virtually bottomless energy bank and immunity to energy weaponry.",
+   "notes": [
+    "Holds an immense energy reserve of 131,072 with minimal jet drain, allowing sustained jetting without running out of power.",
+    "Inverts blaster, energy rifle, electrical, and EMP damage scales so incoming energy fire repairs the suit.",
+    "Carries up to 6 weapons including mortars, but is strictly prohibited from equipping standard energy packs, repair packs, shield packs, or sensor jammer packs."
+   ],
+   "source": "armordata.cs"
+  },
+  "JugLauncher": {
+   "summary": "Heavy guided launcher that fires a player-piloted cruise missile across the battlefield.",
+   "notes": [
+    "Known as the Juggalo Electro-Optical Missile Launcher, costing 15,200 credits at equipment stations.",
+    "Upon firing, the missile takes flight and the player control camera immediately transfers into the nose of the missile to steer it in real time.",
+    "The launching soldier must remain grounded and outside tight indoor spaces to ensure a clear missile release path."
+   ],
+   "source": "weapons.cs"
+  },
+  "BugPack": {
+   "summary": "Tactical espionage backpack known as the Coyote Ear that intercepts and broadcasts enemy radio traffic.",
+   "notes": [
+    "Equipping the pack allows the wearer to secretly monitor opposing team communications in their chat log.",
+    "Works alongside Deployable Bug listening nodes to intercept and relay enemy transmission text within a 150-meter radius.",
+    "Highly valued for reconnaissance and intelligence gathering in large team objective games."
+   ],
+   "source": "packs.cs"
+  },
+  "JetfirePack": {
+   "summary": "Backpack propulsion unit that allows the wearer to transform in mid-air into a flyable Jetfire combat aircraft.",
+   "notes": [
+    "Activating the pack impulsively launches the player upward and converts them directly into pilot mode inside a rocket-firing Jetfire flier.",
+    "Automatically drops any held team flag upon activating to prevent instantaneous flag flight exploits.",
+    "Deactivating the pack transitions the player back into standard bipedal infantry mode at their current position."
+   ],
+   "source": "packs.cs"
+  }
+ }
+}

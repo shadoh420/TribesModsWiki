@@ -1,0 +1,45 @@
+# dogfight vs base (44 items)
+new        PlasmaGel                    Plasma Gel Launcher
+renamed+statsLightArmor                   Pilot Armor
+renamed+statsHeavyArmor                   Anti-Air Armor
+new        Scout6Vehicle                F-19 (Plasma)
+new        Scout5Vehicle                F-18 (Disc)
+renamed+statsScoutVehicle                 F-17 (Ion Bolts)
+new        Scout2Vehicle                F-16 (Normal Missiles)
+new        Scout3Vehicle                F-15 (Chaingun)
+new        Scout4Vehicle                F-14 (Cannon)
+new        SkimmerVehicle               B-12 (Bombs)
+new        Scout7Vehicle                Destroyer (Anti-Matter Ray)
+new        Scout8Vehicle                Scout (Blaster)
+new        pistol                       Pistol
+new        MinigunAmmo                  9mm Ammunition
+new        minigun                      High Speed AA Minigun
+new        Plasma                       Plasma
+new        StingerAmmo                  Stinger Ammo
+new        Stinger                      Stinger
+new        AACannonAmmo                 Explosive Shells
+new        AACannon                     Heavy AA Cannon
+new        RFMLAmmo                     Missile Ammo
+new        RFML                         Rapid Fire Missile L.
+new        RailShots                    Rail shots
+new        RailDriver                   Rail Driver
+new        RailDriver2                  Rail Driver
+new        HHAntiMLAmmo                 Matter/Anti-Matter Charges
+new        HHAntiML                     Mini Anti-Matter Ray
+new        HHAntiML2                    Mini Anti-Matter Ray
+stats      LaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+scripts    AmmoPack                     Ammo Pack
+renamed+stats+scriptsTurretPack                   AA Turret
+new        FlakPack                     Air Dominator
+new        FlakPack2                    AA Turret
+new        FighterPack                  Deployable F-17 Pack
+new        FighterPack2                 Deployable F-16 Pack
+new        FighterPack3                 Deployable F-15 Pack
+new        FighterPack4                 Deployable F-14 Pack
+new        FighterPack5                 Deployable B-12 Pack
+new        FighterPack6                 Deployable F-18 Pack
+new        FighterPack7                 Deployable F-19 Pack
+new        FighterPack8                 Deployable Devastator Pack
+new        FighterPack9                 Deployable Scout Pack
+new        Parachute                    Parachute

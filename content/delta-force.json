@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "DeltaForce converts Starsiege: Tribes into a gritty, realistic modern military tactical shooter focused on combined-arms infantry and vehicular warfare. Ground combat is transformed by completely disabling jetpacks across all infantry classes, replacing high-speed aerial skiing with deliberate squad movement, cover-to-cover positioning, and methodical room clearing. Players choose from seven specialized military roles armed with real-world arsenals ranging from assault rifles and machine guns to sniper rifles and wire-guided missiles. Alongside standard objective types, the mod introduces high-stakes Assassination and Hostage rescue modes that leverage neutral AI bots and escort objectives. Heavy military vehicles including Apache helicopters, A-10 Warthogs, Blackhawk transports, and Abrams tanks provide formidable air and armored support on the battlefield.",
+  "notes": [
+   "Classes and Roles: Seven specialized military roles replace standard Tribes loadouts: Infantry (frontline combat with OICW, SAW, LAW, shotgun, or flamethrower), Medic (field healer with Medikit healing beam and deployable medical stations), Sniper (sharpshooter wielding the semi-auto PSG-1 or high-caliber Robar .50 sniper rifle), SpecOps (stealth specialist with silenced MP5, Stinger SAM, demolition charges, and grappling hooks), Army Engineer (fortification builder deploying automated turrets, flak guns, SAM sites, and portable generators), Pilot (only class permitted to fly aircraft or drive vehicles), and Artillery (long-range support deploying Howitzer mortar turrets and calling in airstrikes).",
+   "Jetpack Removal and Foot Movement: All infantry armor types have their jetpack propulsion completely disabled (jetForce set to zero), eliminating high-flying skiing and turning matches into grounded tactical combat. Soldiers depend on the SpecOps Grappling Hook to climb buildings and obstacles, as well as deployable Parachutes to survive vehicle drops and steep terrain descents safely.",
+   "Weapon Options and Munition Switching: Players can access the Options menu to open Weapon Options and adjust fire modes in the field. Shotguns switch between wide flechette pellets and armor-cracking solid slugs; the silenced MP5 alternates between full automatic and controlled three-shot bursts; hand grenades switch between fragmentation shrapnel and lingering smoke clouds that blind caught players; and airstrikes alternate between high-explosive bunker shells and incendiary napalm carpet bombings.",
+   "Locational Damage and Status Effects: Combat incorporates specialized damage mechanics, where sniper rounds impacting the head register as headshots dealing 50% to 100% bonus damage for lethal instant kills. Incendiary weapons like flamethrowers and napalm ignite players with a burn status effect that inflicts periodic damage for five seconds. Soldiers carrying Fuel Packs on their back will instantly blow up if shot from behind, destroying the wearer and damaging nearby teammates.",
+   "Combined-Arms Military Vehicles: Traditional hovercraft are replaced with realistic modern military hardware including the AH-64 Apache gunship, A-10 Warthog close air support craft, UH-60 Blackhawk transport, Humvee scout truck, M1 Abrams main battle tank, and M2 Bradley fighting vehicle. Only designated Pilots may drive or fly these craft, and soldiers carrying team flags automatically drop them upon boarding. Passengers occupy dedicated gunner stations operating 120mm tank cannons, door Miniguns, TOW launchers, and automatic grenade launchers.",
+   "Deployable Base Defense and Support: Army Engineers and Artillery units can construct defensive perimeters using 20mm Cannon Turrets, AA Flak Guns, SAM air defense batteries, Howitzer artillery mortars, and Portable Generators capable of powering nearby stations and doors when main generators fail. Support personnel can also equip Reloader Packs to replenish exhausted ammunition on static turrets and combat vehicles.",
+   "Assassination and Hostage Game Modes: In Assassination mode, one player spawns as the lightly equipped VIP who must reach designated extraction points while bodyguards protect them from an opposing assassin squad. In Hostage mode, unarmed AI hostages spawn across the battlefield; touching a hostage recruits them to follow the player (up to three per rescuer) and awards points, but losing the rescuer frees the hostages and deducts five team points.",
+   "Equipment Bans and Server Controls: All original futuristic energy weapons, blasters, plasma guns, disc launchers, standard mortars, laser rifles, shield packs, and energy packs are completely removed from inventory stations ($InvList set to zero). Remote stations prohibit heavy deployables such as howitzers, flak guns, health stations, parachutes, and SAM packs. Administrators can limit sniper rifles to a team percentage ($Server::SniperLimit), configure smoke grenade duration ($Server::SmokePuffs), and enable cheaper physics for ground vehicles ($Server::FuzzyPhysics).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AbramsGun (station.cs), Airstrike (station.cs), Blaster (station.cs), BulletAmmo (station.cs), Chaingun (station.cs), DiscAmmo (station.cs), Disclauncher (station.cs), EnergyPack (station.cs), EnergyRifle (station.cs), GrappleHook (station.cs), GrenadeAmmo (station.cs), GrenadeLauncher (station.cs), Howitzer (station.cs), HowitzerAmmo (station.cs), LaserRifle (station.cs) (+6 more); Blocked at Remote Stations ($RemoteInvList = 0): AAPack (station.cs), AirstrikePack (station.cs), DeployableHealthPack (station.cs), GrapplePack (station.cs), HowitzerPack (station.cs), Parachute (station.cs), SAMPack (station.cs), TwentyPack (station.cs)."
+  ]
+ },
+ "items": {
+  "TOW": {
+   "summary": "Wire-guided anti-tank missile system allowing the operator to manually fly and steer the warhead toward targets.",
+   "notes": [
+    "Available as both a shoulder-fired launcher and a Humvee passenger weapon station.",
+    "Firing transfers the player camera and movement controls directly into the missile, allowing manual steering for up to four seconds of wire length.",
+    "Pressing the fire trigger while in flight remotely detonates the missile on command before the wire runs out."
+   ],
+   "source": "item.cs"
+  },
+  "Parachute": {
+   "summary": "Deployable emergency parachute backpack essential for surviving airborne drops in the absence of jetpacks.",
+   "notes": [
+    "Can only be deployed while actively falling with substantial downward momentum.",
+    "Periodically applies upward impulse to arrest vertical velocity and allow a safe gliding descent.",
+    "Automatically discards and removes itself from the player inventory once contact is made with the ground."
+   ],
+   "source": "item.cs"
+  },
+  "AirstrikePack": {
+   "summary": "Laser target designator backpack calling in high-altitude bomber strikes on coordinates.",
+   "notes": [
+    "Requires the operator to maintain continuous laser line-of-sight targeting on the ground for fifteen seconds.",
+    "Broadcasts an audible siren and warning announcement to the opposing team that an enemy air attack is inbound.",
+    "Payload can be toggled in the weapon options menu between a single high-explosive bunker-buster shell and a five-cluster napalm carpet bombardment."
+   ],
+   "source": "item.cs"
+  },
+  "GrapplePack": {
+   "summary": "Tactical grappling hook backpack enabling swift vertical climbing and infiltration without jet propulsion.",
+   "notes": [
+    "Equips the GrappleHook tool, letting soldiers latch onto structures, terrain, and obstacles up to fifty meters away.",
+    "Reels the user toward the anchor point with strong kinetic velocity for rapid scaling and covert entry.",
+    "Anchoring onto moving vehicles transfers their velocity to the player, permitting mobile boarding maneuvers."
+   ],
+   "source": "item.cs"
+  },
+  "PortGenPack": {
+   "summary": "Deployable portable generator unit designed to locally restore electricity to disabled base equipment.",
+   "notes": [
+    "Scans a twenty-meter radius around its deployment point for powered base installations.",
+    "Restores power to inventory stations, ammo terminals, vehicle stations, pads, elevators, and security doors when base generators fail.",
+    "Provides vital electrical redundancy during base defense and repair operations under siege."
+   ],
+   "source": "item.cs"
+  },
+  "FuelPack": {
+   "summary": "Hazardous fuel storage pack powering heavy weaponry with a high risk of catastrophic rear detonation.",
+   "notes": [
+    "Supplies fuel reserves for weapons like the flamethrower, enabling continuous incendiary fire.",
+    "Suffers a severe vulnerability where ballistic or shrapnel damage to the rear torso detonates the fuel cells.",
+    "Rear hits cause an instant ten-fold damage explosion that vaporizes the carrier and causes heavy radius damage to nearby units."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

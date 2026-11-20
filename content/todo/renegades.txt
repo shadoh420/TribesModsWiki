@@ -1,0 +1,37 @@
+renegades: 49 of 126 need write-ups
+  HeavyArmor (Defender): new
+  ScoutVehicle (Scout): renamed+stats
+  StingerAmmo (Disrupter Ammo): new
+  Stinger (X Launcher): new
+  VehFixit (Vehicle Repair-Gun): new
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  EspPack (Espionage Pack): new
+  BaseAlarm (Base Alarm): new
+  TurretPack (Ion Turret): scripts
+  LaserPack (Laser Turret): scripts
+  ShockPack (Shock Turret): scripts
+  TargetPack (Mortar Turret): scripts
+  LaserTurret (Plasma Turret): scripts
+  VulcanTurret (Vulcan Turret): scripts
+  RailTurret (Rail Turret): scripts
+  TrackingTurretPack (TrackingTurret): new
+  RocketPack (Missile Turret): stats+scripts
+  BarragePack (Anti-Aircraft Turret): new
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  TripwirePack (Blast Wall): stats+scripts
+  DeathStarPack (DeathStar): new
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  ScoutPack (Scout Pack): new
+  WraithPack (Wraith Pack): new
+  DoorfourbyeightForceFieldPack (Large Force Field Door): new
+  DoorfivebyfiveForceFieldPack (Force Field Door): new
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  DRocketLauncher (DRocket Launcher): new
+  DVulcan (D Vulcan): new
+  TurretBusterAmmo (Turret Busters): new
+  TurretBuster (Turret Buster): new

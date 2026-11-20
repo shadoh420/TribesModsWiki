@@ -1,0 +1,32 @@
+ur4: 33 of 76 need write-ups
+  LightArmor (Light Armor): renamed+stats
+  MediumArmor (Medium Armor): renamed+stats
+  HeavyArmor (Heavy Armor): renamed+stats
+  Jet2Vehicle (EMP Bomber): renamed+stats
+  Blaster (Blaster): stats+scripts
+  BulletAmmo (ChainGun Ammo): renamed+stats
+  Chaingun (ChainGun): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): scripts
+  GrenadeLauncher (Grenade Launcher): scripts
+  PlasmaRifleAmmo (PlasmaRifleAmmo): new
+  PlasmaRifle (Plasma Rifle): new
+  Shotgun (Shotgun): scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  TargetingLaser (Targeting Laser): scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  SniperRifle (IX-2000 Sniper Rifle): stats+scripts
+  TranqGun (FEB Rifle): stats+scripts
+  Railgun (Railgun): stats+scripts
+  FFBAmmo (FFB Ammo): new
+  FFBLauncher (Force Field Buster): new
+  EMPGrenadeAmmo (EMPGrenadeAmmo): renamed+stats
+  CloakGun (Cloaking Gun): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  CloakingDevice (Cloaking Device): new
+  AmmoPack (Ammo Pack): scripts
+  TurretPack (Mini-Plasma Turret): renamed+stats+scripts
+  RocketPack (Rocket Turret): new
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): scripts

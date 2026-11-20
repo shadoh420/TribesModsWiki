@@ -1,0 +1,71 @@
+{
+ "mod": {
+  "overview": "Pantheon MOD (v1.02) is a March 2000 class-specialized, heavy-arsenal base-building and CTF/objective mod built on Insane and Insomniax admin code. Players spawn in Light Armor with a Plasma Gun, Chaingun, Disc Launcher, Repair Pack, Repair Kit, Beacon, Grenade, and Mine, then hit an Inventory Station to specialize into one of five distinct classes (Scout, Light, Medium, Heavy, or Assault) with Infinite default team energy. Compared to its parent Insane, Pantheon strips out gimmick mobility suits and bombers in favor of strict armor roles, class-specific grenades and beacons, headshot and disarm mechanics, EMP shutdowns, and large-scale Medium fortifications alongside Assault superweapons like the FGC-9000 and Nuke Pack. Matches play on standard Tribes CTF, C&H, and objective maps with per-mission high score tracking and automated team-kill enforcement.",
+  "notes": [
+   "Five specialized armor classes replace Insane's gimmick suits: Scout (speed 20, 3 weapons) handles capping, recon packs, Laser/DeathLaser sniping, and the deployable Interceptor Pack; Light (speed 15 male / 11 female, 4 weapons) runs Sniper Rifle, Shotgun, Plasma Gun, and Sniper Pads; Medium (speed 12 male / 8 female, 5 weapons, 8 mines, 0.6x plasma damage) is the sole builder/engineer with Railgun, Rocket Launcher, Command Laptop, Outpost, Teleporters, Force Fields, and all turrets; Heavy (speed 8, 6 weapons, 1.32 maxDamage) carries Mortar, Rocket Launcher, Vulcan, and EMP Grenade Launcher; Assault (speed 5, 6 weapons, 1.32 maxDamage, 0.5x bullet/sniper damage) is the slowest juggernaut with exclusive FGC-9000 and Nuke Pack access.",
+   "Grenades and Beacons change behavior by armor: pressing Grenade throws a Handgrenade in Scout, a Concussion grenade in Light, a cluster Firebomb in Medium, a Mortarbomb in Heavy, and a large-shockwave Nukebomb in Assault. Pressing Beacon throws a Speed Booster mine in Scout or Light, deploys a Plasma Turret Decoy in Medium, and throws an Assaultbomb (spawning a MortarBomb) in Heavy or Assault.",
+   "High-lethality combat twists reward precision and target selection: Laser Rifle and Sniper Rifle headshots deal heavy bonus damage (up to 2x Sniper or +150 percent Laser on Heavy and Assault), and Laser Rifle hits to an enemy's front-right torso disarm their held weapon. Shooting an enemy's torso with a Sniper or Laser detonates a worn Nuke Pack, while hitting an FGC-9000 Pack for over 0.25 damage has a 20 percent chance to blow up the wearer.",
+   "Expanded arsenal includes the Shotgun (15-pellet spread), spinning Vulcan minigun, high-velocity Railgun, Rapidfire Laser Rifle (DeathLaser), Heavy EMP Grenade Launcher (drains energy to 0 and halts recharge for 10 seconds), and Assault FGC-9000 (launches cluster-nuke mortar shells when paired with the FGC-9000 Pack).",
+   "Six fliers are available at Vehicle Stations (Scout, Interceptor/Jet, Marauder, LAPC, Gunship, and HAPC), but only Scout and Light armors can pilot them (female Scout uses fsarmor while the vehicle check looks for sfemale, blocking female Scouts from piloting); Medium, Heavy, and Assault armors ride as passengers and launch out with armor-scaled jump impulse.",
+   "Medium engineers build complete forward bases: OutpostPack deploys a walled bunker with auto-opening Force Field Doors and a generator; Teleport Pads (2 per team) link for two-way travel with 2 to 15 second armor-scaled cooldowns (blocking flags, FGC Packs, and Nuke Packs) alongside Teleport Decoys; Springboards catapult players; Light Sniper Pads deploy a platform with an attached Remote Ammo Station; Seed Packs plant trees; and turret choices include Dissection (beam laser), Shock/ELF, Laser, Vulcan, Mortar, Plasma, Missile, Rocket Battery, Indoor, and Camera turrets.",
+   "Station and map rules keep pacing fast: Team Energy defaults to Infinite, deployable Inventory and Ammo stations allow any team to use them, and main base Inventory Stations eject lingering players after 20 seconds ($Pantheon::StationKickTime). Leaving the mission boundary kills players after 20 seconds, and Heavy/Assault armors cannot pick up Repair Kits within 125m of their own flag.",
+   "No custom chat #commands are present; players use standard Tribes binds and the Tab Options menu to switch teams, toggle personal versus team skins, mute players, vote on kicks, or use Insomniax-based admin tools. An automatic anti-team-kill system deducts 5 points per TK and auto-kicks offenders at 3 team kills ($Pantheon::tkLimit = 3, $Pantheon::tkServerLvl = 3).",
+   "Explicit bans and remote limits ($InvList = 0, $RemoteInvList = 0, $TeamItemMax = 0): Deployable Command Stations (DeployableComPack) and Plasma Turret Decoy Packs are banned at main Inventory Stations, Proximity Alarms are disabled ($TeamItemMax = 0 due to a 1.02 bug), and Remote Inventory Stations block FGC, FGCAmmo, FgcPack, OutpostPack, Missile/Plasma/DumbRocket turret packs, and omit the Nuke Pack.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): DeployableComPack (station.cs), PlasmaTurretDecoyPack (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): DumbRocketPack (station.cs), FGC (station.cs), FGCAmmo (station.cs), FgcPack (station.cs), OutpostPack (station.cs), PlasmaPack (station.cs), RocketPack (station.cs)."
+  ]
+ },
+ "items": {
+  "FGC": {
+   "summary": "Assault-exclusive super mortar (FGC-9000) that drops cluster nukes on impact but risks detonating on the wearer's back.",
+   "notes": [
+    "Restricted to Assault Armor (aarmor) and requires FgcPack mounted in the backpack slot to fire.",
+    "Fires FgcShell rounds (damage 1.7, 20m radius) that spawn 5 waves of Nuke1, Nuke2, and Nuke3 cluster mines after 2 seconds.",
+    "Banned at deployable inventory stations ($RemoteInvList = 0 for FGC, FGCAmmo, and FgcPack) and capped at 2 FgcPacks per team.",
+    "Taking more than 0.25 damage while wearing FgcPack has a 20 percent chance to detonate the pack and blow up the wearer."
+   ],
+   "source": "item.cs, ArmorData.cs, baseProjData.cs, player.cs, station.cs"
+  },
+  "SuicidePack": {
+   "summary": "One-per-team tactical Nuke Pack carried by Assault Armor that levels a 300m radius after a 20-second countdown.",
+   "notes": [
+    "Restricted to Assault Armor (aarmor), priced at 20000, omitted from remote inventory lists, and capped at 1 per team per map ($Pantheon::NumberOfNukes).",
+    "Deploying throws an AtomGrenade with a 20-second fuse ($Pantheon::NukeDetTime) that broadcasts a map-wide alert and blasts a 300m radius for 250 damage.",
+    "Enemy Laser Rifle or Sniper Rifle hits to the wearer's torso detonate the worn Nuke Pack immediately as a Suicidebomb.",
+    "Cannot be carried through Deployable Teleporters."
+   ],
+   "source": "item.cs, Mine.cs, player.cs, staticshape.cs, Pantheon.cs"
+  },
+  "OutpostPack": {
+   "summary": "Medium-only prefab bunker pack that builds an enclosed, powered forward outpost in one placement.",
+   "notes": [
+    "Restricted to Medium Armor (marmor, mfemale), priced at 6000, capped at 2 per team, and banned at remote inventory stations ($RemoteInvList = 0).",
+    "Deploys on flat terrain, BlastWalls, or DeployablePlatforms, creating BlastWall walls and roof, an OutpostFloor, two team-locked ForceFieldDoorShape doors, and an OutpostGen."
+   ],
+   "source": "item.cs, staticshape.cs, ArmorData.cs, station.cs, Pantheon.cs"
+  },
+  "MechPack": {
+   "summary": "Scout-only Interceptor Pack that deploys a personal Ion-Bolt fighter jet directly in the field.",
+   "notes": [
+    "Restricted to Scout Armor (sarmor, fsarmor), priced at 600, and shares the 3-per-team Jet/Interceptor cap.",
+    "Deploys a flyable Jet flier (map name Mech Robot) on flat ground or building surfaces, armed with rapid-fire IonBolts (0.05s reload, 80 maxSpeed)."
+   ],
+   "source": "item.cs, vehicle.cs, ArmorData.cs, Pantheon.cs"
+  },
+  "Laptop": {
+   "summary": "Command Laptop backpack that lets Medium engineers take remote control of team turrets in the field.",
+   "notes": [
+    "Restricted to Medium Armor (marmor, mfemale) and priced at 650.",
+    "Overrides the Command Station check in Client::takeControl so the wearer can remotely operate friendly turrets from anywhere."
+   ],
+   "source": "item.cs, player.cs, ArmorData.cs, station.cs"
+  },
+  "EMPGrenadeLauncher": {
+   "summary": "Heavy-only launcher firing 40m-radius EMP shells that strip enemy energy and halt recharge for 10 seconds.",
+   "notes": [
+    "Restricted to Heavy Armor (harmor) and priced at 475 using EMPGrenadeAmmo.",
+    "Fires EMPGrenadeShell (40m radius, -50 inward kickback, 0.01 direct damage) which triggers Pantheon_startEMP on players, zeroing energy and blocking recharge for 10 seconds."
+   ],
+   "source": "item.cs, baseProjData.cs, player.cs, ArmorData.cs"
+  }
+ }
+}

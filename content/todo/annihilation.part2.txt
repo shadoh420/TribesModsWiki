@@ -1,0 +1,86 @@
+  TRocketLauncherAmmo (TRocketLauncher Ammo): new
+  TRocketLauncher (Tank Rocketgun): new
+  TankRPGAmmo (RPG Ammo): new
+  TankRPGLauncher (Tank RPG): new
+  TankShredderAmmo (Tank Shredder Ammo): new
+  TankShredder (Tank Shredder): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  VulcanAmmo (Vulcan Bullet): new
+  Vulcan (Vulcan): new
+  VulcanEjector (Ejector): new
+  MinigunAmmo (Minigun Bolts): new
+  Minigun (Minigun): new
+  Minigun2 (Minigun2): new
+  Minigun3 (Minigun3): new
+  ThumperAmmo (Thumper ammo): new
+  Thumper (Thumper): new
+  Slapper (Slapper): new
+  GravityGun (Gravity Gun): new
+  AmmoPack (Ammo Pack): stats+scripts
+  ChameleonPack (Chameleon Pack): new
+  Laptop (Laptop): new
+  EnergyPack (Energy Pack): stats+scripts
+  GhostArmor (Ghost): new
+  GhostPack (Ghost Pack): new
+  GhostPack2 (gpack): new
+  GhostPack3 (Ghost Pack): new
+  SensorJammerPack (Sensor Jammer Pack): stats+scripts
+  NovaPack (Nova Pack): new
+  PhaseShifterPack (Phase Shifter): new
+  RegenerationPack (Troll Pack): new
+  RepairPack (Repair Pack): stats+scripts
+  Airstrike (Airstrike): new
+  AirstrikePack (Airstrike Pack): new
+  ShieldPack (Shield Pack): stats+scripts
+  StealthShieldPack (StealthShield Pack): new
+  SuicidePack (Suicide DetPack): new
+  FlameTurretPack (Flame Turret): new
+  FusionTurretPack (Fusion Turret): new
+  TurretPack (Ion Turret): renamed+stats+scripts
+  IrradiationTurretPack (Irradiation Cannon): new
+  LaserTurretPack (Laser Turret): new
+  RocketPack (Missile Turret): new
+  MortarTurretPack (Mortar Turret): new
+  NeuroTurretPack (Neuro Basher): new
+  NuclearTurretPack (Nuclear Turret): new
+  PlasmaTurretPack (Plasma Turret): new
+  ShockTurretPack (Shock Turret): new
+  vortexTurretPack (Vortex Turret): new
+  ScoutVehicle (Fighter): renamed+stats
+  InterceptorVehicle (Interceptor): new
+  LAPCVehicle (Bomber): renamed+stats
+  TransportVehicle (Transport): new
+  AirBasePack (Air Base): new
+  BigCratePack (Big Crate): new
+  BlastWallPack (Blast Wall): new
+  BunkerPack (Deployable Bunker): new
+  SpringPack (Starwolf Springboard): new
+  AcceleratorDevicePack (Starwolf Accelerator): new
+  CameraPack (Camera): stats+scripts
+  ControlJammerPack (Control Jammer): new
+  TransportPack (Transport Vehicle): new
+  InterceptorPack (Interceptor Pack): new
+  ForceFieldPack (Force Field): new
+  ForceFieldDoorPack (Force Field Door): new
+  JailTower (Jail Tower): new
+  JumpPadPack (Jump Pad): new
+  LargeForceFieldPack (Large Force Field): new
+  LargeForceFieldDoorPack (Large Force Field Door): new
+  MobileInventoryPack (Mobile Inventory): new
+  MotionSensorPack (Motion Sensor): stats+scripts
+  PlasmafloorPack (Plasma Floor): new
+  PlatformPack (Deployable Platform): new
+  PortableGeneratorPack (Portable Generator): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  PortableSolarPack (Portable Solar Panel): new
+  PulseSensorPack (Pulse Sensor): stats+scripts
+  CatPack (Deployable Cat): new
+  DeployableSensorJammerPack (Sensor Jammer): stats+scripts
+  TeleportPack (Teleport Pad): new
+  GunShipPack (Gun Ship Beacon): new
+  SurveyDroidPack (Survey Droid): new
+  ProbeDroidPack (Probe Droid): new
+  SuicideDroidPack (Suicide Droid): new
+  Beacon (Beacon): stats+scripts
+  Grenade (Grenade): stats+scripts
+  MineAmmo (Mine): stats+scripts

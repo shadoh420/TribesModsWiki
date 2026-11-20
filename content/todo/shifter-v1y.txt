@@ -1,0 +1,39 @@
+shifter-v1y: 38 of 193 need write-ups
+  PlasmaGun (Plasma Gun): scripts
+  Mortar (Mortar): scripts
+  DiscLauncher (Disc Launcher): scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  RocketLauncher (Rocket Launcher): scripts
+  TranqGun (Dart Rifle): stats
+  IonGun (Ion Rifle): stats
+  Fixit (Engineer Repair-Gun): scripts
+  GravGun (Grav Gun): scripts
+  EnergyPack (Energy Pack): scripts
+  RepairPack (Repair Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): scripts
+  StealthShieldPack (StealthShield Pack): scripts
+  RegenerationPack (Regeneration Pack): scripts
+  FlightPack (Flight Pack): scripts
+  SuicidePack (Suicide DetPack): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  HoloPack (Hologram): stats+scripts
+  PlantPack (Healing Plant): scripts
+  MechPack (Interceptor Pack): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  AirAmmoPad (Air Ammo Pad): scripts
+  airbase (Air Base): renamed+stats+scripts
+  Hackit (Engineer Hack-Gun): scripts
+  DisIt (Engineer Disassymbler-Gun): scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  RepairPatch (Repair Patch): scripts
+  LasCannon (Gattling Laser Cannon): scripts
+  HammerAmmo (GodHammer Ammo): renamed+stats
+  Hammer1Pack (GodHammer Cannon): renamed+stats+scripts
+  Hammer2Pack (God Hammer Cannon 2): stats+scripts
+  ShockForceFieldPack (Small Shock Force Field): new
+  Boomer (Boomer): scripts

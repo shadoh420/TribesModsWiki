@@ -1,0 +1,63 @@
+{
+ "mod": {
+  "overview": "ANARCHY Mod 2.0 is an aggressive, combat-heavy evolution of Renegades Classic created by DRONE1000 and documented by Plasmatic for Tribes 1.50. The core gameplay loop blends objective warfare in Capture the Flag, Capture and Hold, and Defend and Destruct with combined-arms skirmishes where every soldier spawns fully armed in medium combat armor. Compared to its parent mod, Anarchy accelerates match tempo through touch-based class passives, debilitating status ailments like burning and poison, shoulder-mounted heavy weapons, and deployable base defenses. A dedicated Deathmatch mode strips away standard base setups, dropping every player into ultra-fast Combat Armor with personal inventory packs to battle for high kill-to-death efficiency ratios under strict mission boundary timers.",
+  "notes": [
+   "Classes and Roles: Eight distinct armor classes define battlefield roles across varying movement speeds and weapon limits. Light armors include the Spy (3 weapons, sensor invisible, completely silent jets and footsteps) and the Sniper (3 weapons, crouching recon and precision rifles). Medium armors include the Mercenary (5 weapons, standard spawn loadout), the explosive-resistant Burster (4 weapons, immune to fire, capable of sprinting with speed boosters), the builder Engineer (4 weapons, automatically repairs teammates upon contact), and the energy-heavy Striker (4 weapons, immune to poison, drains enemy health on contact). Heavy juggernauts include the Cyborg (up to 6 weapons and heavy cannons) and the massive Golem (mass 25, 300 energy, heavy damage resistances, but unable to crouch and highly vulnerable to EMP or taser fire).",
+   "Class Active Powers and Beacon Utility: The Beacon item serves as the trigger for unique class active abilities rather than a simple map beacon. Using a beacon activates distinct class powers: Bursters gain a Haul-Ass speed boost to 20 forward speed while taking minor landing damage; Mercenaries drop Speed Booster launch pads; Strikers activate sensor cloaking; Cyborgs and Golems project emergency force shields; Heavies prime timed plastique bombs; Snipers drop sensor jammers; Engineers deploy cameras; Scouts drop pulse sensors; and Spies plant remote satchels.",
+   "Status Effects and Tactical Combat: Weapon types apply persistent status effects that disrupt standard infantry battles. Energy weapons inflict nerve poison that deals damage over thirty seconds unless cured with repair patches; plasma projectiles have a fifty percent chance to ignite victims into sustained burn damage; and EMP or flash damage causes short circuits that disarm weapons, drain energy, and halt energy regeneration for fourteen seconds. High-precision laser shots to an enemy arm can disarm their current weapon, direct headshots inflict thirty percent bonus damage, and shooting an enemy suicide pack immediately detonates the bomb on their back.",
+   "Flexible Grenades and Base Deployables: The Plastique hand item cycles throwables across six grenade modes on a half-second delay, including Normal, Fire, Shock, Poison, Mortar, and Concussion explosives. Engineers command an extensive defensive toolkit comprising remote ion, plasma, vulcan, rail, rocket, shock, and flame turrets, mobile teleportation pads, jump spring pads with unpredictable vertical launch tiers, deployable platforms, camouflage trees, and force field doors that only Engineers and Spies can open when placed by an enemy team.",
+   "Shoulder Weapons and Tech Packs: Equipment packs provide active fire support, including shoulder-mounted heavy ordnance like the Cybernetic Laser, Rocket Cannon, and Hell Fire vulcan that fire independently from normal weapon cycling. Players can also deploy battlefield gear such as the Laptop to hack and take manual control of enemy turrets, mobile vehicle deployment packs that summon aircraft directly in the field, and the strategic NewNukebomb that generates a catastrophic three-hundred-meter explosion unless disarmed by an Engineer.",
+   "Vehicle Fleet and Flight Restrictions: Five aircraft support combined-arms warfare: the rocket-equipped Scout, the high-speed Vulcan Jet interceptor, the cloaked Wraith stealth flyer that conceals both craft and pilot from radar and sight, the twin-passenger LAPC bomber dropping mortar shells, and the armored four-passenger Stealth HAPC. Flight controls are strictly restricted to light armors and Engineers; attempting to mount any vehicle in medium or heavy armor from an inventory station triggers an immediate anti-cheat execution.",
+   "Economy, Bans, and Station Rules: Standard inventory stations and remote stations explicitly ban several experimental or developmental items by setting InvList to zero, including the shoulder-mounted NukePack, NukeRocketAmmo, Omega cannon, Boost bot spawner, and normal purchase of CArmor and Plastique. Station consoles feature grief protection preventing teammates from shooting or shoving players out of menus, coupled with an automatic ejection timer between twenty and sixty seconds to ensure fair console access.",
+   "Deathmatch Mechanics and Out of Bounds: In dedicated Deathmatch and Team Deathmatch missions, standard stations are bypassed and all players spawn in Combat Armor equipped with chainguns, disc launchers, blasters, beacons, and portable deployable inventory stations. Score tracking emphasizes kill-to-death efficiency percentages once players exceed four combined engagements, and straying outside the commander map boundaries triggers a lethal warning countdown that inflicts escalating damage until the player re-enters the combat zone.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Boost (station.cs), DMArmor (station.cs), EnergyRifle (station.cs), FgcPack (station.cs), NukePack (station.cs), NukeRocketAmmo (station.cs), Omega (station.cs), Plastique (station.cs)."
+  ]
+ },
+ "items": {
+  "GolemArmor": {
+   "summary": "A colossal super-heavy armor with massive damage resistances and 300 energy capacity at the expense of mobility.",
+   "notes": [
+    "Super-heavy tank armor featuring 300 maximum energy and eighty to ninety percent resistance against most kinetic and explosive damage.",
+    "Extremely slow with a top forward speed of 3.5, completely unable to crouch, and highly vulnerable to EMP and taser attacks.",
+    "Serves as the exclusive carrier capable of equipping and deploying the NewNukebomb backpack."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "NewNukebomb": {
+   "summary": "A deployable nuclear warhead with a ten-second timer and a devastating 300-meter lethal radius.",
+   "notes": [
+    "Heavy backpack munition carried exclusively by Golem armor that deploys a timed nuclear warhead.",
+    "Detonates on a ten-second countdown, producing a massive explosion that deals 50 damage across a 300-meter blast radius.",
+    "Engineers can attempt to disarm the device by touching it, though a twenty percent failure chance results in premature detonation."
+   ],
+   "source": "item.cs"
+  },
+  "Laptop": {
+   "summary": "An electronic warfare backpack that reprograms enemy deployable turrets on physical contact.",
+   "notes": [
+    "Backpack utility available to Spies and Engineers for field electronic intrusion.",
+    "Physical collision with an enemy deployable turret converts the turret to the user team and grants immediate remote turret control.",
+    "Automatically disarms the player weapon slot and incurs a fourteen-second cooldown before another turret can be commanded."
+   ],
+   "source": "turret.cs"
+  },
+  "Plastique": {
+   "summary": "A grenade cycling item that switches throwing explosives between six elemental and tactical payloads.",
+   "notes": [
+    "Handheld utility item that toggles grenade projectile behavior across six different modes on a half-second cooldown.",
+    "Switches between Normal, Fire, Shock, Poison, Mortar, and Concussion grenade variants.",
+    "Banned from regular station purchasing lists and supplied specifically in Deathmatch or custom equipment profiles."
+   ],
+   "source": "item.cs"
+  },
+  "NukePack": {
+   "summary": "A shoulder-mounted tactical nuclear launcher explicitly banned from standard inventory station purchases.",
+   "notes": [
+    "Shoulder-mounted cannon pack that fires tactical nuclear artillery shells using NukeRocketAmmo.",
+    "Explicitly banned on all standard base and remote inventory stations by having InvList and RemoteInvList set to 0.",
+    "Automated fire triggers from the backpack slot while equipped on compatible heavy frames."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

@@ -1,0 +1,18 @@
+# squadmod-alpha vs base (17 items)
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+renamed+statsGrenadeAmmo                  GrenadeAmmo
+renamed+statsMortarAmmo                   MortarAmmo
+stats      Mortar                       Mortar
+stats      EnergyRifle                  ELF Gun
+new        RocketAmmo                   Rockets
+new        RocketLauncher               Stinger
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+scripts    EnergyPack                   Energy Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPack                     Ammo Pack
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Turret
+scripts    Beacon                       Beacon

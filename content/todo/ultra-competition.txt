@@ -1,0 +1,63 @@
+# ultra-competition vs ultra-renegades-vx5 (62 items)
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+new        Verm                         Verminator
+stats      PlasmaGun                    Plasma Gun
+renamed+statsGrenadeAmmo                  GrenadeAmmo
+stats      GrenadeLauncher              Grenade Launcher
+renamed+statsMortarAmmo                   MortarAmmo
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+stats+scriptsLaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+stats      EnergyRifle                  ELF Gun
+new        VEEnergyRifle                ELF Gun
+new        RifleAmmo                    IX-2000 Ammo
+new        SniperRifle                  IX-2000 Sniper Rifle
+new        MayhemAmmo                   IX-2000 Ammo Mayhem
+new        AssaultRifle                 IX-2000 Mayhem Rifle
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      Railgun
+new        FFBAmmo                      FFB Ammo
+new        FFBLauncher                  Force Field Buster
+stats      TaserRifle                   Taser Rifle
+stats      SpellAbility                 Spell
+stats      LiLPOOmki                    LiL POO mki
+stats      LiLPOOmkii                   LiL POO mkii
+stats      LiLFFB                       LiLForce Field Buster
+stats+scriptsLiLRocketLauncher            LiLRocket Launcher
+stats+scriptsLiLEMPRocketLauncher         LiLEMPRocket Launcher
+stats      BeamOfPain                   Beam Of Pain
+new        RocketAmmo                   Rockets
+new        RocketLauncher               Rocket Launcher
+new        CloakGun                     Cloaking Gun
+new        DaBombPack                   Da Bomb!
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+new        ForceFieldPack               Small Force Field
+new        LargeFieldPack               Large Force Field
+stats      EnergyPack                   Energy Pack
+stats+scriptsShieldPack                   Shield Pack
+renamed+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPack                     Ammo Pack
+new        FakeFlagPack                 Fake Flag Pack
+new        StealthShieldPack            StealthShield Pack
+scripts    CameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Sentry Turret
+new        LilTurretPack                LiL Turret
+new        RocketPack                   Rocket Turret
+scripts    LaserTurretPack              Laser Turret
+renamed+statsTaserTrtBPack                Tracking Turret
+scripts    TaserTrtCPack                Tracking Turret
+scripts    LaserTurretBPack             Mini-Plasma Turret
+scripts    MiniFlakTurretPack           Mini-Flak Turret
+scripts    MiniSAMTurretPack            Mini-S.A.M Turret
+scripts    MiniELFTurretPack            Mini-ELF Turret
+scripts    TeleportPack                 Teleport Pad
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+scripts    RepairPatch                  Repair Patch
+scripts    RadiusMineAmmo               Radius Mine
+scripts    FlashGrenade                 FlashGrenade
+scripts    VXGasAttackAmmo              VX Gas Attack

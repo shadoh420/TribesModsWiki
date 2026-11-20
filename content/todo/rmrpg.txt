@@ -1,0 +1,4 @@
+# rmrpg vs base (3 items)
+stats+scriptsRepairPatch                  Repair Patch
+new        LootBag                      Backpack
+new        Orb                          Orb Model

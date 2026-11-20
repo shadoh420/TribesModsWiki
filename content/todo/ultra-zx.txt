@@ -1,0 +1,83 @@
+ultra-zx: 99 of 108 need write-ups
+  LightArmor (Light Suit): renamed+stats
+  MediumArmor (Medium Suit): renamed+stats
+  HeavyArmor (Heavy Suit): renamed+stats
+  ScoutVehicle (Brawler Assault): renamed+stats
+  MercJetVehicle (Mercenary Jet-Bike): new
+  LAPCVehicle (Star Destroyer): renamed+stats
+  HAPCVehicle (Hover Tank): renamed+stats
+  LaserRifle (Laser Gat): renamed+stats
+  TaserRifle (Taser Rifle): new
+  FireballAbility (Fire Ball): new
+  SmScreenAbilityAmmo (Smoke Implants): new
+  SmScreenAbility (Smoke Screen): new
+  ExSmScreenAbilityAmmo (Lair Implants): new
+  ExSmScreenAbility (SplitWaster): new
+  FireScreenAbilityAmmo (FireWall Bombs): new
+  FireScreenAbility (Field Of Fire): new
+  SpellAbilityAmmo (Clones): new
+  SpellAbility (Clone Spell): new
+  VerminatorAmmo (Retaliator Bullet): new
+  Verminator (Retaliator): new
+  LiLPOOmkiAmmo (MayHeM Bullets): new
+  LiLPOOmki (IX-MayHeM): new
+  LiLPOOmkiiAmmo (Rail Bolts): new
+  LiLPOOmkii (IX-Railgun): new
+  IX2002Ammo (IX2002 Bullet): new
+  IX2002 (IX-2002): new
+  FEBAmmo (FEB Bullet): new
+  FEB (IX-FEB): new
+  ShotgunAmmo (BuckShot Shells): new
+  Shotgun (ShotGun): new
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  LiLFFBAmmo (Heavy Mortar Ammo): new
+  LiLFFB (Heavy Impact Mortar): new
+  NuclearAmmo (Nuclear Ammo): new
+  Nuclear (Nuclear Emitter): new
+  AtomizerAmmo (Atomizer Ammo): new
+  Atomizer (Atomizer): new
+  LiLRocketLauncherAmmo (LocK JaW Ammo): new
+  LiLRocketLauncher (LocK-JaW): new
+  LiLEMPRocketLauncherAmmo (Ion Trackers): new
+  LiLEMPRocketLauncher (Tracking Ion Cannon): new
+  BeamOfPain (Beam Of Pain): new
+  CloakGun (Cloaking-Gun): new
+  JailGun (Jail-Gun): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (StealthShield Pack): renamed+stats+scripts
+  CloakingDevice (Cloaking Device): new
+  MotionSensorPack (Motion Sensor): stats+scripts
+  BaseAlarm (Base Alarm): new
+  FABPack (Fabrication Pack): new
+  NuclearShieldPack (Nuclear Emitter Shield): new
+  CameraPack (Camera): stats+scripts
+  LaserTurretPack (Laser Turret): new
+  TurretPack (Ionic Turret): renamed+stats+scripts
+  TaserTrtBPack (Taser Turret): new
+  TaserTrtCPack (Tracking Turret): new
+  MaliceTurretPack (Chaingun Turret): new
+  LaserTurretBPack (Plasma Turret): new
+  MiniFlakTurretPack (Flak Turret): new
+  MiniSAMTurretPack (S.A.M Turret): new
+  MiniELFTurretPack (ELF Turret): new
+  MiniSmokeTurretPack (Grip Turret): new
+  lgaForceFieldPack (4x14 FFD): new
+  lgbForceFieldPack (4x14 FFD): new
+  medaForceFieldPack (4x8 FFD): new
+  medbForceFieldPack (5x5 FFD): new
+  medcForceFieldPack (3x4 FFD): new
+  ElectricWeb (Electric Web): new
+  ArbitorBoxPack (Arbitor Device): new
+  JailCapPack (Jail Capture Trap): new
+  jailpack (Jail Cell): new
+  RemoteBase (Remote Base): new
+  AirBasePack (Sky Base): new
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  RadiusMineAmmo (Radius Mine): new
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  RepairPatch (Repair Patch): stats+scripts
+  cactusPack (Flag Pack): new

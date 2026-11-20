@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Shifter 2K4 (ParoXsitiC's v0.8 release, assisted by Kill(--), Gonzo, Grey & Czar) is the direct precursor to Shifter 2K5, building on GreyFlcn's Shifter HC (v1G) with SBA duel support, weather/jet/teleport effects, recorded deployable loadouts, and reworked admin/server config modes.",
+  "notes": [
+   "Only 5 items differ from the wiki's later Shifter 2K5 build; relative to Shifter HC (v1G), 49 items are modified and SilencerAmmo is renamed to 'Silencer Bolt'.",
+   "Includes SBA_Duel.cs, AdminServerConfig.cs, AdminGameConfig.cs, equiptopts.cs, missionopts.cs, playerfuncs.cs, Nofog.cs, weather.cs, jeteffect.cs, and telexp.cs alongside v1G's split gundata.cs, packdata.cs, and deploydata.cs."
+  ]
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "mod": {
+  "overview": "Extreme (Jason Avina, February 2000) applies heavy anti-skiing traction and drag to Base Tribes, speeds up Blaster bolts, locks Scouts to Light Armor while opening APCs to Medium/Heavy, and prevents mines from hurting teammates in objective modes.",
+  "notes": [
+   "Anti-skiing physics (ArmorData.cs): raises drag 10x (1.0 -> 10.0), groundTraction 9-10x (3.0 -> 30.0 Light/Med, 4.5 -> 40 Heavy), and groundForce (to 99x mass) while lowering jumpImpulse (75 -> 60 Light, 110 -> 75 Med, 150 -> 100 Heavy). Also removes Grenade Launcher from Light Armor.",
+   "Gameplay changes: Blaster muzzleVelocity increases from 200 to 350 m/s; Vehicle::onCollision only restricts Scout piloting to Light Armor (allowing Medium/Heavy in LAPC/HAPC); AntipersonelMine::onCollision skips friendly/self-team detonation in CTF, D&D, C&H, and F&R missions."
+  ]
+ },
+ "items": {
+  "Blaster": {
+   "summary": "Blaster bolt muzzleVelocity increases from 200 m/s to 350 m/s while damage (0.125) and fire rate stay stock.",
+   "notes": [
+    "Makes Blaster shots noticeably easier to lead at mid-range."
+   ],
+   "source": "baseProjData.cs BlasterBolt"
+  },
+  "MineAmmo": {
+   "summary": "Mines ignore friendly players in CTF, D&D, C&H, and F&R missions.",
+   "notes": [
+    "Prevents teammates from accidentally tripping defensive mines on their own stand."
+   ],
+   "source": "Mine.cs AntipersonelMine::onCollision"
+  }
+ }
+}

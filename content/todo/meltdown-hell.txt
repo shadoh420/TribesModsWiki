@@ -1,0 +1,68 @@
+# meltdown-hell vs meltdown-2 (67 items)
+scripts    MineAmmo                     Mine
+stats+scriptsBlaster                      Blaster
+scripts    IonCannon                    Ion Cannon
+scripts    OmegaRifle                   Omega Rifle
+new        AlienLaser                   Alien Laser Rifle
+new        MaserRifle                   Maser Rifle
+scripts    VertigoCannon                GEP Gun
+scripts    Charger                      ELF Cannon
+scripts    MBCannon                     Mitzi Blast Cannon
+stats      ExtraEnergyA                 Protron
+stats      ExtraEnergyB                 Protron
+stats      ExtraEnergyC                 Protron
+scripts    EnergyGun                    Protron
+stats+scriptsGatB                         Gatling Blaster
+renamed+stats+scriptsGauss                        Sara's Gauss Gun
+scripts    BabyNukeMortar               FireBomb
+stats+scriptsStasisCannon                 Smoke Bomb Launcher
+stats      DualDisc2                    TwinFusor
+scripts    AODStinger                   Missile Launcher
+scripts    RPGLauncher                  RPG
+renamed+statsMrpgAmmo                     RPGs
+renamed+stats+scriptsMrpgLauncher                 MECHRPG
+stats      MrpgLauncher2                MECHRPG
+stats      MrpgLauncher3                MECHRPG
+stats      MrpgLauncher4                MECHRPG
+scripts    RPMLauncher                  RPM
+scripts    RPEMPLauncher                RPEMP
+stats+scriptsLaserPistol                  Laser Pistol
+renamed+statsLaserRifle                   HP Laser Rifle
+stats      PBW                          Particle Beam (PBW)
+scripts    LasCannon                    Death Ray
+scripts    DartGun                      Poison Dart Rifle
+new        ARAmmo                       Assault Bullets
+new        AR                           Assault Rifle
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      80MM RailGun
+renamed+statsRailGun2                     60MM RailGun
+renamed+statsscope                        60MM RailGun
+renamed+statsRifle                        60MM RailGun
+renamed+stats+scriptsMassDriver                   40MM Sniper Rifle
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  20MM SkySnip Rifle
+scripts    AAODSniperX                  HP Sniper Rifle
+stats      Reassembler                  Reassembler
+stats      EnergyPack                   Energy Pack
+new        Reactor                      Mini-Reactor
+stats      GravFieldPack                Gravitron Field Pack
+scripts    AODShieldNode                Remote Shield Node
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+new        ConPack                      GuardDog Turret
+renamed+stats+scriptsTeleportPack                 Teleport Pad
+stats      AODShieldGen                 Shield Generator
+scripts    DShieldPack                  Enhancement Beacon
+new        doorthreebyfourForceFieldPack3x4 Forcefield
+scripts    doorfivebyfiveForceFieldPack 5x5 Forcefield
+scripts    doorfourbyeightForceFieldPack4x8 Forcefield
+scripts    BlastDoor                    Blast Door
+scripts    BlastFloor                   Blast Floor
+new        ObeliskPack                  Obelisk of Death
+new        ObeliskPowerPack             Obelisk Power Source
+new        BNukePack                    Baby Nuke Pack
+new        NukePack                     Nuke Pack
+scripts    MiniBase                     Mini-Base
+new        AccelPPack                   Accel Pad
+new        jailpack                     Jail
+new        JailCapPack                  Jail Capture Pad

@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "HaVoC is an expansive class-based total conversion mod for Starsiege: Tribes created by Nathan Sweet, widely expanding the original game into combined-arms tactical warfare. Players choose from ten specialized armor classes ranging from stealthy Spies and hacking Infiltrators to deployable-heavy Engineers and weapon-laden Behemoth juggernauts. The gameplay loop revolves around high-speed aerial movement, base fortification, and coordinated assaults augmented by player-piloted guided missiles, reconnaissance drones, wall-sticking mines, and class-specific grenade capabilities. Compared to base Tribes, combat is sharper and more diverse, featuring ambient lightning strikes that actively handicap runaway teams and comprehensive round-based elimination in Tribes Arena, dedicated 1v1 Duels, high-speed vehicle racing in Tribes Racer, and fast-paced Flag Hunter matches.",
+  "notes": [
+   "Ten distinct armor classes define player roles: Scout (rapid 2-weapon recon), Spy (3-weapon cloaked assassin with timed plastique explosives), Sniper (3-weapon marksman with decoy holograms and optical zoom), Mercenary (versatile 5-weapon frontline combatant), Burster (4-weapon incendiary trooper with firebombs and wall mines), Infiltrator (3-weapon saboteur with silenced magnums and gas grenades), Engineer (3-weapon defensive builder able to deploy turrets, teleport pads, air ammo pads, and guided missile stations), Behemoth (heavily armored 6-weapon juggernaut with health regeneration and shoulder missile salvos), Cyborg (6-weapon damage-resistant mechanized unit throwing mortar bombs), and DeathMatch (specialized 4-weapon dueling class).",
+   "Players open the HaVoC options menu using their game menu key. Selecting another player opens context actions to observe, initiate kick or admin votes, or set up private messaging via the Speak To feature. Entering an equals sign followed by text in chat sends a private whisper to the designated Speak To target, while super admins can broadcast centered private whispers or server-wide centerprint announcements. Pressing the objectives key opens game-specific rules and scoring guidelines.",
+   "Grenade usage is tied to armor class: Snipers generate standing hologram decoys, Scouts throw concussion grenades, Engineers throw EMP grenades, Infiltrators toss blinding smoke, Spies plant 15-second timed plastique charges, Bursters fling firebombs, Behemoths launch shoulder missile salvos, and Cyborgs lob mortar shells. Mines can be thrown into open air or anchored directly to walls and ceilings as Stick Mines when deployed at close proximity. Status ailments include Poison (inflicts periodic health damage, visual disruption, and station lockouts until cured with an Antidote patch or repair unit) and EMP Shock (disables jetpack energy recharge).",
+   "Engineers can deploy a Missile Control Station composed of a firing turret and control console. Teammates load specialized missile backpacks into the station, including EMP, Vortex, Toxin, Phoenix, Tomahawk, Napalm, Cluster Bomb, or HaVoC Missiles. Taking control of the station console and pressing jump launches the missile, transferring direct flight steering to the player to pilot the missile directly into target fortifications. Players can also deploy and fly remote-controlled aerial surveillance drones and repair drones.",
+   "Players carrying the Command Laptop can walk up to enemy automated base and deployable turrets to hack and reprogram them for their own team, or commandeer friendly turrets for direct manual aim without requiring a main base command station. Additional specialized equipment includes Flag Decoys that mount a fake flag to draw defender fire, Springboard bounce pads that launch players across massive distances, floating Air Ammo Pads that establish aerial resupply stations, and Cloaking Devices that conceal stationary team defenses.",
+   "Full team damage is enforced by default. The Eye for an Eye system punishes teamkillers who exceed the teamkill limit by reflecting two to three times the damage dealt back onto the offender, culminating in automatic execution and victim-initiated kick votes. Newly spawned players receive FairSpawn protection for seven seconds, invalidating kill credit and scores for spawn campers. Damaging friendly base assets triggers warnings and kicks under the Base Kill Limit. Explicit vehicle restrictions disable the Spitfire, Hurricane, Tomahawk, Hellfire, and Thunderbolt vehicles alongside Tripwire packs in Tribes Racer, while Behemoth and Cyborg armors are banned in Tribes Arena.",
+   "Configurable ambient lightning storms strike outdoor terrain near active players, incorporating a handicap system that actively targets members of the leading team when point differentials grow too large in CTF matches. Besides traditional team missions, HaVoC features Tribes Arena (round-based elimination where players fight until one team is wiped out), Duel and Duel Tournament modes (private 1v1 arenas with custom loadouts and anti-interference protections), Tribes Racer (point-to-point vehicle courses), Flag Hunter (collecting flags dropped from enemy corpses), and Kill the Rabbit.",
+   "HaVoC includes built-in AI support and bot pathing routines. Players can deploy training bots on demand through the Bot item in the miscellany menu or practice offline in dedicated training environments.",
+   "Additional station and team bans: Team limit zeroed ($TeamItemMax = 0): \"HellfireVehicle\"=0 (resetracer.cs), \"HurricaneVehicle\"=0 (resetracer.cs), \"SpitfireVehicle\"=0 (resetracer.cs), \"ThunderboltVehicle\"=0 (resetracer.cs), \"TomahawkVehicle\"=0 (resetracer.cs), TripwirePack=0 (item.cs)."
+  ]
+ },
+ "items": {
+  "CoolLauncher": {
+   "summary": "Deployable missile control station that allows players to load backpack missiles and launch them as steerable remotely piloted aerial weapons.",
+   "notes": [
+    "Deployable system exclusive to the Engineer class consisting of a missile turret and command console.",
+    "Players load the station with specialized backpack ordinance including EMP, Vortex, Toxin, Phoenix, Napalm, Tomahawk, Cluster, or HaVoC Missiles.",
+    "Stepping onto the console and pressing jump launches the missile and transfers full manual flight steering to the player to fly it into target installations."
+   ],
+   "source": "item.cs"
+  },
+  "Laptop": {
+   "summary": "Command backpack carried by Spies, Infiltrators, and Engineers that hacks enemy defensive emplacements and commandeers friendly turrets.",
+   "notes": [
+    "Walking into physical contact with an enemy deployed turret initiates automated hacking, transferring the turret to the hacker's team upon completion.",
+    "Spies require sixteen seconds to reprogram a turret, while Engineers and Infiltrators reprogram them in eight seconds.",
+    "Approaching enabled friendly turrets allows the user to assume direct manual firing control without needing a main base command station."
+   ],
+   "source": "item.cs"
+  },
+  "HDiscLauncher": {
+   "summary": "High-tier dual spinfusor weapon that mounts two staggered launcher barrels for rapid-fire disc bombardment.",
+   "notes": [
+    "Mounts two linked spinfusor barrels that alternate firing cycles, circumventing standard single-shot disc reload delays.",
+    "Uses specialized Hyper Disc ammunition and costs 250 credits at inventory stations.",
+    "Equippable by Scouts, Bursters, Behemoths, Cyborgs, Infiltrators, and DeathMatch armors, but unavailable to Mercenaries, Spies, and Engineers."
+   ],
+   "source": "item.cs"
+  },
+  "TPack": {
+   "summary": "Tactical mobility backpack that creates a stationary recall anchor and teleports the user back to it from anywhere across the battlefield.",
+   "notes": [
+    "First activation places an anchored recall field beacon on the ground while the player remains stationary.",
+    "Second activation initiates a fade-out sequence with travel delay proportional to distance, relocating the player back to the beacon position.",
+    "Completely depletes player energy upon arrival and requires a recharge cycle before another teleport field can be anchored."
+   ],
+   "source": "item.cs"
+  },
+  "SpringPack": {
+   "summary": "Deployable launch pad that catapults players skyward with immense vertical and forward momentum upon contact.",
+   "notes": [
+    "Constructs a deployable springboard pad that flings contacting players into the air with randomized extreme upward and forward velocity.",
+    "Includes humorous launch death and distance notifications such as visiting Jupiter or running out of springboard luck.",
+    "Can be safely disassembled and packed back up into an inventory pack by its original deployer."
+   ],
+   "source": "item.cs"
+  },
+  "Flagger": {
+   "summary": "Special espionage tool that mounts a deceptive glowing team flag onto the user's back to draw enemy fire and confuse base defenses.",
+   "notes": [
+    "Equipped in the special tool inventory slot and toggles on or off via weapon use.",
+    "Mounts a visible glowing flag onto the player's back flag slot when no real mission flag is carried.",
+    "Draws enemy chasers, defenders, and snipers away from actual flag runners during coordinated base assaults."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

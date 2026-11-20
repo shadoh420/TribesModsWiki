@@ -1,0 +1,41 @@
+# insomniax vs base (40 items)
+new        BomberVehicle                Firestorm Bomber
+new        SLAPCVehicle                 Stealth LPC
+new        RocketAmmo                   RocketAmmo
+new        RocketLauncher               Rocket Launcher
+new        EMPGrenadeAmmo               EMPGrenadeAmmo
+new        EMPGrenadeLauncher           EMP Grenade Launcher
+new        MagGun                       MAG Gun
+new        MagGun2                      MAG Gun
+new        RifleAmmo                    Rifle Ammo
+new        SniperRifle                  IX-2000 Sniper Rifle
+new        BoosterCharge                Booster Charge
+new        PyroCharge                   Pyro Charge
+new        Inferno                      Pyro-Torch
+new        ShotgunShells                Shotgun Shells
+new        Shotgun                      Shotgun
+new        LockingLaser                 Targeting Laser
+new        LongLockingLaser             Targeting Laser
+new        MediumLockingLaser           Targeting Laser
+new        ShortLockingLaser            Targeting Laser
+new        PhalanxxAmmo                 Phalanxx Ammo
+new        Phalanxx                     Phalanxx Cannon
+new        Phalanxx2                    Phalanxx Cannon
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+stats      ShieldPack                   Shield Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPack                     Ammo Pack
+scripts    PulseSensorPack              Pulse Sensor
+scripts    DeployableSensorJammerPack   Sensor Jammer
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Turret
+new        SentryPack                   Sentry
+new        AvengerPack                  Avenger
+new        FlakPack                     Flak Cannon
+new        ForceFieldPack               Small Force Field
+new        CloakingDevice               Cloaking Device
+new        HeatSink                     Heat Sink
+new        RocketBooster                Rocket Booster
+new        VengeanceAmmo                Vengeance Ammo
+new        Vengeance                    Vengeance Missile Pack

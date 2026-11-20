@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Top Gun v1.0 (Patriot, September 2002) forks DeltaForce v1.0 into an air-superiority conversion (104 items), banning all Base weapons/ammo/packs at stations and removing 4 ground vehicles plus 4 DeltaForce infantry classes in favor of 6 fixed-wing aircraft, a $2,000 buffed Warthog, and PilotArmor/SOCOM/Parachute spawns.",
+  "notes": [
+   "Air-focused roster & station bans vs DeltaForce: removes Apache, Blackhawk, Humvee, Abrams, Bradley, Infantry, Medic, Sniper, and Engineer armors, leaving 3 classes (Pilot, SpecOps renamed Paratrooper, Artillery renamed Engineer) and spawning players as PilotArmor + SOCOM + Parachute + RepairKit. Bans all 8 Base guns/ammos and packs via $InvList = 0 and zeroes removed ground gear ($ItemMax = 0 on Airstrike, GrappleHook/Pack, HowitzerPack, MP5, ReloaderPack, CameraPack).",
+   "Adds 6 aircraft (F/A-18 Hornet $1100, F-14 Tomcat $1500, F-16 Falcon $1000, F-15 Eagle $1100, B-52 Stratofortress $20000, C-130A Hercules $15000), buffs Warthog (price 900 -> 2000, HP 1.5 -> 7.0, speed 30 -> 45, bank/pitch 0.25 -> 0.7), boosts TOWMissile speed 50 -> 60, and renames SOCOM -> Colt 45, OICW -> M-16 Assault Rifle, TOW -> CALCM Cruise Missile."
+  ]
+ }
+}

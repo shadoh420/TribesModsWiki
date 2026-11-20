@@ -1,0 +1,66 @@
+# aaod vs bop (65 items)
+stats      MortarAmmo                   Mortar Ammo
+stats      Mortar                       Mortar
+scripts    LaserRifle                   Laser Rifle
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPack                     Ammo Pack
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Turret
+scripts    MineAmmo                     Mine
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+new        AODVehicle1                  HoverBike
+new        AODVehicle2                  Assault APC
+new        SniperXAmmo                  SniperX Ammo
+new        AODSniperX                   HP Sniper Rifle
+new        BeaconAmmo                   Beacon Ammo
+new        AODBeaconGun                 Beacon Gun
+new        BusterAmmo                   Bunker Buster Ammo
+new        AODBBuster                   Bunker Buster
+new        AODATPack                    Adv. Targeting Pack
+new        MissileAmmo                  Std Missile Ammo
+new        AODStinger                   Missile Launcher
+new        StasisAmmo                   Micro STASIS Shells
+new        AODStasisGun                 Stasis-Cannon
+new        ReaperAmmo                   Reaper Ammo
+new        AODReaper                    Reaper AutoCannon
+new        AODSuperRPack                Super-Repair Pack
+new        SuperR2Pack                  Super-Repair Pack
+new        AODCombo1Pack                Energy + Shield Pack
+new        Combo1APack                  COMBO 1 Energy/Shield Pack
+new        AODCombo2Pack                Energy + Jammer Pack
+new        AODCombo3Pack                Ammo + Energy Pack
+new        AODCombo4Pack                Repair + Energy Pack
+new        Combo4APack                  Energy COMBO Pack
+new        AODCmdPack                   Command BackPack
+new        AODGrogPack                  Chaingun Turret
+new        AODVelcroPack                Velcro Turret
+new        AODSamPack                   SAM Missile Turret
+new        AODInfernoPack               Inferno Defense Mine
+new        AODAAPack                    AA Missile Turret
+new        AODArtilleryPack             Artillery Turret
+new        AODMortPack                  MORT Turret
+new        AODAmbushAPPack              Ambusher Turret
+new        AODAmbushAAPack              Anti Air Ambusher
+new        AODForce1Pack                Small Force Field Lvl-1
+new        AODForce2Pack                Large Force Field Lvl-2
+new        AODForceDoorS                Small Force Door
+new        AODForceDoorL                Large Force Door
+new        AODDefender                  Defender Designator
+new        AODBunker                    Mobile Bunker
+new        AODBlastShield               Mobile BlastShield
+new        AODMobileInv                 Mobile Inventory Stn
+new        AODMobileGen                 Portable Generator
+new        AODPortaSolar                Portable Solar Panel
+new        AODPowerNode                 Remote Power Node
+new        AODSatPwrSys                 Satelite Power System
+new        AODShieldGen                 Shield Generator
+new        AODShieldNode                Remote Shield Node
+new        AODJumpPad                   Portable Jump Pad
+new        AODTeleporter                Mobile Teleporter Pad
+new        AODCounterBattery            Counter Battery Sensor
+new        AODTeamEGen                  Fabrication Generator
+new        AODSolarTEGen                Solar Eng-Generator
+new        AODAlarm                     Base Alarm system

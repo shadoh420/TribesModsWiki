@@ -1,0 +1,6 @@
+ultra-infinite: 8 of 79 need write-ups
+  LaserRifle (Laser Rifle): renamed+stats
+  Chaingun (Chaingun): renamed+stats
+  GrenadeLauncher (Grenade Launcher): renamed+stats
+  LiLRocketLauncher (LiL Rocket Launcher): stats+scripts
+  MineAmmo (Mine): scripts

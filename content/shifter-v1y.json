@@ -1,0 +1,287 @@
+{
+ "mod": {
+  "overview": "Shifter_v1Y (Yukichigai's 11-27-2004 release, building directly on the 12-06-2002 release) refines AI/bot compatibility, overhauls the Det Bug and Grav Gun tracking, adds Flag Hunter game-mode support (FlagHunter.cs), introduces the Small Shock Force Field pack, and rebalances Engineer/Arbitor/Assassin kits and GodHammer cannon velocity.",
+  "notes": [
+   "Adds FlagHunter.cs and $Shifter::Hunters (default false), along with $Shifter::InvoDropLimit, $Shifter::NewFairTeams, $Shifter::NoDropScripts, $Shifter::PowerCheck, and $Shifter::HaVoCNuke.",
+   "Adds $RefireDamageType scaling (1.0 across all nine armors) in damage.cs.",
+   "AI bot awareness added to PlasmaGun, Mortar, and RocketLauncher firing/use handlers (bots default to Spread Plasma, Mortar0, and Locking Rocket).",
+   "Class kit updates from the 2002-12-06 build: Assassin gains selectable grenades (%client.asngren: 0 Tranqgrenade, else HoloMine) and selectable beacons (%clientId.asnbeacon: 1 Detbomb with 3 s fuse, else Shuriken); Arbitor gains selectable grenades (%client.arbgren: 0 TeslaGren releasing 4-12 MiniFusionBolt sparks, else Tranqgrenade); DreadNaught always places LaserMine; Deathmatch armor throws Handgrenade.",
+   "Grav Gun tractor/repulse hits on enemies now tag the target with Shifter_startGravTracker (itemfuncs.cs) so kill credit tracks the Grav Gun user, and impulse is restricted to Player targets.",
+   "EngMissileLock (used by both Engineer Beacon 2 and DeployableSensorJammerPack) now checks $TeamItemCount against $TeamItemMax before deploying MJammer BeaconTwo."
+  ]
+ },
+ "items": {
+  "PlasmaGun": {
+   "summary": "Plasma Gun updated so AI bots automatically fire Spread Fire (mode 2).",
+   "notes": [
+    "Unlike the 2002-12-06 release, PlasmaGunImage::onFire checks Player::isAIControlled(%player) so bots use mode 2 (Spread Fire) instead of mode 0."
+   ],
+   "source": "item.cs PlasmaGunImage::onFire"
+  },
+  "Mortar": {
+   "summary": "Mortar updated with fixed mode-0 message condition, last-shell MDM tracking, and AI Mortar0 mounting.",
+   "notes": [
+    "Unlike the 2002-12-06 release, Mortar::onUse fixes the mode-0 check ('!%client.mortar || %client.mortar == 0', formerly '%client.rocket == 0') and mounts Mortar0 for AI-controlled players.",
+    "MortarImage::onFire tracks %client.lastMDM when firing the last shell in MDM mode so the final shell is only decremented upon detonation."
+   ],
+   "source": "itemmsgs.cs Mortar::onUse; item.cs MortarImage::onFire"
+  },
+  "DiscLauncher": {
+   "summary": "Disc Launcher storing the spawned projectile handle in %proj.",
+   "notes": [
+    "Unlike the 2002-12-06 release, DiscLauncherImage::onFire assigns the spawned DiscShell or DiscShell2 to %proj; firing behavior is unchanged."
+   ],
+   "source": "item.cs DiscLauncherImage::onFire"
+  },
+  "EnergyRifle": {
+   "summary": "ELF Gun rebalanced with lower drain/damage rates and Flash damage once the target runs out of energy for non-Arbitors.",
+   "notes": [
+    "Unlike the 2002-12-06 release, lightningCharge lowers damagePerSec from 0.22 to 0.18 and energyDrainPerSec from 100.0 to 80.0.",
+    "lightningCharge::damageTarget computes drain and damage dynamically from %enDrainPerSec * %timeSlice and %damPerSec * %timeSlice, and switches Arbitors (aarmor/afemale) to $FlashDamageType once the target's energy hits 0 while other armors continue dealing $ElectricityDamageType."
+   ],
+   "source": "baseProjData.cs lightningCharge, lightningCharge::damageTarget"
+  },
+  "RocketLauncher": {
+   "summary": "Rocket Launcher updated so AI bots always use Locking mode and flier locks resolve to the pilot.",
+   "notes": [
+    "Unlike the 2002-12-06 release, RocketImage::onFire forces mode 1 (Locking) for AI-controlled players and, when locking onto a Flier with a .driver, resolves %targetId and $los::object to the driver's player."
+   ],
+   "source": "item.cs RocketImage::onFire"
+  },
+  "TranqGun": {
+   "summary": "Dart Rifle swapping its item and image shapeFiles back to 'sniper' (item) and 'breath' (image).",
+   "notes": [
+    "Stat-only change from the 2002-12-06 release: TranqGun.shapeFile set to 'sniper' and TranqGunImage.shapeFile set to 'breath'."
+   ],
+   "source": "item.cs TranqGun, TranqGunImage"
+  },
+  "IonGun": {
+   "summary": "Ion Rifle with slightly longer IonBolt flight time.",
+   "notes": [
+    "Stat-only change from the 2002-12-06 release: IonBolt totalTime increased from 0.5 to 0.6."
+   ],
+   "source": "baseProjData.cs IonBolt"
+  },
+  "Fixit": {
+   "summary": "Engineer Repair-Gun scaling repair rate on heavy structures.",
+   "notes": [
+    "Unlike the 2002-12-06 release, RepairBolt::onAcquire sets %player.repairRate to maxDamage / 30 whenever the target's maxDamage is >= 35."
+   ],
+   "source": "baseProjData.cs RepairBolt::onAcquire"
+  },
+  "GravGun": {
+   "summary": "Grav Gun restricting Tractor/Repulse impulse to players and tagging enemies for kill tracking.",
+   "notes": [
+    "Unlike the 2002-12-06 release, GravCharge::damageTarget only applies %shooterDir impulse when getObjectType(%target) == 'Player', and calls Shifter_startGravTracker on enemy targets in modes 0 and 1 so kill credit persists for several seconds.",
+    "GravGun::onUse compares %client.GravADV against the string '0'."
+   ],
+   "source": "baseProjData.cs GravCharge::damageTarget; itemmsgs.cs GravGun::onUse; itemfuncs.cs Shifter_startGravTracker"
+  },
+  "EnergyPack": {
+   "summary": "Energy Pack no longer unmounting a Laser Rifle when the pack is unmounted.",
+   "notes": [
+    "Unlike the 2002-12-06 release, EnergyPack::onUnmount leaves its body empty so removing the Energy Pack does not force-unmount LaserRifle."
+   ],
+   "source": "item.cs EnergyPack::onUnmount"
+  },
+  "RepairPack": {
+   "summary": "Repair Pack adding a pulsing light on dropped items and target-lock support while rotating.",
+   "notes": [
+    "Unlike the 2002-12-06 release, RepairPack adds lightType 2 (radius 6, time 1.0, red-pink lightColor) and RepairPack::onAdd sets GameBase::setIsTarget(%this, true) when Item::isRotating(%this) is true."
+   ],
+   "source": "item.cs RepairPack, RepairPack::onAdd"
+  },
+  "SensorJammerPack": {
+   "summary": "Sensor Jammer Pack clamping sensor suppression to a minimum of 0 on deactivation.",
+   "notes": [
+    "Unlike the 2002-12-06 release, SensorJammerPackImage::onDeactivate prevents Player::getSensorSupression from going negative."
+   ],
+   "source": "item.cs SensorJammerPackImage::onDeactivate"
+  },
+  "StealthShieldPack": {
+   "summary": "StealthShield Pack simplifying its deactivation suppression clamp.",
+   "notes": [
+    "Unlike the 2002-12-06 release, StealthShieldPackImage::onDeactivate uses an if/else clamp to set sensor suppression to 0 whenever %rate <= 0."
+   ],
+   "source": "item.cs StealthShieldPackImage::onDeactivate"
+  },
+  "RegenerationPack": {
+   "summary": "Regeneration Pack / Gun boosting self-heal rate and fixing teammate shield cooldown tracking.",
+   "notes": [
+    "Unlike the 2002-12-06 release, DrainBolt::checkDone heals the user by %damage / 15 (clamped to 0, was / 25), fixes teammate shield cooldown tracking to use $shieldTime[%tc] instead of $shieldTime[%clientId], and DrainBolt::onAcquire detects stations by shapeFile (inventory_sta, cmdpnl, ammounit)."
+   ],
+   "source": "baseProjData.cs DrainBolt::onAcquire/checkDone"
+  },
+  "FlightPack": {
+   "summary": "Flight Pack no longer unmounting a Laser Rifle when the pack is unmounted.",
+   "notes": [
+    "Unlike the 2002-12-06 release, FlightPack::onUnmount removes the LaserRifle unmount check."
+   ],
+   "source": "item.cs FlightPack::onUnmount"
+  },
+  "SuicidePack": {
+   "summary": "Suicide DetPack fixing the team message recipient when a DetPack is disarmed and stolen.",
+   "notes": [
+    "Unlike the 2002-12-06 release, Suicidebomb2::onCollision sends the disarm-and-steal TeamMessages notice to the bomb's team (%this) rather than the disarmer's team (%obj), and drops Suicidebomb2's 'Handgrenade' description."
+   ],
+   "source": "bombs.cs Suicidebomb2, Suicidebomb2::onCollision"
+  },
+  "DeployableSensorJammerPack": {
+   "summary": "Deployable Sensor Jammer pack repurposed to call EngMissileLock (deploying an MJammer BeaconTwo).",
+   "notes": [
+    "Unlike the 2002-12-06 release, DeployableSensorJammerPack::deployShape calls EngMissileLock(Player::getClient(%player), %player, %item) instead of deployable(), placing an MJammer BeaconTwo subject to $TeamItemMax."
+   ],
+   "source": "item.cs DeployableSensorJammerPack::deployShape; itemfuncs.cs EngMissileLock"
+  },
+  "HoloPack": {
+   "summary": "Hologram pack adjusting mountOffset and only consuming a pack when hologram creation succeeds.",
+   "notes": [
+    "Unlike the 2002-12-06 release, HoloPackImage mountOffset changes from { 5, -5, 0 } to { 0, -1, 0 }, and HoloPack::onDeploy only decrements the pack and increments $TeamItemCount when hologram(%client) does not return false."
+   ],
+   "source": "item.cs HoloPackImage, HoloPack::onDeploy"
+  },
+  "PlantPack": {
+   "summary": "Healing Plant pack whose turret handlers moved into turret.cs.",
+   "notes": [
+    "Unlike the 2002-12-06 release, PlantPack::deployShape delegates to the HealingPlant turret behavior without the old inline HealingPlant::* stub functions inside item.cs."
+   ],
+   "source": "item.cs PlantPack::deployShape; turret.cs HealingPlant"
+  },
+  "MechPack": {
+   "summary": "Interceptor Pack removing frag bomb drops from Scout::OnFire.",
+   "notes": [
+    "Unlike the 2002-12-06 release, Scout::OnFire removes the 8-mine Frag burst when firing in bomber mode."
+   ],
+   "source": "vehicle.cs Scout::OnFire"
+  },
+  "RepairKit": {
+   "summary": "Repair Kit clearing %clientId.lastdropper = 'Off' to disarm an active Det Bug.",
+   "notes": [
+    "Unlike the 2002-12-06 release (which already added it in one branch), RepairKit::onUse sets %clientId.lastdropper = 'Off' directly after resolving %armor so DetBug::checkDet aborts on the next tick."
+   ],
+   "source": "item.cs RepairKit::onUse"
+  },
+  "MineAmmo": {
+   "summary": "Mine thrower preserving DreadNaught LaserMine placement and Chemeleon infiltrated team ownership.",
+   "notes": [
+    "Unlike the 2002-12-06 release, DreadNaught (darmor) always calls LaserMine (removing the Deathmatch/possessed Mortarbomb2 fallback), and thrown mines inherit %client.origTeam when the thrower is actively infiltrating ($InfTime[%client] > 0) and support possessed holograms."
+   ],
+   "source": "item.cs MineAmmo::onUse"
+  },
+  "Grenade": {
+   "summary": "Grenade thrower adding Assassin Tranq/Holo toggle, Arbitor TeslaGren spark grenade, and deployer tagging.",
+   "notes": [
+    "Unlike the 2002-12-06 release: Assassin throws Tranqgrenade when %client.asngren is 0/unset or HoloMine otherwise (Handgrenade in Deathmatch); Arbitor throws TeslaGren (2 s fuse, 0.5 $ElectricityDamageType in 20 m plus 4-12 MiniFusionBolt sparks) when %client.arbgren is 0/unset, or Tranqgrenade otherwise.",
+    "Also tags thrown grenades with %obj.deployer = %client (and supports possessed hologram deployers)."
+   ],
+   "source": "item.cs Grenade::onUse; grenade.cs TeslaGren::onAdd/Detonate"
+  },
+  "Beacon": {
+   "summary": "Beacon ability slot adding Assassin Detbomb option and removing the EngMissileLock double-count.",
+   "notes": [
+    "Unlike the 2002-12-06 release, Assassin throws a Detbomb (0.45 damage, 15 m radius, 3 s fuse or 0.1 s on player collision) when %clientId.asnbeacon == 1, or Shuriken otherwise.",
+    "Engineer EngBeacon 2 stops incrementing $TeamItemCount[team @ 'EngBeacons'] when calling EngMissileLock."
+   ],
+   "source": "item.cs Beacon::onUse; grenade.cs Detbomb::onAdd/onCollision"
+  },
+  "AirAmmoPad": {
+   "summary": "Air Ammo Pad shrinking its deployment clearance check and updating its map labels.",
+   "notes": [
+    "Unlike the 2002-12-06 release, AirAmmoPad::deployShape checks a 3.5 x 3.5 x 1.5 box instead of 15 x 15 x 10, removes the unused LOS check, and names the pad 'Air Ammo Pad' and unit 'Air Ammo Unit'."
+   ],
+   "source": "item.cs AirAmmoPad::deployShape"
+  },
+  "airbase": {
+   "summary": "Air Base pack renamed with a space ('Air Base') and spacing in deployed object map names.",
+   "notes": [
+    "Unlike the 2002-12-06 release, airbase description is 'Air Base' and airbase::deployShape formats deployed component names with spaces and drops the unused LOS call."
+   ],
+   "source": "item.cs airbase, airbase::deployShape"
+  },
+  "Hackit": {
+   "summary": "Engineer Hack-Gun allowing Engineers to hack SatchelPacks and laid DetPacks (magcargo shape) even when general hacking is off.",
+   "notes": [
+    "Unlike the 2002-12-06 release, HackBolt::onAcquire allows targeting objects with 'SatchelPack' in their map name or magcargo shapes with no map name regardless of $Shifter::AllowHacking."
+   ],
+   "source": "baseProjData.cs HackBolt::onAcquire"
+  },
+  "DisIt": {
+   "summary": "Engineer Disassembler-Gun redirecting SatchelPacks and laid DetPacks to the Hack-Gun.",
+   "notes": [
+    "Unlike the 2002-12-06 release, DisaBolt::onAcquire rejects players cleanly and, when aimed at a SatchelPack or magcargo-shaped DetPack, tells the Engineer to hack it instead and auto-switches to HackIt."
+   ],
+   "source": "baseProjData.cs DisaBolt::onAcquire"
+  },
+  "Regen": {
+   "summary": "Regeneration Gun sharing the improved self-heal rate and fixed shield cooldown tracking from RegenerationPack.",
+   "notes": [
+    "Same DrainBolt::onAcquire and checkDone changes noted under RegenerationPack (/ 15 self-heal, $shieldTime[%tc] fix, station shapeFile detection)."
+   ],
+   "source": "baseProjData.cs DrainBolt::onAcquire/checkDone"
+  },
+  "CoolLauncher": {
+   "summary": "Missile Control Station switching its deployed mortar turret's projectile to ShortCoolProj.",
+   "notes": [
+    "Unlike the 2002-12-06 release, CoolLauncher::deployShape sets %turret.load = 'ShortCoolProj' instead of 'CoolProj'."
+   ],
+   "source": "item.cs CoolLauncher::deployShape"
+  },
+  "DetBug": {
+   "summary": "Det Bug ticking every 1 second, scaling up on repeat infections, and dealing 0.5 base Flash damage.",
+   "notes": [
+    "Unlike the 2002-12-06 release, DetBug::CheckDet ticks every 1 second (was 2), removes an active bug if %clientId.lastdropper == 'Off', adds +0.5 multiplier when 'Add' is flagged, and increases EMPBlast detonation damage from 0.4 * %mult to 0.5 * %mult."
+   ],
+   "source": "item.cs DetBug::CheckDet/onCollision"
+  },
+  "RepairPatch": {
+   "summary": "Floor repair patch clearing %clientId.dropper = 'Off' on use.",
+   "notes": [
+    "Unlike the 2002-12-06 release, RepairPatch::onUse sets %clientId.dropper = 'Off' (note: DetBug::CheckDet checks %clientId.lastdropper, not .dropper)."
+   ],
+   "source": "item.cs RepairPatch::onUse"
+  },
+  "LasCannon": {
+   "summary": "Gattling Laser Cannon restoring its full name in its equip message.",
+   "notes": [
+    "Unlike the 2002-12-06 release, LasCannon::onUse prints 'Using Gattling Laser Cannon' instead of 'Using Laser Cannon'."
+   ],
+   "source": "itemmsgs.cs LasCannon::onUse"
+  },
+  "HammerAmmo": {
+   "summary": "GodHammer Ammo formatted with a space ('GodHammer Ammo').",
+   "notes": [
+    "Display name updated from 'GodHammerAmmo' to 'GodHammer Ammo'."
+   ],
+   "source": "item.cs HammerAmmo"
+  },
+  "Hammer1Pack": {
+   "summary": "Right-hand GodHammer Cannon switched to slower GodHammerSlow rockets and removing script overheat/cooldown handlers.",
+   "notes": [
+    "Unlike the 2002-12-06 release, renamed from 'God Hammer Cannon' to 'GodHammer Cannon', Hammer1PackImage uses projectileType GodHammerSlow (muzzleVelocity 50, terminalVelocity 1000 instead of 200/2000), and GodHammer::CoolDown/HeatCheck/HeatUp are removed from item.cs."
+   ],
+   "source": "item.cs Hammer1Pack, Hammer1PackImage; baseProjData.cs GodHammerSlow"
+  },
+  "Hammer2Pack": {
+   "summary": "Left-hand God Hammer Cannon 2 switched to slower GodHammerSlow rockets and removing script overheat/cooldown handlers.",
+   "notes": [
+    "Matches Hammer1Pack: uses GodHammerSlow (50 to 1000) and removes GodHammer::CoolDown/HeatCheck/HeatUp."
+   ],
+   "source": "item.cs Hammer2PackImage; baseProjData.cs GodHammerSlow"
+  },
+  "ShockForceFieldPack": {
+   "summary": "New Engineer and Arbitor backpack that deploys a Small Shock Force Field.",
+   "notes": [
+    "Uses deployable() with %angle True, 4 m reach, team limit enforced, %kill True, deploying StaticShapeData ShockForceField (maxDamage 8.0).",
+    "Carried by Engineer and Arbitor; listed in both standard and remote inventories."
+   ],
+   "source": "item.cs ShockForceFieldPack, ShockForceFieldPack::onUse/onDeploy/deployShape; staticshape.cs ShockForceField; ArmorData.cs; station_list.cs"
+  },
+  "Boomer": {
+   "summary": "Arbitor energy shotgun avoiding redundant getEnergy lookups during its 19-pellet loop.",
+   "notes": [
+    "Unlike the 2002-12-06 release, BoomerImage::onFire caches and decrements %energy locally in the loop instead of calling GameBase::getEnergy on each iteration; firing behavior is unchanged."
+   ],
+   "source": "item.cs BoomerImage::onFire"
+  }
+ }
+}

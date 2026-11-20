@@ -1,0 +1,53 @@
+shifter-v1g: 70 of 182 need write-ups
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): stats+scripts
+  AirAmmoPad (Air Ammo Pad): scripts
+  airbase (AirBase): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Regen (Regeneration Gun): scripts
+  Plastique (Plastique): scripts
+  RepairPatch (Repair Patch): stats+scripts
+  EmplacementPack (Emplacement): scripts
+  LasCannon (LasCannon): stats+scripts
+  PlasmaCannon (HeavyPlasmaCannon): stats+scripts
+  Hammer1Pack (God Hammer Cannon): stats+scripts
+  Hammer2Pack (God Hammer Cannon 2): stats+scripts
+  Booster1Pack (Booster): stats+scripts
+  Booster2Pack (Booster): stats+scripts
+  FlamerTurretPack (Flamer Turret): new
+  ValkyrieModule (ValkyrieModule): new
+  Mortar0 (Mortar0): new
+  Mortar2 (Mortar2): new
+  PlasmaGun (Plasma Gun): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  Mfgl (Tactical Nuke): stats+scripts
+  Fixit (Engineer Repair-Gun): stats+scripts
+  GravGun (Grav Gun): stats+scripts
+  EnergyPack (Energy Pack): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  LightningPack (Teleport Pack): stats+scripts
+  FlightPack (Flight Pack): scripts
+  SMRPack (Rocket Launcher Pack): stats+scripts
+  SMRPack2 (Rocket Launcher Pack): stats+scripts
+  BarragePack (Anti-Aircraft Turret): scripts
+  Laptop (Command Laptop): scripts
+  SuicidePack (Suicide DetPack): stats+scripts
+  AmmoPack (Ammo Pack): scripts
+  PulseSensorPack (Pulse Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  CameraPack (Camera): stats+scripts
+  TargetPack (Mortar Turret): scripts
+  RocketPack (Rocket Turret): scripts
+  TreePack (Mechanical Tree): scripts
+  PlantPack (Healing Plant): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts

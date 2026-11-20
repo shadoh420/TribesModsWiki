@@ -1,0 +1,11 @@
+# Generated static site (built automatically by GitHub Actions)
+site/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local editor / agent / OS files
+.claude/
+.DS_Store
+Thumbs.db

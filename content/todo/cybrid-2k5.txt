@@ -1,0 +1,94 @@
+# cybrid-2k5 vs ultra-vx-elite (93 items)
+new        HybridLightArmor             Hybrid: Talon
+new        HybridMediumArmor            Hybrid: Predator
+new        HybridHeavyArmor             Hybrid: Eagle
+new        CybridLightArmor             Cybrid: Banshee
+new        CybridMediumArmor            Cybrid: Adjudicator
+new        CybridHeavyArmor             Cybrid: Executioner
+new        PhazerRifle                  Phazer Pistol
+new        FusionRifle                  Fusion Rifle
+new        ElectroPlasmCannon           Electro-Plasm Cannon
+new        EnergyPistol1                Energy Pistols
+new        EnergyPistol2                Energy Pistol
+new        EnergyPistol                 Energy Pistols
+new        TriFusionCannon3             Tri-Fusion Cannon
+new        TriFusionCannon2             Tri-Fusion Cannon
+new        TriFusionCannon1             Tri-Fusion Cannon
+new        TriFusionCannon              Tri-Fusion Cannon
+new        PulseGrenadeLauncher1        PulseGrenadeLauncher
+new        PulseGrenadeLauncher2        PulseGrenadeLauncher2
+new        PulseGrenadeLauncher         Pulse Grenade Launcher
+new        ToxicThrower                 Toxic Sprayer
+new        PulseRocketGun               Pulse RocketGun
+new        AntimatterRocketGun          Antimatter Launcher
+new        IONCannonT                   IONCannon Top
+new        IONCannonL                   IONCannon Left
+new        IONCannonR                   IONCannon Right
+new        IONCannon                    ION Cannon
+new        PulseGauss                   Pulse Gauss Cannon
+new        ArmageddonCannon             Armageddon Cannon
+new        EnergyBeamCannon             Energy Beam Cannon
+new        SplitFissionGun              Split Fission Mortar
+new        ReverseFissionEmitter        Reverse Fission Emitter
+new        Pistol                       50.Cal Pistol
+new        Verminator                   Verminator
+new        SniperRifle                  HaVoC Sniper Rifle
+new        Shotgun                      12.Gauge
+new        TalonRocketGun               Talon Rocket Launcher
+new        MissileLauncher              Missile Launcher
+new        BlazeThrower                 Blaze Thrower
+new        BurnerGun                    Burner Gun
+new        MineLauncher                 Mine Launcher
+new        RailGunLeft                  RailGun Left
+new        RailGunRight                 RailGun Right
+new        RailGun                      Rail Gun
+new        GrenBarrel                   Auto-Gren Launcher
+new        AutoGrenadeGun               Auto-Grenade Launcher
+new        AssaultRifle                 M-45 Assault Rifle
+new        HybridLaser                  Hybrid Laser
+new        HybridChain                  Hybrid Chain
+new        HybridRail                   Hybrid RailGun
+new        HybridCannonT                Hybrid Cannon Top
+new        HybridCannonL                Hybrid Cannon Left
+new        HybridCannonR                Hybrid Cannon Right
+new        HybridCannon                 Hybrid Blast Cannon
+new        HybridPlasma1                HybridPlasma
+new        HybridPlasma2                HybridPlasma2
+new        HybridPlasma                 HybridPlasma Launcher
+new        HybridMortar1                HybridMortar
+new        HybridMortar2                HybridMortar
+new        HybridMortar                 Hybrid Dual Mortar
+new        HybridRocketLauncher         Hybrid Twin Missile
+new        HybridQuadLauncher           Hybrid Quad RPG
+new        HybridNuke                   Hybrid Thermal Launcher
+new        HeatSinkPack                 Nitrogen Jetpack
+new        JammerPack                   Jammer Pack
+new        MedicPack                    Medic Pack
+new        tickPack                     Tick Pack
+new        FlightPack                   Flight Pack
+new        StealthPack                  Stealth Pack
+stats      RepairPack                   Repair Pack
+new        ClaymorePack                 Claymore Pack
+new        ThrustPack                   Thrust Pack
+renamed+stats+scriptsShieldPack                   Shield+ Pack
+new        HealthPack                   Health Pack
+new        MechPack                     Mech Pack
+new        VanishPack                   Vanish Pack
+scripts    RepairKit                    Repair Kit
+new        OriginalMine                 Anti-personnel Mine
+new        TripMine                     Trip Mine
+new        OriginalGrenade              Frag Grenade
+new        PlasticGrenade               Plastic Explosive
+new        PlasmaGrenade                Fire Grenade
+new        EMPGrenade                   EMP Grenade
+new        DaisyGrenade                 Daisy Cutter
+new        AirStrikeGrenade             AirStrike DFA
+new        SmokerGrenade                Smoke Bomb
+new        FlareGrenade                 Emergency Flare
+new        FlashGrenade                 Flash Bang
+new        VortexGrenade                Vortex Grenade
+new        FusionGrenade                Fusion Grenade
+new        PulseGrenade                 Pulse Grenade
+new        RadiationGrenade             Radiation Grenade
+new        RailGrenade                  Rail Grenade
+scripts    Beacon                       Beacon

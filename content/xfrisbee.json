@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Extreme Frisbee v1 BETA (CaN-O-SpAm, ~1999, frisbee.cs) bans all lethal Base weapons, ammos, Mines, Beacons, Turrets, Ammo Pack, and Deployable Stations ($InvList = $RemoteInvList = 0), turning matches into an ultimate-frisbee passing sport where players use Utility Packs, Grenades, Targeting Lasers, and the 10-second shot-clock flag pass.",
+  "notes": [
+   "Non-lethal loadout restrictions (frisbee.cs): spawns players in LightArmor ($spawnBuyList[0]) and sets $InvList = $RemoteInvList = 0 for all 8 Base guns (Blaster, Chaingun, DiscLauncher, GrenadeLauncher, Mortar, PlasmaGun, LaserRifle, ELF Gun), all 5 weapon ammos, MineAmmo, Beacon, TurretPack, AmmoPack, DeployableInvPack, and DeployableAmmoPack \u2014 leaving only TargetingLaser, Grenade, Energy/Repair/Shield/SensorJammer Packs, Sensors/Camera, and RepairKit.",
+   "Sport rules: overrides Flag/FlagStand collisions and Flag::forceDrop (Ctrl+F pass) with a 10 s hold timer ($flagMaxHoldTime), 35 s return timer, 5 s warmup, pass/catch chain bonuses (Flag::incCatchIndex), and goal-stand scoring."
+  ]
+ }
+}

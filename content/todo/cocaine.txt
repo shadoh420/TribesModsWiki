@@ -1,0 +1,121 @@
+# cocaine vs renegades-classic (120 items)
+renamed+statsScoutArmor                   Crackhead
+renamed+statsSpArmor                      Fast Crackhead
+renamed+statsLightArmor                   Hired Goon
+renamed+statsMediumArmor                  Corner Hoe
+renamed+statsEngArmor                     DrugLab Builder
+renamed+statsAlArmor                      Flag Mover
+new        DMArmor                      Commando
+renamed+statsDragArmor                    Pimp Daddy
+renamed+statsScoutVehicle                 Me-263 Fighter
+renamed+statsJetVehicle                   Can of Tuna
+renamed+statsLAPCVehicle                  Crack whore
+renamed+statsHAPCVehicle                  B-17 Bomber
+renamed+statsChaingun                     Hyper Chaingun
+renamed+statsGrenadeAmmo                  50-megaton bomb
+renamed+statsGrenadeLauncher              Nuke Launcher
+renamed+statsMortar                       Mini Nuke Launcher
+renamed+statsDiscLauncher                 Hyper Disc Launcher
+stats      LaserRifle                   Laser Rifle
+renamed+statsHyperB                       Concussion Blaster
+stats      SniperRifle                  Sniper Rifle
+stats      TranqGun                     Dart Rifle
+stats      Silencer                     Magnum
+new        EspressoAmmo                 Boxed Crackwhores
+new        Espresso                     Crackwhore Gun
+renamed+statsRailgun                      Hyper Railgun
+stats      Vulcan                       Vulcan
+stats      Flamer                       Flame Thrower
+stats      IonGun                       Ion Rifle
+stats      Omega                        Omega Cannon
+new        Bolt                         Thunderbolt
+stats      TargetingLaser               Targeting Laser
+stats+scriptsFixit                        Engineer Repair-Gun
+stats      RepairPack                   Repair Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      CloakingDevice               Cloaking Device
+stats      StealthShieldPack            StealthShield Pack
+stats      RegenerationPack             Regeneration Pack
+stats      OpticPack                    Cybernetic Laser
+new        NewPack                      Auto-Cannon
+new        NewerPack                    Auto-Cannon
+scripts    SuicidePack                  Suicide DetPack
+scripts    AmmoPack                     Ammo Pack
+renamed+stats+scriptsDeployableInvPack            Crack Machine
+renamed+stats+scriptsDeployableAmmoPack           Crackrock Dispenser
+stats+scriptsDeployableComPack            Command Station
+new        DeployablevhclPack           Getaway Car Unit
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+new        BaseAlarm                    Base Alarm
+new        BaseAlarm2                   Target Beacon
+stats+scriptsCameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Nuke Turret
+renamed+stats+scriptsLaserPack                    Hyper Laser Turret
+stats+scriptsShockPack                    Shock Turret
+stats+scriptsTargetPack                   Mortar Turret
+stats+scriptsLaserTurret                  Plasma Turret
+new        DeployableElfTurret          Elf Turret
+new        IndoorPack                   Indoor Turret
+stats+scriptsVulcanTurret                 Vulcan Turret
+stats+scriptsRailTurret                   Rail Turret
+stats+scriptsRocketPack                   Missile Turret
+new        AntiAirPack                  AntiAir Turret
+stats+scriptsForceFieldPack               Force Field
+stats+scriptsLargeForceFieldPack          Large Force Field
+stats+scriptsTripwirePack                 Blast Wall
+new        BlastDoorPack                Blast Door
+new        doorthreebyfourForceFieldPack3x4 Field Door
+new        doorfourbyeightForceFieldPack4x8 Field Door
+new        doorfourbyfourteenForceFieldPack4x14 Field Door
+new        doorfourbyseventeenForceFieldPack4x17 Field Door
+new        doorfivebyfiveForceFieldPack 5x5 Field Door
+new        newdoorone                   Panel One
+new        newdoortwo                   Panel Two
+new        newdoorthree                 Panel Three
+new        newdoorfour                  Panel Four
+stats+scriptsPlatformPack                 Deployable Platform
+new        LrgPltPack                   LargePlatform
+stats+scriptsHoloPack                     Hologram
+renamed+stats+scriptsTreePack                     Seed Pack
+stats+scriptsSpringPack                   Springboard
+stats+scriptsTeleportPack                 Teleport Pad
+new        FlagstandPack                Flag Stand
+new        JailGun                      Jailers Gun
+new        JailCapPack                  Jail Capture Pad
+new        jailpack                     Jail Cell
+new        coffeepack                   Crack House
+new        ubasepack                    Underground Base
+new        Hackit                       Engineer Hack-Gun
+new        ArbitorBoxPack               Arbitor Device
+new        bomberPack                   Me-263 Fighter Pack
+new        cloakjetPack                 Wraith Pack
+renamed+stats+scriptsMechPack                     Can of Tuna Pack
+new        BigBomberPack                Crack whore Pack
+renamed+stats+scriptsDetPack                      B-17 Bomber Pack
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats      Boost                        Bot
+new        Plastique                    Grenade Mode
+stats      RepairPatch                  Repair Patch
+new        CommandCenterPack2           Broadside
+new        CommandCenterPack3           Scarabrae
+new        CommandCenterPack4           DangerousCrossing
+new        CommandCenterPack5           IceRidge
+new        CommandCenterPack6           Dropship 1
+new        CommandCenterPack7           Dropship 2
+new        CommandCenterPack8           Dropship 3
+new        CommandCenterPack9           Dam
+new        CommandCenterPack10          Raindance
+new        CommandCenterPack11          Dropship 4
+new        CommandCenterPack12          Tank
+new        CommandCenterPack13          Dam 2
+new        CommandCenterPack14          Rollercoaster
+new        CommandCenterPack15          Stonehenge
+new        CommandCenterPack16          Pyramid
+new        CommandCenterPack17          Tower
+new        CommandCenterPack18          Phoenix Tower
+new        CommandCenterPack19          Leviathan

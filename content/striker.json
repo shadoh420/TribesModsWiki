@@ -1,0 +1,46 @@
+{
+ "mod": {
+  "overview": "Striker MOD 082499 Beta (Harold 'LabRat' Brown, August 1999) keeps Base's 52-item roster and movement physics intact while dynamically scaling weapon damage by the attacker's armor weight: Light deals 75%, Medium deals 100%, and Heavy deals 125%.",
+  "notes": [
+   "Custom firing hooks (BlasterImage::onFire, ChaingunImage::onFire, PlasmaGunImage::onFire, GrenLauncherImage::onFire, DiscLauncherImage::onFire) strip static projectileType bindings and spawn projectiles manually with %damMod = 0.75 (Light), 1.0 (Medium), or 1.25 (Heavy).",
+   "Trades Light Armor's hit-and-run speed for reduced offensive output while rewarding Heavy Armor positioning with a 25% weapon damage bonus."
+  ]
+ },
+ "items": {
+  "Blaster": {
+   "summary": "Fires via BlasterImage::onFire so Light Armor deals 75% damage, Medium 100%, and Heavy 125%.",
+   "notes": [
+    "Datablock omits static projectileType so script-side damage scaling applies on spawn."
+   ],
+   "source": "item.cs BlasterImage::onFire"
+  },
+  "Chaingun": {
+   "summary": "Fires via ChaingunImage::onFire with armor-scaled bullet damage (0.75x Light, 1.0x Medium, 1.25x Heavy).",
+   "notes": [
+    "Preserves Base fire rate while tying per-round lethality to armor class."
+   ],
+   "source": "item.cs ChaingunImage::onFire"
+  },
+  "PlasmaGun": {
+   "summary": "Fires via PlasmaGunImage::onFire with armor-scaled bolt damage (0.75x Light, 1.0x Medium, 1.25x Heavy).",
+   "notes": [
+    "Medium remains baseline while Heavy hits harder."
+   ],
+   "source": "item.cs PlasmaGunImage::onFire"
+  },
+  "GrenadeLauncher": {
+   "summary": "Fires via GrenLauncherImage::onFire with armor-scaled shrapnel damage (0.75x Light, 1.0x Medium, 1.25x Heavy).",
+   "notes": [
+    "Datablock projectileType cleared for script-side scaling."
+   ],
+   "source": "item.cs GrenLauncherImage::onFire"
+  },
+  "DiscLauncher": {
+   "summary": "Fires via DiscLauncherImage::onFire with armor-scaled disc damage (0.75x Light, 1.0x Medium, 1.25x Heavy).",
+   "notes": [
+    "Makes Heavy midairs and splash 25% stronger than Base."
+   ],
+   "source": "item.cs DiscLauncherImage::onFire"
+  }
+ }
+}

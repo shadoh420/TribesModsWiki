@@ -1,0 +1,8 @@
+{
+ "mod": {
+  "overview": "Beginner Mod (Dustin Bruce, August-November 2003) splits stock Base items cleanly into Weapons/, BackPacks/, Deployables/, Misc/, Turrets/, and ArmorData/ folders with Special_Functs.cs helper macros as a starter modder's template.",
+  "notes": [
+   "Preserves stock Base weapon, pack, and deployable stats while reorganizing datablock definitions per file and wiring armor registration through Special_Functs.cs."
+  ]
+ }
+}

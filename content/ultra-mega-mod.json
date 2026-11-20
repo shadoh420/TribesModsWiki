@@ -1,0 +1,201 @@
+{
+  "mod": {
+    "overview": "Mega Renegades 1.3a (Ultra_Mega_Mod, an update of a {URCM} Ultra Renegades build) keeps Ultra Renegades 4's armors and most of its item list but retunes nearly every weapon, mostly toward faster fire and harder-hitting projectiles, and drops UR4's 'Now holding ...' weapon-select messages. Its signature additions are a large admin system driven by $mega:: server switches, two new heavy-only turrets (Assassin and Rail) and reworked movement gadgets: the Grenade becomes an AirBrake and the Beacon throws a Speed Booster mine. UR4's Mini-Plasma Turret goes back to being a plain Remote Turret with no near-base restriction.",
+    "notes": [
+      "Admin system: admin.cs reads about two dozen $mega:: switches (PAKick, PABan, PAMission, PAVote, PATeamChange, PATeamDamage, PATourneyMode, PATimeLimit, PAResetDefaults, PAModOptions, PATeamInfo, PersonalSkin, fairTeams, BanKickTime, tkLimit, tkMultiple, tkServerLvl, tkClientLvl) that control what public admins and votes may do, plus three admin password tiers (public, super, owner). None of the switches ship with values, so on a fresh server they are all off.",
+      "No weapon in item.cs prints a 'Now holding ...' bottom message on selection any more; most weapons fall back to the stock Weapon::onUse.",
+      "Turret Pack, Assassin Turret and Rail Turret can only be carried by heavy armor ($ItemMax 1 for harmor, 0 for light and medium of either sex).",
+      "Team deployable limits: Turret Pack 8, Assassin Turret 8, Rail Turret 4, Beacon 40.",
+      "Grenade and Beacon only work after the match has started ($matchStarted)."
+    ]
+  },
+  "items": {
+    "Blaster": {
+      "summary": "Rapid-fire energy sidearm. Unlike UR4 it shows the repair gun model and fires faster on a small energy cost per shot.",
+      "notes": [
+        "Blaster::onUse is no longer defined, so selecting it uses the stock Weapon::onUse with no 'Ghetto Blaster' message as in UR4.",
+        "Fires BlasterBolt from energy only (minEnergy and maxEnergy 1)."
+      ],
+      "source": "item.cs Blaster, BlasterImage"
+    },
+    "BulletAmmo": {
+      "summary": "Ammunition for the Thermal Cannon (the renamed Chaingun). Renamed from UR4's ChainGun Ammo; otherwise an ordinary ammo pickup.",
+      "notes": [],
+      "source": "item.cs BulletAmmo"
+    },
+    "Chaingun": {
+      "summary": "The Thermal Cannon: a spinning auto-weapon that fires a fast stream of single ChaingunBullet rounds. Unlike UR4, which fired five bullets per trigger through a scripted onFire, this version lets the engine fire one bullet per very short cycle.",
+      "notes": [
+        "ChaingunImage::onFire is removed and projectileType is set to ChaingunBullet (UR4 used a dummy projectile and spawned five bullets in script).",
+        "Spin-up and spin-down are almost instant (0.05 s each) against UR4's slow 3 s spin-down.",
+        "ChaingunBullet uses damageClass 1, so each round does radius damage rather than pure impact damage.",
+        "Chaingun::onUse is removed, so there is no select message."
+      ],
+      "source": "item.cs ChaingunImage, Chaingun; baseProjData.cs ChaingunBullet"
+    },
+    "PlasmaGun": {
+      "summary": "Plasma bolt launcher retuned for very fast refire and a much faster bolt than UR4's.",
+      "notes": [
+        "Fire and reload times drop to 0.01 s, and PlasmaBolt muzzle velocity is raised.",
+        "PlasmaGun::onUse is removed (no select message); firing is otherwise stock."
+      ],
+      "source": "item.cs PlasmaGunImage, PlasmaGun; baseProjData.cs PlasmaBolt"
+    },
+    "GrenadeLauncher": {
+      "summary": "Lobs bouncing grenade shells. Compared with UR4 the shell trades direct damage for a wide blast with strong knockback and a longer level flight range.",
+      "notes": [
+        "GrenadeShell gets a lower damageValue, a 25 m explosion radius and heavy kickback.",
+        "GrenadeLauncher::onUse is removed (no select message)."
+      ],
+      "source": "item.cs GrenadeLauncherImage; baseProjData.cs GrenadeShell"
+    },
+    "Shotgun": {
+      "summary": "Fires a spread of ShotgunBullet pellets per shot from shotgun ammo. Unlike UR4's ten pellets it fires eight, with a slightly slower fire cycle.",
+      "notes": [
+        "ShotgunImage::onFire spawns eight ShotgunBullet projectiles per shot (UR4 spawned ten) and uses one ammo.",
+        "Out of ammo it prints 'You Ran Out Of Ammo for the Shotgun'.",
+        "Shotgun::onUse is removed (no select message)."
+      ],
+      "source": "item.cs ShotgunImage::onFire, ShotgunImage"
+    },
+    "Mortar": {
+      "summary": "Heavy arcing mortar retuned into a harder-hitting, wider-blast shell with longer range and faster refire than UR4's.",
+      "notes": [
+        "MortarShell gets a higher damageValue, a 30 m explosion radius, stronger kickback and double the level flight distance.",
+        "Mortar::onUse is removed (no select message)."
+      ],
+      "source": "item.cs MortarImage; baseProjData.cs MortarShell"
+    },
+    "DiscLauncher": {
+      "summary": "Disc launcher with near-instant reload and a very fast disc. Unlike UR4 the disc does impact damage only.",
+      "notes": [
+        "DiscShell damageClass is 0 (impact), so damage is dealt to what the disc hits rather than spread over its blast radius.",
+        "Reload, fire and spin-up times are cut to a few milliseconds.",
+        "DiscLauncher::onUse is removed (no select message)."
+      ],
+      "source": "item.cs DiscLauncherImage; baseProjData.cs DiscShell"
+    },
+    "LaserRifle": {
+      "summary": "Sniper laser that only works with an Energy Pack mounted. Unlike UR4, the Energy Pack check is now actually enforced.",
+      "notes": [
+        "LaserRifle::onUse mounts the weapon only if the backpack slot holds an EnergyPack; otherwise it prints 'Must have an Energy Pack to use Laser Rifle.'",
+        "UR4's version called Weapon::onUse unconditionally before the check, so it could be selected without an Energy Pack; that line and the select message are removed here.",
+        "sniperLaser damageConversion is raised, so the beam converts more of the shooter's energy into damage."
+      ],
+      "source": "item.cs LaserRifle::onUse; baseProjData.cs sniperLaser"
+    },
+    "TargetingLaser": {
+      "summary": "Standard targeting laser for painting targets. Behavior is the same as in UR4 apart from the removed select message.",
+      "notes": [
+        "TargetingLaser::onUse is removed, so selection uses the stock Weapon::onUse."
+      ],
+      "source": "item.cs TargetingLaser"
+    },
+    "EnergyRifle": {
+      "summary": "ELF gun that drains target energy with a short lightning beam. Compared with UR4 the beam is shorter and does less damage per second.",
+      "notes": [
+        "lightningCharge boltLength, damagePerSec and energyDrainPerSec are changed.",
+        "EnergyRifle::onUse is removed (no select message)."
+      ],
+      "source": "item.cs EnergyRifle; baseProjData.cs lightningCharge"
+    },
+    "SniperRifle": {
+      "summary": "The IX-2000 fires a very fast tracer bullet. Unlike UR4, where RifleBullet was a rocket-type projectile, it is a plain bullet here.",
+      "notes": [
+        "RifleBullet is redefined as BulletData with a 7500 muzzle velocity, no aim deflection and visible tracers.",
+        "SniperRifle::onUse is removed (no select message)."
+      ],
+      "source": "item.cs SniperRifleImage; baseProjData.cs RifleBullet"
+    },
+    "TranqGun": {
+      "summary": "The FEB Rifle fires a near-instant TranqDart with faster reload than UR4's.",
+      "notes": [
+        "TranqDart gets a higher damageValue and a muzzle velocity of 10000.",
+        "TranqGun::onUse is removed (no select message). Behavior on hit beyond the dart's damage is not determined from scripts."
+      ],
+      "source": "item.cs TranqGunImage; baseProjData.cs TranqDart"
+    },
+    "Railgun": {
+      "summary": "Railgun firing a near-hitscan RailRound with very fast refire. Compared with UR4 the round is far faster, has a tiny blast radius and strong knockback.",
+      "notes": [
+        "RailRound muzzle and terminal velocity are 10000, explosion radius 0.5, and it inherits none of the shooter's velocity.",
+        "Railgun::onUse is removed (no select message)."
+      ],
+      "source": "item.cs RailgunImage; baseProjData.cs RailRound"
+    },
+    "CloakGun": {
+      "summary": "Fires a cloakingCharge beam that fades out whatever it hits and fades it back in 120 seconds later. Same effect as UR4.",
+      "notes": [
+        "cloakingCharge::damageTarget calls GameBase::startFadeOut on the target and schedules startFadeIn after 120 s; it works on teammates and enemies alike.",
+        "CloakGun::onUse is removed (no select message)."
+      ],
+      "source": "item.cs CloakGun; baseProjData.cs cloakingCharge::damageTarget"
+    },
+    "ShieldPack": {
+      "summary": "Energy shield pack that absorbs incoming damage while active. Unlike UR4 it gives a stronger shield.",
+      "notes": [
+        "ShieldPackImage::onActivate sets the player's shieldStrength to 0.048 (UR4: 0.038).",
+        "Deactivation is unchanged from UR4."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate, onDeactivate"
+    },
+    "TurretPack": {
+      "summary": "Deploys a Remote Turret that fires MiniFusionBolt energy shots. Unlike UR4's Mini-Plasma Turret it can be placed anywhere, not just near your own flag.",
+      "notes": [
+        "TurretPack::deployShape drops UR4's rule that the player must be within 200 m of their flag's original position.",
+        "Placement still needs a flat surface on terrain or an interior, and the spacing checks now count only other DeployableTurrets (UR4 also counted Mini-Plasma and Rocket turrets).",
+        "The turret no longer becomes the deploying client's owned object, unlike UR4. It spawns with no shield and a lower recharge rate than UR4's turret.",
+        "Heavy armor only; team limit 8."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret, DeployableTurret::onAdd"
+    },
+    "LaserPack": {
+      "summary": "The Assassin Turret: a small camera-shaped turret that fires AssassinBullet rounds at targets in range. It mounts on terrain, buildings or deployable platforms at any angle, including walls and ceilings.",
+      "notes": [
+        "LaserPack::deployShape places an AssassinTurret aligned to the surface normal; on near-flat ground it keeps the player's heading.",
+        "Only one spacing check: too many other Assassin turrets in the area blocks it ('Interference from other Assassin turrets in the area'). There is no minimum-distance check.",
+        "The pack shares the Camera pack's back image (CameraPackImage).",
+        "Heavy armor only; team limit 8. Destroying the turret frees a slot."
+      ],
+      "source": "item.cs LaserPack::onUse, onDeploy, deployShape; turret.cs AssassinTurret"
+    },
+    "VulcanTurret": {
+      "summary": "A deployable turret pack meant to place a manually controlled 'Vulcan Turret' (its mount message says it has no auto-sensor). As scripted it cannot be used.",
+      "notes": [
+        "VulcanTurret::deployShape creates a DeployableVulcan, but no DeployableVulcan datablock is defined in the mod or base scripts.",
+        "There is no $ItemMax entry for any armor and no $TeamItemMax[VulcanTurret], so it cannot be bought, and the team-limit check in deployShape would always report the limit as reached."
+      ],
+      "source": "item.cs VulcanTurret::onUse, onMount, onDeploy, deployShape"
+    },
+    "RailTurret": {
+      "summary": "Deploys a hellfire-shaped Rail Turret that fires the railLaser beam with a long reload and long range. It is far tougher than the other deployable turrets.",
+      "notes": [
+        "Must go on a flat surface of terrain, a building or a deployable platform.",
+        "Mounting it shows a warning that turrets in the enemy base will get you kicked; nothing in the script enforces that.",
+        "When destroyed, DeployableRail::onDestroyed calls CalcRadiusDamage for a debris blast, but no CalcRadiusDamage function is defined in the mod or base scripts.",
+        "Its spacing checks count DeployableVulcan and DeployablePlasma objects rather than Rail Turrets, so Rail Turrets never block each other; only the team limit of 4 applies.",
+        "Heavy armor only."
+      ],
+      "source": "item.cs RailTurret::onUse, onMount, onDeploy, deployShape; turret.cs DeployableRail"
+    },
+    "Grenade": {
+      "summary": "The AirBrake: using it cuts your current velocity to one third in every direction. UR4's Speed Brick stopped you dead instead.",
+      "notes": [
+        "Grenade::onUse divides each velocity component by 3 and prints 'You use an AirBrake.'",
+        "It does nothing before the match starts. Unlike UR4, the item is consumed only when it takes effect."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "The Speed Booster: throws a Boost mine that, once it settles, explodes with no damage but a strong knockback when a player, vehicle or moveable touches it. UR4's beacon instead doubled your own velocity on the spot.",
+      "notes": [
+        "Beacon::onUse throws a Boost MineData at 25 times the player's throw strength, with a 0.5 s cooldown, and only after the match starts.",
+        "Boost arms when at rest. If another mine overlaps it, it destroys itself. It has no health (maxDamage 0), so any damage sets it off.",
+        "Boost has damageValue 0, an 8 m radius and kickBackStrength 500, so it launches players rather than hurting them.",
+        "Boost::onDestroyed decrements $TeamItemCount[team Beacon], but Beacon::onUse never increments it, so the count runs negative. The team limit is never checked, so this has no effect.",
+        "A BoostBrake mine with negative kickback is defined in Mine.cs but nothing creates it."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost::onAdd, deployCheck, onCollision, onDamage, onDestroyed"
+    }
+  }
+}

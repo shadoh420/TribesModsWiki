@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Talon Mod (v2.2, also titled Talon Rules) is a total combat and class overhaul for Starsiege: Tribes that replaces the three base armors with six distinct spawn classes, each paired with selectable passive specializations, multi-mode weapons, and active Tab-menu abilities. Instead of buying a loadout from scratch every life, players choose their armor class and specialization under Tab > Talon options > Spawn options and drop directly into standard Tribes mission types (such as CTF, Objective towers, and Deathmatch) with full class arsenals, nine specialized grenade types, and nine tactical beacon modules. Combat feels much faster and deadlier than base Tribes, layering headshots, EMP energy blackouts, poison toxins, disarming blasts, orbital launch packs, remote drones, and heavy engineering deployables onto familiar maps. Compared to base, Talon pushes heavily toward specialized team roles—ultra-fast 30-speed Scouts, cloaking Assassins, NanoPack-compiling Artificers, 7-weapon Destroyers, and walking-fortress Energons—backed by an automated team-kill punishment system and an expanded fleet of stealth, bomber, interceptor, and kamikaze flyers.",
+  "notes": [
+   "Six selectable spawn classes and specializations: Under Tab > Talon options > Spawn options, players pick one of six armors and one of three passive specializations per class (taking effect next spawn). Scout/Infiltrator (0.36 HP, 30 speed, 2 weapons; Energy, Jamming, Shield) spawns with Blaster and Laser Rifle. Assassin (0.66 HP, 11 speed, 3-4 weapons; Autoheal, Jamming, Cloack) spawns with Plasma Gun, Disc Launcher, SR-100, and Ammo Pack. Fighter/Warrior (0.86 HP, 11 speed, 4 weapons; Energy, Health, Healing) is the default class and spawns with Blaster, Chaingun, Grenade Launcher, Disc Launcher, and Energy Pack. Engineer/Artificer (1.4 HP, 8 speed, 3 weapons; Autoheal, Health, Construction) spawns with Blast Rifle, Support Mortar, AR-900, Engineer Heal Gun, and either NanoPack (Construction spec) or Repair Pack. Destroyer/Marauder (1.8 HP, 6 speed, 7 weapons; Autoheal, Jamming, AmmoRecharge) spawns with Mortar, RPG, AR-900, Reason, Support Mortar, Blast Rifle, and Ammo Pack. Energon/Titan (1.6 HP, 2.6 speed, 6 weapons; Energy, Autoheal, Shielding) spawns with seven weapons including Swarmer, Gas Mortar, Flamer, and Energon Cannon. A seventh Kamikaze Armor exists in the item data but is not in the spawn menu.",
+   "Tab-menu combat modes and class abilities: While holding a multi-mode weapon, opening the Tab options menu adds direct fire-mode toggles for the RPG (EMP, Explosive, Seeking), Blaster (Single, Quad), Support Mortar (Incendiary, EMP Charge), SR-100 (AP, EMP, Poison), and Energon Cannon (Single, Nova Burst). The same menu exposes Assassin Cloak/Uncloak (drains energy continuously until below 5), Energon REACTOR OVERLOAD, Scout ReleaseScoutPlane(B) (spawns a controllable Scouter mini-plane using one Beacon), Personal Skin toggles, and submenus for NanoPack, Orbital Insertion Pack, and AFID drones.",
+   "Custom grenades and multi-function beacons: All players spawn with grenades and beacons, and can swap between 9 grenade types (Basic, Shockwave, Distortion, Incendiary, Mines, Trip Bombs, Heavy, Energy, Fission) and 9 beacon modules (Heavy Beacons, Temporary Forcefields, ECM Emitters, Plastique Charges, NanoRepair, Rocket Packs for upward boosts, NanoRecharge, Infiltration Modules that temporarily hack enemy inventory stations, and Overdrive Charges that add 28 energy recharge for 10 seconds).",
+   "Weapon variety and status effects: Laser, Gauss, and Sniper damage deal headshot bonuses (65 percent extra on Sniper rounds, 30 percent on Laser and Gauss). Status weapons inflict EMP energy lockouts, neurotoxin poison ticks (0.1 damage per second over 30 steps), Cerebral Bore electrocution and aim-twitching, Disarmer Cannon weapon drops, and Implosion Rifle pull waves. Heavy firepower includes the triple-barrel Reason Mchn-Railgun, Swarmer multi-missile rack, and Targeting Laser paint locks (5 paint ticks establish a lock).",
+   "Deployables, teleporters, and drones: Medium Artificers can deploy NanoBuilder Nodes and compile structures with the NanoPack Builder, or pilot AFID drones that repair or cannibalize field gear. Teams can link a Teleport Rift (2 per team) to a Teleport Marker (1 per team), build Bunkers, Platforms, Forcefields, Deployable Trees, Hunting and Heavy Armor Decoys, Stinger AAA Missiles, RPG Siege Turrets, Proximity Lasers, and Aerial Spy or Laser Bases. Heavy classes can deploy an Orbital Insertion Pack or mount a Heavy Weapons Pack onto a Heavy Weapons Pad.",
+   "Expanded air fleet: Seven team-capped vehicles replace and expand the base roster, adding the Hawk Light Scout (6), Wyvren LPC (3), Dragon HPC (2), VK-5 Zero Interceptor (3, rapid anti-air cannon), ADB-90 Behemoth Bomber (2, rapid plasma fire), V-48 Spirit Stealth flyer (2, invisible to sensors and 45 top speed), and DB-29 Kamikaze BombPlane (2, 60 speed and 80.5 ram damage).",
+   "Inventory bans and team-kill punishment: The DOOMSDAY NukeLnchr (NML) is explicitly disabled at both main and remote inventory stations ($InvList[NML] = 0 and $RemoteInvList[NML] = 0). Team-killing is governed by $THTKHandling = 1, tracking an evilness counter on repeat or rapid team-kills that triggers warnings at 2, random penalties at 3-7 (losing 5 or 10 points, draining energy to zero until death, or instant execution), and a 50/50 chance of execution or a 1-hour IP ban from 8 onward.",
+   "Bots and archive notes: Base AI bot support is retained across 6 AI classes (defaulting to fgarmor) for maps with AI path markers. The surviving v2.1/v2.2 script archive ships without custom maps, art, or nuclear.cs, and uses a stubbed TFunc::ArtificialOffset in TFunc.cs (removing random spread on Swarmer and quad plasma shots while leaving TFunc::Rand, SpawnFX, and THNuke helpers inactive).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): NML (item.cs)."
+  ]
+ },
+ "items": {
+  "TrooperArmor": {
+   "summary": "Energon (Titan) heavy assault armor with knockback, reactor self-destruct, and stationary siege deployment.",
+   "notes": [
+    "Slowest and most specialized heavy assault class (2.6 forward speed, 1.6 max damage, 110 max energy, 6 weapon slots) that spawns loaded with Blast Rifle, AR-900, Swarmer, Pestilence Gas Mortar, Devestator FlameThrower, RPG, and Energon Cannon.",
+    "Colliding with an enemy player knocks them backward, while taking Ion hits or triggering REACTOR OVERLOAD from the Tab menu initiates a 4.5-second self-destruct sequence culminating in a massive fusion explosion.",
+    "Deploying a Heavy Weapons Pack onto a deployed Heavy Weapons Pad locks the Energon into immobile tdeployedarmor (2.5 max damage, 0 speed) to operate heavy artillery like The Pheonix SSDG."
+   ],
+   "source": "ArmorData.cs, game.cs, item.cs, player.cs, admin.cs"
+  },
+  "NanoPack": {
+   "summary": "Artificer constructor pack that compiles and deploys team structures near a NanoBuilder Node.",
+   "notes": [
+    "Restricted to Medium/Artificer armor (marmor and mfemale) and paired with the Nano-Lathe Constructor weapon slot tool.",
+    "Via Tab > Talon: NanoPack options, the player selects and compiles one of eight structures (Hanging Turret, Sensor Jammer, Motion Sensor, Pulse Sensor, Camera, Proximity Laser, Basic Forcefield, or Platform) in 10 seconds, or 6 seconds with the Construction specialization.",
+    "Once compiled, firing the Nano-Lathe deploys the structure anywhere within 100 meters of a friendly deployed NanoBuilder Node."
+   ],
+   "source": "ArmorData.cs, item.cs, admin.cs"
+  },
+  "AFIDPack": {
+   "summary": "Remote-piloted flying support drone with self-destruct and deployable cannibalization.",
+   "notes": [
+    "Available to Medium/Artificer armor at inventory stations for 2000 credits, with up to 4 active AFID drones allowed per team.",
+    "Deploys a small shielded flying unit (Afid) that a player can pilot and manage through the Tab > Talon: AFID interface menu, including severing the control link or detonating the drone.",
+    "Toggling Cannibalize mode lets the drone fire at friendly or field deployables such as turrets, forcefields, platforms, and Teleport Rifts or Markers to reclaim them."
+   ],
+   "source": "ArmorData.cs, item.cs, vehicle.cs, admin.cs"
+  },
+  "BoreGun": {
+   "summary": "Cerebral Bore Launcher that drills targets with electrocution ticks and can detonate Energon reactors.",
+   "notes": [
+    "Uses BoreAmmo (Cerebral Bore) and fires a pod that strips the victim's energy to zero on impact if unshielded.",
+    "Applies 30 half-second shock ticks of 0.025 damage each while randomly twisting the victim's rotation and flashing their screen.",
+    "Has a 50 percent chance on hit to force an Energon player into an immediate reactor self-destruct sequence."
+   ],
+   "source": "item.cs, player.cs"
+  },
+  "JumpPack": {
+   "summary": "Orbital Insertion Pack for heavy classes with Tab-configurable ballistic launch vectors.",
+   "notes": [
+    "Restricted to Heavy/Marauder and Energon/Titan armors and activated by mounting the Jump Shot tool in the weapon slot.",
+    "Players tune both horizontal forward velocity (400 to 1100) and upward Z-vector thrust (300 to 1000) through Tab > Talon: O.O.P. options.",
+    "Firing launches the heavy trooper across the map along the configured trajectory at the cost of draining all suit energy."
+   ],
+   "source": "ArmorData.cs, item.cs, admin.cs"
+  },
+  "NML": {
+   "summary": "DOOMSDAY NukeLnchr guided nuclear missile launcher, banned from inventory stations.",
+   "notes": [
+    "Disabled at both main and remote inventory stations ($InvList[NML] = 0 and $RemoteInvList[NML] = 0), so players cannot purchase it in normal play.",
+    "Designed to fire a player-guided nuclear warhead (GuidedNuke) with a 50-meter minimum clearance check and missile-camera steering.",
+    "Paired with the Heavy Weapons Pack and Heavy Weapons Pad system in script, alongside the companion nuclear.cs module that is absent from the archive."
+   ],
+   "source": "item.cs, vehicle.cs, Talon.cs"
+  }
+ }
+}

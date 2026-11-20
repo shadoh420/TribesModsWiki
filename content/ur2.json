@@ -1,0 +1,418 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades 2 (Thrash with Killjoy, June 1999) is a souped-up build of the Renegades class mod. Its scripts come from a different Renegades release (the welcome banner reads 'Renegades v 1.4') and lack several Classic 1.1c features: admin freeze, station lock, kill credit for poison and burning, and the class spawn loadouts. What defines it is speed and excess: faster armors with nearly double jet force, twice the weapon slots, faster-firing weapons, near-instant repairs, 99 mines per class, a lethal 'Flesh Eating Bacteria' poison, and a hidden Commando class with a selectable grenade type. It also loosens deployable placement: most deployables can sit on a Deployable Platform, and the station-spacing and open-area checks are gone.",
+    "notes": [
+      "Everyone spawns as a Sniper (larmor/lfemale). Classic spawned everyone as a Mercenary. The spawn list ($spawnBuyList in game.cs) buys Light Armor, Hyper Blaster, Mortar, Disc Launcher, Repair Kit, Sniper Rifle, Repair Pack, two Grenades, four Beacons, Targeting Laser and 'AssassinTurret'. The Sniper's limits drop the Hyper Blaster and all but one Beacon, and 'AssassinTurret' is not an item (the Assassin Turret pack is LaserPack), so that entry buys nothing.",
+      "There is no class-spawn option and no per-class spawn loadout, as there is in Classic.",
+      "Weapon slots ($MaxWeapons) are about doubled: Scout 6, Sniper 6, Spy 10, Mercenary 10, Engineer 10, Burster 8, Alien 8, Commando 8, Cyborg 12.",
+      "Armor health (maxDamage) is the same as Classic, but every class moves faster and jets much harder: jetForce is roughly double Classic's and jet energy drain is about half or less. Repair Kits, Repair Patches, the Repair-Gun and the Regeneration Pack heal many times more than in Classic (see those items).",
+      "Every class can carry 99 mines, and mines no longer count against a team limit.",
+      "Poison ('Flesh Eating Bacteria', from Energy damage by an enemy) is much deadlier than Classic. The timer starts at 300 and drops 2 per 5-second tick, and each tick adds 0.5 damage, so it kills unless cured with a Repair Kit or Repair Patch. Aliens are immune.",
+      "Burning (40% chance per enemy Plasma hit, Bursters immune) adds 0.1 damage every 2 s for about 10 s, twice Classic's rate.",
+      "Deaths from poison or burning count as the victim's own death (score -1). Unlike Classic, nobody is credited with the kill.",
+      "Head hits from Laser and Sniper damage do 30% extra. Unlike Classic, Blaster damage no longer gets the head bonus. The disarming hit (Laser damage over 0.25 to the front-right torso) adds a flat 0.05 damage instead of Classic's 0.08.",
+      "Commando (dmarmor) is poisoned, short-circuited or set on fire by any Energy, Flash or Plasma damage, including their own and their teammates'.",
+      "Most deployables (stations, sensors, camera, turrets, teleport pad) can also be placed on a Deployable Platform. The 8 m station-spacing check (checkStationArea) and the open-area check (checkFlierArea) used by Classic's Plasma, Vulcan, Rail and Missile turrets, Teleport Pad, Interceptor Pack and StealthHPC Pack are gone.",
+      "Vehicles: the ScoutJet, BomberLPC and StealthHPC are renamed Scout, Bomber and Avenger. Every flier is much faster and climbs higher. The Interceptor fires Ion bolts, the Wraith fires sniper bullets, and the Avenger fires discs. Team limits: Bomber 8, Avenger 8, Interceptor 20, Wraith 20.",
+      "Only Scout, Sniper and Spy can pilot. Unlike Classic, a non-pilot class that touches a flier from inside a station is not killed.",
+      "Anti-team-kill and admin settings come from UR2Settings.cs, which game.cs reloads at every mission load: tkLimit 5, tkMultiple 3, server level 1, client level 0, fairTeams on. A kick lasts 99999999 seconds, effectively the rest of the server session.",
+      "Female Cyborgs are mapped to armor 'dfemale' ($ArmorType[Female, DragArmor]), but no PlayerData dfemale exists. Female Engineers are mapped to the male earmor.",
+      "Heavy armor (harmor) has a PlayerData and item limits but no shop entry. The Grenade and Beacon scripts give harmor a Plastique bomb, but the Beacon version is created and never placed."
+    ]
+  },
+  "items": {
+    "DMArmor": {
+      "summary": "The Commando: a fast medium-frame class with a broad arsenal, a selectable grenade type and an Alien-style cloak beacon. It is not sold at stations.",
+      "notes": [
+        "PlayerData dmarmor (marmor shape). Top ground speed 17 (dmfemale 15), the fastest armor in the mod. Eight weapon slots.",
+        "Classic defines the same dmarmor PlayerData but has no shop item for it. UR2 adds the 'Commando' armor item, but $InvList[DMArmor] is 0, so stations do not offer it. No script spawns or switches players into it. How players were meant to get it was not determined from the scripts.",
+        "Its item list includes most weapons (Blaster, Chaingun, Disc, Grenade Launcher, Mortar, Plasma, Laser Rifle, Rocket Launcher, Sniper Rifle, Railgun, Vulcan, Flame Thrower, Ion Rifle, Omega, FEB Rifle, Hyper Blaster, Thunderbolt and the second Thunderbolt) and the Repair-Gun. Packs include Shield, Repair, Energy, Ammo, Suicide DetPack, Hologram, Regeneration, Lightning, Cybernetic Laser and Auto-Rocket Cannon, plus the Inventory Station, Plasma, Rail and Vulcan turrets, Teleport Pad, Springboard and Platform.",
+        "Grenade: throws whichever type the Grenade Mode item has selected (see Plastique).",
+        "Beacon: cloaks you for about 30 s, as for the Alien.",
+        "Mine: throws a DMMine instead of the team anti-personnel mine. A Hologram always uses the medium-armor model.",
+        "Energy, Flash and Plasma damage from any source poisons, short-circuits and ignites a Commando, with no team check."
+      ],
+      "source": "item.cs ItemData DMArmor, buyItem, Grenade::onUse, Beacon::onUse, MineAmmo::onUse, HoloPack::deployShape; station.cs $InvList; ArmorData.cs PlayerData dmarmor, $ItemMax, $MaxWeapons; player.cs Player::onDamage"
+    },
+    "ScoutVehicle": {
+      "summary": "The Scout is a fast single-seat flier armed with rockets. It is Classic's ScoutJet under a new name.",
+      "notes": [
+        "Fires the Nuke projectile (Shrapnel damage, 20.5 m blast) every 0.5 s, twice Classic's rate.",
+        "Much faster and more agile than in Classic: top speed 165, climbs to 95, sharper pitch and bank.",
+        "Single seat. Only a Scout, Sniper or Spy can pilot it. Team limit 3."
+      ],
+      "source": "vehicle.cs Scout, Vehicle::onCollision; baseProjData.cs Nuke; item.cs ScoutVehicle"
+    },
+    "LAPCVehicle": {
+      "summary": "The Bomber is Classic's BomberLPC: a light transport that rains mortar shells.",
+      "notes": [
+        "Fires MortarShell every 0.5 s instead of every 4 s.",
+        "Uses the flyer shape instead of the small hover APC. It is much faster (top speed 125) and has a 150 ceiling.",
+        "Carries passengers of any class. The pilot must be a Scout, Sniper or Spy.",
+        "Team limit 8 (Classic 2)."
+      ],
+      "source": "vehicle.cs LAPC, Vehicle::onCollision, Vehicle::findEmptySeat; item.cs LAPCVehicle; $TeamItemMax"
+    },
+    "HAPCVehicle": {
+      "summary": "The Avenger replaces Classic's StealthHPC. It is still invisible to sensors, but it is now armed with a rapid-fire disc cannon.",
+      "notes": [
+        "Fires DiscShell every 0.09 s. The Classic StealthHPC had no weapon.",
+        "Not visible to sensors. Uses the flyer shape and is much faster than Classic's (top speed 125).",
+        "Carries passengers of any class. The pilot must be a Scout, Sniper or Spy.",
+        "Team limit 8 (Classic 1), shared with the StealthHPC Pack."
+      ],
+      "source": "vehicle.cs HAPC, Vehicle::onCollision; item.cs HAPCVehicle, DetPack::deployShape; $TeamItemMax"
+    },
+    "TranqGun": {
+      "summary": "The FEB (Flesh Eating Bacteria) Rifle is the Dart Rifle made far deadlier: a fast-firing, high-velocity dart that infects the target with a lethal poison.",
+      "notes": [
+        "TranqDart does Energy damage, which poisons enemies. In UR2 the poison timer starts at 300 and drops 2 per 5-second tick, each tick adding 0.5 damage. Unless cured, it kills.",
+        "The dart's own hit is three times Classic's and travels about three times faster. The reload is 0.05 s instead of 1.3 s.",
+        "A Repair Kit or Repair Patch cures the poison. Aliens are immune.",
+        "Unlike Classic, a poison death is scored as the victim's own death and is not credited to the shooter."
+      ],
+      "source": "item.cs TranqGunImage; baseProjData.cs TranqDart; player.cs Player::onDamage, Renegades_startBlind, checkPlayerBlind"
+    },
+    "Bolt": {
+      "summary": "A second Thunderbolt: a lightning gun firing the same beam as the EnergyRifle Thunderbolt, but at a much higher energy cost. It is not sold at stations.",
+      "notes": [
+        "BoltImage fires boltCharge, the same LightningData as the EnergyRifle and Lightning Pack. In UR2 that beam reaches 120 m (Classic 40) and does 0.4 Electricity damage per second (Classic 0.2), and it drains 60 energy per second from the target.",
+        "Uses 15-20 energy per shot. The EnergyRifle version uses only 1-2.",
+        "$InvList[Bolt] is 0, so stations do not sell it, although Mercenary, Spy, Alien, Cyborg and Commando can carry one.",
+        "Electricity damage ignores shields."
+      ],
+      "source": "item.cs Bolt, BoltImage, EnergyRifleImage; baseProjData.cs boltCharge; station.cs $InvList; ArmorData.cs $ItemMax"
+    },
+    "Fixit": {
+      "summary": "The Engineer Repair-Gun is a repair beam that needs no pack. In UR2 it repairs about 50 times faster than in Classic.",
+      "notes": [
+        "RepairBolt adds 4.1 to a target's auto-repair rate (Classic 0.1), or 5.25 to your own when nothing is in range (Classic 0.07). The beam reaches 50 m instead of 5.",
+        "Costs only 1-2 energy.",
+        "Unlike Classic, RepairBolt::checkDone only recognises the Repair Pack's RepairGun, not the Fixit. The Repair-Gun therefore no longer switches itself off when the target is fully repaired.",
+        "Targets that aren't damaged are still refused when the beam first locks on."
+      ],
+      "source": "item.cs FixitImage; baseProjData.cs RepairBolt::onAcquire, RepairBolt::checkDone"
+    },
+    "DeployableInvPack": {
+      "summary": "Deploys a remote Inventory Station.",
+      "notes": [
+        "Spawns DeployableInvStation on flat terrain, a building, or a Deployable Platform.",
+        "Unlike Classic, there is no 8 m spacing check against other stations.",
+        "The station no longer records its last user (lastPlayer) when used.",
+        "Team limit 15."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape; station.cs DeployableInvStation::onActivate; $TeamItemMax"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deploys a remote Ammo Station.",
+      "notes": [
+        "Spawns DeployableAmmoStation on flat terrain, a building, or a Deployable Platform. There is no 8 m spacing check against other stations.",
+        "Unlike Classic, using the station does not unmount your weapon or link you to the station. It only resupplies you after 0.5 s.",
+        "Team limit 10."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape; station.cs DeployableAmmoStation::onActivate; $TeamItemMax"
+    },
+    "DeployableComPack": {
+      "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+      "notes": [
+        "Spawns DeployableComStation on flat terrain, a building, or a Deployable Platform. There is no 8 m spacing check against other stations.",
+        "Standing in it gives Command Access. When you leave, UR2 only sets CommandTag on the client. Unlike Classic, it does not clear the player's CommandTag or call checkControlUnmount.",
+        "Team limit 5."
+      ],
+      "source": "item.cs DeployableComPack::deployShape; station.cs DeployableComStation::onActivate; $TeamItemMax"
+    },
+    "StealthShieldPack": {
+      "summary": "The Cyborg's pack combines a shield with a sensor jammer. In UR2 the shield is three times as strong.",
+      "notes": [
+        "While active: shield strength 0.036 (Classic 0.012) plus 20 sensor suppression.",
+        "It uses less energy than in Classic (3-6 instead of 6-9).",
+        "Shield rules are unchanged: 75% effective against Shrapnel and Mortar, no protection against Electricity."
+      ],
+      "source": "item.cs StealthShieldPackImage::onActivate, StealthShieldPackImage::onDeactivate; player.cs Player::onDamage"
+    },
+    "RegenerationPack": {
+      "summary": "Alien pack that repairs your own damage while switched on. In UR2 it heals about 100 times faster than in Classic.",
+      "notes": [
+        "AutoBolt adds 5.05 to your auto-repair rate (Classic 0.05). It still switches itself off at full health.",
+        "The bolt's reach is 50 instead of 5."
+      ],
+      "source": "item.cs RegenerationPackImage; baseProjData.cs AutoBolt::onAcquire, AutoBolt::checkDone"
+    },
+    "NewPack": {
+      "summary": "An unfinished backpack cannon that fires Nuke rockets from the pack slot. No class can buy it.",
+      "notes": [
+        "NewPackImage fires the Nuke projectile (the Scout flier's rocket: Shrapnel damage, 20.5 m blast) with a 5 s reload, for 100-140 energy.",
+        "Its onActivate is empty. onDeactivate releases the pack trigger.",
+        "No armor has an $ItemMax entry for it, and it is not on any station list, so it cannot be bought or carried normally.",
+        "NewerPack is an identical copy with the same name."
+      ],
+      "source": "item.cs NewPack, NewPackImage, NewPackImage::onActivate, NewPackImage::onDeactivate; baseProjData.cs Nuke"
+    },
+    "NewerPack": {
+      "summary": "An identical duplicate of the unfinished Auto-Cannon (NewPack). No class can buy it.",
+      "notes": [
+        "NewerPackImage has the same settings as NewPackImage: it fires Nuke with a 5 s reload for 100-140 energy. Its onActivate is empty, and onDeactivate releases the trigger.",
+        "No $ItemMax entry for any armor, so it cannot be bought."
+      ],
+      "source": "item.cs NewerPack, NewerPackImage, NewerPackImage::onActivate, NewerPackImage::onDeactivate"
+    },
+    "SuicidePack": {
+      "summary": "The Burster's Suicide DetPack throws a huge timed bomb, and enemy snipers can set it off on your back.",
+      "notes": [
+        "Deploying it throws a Suicidebomb2 at 3 x your throw strength (Classic dropped it at a fixed 4). It explodes after 20 s: 4.0 Shrapnel damage in a 70 m radius.",
+        "Unlike Classic, it can be deployed from inside a station.",
+        "An Engineer touching the bomb disarms it 80% of the time. In the 20% 'wrong wire' case the script calls Mine::Detonate with the literal text \" @ %this @ \" instead of the bomb, so it most likely does not go off early. The 20 s fuse still runs.",
+        "While you wear it, an enemy Laser or Sniper hit to your mid-body sets it off on your back."
+      ],
+      "source": "item.cs SuicidePack::onUse, SuicidePack::deployShape; Mine.cs Suicidebomb2::onAdd, Suicidebomb2::onCollision; player.cs Player::onDamage"
+    },
+    "MotionSensorPack": {
+      "summary": "Deploys a Motion Sensor, as in base Tribes.",
+      "notes": [
+        "Spawns DeployableMotionSensor on floors, walls or ceilings, oriented to the surface. In UR2 it can also go on a Deployable Platform.",
+        "Team limit 15."
+      ],
+      "source": "item.cs MotionSensorPack::deployShape; $TeamItemMax"
+    },
+    "AmmoPack": {
+      "summary": "Raises how much ammo you can carry and fills the extra capacity when bought.",
+      "notes": [
+        "Extra capacity is larger than Classic for some types: Mortar 100, Sniper 150, Rail 50, Tranq 200.",
+        "Dropping the pack takes the ammo above your normal limits with it. The drop loop covers only the first 13 of the 14 ammo types, so extra Silencer (Magnum) ammo is never moved into the dropped pack.",
+        "The drop script stores each count under a name that doesn't match the $AmmoPackItems order. For example, excess mines are saved as MortarAmmo."
+      ],
+      "source": "item.cs AmmoPack::onDrop, fillAmmoPack, $AmmoPackItems, $AmmoPackMax"
+    },
+    "CameraPack": {
+      "summary": "Deploys a remote Camera you can view through from a command screen.",
+      "notes": [
+        "Spawns CameraTurret on any terrain, building or Deployable Platform surface, oriented to it.",
+        "Team limit 15, shared with the Engineer's beacon cameras."
+      ],
+      "source": "item.cs CameraPack::deployShape, EngCamera"
+    },
+    "TurretPack": {
+      "summary": "Deploys a remote Ion Turret that fires electrical bolts.",
+      "notes": [
+        "Spawns DeployableTurret firing IonBolt (Electricity damage, ignores shields).",
+        "Can be placed on flat terrain, buildings or a Deployable Platform. The Ion-turret spacing rules are the same as Classic.",
+        "Weaker than Classic's (maxDamage 0.65 instead of 1.0) and fires slightly more slowly.",
+        "Team limit 5."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret"
+    },
+    "LaserPack": {
+      "summary": "The Assassin Turret replaces Classic's Laser Turret. It fires invisible, very fast sniper bullets and can mount on floors, walls or ceilings.",
+      "notes": [
+        "Spawns DeployableLaser firing SniperBullet (Laser damage, muzzle velocity 4000) every 5 s. Classic's fired SniperLaser every 8 s.",
+        "It can also be placed on a Deployable Platform. At most 2 in a 50x50x10 box.",
+        "Energy recharge 6 (Classic 5). The turret is a little weaker (maxDamage 0.95).",
+        "Team limit 4."
+      ],
+      "source": "item.cs LaserPack::deployShape; turret.cs DeployableLaser, DeployableLaser::onAdd; baseProjData.cs SniperBullet"
+    },
+    "ShockPack": {
+      "summary": "Deploys a Shock Turret that short-circuits enemies.",
+      "notes": [
+        "Spawns DeployableShock firing ShockShell (Flash damage). Flash damage zeroes an enemy's energy, stops recharge and unmounts their weapon for 14 s.",
+        "Mounts on any surface orientation, now including a Deployable Platform. At most 2 in a 50x50x10 box.",
+        "Team limit 4."
+      ],
+      "source": "item.cs ShockPack::deployShape; turret.cs DeployableShock; player.cs Shock_Damage"
+    },
+    "TargetPack": {
+      "summary": "Deploys a remote Mortar Turret that only fires under manual control.",
+      "notes": [
+        "Spawns DeployableMortar (range 0, no auto-sensor). Mounting the pack tells you so.",
+        "Can be placed on flat terrain, buildings or a Deployable Platform.",
+        "Team limit 2."
+      ],
+      "source": "item.cs TargetPack::onMount, TargetPack::deployShape; turret.cs DeployableMortar"
+    },
+    "LaserTurret": {
+      "summary": "Despite the datablock name, this deploys a Plasma Turret.",
+      "notes": [
+        "Spawns DeployablePlasma firing FusionBolt.",
+        "Unlike Classic, it skips the open-area check (checkFlierArea) and can go on a Deployable Platform. No other Plasma turret may be within 10 m.",
+        "Weaker than Classic's (maxDamage 1.0 instead of 1.5).",
+        "On destruction it calls Turret::objectiveDestroyed, which no loaded UR2 script defines.",
+        "Team limit 10."
+      ],
+      "source": "item.cs LaserTurret::deployShape; turret.cs DeployablePlasma, DeployablePlasma::onDestroyed"
+    },
+    "VulcanTurret": {
+      "summary": "Deploys a manually fired Vulcan Turret.",
+      "notes": [
+        "Spawns DeployableVulcan firing TurretBullet. Range 0, so it only fires when manned. Teammates other than Cyborgs take control by walking into it.",
+        "Fires and turns faster than Classic's, but its energy recharge is halved (10 instead of 20).",
+        "Unlike Classic, there is no open-area check, and it can go on a Deployable Platform.",
+        "On destruction it calls Turret::objectiveDestroyed, which no loaded UR2 script defines.",
+        "Team limit 3."
+      ],
+      "source": "item.cs VulcanTurret::deployShape; turret.cs DeployableVulcan::onAdd, DeployableVulcan::onEnabled, DeployableVulcan::onDestroyed"
+    },
+    "RailTurret": {
+      "summary": "Deploys a Rail Turret. Unlike Classic, it has its own sensor and fires on its own.",
+      "notes": [
+        "Spawns DeployableRail firing railLaser (Sniper damage) with range 125. Classic's had range 0 and fired only when manned. Reload 5 s (Classic 4).",
+        "Shield strength 0.01 (Classic 0.005), energy recharge 20 (Classic 30).",
+        "Its spacing check still counts Vulcan turrets. There is no open-area check, and it can go on a Deployable Platform.",
+        "On destruction it calls Turret::objectiveDestroyed, which no loaded UR2 script defines.",
+        "Team limit 10."
+      ],
+      "source": "item.cs RailTurret::deployShape; turret.cs DeployableRail, DeployableRail::onAdd, DeployableRail::onDestroyed"
+    },
+    "RocketPack": {
+      "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+      "notes": [
+        "Spawns DeployableRocket. It still only engages targets with heat factor 0.5 or more.",
+        "Much flimsier than Classic's (maxDamage 0.65 instead of 1.7), with shorter range (125 instead of 175) and a slower reload.",
+        "No open-area check, and it can go on a Deployable Platform. The pack item uses the missile-turret model.",
+        "Team limit 3."
+      ],
+      "source": "item.cs RocketPack::deployShape; turret.cs DeployableRocket, DeployableRocket::verifyTarget, DeployableRocket::onDestroyed"
+    },
+    "ForceFieldPack": {
+      "summary": "Deploys a small 5x5 force field wall.",
+      "notes": [
+        "Spawns DeployableForceField facing the way you are looking, on any flat surface.",
+        "UR2's script counts nearby force fields but never uses the count, so placement is as unrestricted as in Classic.",
+        "Team limit 10."
+      ],
+      "source": "item.cs ForceFieldPack::deployShape"
+    },
+    "LargeForceFieldPack": {
+      "summary": "Deploys a full-size force field wall.",
+      "notes": [
+        "Spawns LargeForceField on any flat surface.",
+        "Like the small field, it counts nearby fields (it counts the small DeployableForceField type) but never uses the result.",
+        "Team limit 2 (Classic 4)."
+      ],
+      "source": "item.cs LargeForceFieldPack::deployShape; $TeamItemMax"
+    },
+    "TripwirePack": {
+      "summary": "Despite the datablock name, this deploys a solid Blast Wall.",
+      "notes": [
+        "Spawns BlastWall on flat terrain only.",
+        "Counts nearby Blast Walls but never uses the count.",
+        "The pack item uses the door-panel model (newdoor5).",
+        "Team limit 20."
+      ],
+      "source": "item.cs TripwirePack::deployShape; staticshape.cs BlastWall"
+    },
+    "HoloPack": {
+      "summary": "Deploys a stationary hologram of a player as a decoy.",
+      "notes": [
+        "Picks a random model: light 30%, medium 40%, heavy 30%. A Commando always gets the medium model.",
+        "Counts against the shared 'hologram' team limit of 15.",
+        "UR2 has no onDestroyed handler for the heavy model (Hologram3), so a destroyed heavy hologram never frees its slot in the limit.",
+        "The Sniper's Hologram Mine grenades also lower this counter when destroyed (see Grenade)."
+      ],
+      "source": "item.cs HoloPack::deployShape; staticshape.cs Hologram1::onDestroyed, Hologram2::onDestroyed; Mine.cs HoloMine::onDestroyed"
+    },
+    "TreePack": {
+      "summary": "Deploys a Mechanical Tree for cover or camouflage.",
+      "notes": [
+        "Spawns DeployableTree (40%) or DeployableTree2 (60%) on flat terrain only.",
+        "UR2 has no DeployableTree2::onDestroyed, so destroying the more common tree model never frees its slot in the team limit of 25."
+      ],
+      "source": "item.cs TreePack::deployShape; staticshape.cs DeployableTree::onDestroyed"
+    },
+    "PlatformPack": {
+      "summary": "Deploys a thin 6x6 platform. In UR2, most other deployables can be built on top of it.",
+      "notes": [
+        "Spawns DeployablePlatform wherever your 3 m line of sight hits, with no flat-surface check.",
+        "Stations, sensors, cameras, turrets and teleport pads accept a DeployablePlatform as a valid surface.",
+        "The script counts nearby platforms but never uses the count.",
+        "Team limit 25."
+      ],
+      "source": "item.cs PlatformPack::deployShape and the other deployShape functions"
+    },
+    "TeleportPack": {
+      "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+      "notes": [
+        "Team limit 2. Can be placed on flat terrain, a building or a Deployable Platform. Unlike Classic, there is no open-area check.",
+        "After a teleport, both pads recharge for 5 s. Classic's 1-in-45 chance of 0.25 crush damage is gone.",
+        "A Spy can step on an enemy pad. Unlike Classic, this sends the Spy to one of their own team's pads, not to the enemy's other pad.",
+        "Cyborgs (and heavy armor) cannot teleport."
+      ],
+      "source": "item.cs TeleportPack::deployShape; staticshape.cs DeployableTeleport::onCollision"
+    },
+    "MechPack": {
+      "summary": "The Interceptor Pack deploys a ready-to-fly Interceptor jet.",
+      "notes": [
+        "Spawns the Jet flier on flat terrain or a building. Classic allowed terrain only and also required open space (checkFlierArea).",
+        "In UR2 the Interceptor fires Ion bolts and is much faster.",
+        "Counts against the JetVehicle team limit of 20 (Classic 5)."
+      ],
+      "source": "item.cs MechPack::deployShape; vehicle.cs Jet; $TeamItemMax"
+    },
+    "DetPack": {
+      "summary": "Despite the datablock name, this is the StealthHPC Pack. It deploys an Avenger (HAPC) transport, not an explosive.",
+      "notes": [
+        "Spawns the HAPC flier on flat terrain or a building, with no open-area check.",
+        "In UR2 the HAPC is the Avenger, which carries a rapid-fire disc cannon.",
+        "Counts against the HAPCVehicle team limit of 8."
+      ],
+      "source": "item.cs DetPack::deployShape; vehicle.cs HAPC"
+    },
+    "RepairKit": {
+      "summary": "Single-use self repair that heals 1.2 (enough to fully heal any class but the Cyborg) and cures poison.",
+      "notes": [
+        "Repairs 1.2 damage (Classic 0.2) and clears poison.",
+        "Unlike Classic, it can be used inside a station or while piloting."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "MineAmmo": {
+      "summary": "Thrown anti-personnel mine that only goes off for enemies. In UR2 every class can carry 99 of them.",
+      "notes": [
+        "Throws AntipersonelMine set to your team. A Commando throws a DMMine instead.",
+        "Unlike Classic, there is no team limit on live mines. Every class's mine limit is 99.",
+        "Mines take 35% of incoming mine damage (Classic 25%), so chains of mines set each other off a little more readily.",
+        "The mine blast is a little stronger than Classic's and has three times the kickback."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine, AntipersonelMine::onDamage, DMMine; ArmorData.cs $ItemMax"
+    },
+    "Grenade": {
+      "summary": "Thrown explosive whose effect depends on your class. The Commando chooses its type with the Grenade Mode item.",
+      "notes": [
+        "Scout: Firebomb. Spy: Plastique (Nukebomb) with a 15 s fuse (Classic 10 s). Sniper: Hologram Mine. Mercenary: Handgrenade. Burster: Concussion. Engineer: Shock grenade. Alien: Tranq grenade (poison). Cyborg: Mortarbomb.",
+        "Commando: mode 1 Plastique, 2 Concussion, 3 Shock, 4 Tranq, 5 Mortarbomb, 6 Firebomb, otherwise Handgrenade.",
+        "Unlike Classic, the Sniper's Hologram Mine has no team limit. It self-detonates after 120 s, and when destroyed it lowers the shared 'hologram' counter used by the Hologram pack, which it never raised.",
+        "An Engineer touching Plastique disarms it 90% of the time. The 10% 'wrong wire' branch passes the literal text \" @ %this @ \" to Mine::Detonate instead of the bomb, so it most likely does not explode early.",
+        "You can throw one every 0.5 s."
+      ],
+      "source": "item.cs Grenade::onUse; Mine.cs HoloMine::onAdd, HoloMine::onDestroyed, Nukebomb::onAdd, Nukebomb::onCollision"
+    },
+    "Beacon": {
+      "summary": "Class ability item. Each class's beacon does something different, mostly as in Classic, but the Burster's no longer works.",
+      "notes": [
+        "Scout: Pulse Sensor. Spy: Satchel Charge. Sniper: Sensor Jammer. Mercenary: Speed Booster. Engineer: Camera. Alien and Commando: cloak for about 30 s. Cyborg: Emergency Force Shields for about 20 s (strength 0.006).",
+        "Burster: Classic's Haul-Ass stim is replaced by a throw of a 'Concussion2' mine at 35 x throw strength. No Concussion2 datablock exists in UR2, so the beacon is used up without effect.",
+        "Unlike Classic, beacons can be used from inside a station.",
+        "Beacon limits differ by class: Sniper, Scout, Engineer and Commando 1; Mercenary, Spy, Alien and Cyborg 3; Burster 4."
+      ],
+      "source": "item.cs Beacon::onUse, ScoutSensor, DeploySatchel, SniperJammer, EngCamera, Renegades_startCloak, Renegades_startShield; Mine.cs Booster; ArmorData.cs $ItemMax"
+    },
+    "Plastique": {
+      "summary": "'Grenade Mode': a selector that cycles the Commando's grenade type each time it is used. It does not use itself up.",
+      "notes": [
+        "Each use (once the match has started, at most every 0.5 s) advances $modeTime for your client and prints the new type: Fire, Shock, Poison, Mortar, Concussion, Plastique Explosives, then back to Fire.",
+        "Bug: from mode 0 the script prints 'Normal', sets mode 1, then immediately falls into the mode-1 branch and moves on to 2 ('Fire'). After the first use you can never return to the normal Handgrenade.",
+        "The labels match Grenade::onUse: 2 Concussion (Plasma, ignites), 3 Shock grenade, 4 Tranq grenade, 5 Mortarbomb, 6 Firebomb, 1 Plastique (15 s fuse).",
+        "Only the Commando's grenades read the mode. Cyborg and Spy may also carry one, but it has no effect for them.",
+        "$InvList[Plastique] is 0, so stations do not sell it."
+      ],
+      "source": "item.cs Plastique::onUse, Grenade::onUse; station.cs $InvList; ArmorData.cs $ItemMax"
+    },
+    "RepairPatch": {
+      "summary": "Health pickup found in the world that heals 1.125 and cures poison on contact.",
+      "notes": [
+        "Walking over it while damaged repairs 1.125 (Classic 0.125) and clears poison, then the patch respawns.",
+        "If carried and used, it repairs 1.1 (Classic 0.1)."
+      ],
+      "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+    }
+  }
+}

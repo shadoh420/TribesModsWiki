@@ -1,0 +1,65 @@
+  ScoutArmor (Scout): new
+  SpArmor (Chemeleon): new
+  LightArmor (Assassin): renamed+stats
+  MediumArmor (Mercenary): renamed+stats
+  BursterArmor (Goliath): new
+  EngArmor (Engineer): new
+  AlArmor (Arbitor): new
+  DragArmor (DreadNaught): new
+  Juggernaught (Juggernaught): new
+  WraithVehicle (Wraith): new
+  JetVehicle (Interceptor): new
+  Blaster (Blaster): stats+scripts
+  Chaingun (Equalizer): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  HyperB (Hyper Blaster): new
+  RocketAmmo (RocketAmmo): new
+  RocketLauncher (Rocket Launcher): new
+  SniperAmmo (Sniper Bullet): new
+  SniperRifle (Sniper Rifle): new
+  BoomAmmo (Boom Shell): new
+  BoomStick (Boom Stick): new
+  TranqAmmo (Poison Dart): new
+  TranqGun (Dart Rifle): new
+  SilencerAmmo (Magnum Bullets): new
+  Silencer (Magnum): new
+  ConCun (Shockwave Cannon): new
+  RailAmmo (Railgun Bolt): new
+  Railgun (Railgun): new
+  VulcanAmmo (Vulcan Bullet): new
+  Vulcan (Vulcan): new
+  MfglAmmo (Nuclear Warhead): new
+  Mfgl (Tactical Nuke): new
+  Flamer (Flame Thrower): new
+  IonGun (Ion Rifle): new
+  Volter (Volter): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  Fixit (Engineer Repair-Gun): new
+  GravGun (Grav Gun): new
+  Penis (Penis): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableComPack (Command Station): new
+  ShieldPack (Shield Pack): scripts
+  CloakingDevice (Cloaking Device): new
+  StealthShieldPack (StealthShield Pack): new
+  RegenerationPack (Regeneration Pack): new
+  LightningPack (Teleport Pack): new
+  FlightPack (Flight Pack): new
+  AutoRocketAmmo (Auto Rockets): new
+  SMRPack (Rocket Launcher Pack): new
+  SMRPack2 (Rocket Launcher Pack): new
+  BarragePack (Anti-Aircraft Turret): new
+  BlastFloorPack (Blast Floor): new
+  Laptop (Command Laptop): new
+  SuicidePack (Suicide DetPack): new
+  FgcPack (Containment Pack): new
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  PulseSensorPack (Pulse Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts

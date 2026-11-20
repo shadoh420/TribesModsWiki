@@ -1,0 +1,43 @@
+{
+ "mod": {
+  "overview": "Scout Skirmish is a round-based aerial dogfighting mod built on Tribes Arena v2.2 elimination rules and HaVoC 1.59c item definitions. Players spawn in Light Armor with no starting weapons and must grab Assault Jets or Shockwave Jets from the Vehicle Pad (or spend up to two Inventory Station visits per round to gear up) to wipe out the opposing team on the dxScout and shScout maps. Each round runs up to 240 seconds with no mid-round respawns and full friendly fire enabled; the first team to win 3 rounds takes the match, and maps rotate after 3 matches.",
+  "notes": [
+   "Round & Match Flow: Runs Tribes Arena v2.2 elimination rules on the dxScout and shScout maps. Players join teams (auto-assigned by default), press Fire to ready up within 30 seconds, and start after a 10-second countdown. There are no respawns mid-round; dead players enter observer mode until one team is wiped out (a FINISH HIM alert plays at 1 survivor) or the 240-second round clock runs out (most survivors wins; ties replay). First team to 3 round wins takes the match (awarding 5 points to winning players), and maps cycle after 3 matches. Full friendly fire ($Server::TeamDamageScale = 1) is always active.",
+   "Spawning & Station Limits: Everyone spawns in Light Armor (larmor or lfemale) with no weapons and only a Repair Kit, prompted to grab a vehicle and attack the enemy team. Team Energy is Infinite, and base Generators, Solar Panels, Inventory Stations, and Vehicle Pads are reinforced to 1000.0 maxDamage, but each player can only access supply stations 2 times per round.",
+   "Armors & Class Abilities: Inventory Stations offer 6 armors inherited from HaVoC 1.59c: ELF Elite Force (larmor, 425), Pyro (sarmor, 425), Medic (lfemale, 425), Engineer (marmor, 575), Sniper (spyfemale, 575), and Goliath Warrior (harmor, 700). Only larmor and lfemale can pilot vehicles; heavier armors ride as passengers in multi-seat jets and jump to eject. Throwing a Grenade or using a Beacon triggers armor-specific HaVoC powers (such as larmor/lfemale AI holo decoys and Sniper Jammers, Pyro Firebombs and Pulse Sensors, Engineer Handgrenades and jet Speed Boosters, Sniper 15-second Plastique explosives and Satchel Charges, and Goliath Warrior shoulder rockets and F1aker shots).",
+   "Vehicles & Bans: Vehicle Stations ($VehicleInvList) sell the Assault Jet (Scout, 500 energy, 2 per team) and Shockwave Jet (HAPC, 500 energy, 2 per team). Two other jets defined in vehicle.cs, the Hellfire Jet (Chane) and SpazZ Jet (LAPC), are explicitly disabled ($VehicleInvList = 0).",
+   "Weapons & Loadout Restrictions: Although item.cs defines HaVoC weapons and deployables, station.cs restricts $InvList and $RemoteInvList to base-style gear: Setera Blaster (fires IonEBolt electricity rockets), Chaingun, Disc Launcher, Grenade Launcher, Mortar, Plasma Gun, Laser Rifle (auto-buys an Energy Pack and is auto-sold if the Energy Pack is sold), ELF Gun, Targeting Laser, Mines, Grenades, Beacons, Repair Kit, and standard packs (Energy, Repair, Shield, Sensor Jammer, Motion/Pulse Sensors, Deployable Sensor Jammer, Camera, Sector Turret, Ammo Pack, plus Deployable Inventory/Ammo Stations at main stations). Team caps apply to deployables and vehicles, and Match Mode additionally caps Laser Rifles at 2 per team.",
+   "Menus & Admin Options: The Tab options menu adds a Tribes Arena Options submenu where admins can set the winning score limit (2 out of 3 up to 10 out of 19), reset or force-start the match, toggle the ReadyUp timer or AutoTeamJoin, strip public admins, or switch between Public Mode and Match Mode (where only Team Captains ready up). Team Captains can also pass captaincy through this menu.",
+   "Bots & Missing-Helper Stubs: Arena initialization calls AI::setupAI() for bot support, and larmor/lfemale players can deploy AI holographic decoys via grenades. Because Scout Skirmish shipped HaVoC's item.cs without HaVoC's server.cs or player.cs, ScoutSkirmish.cs defines ixApplyKickback, ixLockWarning, and doneposs as no-ops, meaning weapons and abilities run without custom kickback or lock-warning behavior.",
+   "Additional station and team bans: Team limit zeroed ($TeamItemMax = 0): HeavyArmor=dyn (arena.cs), LaserRifle=dyn (arena.cs)."
+  ]
+ },
+ "items": {
+  "ScoutVehicle": {
+   "summary": "Assault Jet: fast, fragile single-seat interceptor armed with a rapid-fire ChairBullet gun.",
+   "notes": [
+    "Fast single-seat dogfighter (maxSpeed 55, accel 0.7, maxDamage 0.3) requiring Light Armor to pilot.",
+    "Fires continuous ChairBullet rounds (reloadDelay 0, bullet damage 0.05) and takes half damage from Blaster fire.",
+    "Limited to 2 per team via $TeamItemMax[ScoutVehicle]."
+   ],
+   "source": "vehicle.cs"
+  },
+  "HAPCVehicle": {
+   "summary": "Shockwave Jet: heavy multi-seat flyer firing wide-radius Shock fusion rockets.",
+   "notes": [
+    "Heavy gunship and transport (maxSpeed 32, accel 0.3, maxDamage 0.8) with 1 pilot seat and 4 passenger seats; takes half damage from Laser and Blaster fire.",
+    "Fires Shock fusion rockets (reloadDelay 0.7, explosion damage 0.5 over a 30.0 radius with 520.0 kickback).",
+    "Limited to 2 per team via $TeamItemMax[HAPCVehicle]."
+   ],
+   "source": "vehicle.cs"
+  },
+  "RepairKit": {
+   "summary": "Field repair item usable on self, teammates, or friendly structures.",
+   "notes": [
+    "Granted on spawn in $spawnBuyList and restockable at stations.",
+    "Aiming within 3 meters at a friendly player heals 0.23 damage (and reduces poison/EMP timers) or fires a RepairItemBolt at friendly static shapes/turrets; otherwise heals the user for 0.20 damage."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

@@ -1,0 +1,82 @@
+shifter-vsiyx: 81 of 171 need write-ups
+  LAPCVehicle (BomberLPC): renamed+stats
+  HAPCVehicle (StealthHPC): renamed+stats
+  Chaingun (Equalizer): stats
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats
+  LaserRifle (Laser Rifle): stats
+  HyperB (Hyper Blaster): stats
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SniperRifle (Sniper Rifle): stats
+  BoomStick (Boom Stick): stats
+  TranqGun (Dart Rifle): stats
+  Silencer (Magnum): stats
+  ConCun (Shockwave Cannon): stats
+  Railgun (Railgun): stats
+  Vulcan (Vulcan): stats
+  Mfgl (Tactical Nuke): stats+scripts
+  Flamer (Flame Thrower): stats
+  IonGun (Ion Rifle): stats
+  Volter (Volter): stats
+  TargetingLaser (Targeting Laser): stats
+  Fixit (Engineer Repair-Gun): stats+scripts
+  GravGun (Grav Gun): stats+scripts
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  EnergyPack (Energy Pack): stats
+  RepairPack (Repair Pack): stats
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): stats
+  CloakingDevice (Cloaking Device): stats
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  LightningPack (Teleport Pack): stats
+  FlightPack (Flight Pack): stats
+  BarragePack (Anti-Aircraft Turret): scripts
+  BlastFloorPack (Blast Floor): scripts
+  Laptop (Command Laptop): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  PulseSensorPack (Pulse Sensor): scripts
+  DeployableSensorJammerPack (Sensor Jammer): scripts
+  CameraPack (Camera): stats+scripts
+  TurretPack (Ion Turret): scripts
+  LaserPack (Laser Turret): stats+scripts
+  DeployableElf (Deployable Elf Turret): scripts
+  ShockPack (EMP Turret): scripts
+  TargetPack (Mortar Turret): scripts
+  PlasmaTurretPack (Plasma Turret): scripts
+  RocketPack (Rocket Turret): scripts
+  ForceFieldPack (Small Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  BlastWallPack (Blast Wall): scripts
+  HoloPack (Hologram): scripts
+  TreePack (Mechanical Tree): scripts
+  PlantPack (Healing Plant): scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): stats+scripts
+  airbase (AirBase): scripts
+  LaunchPack (Launch Pad): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Hackit (Engineer Hack-Gun): stats+scripts
+  DisIt (Engineer Disassymbler-Gun): stats+scripts
+  Regen (Regeneration Gun): stats+scripts
+  CoolLauncher (Missile Control Station): scripts
+  DetBug (Det Bug): scripts
+  RepairPatch (Repair Patch): stats
+  EmplacementPack (Emplacement): scripts
+  LargeShockForceFieldPack (Large Shock Force Field): scripts
+  ArbitorBeaconPack (Arbitor Device): stats+scripts
+  EMPBeaconPack (EMP Device): scripts
+  ShieldBeaconPack (Shield Device): scripts
+  PowerGeneratorPack (Power Device): scripts
+  ShockForceFieldPack (Small Shock Force Field): new
+  ShockFloorPack (Shock Floor): scripts

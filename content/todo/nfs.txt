@@ -1,0 +1,38 @@
+# nfs vs base (37 items)
+new        VeryLightArmor               Very Light Armor
+new        LightBallisticArmor          Light Ballistic Armor
+new        MediumDefensiveArmor         Medium Defensive
+new        HeavyDestructiveArmor        Heavy Destructive
+new        HeavyDestructiveArmor1       Heavy Destructive
+new        StealthVehicle               Stealth
+new        NukerVehicle                 Nuker
+stats      HAPCVehicle                  HPC
+stats      Blaster                      Blaster
+new        Flamer                       Flame Thrower
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeLauncher              Grenade Launcher
+new        RailAmmo                     Rail Ammo
+new        RailGun                      RailGun
+stats      Mortar                       Mortar
+new        NukeAmmo                     Nuke Ammo
+new        NukeGun                      NukeGun
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+renamed+statsTargetingLaser               Burst gun
+new        NastyGun                     NastyGun :) 
+new        SAMAmmo                      SAMAmmo
+new        SAM                          SAM
+renamed+statsEnergyRifle                  ELF Blaster :) 
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+stats      EnergyPack                   Energy Pack
+scripts    AmmoPack                     Ammo Pack
+new        FlamegunPack                 Flamegun Turret
+new        ForceTurretPack              ForceTurret Turret
+new        ChaingunPack                 Chaingun Turret
+new        BlasterPack                  Blaster Turret
+new        RocketPack                   Rocket Turret
+scripts    TurretPack                   Turret
+scripts    MineAmmo                     Mine
+scripts    RepairPatch                  Repair Patch

@@ -1,0 +1,3 @@
+# extreme vs base (2 items)
+stats      Blaster                      Blaster
+scripts    MineAmmo                     Mine

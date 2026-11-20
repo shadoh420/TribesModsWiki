@@ -1,0 +1,85 @@
+# anarchy vs renegades-classic (84 items)
+renamed+statsAlArmor                      Striker
+new        GolemArmor                   Golem
+renamed+statsScoutVehicle                 Scout
+stats      Blaster                      Blaster
+new        ShotgunShells                Shotgun Shells
+new        Shotgun                      Shotgun
+stats      Mortar                       Mortar
+new        EMPMortarAmmo                EMP Mortar Ammo
+new        EMPMortar                    EMP Mortar
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+stats      HyperB                       Hyper Blaster
+new        NukeRocketAmmo               Nuke Rockets
+new        DualRocketAmmo               Dual Rockets
+new        DualRocket1Ammo              Dual Rockets
+new        DualRocket2Ammo              Dual Rockets
+new        DualRocketLauncher1          Dual Rocket Launcher
+new        DualRocketLauncher2          Dual Rocket Launcher
+new        DualRocketLauncher           Dual Rocket Launcher
+stats      SniperRifle                  Sniper Rifle
+new        EMPAmmo                      EMP Rounds
+new        EMPgun                       EMP Rifle
+stats      WaveGun                      Shockwave Cannon
+stats      Railgun                      Railgun
+new        Tasergun                     Taser Gun
+stats      Flamer                       Flame Thrower
+stats      IonGun                       Ion Rifle
+stats      Omega                        Omega Cannon
+new        Bolt                         Thunderbolt
+stats      EnergyRifle                  Thunderbolt
+stats      TargetingLaser               Targeting Laser
+scripts    Fixit                        Engineer Repair-Gun
+new        PortGeneratorPack            Portable Generator
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsDeployableComPack            Command Station
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+new        GenPack                      Portable Gen Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats+scriptsCloakingDevice               Cloaking Device
+stats      StealthShieldPack            StealthShield Pack
+stats+scriptsRegenerationPack             Regeneration Pack
+stats      LightningPack                Lightning Pack
+stats      OpticPack                    Cybernetic Laser
+renamed+statsSMRPack                      Rocket Cannon
+new        NukePack                     Nuclear Cannon
+new        Vulcanpack                   Hell Fire Pack
+stats      Laptop                       Command Laptop
+stats+scriptsSuicidePack                  Suicide DetPack
+new        NewNukebomb                  Nuke Bomb
+scripts    MotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+scripts    CameraPack                   Camera
+new        ELFPack                      ELF Turret
+stats+scriptsTurretPack                   Ion Turret
+new        MiniIonPack                  Mini Ion Turret
+stats+scriptsLaserPack                    Laser Turret
+new        MiniRailPack                 Mini Rail Turret
+stats+scriptsShockPack                    Shock Turret
+new        FlamePack                    Flame Turret
+stats+scriptsTargetPack                   Mortar Turret
+stats+scriptsLaserTurret                  Plasma Turret
+stats+scriptsVulcanTurret                 Vulcan Turret
+stats+scriptsRailTurret                   Rail Turret
+stats+scriptsRocketPack                   Missile Turret
+new        MiniRocketPack               Rocket Turret
+stats+scriptsForceFieldPack               Force Field
+stats+scriptsLargeForceFieldPack          Large Force Field
+new        DoorfivebyfiveForceFieldPack Force Field Door
+new        DoorfourbyeightForceFieldPackLarge Force Field Door
+stats+scriptsTripwirePack                 Blast Wall
+scripts    HoloPack                     Hologram
+stats+scriptsTreePack                     Mechanical Tree
+scripts    PlatformPack                 Deployable Platform
+scripts    TeleportPack                 Teleport Pad
+scripts    MechPack                     Interceptor Pack
+scripts    DetPack                      StealthHPC Pack
+scripts    RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+new        Plastique                    Grenade Mode

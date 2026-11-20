@@ -1,0 +1,111 @@
+# thunderstruck vs havoc (110 items)
+renamed+statsScoutArmor                   Sniper
+renamed+statsSpArmor                      Spysniper
+renamed+statsLightArmor                   Ultra Sniper
+renamed+statsMediumArmor                  Magnum
+renamed+statsBursterArmor                 Meltoid
+renamed+statsInfArmor                     Elite
+renamed+statsBehArmor                     Assult
+renamed+statsDragArmor                    Hercules
+renamed+statsBulletAmmo                   Bullet
+new        MrpgAmmo                     Blaster Cartridges
+new        MrpgLauncher                 MECHSHB
+new        MrpgLauncher2                MECHRPG
+new        MrpgLauncher3                MECHRPG
+new        MrpgLauncher4                MECHRPG
+new        MMinigunAmmo                 MMinigun Ammo
+new        MMinigun                     MECHMinigun
+new        MMinigun2                    MECHMinigun
+new        MMinigun3                    MECHMinigun
+new        MMinigun4                    MECHMinigun
+new        MinigunAmmo                  MiniGun Ammo
+new        Minigun                      MiniGun
+new        Minigun2                     MiniGun
+new        GaussAmmo                    Explosive Bullets
+new        Gauss                        Explosive Chain Gun
+stats      Chaingun                     Chaingun
+renamed+statsPlasmaAmmo                   Plasma Bolt
+stats+scriptsTargetingLaser               Targeting Laser
+stats      RealTargetingLaser           Targeting Laser
+scripts    Smoker                       Smoke Bomb
+scripts    TractorBeam                  Tractor Beam
+stats+scriptsGrapple                      Grappling Hook
+scripts    PSmoker                      Toxin Grenade
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+scripts    MineAmmo                     Mine
+stats+scriptsRepairKit                    Repair Kit
+new        PlasmaDiscAmmo               Plasma Disc
+new        PlasmaDiscLauncher           Plasma Disc Launcher
+renamed+statsDiscAmmo                     Disc
+renamed+statsHDiscAmmo                    Hyper Disc
+renamed+statsHDisc1Ammo                   Hyper Disc
+renamed+statsHDisc2Ammo                   Hyper Disc
+stats      DiscLauncher                 Disc Launcher
+renamed+statsHDisc1                       Twin Spinfusor
+renamed+statsHDisc2                       Twin Spinfusor
+stats      GrenadeLauncher              Grenade Launcher
+new        ImpactAmmo                   IE Mortar Ammo
+renamed+statsEMPGrenadeAmmo               EMPGrenadeAmmo
+new        BabyNukeMortar               50 Megaton Nuke
+new        MECHMissileAmmo              MECH Missile Ammo
+new        MECHRocketLauncher           MECHRocketgun
+new        MECHRocketLauncher2          MECHRocketgun
+new        MECHRocketLauncher3          MECHRocketgun
+new        MECHRocketLauncher4          MECHRocketgun
+new        RPGAmmo                      RPG Rockets
+new        RPGLauncher                  RPG Launcher
+new        RPMAmmo                      RPM Rockets
+new        RPMLauncher                  RPM Launcher
+renamed+statsRocketAmmo                   Rockets
+renamed+stats+scriptsIXRocketLauncher             Guided Rocket Launcher
+stats+scriptsEMPGrenadeLauncher           EMP Grenade Launcher
+new        SniperAmmo40                 40mm round
+renamed+statsSniperAmmo                   50mm round
+new        ImpactMortar                 Impact Mortar
+renamed+statsTranqAmmo                    Poison Dart
+renamed+statsRailAmmo                     Railgun Bolt
+stats      Railgun                      Railgun
+new        SniperRifle40                40mm Rifle
+renamed+statsSniperRifle                  50mm Rifle
+new        Reassembler                  Super Repair Gun
+new        MitziCore                    EMF Power Charge
+new        MBCannon                     EMF Blast Cannon
+stats      Blaster                      Blaster
+stats      EnergyRifle                  ELF Gun
+stats      WaveGun                      Shockwave Cannon
+new        PBW                          Proton Laser
+stats+scriptsLaserRifle                   Laser Rifle
+stats      Fixit                        Engineer Repair Gun
+scripts    CoolLauncher                 Missile Control Station
+renamed+statsBooM                         ThunderStruck Missile
+new        AODMobileInv                 Mobile Inventory Stn
+new        AODShieldGen                 Shield Generator
+new        AODShieldNode                Remote Shield Node
+new        MiniBase                     Mini-Base
+new        Accelerator                  Nuke Power Pack
+new        GravFieldPack                Gravitron Field Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+stats      HeatSink                     Heat Sink
+new        StealthShieldPack            Stealth Shield Pack
+stats+scriptsTPack                        Teleport Pack
+scripts    PlasmaPack                   Flame Turret
+scripts    SuicidePack                  Demolition Pack
+stats+scriptsSMR2Pack                     Cannon
+stats+scriptsSMR3Pack                     Cannon
+stats+scriptsCloakingDevice               Cloaking Pack
+new        VulcanTurret                 Vulcan Turret
+renamed+stats+scriptsLaserTurret                  Fusion Turret
+scripts    LaserPack                    Laser Turret
+renamed+statsAAPack                       Disk Turret
+new        RailTurret                   Rail Turret
+new        BlastDoorPack                Blast Door
+new        BlastFloorPack               Blast Floor
+new        TripwirePack                 Blast Wall
+new        HoloPack                     Decoy
+scripts    DeployableComPack            Command Station
+scripts    Hider                        Cloaking Device
+scripts    DeployableAmmoPack           Ammo Station
+scripts    DeployableInvPack            Inventory Station

@@ -1,0 +1,41 @@
+{
+ "mod": {
+  "overview": "Snipers Base v2.0 by King Shit (2001, built on the Alliance engine) is a sniper- and gadget-focused Tribes mod that replaces standard heavy-armor and disc/mortar brawling with long-range precision rifles, elemental status effects, aerial sniper platforms, and espionage tools. Players spawn in fast DM armor equipped with a Sniper Rifle and Laser Rifle, then specialize at inventory stations into Light Snipers, Medium Snipers, Flight Snipers with infinite jetpack fuel, or Engineers who fortify the sky with hover platforms, specialized turrets, teleporters, and even a deployable sky Jail Cell. Combat revolves around high-velocity rifles, +30% headshot multipliers, status afflictions (poison, burn, EMP energy drain, and blindness), grappling hooks, cloaking, and remote turret or teleporter hacking. Beyond standard CTF and DM, the mod ships full FlagHunter and Kill the Rabbit game modes with custom ban lists and progressive flag-hoarding rules.",
+  "notes": [
+   "Spawns and Armor Classes: In standard play you spawn in DM armor (5 weapon slots, speed 15, Speed Booster beacons, and multi-mode grenades), while inventory stations sell four specialized classes: Light Sniper (fastest, only vehicle pilot, Cloak Gun, Kamikaze Pack, Comm Listener), Medium Sniper (4 weapons, Railgun, Flame Rifle, Ion EMP Rifle, Repeater, DetPack, Laptop), Flight Sniper (infinite jetpack with zero jet energy drain), and Engineer (4 weapons, most turrets/sensors/platforms/teleporters, Jail Cell, and ability to disarm planted Plastique/DetPacks with a risk of failure).",
+   "Weapons and Status Effects: Standard Alliance/base heavy weapons (Mortar, Plasma Gun, Chaingun, Blaster, Grenade Launcher) are removed in favor of sniper, beam, and status weapons. Laser and Sniper headshots deal +30% damage; Poison Dart Rifles and Tranq grenades inflict 30s of poison damage-over-time (cured by Repair Kit); Flame Rifles and Plasma ignite targets for 10s of burn; Ion EMP Rifles and Shock grenades zero out target energy and recharge for 14s while unmounting their weapon; Demo. Grenades (Smoker) blind enemies; Anti-Grav Guns push targets away while the 300m Energy Grappling Hook pulls you and your target together; the Repeater requires holding the trigger 5.25 seconds to spin up.",
+   "Covert Gear, Jail, and Deployables: Engineers can deploy one aerial Jail Cell per team (at least 150m from the flag), and Engineers or Light Snipers can zap enemies at 4m with the Jailers Gun to lock them up for 20 seconds. Light Snipers and Engineers can also wear a Comm. Listener Pack to read enemy team chat, while Medium Snipers and Engineers can use a Laptop to control turrets away from a Command Station and hijack enemy Teleport Pads. Aerial sniper perches (Air Platform, Large Air Platform, Plasma Floor) cannot be deployed near flags, and specialty turrets include Watchdog lasers, manual-only Rail Turrets, Hyper-Grav pull turrets, Mini-ELF flash turrets, Missile Turrets, and anti-air Flak Turrets.",
+   "Vehicles: Five flyers exist (Scout, Wraith, Interceptor, BomberLPC, and HAPC), with Scout, BomberLPC, and HAPC stocked at vehicle pads. Only Light Snipers can pilot vehicles; all other classes can only ride as passengers.",
+   "Game Modes, Menus, and Controls: Supports CTF/DM alongside FlagHunter (kill opponents, collect dropped flags, and return them to the Nexus for progressive 1+2+3+... points, with optional Greed mode requiring 8 flags to cap, Hoard mode locking the Nexus from 5 to 2 minutes left, Nexus camping damage, and TAB-menu player tracking) and Kill the Rabbit. The mod adds no #prefixed chat commands; server/team/vote options and FlagHunter modes are handled through the TAB and options menus.",
+   "Explicit Bans and Server Rules: AirPlasmaFloorPack and IceTurretPack are disabled at all stations ($InvList = 0, $RemoteInvList = 0), and FlagHunter explicitly bans Mortar and TurretPack while making inventory and ammo stations invincible. Stations prevent knock-off locking and auto-eject campers after 60 seconds when more than 3 players are present.",
+   "Admin Punishments and Bots: Admins can Freeze, De-tongue (gag), BlowUP-n-Kill, or curse a player into the unremovable Penis armor (zero weapons, blocked from stations, forced to carry a Penis pack firing Pee, and re-cursed on suicide). Map AI drones are supported when a mission defines team AI paths.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AirPlasmaFloorPack (Item_DeployablePlatforms.cs), IceTurretPack (Item_DeployableTurrets.cs)."
+  ]
+ },
+ "items": {
+  "FlightArmor": {
+   "summary": "Medium-toughness sniper armor (maxDamage 1.0, maxEnergy 80) with infinite jetpack flight (jetEnergyDrain = 0.0).",
+   "notes": [
+    "Zero jet energy drain allows continuous airborne sniping and repositioning.",
+    "Supports 3 weapons (Sniper Rifle, Laser Rifle, High Cal. Rifle, Shotgun, Poison Dart Rifle, Hyper Laser, Targeting Laser) plus Ammo, Repair, Energy, and Flag Decoy packs, Holograms, Cameras, and Large Air Platforms."
+   ],
+   "source": "Armor_Flight.cs, Item_Max.cs"
+  },
+  "LightArmor": {
+   "summary": "Fastest purchasable class (forward speed 11) and the only armor allowed to pilot vehicles (Scout, Interceptor, Wraith, BomberLPC, HAPC).",
+   "notes": [
+    "Can mount Cloak Gun, Sensor Jammer Pack, Kamikaze Pack, Comm. Listener Pack, Cybernetic Laser, Shock Pack, Jailers Gun, Jail Capture Pad, and Base Alarm.",
+    "Carries up to 3 weapons and has 0.66 maxDamage and 60 maxEnergy."
+   ],
+   "source": "Armor_Light.cs, Item_Max.cs"
+  },
+  "EngineerArmor": {
+   "summary": "Base-builder and support class (maxDamage 1.0, speed 8) with exclusive access to Jail Cells, Teleport Pads, and most deployable sensors and turrets.",
+   "notes": [
+    "Carries 4 weapons (including Repair Rifle, Anti-Grav Gun, Cutting Laser, ELF Gun, High Cal. Rifle, Shotgun, Poison Dart Rifle, and Jailers Gun).",
+    "Can disarm planted Plastique Explosives and DetPacks on contact, though cutting the wrong wire detonates them."
+   ],
+   "source": "Armor_Engineer.cs, Item_Max.cs, Mine.cs"
+  }
+ }
+}

@@ -1,0 +1,166 @@
+# cnc-tribes vs base (165 items)
+new        Plastique                    Grenade Mode
+new        iarmorScout                  Scout
+new        iarmorSpy                    Assault Marine
+new        iarmorMercenary              Tactical Marine
+new        iarmorEngineer               Engineer
+new        iarmorBurster                Pyro Engineer
+new        iarmorCyborg                 Terminator
+new        iarmorSprint                 Harvester
+new        iarmorSniper                 Guardian
+new        iarmorAlien                  Rifle Infantry
+new        iarmorCommando               Commando
+new        iarmorDestroyer              Artillery Infantry
+new        iarmorLing                   Grenadier
+new        iarmorLoader                 Railgunner
+renamed+stats+scriptsTargetingLaser               Laser Target Designator Gun
+renamed+stats+scriptsBlaster                      Beretta 92FS 9MM
+stats      PlasmaAmmo                   Plasma Bolt
+stats+scriptsPlasmaGun                    Plasma Gun
+new        WaveGunAmmo                  Plasma Cannon Charges
+new        WaveGun                      Plasma Cannon
+new        Pist                         Las Pistol
+new        HyperB                       Las Gun
+new        DeathLaser                   Las Blaster
+new        LasCannon                    Las Cannon
+renamed+statsBulletAmmo                   FMJ M4 Clips
+renamed+stats+scriptsChaingun                     M4 Carbine
+new        AutoAmmo                     Bullet
+new        Autogun                      Assault Cannon
+new        SilencerAmmo                 Bolter Rounds
+new        Silencer                     Boltgun
+new        VulcanAmmo                   Heavy Autocannon Cartridges
+new        Vulcan                       Heavy Autocannon
+new        RailAmmo                     5.56mm Ammo
+new        Railgun                      G36K-Railgun
+new        PartGun                      Particle Accelerator
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  Sniper Rifle
+new        TranqAmmo                    .300 Winchester Clips
+new        TranqGun                     Walther WA2000
+new        LongAmmo                     Long Rifle Ammo
+new        LongRifle                    Long Rifle
+new        ShotgunAmmo                  Shotgun Shells
+new        Shotgun                      Shotgun
+new        Flamer                       Flamer
+new        HFlamer                      Heavy Flamer
+new        VirusAmmo                    Neurotoxin
+new        Virus                        Virus Launcher
+new        Omega                        Meltagun
+new        IonGun                       Fusion Gun
+new        ShurAmmo                     Heavy Shuriken
+new        ShurCannon                   Shuriken Cannon
+renamed+statsGrenadeAmmo                  Disc Ammo
+renamed+stats+scriptsGrenadeLauncher              Discus Thrower
+renamed+statsMortarAmmo                   Grenade Packs
+renamed+stats+scriptsMortar                       Grenade Launcher
+new        DemoGun                      Isolanth
+new        RocketAmmo                   Missile
+new        RocketLauncher               Missile Launcher
+new        CycloneAmmo                  Cyclone Missile
+new        Cyclone                      Cyclone Launcher
+new        EMPAmmo                      Unguided Rockets
+new        EMP                          Bazooka
+new        MassAmmo                     Reaper Shell
+new        MassDriver                   Reaper Launcher
+new        Warp                         Fusion Cannon
+new        ELF                          Drainer
+new        Fixit                        Wrench
+new        TractorDevice                Grav Beam
+new        FlakCAmmo                    HK G3A3 Ammo
+new        FlakC                        HK G3A3
+new        suitAmmo                     30mm Boxed Ammo
+new        suit                         AK47
+stats+scriptsAmmoPack                     Ammo Pack
+new        Laptop                       Command Uplink
+stats+scriptsEnergyPack                   Energy Pack
+new        RegenerationPack             Regeneration Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+new        CloakingDevice               Wraith Device
+new        StealthShieldPack            Phase Pack(stealthshield)
+stats      SensorJammerPack             Sensor Jammer Pack
+new        LightningPack                Electron Pack
+new        OpticPack                    Optic Laser
+new        SMRPack                      Adv. Shield Pack
+new        LRSensorJammerPack           Adv. Jammer Pack
+new        PackOMen                     Hologram Pack
+new        TargetMarkLaser              Target Marking Laser
+new        PhotonPack                   Vortex Missile
+new        TrackerMissileAmmo           Smart Bomb
+new        TrackerMissilePack           Smart Bomb
+stats+scriptsBeacon                       Beacon
+stats+scriptsRepairPatch                  Repair Patch
+stats+scriptsGrenade                      Grenade
+stats+scriptsMineAmmo                     Mine
+stats+scriptsRepairKit                    Repair Kit
+new        SurveyDronePack              SERV BOT
+new        ore1                         500
+new        ore2                         1000
+new        ore3                         1500
+new        TreePoint                    Tree point vis
+new        TreePointRoute               Tree Point Route vis
+new        GuardBot                     Guard Bot
+new        MortarBot                    Mortar Bot
+new        DemoBot                      Demolitions Bot
+new        MedicBot                     Medic Bot
+new        MinerBot                     Minelayer Bot
+new        SniperBot                    Sniper Bot
+new        PainterBot                   Target Bot
+new        BotStationPack               Troop Purchase Station
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsCameraPack                   Camera
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        DeployableComPack            Command Station
+new        BlastWallPack                Bulkhead
+new        PlatformPack                 Deployable Platform
+new        AirPlatformPack              Grav Platform
+new        LargeAirPlatPack             Adv. Grav Platform
+new        ForceFieldPack               Force Field
+new        LargeForceFieldPack          Large Force Field
+new        BigFieldPack                 Adv. Force Field
+new        MannequinPack                Hologram
+new        TeleportPack                 Teleport Pad
+new        SpringPack                   Launch Pad
+new        AcceleratorDevicePack        Accelerator Device
+new        DeployableLRSensorJammerPack Adv. Sensor Jammer
+new        LRMotionSensorPack           Adv. Motion Sensor
+new        LRPulseSensorPack            Adv. Pulse Sensor
+new        IonTurretPack                Pillbox
+new        LaserTurretPack              Las Turret
+new        RocketPack                   Missile Turret
+new        BarragePack                  Barrage Launcher
+new        ShockTurretPack              Scatter Las Turret
+new        PlasmaTurretPack             NOD Turret
+new        BunkerPack                   Powerplant
+new        BunkerPack2                  Constructionyard
+new        RailTurretPack               Heavy Las Turret
+new        VulcanTurretPack             Bolter Cannon
+new        HFlameTurretPack             Heavy Flame Turret
+new        ElecTurretPack               Particle Blast Turr.
+new        FlameTurretPack              Flame Turret
+new        AAPack                       Gun Battery
+new        DCannon                      Shock Bolt
+new        Heal                         Regenerate
+new        Gravi                        Implode
+new        Stream                       Destructor
+new        Zap                          Bolt
+new        Fireball                     Flame Thrower
+new        Cloak                        Conceal
+new        Pull                         Drain
+new        PsiLaser                     Beam
+new        Sword                        Power Sword
+renamed+statsScoutVehicle                 Jet Bike
+new        InterceptorVehicle           Vyper Var.1
+new        WraithVehicle                Vyper Var.2
+new        DogFighterVehicle            Vyper Var.3
+renamed+statsHAPCVehicle                  Chinook
+new        TempestVehicle               Tempest
+renamed+statsLAPCVehicle                  A-10 Thunderbolt II
+new        QuickLPCVehicle              Land Speeder Var.2
+new        SpeederVehicle               Apache
+new        GuardVehicle                 Harrier
+new        DevVehicle                   Orca

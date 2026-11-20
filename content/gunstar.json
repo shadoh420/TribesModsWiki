@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "GunStar v0.5 (Nathan Sweet / [HvC]NaTeDoGG) removes all standard Base weapons, Heavy Armor, and HAPC, disables main-station purchases of Mines, Grenades, Beacons, AmmoPack, and RepairKit, and replaces combat with four elemental Orbs that fuse together when carrying two and pressing Grenade.",
+  "notes": [
+   "Orb-only combat & station bans: strips Blaster, Chaingun, PlasmaGun, GrenadeLauncher, Mortar, DiscLauncher, LaserRifle, TargetingLaser, HeavyArmor, and HAPC. station.cs sets $InvList = 0 on MineAmmo, Grenade, Beacon, AmmoPack, and RepairKit (with AmmoPack and RepairKit also banned at remote stations). Players spawn in LightArmor with EnergyPack, FlameOrb, and RepairKit.",
+   "Classes & combination mechanic: Light is buffed to 0.81 maxDamage and 0.67 jetEnergyDrain (2 Orbs max); Medium carries 1 Orb. Selecting two Orbs (Flame, Homing, Force/RapidOrb, Laser) and pressing the Grenade key fuses them into hybrid attacks."
+  ]
+ }
+}

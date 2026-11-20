@@ -1,0 +1,371 @@
+{
+ "mod": {
+  "overview": "RenegadesMod v8-20-2003 is a late, heavily server-oriented Renegades Classic build. It adds a ninth class, the Defender, plus an undercover Espionage Pack for Spies, deployable flier packs, more turret types, force-field doors, a vehicle repair gun and the DeathStar orbital launcher. Turret deployment gets admin rules (no turrets, no offensive turrets, optional kill credit), and several Classic placement checks are dropped. It also ships a large admin and voting layer and an in-game mode switch: renmode() lets an admin hot-swap the item rules to Renegades_MercMod (Elite.cs), Renegades_Elite (EliteRenegades.cs), Renegades_Xtreme (RenX.cs) or back to the default (reload.cs). The stats on this wiki show the default mode only.",
+  "notes": [
+   "Classes: Classic's eight plus the Defender (HeavyArmor, armor harmor, 7 weapon slots; no female model, female players also get harmor). With $Reneg::SpawnClass on, it is picked from the 'more' page of the class menu, next to the Cyborg.",
+   "Server settings live in RenegadesMod.cs in the mod root (exec'd again by reload.cs): vote permissions, Public Admin rights, random missions ($Reneg::RandomMissions true, drawing from Capture the Flag, Classic Maps, DF-Spawn Maps and Open Call), team-kill limits, out-of-area damage, $Reneg::NoOTurretDistance = 550, DeathStar options, HappyBreaker, logging and station-lock options.",
+   "$BaseRapeDamage (true by default): when false, StaticShape::onDamage makes every Generator and Station flash its shield and ignore the damage, so bases cannot be knocked out.",
+   "$SpawnMatch (false by default; admin or vote toggle): when on, players cannot use the map's InventoryStation objects ('Can't access stations while in Spawn Match Mode'), and the Engineer Repair-Gun cannot repair anything but yourself (see Fixit). The check names only the InventoryStation datablock, so ammo stations and deployed remote Inventory Stations still work.",
+   "Turret rules (admin menu): $Reneg::noOTurrets ('No Offense Turret') refuses any turret deployed within 45% of the flag-to-flag distance of the enemy flag when the flags are closer than $Reneg::NoOTurretDistance (550 m), or within 200 m otherwise, and warns everyone else. $Reneg::TurretKill ('Turret Points') makes Ion, Missile, Tracking and Anti-Aircraft turrets credit their kills to the deployer; it has no default, so it is off until an admin enables it. Deploy scripts also check $Reneg::NoTurrets, but nothing in the scripts ever sets it.",
+   "Several Classic placement checks are gone: no 8 m station spacing for remote Inventory, Ammo and Command Stations, and no checkFlierArea clearance for Plasma, Vulcan, Rail and Missile turrets or Teleport Pads. Blast Walls and Platforms get an anti-crash check instead.",
+   "Undercover Spies (Espionage Pack) cannot throw grenades, use beacons, use stations, pilot vehicles or teleport.",
+   "HappyBreaker.cs ($Reneg::HappyBreaker true): each mission it creates invisible, immobile decoy players (HappyJack/HappyJack2, 500 max damage) and fake flags, 8 of each, or 8 + clients/4 once 8 or more clients are connected. Every 15-30 s they are moved to random points within 750 m of real players and set 2.5 m under the terrain. The scripts do not say what the decoys are for.",
+   "Mode switch (renmod.cs renmode, admin 'Switch Mods' menu; the choice is kept across missions through the $Reneg::ELITE, ELITE2 and RenX flags that game.cs checks): Elite.cs = 'Renegades_MercMod': Spawn Match on, everyone spawns as a Mercenary with Blaster, Chaingun, Disc Launcher, Repair Kit, 3 grenades, a mine and Energy Pack; Defender can carry the Vulcan, Burster the Rocket Launcher and male Engineers the Anti-Aircraft Turret; Burster X Launcher ammo 4 and none for female Engineers; small Defender and Cyborg damage-scale tweaks; Mercenaries get 3 beacons; Large Force Field and Blast Wall deploy scripts replaced.",
+   "EliteRenegades.cs = 'Renegades_Elite': removes every RenegadesMod addition from the inventory lists (Anti-Aircraft, DeathStar, Tracking Turret, X Launcher, the force-field doors, Base Alarm, Espionage Pack, Turret Buster, D Vulcan, DRocket Launcher), hides the Defender, removes the Scout's Vulcan and the Mercenary's mines, and gives a Classic-style Ion Turret deploy (flat surfaces only).",
+   "RenX.cs = 'Renegades_Xtreme': adds the Turret Buster, D Vulcan, DRocket Launcher and X Launcher to the inventory lists, lets Aliens carry the Turret Buster, sets the Defender's plain Vulcan and Rocket Launcher limits to 0, sets $Reneg::FastInv and extends the weapon-cycle order to the new guns. reload.cs ('Reload RenegadesMod') re-execs armordata.cs, RenegadesMod.cs and game.cs to return to the default, but also applies the same seven $ItemMax tweaks as Elite.cs and keeps the X Launcher out of the inventory lists.",
+   "Script bugs: renmode() sends its remoteEval to %clientId, which is never set, and its loop over clients only echoes. AlarmKit::onDestroyed decrements the Base Alarm count twice, once with an undefined %alarm. HappyBreaker::CreateStuff creates a HappyJack and immediately overwrites the handle with a HappyJack2, so the HappyJack decoys are never moved or faded. The Laser and Shock turret kill-credit blocks own %turret, which is unset in those functions (their object is %camera). Station::onCollision runs messageAll($SpawnMatch) on every player contact with a station, broadcasting the setting's raw value to everyone."
+  ]
+ },
+ "items": {
+  "HeavyArmor": {
+   "summary": "The Defender is a new heavy class built to hold ground: it shrugs off knockback, resists the Spy's Magnum and carries heavy weapons, but cannot teleport or ride in vehicles.",
+   "notes": [
+    "Knockback: the Defender takes 1/7 of the push from its own explosions (including its own Mortar), 1/2 from teammates' hits and 1/1.6 from enemies' hits.",
+    "Magnum (Silencer) hits: body shots do 60% less, and head shots do 40% less instead of the usual 30% extra.",
+    "Cannot loot enemy corpses, cannot ride as a passenger ('Armor too heavy to transport') and cannot use Teleport Pads. A Repair Patch bought at a station heals it 0.105 (Cyborg 0.08, others 0.06). Touching a DeathStar solar panel does it 2.0 damage instead of 0.5.",
+    "Its grenade is a Mortarbomb and its beacon throws a ByeBye blast mine (see Grenade and Beacon).",
+    "Default carry list: Disc Launcher, Grenade Launcher, Mortar, Plasma Gun, Thunderbolt, Targeting Laser, Rocket Launcher, Shockwave Cannon, Magnum, Flame Thrower, DRocket Launcher and D Vulcan, but the two D weapons are not sold in default mode. The Weapons Factory spawn list also gives it a Vulcan, which $ItemMax does not allow by default."
+   ],
+   "source": "item.cs HeavyArmor; armordata.cs harmor, $ItemMax[harmor,...]; player.cs Player::onDamage, Player::onCollision; vehicle.cs Vehicle::onCollision; staticshape.cs DeployableTeleport::onCollision; station.cs; game.cs spawn lists"
+  },
+  "ScoutVehicle": {
+   "summary": "The Scout is a fast single-seat flier armed with rockets; it is Classic's ScoutJet under a new name.",
+   "notes": [
+    "The Scout flier datablock is unchanged: it fires the Nuke projectile (Shrapnel damage, 20.5 m blast, 450 kickback) once per second. Single seat; only a Scout, Sniper or Spy can pilot it.",
+    "Unlike Classic, an undercover Spy cannot pilot it, and the tourney penalty for touching a flag while piloting is gone.",
+    "Team limit 3, shared with Scouts deployed from a Scout Pack."
+   ],
+   "source": "item.cs ScoutVehicle; vehicle.cs Scout, Vehicle::onCollision; item.cs ScoutPack::deployShape"
+  },
+  "Fixit": {
+   "summary": "The Engineer Repair-Gun is a repair beam that needs no Repair Pack.",
+   "notes": [
+    "Unlike Classic, an Engineer locking onto another player or object raises its repair rate by 0.2 instead of 0.1. With nothing in range it repairs you at 0.07 ('AutoRepair').",
+    "When $SpawnMatch is on, locking onto anything other than yourself calls fixable(), a function that does not exist in the scripts, and then clears the target, so the beam repairs nothing (the 'Repairing' message still appears).",
+    "Stops by itself when the target is fully repaired; undamaged targets are refused. Engineer only."
+   ],
+   "source": "baseprojdata.cs RepairBolt::onAcquire, RepairBolt::checkDone"
+  },
+  "Stinger": {
+   "summary": "The X Launcher is a Burster launcher that fires slow, heavy disrupter bolts with a very large blast.",
+   "notes": [
+    "Fires PhaseDisrupterBolt, a non-seeking RocketData with a 25 m blast radius and 450 kickback, using Disrupter Ammo.",
+    "Its damage type is $Missile2DamageType, which is never assigned a number anywhere in the scripts, so the bolt has an empty damage type and the per-armor $DamageScale entries for it are keyed on that empty value.",
+    "An older lock-on 'Plane Killer' version (StingerImage::onFire with seeking StingerMissile2 against aircraft only) is left in item.cs but commented out.",
+    "Burster only. Not available in Renegades_Elite mode."
+   ],
+   "source": "item.cs Stinger, StingerImage; baseprojdata.cs PhaseDisrupterBolt; armordata.cs $DamageScale"
+  },
+  "StingerAmmo": {
+   "summary": "Disrupter Ammo is the ammunition for the X Launcher.",
+   "notes": [
+    "The Burster can carry 6. Female Engineers can also carry 6 even though no Engineer can carry the launcher.",
+    "Sold at inventory stations in default mode."
+   ],
+   "source": "item.cs StingerAmmo; armordata.cs $ItemMax; station.cs $InvList"
+  },
+  "VehFixit": {
+   "summary": "The Vehicle Repair-Gun is a Scout repair beam that only works on fliers and vehicle stations.",
+   "notes": [
+    "Locks only onto a Flier, a vehicle pad or a Vehicle Station; anything else gives 'Nothing in range'. It cannot repair players or yourself.",
+    "Adds 0.1 to the target's repair rate while held and stops when the target is fully repaired ('Repair Done').",
+    "Scout only."
+   ],
+   "source": "item.cs VehFixitImage; baseprojdata.cs VehRepairBolt::onAcquire, checkDone, onRelease"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote Inventory Station.",
+   "notes": [
+    "Spawns DeployableInvStation on flat terrain or a building.",
+    "Unlike Classic, there is no 8 m station-spacing check, so it can be placed right next to other stations.",
+    "Unlike the map's Inventory Stations, a deployed remote station is not blocked by Spawn Match: the Spawn Match check in Station::onCollision only matches the InventoryStation datablock."
+   ],
+   "source": "item.cs DeployableInvPack::deployShape; station.cs"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote Ammo Station.",
+   "notes": [
+    "Spawns DeployableAmmoStation on flat terrain or a building.",
+    "Unlike Classic, there is no 8 m station-spacing check. Ammo stations still work during Spawn Match."
+   ],
+   "source": "item.cs DeployableAmmoPack::deployShape"
+  },
+  "DeployableComPack": {
+   "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+   "notes": [
+    "Spawns DeployableComStation on flat terrain or a building. Standing in it gives Command Access for as long as you stay.",
+    "Unlike Classic, there is no 8 m station-spacing check."
+   ],
+   "source": "item.cs DeployableComPack::deployShape; station.cs DeployableComStation::onActivate"
+  },
+  "EspPack": {
+   "summary": "The Espionage Pack lets a Spy go undercover: while it is active the Spy is moved to the enemy team and wears their skin.",
+   "notes": [
+    "Activating it drops any flag you carry, switches you to the other team with that team's skin and tells your own team you went undercover. Deactivating it puts you back on your team, restores your skin and consumes the pack.",
+    "Refused when the mission has more than two teams, and only one Spy per team can be undercover at a time.",
+    "While undercover you cannot throw grenades, use beacons, use stations, pilot vehicles or teleport. The Base Alarm's collision code treats undercover Spies as intruders.",
+    "Your cover is blown (the pack is removed) when you damage anyone, or when a player from your real team damages you. Enemies who hit you are told you are on their team ('Undercover!!'), at most once every 3 s.",
+    "Spy only."
+   ],
+   "source": "item.cs EspPackImage::onActivate, EspPackImage::onDeactivate; player.cs Player::onDamage; station.cs; vehicle.cs Vehicle::onCollision"
+  },
+  "BaseAlarm": {
+   "summary": "Deploys a small Base Alarm turret on a building wall, floor or ceiling.",
+   "notes": [
+    "Spawns AlarmKit (a camera-shaped turret firing BaseAlarmProj, range 19) on interiors only, numbered 'Base Alarm #N'. Deploying it within 30 m of your own flag awards $Score::FlagDef.",
+    "AlarmKit::onCollision only records a timestamp when an enemy or undercover Spy comes within 15 m; it sends no message. BaseAlarmProj does 0.01 damage of $AlarmDamageType, which nothing in player.cs handles. Any warning effect beyond that is not determined from the scripts.",
+    "When destroyed it announces '(alarm name) has been destroyed!' to its team.",
+    "Not obtainable in default mode: no class has an $ItemMax entry for it and it is not in the inventory lists. Elite.cs and reload.cs add it to the lists, but still give no class a carry limit."
+   ],
+   "source": "item.cs BaseAlarm::deployShape; turret.cs AlarmKit; baseprojdata.cs BaseAlarmProj"
+  },
+  "TurretPack": {
+   "summary": "Deploys a remote Ion Turret that fires electrical bolts.",
+   "notes": [
+    "Spawns DeployableTurret firing IonBolt (Electricity damage, ignores shields).",
+    "Unlike Classic, it is no longer limited to flat surfaces: it takes its rotation from the surface it hits and can go on walls and ceilings.",
+    "Kill credit to the deployer, always on in Classic, now only applies when $Reneg::TurretKill is enabled.",
+    "Obeys the no-offensive-turret rule. Same spacing as Classic: at most 2 Ion turrets in a 50x50x10 box and none within 10x10x10."
+   ],
+   "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret"
+  },
+  "LaserPack": {
+   "summary": "Deploys a Laser Turret that can be mounted on floors, walls or ceilings.",
+   "notes": [
+    "Spawns DeployableLaser firing SniperLaser (Laser damage). At most 2 laser turrets in a 50x50x10 box.",
+    "Now obeys the no-offensive-turret rule.",
+    "Its $Reneg::TurretKill block assigns ownership of %turret, which is never set in this function, so the deployer never gets kill credit even with Turret Points on."
+   ],
+   "source": "item.cs LaserPack::deployShape; turret.cs DeployableLaser"
+  },
+  "ShockPack": {
+   "summary": "Deploys a Shock Turret that short-circuits enemies.",
+   "notes": [
+    "Spawns DeployableShock firing ShockShell (Flash damage). Flash damage on an enemy zeroes their energy, stops recharge and unmounts their weapon for 14 s.",
+    "Can mount on any surface. At most 2 in a 50x50x10 box. Now obeys the no-offensive-turret rule.",
+    "Like the Laser Turret, its kill-credit block refers to an unset %turret, so it never credits the deployer."
+   ],
+   "source": "item.cs ShockPack::deployShape; turret.cs DeployableShock; player.cs Shock_Damage"
+  },
+  "TargetPack": {
+   "summary": "Deploys a remote Mortar Turret that only fires under manual control.",
+   "notes": [
+    "Spawns DeployableMortar firing MortarTurretShell. It has no auto-sensor, and mounting the pack tells you so.",
+    "Same flat-surface and spacing rules as Classic. The only script change is the $Reneg::NoTurrets check; the no-offensive-turret rule does not apply to it.",
+    "Still credits kills to the deployer unconditionally, as in Classic."
+   ],
+   "source": "item.cs TargetPack::onMount, TargetPack::deployShape; turret.cs DeployableMortar"
+  },
+  "LaserTurret": {
+   "summary": "Despite the datablock name, this deploys a Plasma Turret.",
+   "notes": [
+    "Spawns DeployablePlasma firing FusionBolt on flat ground, with no other Plasma turret in the spacing boxes.",
+    "Unlike Classic, there is no checkFlierArea clearance test, and it obeys the no-offensive-turret rule.",
+    "It credits kills to the deployer whether or not $Reneg::TurretKill is on: ownership is set again unconditionally after the optional block (Classic gave no credit)."
+   ],
+   "source": "item.cs LaserTurret::deployShape; turret.cs DeployablePlasma"
+  },
+  "VulcanTurret": {
+   "summary": "Deploys a Vulcan Turret that a teammate fires by hand.",
+   "notes": [
+    "Spawns DeployableVulcan firing TurretBullet. Range 0, so it only fires when manned; any teammate except a Cyborg can walk into it to take control.",
+    "Unlike Classic, there is no checkFlierArea clearance test. The no-offensive-turret rule does not apply to it."
+   ],
+   "source": "item.cs VulcanTurret::onMount, VulcanTurret::deployShape; turret.cs DeployableVulcan, Turret::onCollision"
+  },
+  "RailTurret": {
+   "summary": "Deploys a manually fired Rail Turret.",
+   "notes": [
+    "Spawns DeployableRail firing railLaser (Sniper damage). Range 0, so it only fires when manned; teammates other than Cyborgs take control by walking into it.",
+    "Unlike Classic, there is no checkFlierArea clearance test. As in Classic, its spacing check counts Vulcan turrets rather than Rail turrets."
+   ],
+   "source": "item.cs RailTurret::onMount, RailTurret::deployShape; turret.cs DeployableRail"
+  },
+  "TrackingTurretPack": {
+   "summary": "Deploys a Tracking Turret that fires long-lived seeking missiles.",
+   "notes": [
+    "Spawns TrackingTurret (camera shape) firing Trackingproj, a seeking missile with a 20 s life, range 120.",
+    "Mounts on any terrain or building surface, oriented to it. At most 2 Tracking turrets in a 50x50x10 box and none within 10x10x10.",
+    "Obeys the no-offensive-turret rule; kill credit only with $Reneg::TurretKill.",
+    "Engineer only. Team limit 2."
+   ],
+   "source": "item.cs TrackingTurretPack::deployShape; turret.cs TrackingTurret; baseprojdata.cs Trackingproj"
+  },
+  "RocketPack": {
+   "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+   "notes": [
+    "Spawns DeployableRocket firing TurretMissile; it only engages targets with heat factor 0.5 or more.",
+    "Unlike Classic, there is no checkFlierArea clearance test. It obeys the no-offensive-turret rule, and kill credit needs $Reneg::TurretKill.",
+    "Its spacing checks still count Sentry, Ion and Missile turrets together. The pack now uses the 'logo' shape."
+   ],
+   "source": "item.cs RocketPack::deployShape; turret.cs DeployableRocket::verifyTarget"
+  },
+  "BarragePack": {
+   "summary": "Deploys an Anti-Aircraft Turret that fires fast seeking tracer missiles at players riding in vehicles.",
+   "notes": [
+    "Spawns AntiAirCraftTurret firing BarrageBolt, range 325.",
+    "Its verifyTarget only accepts targets that are mounted on something (getMountObject), so it engages pilots and passengers, not players on foot. Its shield strength is 0.02 while it has no valid target and 0 while engaging.",
+    "Flat terrain or building only. Its spacing checks count Sentry, Ion and Anti-Aircraft turrets together. Obeys the no-offensive-turret rule; kill credit only with $Reneg::TurretKill.",
+    "In default mode only female Engineers can carry it (male Engineers get it in Elite.cs and reload.cs). Team limit 5."
+   ],
+   "source": "item.cs BarragePack::deployShape; turret.cs AntiAirCraftTurret::verifyTarget; baseprojdata.cs BarrageBolt"
+  },
+  "ForceFieldPack": {
+   "summary": "Deploys a small 5x5 force field wall.",
+   "notes": [
+    "Spawns DeployableForceField facing the way you are looking. It only needs a flat surface.",
+    "The script now counts nearby force fields but never uses the count, so behavior is the same as Classic."
+   ],
+   "source": "item.cs ForceFieldPack::deployShape; staticshapeR.cs DeployableForceField"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Deploys a full-size force field wall.",
+   "notes": [
+    "Same placement rules as the small field. The only script change is the map name, 'Large Force Field#N' plus your name."
+   ],
+   "source": "item.cs LargeForceFieldPack::deployShape; staticshapeR.cs LargeForceField"
+  },
+  "TripwirePack": {
+   "summary": "Despite the datablock name, this deploys a solid Blast Wall.",
+   "notes": [
+    "Spawns BlastWall on flat terrain only, not on buildings.",
+    "New anti-crash check: it counts Blast Walls, Platforms, Force Fields and Large Force Fields in a 60x60x60 box. If there are more than 2 walls and 2 platforms, more than 2 large fields and 2 platforms, or more than 3 small fields and any platform, the deploy is refused and everyone else is told the player 'Might be trying to crash the server'.",
+    "Blast Walls are also the building blocks of a DeathStar launch pad."
+   ],
+   "source": "item.cs TripwirePack::deployShape, DeathDeployCheck; staticshapeR.cs BlastWall"
+  },
+  "DeathStarPack": {
+   "summary": "Builds a DeathStar: an orbital weapons platform launched from a pad of Blast Walls that hangs 250 m above the map with a laser and a missile turret.",
+   "notes": [
+    "Disabled by default: RenegadesMod.cs sets $Reneg::DSdisable = true. It is also refused in tourney mode unless $DS::TourneyOn is set.",
+    "Launch pad: flat terrain, with no static objects in a 4x4x50 column above the spot, and 4 Blast Walls around it, two along each axis of an 8x8x2 box.",
+    "1 in 40 launchers is defective: no launch, and two bursts of debris damage (12 damage, 15 m radius) hit the pad.",
+    "Otherwise a 3-2-1 countdown (1.5 s steps) is followed by the launch: a DeathStarRay turret (RailLaser, range 325), a DeathStarMissile turret (BazookaBolt at targets with heat 0.5 or more, range 325) and a DeathStarSolar core spawn 250 m above the pad, and the same two debris bursts hit the pad.",
+    "The solar core auto-repairs at 0.05 and takes 0.6x Sniper and 2.1x Blaster damage. Touching it does 0.5 damage (2.0 to a Cyborg or Defender) plus a strong knockback. When $ID::DeathStar is on with two teams, the core is put on the enemy team so they can identify it.",
+    "Destroying the core or the missile turret causes a small debris blast. Team limit 3 DeathStars.",
+    "Bug: the no-offensive-deployment check uses %playerteam and %playerpos, which this function never sets, so it measures from the wrong place."
+   ],
+   "source": "item.cs DeathStarPack::deployShape, DeathDeployCheck, DeathLaunch, DeathstarOpps; turret.cs DeathStarRay, DeathStarMissile; staticshape.cs DeathStarSolar, StaticShape::onDamage; RenegadesMod.cs"
+  },
+  "PlatformPack": {
+   "summary": "Deploys a thin 6x6 platform you can stand on.",
+   "notes": [
+    "Spawns DeployablePlatform wherever your 3 m line of sight hits, with no flat-surface or clear-space check.",
+    "New anti-crash check, the same as the Blast Wall's but counted in a 50x50x10 box: too many walls, fields and platforms together and the deploy is refused with a server-wide warning."
+   ],
+   "source": "item.cs PlatformPack::deployShape; staticshapeR.cs DeployablePlatform"
+  },
+  "TeleportPack": {
+   "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+   "notes": [
+    "Unlike Classic, there is no checkFlierArea clearance test; only flat terrain or a building and the deploy-area check.",
+    "Undercover Spies cannot teleport ('Can't teleport while undercover'). Defenders and Cyborgs cannot teleport at all.",
+    "Otherwise as Classic: one linked pair per team, 5 s recharge, 1-in-45 chance of 0.25 crush damage, and Spies can use enemy pads."
+   ],
+   "source": "item.cs TeleportPack::deployShape; staticshape.cs DeployableTeleport::onCollision"
+  },
+  "ScoutPack": {
+   "summary": "Deploys a ready-to-fly Scout flier where you are looking.",
+   "notes": [
+    "Spawns the Scout flier on flat open terrain (checkFlierArea), not on buildings.",
+    "Counts against the ScoutVehicle team limit of 3, shared with station-bought Scouts. The message says 'Piloting Scout Vehicle' but you still have to board it.",
+    "Carried by the Scout and Spy."
+   ],
+   "source": "item.cs ScoutPack::deployShape; vehicle.cs Scout"
+  },
+  "WraithPack": {
+   "summary": "Deploys a ready-to-fly Wraith flier where you are looking.",
+   "notes": [
+    "Spawns the Wraith flier on flat open terrain (checkFlierArea). The Wraith fades out when its pilot boards.",
+    "Counts against the WraithVehicle team limit of 2, shared with station-bought Wraiths.",
+    "Spy only."
+   ],
+   "source": "item.cs WraithPack::deployShape; vehicle.cs Wraith, Vehicle::onCollision"
+  },
+  "DoorfourbyeightForceFieldPack": {
+   "summary": "Deploys a large force-field door that opens when a teammate walks into it.",
+   "notes": [
+    "Touching it fades it out and moves it 2000 m up, then it drops back and fades in 2 s later.",
+    "It opens for its own team and also for enemy Engineers and Spies.",
+    "Placement only needs a surface that is not close to vertical (normal dot product above 0.1). The spacing count looks for a nonexistent 'DeployableDoorfourbyeightForceField' and is never used.",
+    "Team limit 3. Engineer only."
+   ],
+   "source": "item.cs DoorfourbyeightForceFieldPack::deployShape; staticshape.cs DoorfourbyeightForceField::onCollision, openDoor, closeDoor"
+  },
+  "DoorfivebyfiveForceFieldPack": {
+   "summary": "Deploys a 5x5 force-field door that opens when a teammate walks into it.",
+   "notes": [
+    "Same door logic as the large door: it opens for 2 s by jumping 2000 m up, for its own team plus enemy Engineers and Spies.",
+    "Placement only needs a surface with normal dot product above 0.1; its spacing count is never used.",
+    "Team limit 3. Engineer only."
+   ],
+   "source": "item.cs DoorfivebyfiveForceFieldPack::deployShape; staticshape.cs DoorfivebyfiveForceField::onCollision, openDoor, closeDoor"
+  },
+  "Grenade": {
+   "summary": "Thrown explosive whose effect depends on your class.",
+   "notes": [
+    "Scout: Firebomb. Spy: Plastique (Nukebomb, 10 s fuse). Sniper: Hologram Mine (team limit 15). Mercenary and deathmatch class: Handgrenade. Burster: Concussion. Engineer: Shock grenade. Alien: Tranq grenade. Cyborg: Mortarbomb.",
+    "New: the Defender also throws a Mortarbomb.",
+    "Unlike Classic, an undercover Spy cannot throw grenades.",
+    "Throw force 15 x throwStrength, one every 0.5 s, only after the match starts."
+   ],
+   "source": "item.cs Grenade::onUse; mine.cs Firebomb, Nukebomb, HoloMine, Handgrenade, Concussion, Shockgrenade, Tranqgrenade, Mortarbomb"
+  },
+  "Beacon": {
+   "summary": "Class ability item: each class's beacon does something different instead of placing a target beacon.",
+   "notes": [
+    "Scout: Pulse Sensor. Spy: Satchel Charge. Sniper: Sensor Jammer. Engineer: Camera. Alien and deathmatch class: cloak for about 30 s. Cyborg: Emergency Force Shields for about 20 s. These match Classic.",
+    "Burster: instead of Classic's Haul-Ass stim, drops a GoodBye blast mine at your feet (thrown with force 1) that detonates after 0.5 s: Mine damage 0.7 in a 25 m radius with 300 kickback.",
+    "Mercenary: the Speed Booster is now a direct impulse of 270 along your current direction of travel (world +Y if standing still), instead of a thrown Booster mine.",
+    "Defender (new): throws a ByeBye mine that detonates after 2 s: Explosion damage 0.5 in a 50 m radius with 950 kickback.",
+    "Cannot be used from inside a station or while undercover.",
+    "Bug: the Burster and Defender branches set the mine's team from %client, which is not defined in this function."
+   ],
+   "source": "item.cs Beacon::onUse, Armor::SpeedBooster; mine.cs GoodBye, ByeBye, GoodBye::onAdd, ByeBye::onAdd"
+  },
+  "DRocketLauncher": {
+   "summary": "The Defender's DRocket Launcher is a four-tube rocket pod that fires two rockets per shot and locks onto players and fliers.",
+   "notes": [
+    "Each shot fires two projectiles from side-by-side muzzles and uses 2 Rocket Ammo. If your line of sight (up to 1500 m) is on a player or flier, both are seeking TankMissiles aimed at it, and you and the target get lock-on messages. Otherwise both are unguided TankRockets.",
+    "Mounting it also mounts three extra launcher images in other slots that are triggered while you hold fire; they have no projectile of their own and are visual only.",
+    "Defender only, but its own file sets $InvList[DRocketLauncher] = 0, so it is only sold in Renegades_Xtreme mode (RenX.cs).",
+    "Bug: the 'out of ammo' message goes to %client, which is only set when you have ammo, so it is never seen."
+   ],
+   "source": "weaponDefRocketLauncher.cs DRocketLauncherImage::onFire, DRocketLauncher::onMount, CheckDRocketLauncher; baseprojdata.cs TankMissile, TankRocket"
+  },
+  "DVulcan": {
+   "summary": "The D Vulcan is the Defender's twin-barrel Vulcan.",
+   "notes": [
+    "The main gun spawns a VulcanBullet per shot from script, and a second barrel image (DVulcan2, which fires VulcanBullets itself) is kept triggered while you hold fire, so both barrels shoot. Uses Vulcan Ammo.",
+    "Defender only, but its own file sets $InvList[DVulcan] = 0, so it is only sold in Renegades_Xtreme mode (RenX.cs)."
+   ],
+   "source": "weaponDefShredder.cs DVulcanImage::onFire, DVulcan::onMount, CheckDVulcan; DVulcan2Image"
+  },
+  "TurretBuster": {
+   "summary": "The Turret Buster fires a seeking missile, but only after locking onto a turret, vehicle or Inventory Station.",
+   "notes": [
+    "On fire it checks what is in your line of sight (up to 1000 m). Valid targets are named datablocks: DeployableLaser, DeployableTurret, DeployablePlasma, DeployableRocket, TrackingTurret, AntiAirCraftTurret, DeployableShock, RailTurret, PlasmaTurret, MortarTurret, 'Indoor Turret', RocketTurret, InventoryStation, and the Scout, Jet, Wraith, LAPC and HAPC fliers.",
+    "On a valid target it says 'Target Lock Achieved' and fires a seeking StingerMissile2 (Mortar damage, 12.5 m blast) at it, using one Turret Buster. Otherwise it says 'Invalid Target' and re-mounts the weapon without using ammo.",
+    "Because the list uses names like RailTurret and 'Indoor Turret' instead of the deployed datablocks (DeployableRail, IndoorTurret), deployed Rail, Vulcan and Mortar turrets and indoor turrets cannot be locked.",
+    "No class can carry it in default mode and it is not sold; Renegades_Xtreme mode (RenX.cs) gives it to the Alien."
+   ],
+   "source": "weaponCyborgTurretBuster.cs TurretBusterImage::onFire, TurretBusterLoading; baseprojdata.cs StingerMissile2; RenX.cs"
+  },
+  "TurretBusterAmmo": {
+   "summary": "Turret Busters are the missiles for the Turret Buster.",
+   "notes": [
+    "One is used per locked shot; an invalid target uses none.",
+    "Aliens can carry 30. Only Renegades_Xtreme mode lets them carry the launcher."
+   ],
+   "source": "weaponCyborgTurretBuster.cs TurretBusterAmmo, TurretBusterImage::onFire; armordata.cs $ItemMax"
+  },
+  "MineAmmo": {
+   "summary": "Thrown antipersonnel mines that arm once they come to rest and explode when an enemy touches them.",
+   "notes": [
+    "Unlike Renegades Classic, a player wearing an active Espionage Pack (flagged as a spy) passes over enemy mines safely, but sets off their own team's mines.",
+    "Any other enemy player, vehicle or moving object triggers it; teammates do not."
+   ],
+   "source": "Mine.cs AntipersonelMine::onCollision; item.cs Espionage pack (sets client.isSpy)"
+  }
+ }
+}

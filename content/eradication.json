@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Eradication 1.4 by Dissident is an intense tactical modification for Tribes that turns standard base capture-the-flag and territory battles into a high-paced, heavily fortified war of attrition. Players spawn instantly equipped with Medium Armor and a full combat loadout, bypassing early inventory delays to engage directly in aggressive offensive pushes and strategic defense. Compared to base Tribes and standard ISN, gameplay is driven by specialized support classes that heal teammates or structures by physical contact, weaponized player-on-player collisions that disarm enemies or strip flags, and extensive field construction using crates, floating sky platforms, and deployable weapon turrets. The mod introduces dynamic skill tracking that visibly marks elite killers and struggling novices with exterior armor badges while publicly punishing spawn-campers and catapulting boundary wanderers back to base.",
+  "notes": [
+   "Classes and Roles: Five specialized armor classes define team composition, each with distinct weapon limits and battlefield duties. Light Armor carries two weapons and moves rapidly at 14 forward speed, making it the primary flag runner. Medium Armor carries three weapons at 10 speed as the standard multi-role combatant. Heavy Armor carries five weapons at 7 speed for heavy assault and defense. Command Armor carries two weapons at 11 speed, passively repairing damaged teammates upon physical contact and deploying bases. Support Armor carries three weapons at a deliberate 5.5 speed, passively repairing friendly turrets and base structures on contact while fielding advanced vortex and energy field generators.",
+   "Controls and Menus: There are no custom chat commands. Player options and game settings are handled through standard options menus and the admin menu, which includes an Eradication Options sub-menu for toggling station kicks, team-kill bans, deflagging, and combat broadcasts. When piloting the Scout flier, pressing next weapon or previous weapon toggles the vehicle's firing mode between tracking missiles and high-velocity chaingun fire.",
+   "Collision Combat and Physical Disarming: Running directly into an enemy player triggers the Deflag and Disarm mechanic: if the enemy is carrying a team flag, the collision forcibly knocks the flag out of their grasp; if they carry no flag, their currently drawn weapon is knocked from their hands and dropped onto the field. In addition, dead player bodies immediately transfer their remaining ammunition and items to any living teammate or opponent who walks over their corpse.",
+   "Shield Mechanics and Tactical Weapons: Backpacks like the Assault, Defender, and Commander packs mount active, rechargeable energy shields that absorb incoming damage before health is lost, with damage scaling based on weapon type. Combat features unique weapons such as the Lamprey energy-vampire beam, the bouncing Superball Launcher, the Howitzer heavy mortar, the three-shell Multi-Grenade Launcher, and the kinetic Repulsor Gun, which blasts targets away with physical shockwaves or propels the shooter off surfaces.",
+   "Ordnance and Crowd Control: The explosive arsenal includes Sticky Bombs that adhere to surfaces with zero bounce, Flash Grenades that completely blind caught players with sustained whiteout flashes for five seconds, and Vortex Grenades that pull surrounding players and vehicles into a spinning gravitational whirlpool before detonating.",
+   "Deployable Engineering and Base Building: Teams can construct elaborate forward fortifications using Stackable Crates to build ramps and barricades, Suspended Platforms to create floating mid-air walkways, automated turrets firing plasma, blasters, chainguns, discs, fusion bolts, grenades, or lasers, and large decoy turrets that fool enemy targeting. Support classes can also deploy the Energy Vortex to drain invading enemies and the Energy Field Generator to continuously recharge teammate energy.",
+   "Economy and Station Rules: Players spawn fully armed in Medium Armor equipped with a Disc Launcher, AutoBlaster, Shotgun, repair kit, and grenades, while team energy defaults to infinite. Deployable inventory stations, deployable ammo stations, Energy Vortex packs, and Energy Field Generator packs have their remote inventory availability set to zero, requiring players to visit main base stations to purchase them. Base inventory stations actively prevent hogging: players remaining on a pad for over 10 seconds receive a warning and are physically booted into the air after five seconds.",
+   "Performance Badges, Bounties, and Penalties: Players with a kill-to-death ratio of 5.0 or higher are visually fitted with a rocket-shaped Expert Marker badge, while those at or below 0.1 mount a mortar-shaped Newbie Marker. Bounties scale dynamically, awarding bonus score to lower-ranked players who take down high-ratio veterans. Leaving the mission area triggers a six-second countdown, after which players are catapulted hundreds of meters through the air toward their home flag stand. Spawn killing within five seconds penalizes the attacker by two points and lists them on the Loser Tactics roster, while repeated team killing results in automatic bans.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): DeployableAmmoPack (globalvalues.cs), DeployableInvPack (globalvalues.cs), EnergyFieldGeneratorPack (globalvalues.cs), EnergyVortexPack (globalvalues.cs)."
+  ]
+ },
+ "items": {
+  "Lamprey": {
+   "summary": "A sustained lightning beam weapon that siphons energy from targets to directly recharge the shooter.",
+   "notes": [
+    "Fires a sustained 40-meter electric beam that drains 60 energy per second from hostile players or operational vehicles.",
+    "Fifty percent of the drained energy is transferred immediately to replenish the firer's energy pool.",
+    "Acts as a lethal utility weapon for grounding enemy flyers, draining active shields, and neutralizing jetting skirmishers."
+   ],
+   "source": "Weapons.cs"
+  },
+  "SuspendedPlatformPack": {
+   "summary": "A deployable backpack that creates a hovering platform suspended in mid-air wherever the user activates it.",
+   "notes": [
+    "Spawns a thin six-by-six elevator platform directly beneath the player, three units below their feet in mid-air.",
+    "Can be deployed while jetting or falling anywhere on the map, creating instant aerial sniper perches and sky bridges.",
+    "Subject to team deployable item limits and cannot be placed within 75 meters of an enemy spawn drop point."
+   ],
+   "source": "Deployables.cs"
+  },
+  "ScoutPack": {
+   "summary": "An afterburner booster pack that multiplies forward momentum to launch players across the map at extreme speeds.",
+   "notes": [
+    "Consumes 30 energy while moving to trigger an afterburner burst that multiplies the player's current velocity vector.",
+    "Boost strength is randomly determined upon activation, ranging from a 0.5x misfire up to an extreme 5x ramjet surge.",
+    "Plays custom sound effects and humorous voice callouts indicating whether the thruster fired cleanly or failed."
+   ],
+   "source": "Packs.cs"
+  },
+  "VortexGrenade": {
+   "summary": "A gravitational disruption grenade that pulls nearby infantry and vehicles into a spinning vortex before exploding.",
+   "notes": [
+    "After a one-second delay, activates a gravitational field that captures all players and vehicles within a 40-meter radius.",
+    "Forces trapped targets into a swirling vortex path for two seconds before detonating with heavy shrapnel damage.",
+    "Highly disruptive against enemy flag defenders, vehicle pilots, and clustered attackers inside bases."
+   ],
+   "source": "Mine.cs"
+  },
+  "CommandArmor": {
+   "summary": "A tactical command armor featuring passive proximity teammate repairs and extensive deployable construction capabilities.",
+   "notes": [
+    "Medium-weight chassis moving at 11 forward speed with 80 maximum energy and a two-weapon carry limit.",
+    "Physically colliding with a damaged teammate automatically repairs their armor at a rate of 0.3 damage per tick without using tools.",
+    "Capable of purchasing and deploying nearly all team engineering assets, including combat turrets, barriers, crates, and platforms."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "EnergyVortexPack": {
+   "summary": "A deployable area-denial generator that continuously drains enemy energy and blinds their vision within a wide radius.",
+   "notes": [
+    "Deploys a stationary generator on flat surfaces that pulses an energy-draining shockwave every second.",
+    "Drains 20 energy per pulse and inflicts blinding white damage flash on any enemy inside its 30-meter cube.",
+    "Equippable only by Support Armor, restricted by team deployable caps, and cannot be purchased at remote inventory stations."
+   ],
+   "source": "Deployables.cs"
+  }
+ }
+}

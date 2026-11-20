@@ -1,0 +1,33 @@
+{
+ "mod": {
+  "overview": "WWII Mod (Historical Tactical TC) replaces Tribes' jetpacks, sci-fi armor, and energy weapons with grounded World War II infantry, armor, and air combat modeled after Battlefield 1942 and Call of Duty. Players join Allied (US, British, Russian) or Axis (German, Japanese) forces, pick one of up to seven specialized soldier classes, and spawn at their main base or captured forward outposts. Across 13 Conquest maps, 5 Objective co-op/campaign missions against AI troops, and a 50-kill Deathmatch map, squads fight with clip-fed historical firearms, crouched cover, remote airstrikes, drivable tanks, and fighters/bombers to drain the enemy team's ticket pool.",
+  "notes": [
+   "No jetpacks or base Tribes stations: All players spawn in the Soldier armor with energy flight disabled, crouch for a smaller profile and 65% incoming damage, and take 160% damage on headshots. There are no Inventory Stations or $InvList shopping menus; kits come from the spawn menu, field Ammo Boxes, or looting dead bodies.",
+   "Seven nation-specific classes: On spawn, press Fire to open the class and outpost menu (you can lock either choice in TAB -> Personal Settings -> Spawn options). Choose Scout (sniper rifle, Binoculars, optional TAB camo, and Axis Mauser K98 Grenade Rifle), Assault or Assault2 (SMGs, assault rifles, LMGs, and 3 grenades), Anti-Tank or Anti-Tank2 (Bazooka, Panzerschreck, PIAT, PTRD, Type 4, or Type 97; Anti-Tank2 is restricted to Russia, Britain, and Japan), Medic (SMG/LMG and a Medical Kit that heals you and teammates within 2.1m), or Engineer (rifle/carbine/SMG/shotgun, 4 remote Dynamite charges, 5 Anti-Infantry Mines, and 1 Deployable Resupply Box).",
+   "Context-sensitive keybinds: Repair Kit (H) manually reloads your current weapon from spare clips; Beacon (B) calls an Airstrike when holding Binoculars or swaps between Dynamite and Detonator; Mine (M) sets an Artillery Beacon with Binoculars or pitches tank cannons down; Inventory (I) strips a nearby dead soldier's kit and uniform onto yourself or pitches tank cannons up; Targeting Laser opens your parachute during a fast fall.",
+   "Clip-fed reloading and resupply: Primary weapons and pistols track round-by-round magazines and spare clips rather than energy. Standing near map Ammo Boxes (WWII_AmmoBox) or an Engineer's DeployBox gradually restores health and tops up clips and explosives.",
+   "Game modes and ticket bleed: Conquest (13 maps) plays like Battlefield 1942—stand inside Outpost zones to capture forward spawns and bleed the outnumbered team's point pool every 5 seconds while each death costs 1 point. Objective (5 maps) pits players against scripted AI defenders, snipers, and reinforcement waves. Deathmatch (WWII_City_DM) is a 50-kill free-for-all.",
+   "Vehicles and heavy turrets: Walk into Sherman or Panzer tanks and Fighter or Bomber aircraft to pilot them. Maps also feature manned emplacements like the MG42, Browning, 105mm Howitzer Mk II, 7.5cm Pak 40, 40-mm Bofors, and 2cm Flak 38; on heavy turrets like the Howitzer, press Jump once for a muzzle observer view or twice to dismount.",
+   "Dynamic weather, water, and menus: Maps can cycle through snow, rain, and wind-driven rainstorms with lightning strikes that shock random targets, plus buoyed SwimTrigger water zones and damaging cacti. Press TAB for team switching (Conquest), mission voting, the Mod Information guide (Q advances slides), Scout camo, and TNet stat accounts (use #pass <password> in chat when configuring custom-info login)."
+  ]
+ },
+ "items": {
+  "binoculars": {
+   "summary": "Scout spotting tool used to call bombing airstrikes and mark artillery targets.",
+   "notes": [
+    "Given to the Scout class alongside a faction sniper rifle.",
+    "Press the Beacon key (B) while holding Binoculars to transmit airstrike coordinates up to 400m away; you must keep your aim and position completely still until transmission hits 100%, with a 60-second cooldown.",
+    "Press the Mine key (M) while holding Binoculars to place an Artillery Beacon target up to 400m away (5-second cooldown, persists for 100 seconds)."
+   ],
+   "source": "Binoculars.cs, Airstrike.cs, advancedkey.cs"
+  },
+  "TargetingLaser": {
+   "summary": "Parachute deployment trigger disguised as the Targeting Laser item.",
+   "notes": [
+    "Carried by every spawning soldier.",
+    "Using it while falling faster than -20 vertical speed deploys a 5-piece parachute canopy that caps descent speed and horizontal drift until you touch down."
+   ],
+   "source": "parachute.CS, WWII_SpawnInterface.cs"
+  }
+ }
+}

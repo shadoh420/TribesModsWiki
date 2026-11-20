@@ -1,0 +1,20 @@
+# dbz vs base (19 items)
+renamed+statsLightArmor                   Android
+renamed+statsMediumArmor                  Namek
+renamed+statsHeavyArmor                   Super Sayain
+new        HyperB1                      Pistals
+new        HyperB2                      Pistals
+new        HyperB                       Beam Attack
+new        EnBeam1                      Pistals
+new        EnBeam2                      Pistals
+new        EnBeam                       Energy Ball Attack
+renamed+statsBlaster                      Gohan's Kame-Hame-Ha!
+new        Goku                         Goku's Kame-Hame-Ha!
+renamed+statsPlasmaAmmo                   Heat Energy
+renamed+statsPlasmaGun                    Piccolo's Heat
+renamed+statsMortarAmmo                   Spirit Energy
+renamed+statsMortar                       Spirit Bomb!
+renamed+statsDiscAmmo                     Disctructo Energy
+renamed+statsDiscLauncher                 Distructo Disk!
+renamed+statsLaserRifle                   Piccolo's Eye Laser
+renamed+statsEnergyRifle                  Lightning Attack

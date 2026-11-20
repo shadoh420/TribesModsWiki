@@ -1,0 +1,58 @@
+# hard-corps vs base (57 items)
+renamed+statsLightArmor                   Light Armour
+renamed+statsMediumArmor                  Medium Armour
+renamed+statsHeavyArmor                   Heavy Armour
+renamed+statsScoutVehicle                 Fighter
+renamed+statsLAPCVehicle                  Light Carrier
+renamed+statsHAPCVehicle                  Heavy Carrier
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeLauncher              Grenade Launcher
+new        EMPulsegun                   EM Pulse Gun
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+stats+scriptsLaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+stats      EnergyRifle                  ELF Gun
+new        ClustergunAmmo               Cluster Rounds
+new        Clustergun                   Cluster Gun
+new        PowerPack                    Power Generator Pack
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsEnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+renamed+stats+scriptsMotionSensorPack             Laser Motion Sensor
+new        DecoyFlagPack                Decoy Flag Pack
+stats+scriptsAmmoPack                     Ammo Pack
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+renamed+stats+scriptsCameraPack                   Remote Camera
+new        PointDefencePack             Point Defence Turret
+new        ImpulseTurretPack            Impulse Turret
+new        WeaponLockOutPack            Weapon Lock Out
+new        ProximityAlarmPack           Proximity Alarm
+renamed+stats+scriptsTurretPack                   Remote Turret
+new        HeavyTurretPack              Heavy Turret
+new        ForceFieldPack               Force Field Generator
+new        StairwayForceFieldPack       Force Field Generator
+new        GravityPadPack               Gravity Pad
+new        AATurretPack                 Anti-Air Turret
+stats      RepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats      Grenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats      RepairPatch                  Repair Patch
+new        RotaryChaingun               Rotary Cannon
+new        VehicleRocket                Unguided Rocket
+new        NapalmLauncher               Napalm Launcher
+new        VehicleClusterCannon         Cluster Cannon
+new        VehicleEMPLauncher           EM Pulse Launcher
+new        VehicleBomb                  HEAP Bombs
+new        AmmoModule                   Ammo Module
+new        RepairModule                 Repair Module
+new        ShieldModule                 Shield Module
+new        SpeedModule                  Speed Module
+new        StealthModule                Stealth Module

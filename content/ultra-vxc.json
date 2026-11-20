@@ -1,0 +1,112 @@
+{
+  "mod": {
+    "overview": "VXC (the entry script calls it VX Combination, 2001, MuRdeR Inc.) is a trimmed Ultra Renegades VX5. It keeps the VX5 shop, Psionics, VX turrets and force fields, but drops the flash grenade and LiL Booster, strips the VX damage-type side effects out of Player::onDamage, and replaces the air brake and speed booster with a velocity-scaling version defined in Mine.cs. There is no profile or difficulty switching. Four of the eight VX turret packs are still sold but have no turret datablock behind them.",
+    "notes": [
+      "No vxmod.cs profiles or difficulty presets: the scripts' own values apply, with stock armor health. Several damage values differ from VX5 (LiL POO bullets 2, LiLFFB shells 280) and force-field doors have 160 health.",
+      "Unlike VX5, Player::onDamage has none of the VX effects: EMP, Beam Of Pain and MiniELF hits no longer drop items or drain energy, and bullet or LiL POO head shots no longer gib or triple damage. EMP weapons and mines now only do their damage.",
+      "Killing an enemy flag carrier gives +1 score, killing your own -1.",
+      "A safe-station check exists in Player::onDamage but reads $insomniax::SafeStation, while this mod's admin menu sets $ultra_renegades::SafeStation, so the menu toggle has no effect on damage.",
+      "Grenade and Beacon are defined twice: once in item.cs and again in Mine.cs. Mine.cs is executed after item.cs, so the Mine.cs versions are the ones that run.",
+      "FlashGrenade and LiLBoostammo (and the Flash damage type) are removed.",
+      "$WeaponAmmo[Mortar] is set to Mortar instead of MortarAmmo, so the weapon-cycle check treats the mortar as selectable even with no shells.",
+      "Spawn loadout adds VX Gas Attack mines to the VX5 list.",
+      "The entry script seeds the archive's admin lockouts and anti-TK settings (tkLimit 1) when the host has not set them."
+    ]
+  },
+  "items": {
+    "LiLRocketLauncher": {
+      "summary": "VX5's lock-on rocket launcher: a three-missile guided volley at a locked player or flyer, a single dumb-fire rocket otherwise.",
+      "notes": [
+        "Unlike VX5, the unguided fallback rocket (LiLRocketalt) is spawned with the shooter passed as its target argument. LiLRocketalt is a plain RocketData, and the effect of that argument is not determined from scripts.",
+        "The EMP missile in the guided volley no longer strips energy or items, because this mod's Player::onDamage has no EMP effect.",
+        "Lock range is still 350 m with a warning to the target."
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire; player.cs Player::onDamage"
+    },
+    "LiLEMPRocketLauncher": {
+      "summary": "VX5's EMP rocket launcher: two seeking EMP missiles at a locked target, one unguided EMP rocket otherwise. In VXC the EMP is damage only.",
+      "notes": [
+        "The unguided fallback rocket is spawned with the shooter passed as its target argument, as on the LiLRocket Launcher; its effect is not determined from scripts.",
+        "Player::onDamage in this mod has no EMP handling, so hits no longer zero energy, cut recharge or drop the victim's gear."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherImage::onFire; player.cs Player::onDamage"
+    },
+    "ShieldPack": {
+      "summary": "Projects an energy shield that absorbs damage from your energy pool, weaker again than VX5's.",
+      "notes": [
+        "Each point of energy absorbs 0.006 damage (VX5 0.008, stock 0.012), 0.75 times that against shrapnel and mortar."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate; player.cs Player::onDamage"
+    },
+    "SensorJammerPack": {
+      "summary": "StealthShield Pack: sensor jammer plus energy shield, with a weaker shield than VX5's.",
+      "notes": [
+        "Adds 20 sensor suppression while on and runs a 0.006 shield (VX5 0.008)."
+      ],
+      "source": "item.cs SensorJammerPackImage::onActivate/onDeactivate"
+    },
+    "TaserTrtCPack": {
+      "summary": "Deploys the Tracking Turret, a 500 m near-zero-damage laser turret that marks targets.",
+      "notes": [
+        "Unlike VX5 the deployed turret recharges its energy at 5 instead of 20 (onAdd and onEnabled), and its laser beam lasts 0.08 s instead of 0.3 s.",
+        "Deploy rules are VX5's: walls or ceilings allowed, fair-play rule, no kill credit."
+      ],
+      "source": "turret.cs DeployableTaserTrtC::onAdd/onEnabled; baseProjData.cs TaserTrtCLaser"
+    },
+    "MiniFlakTurretPack": {
+      "summary": "The Mini-Flak Turret pack. In VXC it cannot produce a turret.",
+      "notes": [
+        "The pack is still sold and its deploy code is VX5's, but this mod's turret.cs has no TurretData MiniFlakTurret, so newObject has no datablock to build.",
+        "The deploy code doesn't check the result: it still announces the turret, uses up the pack and counts against the team limit of 10."
+      ],
+      "source": "item.cs MiniFlakTurretPack::deployShape; turret.cs (no MiniFlakTurret)"
+    },
+    "MiniSAMTurretPack": {
+      "summary": "The Mini-S.A.M Turret pack. In VXC it cannot produce a turret.",
+      "notes": [
+        "Still sold, but there is no TurretData MiniSAMTurret in this mod, so the deploy builds nothing while still consuming the pack and counting against the team limit."
+      ],
+      "source": "item.cs MiniSAMTurretPack::deployShape; turret.cs (no MiniSAMTurret)"
+    },
+    "MiniELFTurretPack": {
+      "summary": "The Mini-ELF Turret pack. In VXC it cannot produce a turret.",
+      "notes": [
+        "Still sold, but there is no TurretData MiniELFTurret in this mod, so the deploy builds nothing while still consuming the pack and counting against the team limit."
+      ],
+      "source": "item.cs MiniELFTurretPack::deployShape; turret.cs (no MiniELFTurret)"
+    },
+    "MiniSmokeTurretPack": {
+      "summary": "The Mini-Beam Of Pain turret pack. In VXC it cannot produce a turret.",
+      "notes": [
+        "Still sold, but there is no TurretData MiniSmokeTurret in this mod, so the deploy builds nothing while still consuming the pack and counting against the team limit."
+      ],
+      "source": "item.cs MiniSmokeTurretPack::deployShape; turret.cs (no MiniSmokeTurret)"
+    },
+    "Grenade": {
+      "summary": "An air brake that scales your velocity down by a per-armor factor, and for some armors flips it backwards.",
+      "notes": [
+        "The Mine.cs version runs: it throws a zero-damage, zero-knockback Boost charge (drawn as a light armor model) forward, then multiplies your whole velocity by BrakeSpeed[armor] x VelRatio and prints Air Brake Aplied.",
+        "BrakeSpeed is -0.3 for light, -0.2 for medium and -0.1 for heavy, so the brake reverses your direction at a fraction of your speed instead of only slowing you.",
+        "VelRatio is (SpeedMax - |x speed|) / SpeedMax with SpeedMax 200 light, 120 medium, 95 heavy. Only the x component of your velocity is used, so the result depends on which way you are flying.",
+        "Uses one grenade each time, 0.5 s between uses."
+      ],
+      "source": "Mine.cs Grenade::onUse, VelocityCheck, Boost; ArmorData.cs $BrakeSpeed/$SpeedMax"
+    },
+    "Beacon": {
+      "summary": "A speed booster that multiplies your current velocity by a per-armor factor.",
+      "notes": [
+        "The Mine.cs version runs: it throws the zero-damage Boost charge forward, then multiplies your velocity by BoostSpeed[armor] x VelRatio and prints Speed Boost Aplied.",
+        "BoostSpeed is 2.75 for light, 2.2 for medium and 1.7 for heavy. VelRatio shrinks as your x-axis speed approaches SpeedMax (200/120/95), and goes negative above it, which turns the boost into a reversal.",
+        "Unlike VX5 there is no knockback charge at your feet; the boost is a direct velocity change. Uses one beacon each time, 0.5 s between uses."
+      ],
+      "source": "Mine.cs Beacon::onUse, VelocityCheck; ArmorData.cs $BoostSpeed/$SpeedMax"
+    },
+    "RepairPatch": {
+      "summary": "A repair pickup found lying in missions. Running over it heals 0.125 damage if you're hurt.",
+      "notes": [
+        "Back to the stock 0.125 pickup heal, against VX5's 0.5. Used from inventory it heals 0.1."
+      ],
+      "source": "item.cs RepairPatch::onCollision"
+    }
+  }
+}

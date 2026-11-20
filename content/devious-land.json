@@ -1,0 +1,73 @@
+{
+ "mod": {
+  "overview": "DeviousLand transforms baseline Tribes team combat into an asymmetrical four-way faction conflict between the high-speed Vandals, heavy-ordnance Empire, hovering Arbiters, and mutating parasitic Insatiable. Players spawn in light gear and access inventory stations where purchasable armors, weapons, deployables, and vehicles are strictly governed by their team's exact faction tag. The mod dramatically alters the feel of combat, shifting from standard jetting to extremes like 50-speed sprint armors, radar-invisible snipers, walking fortress dreadnoughts, perpetual flight, and biological hosts mutating into regenerating brood queens. Gameplay takes place on standard objective mission types including CTF, C&H, D&D, and F&R, supported by built-in AI navigation and admin management menus.",
+  "notes": [
+   "Four-Faction Asymmetry and Station Buying: Equipment access at inventory and vehicle stations is strictly filtered by team name ($TeamTag) matching Vandals, Empire, Arbiters, or Insatiable, while baseline weapons like blasters, chainguns, and disc launchers remain open to all. Items tagged with X cannot be purchased directly and must be acquired through class abilities or metamorphosis.",
+   "Vandals Skirmishers and Stealth: Vandals field the hyper-fast Kinetic Armor, boasting a top ground speed of 50 with enhanced traction and three weapon slots, alongside the Sniper Armor, which is permanently invisible to sensors (visibleToSensor is false) and carries the one-hit kill Vandal SniperRifle. Vandals also deploy Hologram Trees (+15 sensor suppression for camouflage), close-range DeathTouch shock packs, and fly the Interceptor gunship equipped with rapid-fire StrafeBullet cannons.",
+   "Empire Fortifications and Heavy Ordnance: The Empire deploys the Erector Armor combat engineer capable of placing deployable Erector Walls (limit 15 per team) and portable field generators (PortaGen, limit 3) to power remote outposts. For assault, the Empire uses the Doom Armor walking fortress with 1.32 max damage and 110 energy to wield the high-velocity Doomcannon, standard-issue Empire Laser, and the tactical nuclear Sluggard, supported by the heavily armored Empire Flying Tank (5.0 max damage) firing explosive mortar shells.",
+   "Arbiters Flight and Anointing Mechanics: Arbiters use Arbiter Armor with zero jet energy drain for continuous hovering flight. By equipping the GrandArbiter Mantle pack, an Arbiter becomes a Grand Arbiter immune to toxins and wields the BlessingWand; directing the wand at teammates recharges their shields until fully charged, anointing them into the Chosen Armor with up to nine weapon slots and the long-range disintegrating ChosenRifle. Arbiters also deploy orbital Satellites 290 units overhead equipped with automated turrets, solar panels, and command consoles, and pilot agile vertical-climb scout Pods.",
+   "Insatiable Metamorphosis and Infestation: Insatiable players begin by purchasing an Insatiable Larva ($500) that converts them to Larval Armor; the symbiot drains 0.15 health every feeding cycle, requiring players to harvest life using the LifeDrain siphon. After surviving four feedings, the host evolves with innate health regeneration into either an aggressive Drone (1.2 health, auto-repair 0.033) or a PainMistress brood queen (3.0 health, auto-repair 0.075) equipped with shield-penetrating SporeThrowers, five-minute Spore Mines, and Deployable Nests.",
+   "Biological Warfare and Parasite Burst: Deployable Nests restore health and provide larvae to Insatiable allies, but automatically infect non-Insatiable intruders with a hostile parasite. For infected enemies, the feeding cycle does not result in evolution; after four feeds, the parasite violently bursts, instantly inflicting 20 lethal damage to the victim.",
+   "Vehicle Piloting Rules: Piloting vehicles is restricted by armor class; only players equipped in Light, Kinetic, Sniper, Arbiter, Larval, or Insatiable (Drone) armors are permitted into the pilot seat. Heavy Armor, Doom Armor, Erector Armor, and heavy transformed units cannot pilot flyers or tanks.",
+   "Economy, Deployment Limits, and Explicit Bans: Standard team energy economies apply with low-energy warnings and purchase auditing. Station purchase lists explicitly ban ChosenArmor ($InvList[ChosenArmor] is set to empty), while Cloaking Packs are deactivated from inventory lists. Team deployment caps enforce strict limits, including maximums of 2 Interceptors, 2 Empire Tanks, 2 Arbiter Pods, 3 Portable Generators, 6 Satellites, 15 Erector Walls, and 20 Hologram Trees.",
+   "Controls, Spawns, and Bot Integration: Players drop into matches in Light Armor equipped with a blaster, chaingun, disc launcher, and repair kit, with deployables activated via pack keys (such as P for Deployable Nests). The mod incorporates full AI bot navigation and directives in ai.cs and operates across standard game modes including CTF, C&H, D&D, and F&R using administrative mission and team selection menus.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): ChosenArmor (station.cs)."
+  ]
+ },
+ "items": {
+  "ChosenArmor": {
+   "summary": "An anointed celestial armor granted only through the Grand Arbiter blessing ritual, featuring up to nine weapon slots.",
+   "notes": [
+    "Banned from inventory station purchase ($InvList[ChosenArmor] is empty and TeamTag is X).",
+    "Granted when a Grand Arbiter fully charges a teammate shield to 0.03 or higher using the BlessingWand.",
+    "Wields the sustained long-range electrical ChosenRifle and carries up to 9 weapons."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "GrandMantle": {
+   "summary": "Arbiter command pack that elevates the wearer to Grand Arbiter, providing field blessing tools and captured tech privileges.",
+   "notes": [
+    "Equips the BlessingWand to heal teammates and anoint fully charged allies into Chosen Armor.",
+    "Provides the Regulator1 repair activator and grants immunity to poisons and diseases.",
+    "Allows the user to fly with zero jet energy drain and radar sensor stealth."
+   ],
+   "source": "item.cs"
+  },
+  "Larva": {
+   "summary": "Symbiotic organism purchased by the Insatiable faction that initiates the biological metamorphosis cycle.",
+   "notes": [
+    "Purchased at inventory stations for 500 energy, shifting the user into Larval Armor and granting LifeDrain.",
+    "Feeds on the host four times before maturing into a regenerating Drone or PainMistress.",
+    "Hostile non-Insatiable players infected via nests die when the parasite bursts after four feeds, taking 20 damage."
+   ],
+   "source": "item.cs"
+  },
+  "Sluggard": {
+   "summary": "Devastating Empire nuclear heavy weapon that obliterates all entities caught in line of sight.",
+   "notes": [
+    "Exclusively purchasable by the Empire faction and carried by Doom Armor.",
+    "Launches slow-moving tactical nuclear warheads using SluggardAmmo.",
+    "Causes catastrophic friendly fire damage if discharged too close to friendly bases."
+   ],
+   "source": "item.cs"
+  },
+  "Satellite": {
+   "summary": "Deployable Arbiter orbital station pack that establishes an automated sky outpost 290 units overhead.",
+   "notes": [
+    "Spawns an automated SatTurret, SolarPanel generator, and CommandStation 290 units overhead in the sky.",
+    "Limited to 6 active installations per team.",
+    "Exclusive to the Arbiter faction."
+   ],
+   "source": "item.cs"
+  },
+  "DeployableTree": {
+   "summary": "Vandal camouflage backpack that disguises the operative as a pine tree and boosts sensor suppression.",
+   "notes": [
+    "Mounts a 3D pine tree shape on the player backpack.",
+    "Grants +15 passive SensorSupression while carried to conceal the wearer from enemy radar.",
+    "Limited to 20 deployed units per team."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

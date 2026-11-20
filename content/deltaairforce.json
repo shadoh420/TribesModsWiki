@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Delta Air Force is a total conversion military simulation mod developed for Starsiege: Tribes by the DAF Development Team between 2001 and 2003, expanding the ground-combat focus of Delta Force into an expansive combined-arms battlefield. The core gameplay completely replaces Tribes jetpacks, skiing, and sci-fi energy weapons with grounded military infantry, realistic magazine-based reloading, locational wounding, and a comprehensive motor pool of modern military jets, helicopters, tanks, and artillery. Compared to its parent mod Delta Force, Delta Air Force introduces authentic modern air superiority and mechanized armor warfare, allowing pilots to dogfight in F-16 and F-14 fighters, conduct carpet bombing in B-52s, drop troops from C-130 Hercules transports, and coordinate armored columns with M1A1 Abrams tanks and M6 Bradley Linebackers. Matches span traditional objective modes as well as tactical scenarios like Assassination, where teams escort or hunt a designated VIP player, Hostage Rescue with civilian AI, and Tournament play featuring DropBase forward base construction and orbital spy satellite surveillance.",
+  "notes": [
+   "Classes and Specializations: Eight distinct military roles operate without jetpacks (jetForce set to zero) and with restricted weapon loadouts. Infantry serves as frontline riflemen with assault rifles, SAWs, LAW rockets, and flamethrowers; Grenadiers feature double grenade throw distance; Medics carry silenced MP5s and medikits to heal wounds; Snipers carry long-range sniper rifles under strict team quotas; SpecOps wield silenced submachine guns, grappling hooks, and laser airstrike designators; Army Engineers build fortifications and heavy defensive turrets; Pilots are uniquely certified to fly aircraft and drive armored vehicles; and Artillery specialists man heavy vehicle cannons and rocket batteries. Crouch ability is disabled on Infantry, Grenadier, Engineer, and Artillery, but allowed on Medic, Sniper, SpecOps, and Pilot.",
+   "Locational Damage and Trauma: Gunfire and shrapnel apply distinct bodily trauma based on hit location. Right-arm hits wound the weapon arm, forcing players to drop or unmount weapons and preventing armed combat until healed; leg hits cause crippled movement, cutting speed in half on the first hit and reducing the player to a crawl on the second; and torso penetrations trigger severe bleeding that continuously drains health over time until treated by a Medic or inventory station.",
+   "Magazine Ballistics and Reloading: Ballistic firearms utilize discrete magazines and clips, including M9, M16, SAW drum, MP5, PSG-1, FiftyCal, and SPAS-12 ammo. Weapons must be periodically reloaded after exhausting magazines, incurring a vulnerable delay with authentic mechanical reload sounds; manual reloading can be triggered by using the Beacon or Clip command.",
+   "In-Game Tactical Menus: Players can access on-the-fly weapon and tactical configuration menus through the Options menu. Options allow toggling between fragmentation and smoke grenades, high-explosive and napalm airstrikes, standard and three-round burst MP5 fire, flechette and slug shotgun rounds, pre-launch and post-launch missile guidance locks, and aircraft countermeasure types (flares to decoy infrared heatseekers or chaff to deflect radar-guided missiles).",
+   "Comprehensive Air and Ground Arsenal: A massive suite of authentic military vehicles requires Pilot armor to operate. Fixed-wing aircraft include the F-16 Falcon, F-14 Tomcat, A-10 Warthog, B-52 Stratofortress, and C-130 Hercules; helicopters include the AH-64 Apache, Mi-24 Hind, and UH-60 Blackhawk; and ground vehicles include the M1A1 Abrams tank, M113 APC, M6 Bradley Linebacker, M270 MLRS, and M548A3 Volcano minelayer. Pilots can cycle mounted ordnance using NextWeapon and PrevWeapon, execute defensive barrel rolls, and deploy countermeasures with the grenade key. Multi-crew vehicles allow Artillery passengers to operate specialized gunner stations such as the 120mm Abrams main gun, 105mm AC-130 howitzer, 40mm cannon, 25mm Gatling, and TOW missiles.",
+   "Modular Vehicle Munitions: Fliers and combat vehicles can be custom-loaded at vehicle stations with authentic military ordnance modules. Options range from AIM-9 Sidewinder and AIM-54 Phoenix air-to-air missiles, AGM-114 Hellfire and AGM-65 Maverick air-to-ground missiles, AGM-88 HARM anti-radiation missiles, and Hydra-70 rocket pods to Mk-82 and Mk-84 iron bombs, CBU cluster dispensers, BLU-113 bunker busters, BLU-82B Daisy Cutters, ALQ-131 ECM pods, and the devastating Mk-53 Hydrogen Bomb.",
+   "DropBase Construction and Orbital Surveillance: In tournament play, teams can build forward operating bases in the field once an engineer lays a Command Tent. Subsequent construction options include concrete foundations, defensive bunkers, sniper watchtowers, airstrips for fixed-wing craft, chopper pads for helicopters, tank yards for armored vehicles, and radar uplinks. Functional radar uplinks deploy a steerable orbital spy satellite that commanders can reposition via map waypoints to uncover enemy forces.",
+   "Game Modes, AI Bots, and Equipment Rules: Modes include Assassination (protect or hunt a designated VIP player racing to extraction zones) and Hostage Rescue (escorting unarmed civilian AI bots back to safety), alongside CTF, C&H, and Team Deathmatch. All futuristic Tribes gear (blasters, plasma guns, disc launchers, laser rifles, energy packs, and shield packs) is strictly banned at stations ($InvList set to zero), remote inventory stations prohibit heavy deployables, and team sniper counts are capped by server limits.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AbramsGun (station.cs), Airstrike (station.cs), AirstrikePack (station.cs), Blaster (station.cs), BulletAmmo (station.cs), Chaingun (station.cs), DiscAmmo (station.cs), Disclauncher (station.cs), EnergyPack (station.cs), EnergyRifle (station.cs), Fortymmgun (station.cs), GrappleHook (station.cs), GrenadeAmmo (station.cs), GrenadeLauncher (station.cs), Howitzer (station.cs) (+9 more); Blocked at Remote Stations ($RemoteInvList = 0): AAPack (station.cs), DeployableHealthPack (station.cs), GrapplePack (station.cs), HowitzerPack (station.cs), Parachute (station.cs), SAMPack (station.cs), TwentyPack (station.cs)."
+  ]
+ },
+ "items": {
+  "NuclearModule": {
+   "summary": "Heavy aircraft bomb module housing the Mk-53 Hydrogen Bomb.",
+   "notes": [
+    "Consumes full bomb-bay capacity and drops via parachute to slowly descend toward target coordinates.",
+    "Generates an apocalyptic multi-stage nuclear detonation complete with shockwaves, lethal core radiation, and expanding blast rings that wipe out all vehicles, structures, and players in the area.",
+    "Priced at an exorbitant 189,000 credits to prevent casual deployment."
+   ],
+   "source": "item.cs, newNuke.cs, vehicle.cs"
+  },
+  "WarthogVehicle": {
+   "summary": "Low-altitude ground-attack jet modeled after the A-10 Thunderbolt II.",
+   "notes": [
+    "Requires Pilot armor to fly and comes equipped with a high-rate-of-fire 30mm armor-piercing cannon.",
+    "Can be outfitted with heavy ordnance modules including Hellfire missiles, Stinger anti-air missiles, and unguided bomb packages.",
+    "Team limited to two active airframes and features realistic stall and crash mechanics."
+   ],
+   "source": "item.cs, vehicle.cs"
+  },
+  "ControlledDeployableAA": {
+   "summary": "Deployable anti-aircraft flak cannon packed within the AA Pack.",
+   "notes": [
+    "Deployed by the Army Engineer to provide automated or player-manned anti-air defense.",
+    "Players can directly mount and take control of the turret to manually engage enemy fliers.",
+    "Fires explosive flak shells that automatically target high-heat aircraft, with an enforced minimum elevation angle of 15 degrees."
+   ],
+   "source": "item.cs, turret.cs"
+  },
+  "Parachute": {
+   "summary": "Wearable backpack that enables high-altitude airborne drops and aircraft bailouts.",
+   "notes": [
+    "Available to infantry and pilots to counteract fatal fall damage when leaping from cargo aircraft like the C-130 Hercules.",
+    "Automatically exerts upward dampening impulses against terminal velocity until ground contact is detected.",
+    "Dropping or unmounting the pack while airborne terminates the descent glide immediately."
+   ],
+   "source": "item.cs"
+  },
+  "LineBackerVehicle": {
+   "summary": "Multi-crew armored air-defense vehicle based on the M6 Bradley chassis.",
+   "notes": [
+    "Piloted by a Pilot while offering three passenger stations for gunners and combat troops.",
+    "Dedicated gunner station mounted with a fixed quad Stinger SAM launcher and secondary 25mm Bushmaster autocannon, operated by Artillery specialists.",
+    "Serves as a mobile anti-air umbrella protecting armor columns against incoming attack jets and attack helicopters."
+   ],
+   "source": "item.cs, vehicle.cs"
+  },
+  "MineClusterModule": {
+   "summary": "Aircraft-delivered CBU-89 Gator Mine cluster bomb module.",
+   "notes": [
+    "Released from bombers and attack planes to carpet a massive terrain footprint with proximity mines.",
+    "Disperses both anti-personnel and anti-vehicle munitions simultaneously upon mid-air canister dispersal.",
+    "Transforms enemy chokepoints and bases into instant minefields before ground assaults arrive."
+   ],
+   "source": "item.cs, vehicle.cs"
+  }
+ }
+}

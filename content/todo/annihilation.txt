@@ -1,0 +1,174 @@
+annihilation: 175 of 188 need write-ups
+  RepairKit (Repair Kit): stats+scripts
+  RepairPatch (Repair Patch): stats+scripts
+  iarmorAngel (Rogue Angel): new
+  iarmorSpy (Chameleon Assassin): new
+  iarmorNecro (Necromancer): new
+  iarmorWarrior (Warrior): new
+  iarmorBuilder (Builder): new
+  iarmorTroll (Troll): new
+  iarmorTank (Tank): new
+  iarmorTitan (Titan): new
+  AngelFire (Angel Fire): new
+  AngelRepairGun (Bio Feedback Beam): new
+  BabyNukeAmmo (Nuclear Device): new
+  BabyNukeMortar (Baby Nuke Launcher): new
+  BabyNukeMortar2 (BabyNukeMortar2): new
+  GateGun (Portal Device): new
+  Blaster (Blaster): stats+scripts
+  BulletAmmoBase (Bullet): new
+  ChaingunBase (Chaingun): new
+  BulletAmmoElite (Bullet): new
+  ChaingunElite (Chaingun): new
+  DiscLauncher (Disc Launcher): stats+scripts
+  DiscAmmoBase (Disc Base): new
+  DiscLauncherBase (Disc Launcher Base): new
+  DiscAmmoElite (Disc Elite): new
+  DiscLauncherElite (Disc Launcher Elite): new
+  Fixit (Builder's Tool): new
+  FlamerAmmo (FlamerAmmo): new
+  Flamer (Flamer): new
+  FlameThrowerAmmo (Flame Cartridges): new
+  FlameThrower (Flame Thrower): new
+  GrenadeAmmo (Mini ammo): renamed+stats
+  GrenadeLauncher (Mini Bomber): renamed+stats+scripts
+  GrenadeAmmoBase (Grenade Ammo): new
+  GrenadeLauncherBase (Grenade Launcher): new
+  HammerAmmo (Hammer Ammo): new
+  Hammer (Lucifers Hammer): new
+  Heavensfury (Heaven's Fury): new
+  JailGun (Jailers Gun): new
+  Mortar (Mortar): stats+scripts
+  OSAmmo (OS Rockets): new
+  OSLauncher (OS Laucher): new
+  ParticleBeamWeapon (Particle Beam): new
+  ParticleBeamWeapon5 (ParticleBeamWeapon5): new
+  PhaseAmmo (Disrupter Ammo): new
+  PhaseDisrupter (Phase Disrupter): new
+  Grabbler (Pitchfork): new
+  Pitchfork (Pitchfork): new
+  PlasmaAmmo (PlasmaBolt): renamed+stats
+  PlasmaGun (Plasma Gun): stats+scripts
+  PlasmaAmmoBase (PlasmaBolt Base): new
+  PlasmaGunBase (Plasma Gun Base): new
+  RailAmmo (Railgun Bolt): new
+  Railgun (Railgun): new
+  HarpoonAmmo (Harpoons): new
+  Harpoon (Heaven's Harpoon): new
+  HarpoonScope (HarpoonScope): new
+  HarpoonClip (HarpoonClip): new
+  RocketAmmo (Rockets): new
+  RocketLauncher (Rocket Launcher): new
+  RocketLauncherSight (Rocket Launcher): new
+  GrapplingHook (Grappling Hook): new
+  RopeCan (RopeCan): new
+  RubberAmmo (R Mortar Ammo): new
+  RubberMortar (Rubbery Mortar): new
+  ShockwaveGun (Shockwave Cannon): new
+  ShotgunShells (Shotgun Shells): new
+  Shotgun (Shotgun): new
+  LaserRifle (Laser Rifle): stats+scripts
+  SniperAmmo (Sniper Ammo): new
+  SniperRifle (Sniper Rifle): new
+  SoulSucker (Soul Grabber): new
+  SoulSuckerR (SoulSuckerR): new
+  SoulSuckerL (SoulSuckerL): new
+  SoulSuckerB (SoulSuckerB): new
+  DeathRay (Spell: Death Ray): new
+  DeathRayBeam (Spell: Death Ray): new
+  DisarmerSpell (Spell: Disarm): new
+  FlameStrike (Spell: Flame Strike): new
+  SpellFlameThrower (Spell: Flame Thrower): new
+  ShockingGrasp (Spell: Shocking Grasp): new
+  ShockingGrasp2 (Spell: Shocking Grasp): new
+  Stasis (Spell: Stasis): new
+  StingerAmmo (Stinger Ammo): new
+  Stinger (Stinger Missle): new
+  TBlastCannonAmmo (Blast Cannon Shots): new
+  TBlastCannon (Tank Blast Cannon): new
+  TRocketLauncherAmmo (TRocketLauncher Ammo): new
+  TRocketLauncher (Tank Rocketgun): new
+  TankRPGAmmo (RPG Ammo): new
+  TankRPGLauncher (Tank RPG): new
+  TankShredderAmmo (Tank Shredder Ammo): new
+  TankShredder (Tank Shredder): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  VulcanAmmo (Vulcan Bullet): new
+  Vulcan (Vulcan): new
+  VulcanEjector (Ejector): new
+  MinigunAmmo (Minigun Bolts): new
+  Minigun (Minigun): new
+  Minigun2 (Minigun2): new
+  Minigun3 (Minigun3): new
+  ThumperAmmo (Thumper ammo): new
+  Thumper (Thumper): new
+  Slapper (Slapper): new
+  GravityGun (Gravity Gun): new
+  AmmoPack (Ammo Pack): stats+scripts
+  ChameleonPack (Chameleon Pack): new
+  Laptop (Laptop): new
+  EnergyPack (Energy Pack): stats+scripts
+  GhostArmor (Ghost): new
+  GhostPack (Ghost Pack): new
+  GhostPack2 (gpack): new
+  GhostPack3 (Ghost Pack): new
+  SensorJammerPack (Sensor Jammer Pack): stats+scripts
+  NovaPack (Nova Pack): new
+  PhaseShifterPack (Phase Shifter): new
+  RegenerationPack (Troll Pack): new
+  RepairPack (Repair Pack): stats+scripts
+  Airstrike (Airstrike): new
+  AirstrikePack (Airstrike Pack): new
+  ShieldPack (Shield Pack): stats+scripts
+  StealthShieldPack (StealthShield Pack): new
+  SuicidePack (Suicide DetPack): new
+  FlameTurretPack (Flame Turret): new
+  FusionTurretPack (Fusion Turret): new
+  TurretPack (Ion Turret): renamed+stats+scripts
+  IrradiationTurretPack (Irradiation Cannon): new
+  LaserTurretPack (Laser Turret): new
+  RocketPack (Missile Turret): new
+  MortarTurretPack (Mortar Turret): new
+  NeuroTurretPack (Neuro Basher): new
+  NuclearTurretPack (Nuclear Turret): new
+  PlasmaTurretPack (Plasma Turret): new
+  ShockTurretPack (Shock Turret): new
+  vortexTurretPack (Vortex Turret): new
+  ScoutVehicle (Fighter): renamed+stats
+  InterceptorVehicle (Interceptor): new
+  LAPCVehicle (Bomber): renamed+stats
+  TransportVehicle (Transport): new
+  AirBasePack (Air Base): new
+  BigCratePack (Big Crate): new
+  BlastWallPack (Blast Wall): new
+  BunkerPack (Deployable Bunker): new
+  SpringPack (Starwolf Springboard): new
+  AcceleratorDevicePack (Starwolf Accelerator): new
+  CameraPack (Camera): stats+scripts
+  ControlJammerPack (Control Jammer): new
+  TransportPack (Transport Vehicle): new
+  InterceptorPack (Interceptor Pack): new
+  ForceFieldPack (Force Field): new
+  ForceFieldDoorPack (Force Field Door): new
+  JailTower (Jail Tower): new
+  JumpPadPack (Jump Pad): new
+  LargeForceFieldPack (Large Force Field): new
+  LargeForceFieldDoorPack (Large Force Field Door): new
+  MobileInventoryPack (Mobile Inventory): new
+  MotionSensorPack (Motion Sensor): stats+scripts
+  PlasmafloorPack (Plasma Floor): new
+  PlatformPack (Deployable Platform): new
+  PortableGeneratorPack (Portable Generator): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  PortableSolarPack (Portable Solar Panel): new
+  PulseSensorPack (Pulse Sensor): stats+scripts
+  CatPack (Deployable Cat): new
+  DeployableSensorJammerPack (Sensor Jammer): stats+scripts
+  TeleportPack (Teleport Pad): new
+  GunShipPack (Gun Ship Beacon): new
+  SurveyDroidPack (Survey Droid): new
+  ProbeDroidPack (Probe Droid): new
+  SuicideDroidPack (Suicide Droid): new
+  Beacon (Beacon): stats+scripts
+  Grenade (Grenade): stats+scripts
+  MineAmmo (Mine): stats+scripts

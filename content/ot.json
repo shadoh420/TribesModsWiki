@@ -1,0 +1,40 @@
+{
+ "mod": {
+  "overview": "OldTribes v0.3 (Tom Vogt, April 2000) leaves all 52 Base weapon and pack stats untouched and instead overhauls player movement physics, armor durability, anti-skiing traction, team energy economy, Turret team caps (10 -> 15), and distance-based flag scoring.",
+  "notes": [
+   "Movement & anti-skiing overhaul (ArmorData.cs): triples air/surface drag across all three armors (1.0 -> 3.0), triples groundTraction (Light/Medium 3.0 -> 10.0, Heavy 4.5 -> 15.0), halves lateral strafe speeds (maxSideSpeed 10 -> 5 Light, 7 -> 3.5 Med, 4 -> 2 Heavy), and slashes jumpImpulse on Medium (110 -> 60) and Heavy (150 -> 35) while nudging Heavy jetForce up (385 -> 400).",
+   "Armor health and Light loadouts: raises armor health across all classes (Light 0.66 -> 0.75, Medium 1.0 -> 1.25, Heavy 1.32 -> 1.8) and restricts Light Armor by removing the Grenade Launcher ($ItemMax 1 -> 0) and cutting Mines from 3 to 1.",
+   "Rules, scoring, and economy (OldTribes.cs, admin.cs, game.cs, item.cs): raises team deployable turret cap ($TeamItemMax[TurretPack] 10 -> 15), enforces a 10 s self-kill respawn timeout ($DeathTimeout = 10), caps team energy at 5,000 start / 50,000 max (vs Infinite/700k), adds TAB personal-skin toggling ($PskinOpt), sets TK/basekill warning thresholds ($TeamKillWarns = 5, $BasekillLimit = 5), and adds proximity-scaled flag-defense/APC/capture scoring ($Score::10Meters = 5, $Score::Driver = 2, $Score::FlagCapture = 15)."
+  ]
+ },
+ "items": {
+  "LightArmor": {
+   "summary": "HP increases 0.66 -> 0.75; drag triples (1.0 -> 3.0), groundTraction triples (3.0 -> 10.0), maxSideSpeed halves (10 -> 5), Grenade Launcher is banned ($ItemMax = 0), and Mine capacity drops from 3 to 1.",
+   "notes": [
+    "Curbs skiing and lateral dodging without altering stock weapon stats."
+   ],
+   "source": "ArmorData.cs larmor"
+  },
+  "MediumArmor": {
+   "summary": "HP increases 1.0 -> 1.25; drag triples (1.0 -> 3.0), groundTraction triples (3.0 -> 10.0), maxSideSpeed halves (7 -> 3.5), and jumpImpulse drops from 110 to 60.",
+   "notes": [
+    "Weapon loadouts remain stock Base."
+   ],
+   "source": "ArmorData.cs marmor"
+  },
+  "HeavyArmor": {
+   "summary": "HP increases 1.32 -> 1.8; drag triples (1.0 -> 3.0), groundTraction rises 4.5 -> 15.0, maxSideSpeed halves (4 -> 2), jumpImpulse drops 150 -> 35, and jetForce rises 385 -> 400.",
+   "notes": [
+    "Turns Heavy into a high-HP bunker class with weak un-jetted jumps."
+   ],
+   "source": "ArmorData.cs harmor"
+  },
+  "TurretPack": {
+   "summary": "Team deployable turret cap increases from 10 to 15 ($TeamItemMax[TurretPack] = 15); turret stats remain Base.",
+   "notes": [
+    "Supports heavier base defense alongside capped 50k team energy."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

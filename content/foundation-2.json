@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Foundation Mod II (ProtoManX, 2005-2006) rewrites Base Tribes into a modular developer framework (one file per weapon, armor, pack, deployable, turret, and vehicle plus simplifierFunctions.cs macros) while applying a focused rebalance that strips Sensor Jammer Pack, Turret Pack, Mine, and Beacon.",
+  "notes": [
+   "Modular shop & loadout rebalance: drops SensorJammerPack, TurretPack, MineAmmo, and Beacon from the 52-item Base list (48 items total); restricts Light Mortar ammo to 4 (was 10), Medium Grenades to 5 (was 6) and Mortar to 6 (was 10) while granting Medium LaserRifle access; trims Heavy Grenades to 5 (was 8).",
+   "Weapon & damage tuning: Chaingun fires twice as fast (0.2 -> 0.1 s fireTime) at 0.1 damage (was 0.11); Laser Rifle gains 70 maxEnergy (was 60) and 0.01 damageConversion (was 0.007); adds EMP/Fire/Flash/Poison damage scalings per armor and introduces custom mine explosion helpers."
+  ]
+ }
+}

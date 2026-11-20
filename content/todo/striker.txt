@@ -1,0 +1,6 @@
+# striker vs base (5 items)
+stats+scriptsBlaster                      Blaster
+stats+scriptsChaingun                     Chaingun
+stats+scriptsPlasmaGun                    Plasma Gun
+stats      GrenadeLauncher              Grenade Launcher
+stats+scriptsDiscLauncher                 Disc Launcher

@@ -1,0 +1,192 @@
+# swrpg vs base (191 items)
+stats+scriptsRepairPatch                  Repair Patch
+new        BactaVial                    Bacta Vial
+new        BactaCanister                Bacta Canister
+new        KoltoVial                    Kolto Vial
+new        KoltoCanister                Kolto Canister
+new        CheetaursPaws                Cheetaur's Paws
+new        CheetaursPaws0               Cheetaur's Paws
+new        AntigravityBoots             Antigravity Boots
+new        AntigravityBoots0            Antigravity Boots
+new        JetPack                      Jet Pack
+new        JetPack0                     Jet Pack
+new        CloakingDevice               Cloaking Device
+new        CloakingDevice0              Cloaking Device
+new        GunganShield                 Gungan Shield
+new        GunganShield0                Gungan Shield
+new        MandalorianShield            Mandalorian Shield
+new        MandalorianShield0           Mandalorian Shield
+new        VerpineShield                Verpine Shield
+new        VerpineShield0               Verpine Shield
+new        EchaniShield                 Echani Shield
+new        EchaniShield0                Echani Shield
+new        Tent                         Tent
+new        Lootbag                      Backpack
+new        VehicleBeacon                Vehicle Beacon
+new        RecallBeacon                 Recall Beacon
+new        PDA                          PDA
+new        Quartz                       Quartz
+new        Granite                      Granite
+new        Opal                         Opal
+new        Jade                         Jade
+new        Turquoise                    Turquoise
+new        Ruby                         Ruby
+new        Topaz                        Topaz
+new        Sapphire                     Sapphire
+new        Gold                         Gold
+new        Emerald                      Emerald
+new        Diamond                      Diamond
+new        Keldrinite                   Keldrinite
+new        BlackStatue                  Black Statue
+new        SkeletonBone                 Skeleton Bone
+new        EnchantedStone               Enchanted Stone
+new        DragonScale                  Dragon Scale
+new        Parchment                    Parchment
+new        Holocron                     Holocron
+new        JediHolocron                 Jedi Holocron
+new        SithHolocron                 Sith Holocron
+new        BadgeOfHonor                 Badge Of Honor
+new        BadgeOfLoyalty               Badge Of Loyalty
+new        BadgeOfFriendship            Badge Of Friendship
+new        BadgeOfReverence             Badge Of Reverence
+new        Glowrod                      Glowrod
+new        Glowrod0                     Lit Glowrod
+new        BreathingDevice              Breathing Device
+new        BreathingDevice0             Breathing Device in use
+new        Knife                        Knife
+new        GaffiiStick                  Gaffii Stick
+new        Dagger                       Dagger
+new        Shortsword                   Short Sword
+new        Lightsaber                   Lightsaber
+new        TrainingLightsaber           Training Lightsaber
+new        BlueLightsaber               Lightsaber
+new        GreenLightsaber              Lightsaber
+new        RedLightsaber                Lightsaber
+new        DoubleRedLightsaber          Double Lightsaber
+new        HikenLightsaber              Hiken Lightsaber
+new        HikenHilt                    HikenHilt
+new        Bastardsword                 Bastard Sword
+new        NerinLightsaber              Nerin Lightsaber
+new        KeldriniteLS                 Keldrinite Long Sword
+new        Claymore                     Claymore
+new        EchaniFoil                   EchaniFoil
+new        GamorreanCleaver             Gamorrean Cleaver
+new        PickAxe                      Pick Axe
+new        RakatanBattleAxe             Rakatan Battle Axe
+new        ZabrakVibroblade             Zabrak Vibroblade
+new        KrathWarBlade                Krath War Blade
+new        Spear                        Spear
+new        RakatanVibroSword            Rakatan Vibro Sword
+new        Longsword                    Long Sword
+new        Vibroblade                   Vibroblade
+new        Mace                         Mace
+new        GamorreanWaraxe              Gamorrean Waraxe
+new        QuarterStaff                 Quarter Staff
+new        LongStaff                    Long Staff
+new        KrathDireSword               Krath Dire Sword
+new        Vibroshiv                    Vibroshiv
+new        Vibrosword                   Vibrosword
+new        HoldoutBlaster               Holdout Blaster
+new        BlasTechDL44                 BlasTech DL-44
+new        NoobianS5                    Noobian S-5
+new        BaktoidE5                    Baktoid E-5
+new        BlasTechE11                  BlasTech E-11
+new        EE3Carbine                   EE-3 Carbine
+new        BlasTechDLT19                BlasTech DLT-19
+new        Bowcaster                    Bowcaster
+new        HeavyCrossbow                Heavy Crossbow
+new        BlasTechT21                  BlasTech T-21
+new        HeavyRepeater                Heavy Repeater
+new        DroidZapper                  Droid Zapper
+new        CastingBlade                 Casting Blade
+new        CastingSaber                 Casting Saber R
+new        SmallRock                    Small Rock
+new        EnergyCells                  Energy Cells
+new        TibannaGasCells              Tibanna Gas Cells
+new        IonBlasterCells              Ion Blaster Cells
+stats+scriptsGrenade                      Grenade
+new        FragGrenade                  Frag Grenade
+new        FlashGrenade                 Flash Grenade
+new        IonGrenade                   Ion Grenade
+new        ConcussionGrenade            Concussion Grenade
+new        PoisonGrenade                Poison Grenade
+new        SmokeGrenade                 Smoke Grenade
+new        StunGrenade                  Stun Grenade
+new        CryoBanGrenade               CryoBan Grenade
+new        SonicGrenade                 Sonic Grenade
+new        PlasmaGrenade                Plasma Grenade
+new        ThermalDetonator             Thermal Detonator
+new        SmokeBomb                    Smoke Bomb
+new        SonicDetonator               Sonic Detonator
+new        TripMine                     Trip Mine
+new        RKnife                       Rusty Knife
+new        RDagger                      Rusty Dagger
+new        RShortsword                  Rusty Short Sword
+new        RBlueLightsaber              Damaged Lightsaber
+new        RGreenLightsaber             Damaged Lightsaber
+new        RRedLightsaber               Damaged Lightsaber
+new        RDoubleRedLightsaber         Damaged Dbl. Lightsaber
+new        RPickAxe                     Rusty Pick Axe
+new        RLongsword                   Rusty Long Sword
+new        RMace                        Cracked Mace
+new        RBlasTechDL44                Damaged BlasTech DL-44
+new        RBaktoidE5                   Damaged Baktoid E-5
+new        RBlasTechE11                 Damaged BlasTech E-11
+new        PaddedCombatSuit             Padded Combat Suit
+new        PaddedCombatSuit0            Padded Combat Suit
+new        LightCombatSuit              Light Combat Suit
+new        LightCombatSuit0             Light Combat Suit
+new        HeavyCombatSuit              Heavy Combat Suit
+new        HeavyCombatSuit0             Heavy Combat Suit
+new        VerpineFiberMesh             Verpine Fiber Mesh
+new        VerpineFiberMesh0            Verpine Fiber Mesh
+new        PoweredCombatSuit            Powered Combat Suit
+new        PoweredCombatSuit0           Powered Combat Suit
+new        EchaniLightArmor             Echani Light Armor
+new        EchaniLightArmor0            Echani Light Armor
+new        MandalorianCombatSuit        Mandalorian Combat Suit
+new        MandalorianCombatSuit0       Mandalorian Combat Suit
+new        CorellianPowersuit           Corellian Powersuit
+new        CorellianPowersuit0          Corellian Powersuit
+new        CinnagarWarSuit              Cinnagar War Suit
+new        CinnagarWarSuit0             Cinnagar War Suit
+new        EchaniBattleArmor            Echani Battle Armor
+new        EchaniBattleArmor0           Echani Battle Armor
+new        MandalorianAssaultArmor      Mandalorian Assault Armor
+new        MandalorianAssaultArmor0     Mandalorian Assault Armor
+new        BonadanHeavyArmor            Bonadan Heavy Armor
+new        BonadanHeavyArmor0           Bonadan Heavy Armor
+new        KrathHeavyArmor              Krath Heavy Armor
+new        KrathHeavyArmor0             Krath Heavy Armor
+new        EchaniShieldSuit             Echani Shield Suit
+new        EchaniShieldSuit0            Echani Shield Suit
+new        SithBattleArmor              Sith Battle Armor
+new        SithBattleArmor0             Sith Battle Armor
+new        DurasteelHeavyArmor          Durasteel Heavy Armor
+new        DurasteelHeavyArmor0         Durasteel Heavy Armor
+new        EchaniHeavyArmor             Echani Heavy Armor
+new        EchaniHeavyArmor0            Echani Heavy Armor
+new        ApprenticeRobe               Apprentice Robe
+new        ApprenticeRobe0              Apprentice Robe
+new        PadawanRobe                  Padawan Robe
+new        PadawanRobe0                 Padawan Robe
+new        JediRobe                     Jedi Robe
+new        JediRobe0                    Jedi Robe
+new        JediKnightRobe               Jedi Knight Robe
+new        JediKnightRobe0              Jedi Knight Robe
+new        AdvisorRobe                  Advisor Robe
+new        AdvisorRobe0                 Advisor Robe
+new        KelDromaRobe                 Kel-Droma Robe
+new        KelDromaRobe0                Kel-Droma Robe
+new        NorrisRobe                   Norris Robe
+new        NorrisRobe0                  Norris Robe
+new        JediMasterRobe               Jedi Master Robe
+new        JediMasterRobe0              Jedi Master Robe
+new        OssusKeeperRobe              Ossus Keeper Robe
+new        OssusKeeperRobe0             Ossus Keeper Robe
+new        SithLordRobe                 Sith Lord Robe
+new        SithLordRobe0                Sith Lord Robe
+new        StarForgeRobe                Star Forge Robe
+new        StarForgeRobe0               Star Forge Robe
+new        QuestMasterRobe              Quest Master Robe
+new        QuestMasterRobe0             Quest Master Robe

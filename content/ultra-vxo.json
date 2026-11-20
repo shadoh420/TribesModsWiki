@@ -1,0 +1,72 @@
+{
+  "mod": {
+    "overview": "VXO Release 1.0 by Nimec (2002) builds on VXC. It restores the four mini turrets that VXC sold without datablocks (the Mini-S.A.M stays out of the shop), makes the air brake a dead stop, speeds up the light-armor boost, and retunes several weapons and packs. Like VXC it has no VX damage-type side effects and no profile or difficulty switching.",
+    "notes": [
+      "Player::onDamage is VXC's: no EMP, beam or MiniELF item drops, no bullet head-shot gib. Flag-carrier kills give +1 or -1 score.",
+      "Grenade and Beacon still come from Mine.cs, which runs after item.cs and overrides the item.cs versions.",
+      "$BrakeSpeed is -0.0 for every armor, so the brake multiplies your velocity by zero. Light armor's boost factor is 3.15 (VXC 2.75).",
+      "Mini-turret team limits: Mini-Flak 5, Mini-ELF 5, Mini-Beam Of Pain 10, Mini-S.A.M 0 (also removed from the station lists).",
+      "Stat changes against VXC include faster-firing Blaster, Chaingun and LiL POO rifles, a 0.25 s LiLFFB reload, and lower energy costs for the Shield Pack (8 per second) and StealthShield Pack (2 per second).",
+      "The entry script switches the public votes on (the values the later VXE shipped); a super admin can change them under VXO Admin: God Ctrls."
+    ]
+  },
+  "items": {
+    "MiniFlakTurretPack": {
+      "summary": "Deploys a Mini-Flak Turret that launches short-lived seeking flak missiles. Unlike VXC, the turret exists and works.",
+      "notes": [
+        "turret.cs defines MiniFlakTurret again, with range 125 m (VX5 75) and a 1 s reload (VX5 2 s).",
+        "Deploy rules are VX5's: floors, walls or ceilings, fair-play rule, kills credited to the deployer.",
+        "Team limit 5."
+      ],
+      "source": "item.cs MiniFlakTurretPack::deployShape; turret.cs MiniFlakTurret"
+    },
+    "MiniSAMTurretPack": {
+      "summary": "The Mini-S.A.M Turret pack. Its turret is defined again, but the pack is taken out of the shop.",
+      "notes": [
+        "turret.cs defines MiniSAMTurret again with range 125 m (VX5 100) and a 2 s reload (VX5 4 s).",
+        "$InvList and $RemoteInvList are 0 and the team limit is 0, so players cannot buy one."
+      ],
+      "source": "turret.cs MiniSAMTurret; station.cs $InvList; item.cs $TeamItemMax"
+    },
+    "MiniELFTurretPack": {
+      "summary": "Deploys a Mini-ELF Turret, a wide-cone lightning turret that drains energy. Unlike VXC, the turret exists and works.",
+      "notes": [
+        "Range 40 m (VX5 60). It still drains 1000 energy per second, but this mod's Player::onDamage has no MiniELF effect, so victims keep their pack and weapon.",
+        "Deploy rules are VX5's; kills credited to the deployer. Team limit 5."
+      ],
+      "source": "item.cs MiniELFTurretPack::deployShape; turret.cs MiniELFTurret; player.cs Player::onDamage"
+    },
+    "MiniSmokeTurretPack": {
+      "summary": "Deploys a Mini-Beam Of Pain, a thick damaging beam turret. Unlike VXC, the turret exists and works.",
+      "notes": [
+        "Same turret as VX5 (range 40 m, 2-second bursts), but its MiniELF-type hits no longer make the victim drop anything.",
+        "Deploy rules are VX5's; kills credited to the deployer. Team limit 10."
+      ],
+      "source": "item.cs MiniSmokeTurretPack::deployShape; turret.cs MiniSmokeTurret"
+    },
+    "RepairKit": {
+      "summary": "A one-use medkit that heals 0.99 damage.",
+      "notes": [
+        "Same heal as VXC; it now also prints Action: You use a Repair Kit."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "Grenade": {
+      "summary": "An impulse brake that stops you dead in the air.",
+      "notes": [
+        "Runs the Mine.cs version: throws a zero-damage Boost charge forward, then multiplies your velocity by BrakeSpeed x VelRatio. With BrakeSpeed -0.0 for every armor, your velocity becomes zero.",
+        "Prints Impulse Break Activated. 0.2 s between uses (VXC 0.5); uses one grenade each time."
+      ],
+      "source": "Mine.cs Grenade::onUse; ArmorData.cs $BrakeSpeed"
+    },
+    "Beacon": {
+      "summary": "A speed booster that multiplies your velocity by a per-armor factor, faster for light armor than in VXC.",
+      "notes": [
+        "Runs the Mine.cs version: throws the zero-damage Boost charge forward, then multiplies your velocity by BoostSpeed[armor] x VelRatio, where VelRatio = (SpeedMax - |x speed|) / SpeedMax.",
+        "BoostSpeed is 3.15 for light (VXC 2.75), 2.2 medium, 1.7 heavy; SpeedMax 200/120/95. Above SpeedMax on the x axis the ratio goes negative and reverses you.",
+        "0.2 s between uses (VXC 0.5); uses one beacon each time. Prints You use a Speed Booster."
+      ],
+      "source": "Mine.cs Beacon::onUse, VelocityCheck; ArmorData.cs $BoostSpeed/$SpeedMax"
+    }
+  }
+}

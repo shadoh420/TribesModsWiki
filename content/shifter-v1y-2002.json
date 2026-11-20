@@ -1,0 +1,788 @@
+{
+ "mod": {
+  "overview": "Shifter_v1Y (Yukichigai's 12-06-2002 release, forked from Emo1313's 09-28-2000 Shifter via Shifter Advanced and Shifter FAMM) keeps Shifter's nine-armor class system while heavily expanding weapon and equipment customization, tightening deployable balance, and adding new weapons and server switches. Highlights include a three-mode Dart Rifle (Poison, EMP, Flare), selectable Disc Launcher (Standard / Rapid Fire), Grav Gun (Tractor, Repulse, and Grapple with optional 3D Advanced aiming), and Teleport Pack (TeleBeacon, Waypoint, and 125 m Hyperdrive) modes, plus the Arbitor-only Boomer shotgun, Mercenary Underarm 20mm HE pack, an active area-of-effect Healing Plant, and an updated Det Bug system.",
+  "notes": [
+   "Server switches (Customization lines.txt and in-script defaults): $Shifter::noStimFix (turns off the Scout stim-shield cap), $Shifter::LaserMineCountLimit (default 2 in code, 3 in Customization lines), $Shifter::AirBaseRepair, $Shifter::Showmod, $Shifter::HaVoCNuke (turns HellFireModule's blast into a 30 m nuke blast), $Shifter::ShockFloors, $Shifter::RegStinger (disables high-damage RegStingerMissile), $Shifter::BoosterPacks / $Shifter::Boosters, $Shifter::LoadoutList, $Shifter::ScoreAll, $Shifter::DiscOpts, $Shifter::HeatSeeker, $Shifter::JugWeapons, $Shifter::NewPlasma, $Shifter::PlasCanLimit / $Shifter::PlasCanLimitTime, $Shifter::RegenFix, $Shifter::TelePackOpts, $Shifter::HealingPlant, $Shifter::FairPlay, $Shifter::MDMNuke, $Shifter::AllNukeLimit (15), $Shifter::LimitNukes, and $MatchConfig (forces competitive settings).",
+   "Class kit updates from Shifter 09-28-2000: Assassin's beacon key now throws a Shuriken projectile instead of a Detbomb; Juggernaught's grenade key activates an emergency shield (Renegades_StartShield) and its beacon key charges PlasmaCannon, cools Hammer1Pack when heat exceeds 35, or triggers the EnergyBelt recharge beacon (JugCharge) for 5 seconds; DreadNaught's mine key places a LaserMine (or Mortarbomb2 in Deathmatch/possessed mode); Goliath's grenade key throws Concussion1 when $MatchConfig is true.",
+   "Chemeleon infiltration (player.cs Shifter_startInfiltrate): colliding with an enemy player now temporarily switches the Chemeleon's team to mimic the target's team and drops any carried flag for roughly 30 seconds instead of only swapping skins.",
+   "Deployable rules (itemfuncs.cs deployable()): switched from 16 arguments to 15 (removing the separate no-inside flag), added a 25 m satchel proximity cap (at most 6 SatchelPacks), Grey's Laser Airbase check (refuses angled Laser Turrets on airbases with 5.2 impact damage), and a FairPlay check (when $Shifter::FairPlay is not false, turrets and EMPBeacons cannot deploy near enemy Inventory/Ammo stations or non-emplacement generators).",
+   "Status and damage updates (damage.cs, player.cs): adds $RailDamageType, $PoisonDamageType, $MagDamageType, $ELFDamageType, $AntimatterDamageType, and $GayDamageType scales across armors, tunes Goliath plasma scale to 0.2, and lets RepairKit also heal the pilot's currently mounted flier by 0.3.",
+   "Unused or incomplete datablocks in item.cs: EnergyBelt is mounted only internally by JugCharge in slot 6; MegaDiscLauncher, MegaDiscAmmo, and LJ are defined in item.cs ($WeaponList entries exist) but have zero ItemMax on any armor and are not sold in stations."
+  ]
+ },
+ "items": {
+  "Chaingun": {
+   "summary": "Equalizer rotary gun with instant spin-up and higher per-bullet damage than Shifter.",
+   "notes": [
+    "Unlike Shifter, spinUpTime is reduced from 0.2 to 0.0 and ChaingunBullet damageValue increases from 0.15 to 0.37.",
+    "Chaingun::onUse prints 'Using Chaingun' when $Shifter::DeathMatch is true, otherwise 'Using Equalizer'."
+   ],
+   "source": "item.cs ChaingunImage; baseProjData.cs ChaingunBullet; itemmsgs.cs Chaingun::onUse"
+  },
+  "PlasmaGun": {
+   "summary": "Plasma Gun with Standard, Rapid Fire, and Spread Fire modes, unified under a single per-shot ammo spend and an optional classic bolt toggle.",
+   "notes": [
+    "Unlike Shifter, PlasmaGunImage::onFire always decrements 1 ammo up front regardless of mode, supports dead-player ownership (%player.owned), and fires PlasmaBolt2 in mode 0 only when $Shifter::NewPlasma is true and $MatchConfig is not true (otherwise PlasmaBolt).",
+    "Modes 1 (Rapid) and 2 (Spread) fire PlasmaBoltRapid / PlasmaBoltMulti; mode 3 (frag-spawning PlasmaBolt2) remains in code without a menu binding."
+   ],
+   "source": "item.cs PlasmaGunImage::onFire; itemmsgs.cs PlasmaGun::onUse"
+  },
+  "Mortar": {
+   "summary": "Heavy artillery launcher with standard (including Juggernaught JuggyMortarShell), EMP, Frag, MDM (with optional dual-blast nuke), and SatchelShell modes.",
+   "notes": [
+    "Unlike Shifter, mode 0 fires JuggyMortarShell when worn by a Juggernaught (jarmor) if $Shifter::JugWeapons is not false or $MatchConfig is true; otherwise MortarShell.",
+    "Mode 3 (MDM) fires DelayMortarShell and on second trigger spawns HavocBlast plus an extra HavocBlast3 when $Shifter::MDMNuke is not false or $MatchConfig is true.",
+    "Mode 4 now spawns SatchelShell (defined in baseProjData.cs) instead of the missing TacMortar."
+   ],
+   "source": "item.cs MortarImage::onFire; baseProjData.cs JuggyMortarShell, SatchelShell; blasts.cs HavocBlast, HavocBlast3"
+  },
+  "DiscLauncher": {
+   "summary": "Disc Launcher with a new selectable Rapid Fire mode alongside Standard fire.",
+   "notes": [
+    "Unlike Shifter, DiscLauncherImage::onFire handles firing in script: mode 0 (or when $Shifter::DiscOpts is false or $MatchConfig is true) fires DiscShell; mode 1 fires DiscShell2.",
+    "DiscLauncher::onUse announces the active mode ('Standard' or 'Rapid Fire') unless $Shifter::DiscOpts is false."
+   ],
+   "source": "item.cs DiscLauncherImage::onFire; itemmsgs.cs DiscLauncher::onUse"
+  },
+  "LaserRifle": {
+   "summary": "Light-armor Laser Rifle tuned with higher energy-to-damage conversion and blue beam visuals.",
+   "notes": [
+    "Stat-only change from Shifter: uses SniperRLaser (damageConversion 0.016 instead of 0.01, blue_blink4.bmp beam and blue lightColor)."
+   ],
+   "source": "item.cs LaserRifle, LaserRifleImage; baseProjData.cs sniperRLaser"
+  },
+  "EnergyRifle": {
+   "summary": "ELF Gun with higher damage per second, faster energy drain, and energy transfer back to the shooter.",
+   "notes": [
+    "Unlike Shifter, uses lightningCharge (damagePerSec 0.22 vs 0.1, energyDrainPerSec 100.0 vs 60.0, damageType $ElectricityDamageType instead of $FlashDamageType).",
+    "lightningCharge::damageTarget applies 0.005 electricity damage per tick and drains 2.24 energy from the target, adding 2.24 energy to the shooter while the target still has energy."
+   ],
+   "source": "item.cs EnergyRifleImage; baseProjData.cs lightningCharge, lightningCharge::damageTarget"
+  },
+  "HyperB": {
+   "summary": "Hyper Blaster tuned with higher bolt damage under standard Blaster damage scaling.",
+   "notes": [
+    "Stat-only change from Shifter: HyperBolt damageValue increases from 0.05 to 0.17 and damageType changes from $HBlasterDamageType to $BlasterDamageType."
+   ],
+   "source": "baseProjData.cs HyperBolt"
+  },
+  "RocketAmmo": {
+   "summary": "Rocket Launcher ammunition renamed from 'RocketAmmo' to 'Rocket Ammo'.",
+   "notes": [
+    "Display name updated to 'Rocket Ammo'; carried and consumed as in Shifter."
+   ],
+   "source": "item.cs ItemData RocketAmmo"
+  },
+  "RocketLauncher": {
+   "summary": "Four-mode Rocket Launcher adding boosted RegStinger shots, sensor-jamming checks on target lock, and Heat Seeker mode alongside LockJaw and wire-guided GodHammer.",
+   "notes": [
+    "Mode 0 (and mode 1 when $Shifter::LockOn is false) fires RegStingerMissile with backward kickback impulse on non-Juggernaughts unless $Shifter::RegStinger is true (when $MatchConfig is not true), in which case it fires StingerMissile.",
+    "Mode 1 (Locking) extends LOS range to 950 m, respects Chemeleon armor, SensorJammerPack, DeployableSensorJammerPack, and sensor suppression (>19), and fires JugStingerMissileTracker for Juggernaughts when $Shifter::JugWeapons is not false.",
+    "Mode 2 uses Heat Seeker (LockJaw2 / LockJaw2Fire) when $Shifter::HeatSeeker is not false or $MatchConfig is true, otherwise mounts and triggers LJ in slot 7 to paint targets for LockJawFire (MiniMissileTracker).",
+    "Mode 3 fires GodHammerMortar (sets deployer)."
+   ],
+   "source": "item.cs RocketImage::onFire; itemmsgs.cs RocketLauncher::onUse; baseProjData.cs RegStingerMissile, JugStingerMissileTracker, LockJaw2Fire"
+  },
+  "SniperRifle": {
+   "summary": "Assassin projectile Sniper Rifle with zero fire delay and full inherited velocity.",
+   "notes": [
+    "Stat-only change from Shifter: SniperRifleImage fireTime changed from 0.08 to 0 and SniperRound inheritedVelocityScale increased from 0.8 to 1.0."
+   ],
+   "source": "item.cs SniperRifleImage; baseProjData.cs SniperRound"
+  },
+  "BoomStick": {
+   "summary": "Close-range shotgun using shotgun firing sound.",
+   "notes": [
+    "Stat-only change from Shifter: BoomStickImage sfxFire changed to SoundFireShotgun and projectileType cleared on the image (still spawned in BoomStickImage::onFire)."
+   ],
+   "source": "item.cs BoomStickImage"
+  },
+  "TranqGun": {
+   "summary": "Rebuilt into a three-mode rifle (Poison Dart, EMP Dart, and Flare Dart) by mounting hidden sub-items in slot 7.",
+   "notes": [
+    "Unlike Shifter's single TranqDart weapon, TranqGun::onMount and TranqGun::onUse mount TranqGun0 (Poison Dart), TranqGun1 (EMP Dart), or TranqGun2 (Flare Dart) in slot 7 according to %client.Tranq.",
+    "TranqGunImage::onFire triggers slot 7 to fire the mounted mode, and in mode 2 additionally spawns a DeCloakDart projectile."
+   ],
+   "source": "item.cs TranqGun::onMount/onUnmount, TranqGunImage::onFire; itemmsgs.cs TranqGun::onUse"
+  },
+  "Silencer": {
+   "summary": "Magnum sidearm reworked into a high-impact precision slug rifle with heavy knockback.",
+   "notes": [
+    "Stat-only change from Shifter: SilencerBullet damageValue raised from 0.26 to 1.02, aimDeflection zeroed, muzzleVelocity 700, totalTime 0.1, mass 200, kickBackStrength 900, and purpleExp explosion."
+   ],
+   "source": "item.cs Silencer, SilencerImage; baseProjData.cs SilencerBullet"
+  },
+  "ConCun": {
+   "summary": "Shockwave Cannon with minimal energy threshold and Impact damage type.",
+   "notes": [
+    "Stat-only change from Shifter: ConCunImage minEnergy lowered from 40 to 1, and Shock damageType changed from $MissileDamageType to $ImpactDamageType."
+   ],
+   "source": "item.cs ConCunImage; baseProjData.cs Shock"
+  },
+  "Railgun": {
+   "summary": "High-velocity Railgun using its own $RailDamageType.",
+   "notes": [
+    "Stat-only change from Shifter: RailRound damageType changed from $BulletDamageType to $RailDamageType, with updated blue light properties on RailgunImage."
+   ],
+   "source": "item.cs RailgunImage; baseProjData.cs RailRound"
+  },
+  "Mfgl": {
+   "summary": "Tactical Nuke launcher requiring Juggernaughts to spend a Beacon or suffer containment failure.",
+   "notes": [
+    "Unlike Shifter, MfglImage::onFire supports dead-player ownership (%player.owned) and checks if a Juggernaught (jarmor) carries at least one Beacon: if so it consumes one Beacon; otherwise it warns of containment failure and deals 0 to 6 random $NukeDamageType radius and direct damage to the firer."
+   ],
+   "source": "item.cs MfglImage::onFire"
+  },
+  "Flamer": {
+   "summary": "Flame Thrower with linear bolt flight and inherited player velocity.",
+   "notes": [
+    "Stat-only change from Shifter: FlamerBolt removes acceleration/terminalVelocity/trailString and sets inheritedVelocityScale to 0.3."
+   ],
+   "source": "baseProjData.cs FlamerBolt"
+  },
+  "IonGun": {
+   "summary": "Arbitor Ion Rifle with faster firing, lower energy draw, and higher bolt damage.",
+   "notes": [
+    "Stat-only change from Shifter: IonGunImage fireTime 0.15 (was 0.2), minEnergy 1 (was 40), maxEnergy 20 (was 30), and IonBolt damageValue 0.29 (was 0.25)."
+   ],
+   "source": "item.cs IonGunImage; baseProjData.cs IonBolt"
+  },
+  "Fixit": {
+   "summary": "Engineer Repair-Gun with updated repairpack HUD icon.",
+   "notes": [
+    "Stat-only change from Shifter: Fixit hudIcon changed from 'targetlaser' to 'repairpack'."
+   ],
+   "source": "item.cs Fixit"
+  },
+  "GravGun": {
+   "summary": "Grav Gun expanded with Grapple mode (pulling the shooter toward the target) and optional 3D Advanced aiming.",
+   "notes": [
+    "Unlike Shifter's Tractor/Repulse only, GravCharge::damageTarget supports three modes: 0 Repulse, 1 Tractor, and 2 Grapple (pulls the shooter toward %target at velocity 25 using Item::setVelocity or Player::applyImpulse depending on %playerId.GravADV).",
+    "When %playerId.GravADV is non-zero, Tractor (velocity 45) and Repulse (velocity -35) pull/push along the 3D vector between shooter and target instead of player rotation; modes 0 and 1 deal electricity damage to non-teammates.",
+    "GravGun::onUse prints both the active mode and whether 'Advanced (3d)' is enabled."
+   ],
+   "source": "baseProjData.cs GravCharge::damageTarget; itemmsgs.cs GravGun::onUse"
+  },
+  "Penis": {
+   "summary": "Punishment curse weapon with undefined image projectile cleared.",
+   "notes": [
+    "Stat-only change from Shifter: PenisImage clears its placeholder 'Undefined' projectileType."
+   ],
+   "source": "item.cs PenisImage"
+  },
+  "DeployableInvPack": {
+   "summary": "Deployable Inventory Station using the updated 15-argument deployable() helper with clearance check enabled.",
+   "notes": [
+    "Unlike Shifter, DeployableInvPack::deployShape drops the separate no-inside flag and enables checkDeployArea (%area True)."
+   ],
+   "source": "item.cs DeployableInvPack::deployShape; itemfuncs.cs deployable"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deployable Ammo Station using the updated 15-argument deployable() helper with clearance check enabled.",
+   "notes": [
+    "Unlike Shifter, DeployableAmmoPack::deployShape enables checkDeployArea (%area True)."
+   ],
+   "source": "item.cs DeployableAmmoPack::deployShape; itemfuncs.cs deployable"
+  },
+  "DeployableComPack": {
+   "summary": "Deployable Command Station using the updated 15-argument deployable() helper with clearance check enabled.",
+   "notes": [
+    "Unlike Shifter, DeployableComPack::deployShape enables checkDeployArea (%area True)."
+   ],
+   "source": "item.cs DeployableComPack::deployShape; itemfuncs.cs deployable"
+  },
+  "EnergyPack": {
+   "summary": "Energy Pack with validateMaterials metadata removed.",
+   "notes": [
+    "Stat-only change from Shifter: EnergyPack drops validateMaterials."
+   ],
+   "source": "item.cs EnergyPack"
+  },
+  "RepairPack": {
+   "summary": "Repair Pack with validateMaterials metadata removed.",
+   "notes": [
+    "Stat-only change from Shifter: RepairPack drops validateMaterials."
+   ],
+   "source": "item.cs RepairPack"
+  },
+  "ShieldPack": {
+   "summary": "Shield Pack that prevents stacking with an active emergency shield and optionally nerfs Stim armor shielding.",
+   "notes": [
+    "Unlike Shifter, ShieldPackImage::onActivate refuses activation if $ShieldTime[%client] > 0 ('Shielding already activated. Shield Pack not active.') and onDeactivate exits early while $ShieldTime is active.",
+    "For stimarmor/stimfemale, shieldStrength is capped at 0.009 unless $Shifter::noStimfix is true (and $MatchConfig is not true); otherwise 0.022."
+   ],
+   "source": "item.cs ShieldPackImage::onActivate/onDeactivate"
+  },
+  "SensorJammerPack": {
+   "summary": "Sensor Jammer Pack with stronger sensor suppression and slightly higher active energy drain.",
+   "notes": [
+    "Unlike Shifter, increases sensor suppression added/removed from 20 to 30 and raises SensorJammerPackImage maxEnergy from 10 to 12."
+   ],
+   "source": "item.cs SensorJammerPackImage, SensorJammerPackImage::onActivate/onDeactivate"
+  },
+  "CloakingDevice": {
+   "summary": "Cloaking Device with stronger sensor suppression and a 90-tick personal cloak alongside the CloakBlast.",
+   "notes": [
+    "Unlike Shifter, increases sensor suppression added/removed from 5 to 20 (clamping at 0 on deactivate), throws the spawned CloakBlast mine, and for Arbitors also calls Renegades_startCloak with $CloakTime set to 90."
+   ],
+   "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate"
+  },
+  "StealthShieldPack": {
+   "summary": "StealthShield Pack with reduced sensor suppression and emergency-shield coexistence.",
+   "notes": [
+    "Unlike Shifter, sets sensor suppression delta to 10 instead of 20 (clamping at 0 on deactivate), and if $ShieldTime is active it engages stealth only without overwriting or zeroing %player.shieldStrength."
+   ],
+   "source": "item.cs StealthShieldPackImage::onActivate/onDeactivate"
+  },
+  "RegenerationPack": {
+   "summary": "Regeneration Pack / Gun with high-health structure drain protection and expanded friendly powering/shielding.",
+   "notes": [
+    "Unlike Shifter, DrainBolt::checkDone removes the checkHackable rejection, skips damaging enemy targets with maxDamage >= 35 unless $Shifter::RegenFix is false (and $MatchConfig is not true), and heals the user by %damage / 25.",
+    "On friendly targets, DrainBolt::onAcquire/checkDone power unpowered base stations for $Shifter::HackedTime, add 50 energy and reduce EMP time to 2 on EMP'd teammates, apply Shifter_startShield (4-minute cooldown) or refill energy on teammates, add shields to fliers/generators/turrets, and recharge deployable stations by +1000 energy."
+   ],
+   "source": "item.cs RegenerationPack; baseProjData.cs DrainBolt::onAcquire/checkDone"
+  },
+  "LightningPack": {
+   "summary": "Arbitor Teleport Pack expanded with three selectable modes: TeleBeacon (0), Map Waypoint (1), and 125 m Hyperdrive (2).",
+   "notes": [
+    "Mode 0 (or when $Shifter::TelePackOpts is false or $MatchConfig is true) drops/teleports to a TeleBeacon within 350 m (50% flag-drop chance).",
+    "Mode 1 teleports to the player's map waypoint if at full energy (drains all energy, refuses within 50 m of a flag, 80% flag-drop chance; note: sets %zpos instead of %dpos in the initial LOS probe).",
+    "Mode 2 (Hyperdrive) teleports along the player's aim up to 125 m for 60 energy (50% flag-drop chance); onDeactivate reports status via $telemode[%client]."
+   ],
+   "source": "item.cs LightningPackImage::onActivate/onDeactivate; itemfuncs.cs telebeacon"
+  },
+  "FlightPack": {
+   "summary": "Flight Pack with updated energypack HUD icon.",
+   "notes": [
+    "Stat-only change from Shifter: FlightPack hudIcon changed to 'energypack'."
+   ],
+   "source": "item.cs FlightPack"
+  },
+  "SMRPack": {
+   "summary": "Shoulder-mounted Auto-Rocket Pack that respects Chemeleon armor, jammer packs, and sensor suppression.",
+   "notes": [
+    "Unlike Shifter's broken '||' Chemeleon check, SMRPackImage::onActivate requires non-Chemeleon armor, no SensorJammerPack/DeployableSensorJammerPack, sensor suppression <= 19, and enemy team (or $Shifter::DeathMatch) before firing StingerMissileTracker."
+   ],
+   "source": "item.cs SMRPackImage::onActivate"
+  },
+  "SMRPack2": {
+   "summary": "Juggernaught Auto-Rocket Pack that respects stealth/jammers and fires JugStingerMissileTracker when $Shifter::JugWeapons is active.",
+   "notes": [
+    "Unlike Shifter, fixes the Chemeleon/jammer/sensor-suppression lock check and fires JugStingerMissileTracker instead of StingerMissileTracker when $Shifter::JugWeapons is not false or $MatchConfig is true."
+   ],
+   "source": "item.cs SMRPack2Image::onActivate"
+  },
+  "BarragePack": {
+   "summary": "Anti-Aircraft Turret pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, BarragePack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper; behavior of BarrageTurret is otherwise unchanged."
+   ],
+   "source": "item.cs BarragePack::deployShape"
+  },
+  "BlastFloorPack": {
+   "summary": "Blast Floor pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, BlastFloorPack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper."
+   ],
+   "source": "item.cs BlastFloorPack::deployShape"
+  },
+  "Laptop": {
+   "summary": "Command Laptop with clock HUD icon and periodic enemy-jammer scan removed.",
+   "notes": [
+    "Unlike Shifter, LapTopImage::onActivate only sets %client.Laptop = true and no longer runs LapTopImage::check (which was removed)."
+   ],
+   "source": "item.cs Laptop, LapTopImage::onActivate"
+  },
+  "SuicidePack": {
+   "summary": "Suicide DetPack integrated with the team nuke limit, disarm stealing, and nuclear blast on wrong-wire cut.",
+   "notes": [
+    "Unlike Shifter, SuicidePack::deployShape checks $Shifter::DetPackLimit > 0 and $Nukecount[team] < $Shifter::AllNukeLimit (unless $Shifter::LimitNukes is false), consumes the pack up front, and drops SuicidePack::onUnmount.",
+    "On Suicidebomb2::onCollision, an Engineer cutting the wrong wire triggers NuclearExplosion instead of Mine::Detonate; disarming safely awards +20 score, increments enemy $Nukecount and decrements the thrower's team $Nukecount."
+   ],
+   "source": "item.cs SuicidePack::deployShape; bombs.cs Suicidebomb2::onCollision"
+  },
+  "MotionSensorPack": {
+   "summary": "Motion Sensor pack using the 15-argument deployable() helper with surface check enabled.",
+   "notes": [
+    "Unlike Shifter, MotionSensorPack::deployShape enables %surface (terrain, interiors, or platforms/blast structures)."
+   ],
+   "source": "item.cs MotionSensorPack::deployShape"
+  },
+  "AmmoPack": {
+   "summary": "Ammo Pack with updated ammo drop loop covering MineAmmo and BoomAmmo.",
+   "notes": [
+    "Unlike Shifter's fixed 12-item loop, AmmoPack::onDrop loops to $AmmoPackItemsNum and includes MineAmmo and BoomAmmo in the dropped ammo pack."
+   ],
+   "source": "item.cs AmmoPack::onDrop"
+  },
+  "DeployableSensorJammerPack": {
+   "summary": "Deployable Sensor Jammer using the 15-argument deployable() helper with surface check enabled.",
+   "notes": [
+    "Unlike Shifter, DeployableSensorJammerPack::deployShape enables %surface (terrain, interiors, or platforms/blast structures)."
+   ],
+   "source": "item.cs DeployableSensorJammerPack::deployShape"
+  },
+  "CameraPack": {
+   "summary": "Deployable Camera using the 15-argument deployable() helper with surface check enabled.",
+   "notes": [
+    "Unlike Shifter, CameraPack::deployShape enables %surface and removes validateMaterials."
+   ],
+   "source": "item.cs CameraPack, CameraPack::deployShape"
+  },
+  "TurretPack": {
+   "summary": "Ion Turret pack with frequency interference check and clearance check enabled.",
+   "notes": [
+    "Unlike Shifter, TurretPack::deployShape enables %freq (no duplicate Ion Turret in the large box) and %area (checkDeployArea)."
+   ],
+   "source": "item.cs TurretPack::deployShape"
+  },
+  "LaserPack": {
+   "summary": "Laser Turret pack with clearance check enabled and airbase placement guard.",
+   "notes": [
+    "Unlike Shifter, LaserPack::deployShape enables %area (checkDeployArea), removes validateMaterials, and triggers deployable()'s Laser Airbase check (angled Laser Turrets on airbases fail and deal 5.2 impact damage)."
+   ],
+   "source": "item.cs LaserPack, LaserPack::deployShape; itemfuncs.cs deployable"
+  },
+  "DeployableElf": {
+   "summary": "Deployable ELF Turret pack with clearance check enabled.",
+   "notes": [
+    "Unlike Shifter, DeployableElf::deployShape enables %area (checkDeployArea)."
+   ],
+   "source": "item.cs DeployableElf::deployShape"
+  },
+  "ShockPack": {
+   "summary": "EMP Turret pack with surface check enabled.",
+   "notes": [
+    "Unlike Shifter, ShockPack::deployShape enables %surface (terrain, interiors, or platforms/blast structures)."
+   ],
+   "source": "item.cs ShockPack::deployShape"
+  },
+  "TargetPack": {
+   "summary": "Mortar Turret pack renamed internally to 'Remote Mortar Turret' on deploy with frequency check enabled.",
+   "notes": [
+    "Unlike Shifter, TargetPack::deployShape enables %freq and passes 'Remote Mortar Turret' as the deployed object's name."
+   ],
+   "source": "item.cs TargetPack::deployShape"
+  },
+  "PlasmaTurretPack": {
+   "summary": "Plasma Turret pack with frequency interference and clearance checks enabled.",
+   "notes": [
+    "Unlike Shifter, PlasmaTurretPack::deployShape enables %freq and %area (checkDeployArea)."
+   ],
+   "source": "item.cs PlasmaTurretPack::deployShape"
+  },
+  "RocketPack": {
+   "summary": "Rocket Turret pack with frequency interference check enabled.",
+   "notes": [
+    "Unlike Shifter, RocketPack::deployShape enables %freq (no duplicate Rocket Turret in the large box)."
+   ],
+   "source": "item.cs RocketPack::deployShape"
+  },
+  "ForceFieldPack": {
+   "summary": "Small Force Field pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, ForceFieldPack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper."
+   ],
+   "source": "item.cs ForceFieldPack::deployShape"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Large Force Field pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, LargeForceFieldPack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper."
+   ],
+   "source": "item.cs LargeForceFieldPack::deployShape"
+  },
+  "BlastWallPack": {
+   "summary": "Blast Wall pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, BlastWallPack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper."
+   ],
+   "source": "item.cs BlastWallPack::deployShape"
+  },
+  "HoloPack": {
+   "summary": "Hologram deployable pack using the generic SimSet name 'set'.",
+   "notes": [
+    "Unlike Shifter, HoloPack::deployShape names its temporary SimSet 'set' instead of 'holoset'; hologram behavior is otherwise unchanged."
+   ],
+   "source": "item.cs HoloPack::deployShape"
+  },
+  "TreePack": {
+   "summary": "Mechanical Tree pack deployable on any flat surface up to 5 m away.",
+   "notes": [
+    "Unlike Shifter, TreePack::deployShape increases LOS reach from 3 m to 5 m, removes the terrain-only restriction so any flat surface works, and sets the deployed tree description to 'Mechanical Tree'."
+   ],
+   "source": "item.cs TreePack::deployShape; turret.cs DeployableTree, DeployableTree2"
+  },
+  "PlantPack": {
+   "summary": "Rewritten Healing Plant that deploys a HealingPlant turret which heals and restocks teammates on contact and damages enemies in a 35 m area.",
+   "notes": [
+    "Unlike Shifter's cactus1/cactus2 props, PlantPack::deployShape deploys a single HealingPlant turret (price raised to 1350, heading 'lArea Effect Items' unless $Shifter::HealingPlant is 'false' at spawn, in which case it reverts to 500 and 'eDefensive').",
+    "HealingPlant::checkHealingPlant scans a 35x35x35 box when $Shifter::HealingPlant is not false, and HealingPlant::onCollision gives a RepairKit and full heal to teammates (and Chemeleons)."
+   ],
+   "source": "item.cs PlantPack, PlantPack::deployShape; turret.cs HealingPlant, HealingPlant::checkHealingPlant/onCollision; game.cs"
+  },
+  "PlatformPack": {
+   "summary": "Deployable Platform pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, PlatformPack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper."
+   ],
+   "source": "item.cs PlatformPack::deployShape"
+  },
+  "TeleportPack": {
+   "summary": "Deployable Teleport Pad removing the inside-object test and shifting its armor block from DreadNaught to Penis armor.",
+   "notes": [
+    "Unlike Shifter, TeleportPack::deployShape removes the rocket collision check and GameBase::testPosition check, DeployableTeleport::onCollision blocks harmor and parmor (allowing darmor to teleport), and DeployableTeleport::onDestroyed calls StaticShape::onDestroyed."
+   ],
+   "source": "item.cs TeleportPack::deployShape; StaticShape.cs DeployableTeleport::onCollision/onDestroyed"
+  },
+  "MechPack": {
+   "summary": "Interceptor Pack deploying a lighter Scout flier and counting against the ScoutVehicle team limit.",
+   "notes": [
+    "Unlike Shifter, Scout FlierData lowers maxDamage from 0.8 to 0.6, lift from 1.1 to 1.07, and minSpeed from -15 to -10, and MechPack::deployShape checks and increments $TeamItemCount[team @ 'ScoutVehicle'] instead of MechPack."
+   ],
+   "source": "item.cs MechPack::deployShape; vehicle.cs Scout"
+  },
+  "DetPack": {
+   "summary": "Stealth HPC Pack deploying an updated HAPC transport that supports Valkyrie and GodHammer modules.",
+   "notes": [
+    "Unlike Shifter, HAPC increases maxPitch from 0.5 to 1.2 and maxSpeed from 45 to 50, and HAPC::OnFire replaces the old module 7 branch with module 1 (Valkyrie RegStingerMissile) and module 10 (Godhammer)."
+   ],
+   "source": "vehicle.cs HAPC, HAPC::OnFire"
+  },
+  "RepairKit": {
+   "summary": "Repair Kit that also repairs the player's currently mounted flier and clears Det Bug infection.",
+   "notes": [
+    "Unlike Shifter, RepairKit::onUse supports Admin possession, clears %clientId.lastdropper = 'Off' (removing an active Det Bug), and if mounted in a Flier repairs the vehicle by 0.3."
+   ],
+   "source": "item.cs RepairKit::onUse"
+  },
+  "MineAmmo": {
+   "summary": "Armor-dependent mine thrower adding Deathmatch-compatible mine triggers, cloak-blast fading, and ProxMine Det Bug triggers.",
+   "notes": [
+    "Unlike Shifter, DreadNaught (darmor) drops LaserMine normally (Mortarbomb2 only in Deathmatch or while possessed); Engineer EngMine 0 throws the reworked ProxMine (shaped like armorPatch, 1.5 m trigger radius) which plants a Det Bug on enemies unless already infected.",
+    "Mine::onDamage handlers across AntipersonelMine, Hologram, ProxMine, ReplicatorMine, ShockMine, and SubspaceMine fade out mines hit by $CloakDamageType; HoloMine, AntipersonelMine, ReplicatorMine, ShockMine, and SubspaceMine all trigger in $Shifter::DeathMatch."
+   ],
+   "source": "item.cs MineAmmo::onUse; Mine.cs"
+  },
+  "Grenade": {
+   "summary": "Armor-dependent grenade thrower adding TeslaGren for Arbitor, Assassin Tranq/Holo toggle, Juggernaught shield, and Concussion1 under $MatchConfig.",
+   "notes": [
+    "Unlike Shifter: Assassin throws Handgrenade in Deathmatch, Tranqgrenade when %client.asngren is 0/unset, or HoloMine otherwise; Arbitor throws TeslaGren (2 s fuse, $ElectricityDamageType) when %client.arbgren is 0/unset, or Tranqgrenade otherwise; Mercenary and Deathmatch armors throw Handgrenade; Goliath throws Concussion1 when $MatchConfig is true, otherwise Concussion (35 m radius, 350 kickback); Juggernaught triggers Renegades_StartShield.",
+    "Also supports possession, adds Grenade::isAtRest, and raises Nukebomb Engineer wrong-wire chance threshold from >6 to >9 (so only >9 triggers)."
+   ],
+   "source": "item.cs Grenade::onUse, Grenade::isAtRest; grenade.cs TeslaGren, Concussion1, Nukebomb::onCollision"
+  },
+  "Beacon": {
+   "summary": "Armor-dependent ability slot adding Assassin Shuriken throws, Juggernaught EnergyBelt/Hammer cooling, and updated Mercenary boosters.",
+   "notes": [
+    "Unlike Shifter: Assassin throws a Shuriken projectile (0.5 energy damage) instead of a Detbomb; Juggernaught activates PlasmaCannon charge (with PlasCanLimit check), cools Hammer1Pack (-15 heat if >35), or runs JugCharge (mounts EnergyBelt in slot 6 for 5 s rapid recharge).",
+    "Mercenary triggers shoulder Booster1Pack/Booster2Pack only if $Shifter::BoosterPacks and $Shifter::Boosters are true and $MatchConfig is false; Engineer EngBeacon 2 calls EngMissileLock (deploys MJammer BeaconTwo); Goliath throws Concussion2 at 35x throwStrength."
+   ],
+   "source": "item.cs Beacon::onUse; itemfuncs.cs JugCharge, EngMissileLock"
+  },
+  "airbase": {
+   "summary": "AirBase backpack swapping the generator/station to emplacement variants and optionally spawning a Repair Pack.",
+   "notes": [
+    "Unlike Shifter, airbase::deployShape spawns EmplacementGenerator and EmplacementStation instead of PortGenerator and InventoryStation, and spawns a RepairPack on the airbase when $Shifter::AirBaseRepair is false and $MatchConfig is not true."
+   ],
+   "source": "item.cs airbase::deployShape"
+  },
+  "LaunchPack": {
+   "summary": "Launch Pad pack no longer destroying incoming rockets on touch.",
+   "notes": [
+    "Unlike Shifter, DeployableLaunch::onCollision removes the rocket-shape damage check."
+   ],
+   "source": "item.cs LaunchPack::deployShape; StaticShape.cs DeployableLaunch::onCollision"
+  },
+  "AccelPPack": {
+   "summary": "Accelerator Pad pack allowing Chemeleons to use enemy pads and warning Juggernaughts that it cannot boost them.",
+   "notes": [
+    "Unlike Shifter, AccelPadPack::onCollision removes the rocket check, lets spyarmor/spyfemale activate enemy pads, tells Juggernaughts the pad lacks strength to boost them, and AccelPadPack::onDestroyed calls StaticShape::onDestroyed."
+   ],
+   "source": "StaticShape.cs AccelPadPack::checkPlayer/onCollision/onDestroyed"
+  },
+  "Hackit": {
+   "summary": "Engineer Hack-Gun with updated clock icon, red beam visuals, and fixed hackable check.",
+   "notes": [
+    "Unlike Shifter, HackBolt::onAcquire fixes the inverted checkHackable condition ('!checkHackable(...)'), uses lightningNewSub.bmp with red lightColor, and Hackit uses the 'clock' HUD icon."
+   ],
+   "source": "item.cs Hackit; baseProjData.cs HackBolt, HackBolt::onAcquire"
+  },
+  "DisIt": {
+   "summary": "Engineer Disassembler-Gun with updated backpack icon and blue beam light.",
+   "notes": [
+    "Stat-only change from Shifter: DisIt uses 'backpack' hudIcon and DisaBolt uses blue lightColor."
+   ],
+   "source": "item.cs DisIt; baseProjData.cs DisaBolt"
+  },
+  "Regen": {
+   "summary": "Regeneration Gun built into RegenerationPack, sharing the updated DrainBolt drain/heal and friendly powering scripts.",
+   "notes": [
+    "Same DrainBolt::onAcquire and checkDone changes noted under RegenerationPack: respects $Shifter::RegenFix on high-HP structures and supports friendly players, fliers, stations, turrets, and generators."
+   ],
+   "source": "baseProjData.cs DrainBolt::onAcquire/checkDone"
+  },
+  "CoolLauncher": {
+   "summary": "Missile Control Station pack restricting platform deployment to LargeEmplacementPlatform.",
+   "notes": [
+    "Unlike Shifter, CoolLauncher::deployShape no longer allows deployment on BlastFloor (only terrain, interiors, and LargeEmplacementPlatform)."
+   ],
+   "source": "item.cs CoolLauncher::deployShape"
+  },
+  "DetBug": {
+   "summary": "Infectious EMP bug that counts down 10 seconds on the carrier before detonating an EMPBlast unless cured or dropped.",
+   "notes": [
+    "Unlike Shifter (where DetBug had no active functions), DetBug::onCollision picks up the bug on enemy contact and starts DetBug::CheckDet (10 s countdown, 2 s ticks, applying 0.4 * %mult $FlashDamageType EMPBlast damage at 0).",
+    "DetBug::onDrop throws a temporary 5-second DetBug item that detonates via DetBug::Detonate."
+   ],
+   "source": "item.cs DetBug::onCollision/onUse/onDrop/CheckDet/Detonate, EMPBlast::onAdd"
+  },
+  "Plastique": {
+   "summary": "Throwable Nukebomb item sharing the raised Engineer wrong-wire threshold.",
+   "notes": [
+    "Unlike Shifter, Nukebomb::onCollision changes the Engineer wrong-wire trigger condition from '%rnd > 6' to '%rnd > 9'."
+   ],
+   "source": "grenade.cs Nukebomb::onCollision"
+  },
+  "RepairPatch": {
+   "summary": "Floor repair patch healing Juggernaught and DreadNaught for 0.4.",
+   "notes": [
+    "Unlike Shifter (0.1 for Juggernaught, 0.3 for DreadNaught), RepairPatch::onUse heals both jarmor and darmor by 0.4."
+   ],
+   "source": "item.cs RepairPatch::onUse"
+  },
+  "EmplacementPack": {
+   "summary": "Defense Emplacement pack supporting an optional underground generator placement via $Shifter::EmpGen.",
+   "notes": [
+    "Unlike Shifter, EmplacementPack::deployShape adds an Emplacement Forcefield and spawns the Station Generator at 0 0 -15 relative to the player when $Shifter::EmpGen is false (and $MatchConfig is not true)."
+   ],
+   "source": "item.cs EmplacementPack::deployShape"
+  },
+  "LargeShockForceFieldPack": {
+   "summary": "Large Shock Force Field pack using the 15-argument deployable() signature.",
+   "notes": [
+    "Unlike Shifter, LargeShockForceFieldPack::deployShape drops the separate no-inside flag to match the 15-argument deployable() helper."
+   ],
+   "source": "item.cs LargeShockForceFieldPack::deployShape"
+  },
+  "ArbitorBeaconPack": {
+   "summary": "Arbitor Device pack deployable on any surface without team flag-defense scoring or owner kill credit.",
+   "notes": [
+    "Unlike Shifter, ArbitorBeaconPack::deployShape disables %surface, %flag (0), and %kill (False)."
+   ],
+   "source": "item.cs ArbitorBeaconPack::deployShape"
+  },
+  "EMPBeaconPack": {
+   "summary": "EMP Device pack enabling frequency/proximity interference checks and dropping the surface restriction.",
+   "notes": [
+    "Unlike Shifter, EMPBeaconPack::deployShape enables %freq and %prox and disables %surface; deployable() also enforces a 26 m anti-offensive-base check around enemy stations when $Shifter::FairPlay is active."
+   ],
+   "source": "item.cs EMPBeaconPack::deployShape; itemfuncs.cs deployable"
+  },
+  "ShieldBeaconPack": {
+   "summary": "Shield Device pack enabling frequency/proximity interference checks and dropping the surface restriction.",
+   "notes": [
+    "Unlike Shifter, ShieldBeaconPack::deployShape enables %freq and %prox and disables %surface."
+   ],
+   "source": "item.cs ShieldBeaconPack::deployShape"
+  },
+  "PowerGeneratorPack": {
+   "summary": "Power Device pack enabling frequency/proximity checks, dropping the surface restriction, and marking the team's portable power flag.",
+   "notes": [
+    "Unlike Shifter, PowerGeneratorPack::deployShape enables %freq and %prox, disables %surface, sets %object.deployed = true and $Portagen[team] = true, and PowerGeneratorPack::onUse omits the bottomprint prompt."
+   ],
+   "source": "item.cs PowerGeneratorPack::deployShape/onUse"
+  },
+  "LasCannon": {
+   "summary": "Juggernaught Gattling Laser Cannon firing a sustained GatlingLaser beam directly through its image instead of a scripted burst.",
+   "notes": [
+    "Unlike Shifter, renamed from 'LasCannon' to 'Gattling Laser Cannon', removes LasCannonImage::onFire, and fires GatlingLaser (LaserData, damageConversion 0.1, beamTime 2.5, fireTime 1.5, reloadTime 2.0)."
+   ],
+   "source": "item.cs LasCannon, LasCannonImage; baseProjData.cs GatlingLaser; itemmsgs.cs LasCannon::onUse"
+  },
+  "PlasmaCannon": {
+   "summary": "Juggernaught Heavy Plasma Cannon enforcing a per-interval firing cap via $Shifter::PlasCanLimit.",
+   "notes": [
+    "Unlike Shifter, renamed from 'HeavyPlasmaCannon' to 'Heavy Plasma Cannon' and PlasmaCannonImage::onFire enforces %clientId.plaslimit < $Shifter::PlasCanLimit (unless $Shifter::PlasCanLimit is false) by calling Plascannonlimit(%clientId) on a full 15-charge shot."
+   ],
+   "source": "item.cs PlasmaCannon, PlasmaCannonImage::onFire"
+  },
+  "Hammer1Pack": {
+   "summary": "Right-hand God Hammer Cannon firing faster GodHammer projectiles with faster cooling and double overload frags.",
+   "notes": [
+    "Unlike Shifter, GodHammer muzzleVelocity increases from 50 to 200 (terminalVelocity 1000 to 2000), GodHammer::CoolDown drains 5 + random(0..2) heat per tick (was 4), GodHammer::HeatCheck slows tick interval (heatup / 40.0), and 100% overheat spawns 20 frags instead of 10."
+   ],
+   "source": "baseProjData.cs GodHammer; item.cs GodHammer::CoolDown/HeatCheck/HeatUp"
+  },
+  "Hammer2Pack": {
+   "summary": "Left-hand God Hammer Cannon sharing the faster GodHammer projectile and updated cooling/overheat behavior.",
+   "notes": [
+    "Matches Hammer1Pack's faster GodHammer velocity (200 to 2000) and updated GodHammer::CoolDown / HeatCheck / HeatUp behavior."
+   ],
+   "source": "baseProjData.cs GodHammer; item.cs GodHammer::CoolDown/HeatCheck/HeatUp"
+  },
+  "ShockFloorPack": {
+   "summary": "Shock Floor pack aligning deployed floors to the player's facing rotation.",
+   "notes": [
+    "Unlike Shifter, ShockFloorPack::deployShape changes %angle from 'Flat' to 'Player' so the floor aligns to the deployer's rotation."
+   ],
+   "source": "item.cs ShockFloorPack::deployShape"
+  },
+  "NapalmModule": {
+   "summary": "Valkyrie Module (renamed from NapalmModule) that loads RegStingerMissile rockets onto fliers.",
+   "notes": [
+    "Renamed to 'Valkyrie Module'; in vehicle.cs module 1 now fires RegStingerMissile instead of the old Napalm behavior."
+   ],
+   "source": "item.cs NapalmModule; vehicle.cs Scout/LAPC/HAPC::OnFire"
+  },
+  "HellFireModule": {
+   "summary": "HellFire Module (renamed from HellFireModule) with an expanded nuclear kamikaze blast.",
+   "notes": [
+    "Renamed to 'HellFire Module'; in vehicle.cs module 2's self-destruct blast now deals 5.8 $NukeDamageType damage in a 30 m radius (was 6.0 $ImpactDamageType in 15 m)."
+   ],
+   "source": "item.cs HellFireModule; vehicle.cs Scout/LAPC/HAPC::OnFire"
+  },
+  "BomberModule": {
+   "summary": "Vehicle Bomber Module with formatted display name.",
+   "notes": [
+    "Display name updated from 'BomberModule' to 'Bomber Module'; module firing behavior in vehicle.cs matches Shifter."
+   ],
+   "source": "item.cs BomberModule"
+  },
+  "PickUpModule": {
+   "summary": "Vehicle PickUp Module with formatted display name.",
+   "notes": [
+    "Display name updated from 'PickUpModule' to 'PickUp Module'."
+   ],
+   "source": "item.cs PickUpModule"
+  },
+  "MineNetModule": {
+   "summary": "Vehicle MineNet Module with formatted display name.",
+   "notes": [
+    "Display name updated from 'MineNetModule' to 'MineNet Module'."
+   ],
+   "source": "item.cs MineNetModule"
+  },
+  "StealthModule": {
+   "summary": "Vehicle Stealth Module with formatted display name.",
+   "notes": [
+    "Display name updated from 'StealthModule' to 'Stealth Module'."
+   ],
+   "source": "item.cs StealthModule"
+  },
+  "WraithModule": {
+   "summary": "Vehicle Wraith Module with formatted display name.",
+   "notes": [
+    "Display name updated from 'WraithModule' to 'Wraith Module'."
+   ],
+   "source": "item.cs WraithModule"
+  },
+  "InterceptorModule": {
+   "summary": "Vehicle Interceptor Module with formatted display name.",
+   "notes": [
+    "Display name updated from 'InterceptorModule' to 'Interceptor Module'."
+   ],
+   "source": "item.cs InterceptorModule"
+  },
+  "GodHammerModule": {
+   "summary": "GodHammer Module (renamed from GodHammerModule) enabling fliers to fire GodHammer missiles.",
+   "notes": [
+    "Display name updated to 'GodHammer Module'; in vehicle.cs module 10 fires the Godhammer projectile from Scout, LAPC, and HAPC."
+   ],
+   "source": "item.cs GodHammerModule; vehicle.cs Scout/LAPC/HAPC::OnFire"
+  },
+  "JammerBeaconPack": {
+   "summary": "Jammer Device pack with clearance check enabled.",
+   "notes": [
+    "Unlike Shifter, JammerBeaconPack::deployShape enables %area (checkDeployArea)."
+   ],
+   "source": "item.cs JammerBeaconPack::deployShape"
+  },
+  "Booster1Pack": {
+   "summary": "Mercenary right shoulder Booster converted from a MineData throw to a visual RocketData jet puff.",
+   "notes": [
+    "Unlike Shifter, Booster1Pack sets showWeaponBar false, Booster1PackImage sets fireTime 0.25, and the Booster datablock becomes a 0-damage RocketData jet puff (removing Booster::deployCheck/onAdd/onCollision)."
+   ],
+   "source": "item.cs Booster1Pack, Booster1PackImage; baseProjData.cs Booster"
+  },
+  "Booster2Pack": {
+   "summary": "Mercenary left shoulder Booster converted to a visual RocketData jet puff.",
+   "notes": [
+    "Unlike Shifter, Booster2PackImage adjusts fireTime/reloadTime to 0.25/0.0 and shares the RocketData Booster puff."
+   ],
+   "source": "item.cs Booster2PackImage; baseProjData.cs Booster"
+  },
+  "AutoGrenadeAmmo": {
+   "summary": "20mm HE ammunition used by the Mercenary's Underarm 20mm HE backpack.",
+   "notes": [
+    "Mercenary (marmor/mfemale) carries up to 25 rounds; resupplied at Ammo Stations alongside GrenPack."
+   ],
+   "source": "item.cs AutoGrenadeAmmo; ArmorData.cs; station.cs"
+  },
+  "GrenPack": {
+   "summary": "Mercenary-only Underarm 20mm HE launcher worn in the backpack slot.",
+   "notes": [
+    "Activating the backpack fires a GrenadeShellP projectile from the muzzle while spending 1 AutoGrenadeAmmo round (prints 'You have no Ammo for the Underarm 20mm HE' when empty).",
+    "Carried only by Mercenary (marmor/mfemale)."
+   ],
+   "source": "item.cs GrenPack, GrenPackImage, GrenPackImage::onActivate; ArmorData.cs"
+  },
+  "TranqGun1": {
+   "summary": "Hidden stand-in weapon mounted in slot 7 when the Dart Rifle is set to EMP Dart mode.",
+   "notes": [
+    "Not sold or shown in inventory (showInventory false, showWeaponBar false); uses TranqAmmo and fires EMPDart (0.2 $FlashDamageType damage, muzzleVelocity 3500)."
+   ],
+   "source": "item.cs TranqGun1, TranqGun1Image; baseProjData.cs EMPDart"
+  },
+  "TranqGun2": {
+   "summary": "Hidden stand-in weapon mounted in slot 7 when the Dart Rifle is set to Flare Dart mode.",
+   "notes": [
+    "Not sold or shown in inventory (showInventory false, showWeaponBar false); uses TranqAmmo and fires FlareDart (0.3 $FlareDamageType damage) while TranqGunImage::onFire also spawns a DeCloakDart."
+   ],
+   "source": "item.cs TranqGun2, TranqGun2Image, TranqGunImage::onFire; baseProjData.cs FlareDart"
+  },
+  "TranqGun0": {
+   "summary": "Hidden stand-in weapon mounted in slot 7 when the Dart Rifle is set to Poison Dart mode.",
+   "notes": [
+    "Not sold or shown in inventory (showInventory false, showWeaponBar false); uses TranqAmmo and fires TranqDart (0.37 $EnergyDamageType damage, muzzleVelocity 3500)."
+   ],
+   "source": "item.cs TranqGun0, TranqGun0Image; baseProjData.cs TranqDart"
+  },
+  "EnergyBelt": {
+   "summary": "Hidden negative-energy tool item mounted in slot 6 by the Juggernaught's Recharge Beacon.",
+   "notes": [
+    "Not buyable or carried normally (zero ItemMax on all armors, showInventory false); JugCharge mounts and triggers EnergyBelt in slot 6 for 5 seconds to recharge energy rapidly (-16 min/maxEnergy)."
+   ],
+   "source": "item.cs EnergyBelt, EnergyBeltImage; itemfuncs.cs JugCharge"
+  },
+  "LJ": {
+   "summary": "Hidden Lockjaw targeting beam tool mounted in slot 7 by the Rocket Launcher in LockJaw mode.",
+   "notes": [
+    "Not carried directly (zero ItemMax on all armors); RocketLauncher::onUse and RocketImage::onFire mount and trigger LJ in slot 7 to paint a target (%client.target) up to 700 m away."
+   ],
+   "source": "item.cs LJ, LJImage, RocketLauncher::onUse, RocketImage::onFire; baseProjData.cs LockJaw, LockJaw::onAcquire/onRelease"
+  },
+  "MegaDiscAmmo": {
+   "summary": "Unused Mega-Disc ammunition datablock defined in item.cs.",
+   "notes": [
+    "Not carried by any armor (zero ItemMax) and not listed in station_list.cs."
+   ],
+   "source": "item.cs MegaDiscAmmo"
+  },
+  "MegaDiscLauncher": {
+   "summary": "Unused heavy Disc Launcher variant defined in item.cs ($WeaponList[27]) that fires MegaDiscShell.",
+   "notes": [
+    "Defined with MegaDiscLauncherImage and MegaDiscShell (0.65 $ExplosionDamageType damage, 12 m splash radius, 175 m/s muzzleVelocity), but has zero ItemMax on all armors and is not stocked in stations."
+   ],
+   "source": "item.cs MegaDiscLauncher, MegaDiscLauncherImage; baseProjData.cs MegaDiscShell; itemmsgs.cs MegaDiscLauncher::onUse"
+  },
+  "Boomer": {
+   "summary": "Arbitor-only energy shotgun firing up to 19 BoomStickBlast pellets per trigger pull.",
+   "notes": [
+    "Carried only by Arbitor (aarmor/afemale). Uses energy rather than shells: while energy >= 2 (requires >5 to start), spawns up to 19 BoomStickBlast pellets at 2 energy per pellet.",
+    "Boomer::onUse prints 'Using Boomer'."
+   ],
+   "source": "item.cs Boomer, BoomerImage, BoomerImage::onFire; ArmorData.cs; itemmsgs.cs Boomer::onUse"
+  }
+ }
+}

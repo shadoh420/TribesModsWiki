@@ -1,0 +1,5 @@
+# base-plus vs base (4 items)
+stats      Chaingun                     Chaingun
+stats      Mortar                       Mortar
+stats      EnergyRifle                  ELF Gun
+scripts    MineAmmo                     Mine

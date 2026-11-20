@@ -1,0 +1,89 @@
+# sex-nc17 vs base (88 items)
+renamed+statsScoutVehicle                 Pencil Scout
+renamed+statsLAPCVehicle                  Funky Assault
+renamed+statsHAPCVehicle                  Spread Eagle
+renamed+stats+scriptsBlaster                      Cherry Popper
+renamed+statsBulletAmmo                   Pulse Bullet
+renamed+stats+scriptsChaingun                     Pepper Gun
+new        RocketAmmo                   Needles
+new        NeedleLauncher               Needle Launcher
+renamed+statsPlasmaAmmo                   Protein
+renamed+stats+scriptsPlasmaGun                    Money $hot Cannon
+new        PencilAmmo                   Pencil
+new        PencilGun                    Pencil Gun
+new        ShotDiscAmmo                 Blue Shells
+new        ShotDiscGun                  Blue Sex0r
+new        HO                           Blow up HO
+new        HoTosser                     Ho Tosser
+new        AgedonAmmo                   Agedon Shells
+new        AgedonGun                    Agedon Gun
+renamed+statsMortarAmmo                   Stink Can
+renamed+stats+scriptsMortar                       Funk Tosser
+new        HuckerAmmo                   Hucker Ammo
+new        HuckerGun                    Hucker Gun
+stats      DiscAmmo                     Disc
+renamed+stats+scriptsDiscLauncher                 UFO Invasion
+new        Scope                        Scope
+new        PlasmaticGunAmmo             Phrailter charge
+new        SightShooter                 targetLaser
+new        PlasmaticGun                 Phrailter
+new        MinerAmmo                    Mine Shells
+new        Miner                        Majik Miner
+new        SoulSucker                   Soul Sucker
+new        Laser1                       Shotgun
+new        RockAmmo                     Rock
+new        RockLauncher                 Rock Launcher
+stats+scriptsTargetingLaser               Targeting Laser
+renamed+stats+scriptsEnergyRifle                  Orgasm Gun
+new        MindFuk3                     MindFuk3add
+new        MindFuk2                     MindFuk2add
+new        MindFuk                      MindFawker
+new        Grabbler                     Pitchfork
+new        Pitchfork                    Pitchfork
+scripts    DeployableInvPack            Inventory Station
+new        InvTree                      Inventory bush
+scripts    CameraPack                   Camera
+new        vortexTurretPack             Vortex Turret
+stats+scriptsTurretPack                   Turret
+new        ZapperPack                   Zapper
+new        PencilPack                   Pencil Turret
+new        door5x5pack                  Blue Door
+new        door4x14pack                 Big Blue Door
+new        BlastWall                    Blast Wall
+new        plat                         Platform
+new        Twig                         Mr Twig
+new        Seed                         Seed
+new        Girl                         Girly Girl
+stats+scriptsEnergyPack                   Energy Pack
+renamed+statsRepairPack                   Fixit Pack
+new        OSAmmo                       OS Rockets
+new        OSLauncher                   OS Laucher
+new        OSPack                       Optical Rocket Pack
+new        HellPack                     Hell Pack
+new        Hell2Pack                    Hell Pack
+new        GhostArmor                   Ghosting
+new        GhostPack                    Ghost Pack
+new        GhostPack2                   gpack
+new        GhostPack3                   Ghost Pack
+scripts    ShieldPack                   Shield Pack
+new        Volcano                      Jacker
+new        Volcano1                     Jacker
+new        JackPack                     Volcano pack
+new        JumpAmmo                     Jump Charge
+new        JumpGun                      Jacker
+new        JumperPack                   Jumper pack
+new        TeleportPack                 Teleport Pack
+renamed+stats+scriptsSensorJammerPack             Cloak- Jammer
+new        CloakingDevice               Cloaking Device
+scripts    AmmoPack                     Ammo Pack
+scripts    DeployableAmmoPack           Ammo Station
+scripts    MotionSensorPack             Motion Sensor
+scripts    PulseSensorPack              Pulse Sensor
+scripts    DeployableSensorJammerPack   Sensor Jammer
+new        InvPatch                     Inventory Patch
+stats      RepairKit                    Repair Kit
+stats      RepairPatch                  Repair Patch
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+new        PenisPack                    Penis

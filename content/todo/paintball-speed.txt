@@ -1,0 +1,41 @@
+# paintball-speed vs base (40 items)
+new        PsychoClip                   Extra Paintballs
+new        DeltaClip                    Extra Paintballs
+new        ShockerClip                  Extra Paintballs
+new        InfernoClip                  Extra Paintballs
+new        AngelClip                    Extra Paintballs
+new        IntimidatorClip              Extra Paintballs
+new        MongooseClip                 Extra Paintballs
+new        AutoCockerClip               Extra Paintballs
+new        SpyderClip                   Extra Paintballs
+new        DragunClip                   Extra Paintballs
+new        TipmannSClip                 Extra Paintballs
+renamed+stats+scriptsShieldPack                   K0RN's Specialty
+scripts    Grenade                      Grenade
+new        AngelAmmo                    Paintballs
+new        Angel                        New: WDP Angel
+new        DragunAmmo                   Dragun Paintballs
+new        Dragun                       M3 Dragun LCD
+new        AutoCockerAmmo               Paintballs
+new        AutoCocker                   Shocktech Autococker
+new        SpyderAmmo                   Paintballs
+new        Spyder                       Spyder E-99
+new        TLPack                       New: Laser Sight
+new        Camo                         Land Camo
+new        TipmannSAmmo                 Paintballs
+new        TipmannS                     Tippmann 98 Sniper
+new        MiniGunAmmo                  Paintballs
+new        MiniGun                      MiniGun
+new        MongooseAmmo                 Paintballs
+new        Mongoose                     Diablo Mongoose LCD
+new        IntimidatorAmmo              Intimidator Paintballs
+new        Intimidator                  Bob Long Intimidator GZ
+new        PsychoAmmo                   Psycho Paintballs
+new        Psycho                       Psycho Ballistic Lightning
+new        InfernoAmmo                  Paintballs
+new        Inferno                      PGC Speed Gun
+new        FLPack                       New: Flash Light XE
+new        DeltaAmmo                    Paintballs
+new        Delta                        New:Speed Hand Gun 
+new        ShockerAmmo                  Paintballs
+new        Shocker                      Smart Parts Shocker 03 Basic

@@ -1,0 +1,1058 @@
+{
+ "mod": {
+  "overview": "Apteryx v2 (Crow!, 2003) is built on Annihilation 2.1. It keeps Annihilation's datablock names but fills them with a new set of armors, weapons, packs, turrets, drones and vehicles; its join banner calls it 'the world of flightless armors and armed fliers'. The classes are narrowly specialized. Everyone starts as the Scorpion, a one-weapon light armor that is also the only class able to deploy most turrets, stations and barriers. Each class's Beacon triggers its own special ability, and some weapons are built for teamwork: the Destroyer's Cluster Missile Launcher splits into homing missiles only when a Scorpion's Spotter Laser marks a target.",
+  "notes": [
+   "Spawn loadout (game.cs Game::playerSpawned): Scorpion armor, Light Laser, Targeting Laser, Repair Kit, 2 Beacons, 3 Grenades, 3 Mines and a Repair Pack. The Light Laser starts in hand.",
+   "Stations sell only four armors: Scorpion, Lynx, Firth and Drone Commander. The Berserker, Energy Artillery, Destroyer and the Commando (iarmorDM) all have $InvList and $MobileInvList set to 0, so no station lists them. remoteBuyFavorites skips the shopping-list check in build mode, with Quick Inventories on, or on an inventory connection, so a favorites list can still buy them there.",
+   "Weapon slots ($MaxWeapons): Scorpion 1; Drone Commander and Energy Artillery 2; Berserker, Lynx and Firth 3; Destroyer and Commando 4.",
+   "Only the Scorpion, the Lynx and the Commando can pilot vehicles. Every other armor can only ride as a passenger, which means it cannot board the single-seat Wyvern or Rubicant at all.",
+   "Each armor's Beacon runs its own ability, and its Grenade throws its own type: see Beacon and Grenade.",
+   "Damage types with side effects (player.cs Player::onDamage) apply to enemies, to the shooter, and to teammates when team damage is on. Plasma damage sets the victim burning ('Your energy system is on fire!'), but the AnnihilationFlame it spawns does no damage. Shock damage zeroes the victim's energy, then drains 1.35 energy every 1/6 s for about 3 s per hit. Poison damage starts 'nanites' (0.05 damage every 1.5 s, 0.75 in total), which a Repair Kit cures. A poison death counts as the victim's own death (score -1).",
+   "Laser damage to the head does 55% extra. Against the Energy Artillery and the Destroyer it does 45% extra, and only on a centre head hit. Sniper damage does 27% extra on body hits and 35% extra on head hits (30% on a centre head hit against the heavies).",
+   "Berserkers and Lynxes lose 40 energy whenever they take Mine damage.",
+   "WierdFix.cs hard-codes the weapon-cycle order, from the Healing Laser first to the Vulcan last. Its comment says the list 'got totally messed up'.",
+   "Team limits come from serveriItemUsage.cs, which runs after iitem.cs and overrides the iitem.cs values. Every vehicle type is limited to 2 per team. The Targeting Turret is limited to 4 per team and every other turret to 2.",
+   "Every vehicle has maxAlt 20000, so in practice there is no flight ceiling. The comments keep the old ceilings of 30, 25 and 15.",
+   "A 'Tank' armor is half present. Its exec line in serverApteryx.cs is commented out, but the item-limit, damage-scale and piloting tables still have Tank columns. Those columns do nothing.",
+   "The Kinetic Maul's stasis code is still there: player.cs freezes a victim into a harmor1-3 statue for 10 s on Stasis damage. No Apteryx projectile deals Stasis damage, so nobody is ever frozen.",
+   "Unlike this wiki's Total Annihilation release, almost every shared datablock is a different item in Apteryx. Each item below notes what that datablock is in TA."
+  ]
+ },
+ "items": {
+  "SoulSucker": {
+   "summary": "The Healing Laser is a long-range repair tool: each shot instantly repairs whatever friendly object is under the wearer's crosshair.",
+   "notes": [
+    "Each shot costs 20 energy and does a line-of-sight check up to 1000 m from the wearer. If the object hit is on the wearer's team, its damage level drops by 0.5 at once. Teammates, turrets, stations and vehicles all qualify; enemies are unaffected.",
+    "The visible HealingLaser beam is only an effect (its damage conversion is a token -0.001). The healing comes from the line-of-sight check, as the mount message says: it uses the crosshair, not the laser.",
+    "The fire function never checks the wearer's energy before healing, and the image sets no minimum energy.",
+    "One shot per second. Unlike this wiki's Total Annihilation release, where this datablock is the Soul Grabber (a short-range weapon that damages enemies and drains the user's energy), it cannot hurt anyone."
+   ],
+   "source": "weaponHealingLaser.cs SoulSuckerImage::onFire, SoulSucker::onMount; basepProjData.cs HealingLaser"
+  },
+  "TankRPGLauncher": {
+   "summary": "The Quicksilver is a rapid-fire, energy-powered close-range weapon that spits short worm-like streams of boiling mercury.",
+   "notes": [
+    "Fires the SilverWorm projectile: a heavy grenade-type blob with a small blast radius that does Melee damage and lives under a second, so its reach is short.",
+    "No ammo; it runs on energy and cycles about four times a second.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Tank RPG (four mounted launchers firing RPG rockets from RPG Ammo), it is a single gun with no extra mounted launchers."
+   ],
+   "source": "weaponSilver.cs TankRPGLauncherImage, TankRPGLauncher::onMount; basepProjData.cs SilverWorm"
+  },
+  "Shotgun": {
+   "summary": "The Terra Arcus is an energy weapon that hurls a slow, unstable particle bolt that does direct-hit damage.",
+   "notes": [
+    "Fires one TerraShot: a slow rocket-type bolt (Bullet damage, impact only, no blast radius) that lives about 1.25 s.",
+    "Uses energy, not ammo. The ShotgunShells ammo item and its addAmmo line are commented out, but $InvList[ShotgunShells] and the Deathmatch and bot loadouts (dm.cs, ai.cs) still reference ShotgunShells, which is no longer defined.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is a 10-pellet shotgun using Shotgun Shells, it fires a single projectile."
+   ],
+   "source": "weaponTerra.cs ShotgunImage, Shotgun::onMount; basepProjData.cs TerraShot; dm.cs; ai.cs"
+  },
+  "TankShredderAmmo": {
+   "summary": "Lasher Charges are the ammunition for the Lasher.",
+   "notes": [
+    "Each Lasher shot uses one charge. Unlike this wiki's Total Annihilation release, where this is Tank Shredder bullet ammo, it powers an energy-ball gun."
+   ],
+   "source": "weaponLasher.cs TankShredderAmmo, TankShredderImage"
+  },
+  "TankShredder": {
+   "summary": "The Lasher fires a slow ball of electricity that bursts with a small Energy blast.",
+   "notes": [
+    "Fires LasherBolt, a rocket-type projectile doing radius Energy damage. Its kickback is slightly negative, so the blast pulls targets a little rather than pushing them.",
+    "Uses both a Lasher Charge and energy for each shot. It fires slowly, about once every 2.4 s.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Tank Shredder (a quad chaingun with three extra mounted barrels), it is a single gun with no mounted extras."
+   ],
+   "source": "weaponLasher.cs TankShredderImage, TankShredder::onMount; basepProjData.cs LasherBolt"
+  },
+  "DeathRay": {
+   "summary": "The Light Laser is an energy-only rapid pulse laser.",
+   "notes": [
+    "Fires the LightLaser beam (Laser damage) about every 0.4 s, with no ammo.",
+    "Laser damage gets the head-shot bonus in Player::onDamage: +55% on a head hit, or +45% on a centre head hit against Energy Artillery, Destroyer and the armorTank PlayerData.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Spell: Death Ray (it mounts a second beam item to fire), it is an ordinary weapon image firing its own beam."
+   ],
+   "source": "weaponLightLaser.cs DeathRayImage, DeathRay::onMount; basepProjData.cs LightLaser; player.cs Player::onDamage"
+  },
+  "PulseCannon": {
+   "summary": "The Pulse Cannon fires fast Ion Bolts like the Ion Turret's, powered by the wearer's energy.",
+   "notes": [
+    "Each shot needs more than 10 energy and takes 15. It fires the PulseBolt, a fast bullet with a small Energy blast. Below the energy threshold the trigger does nothing.",
+    "No ammo. It fires about every 0.4 s.",
+    "Not present in this wiki's Total Annihilation release."
+   ],
+   "source": "weaponpPulseCannon.cs PulseCannonImage::onFire, PulseCannon::onMount; basepProjData.cs PulseBolt"
+  },
+  "Railgun": {
+   "summary": "The Apteryx Railgun is a lock-on weapon, not a sniper rifle: it fires a curving shell that homes on whatever its targeting cone found.",
+   "notes": [
+    "Each trigger pull sends out the RailgunLockon lightning cone (about 13.5 degrees wide, 700 m long) for 0.1 s. Only if it touches a valid target does the gun spend 11 energy and one Railgun Bolt and launch the RailCurve seeking shell at that target. With no target, nothing fires and no ammo is spent.",
+    "Valid targets are anything not on the wearer's team, plus friendly vehicles (so a hijacked vehicle can still be hit).",
+    "RailCurve does radius Bullet damage with a short blast and lives about 1.2 s of flight.",
+    "While equipped it mounts the Railgun2 shape in slot 4 and removes it on unmount.",
+    "Unlike this wiki's Total Annihilation release, where the Railgun fires a straight RailRound ('the ultimate sniper weapon'), its shell curves toward the target. The mount message warns that it is not a sniper weapon."
+   ],
+   "source": "weaponLightRailGun.cs RailgunImage::onFire, RailGunLockOn::damageTarget, Railgun::onMount, Railgun::onUnmount; basepProjData.cs RailgunLockon, RailCurve"
+  },
+  "Railgun2": {
+   "summary": "Railgun2 is the cosmetic grenade-launcher shape that the Railgun mounts beside the wearer's weapon. It is not sold or used on its own.",
+   "notes": [
+    "Mounted in slot 4 by Railgun::onMount and removed by Railgun::onUnmount. It has no projectile, no ammo and showInventory = false.",
+    "Not present in this wiki's Total Annihilation release."
+   ],
+   "source": "weaponLightRailGun.cs Railgun2, Railgun2Image, Railgun::onMount"
+  },
+  "PlasmaAmmo": {
+   "summary": "Acid Canisters are the ammunition for the Acid Cloud.",
+   "notes": [
+    "One canister per shot. Unlike this wiki's Total Annihilation release, where this is Plasma Gun ammo, it feeds an explosive shell launcher."
+   ],
+   "source": "weaponAcidCloud.cs PlasmaAmmo, PlasmaGunImage"
+  },
+  "PlasmaGun": {
+   "summary": "The Acid Cloud fires a shell that bursts into a wide Explosion-damage blast on impact.",
+   "notes": [
+    "Fires AcidCloudShell, a visible bullet that does radius Explosion damage over a large (10 m) area and uses one Acid Canister.",
+    "Despite the name and the 'releases a cloud of acid' help text, the scripts give it no lingering cloud or poison. It is a single blast. Its death messages refer to the 'acidcloud gun'.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Plasma Gun firing PlasmaBolt, it fires an explosive shell."
+   ],
+   "source": "weaponAcidCloud.cs PlasmaGunImage, Plasmagun::onMount; basepProjData.cs AcidCloudShell; game.cs $deathMsg"
+  },
+  "GrenadeAmmo": {
+   "summary": "ESGRounds are the ammunition for the Electro-Static Grenade launcher.",
+   "notes": [
+    "One round per shot. Unlike this wiki's Total Annihilation release, where this feeds a multi-mode grenade launcher, it feeds only the ESG shell."
+   ],
+   "source": "weaponESG.cs GrenadeAmmo, GrenadelauncherImage::onFire"
+  },
+  "GrenadeLauncher": {
+   "summary": "The Electro-Static Grenade launcher lobs a shell that splits in the air and scatters ten electric charges, which go off around the area a moment later.",
+   "notes": [
+    "Fires MinerShell, a bouncing grenade that does no damage itself. At 0.9 s a PrettySplit burst goes off at the shell's position (light Shrapnel damage over 15 m).",
+    "At 1.0 s the shell is replaced by ten ESGMinee charges thrown in random directions (up to 15 m/s sideways and 20 m/s up). Each is set to explode 0.8 s later, doing radius Energy damage (11.5 m blast). They also explode on contact with an enemy player or moveable object.",
+    "The charges belong to the shooter's team. If the shooter dies before they spawn, the team recorded at firing is used.",
+    "Fires only with an ESGRound in inventory, otherwise 'Not enough ammo.'",
+    "Script quirks: the deploy-check onAdd is defined as ESGMine::onAdd, but the datablock is ESGMinee, so it never runs. ESGMinee::onDestroyed decrements the team's mineammo count for each charge even though the charges were never counted.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is a launcher with several selectable modes (single, triple, EMP, mine dropper, starburst), it has one mode."
+   ],
+   "source": "weaponESG.cs GrenadelauncherImage::onFire, SplitMines, TossMines; miscmMine.cs ESGMinee, ESGMinee::onCollision, ESGMinee::onDestroyed, ESGMine::onAdd; basepProjData.cs MinerShell, PrettySplit"
+  },
+  "RubberAmmo": {
+   "summary": "Air Mine is the ammunition for the Air Mine weapon. Each one is a single hovering mine.",
+   "notes": [
+    "Ammo packs hold up to 4 ($AmmoPackMax). One is used per mine placed."
+   ],
+   "source": "weaponAirMine.cs RubberAmmo, RMortarImage::onfire"
+  },
+  "RubberMortar": {
+   "summary": "The Air Mine leaves a mine floating in the air where the wearer is standing. It explodes when an enemy touches it, or on its own after 6 seconds.",
+   "notes": [
+    "Each shot uses one Air Mine and creates an AirealMine static shape on the wearer's team, 0.5 m above their position. It does not show on sensors.",
+    "It explodes when an enemy player collides with it. Every mine destroys itself 6 s after placement, and destruction also triggers the blast, so it is a short-lived trap.",
+    "The blast applies Mine damage radius damage three times (calcRadiusDamage, capped at 15 m radius).",
+    "Berserkers and Lynxes hit by Mine damage also lose 40 energy (Player::onDamage).",
+    "The vehicle check in AirealMine::onCollision compares the mine's own datablock name to 'Vehicle', so it never matches and vehicles do not set it off by touch.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Rubbery Mortar (a bouncing mortar), it places a stationary mine."
+   ],
+   "source": "weaponAirMine.cs RMortarImage::onfire; miscmMine.cs AirealMine, AirealMine::onAdd, AirealMine::onCollision, AirealMine::doDamage, AirealMine::onDestroyed; sstaticshape.cs calcRadiusDamage; player.cs Player::onDamage"
+  },
+  "AngelFire": {
+   "summary": "The Star Flare is a self-destruct module: firing it kills the wearer and sets off a large blast around them.",
+   "notes": [
+    "On fire it announces '<name> goes out with a bang.', sets the wearer's damage to lethal, and spawns StarFlareDetonate at the muzzle: heavy Shrapnel damage over a 25 m radius with strong knockback.",
+    "The script also takes 1 point off the wearer's score.",
+    "No ammo. The 30 s reload never matters, because the wearer dies.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is Angel Fire (lobbed energy that sets victims on fire), it is a suicide weapon."
+   ],
+   "source": "weaponStarFlare.cs angelfireimage::onfire, AngelFire::onMount; basepProjData.cs StarFlareDetonate"
+  },
+  "FlameStrike": {
+   "summary": "The Plasma Flame Thrower is an easy-to-hit, short-range energy weapon that fires rapid puffs of plasma.",
+   "notes": [
+    "Fires PlasmaPlume: a large-collision grenade-type puff that bursts after about 0.3 s, doing small radius Plasma damage. It cycles about every 0.35 s on energy.",
+    "Plasma damage from an enemy (or with team damage on) calls the armor's onBurn. That sets the victim 'on fire' ('Your energy system is on fire!') for about 20 s. In Apteryx this burn only spawns flame and smoke effects with no damage.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Spell: Flame Strike (a racing bolt of flame), it is a short-range plume."
+   ],
+   "source": "weaponPlFlameThrower.cs FlameStrikeImage, FlameStrike::onMount; basepProjData.cs PlasmaPlume, AnnihilationFlame; armordData.cs Armor::onBurn, Plasmafire; player.cs Player::onDamage"
+  },
+  "ShockingGrasp": {
+   "summary": "The Nano Virus is a short-range weapon that hits with a melee jolt and infects the target with nanites that eat away their health over time.",
+   "notes": [
+    "Each shot takes 20 energy and fires two projectiles: NanoDamage (an impact Melee bullet) and NanoInfection (a small Poison blast). Both reach only about 15 to 17 m. The fire function does not check energy first.",
+    "Poison damage calls startPoison ('Nanites are chewing away at you!'). The victim takes 0.05 damage every 1.5 s for 15 ticks (0.75 total). Another hit resets the timer. A Repair Kit cures it.",
+    "A death from the nanites is announced as 'killed by numerous nanites' and counts as the victim's own death (score -1). The shooter gets no kill.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Spell: Shocking Grasp (a continuous energy-draining beam), it fires single shots and poisons."
+   ],
+   "source": "weaponNanoVirus.cs ShockingGraspImage::onFire, ShockingGrasp::onMount; basepProjData.cs NanoInfection, NanoDamage; armordData.cs startPoison, checkPlayerPoison, Armor::onRepairKit; player.cs Player::onDamage"
+  },
+  "Stasis": {
+   "summary": "The Kinetic Maul swings a ball of energy that hits hard and sends the victim flying. The faster the wearer is moving, the faster the ball goes.",
+   "notes": [
+    "Fires MaulSwing: a grenade-type ball with a wide 6 m collision radius doing heavy impact Melee damage and very strong knockback. It lives only about a third of a second, so it is a melee-range weapon.",
+    "Its inheritedVelocityScale is 2.0: the ball gets twice the wearer's own velocity added, which is why the help text calls its speed 'an amplified version of your own'.",
+    "Runs on energy, no ammo.",
+    "The file still defines the frozen stasis armors harmor1, harmor2 and harmor3 and Stasis::resetArmor, and Player::onDamage still handles Stasis damage. But no Apteryx projectile does Stasis damage, so nothing freezes anyone.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Spell: Stasis (it freezes enemies for 10 s), it is a pure damage-and-knockback weapon."
+   ],
+   "source": "weaponKineticMaul.cs StasisImage, Stasis::onMount, Stasis::resetArmor, harmor1-3; basepProjData.cs MaulSwing, $StasisDamageType; player.cs Player::onDamage"
+  },
+  "SpellFlameThrower": {
+   "summary": "The Electro-Magnetic Lance is a short-range electromagnetic shot. It does strong Shock damage, yanks the target toward the wearer and drains their energy.",
+   "notes": [
+    "Each shot takes 20 energy (on top of the image's own energy use) and fires MagneticLance, an impact Shock bullet with large negative kickback that pulls the target in. Its range is only about 18 m. Two extra projectiles (MagneticLanceEffect1/2) are visual only and do no damage.",
+    "Shock damage from an enemy (or with team damage on) calls Armor::onShock ('You have been hit with EMP!'). It sets the victim's energy to 0 and keeps draining 1.35 energy every 1/6 s for about 3 s. Repeated hits stack the drain time.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Spell: Flame Thrower (lobbed fire), it is an electric lance."
+   ],
+   "source": "weaponMagnetLance.cs spellFlameThrowerImage::onFire, SpellFlameThrower::onMount; basepProjData.cs MagneticLance, MagneticLanceEffect1, MagneticLanceEffect2; armordData.cs Armor::onShock, ApplyEMP; player.cs Player::onDamage"
+  },
+  "Heavensfury": {
+   "summary": "The Energy Rift creates small stationary rifts at the muzzle that hang in place for a few seconds and blast anyone who walks into them.",
+   "notes": [
+    "Fires EnergyRiftSpin, a bullet with a muzzle velocity of 0.001 and no inherited velocity. It sits almost where it was fired for about 2.75 to 3.5 s and does heavy radius Energy damage (2 m blast) to whatever touches it.",
+    "Fires about every 0.28 s on energy, so the wearer can lay a short-lived field of rifts.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is Heaven's Fury (the Angel's shotgun), it lays stationary traps."
+   ],
+   "source": "weaponEnergyRift.cs HeavensfuryImage, Heavensfury::onMount; basepProjData.cs EnergyRiftSpin"
+  },
+  "SniperRifle": {
+   "summary": "The Magnetic Mirror throws a short-lived shield face. Shots that hit it are turned into return fire aimed where the mirror's owner is aiming.",
+   "notes": [
+    "Each shot takes 20 energy and throws a ShootingShield (force-field shape) at 2.5 times normal throw strength, matching the wearer's rotation. The script then moves it 4 m lower. It detonates after 0.5 s with a small blast of its own damage type.",
+    "When it takes any other kind of damage, it schedules floor(damage x 10) MirrorReflection shots, up to 18, 0.05 s apart starting 0.4 s later. They fire from the owner's muzzle along the owner's aim and do radius damage of the mirror's type. The damage still counts against the mirror, so big hits destroy it.",
+    "The owner is stored in one global ($CrowOwner). If two players use Magnetic Mirrors, reflections from either mirror fire from whoever threw a mirror last.",
+    "SniperAmmo is still defined and registered with addAmmo, but $WeaponAmmo[SniperRifle] is empty, so the mirror uses no ammo.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the Sniper Rifle, it is a defensive reflector."
+   ],
+   "source": "weaponShortShield.cs SniperRifleimage::onfire, SniperRifle::onMount; miscmMine.cs ShootingShield, ShootingShield::onAdd, ShootingShield::onDamage; basepProjData.cs MirrorReflection; armordData.cs Armor::ThrowGrenade"
+  },
+  "TRocketLauncherAmmo": {
+   "summary": "Shatter Storm Ammo: the bullet belts for the Shatter Storm machine gun.",
+   "notes": [
+    "Only the Destroyer can carry it (the Tank column in the item table belongs to an armor whose script is not loaded).",
+    "Unlike this wiki's Total Annihilation release, where this datablock is 'TRocketLauncher Ammo' for the Tank Rocketgun's seeking rockets, it feeds a spinning machine gun and is spent one round per shot by the engine."
+   ],
+   "source": "weaponShatterStorm.cs ItemData TRocketLauncherAmmo; serveriItemUsage.cs PopulateItemMax"
+  },
+  "TRocketLauncher": {
+   "summary": "The Shatter Storm is a light machine gun with a long spin-up: after about three seconds it sprays a stream of small bullets that burst into a small blast on contact.",
+   "notes": [
+    "Fires SSBullet: Bullet damage applied as a small radius blast (3.5 m) rather than a direct hit, with a vulcan-style explosion and mostly tracer rounds. Aim spread is wide (aimDeflection 0.04).",
+    "Spin-up is 3 s and spin-down 0.5 s. It has no script fire function; the engine fires and spends ammo.",
+    "Only the Destroyer can carry it.",
+    "Unlike this wiki's Total Annihilation release, where TRocketLauncher is the Tank Rocketgun (four mounted barrels firing pairs of rockets that lock onto a player or flier in the crosshairs), there is no lock-on, extra barrels or seeking projectile."
+   ],
+   "source": "weaponShatterStorm.cs TRocketLauncherImage, TRocketLauncher::onMount; basepProjData.cs SSBullet; serveriItemUsage.cs PopulateItemMax"
+  },
+  "TBlastCannonAmmo": {
+   "summary": "Hydra Ammo: the expensive, quickly used rounds for the Hydra Machine Gun.",
+   "notes": [
+    "Carried by the Firth and the Destroyer. The Ammo Pack holds up to 60 extra.",
+    "Unlike this wiki's Total Annihilation release (Blast Cannon Shots for the Tank's shotgun cannon), these are spent one per bullet by a fast machine gun."
+   ],
+   "source": "weaponHydra.cs ItemData TBlastCannonAmmo; iitem.cs $AmmoPackMax; serveriItemUsage.cs PopulateItemMax"
+  },
+  "TBlastCannon": {
+   "summary": "The Hydra Machine Gun is an accurate, hard-hitting chaingun that takes a moment to spin up and eats its costly ammo fast.",
+   "notes": [
+    "Fires HydraBullet, a direct-hit Bullet round with very little spread (aimDeflection 0.006) and a long range. Spin-up 1.65 s, spin-down 2 s.",
+    "No script fire function; the engine fires and spends one round per shot.",
+    "Carried by the Firth and the Destroyer.",
+    "Unlike this wiki's Total Annihilation release, where TBlastCannon is the Tank Blast Cannon (one shell fires ten BlastCannonShot pellets at once), it is a single-bullet automatic weapon."
+   ],
+   "source": "weaponHydra.cs TBlastCannonImage, TBlastCannon::onMount; basepProjData.cs HydraBullet; serveriItemUsage.cs PopulateItemMax"
+  },
+  "ShockwaveGun": {
+   "summary": "The EMP cannon fires a slow energy bolt whose blast strips the energy of everyone it catches; the weapon help calls it most useful against heavies.",
+   "notes": [
+    "Uses energy, no ammo. Fires the EMP rocket: a small amount of Shock damage in an 11.5 m blast, with no knockback.",
+    "Shock damage runs Armor::onShock on every armor: energy is set to 0 at once, then drained a further 1.35 every 1/6 s for about 3 s (18 ticks). Each extra hit adds another 3 s, and the victim gets 'You have been hit with EMP!' plus a crackling visual.",
+    "The EMP effect applies to enemies, to teammates only when team damage is on, and to the shooter if caught in their own blast. It is applied before the shield and invulnerability checks.",
+    "Carried by the Commando, the Firth and the Destroyer.",
+    "Unlike this wiki's Total Annihilation release, where ShockwaveGun is the Shockwave Cannon (a Missile-damage blast with heavy knockback that throws players), it drains energy and has no knockback."
+   ],
+   "source": "weaponEMP.cs ShockwaveGunImage; basepProjData.cs EMP; player.cs Player::onDamage; armordData.cs Armor::onShock, ApplyEMP, Shockfire"
+  },
+  "RocketAmmo": {
+   "summary": "Dust Mites are sold as Particle Gun ammo, but nothing uses them.",
+   "notes": [
+    "The Particle Gun runs on energy: its $WeaponAmmo is empty and its fire script never checks or spends Dust Mites.",
+    "Only the Commando can carry them (10). Other armors that carry the Particle Gun cannot carry Dust Mites at all."
+   ],
+   "source": "weaponParticleGun.cs ItemData RocketAmmo, RocketImage::onFire; serveriItemUsage.cs PopulateItemMax"
+  },
+  "RocketLauncher": {
+   "summary": "The Particle Gun is an energy weapon that fires a fast clump of particles, which bursts in a small explosion on impact.",
+   "notes": [
+    "Each shot costs 22.5 energy, but the script only checks that more than 17.5 is available, so it can fire with less energy than a shot costs.",
+    "Fires ParticleShot, a straight-flying rocket with Shrapnel damage in a 7 m blast.",
+    "Always selectable in the weapon cycle, since it needs no ammo.",
+    "Carried by the Commando, the Firth and the Destroyer.",
+    "Unlike this wiki's Total Annihilation release, where RocketLauncher is an ammo-fed Rocket Launcher with a large-radius accelerating rocket and a sight, it uses energy only."
+   ],
+   "source": "weaponParticleGun.cs RocketImage::onFire, RocketLauncher::onMount; basepProjData.cs ParticleShot; iitem.cs isSelectableWeapon; serveriItemUsage.cs PopulateItemMax"
+  },
+  "FlameThrower": {
+   "summary": "The Plasma Cannon lobs a slow, heavy plasma ball that explodes in a wide blast.",
+   "notes": [
+    "Each shot costs 35 energy; the script fires when more than 26.5 is available. No ammo is used, and Flame Cartridges are no longer sold.",
+    "Fires PlasmaBlast, a short-lived grenade-type projectile with Plasma damage in a 13 m blast.",
+    "Plasma damage sets the victim burning ('Your energy system is on fire!'). In this mod burning is only visual: the flame it spawns does no damage (see the mod notes).",
+    "Carried by the Commando, the Firth and the Destroyer.",
+    "Unlike this wiki's Total Annihilation release, where FlameThrower is a rapid-fire, ammo-fed Flame Thrower, it is a slow energy cannon."
+   ],
+   "source": "weaponPlasmaCannon.cs FlameThrowerImage::onFire; basepProjData.cs PlasmaBlast, AnnihilationFlame; armordData.cs Armor::onBurn, Plasmafire"
+  },
+  "DiscAmmo": {
+   "summary": "Batteries are the charges for the Reactor Capacitor; each one restores energy.",
+   "notes": [
+    "Carried by the Commando (30), the Firth (4) and the Destroyer (6). The Ammo Pack holds 3 more.",
+    "In Deathmatch every player spawns as a Firth with the Reactor Capacitor and 30 Batteries, more than the Firth can normally hold."
+   ],
+   "source": "weaponReactorCapacitor.cs ItemData DiscAmmo; iitem.cs $AmmoPackMax; dm.cs Game::playerSpawned; serveriItemUsage.cs PopulateItemMax"
+  },
+  "DiscLauncher": {
+   "summary": "The Reactor Capacitor is not a weapon: each pull of the trigger spends one Battery to add 50 energy.",
+   "notes": [
+    "The fire script spends a Battery, adds 50 energy and shows a harmless shield-flash effect (ArtilleryEffect) at the muzzle. No damaging projectile is fired.",
+    "The 'Recharging energy' message is sent to an undefined variable (%client, while the script set %clientId), so it never appears.",
+    "Carried by the Commando, the Firth and the Destroyer. Bots and Deathmatch spawns still get it as their 'disc launcher', and Deathmatch spawns hold it as their starting weapon.",
+    "Unlike this wiki's Total Annihilation release, where DiscLauncher is the explosive Disc Launcher, it has no attack."
+   ],
+   "source": "weaponReactorCapacitor.cs DisclauncherImage::onFire, Disclauncher::onMount; dm.cs Game::playerSpawned; ai.cs"
+  },
+  "MortarAmmo": {
+   "summary": "Antimatter Containers are the shells for the Anti-Matter Launcher.",
+   "notes": [
+    "Only the Destroyer can carry them (9).",
+    "The launcher's $WeaponAmmo entry points to the launcher itself rather than to this ammo, so weapon cycling does not skip an empty Anti-Matter Launcher."
+   ],
+   "source": "weaponAntiMatter.cs ItemData MortarAmmo, $WeaponAmmo[Mortar]; iitem.cs isSelectableWeapon; serveriItemUsage.cs PopulateItemMax"
+  },
+  "Mortar": {
+   "summary": "The Anti-Matter Launcher is the Destroyer's mortar: it lobs an antimatter canister that bounces once or twice and explodes in a large blast.",
+   "notes": [
+    "Fires AntiMatterShell, a heavy grenade-type shell with Mortar damage in a 20 m blast and strong knockback. The engine fires it and spends one Antimatter Container per shot.",
+    "Only the Destroyer can carry it.",
+    "$WeaponAmmo[Mortar] is set to Mortar (the launcher) instead of MortarAmmo. The image still uses MortarAmmo to fire, but weapon cycling treats the launcher as always having ammo.",
+    "Unlike this wiki's Total Annihilation release, where the Mortar's shells arm into proximity mines that go off near enemies, the canister simply explodes."
+   ],
+   "source": "weaponAntiMatter.cs MortarImage, Mortar::onMount; basepProjData.cs AntiMatterShell; iitem.cs isSelectableWeapon"
+  },
+  "HDiscLauncherAmmo": {
+   "summary": "Railgun2 Ammo: slugs for the twin Railgun 2.",
+   "notes": [
+    "Carried by the Commando (30) and the Destroyer (18).",
+    "A slug is spent only when a shot actually locks onto a target (see Railgun 2)."
+   ],
+   "source": "weaponRailgun2.cs ItemData HDiscLauncherAmmo, RailGun2LockOn::damageTarget; serveriItemUsage.cs PopulateItemMax"
+  },
+  "HDiscLauncher1": {
+   "summary": "Hidden left barrel of the Railgun 2. It is mounted automatically and is not bought or selected.",
+   "notes": [
+    "Mounted in slot 6 when the Railgun 2 is mounted and removed when it is unmounted. Hidden from the weapon bar and inventory.",
+    "Its fire script sends a short-lived lock-on beam (Railgun2Lockon) and deletes it after 0.1 s. If the beam touches a valid target, a homing rail slug is fired at it (see Railgun 2)."
+   ],
+   "source": "weaponRailgun2.cs HDiscLauncher1Image::onFire, HDiscLauncher::onMount, RailGun2LockOn::damageTarget"
+  },
+  "HDiscLauncher2": {
+   "summary": "Hidden right barrel of the Railgun 2, mounted automatically in slot 7.",
+   "notes": [
+    "Works the same as the first barrel: a 0.1 s lock-on beam, then a homing rail slug if it touches a target.",
+    "Hidden from the weapon bar and inventory, and removed when the Railgun 2 is unmounted."
+   ],
+   "source": "weaponRailgun2.cs HDiscLauncher2Image::onFire, HDiscLauncher::onMount/onUnmount"
+  },
+  "HDiscLauncher": {
+   "summary": "The Railgun 2 is a twin railgun. Each pull alternates between two hidden barrels, and each barrel's shot locks onto whatever is in front of it and sends a homing slug. The weapon help rates it the best anti-aircraft weapon in the mod.",
+   "notes": [
+    "Mounting it also mounts the two barrels (HDiscLauncher1/2) in slots 6 and 7. Each trigger pull fires one of them, alternating, if the player has at least 10 energy and one slug.",
+    "A barrel fires a lock-on beam (700 m long, 13.5-degree cone) that exists for 0.1 s. The first object it touches becomes the target: the shooter loses 11 energy and one slug, and a RailCurve homing slug (Bullet damage, small 2.5 m blast) is launched at it. If the beam touches nothing, nothing is fired and nothing is spent.",
+    "It will not lock onto teammates, but it will lock onto a friendly flier, in case an enemy has hijacked it.",
+    "Carried by the Commando and the Destroyer.",
+    "New in Apteryx: this wiki's Total Annihilation release defines HDiscLauncher only in commented-out lines."
+   ],
+   "source": "weaponRailgun2.cs HDiscLauncherImage::onFire, HDiscLauncher::onMount/onUnmount, HDiscLauncher1Image::onFire, RailGun2LockOn::damageTarget; basepProjData.cs Railgun2Lockon, RailCurve"
+  },
+  "DisarmerSpell": {
+   "summary": "The MFAC (Magneto-Fusion Assault Cannon) fires a slow round with no blast radius, but it hits very hard.",
+   "notes": [
+    "Each shot costs 40 energy and needs at least 42. Fires the MFAC bullet: a direct-hit Shotgun-type round at about 52 m/s.",
+    "Shotgun damage is reduced to 70% on Berserkers and Lynxes.",
+    "Only the Destroyer can carry it.",
+    "Unlike this wiki's Total Annihilation release, where DisarmerSpell is 'Spell: Disarm' (a blast that makes victims drop their weapon), it does no disarming."
+   ],
+   "source": "weaponMFAC.cs DisarmerSpellImage::onFire; basepProjData.cs MFAC; serveriItemUsage.cs PopulateDamageScale, PopulateItemMax"
+  },
+  "BabyNukeAmmo": {
+   "summary": "Drone: one deployable drone for the Drone Deployer.",
+   "notes": [
+    "Only the Drone Commander can carry them (7).",
+    "A Drone is used up when the thrown drone is activated, not when it is thrown."
+   ],
+   "source": "weaponDrone.cs ItemData BabyNukeAmmo; droneLaser.cs ThrowingDrone::Deploy"
+  },
+  "BabyNukeMortar": {
+   "summary": "The Drone Deployer throws a drone and, on the next click, activates it as the drone type chosen with the Drone Selector pack.",
+   "notes": [
+    "First click: tosses a ThrowingDrone device at half grenade strength. Second click: if the device has come to rest (or at any time in Air Drone mode), one Drone is spent and the selected drone appears there.",
+    "Drone types: Laser, Chaingun, Air (rapid small-blast bullets), Grenade, AntiTurret (a shot that does heavy damage to turrets and very little to players), Guardian and Hunter.",
+    "For Laser, Chaingun, Air, Grenade and AntiTurret drones, the player takes direct control and gets a very weak shield (strength 0.0075) for 10 s. That shield overwrites any Shield Pack strength. Leaving control (jumping or dismounting) destroys the drone.",
+    "Guardian drones are not controlled; they fight on their own and are destroyed after 30 s. Hunter drones are not controlled either; each fires one slow homing missile and is destroyed after 3 s.",
+    "Only the Drone Commander can carry it.",
+    "Unlike this wiki's Total Annihilation release, where BabyNukeMortar is the Baby Nuke Launcher, it fires nothing itself."
+   ],
+   "source": "weaponDrone.cs BabyNukeImage::onFire; droneLaser.cs DroneDeploy, ThrowingDrone::Deploy, enddroneshields; droneAir.cs, droneAntiTurret.cs, droneChaingun.cs, droneGrenade.cs, droneGuardian.cs, droneHunter.cs; basepProjData.cs drone projectiles"
+  },
+  "PhaseDisrupterAmmo": {
+   "summary": "ArtilleryShell: one shell for the Energy Artillery cannon.",
+   "notes": [
+    "Only the Energy Artillery armor can carry them (3).",
+    "The shell is used up the moment the trigger is pulled, before the six-second charge-up."
+   ],
+   "source": "weaponEnergyArtillery.cs ItemData PhaseDisrupterAmmo, PhaseDisrupterImage::onFire; serveriItemUsage.cs PopulateItemMax"
+  },
+  "PhaseDisrupter": {
+   "summary": "The Energy Artillery cannon charges for about six seconds after the trigger is pulled, then fires one huge, slow-accelerating shell.",
+   "notes": [
+    "Pulling the trigger spends one ArtilleryShell and starts a charge-up: 20 shield-flash effects at 0.3 s intervals at the muzzle, then the ArtilleryShell rocket is fired from wherever the muzzle points at that moment.",
+    "The shell does very heavy Missile damage in a 17.5 m blast with huge knockback. It starts at 48 m/s and accelerates. No energy is used.",
+    "With no shells it prints 'Out Of ArtilleryShells'. Fire and reload times are long (8 s and 6 s).",
+    "The charge-up effects are zero-damage Plasma bursts at the shooter's muzzle. Whether they can set anyone burning was not determined from scripts.",
+    "Only the Energy Artillery armor can carry it.",
+    "Unlike this wiki's Total Annihilation release, where PhaseDisrupter is the Phase Disrupter (an engine-fired bolt with PhaseAmmo), it is a delayed scripted shot."
+   ],
+   "source": "weaponEnergyArtillery.cs PhaseDisrupterImage::onFire, ArtilleryRevUp; basepProjData.cs ArtilleryShell, ArtilleryEffect"
+  },
+  "StingerAmmo": {
+   "summary": "ShieldCapacitor: one charge for the Shield Projector.",
+   "notes": [
+    "Carried by the Commando (10) and the Energy Artillery armor (3).",
+    "One is used per discharge."
+   ],
+   "source": "weaponShieldProjector.cs ItemData StingerAmmo, StingerImage::onFire; serveriItemUsage.cs PopulateItemMax"
+  },
+  "Stinger": {
+   "summary": "The Shield Projector dumps all of the wearer's energy in one emergency burst of shield-shaped bolts.",
+   "notes": [
+    "Needs a ShieldCapacitor and at least 20 energy. It prints 'Firing all shield energy.', sets energy to 0 and spends one capacitor.",
+    "It then fires a stream of BeaconShieldFire bolts, one every 0.035 s. The number of bolts is about current energy / 4.25 (for example, about 23 from 100 energy). Each does Troll Plasma damage in a 5 m blast and slows down in flight.",
+    "Troll Plasma damage is scaled to 70% on every armor.",
+    "Carried by the Commando and the Energy Artillery armor.",
+    "Unlike this wiki's Total Annihilation release, where Stinger is the Stinger Missile (a seeking launcher that locks onto targets in the crosshairs), it has no lock-on."
+   ],
+   "source": "weaponShieldProjector.cs StingerImage::onFire, FireShield; basepProjData.cs BeaconShieldFire; serveriItemUsage.cs PopulateDamageScale"
+  },
+  "OSAmmo": {
+   "summary": "Cluster Missiles: the carrier missiles for the Cluster Missile Launcher.",
+   "notes": [
+    "Only the Destroyer can carry them (15).",
+    "One is spent per launch by the fire script."
+   ],
+   "source": "weaponClusterMissile.cs ItemData OSAmmo, OSLauncherImage::onFire; serveriItemUsage.cs PopulateItemMax"
+  },
+  "OSLauncher": {
+   "summary": "The Cluster Missile Launcher is half of a two-player weapon. The Destroyer fires a slow carrier missile, and when a teammate with a Spotter Laser marks a target, every friendly carrier in flight splits into five homing missiles.",
+   "notes": [
+    "Each launch spends one Cluster Missile and fires ClusterMom: a slow unguided rocket with a large (20 m) Missile blast. Every carrier is recorded in a global list along with its shooter.",
+    "When a Spotter Laser fires, each listed carrier whose shooter is on the spotter's team is deleted and replaced by five seekers: one straight ahead and four spread up, down, left and right. The spread seekers get a random fast, medium or slow speed. All home on the spotted target and credit the original shooter.",
+    "Without a spotter the carrier just flies on and explodes. The weapon help calls it awkward and weak in that case.",
+    "Only the Destroyer can carry it.",
+    "Unlike this wiki's Total Annihilation release, where OSLauncher is the OS Launcher (a remotely piloted Optical Seeking Missile), the missile is not steered by the shooter."
+   ],
+   "source": "weaponClusterMissile.cs OSLauncherImage::onFire; weaponSpotterLaser.cs FireClusters; basepProjData.cs ClusterMom, ClusterFast, ClusterMedium, ClusterSlow"
+  },
+  "JailGun": {
+   "summary": "The Spotter Laser is the other half of the Cluster Missile system: it marks a person, object or spot within 120 m, and every friendly Cluster Missile in flight splits and homes on it.",
+   "notes": [
+    "Each shot draws a visible SpottingLaser beam, which does essentially no damage. It also sends a 0.1 s lock-on bolt (120 m, 5-degree cone). If that bolt touches an object, the object becomes the target.",
+    "If it touches nothing, the point under the crosshair within 120 m is used: an invisible 'Targeted Location' marker is placed there for 5 s. If nothing is within 120 m and cluster missiles are in flight, it prints 'Targeted location too far away for a lock.'",
+    "The lock-on has no team check, so it can designate a teammate or friendly object as the target.",
+    "It shares the CrowRailGunShooting flag with the Railgun 2's lock-on. The script comment relies on no armor carrying both.",
+    "Carried by the Commando and the Scorpion.",
+    "Unlike this wiki's Total Annihilation release, where JailGun is the Jailer's Gun (teleports enemies into the team jail), it only designates targets."
+   ],
+   "source": "weaponSpotterLaser.cs JailgunImage::onFire, ClusterMissileLockOn::damageTarget, FireClusters, DummyTarget, DummyAimer; basepProjData.cs SpottingLaser, ClusterMissileLockon"
+  },
+  "Vulcan": {
+   "summary": "The Vulcan is 'Crow's Cheater Gun', a hidden super-weapon. In one mode it fires MFAC rounds at chaingun speed; in the other it fires Energy Artillery shells.",
+   "notes": [
+    "No armor can carry it or its ammo (all limits are 0). Only ULTRAHOLY() or ULTRADEATH() give it out, along with 500 Vulcan Bullets and a 0.5-strength shield, announced as 'A PLAYER HAS BEEN GIVEN THE WRATH OF CROW'. No script calls either function, so it is reachable only from the server console.",
+    "Mode 0 (ULTRAHOLY, 'ULTRA MFAC') fires an MFAC round per shot for one bullet. Mode 1 (ULTRADEATH, 'WIDESPREAD DEATH') fires an ArtilleryShell per shot for two bullets.",
+    "It spins up in 0.75 s and fires every 0.045 s.",
+    "Its onMount tests %clientId.weaponHelp, but %clientId is never set there, so the help text never shows.",
+    "Unlike this wiki's Total Annihilation release, where the Vulcan is a normal chaingun that switches between chaingun and fiery Vulcan rounds, it is an admin-only cheat weapon."
+   ],
+   "source": "weaponWrathOfCrow.cs VulcanImage::onFire, ULTRAHOLY, ULTRADEATH, Vulcan::onMount; serveriItemUsage.cs PopulateItemMax"
+  },
+  "TargetingLaser": {
+   "summary": "The standard Targeting Laser: a no-damage beam for marking targets for teammates. Every player spawns with one.",
+   "notes": [
+    "Not in the weapon cycle; it is selected with its own use key.",
+    "When the server is in build mode ($build), using it always mounts the Cutting Laser instead. Unlike this wiki's Total Annihilation release, which does this only for players who have chosen the Cutting Laser, there is no per-player toggle.",
+    "Carried by the Commando, the Scorpion, the Lynx, the Firth and the Destroyer. The Berserker, the Drone Commander and the Energy Artillery armor cannot carry it. Spawning players start as Scorpions holding one."
+   ],
+   "source": "weaponTargetLaser.cs TargetingLaser::onUse, TargetingLaserImage; WeaponCuttingLaser.cs; game.cs Game::playerSpawned; serveriItemUsage.cs PopulateItemMax"
+  },
+  "AmmoPack": {
+   "summary": "A backpack that raises how much of certain ammo the wearer can carry, and fills that extra capacity when bought.",
+   "notes": [
+    "Extra capacity ($AmmoPackMax) covers Railgun ammo, Acid Canisters, Lasher Charges, ESG Rounds, Mines, Grenades, Beacons, Hydra Ammo, Batteries and Air Mines. Other ammo types get no bonus.",
+    "When bought, it fills the bonus for each ammo type the armor can carry at all, charging team energy. Ammo the armor cannot carry (an $ItemMax of 0) is skipped so no money is wasted on it.",
+    "Dropping the pack takes every carried ammo type down to the armor's normal maximum and stores the excess in the dropped pack. A player who picks it up gets that stored ammo, capped at 1.5 times their own armor's normal maximum per type ($AmmoPackMult 0.5).",
+    "Unlike this wiki's Total Annihilation release, the pack has no energy drain or regeneration on its image, and the drop/pickup ammo transfer stores its counts on the dropped item itself. The TA version stores them on an undefined variable.",
+    "Script bug: AmmoPack::onRemove's loop tests a bare 'i' instead of '%i' (for(%i = 0; i < $AmmoCount; %i++)), so the condition never reads the loop counter."
+   ],
+   "source": "packaAmmo.cs AmmoPack::onDrop, AmmoPack::onCollision, checkPacksAmmo, fillAmmoPack, AmmoPack::onRemove; iitem.cs $AmmoPackMax, checkResources, buyItem; weaponAirMine.cs $AmmoPackMax[RubberAmmo]"
+  },
+  "EnergyPack": {
+   "summary": "A backpack that switches on when worn and speeds up the wearer's energy regeneration.",
+   "notes": [
+    "Mounting the pack triggers it at once. Its image has negative energy use, which feeds energy to the wearer.",
+    "Unlike this wiki's Total Annihilation release, using the pack again while it is worn does nothing. The TA version spends a third of the wearer's energy on a speed burst in the direction they are moving or looking."
+   ],
+   "source": "packEnergy.cs EnergyPack::onUse, EnergyPack::onMount, EnergyPackImage"
+  },
+  "PhaseShifterPack": {
+   "summary": "The Distortion Pack cloaks the wearer and sends out two cloaked AI copies of them as decoys. It costs some health and recharges over 20 seconds.",
+   "notes": [
+    "Activating it costs 30 energy, adds 0.2 to the wearer's damage level and cloaks the wearer for about 20 seconds (startCloak).",
+    "It creates two AI players with the wearer's armor, name and team. Each is cloaked, gets a light shield (shieldStrength 0.02) and walks toward a point 500 m away. The decoys are deleted after about 20 and 21 seconds.",
+    "The pack is taken away on use and given back, then remounted, 20 seconds later.",
+    "The first decoy heads off at a random angle up to 90 degrees to one side of the wearer's facing. The second decoy's random angle is calculated but never used, so it always walks straight ahead along the wearer's facing.",
+    "Unlike this wiki's Total Annihilation release, where this item is the Phase Shifter (phaseShiftProcess/phaseShiftComplete), this is a completely different decoy-and-cloak item."
+   ],
+   "source": "packDistortion.cs PhaseShifterPackImage::onActivate, PhaseShifterPack::onMount; armordData.cs startCloak, checkPlayerCloak"
+  },
+  "RepairPack": {
+   "summary": "The standard repair pack: using it again brings out the Repair Gun, which fixes players and objects.",
+   "notes": [
+    "Using the worn pack mounts the Repair Gun. Mounting the gun turns the pack on, and putting the gun away turns it off.",
+    "Repairing another player or object adds 0.25 to the target's auto-repair rate. Repairing yourself adds only 0.025. Unlike this wiki's Total Annihilation release, which uses 0.075 for self-repair, self-repair is slower.",
+    "Objects can't be repaired when an admin has disabled that class of object: map turrets, inventory stations, generators or vehicle stations (fixable()).",
+    "Unlike the TA release, walking over a dropped Repair Pack without a backpack does not equip and switch it on automatically. It is picked up like any other pack."
+   ],
+   "source": "packRepair.cs RepairPack::onUse, RepairGun::onMount/onUnmount, RepairPack::onDrop; basepProjData.cs RepairBolt::onAcquire/onRelease; adminKill.cs fixable"
+  },
+  "SensorJammerPack": {
+   "summary": "A backpack that hides the wearer from enemy sensors while it is switched on.",
+   "notes": [
+    "Switching it on adds 20 to the wearer's sensor suppression. Switching it off removes 20.",
+    "The jamming code is the same as in this wiki's Total Annihilation release. Only the pack's energy drain and price differ, and Apteryx has no help text when the pack is mounted."
+   ],
+   "source": "packjJammer.cs SensorJammerPackImage::onActivate/onDeactivate"
+  },
+  "ShieldPack": {
+   "summary": "A backpack that blocks part of incoming damage while it is on, at the cost of energy.",
+   "notes": [
+    "Switching it on sets the wearer's shieldStrength to 0.0137, a little stronger than the 0.012 in this wiki's Total Annihilation release. Switching it off sets it to 0.",
+    "No help text is shown when it is mounted."
+   ],
+   "source": "packsShield.cs ShieldPackImage::onActivate/onDeactivate"
+  },
+  "GhostPack": {
+   "summary": "The EMP Pack sets off an electromagnetic pulse around the wearer each time it is used. The wearer is not immune.",
+   "notes": [
+    "Using the worn pack spawns an EMPackBlast at the wearer: Shock damage with a 35 m blast radius, a very small direct hit and no knockback. The projectile can hit its owner.",
+    "Shock damage calls the victim armor's onShock handler (Armor::onShock). It zeroes the victim's energy, then drains 1.35 energy about every 0.17 s for roughly 3 s per hit, and plays shock effects. Teammates are affected only with team damage on, but the wearer is always affected.",
+    "The script sets no energy cost or cooldown, so each press of the pack key fires another pulse.",
+    "Mounting it with the use key sets the wearer's auto-repair rate to 0.001.",
+    "Unlike this wiki's Total Annihilation release, where this item is the Ghost Pack, this is a different item."
+   ],
+   "source": "PackEMP.cs GhostPack::onUse, GhostPack::onMount; basepProjData.cs EMPackBlast; player.cs Player::onDamage; armordData.cs Armor::onShock, ApplyEMP"
+  },
+  "SuicidePack": {
+   "summary": "The Drone Selector picks which drone the Drone Deployer launches. Each press of the pack key moves to the next of seven drone types.",
+   "notes": [
+    "The order is Laser Drone, Chaingun Drone, Aerial Drone, Grenade Drone, Turret Eliminator, Guardian and Hunter Drone, then back to the start. The selection is stored per player (client.dronemode) and the new choice's description is printed.",
+    "Before the first press the selection is 0 (Laser Drone), so the first press selects the Chaingun Drone.",
+    "ThrowingDrone::Deploy reads this choice. A thrown drone deploys only once it comes to rest, except the Aerial Drone, which deploys in the air. You take manual control of every drone type except the Guardian and Hunter. While controlling a drone you get a light shield (0.0075) for 10 s. The Guardian is destroyed after 30 s and the Hunter after 3 s.",
+    "Unlike this wiki's Total Annihilation release, where this item is the Suicide DetPack, it does not explode."
+   ],
+   "source": "packDroneSelect.cs SuicidePack::onUse; droneLaser.cs ThrowingDrone::Deploy"
+  },
+  "SightPack": {
+   "summary": "The Reversion Pack returns the wearer, one second after activation, to where they stood when they activated it. It is a short dodge.",
+   "notes": [
+    "Activating it costs 40 energy, saves the wearer's position and teleports them back there 1 second later (GameBase::setPosition). The pack switches itself off immediately.",
+    "The return is not cancelled by anything in the script, so it happens however far the wearer has moved."
+   ],
+   "source": "packReversion.cs SightPackImage::onActivate, SightPack::onMount"
+  },
+  "Beacon": {
+   "summary": "Beacons are each armor's special-ability charge: using one runs the armor's onBeacon ability, which is different for every class.",
+   "notes": [
+    "Scorpion: emergency direct-energy shields. All the wearer's energy is spent for near-total protection (shieldStrength 0.9) lasting energy/14 seconds. One beacon is used. In the male version only one player on the server can use it at a time.",
+    "Berserker: cloaks the wearer for about 20 s (startCloak). One beacon is used.",
+    "Lynx: emergency force shields (shieldStrength 0.006) for about 20 s (startShield). One beacon is used.",
+    "Firth: a speed booster (Armor::SpeedBooster, power 300). It pushes the wearer along their direction of travel, or where they are looking if standing still, with a 1.5 s cooldown. One beacon is used.",
+    "Drone Commander: hover drone. It creates a Hover Drone platform that follows the player and pushes them upward (velocity 10) every 0.25 s for about 2.75 s. One beacon is used, even in build mode.",
+    "Energy Artillery: deploys an emergency Force Field (ForceFieldPack::deployShape), which destroys itself after 2.5 s. A beacon is used only if it deploys.",
+    "Destroyer: restocks the player to 3 grenades. One beacon is used.",
+    "Commando (armormDM, not sold at stations): the same speed booster as the Firth, with no cooldown.",
+    "No class uses the generic target-beacon placement (Beacon::deployShape). If a beacon were placed, it would destroy itself after 200 s.",
+    "Unlike this wiki's Total Annihilation release, the Scorpion, Berserker, Lynx, Energy Artillery and Destroyer beacons all do something. In TA these classes (Angel, Spy, Necro, Troll, Titan) only stop the player, use up the beacon or do nothing.",
+    "Script bug: armorfAngel::onBeacon (female Scorpion) leaves out the one-user-at-a-time check of the male version, and its 'Unable to activate' message is in the build-mode branch. The shield timers use the global $DirectEnergyUser, so two Scorpions using it at overlapping times can end each other's shields early."
+   ],
+   "source": "miscBeacon.cs Beacon::onUse, Beacon::onEnabled, Beacon::deployShape; armorScorpion.cs, armorBerserker.cs, armorLynx.cs, armorFirth.cs, armorDrone.cs, armorNRGArt.cs, armorDestroyer.cs, armorDM.cs ::onBeacon; armordData.cs startCloak, startShield, Armor::SpeedBooster; armorDrone.cs hoverdrone"
+  },
+  "Grenade": {
+   "summary": "A hand grenade whose type depends on the thrower's armor.",
+   "notes": [
+    "Scorpion: Cluster Bomb (ClusterBombmine). A 2 s fuse, Mortar damage and a wide 25 m blast.",
+    "Berserker, Lynx and Firth: standard hand grenade (Handgrenade). A 2 s fuse, Shrapnel damage and a 10 m blast.",
+    "Drone Commander: shock grenade (Shockgrenade). A 2 s fuse and a 20 m Shock blast, which applies EMP (energy drain) to players caught in it.",
+    "Energy Artillery: Firebomb. A 2 s fuse and a 30 m blast with light Explosion damage but heavy knockback. However, the Energy Artillery's Grenade limit is 0, so it cannot carry grenades to throw.",
+    "Destroyer: Mortarbomb. Mortar damage and a 10 m blast.",
+    "Commando (not sold): the type chosen by the player's grenade mode: Plastique (15 s), Firebomb, shock grenade, tranquilizer grenade, Mortarbomb or a standard hand grenade.",
+    "Unlike this wiki's Total Annihilation release, the Berserker (TA Spy) throws a standard grenade instead of Plastique, and the Lynx (TA Necro) throws a standard grenade instead of a Hologram mine.",
+    "Throws are spaced at least 0.5 s apart. No grenade is used up in build mode."
+   ],
+   "source": "miscGrenade.cs Grenade::onUse; armor*.cs ::onGrenade; armorDM.cs DoGrenade; armordData.cs Armor::ThrowGrenade; miscmMine.cs Handgrenade, Clusterbombmine, Shockgrenade, Firebomb, Mortarbomb"
+  },
+  "MineAmmo": {
+   "summary": "A thrown anti-personnel mine that arms when it comes to rest and goes off when an enemy touches it.",
+   "notes": [
+    "Every armor throws the same AntipersonelMine. In Deathmatch mode it throws a DMMine with no team. There is no per-armor switch.",
+    "The mine arms once it is at rest. If another mine is within about 1 m when it arms, it destroys itself.",
+    "It explodes when an enemy player, vehicle or moving object touches it. Mine damage to a mine is cut to 25%, and it detonates once accumulated damage passes two-thirds of its maxDamage.",
+    "Mines are cloakable by a base cloaker. A cloaked mine flashes visible when a player touches it.",
+    "Unlike this wiki's Total Annihilation release, using a mine has no grappling-hook behavior.",
+    "Script bug: MineAmmo::onUse never adds to the team's mine count, although a destroyed mine subtracts from it, so the $TeamItemMax[mineammo] limit of 35 is never enforced."
+   ],
+   "source": "miscmMine.cs MineAmmo::onUse, AntipersonelMine::onCollision/deployCheck/onDamage/onDestroyed"
+  },
+  "CameraPack": {
+   "summary": "A deployable camera that teammates can look through from a command station.",
+   "notes": [
+    "It deploys within 3 m on terrain, buildings or a Deployable Platform, and on any slope; it sits upright on floors and upside down on ceilings. The area must be clear, though a platform underneath is allowed (checkInvDeployArea).",
+    "The camera is a turret that can always be controlled and can always be destroyed by its own team ($CanAlwaysControl, $CanAlwaysTeamDestroy). It can be cloaked by a base cloaker.",
+    "A camera deployed on a moving object, such as a dropship, is recreated 5 s later so it collides and renders correctly (replaceSensor).",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds deploy check and no help text when the pack is mounted."
+   ],
+   "source": "deployCamera.cs CameraPack::onUse/onDeploy/deployShape, CameraTurret::onAdd/onDestroyed; iitem.cs checkInvDeployArea, replaceSensor"
+  },
+  "MotionSensorPack": {
+   "summary": "A deployable motion sensor that detects moving enemies nearby.",
+   "notes": [
+    "It deploys within 3 m on terrain, buildings or a Deployable Platform, on any slope, and sits upright or upside down depending on the surface.",
+    "The sensor is not affected by sensor suppression (supressable = false), so enemy jammers do not hide players from it. Its own team can always destroy it.",
+    "A sensor placed on a moving object is recreated 5 s later (replaceSensor).",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds deploy check, no help text, and no onPower/onEnabled override."
+   ],
+   "source": "deployMotionSensor.cs MotionSensorPack::onDeploy/deployShape; sensor.cs DeployableSensor::onAdd/onEndSequence, Sensor::onDestroyed; iitem.cs checkInvDeployArea, replaceSensor"
+  },
+  "PulseSensorPack": {
+   "summary": "A deployable pulse sensor: a long-range radar post.",
+   "notes": [
+    "It deploys within 3 m on flat terrain or buildings (Item::deployShape) and needs a clear spot.",
+    "A sensor placed on a moving object is recreated 5 s later (replaceSensor). Its own team can always destroy it.",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds deploy check, no help text, and no onPower/onEnabled override."
+   ],
+   "source": "deployPulseSensor.cs PulseSensorPack::onDeploy; iitem.cs Item::deployShape; sensor.cs Sensor::onDestroyed"
+  },
+  "DeployableSensorJammerPack": {
+   "summary": "A deployable sensor jammer that hides nearby teammates and objects from enemy sensors.",
+   "notes": [
+    "It deploys within 3 m on flat terrain or buildings (Item::deployShape) and needs a clear spot. Its own team can always destroy it.",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds deploy check, no help text, and no onPower/onEnabled override."
+   ],
+   "source": "deploySensorJammer.cs DeployableSensorJammerPack::onDeploy, DeployableSensorJammer; iitem.cs Item::deployShape"
+  },
+  "DeployableAmmoPack": {
+   "summary": "A deployable remote ammo station that refills a teammate's ammo and fully repairs them.",
+   "notes": [
+    "It deploys within 3 m on flat terrain, buildings or a Deployable Platform. It cannot be placed on a moving object, and the spot must be clear.",
+    "A player using it has their weapon put away, is fully healed (damage set to 0) and gets ammo for their weapons every 0.5 s. Resupply stops after 11 s at the station, and the weapon is then re-equipped.",
+    "The station has its own energy pool of 3000 ($RemoteAmmoEnergy). Its own team can always destroy it, and it can be cloaked.",
+    "It is not sold at remote stations ($RemoteInvList 0). It is not in this wiki's Total Annihilation release.",
+    "Script bug: deployShape sets the station's map name to an undefined %name, so it is left with a blank name instead of 'R-Ammo Station'."
+   ],
+   "source": "deployaAmmoStation.cs DeployableAmmoPack::deployShape, DeployableAmmoStation::onAdd/onActivate; stationAmmoStation.cs AmmoStation::onResupply; stationDeployableStation.cs DeployableStation::onDestroyed"
+  },
+  "DeployableComPack": {
+   "summary": "A deployable remote command station that opens the command map for a teammate standing in it.",
+   "notes": [
+    "It deploys within 3 m on flat terrain, buildings or a Deployable Platform. It cannot be placed on a moving object, and the spot must be clear.",
+    "Standing in it switches the player to the command GUI ('Command Access On'). Access is checked every 0.5 s and ends when they leave.",
+    "Its own team can always destroy it, and it can be cloaked. It is not in this wiki's Total Annihilation release.",
+    "Script bug: DeployableStation::onDestroyed lowers the team count only for inventory and ammo stations, so a destroyed command station never frees its team slot."
+   ],
+   "source": "deployCommandStation.cs DeployableComPack::deployShape, DeployableComStation::onAdd/onActivate; stationDeployableStation.cs DeployableStation::onDestroyed"
+  },
+  "DeployableInvPack": {
+   "summary": "A deployable remote inventory station that sells the remote-station item list.",
+   "notes": [
+    "It deploys within 3 m on flat terrain or buildings, but not on a moving object. A Deployable Platform passes the clear-area check, but the surface check accepts only terrain and buildings.",
+    "It sells items from the remote inventory list ($RemoteInvList) and has its own energy pool ($RemoteInvEnergy, 3000).",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds deploy check, the deploy range is 3 m instead of 5 m, and a repacked station's damage and energy are not restored."
+   ],
+   "source": "deployInventoryStation.cs DeployableInvPack::deployShape, DeployableInvStation::onActivate; stationDeployableStation.cs DeployableStation::onDestroyed"
+  },
+  "TransportPack": {
+   "summary": "The Transport Vehicle Pack unfolds into a Dropship right where the player is aiming.",
+   "notes": [
+    "It deploys an HAPC (the Dropship) on flat terrain within 3 m. Buildings are not allowed. Before deploying it checks that the vehicle fits (Vehicle::DeployArea).",
+    "It counts against the team's Dropship (HAPCVehicle) limit, shared with Dropships bought at vehicle stations.",
+    "Vehicle::TerrainCheck runs 0.1 s later. If the vehicle has been pushed up more than 2 m (placed below ground), it is moved back and destroyed.",
+    "Unlike this wiki's Total Annihilation release, which deploys a 'Transport' flier and allows buildings, this pack deploys the Dropship and works only on terrain."
+   ],
+   "source": "deployTransport.cs TransportPack::deployShape; vehicle.cs Vehicle::DeployArea, Vehicle::TerrainCheck/Checkpos; vehicleDropship.cs HAPC"
+  },
+  "BlastWallPack": {
+   "summary": "A deployable heavy wall section for blocking fire and passages.",
+   "notes": [
+    "It deploys within 3 m on a flat surface facing the player's direction, but not on an enemy base object or a moving object, and the spot must be clear.",
+    "Fliers that hit it take 0.01 damage per collision. Its own team can always destroy it.",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds check, the deploy range is 3 m instead of 5 m, and there is no sticky blast-wall damage marker."
+   ],
+   "source": "deploybBlastWall.cs BlastWallPack::deployShape, BlastWall::onCollision/onDestroyed"
+  },
+  "ForceFieldPack": {
+   "summary": "An emergency physical shield: a force field that lasts only 2.5 seconds before destroying itself.",
+   "notes": [
+    "It deploys within 5 m on any flat surface (no terrain or building restriction) that is not a moving object, with no clear-area check.",
+    "2.5 s after deployment its damage is set to 100, destroying it. It works as a brief barrier against incoming fire.",
+    "It checks no team limit before deploying. The count goes up on deploy and back down when the field destroys itself.",
+    "The Energy Artillery's beacon deploys this same field.",
+    "Unlike this wiki's Total Annihilation release, where the field is permanent and has a team limit, it is temporary."
+   ],
+   "source": "deployPhysicalShield.cs ForceFieldPack::deployShape, DeployableForceField; armorNRGArt.cs armorTroll::onBeacon"
+  },
+  "LargeForceFieldDoorPack": {
+   "summary": "A deployable large force field that opens for teammates and blocks enemies.",
+   "notes": [
+    "It deploys within 3 m on any surface except a moving object. There is no slope or clear-area check.",
+    "When a teammate touches it, the field fades out and moves 1000 m up for 2 s, then drops back and fades in. Enemies are blocked.",
+    "Fliers that hit it take 0.01 damage. When destroyed it does radius debris damage.",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds check, the deploy range is 3 m instead of 5 m, and the door closes by moving 1000 m back down instead of returning to a saved position."
+   ],
+   "source": "deploylLargeForceFieldDoor.cs LargeForceFieldDoorPack::deployShape, LargeForceFieldDoorShape::onCollision/openDoor/closeDoor/onDestroyed"
+  },
+  "PlatformPack": {
+   "summary": "A deployable platform that other deployables can be placed on.",
+   "notes": [
+    "It deploys within 4 m on any surface except a moving object, facing the player's direction. On a ceiling it is flipped upside down.",
+    "Cameras, motion sensors, ammo stations, command stations and mobile inventory stations accept a Deployable Platform as their surface.",
+    "In build mode, deploying a platform below the player lifts them 1 m.",
+    "Unlike this wiki's Total Annihilation release, there is no arena or out-of-bounds check, and the deploy range is 4 m instead of 5 m."
+   ],
+   "source": "deployPlatform.cs PlatformPack::deployShape, DeployablePlatform::onDestroyed; iitem.cs checkInvDeployArea"
+  },
+  "JumpPadPack": {
+   "summary": "The FireWall deploys a row of three flame emitters that blast plasma at enemies who touch them.",
+   "notes": [
+    "It deploys within 3 m on any surface except a ceiling or a moving object. It places three emitter shapes in a line across the player's facing, each counted against the team limit.",
+    "When an enemy player touches an emitter, it spawns a PlasmaGeyser 3 m above itself, a small Plasma-damage blast that detonates after 0.1 s.",
+    "Its own team can always destroy the emitters, and they can be cloaked. A cloaked emitter flashes visible when touched.",
+    "Unlike this wiki's Total Annihilation release, where this item is the Jump Pad, it launches nobody.",
+    "Script bug: FlameSpout counts its repeat counter on an undefined %this instead of the emitter (%shooter), so each contact makes one geyser instead of the five the collision code sets up.",
+    "Because each deploy adds 3 to the team count but the limit check runs before deploying, a team limit of 4 allows two FireWalls (six emitters)."
+   ],
+   "source": "deployFireWall.cs JumpPadPack::deployShape, JumpPad::onCollision, FlameSpout; miscmMine.cs PlasmaGeyser; serveriItemUsage.cs $TeamItemMax[JumpPadPack]"
+  },
+  "MobileInventoryPack": {
+   "summary": "A deployable full inventory station that needs a power source nearby.",
+   "notes": [
+    "It deploys within 5 m on a flat surface: terrain, buildings or a Deployable Platform, but not a moving object. On mount it reminds the player to have power nearby before deploying.",
+    "It looks for a working same-team generator within a 200 m box and joins that generator's power group. If only damaged generators are found it joins one of those. If none is found it waits unpowered until a Portable Generator is placed nearby (Station::FindPower).",
+    "It sells the mobile inventory list ($MobileInvList). It cannot buy another Mobile Inventory Station.",
+    "When destroyed it does radius debris damage.",
+    "Unlike this wiki's Total Annihilation release, which skips the power search and reports a 'Satellite Power Connection', it must be connected to a generator to work."
+   ],
+   "source": "deploymMobileInventory.cs MobileInventoryPack::deployShape/onMount, MobileInventory::onDestroyed/onEndSequence; powerFunctions.cs Station::FindPower"
+  },
+  "PortableGeneratorPack": {
+   "summary": "A deployable generator that powers nearby deployed stations.",
+   "notes": [
+    "Deploying uses Generator::deployShape: within 5 m on flat terrain or buildings, not a moving object, on a clear spot.",
+    "It looks for a same-team generator within a 200 m box and joins that generator's power group. If none is found it starts a new power group (up to four per team) and pulls in nearby same-team Mobile Inventory Stations that are waiting for power.",
+    "When destroyed it stops generating power and does radius debris damage.",
+    "PortableGeneratorPack::deployShape, the pack's own deploy function, is never called by onDeploy. Unlike the other packs, onDeploy uses up the pack even in build mode."
+   ],
+   "source": "deployPortableGenerator.cs PortableGeneratorPack::onDeploy, PortableGenerator::onEnabled/onDisabled/onDestroyed; powerFunctions.cs Generator::deployShape, Generator::CreateSimGroup"
+  },
+  "PortableSolarPack": {
+   "summary": "A deployable solar panel generator.",
+   "notes": [
+    "It deploys within 5 m on flat terrain only (not buildings) on a clear spot.",
+    "It is added to the team's mission group rather than to a deployed power group, and it does not search for nearby generators or stations. Which objects it actually powers was not determined from the scripts.",
+    "When destroyed it stops generating power and does radius debris damage.",
+    "Unlike this wiki's Total Annihilation release, which adds it to a deployed-power group, it goes into the team's mission group, and its deploy has no arena or out-of-bounds check. Unlike other packs, it is used up even in build mode."
+   ],
+   "source": "deployPortableSolar.cs PortableSolarPack::deployShape, PortableSolar::onEnabled/onDisabled/onDestroyed"
+  },
+  "BunkerPack": {
+   "summary": "Deploys a small round bunker building on open terrain.",
+   "notes": [
+    "It deploys within 3 m on flat terrain only, at least about 20 m from another deployed bunker, on a clear spot (BnkrDeployArea).",
+    "The bunker is a plain interior shape (eround.dis) with the player's team, turned to face the player's direction.",
+    "Unlike this wiki's Total Annihilation release, it has no destructible panels. The interior has no damage handler and nothing ever lowers the team bunker count, so deployed bunkers stay until mission end and count against the limit permanently."
+   ],
+   "source": "deployBunkerPack.cs BunkerPack::deployShape, BnkrDeployArea"
+  },
+  "RepairKit": {
+   "summary": "The Repair Kit heals the user a little and cures nanite poisoning. Every class can carry one.",
+   "notes": [
+    "Using it repairs 0.2 damage on the user and clears the poison timer. The kit is used up even at full health (it is kept only in build mode).",
+    "It then runs the armor's onRepairKit, which for every class calls Armor::onRepairKit. That function is meant to repair a Station within 5 m by 0.27. It looks up the data name of getObjectType's result (a type name such as 'StaticShape') instead of the object itself, so the station check never matches and no station is repaired.",
+    "Unlike this wiki's Total Annihilation release, it never repairs the object you are looking at. In TA, aiming at a damaged team object within 5 m drops the kit onto that object to heal it, and aiming at a generator switches you to a Repair Pack. TA also keeps the kit when there is nothing to heal ('Nothing to repair, kit retained')."
+   ],
+   "source": "iitem.cs RepairKit::onUse; armordData.cs Armor::onRepairKit; armor*.cs ::onRepairKit"
+  },
+  "iarmorAngel": {
+   "summary": "The Scorpion is Apteryx's starting armor and its builder. It is a fast, fragile light armor that carries only one weapon, but almost every turret, station, barrier and power system can be deployed only by a Scorpion.",
+   "notes": [
+    "Everyone spawns as a Scorpion ($DefaultArmor for both genders). It is sold at stations and at mobile inventories.",
+    "One weapon slot. It can carry the Healing Laser, Quicksilver, Light Laser, Pulse Cannon, Air Mine, Nano Virus, Spotter Laser and Targeting Laser.",
+    "Packs: Energy, Repair, Distortion and Reversion. Deployables: Camera, Motion Sensor, Pulse Sensor and Sensor Jammer; every turret (Targeting, Vortex, Ion, Flame, EMP, Laser, MFAC, Missile, Anti-Matter, Gatling Ion Gun and Energy Artillery Turret); Blast Wall, Large Force Field Door, Deployable Platform and FireWall; Ammo, Command and Inventory Stations; Transport Vehicle Pack, Mobile Inventory Station, Portable Generator, Portable Solar Panel and Deployable Bunker.",
+    "Carries 2 Beacons, 3 Grenades and 3 Mines.",
+    "Grenade: a Cluster Bomb (ClusterBombmine).",
+    "Beacon: emergency direct-energy shields. All the wearer's energy is spent to set shieldStrength 0.9 for energy/14 seconds (about 3.6 s from a full 50 energy). The wearer's energy is zeroed again halfway through.",
+    "Damage taken: 50% more from Shrapnel; 20% more from Impact, Plasma and Missile; 30% less from Explosion, Landing and Mine; 20% less from Poison; half from Mortar.",
+    "Can pilot every vehicle.",
+    "Script bugs: the male onBeacon allows only one user on the server at a time, but its 'Unable to activate' message goes to an unset %client, so nobody sees it. The female version has no lock at all, and its 'Unable to activate' message sits in the build-mode branch, so it shows after a successful activation. Both versions keep their timers in the global $DirectEnergyUser, so two overlapping uses can end each other's shields early.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Rogue Angel'."
+   ],
+   "source": "armorScorpion.cs iarmorAngel, armormAngel/armorfAngel, ::onGrenade, ::onBeacon; game.cs Game::playerSpawned, $DefaultArmor; serveriItemUsage.cs $MaxWeapons, PopulateItemMax, PopulateDamageScale, PopulateCanPilot"
+  },
+  "iarmorSpy": {
+   "summary": "The Berserker is a light armor for close-range energy attacks: the Kinetic Maul, the Plasma Flame Thrower, the Electro-Magnetic Lance, the Energy Rift and the Nano Virus. Its beacon cloaks the wearer. Stations do not sell it.",
+   "notes": [
+    "Its $InvList and $MobileInvList are 0, so no station lists it (see the mod notes for the favorites exception).",
+    "Three weapon slots. It can carry the Quicksilver, Nano Virus, Kinetic Maul, Plasma Flame Thrower, Electro-Magnetic Lance, Energy Rift and Magnetic Mirror. Packs: Energy, Sensor Jammer, Distortion and EMP Pack, plus the Camera, Motion Sensor, Pulse Sensor and Sensor Jammer deployables. It cannot carry a Repair Pack.",
+    "Carries 1 Beacon, 4 Grenades and 2 Mines. Grenade: a standard hand grenade.",
+    "Beacon: cloaks the wearer for about 20 s (startCloak: fades out and raises sensor suppression).",
+    "The two genders are very different. The male has maxDamage 1.365, ground speed 17.5 and jetForce 160. The female has maxDamage 0.66, ground speed 12, jetForce 240 with lower jet drain, and twice the forward jet speed.",
+    "Loses 40 energy on every Mine damage hit. Damage taken: Assassin damage is cut to 20%, Debris to half; Impact, Shotgun and Mine to 70%; Laser, Shrapnel, Mortar and Sniper to 80%. The damage table gives the female armor 0.0 against Bullet damage, so it takes none, while the male armor takes full Bullet damage.",
+    "Buying it also tries to buy a ChameleonPack, but Apteryx has no such item, so nothing happens.",
+    "Can ride vehicles but not pilot them.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Chameleon Assassin'."
+   ],
+   "source": "armorBerserker.cs iarmorSpy, armormSpy/armorfSpy, ::onGrenade, ::onBeacon; armordData.cs startCloak, checkPlayerCloak; player.cs Player::onDamage; iitem.cs buyItem; serveriItemUsage.cs"
+  },
+  "iarmorNecro": {
+   "summary": "The Lynx is a sturdy light armor with three weapon slots and a wide mid-range arsenal. Its beacon raises emergency force shields. With the Scorpion, it is one of the light armors that can pilot vehicles.",
+   "notes": [
+    "Sold at stations and mobile inventories.",
+    "Three weapon slots. It can carry the Star Flare, Light Laser, Pulse Cannon, Railgun, Acid Cloud, Electro-Static Grenade, Air Mine, Lasher and Targeting Laser. Packs: Ammo, Energy, Sensor Jammer, Distortion, Reversion and EMP Pack, plus the Camera, Motion Sensor, Pulse Sensor and Sensor Jammer deployables.",
+    "Carries 2 Beacons, 2 Grenades and 2 Mines. Grenade: a standard hand grenade.",
+    "Beacon: emergency force shields (shieldStrength 0.006) for about 20 s (startShield).",
+    "Loses 40 energy on every Mine damage hit. Damage taken: 20% less from Energy, Plasma, Missile, Electricity and Impact; 30% less from Mine and Shotgun; 10% more from Bullet and Mortar.",
+    "Can pilot every vehicle.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Necromancer'."
+   ],
+   "source": "armorLynx.cs iarmorNecro, armormNecro/armorfNecro, ::onGrenade, ::onBeacon; armordData.cs startShield; player.cs Player::onDamage; serveriItemUsage.cs"
+  },
+  "iarmorWarrior": {
+   "summary": "The Firth is the medium assault armor. It has three weapon slots, the largest supply of grenades and beacons, and a beacon speed booster.",
+   "notes": [
+    "Sold at stations and mobile inventories. Bots spawn in it ($AI::defaultArmorType armorfWarrior), and the deathmatch spawn hands out its armor item.",
+    "Three weapon slots. It can carry the Reactor Capacitor, Plasma Cannon, Electro-Static Grenade, Acid Cloud, Railgun, Particle Gun, EMP cannon, Terra Arcus, Hydra Machine Gun, Light Laser and Targeting Laser. Packs: Ammo, Energy, Shield, Sensor Jammer, Distortion, Reversion and EMP Pack, plus the Camera and Sensor Jammer deployables.",
+    "Carries 5 Beacons, 8 Grenades and 3 Mines. Grenade: a standard hand grenade.",
+    "Beacon: speed booster (Armor::SpeedBooster, power 300). It throws the wearer along their direction of travel, or where they are aiming if standing still. After each boost the jets must cool for 1.5 s ('Your jets must cool before using another booster').",
+    "The female version jets far harder than the male: jetForce 325 against 90, and forward jet speed 17 against 11.",
+    "Takes 10% more Laser damage; other damage is unscaled.",
+    "Can ride vehicles but not pilot them.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Warrior'."
+   ],
+   "source": "armorFirth.cs iarmorWarrior, armormWarrior/armorfWarrior, ::onGrenade, ::onBeacon, resetBeaconUse; armordData.cs Armor::SpeedBooster; ai.cs; dm.cs; serveriItemUsage.cs"
+  },
+  "iarmorBuilder": {
+   "summary": "The Drone Commander is a medium armor that fights through drones. It launches them with the Drone Deployer, chooses the drone type with the Drone Selector pack, and repairs friendly objects by bumping into them.",
+   "notes": [
+    "Sold at stations and mobile inventories.",
+    "Two weapon slots: Drone Deployer (up to 7 Drones) and Nano Virus. Packs: Shield and Drone Selector, plus the Camera, Motion Sensor, Pulse Sensor and Sensor Jammer deployables. It cannot carry an Energy Pack.",
+    "Carries 2 Beacons, 5 Grenades and 5 Mines. Grenade: a shock (EMP) grenade (Shockgrenade).",
+    "Beacon: Hover Drone. An elevator-platform shape follows the wearer and pushes them upward (velocity 10) every 0.25 s for about 2.75 s. The beacon is used up even in build mode. Remote inventory stations will not sell Beacons to a Drone Commander.",
+    "Touching any damaged non-player object on its own team repairs that object by 0.07 per contact (Player::onCollision).",
+    "Walking onto a Plastique Explosive (the Commando's Nukebomb) disarms it, with a 10% chance of setting it off instead ('OOPS! You cut the wrong wire...').",
+    "Damage taken: 30% less from Energy; 20% less from Bullet; 10% less from Landing, Mortar and Sniper; 20% more from Electricity.",
+    "Can ride vehicles but not pilot them.",
+    "Script bugs: Turret::onCollision is meant to let a Drone Commander with Beacons patch into an enemy turret by spending one. It reads the armor from an unset %player, so every enemy player is refused, and its messages go to an unset %client. The female armor's onPlayerContact calls Repair(), which Apteryx never defines; the male's is empty.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Builder'."
+   ],
+   "source": "armorDrone.cs iarmorBuilder, armormBuilder/armorfBuilder, ::onGrenade, ::onBeacon, ::onPlayerContact, hoverdrone; player.cs Player::onCollision; miscmMine.cs Nukebomb collision; stationAmmoStation.cs; turretApteryx.cs Turret::onCollision; serveriItemUsage.cs"
+  },
+  "iarmorTroll": {
+   "summary": "Energy Artillery is a heavy armor built around its namesake weapon, a long charge-up artillery cannon, backed by the Shield Projector. Stations do not sell it.",
+   "notes": [
+    "A single PlayerData (armorTroll, heavy-armor shape) serves both genders. Its $InvList and $MobileInvList are 0, so no station lists it.",
+    "Two weapon slots: Energy Artillery (3 ArtilleryShells) and Shield Projector (3 ShieldCapacitors). Pack: Shield Pack only.",
+    "Carries 2 Beacons and 4 Mines. Its onGrenade throws a Firebomb, but its Grenade limit is 0, so it can never carry grenades to throw.",
+    "Beacon: deploys an emergency Force Field (ForceFieldPack::deployShape), which removes itself after 2.5 s. A beacon is used only if the field deploys.",
+    "Damage taken: 30% more from Electricity; 20% more from Laser; 40% less from Shrapnel; 20% less from Explosion, Mortar and Mine. Laser head shots get the reduced heavy-armor bonus.",
+    "Buying it also tries to buy a RegenerationPack, but that pack's script is not loaded in Apteryx, so nothing happens.",
+    "Can ride vehicles but not pilot them.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Troll'."
+   ],
+   "source": "armorNRGArt.cs iarmorTroll, armorTroll, ::onGrenade, ::onBeacon; iitem.cs buyItem; player.cs Player::onDamage; serveriItemUsage.cs"
+  },
+  "iarmorTitan": {
+   "summary": "The Destroyer is the slowest and toughest armor: a heavy weapons platform with four weapon slots and most of the big guns, including the Cluster Missile Launcher that works with a Scorpion's Spotter Laser. Stations do not sell it.",
+   "notes": [
+    "A single PlayerData (armorTitan, heavy-armor shape) serves both genders. Its $InvList and $MobileInvList are 0, so no station lists it. Its maxDamage is 3.0, the highest of any armor (a comment keeps an older 1.32).",
+    "Four weapon slots. It can carry the Reactor Capacitor, Plasma Cannon, Electro-Static Grenade, Railgun 2, Anti-Matter Launcher, Cluster Missile Launcher, Acid Cloud, Particle Gun, EMP cannon, Shatter Storm, Hydra Machine Gun, MFAC and Targeting Laser. Packs: Energy, Shield, Sensor Jammer, Distortion and EMP Pack.",
+    "Carries 2 Beacons, 3 Grenades and 5 Mines. Grenade: a Mortarbomb.",
+    "Beacon: restocks the wearer to 3 grenades ('Restocking grenades.').",
+    "Damage taken: 20% more from Laser and Electricity; 30% less from Impact, Shrapnel and Mine; 20% less from Explosion, Missile and Sniper. Laser head shots get the reduced heavy-armor bonus.",
+    "Can ride vehicles but not pilot them.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Titan'."
+   ],
+   "source": "armorDestroyer.cs iarmorTitan, armorTitan, ::onGrenade, ::onBeacon; serveriItemUsage.cs; player.cs Player::onDamage"
+  },
+  "InterceptorVehicle": {
+   "summary": "The Wyvern is a single-seat fighter that sprays rapid energy bolts.",
+   "notes": [
+    "Uses the flyer shape and has no passenger seats. The engine fires its WyvernShot energy bolts (Energy damage) every 0.1 s; there is no script onFire.",
+    "Only a Scorpion, Lynx or Commando can pilot it. Other armors get 'Cannot pilot this vehicle in your current armor class.'",
+    "Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Interceptor'. TA's Interceptor fires Ion bolts and has a script onFire that can spawn smoke effects."
+   ],
+   "source": "vehicleWyvern.cs InterceptorVehicle, Interceptor; basepProjData.cs WyvernShot; vehicle.cs Vehicle::onCollision; serveriItemUsage.cs PopulateCanPilot, $TeamItemMax"
+  },
+  "ScoutVehicle": {
+   "summary": "The Rubicant Gunship is a single-seat armored flier that lobs explosive particle shots.",
+   "notes": [
+    "Uses the small hover-APC shape but has no passenger seats. It fires ParticleShot (Shrapnel damage, 7 m blast) every 0.4 s through the engine's projectileType.",
+    "Slower and more sluggish than the Wyvern, but nearly twice as tough.",
+    "Only a Scorpion, Lynx or Commando can pilot it.",
+    "Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Fighter', which fires ScoutMissiles."
+   ],
+   "source": "vehicleRubicant.cs ScoutVehicle, Scout; basepProjData.cs ParticleShot; vehicle.cs Vehicle::onCollision; serveriItemUsage.cs"
+  },
+  "LAPCVehicle": {
+   "summary": "The Bahamut Bomber is a three-seat bomber that drops plasma bombs below it.",
+   "notes": [
+    "A pilot and 2 passengers. Passengers can be any armor; the pilot must be a Scorpion, Lynx or Commando.",
+    "LAPC::onFire spends 30 of the vehicle's 200 energy per bomb and refires after 0.7 s. It spawns a BombShell (Plasma damage, 18 m blast) with the muzzle aimed downward, so the bombs fall beneath the craft. Plasma damage sets players burning, which is only visual.",
+    "Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Bomber'. TA's Bomber also drops BombShells at 30 energy each, but it is far tougher (maxDamage 8.5) and faster (top speed 60 against 45)."
+   ],
+   "source": "vehicleBomber.cs LAPCVehicle, LAPC, LAPC::onFire; basepProjData.cs BombShell; vehicle.cs; serveriItemUsage.cs"
+  },
+  "HAPCVehicle": {
+   "summary": "The Dropship is an unarmed heavy transport: a pilot and four passengers in the toughest vehicle in the mod.",
+   "notes": [
+    "Uses the large hover-APC shape and has 4 passenger seats. It has no weapon and no onFire.",
+    "Slowest vehicle (top speed 35), but it climbs fastest. It takes a quarter as much ground-impact damage as the other vehicles (groundDamageScale 0.125 against 0.5).",
+    "Passengers can be any armor; the pilot must be a Scorpion, Lynx or Commando.",
+    "Team limit 2. The limit is shared with Dropships unfolded from the Transport Vehicle Pack.",
+    "This wiki's Total Annihilation release has no HAPC vehicle script."
+   ],
+   "source": "vehicleDropship.cs HAPCVehicle, HAPC; deployTransport.cs TransportPack::deployShape; vehicle.cs; serveriItemUsage.cs"
+  },
+  "LaserTurretPack": {
+   "summary": "The Targeting Turret is a cheap, long-range turret whose beam does no damage. It paints targets for its team.",
+   "notes": [
+    "Fires TrackingLaser, a paint beam with damageConversion 0, out to 150 m. What the paint is used for was not determined from the scripts.",
+    "Deploys anywhere, including walls and ceilings (Turret::deployShape with TurretLocAnywhere). It must be within 3 m, on terrain, a building or a Deployable Platform, away from the enemy flag in two-team games, and clear of other turrets.",
+    "Team limit 4, twice the other turrets. Only the Scorpion can carry it.",
+    "Its onDestroyed does not call Turret::onDestroyed, so it leaves no debris blast.",
+    "Unlike this wiki's Total Annihilation release, where LaserTurretPack is a damaging 'Laser Turret'. Apteryx's 'Laser Turret' is PlasmaTurretPack."
+   ],
+   "source": "turretTargetingTurret.cs LaserTurretPack::onDeploy, DeployableLaserTurret; turretApteryx.cs Turret::deployShape; basepProjData.cs TrackingLaser; serveriItemUsage.cs"
+  },
+  "vortexTurretPack": {
+   "summary": "The Vortex Turret does no damage. It pulls enemies toward itself with vortex bolts.",
+   "notes": [
+    "Its vortexBolt has 0 damage and a negative kickback (-300) over a 5 m blast, which drags the target toward the bolt's source. game.cs still has vortex death messages ('gets sucked in by ... turret').",
+    "Deploys anywhere, including walls and ceilings, under the shared turret rules (within 3 m, flag distance, interference checks). Only the Scorpion can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, it fires every 0.4 s instead of every 1.5 s, but reaches only 60 m instead of 100 m. It has no help text on mount, and the team limit comes from Apteryx's own table."
+   ],
+   "source": "turretVortexTurret.cs vortexTurretPack::onDeploy, deployableVortexTurret; basepProjData.cs VortexBolt; turretApteryx.cs Turret::deployShape; game.cs $deathMsg"
+  },
+  "TurretPack": {
+   "summary": "The Ion Turret is a light, fast-firing turret that shoots small explosive ion bolts.",
+   "notes": [
+    "Fires IonBolt (Energy damage, 4 m blast) every 0.4 s out to 55 m. Energy damage has no extra effect in Apteryx.",
+    "Deploys anywhere, including walls and ceilings, under the shared turret rules. Only the Scorpion can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, it has no help text on mount (TA's says the bolts disable shields, jetpacks and energy weapons), and the team limit is 2 instead of TA's 10. Range, fire rate and placement are the same."
+   ],
+   "source": "turretiIonTurret.cs TurretPack::onDeploy, DeployableTurret; basepProjData.cs IonBolt; turretApteryx.cs Turret::deployShape; serveriItemUsage.cs"
+  },
+  "FlameTurretPack": {
+   "summary": "The Flame Turret is an indoor short-range turret that streams burning plasma. It is deployed with a fuel canister behind it.",
+   "notes": [
+    "Fires FlameShell (Plasma damage, 3 m blast) every 0.02 s out to 20 m. Plasma damage sets players burning, which is only visual.",
+    "Can only be deployed inside buildings (on an InteriorShape), on a flat floor between 2.75 m and 3.5 m away. It cannot be within 40% of the flag distance of the enemy flag, or near other turrets.",
+    "A 'Flame Turret Fuel' canister is placed 0.8 m behind the turret. Destroying either one sets the other to 0.6 damage. The canister explodes with debris damage when destroyed.",
+    "Only the Scorpion can carry it. Team limit 2.",
+    "Script bug: the deployer is recorded on %obj, a leftover variable holding the object type of the deploy surface, instead of on the turret.",
+    "Unlike this wiki's Total Annihilation release, it is restricted to buildings (TA comments that check out), deploys from 3.5 m instead of 5 m, reaches 20 m instead of 30 m, and is tougher (maxDamage 1.05 against 0.55)."
+   ],
+   "source": "turretNewFlameTurret.cs FlameTurretPack::deployShape, FlameTurret, Canister::onDestroyed; basepProjData.cs FlameShell"
+  },
+  "NuclearTurretPack": {
+   "summary": "The EMP Turret fires slow EMP rockets that strip enemies of their energy.",
+   "notes": [
+    "Fires the EMP rocket (Shock damage, 11.5 m blast) every 2.5 s out to 35 m. Shock damage zeroes a victim's energy, then keeps draining it for about 3 s per hit (Armor::onShock).",
+    "Deploys anywhere, including walls and ceilings, under the shared turret rules. Only the Scorpion can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Nuclear Turret'."
+   ],
+   "source": "turretEMPTurret.cs NuclearTurretPack::onDeploy, DeployableNuclearTurret; basepProjData.cs EMP; armordData.cs Armor::onShock"
+  },
+  "PlasmaTurretPack": {
+   "summary": "The Laser Turret fires the same beam as the Light Laser. A player can also climb in and aim it by hand.",
+   "notes": [
+    "Fires LightLaser (Laser damage) out to 75 m, once a second, each shot needing 55 energy.",
+    "Ground only: it must sit on a flat surface. Touching it puts a team player in manual control, standing on the turret ($CanControl, $EmbedController).",
+    "When destroyed it sets off a large debris blast (20 m).",
+    "Only the Scorpion can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Plasma Turret'."
+   ],
+   "source": "turretBigLaserTurret.cs PlasmaTurretPack::onDeploy, DeployablePlasmaTurret; turretApteryx.cs Turret::onCollision, Turret::deployShape; basepProjData.cs LightLaser"
+  },
+  "FusionTurretPack": {
+   "summary": "The MFAC Turret is a long-range, slow-firing cannon turret that shoots the MFAC round. It can also be aimed by hand.",
+   "notes": [
+    "Fires the MFAC bullet (Shotgun damage) every 2 s out to 120 m.",
+    "Ground only. Touching it puts a team player in manual control, standing on the turret.",
+    "When destroyed it sets off a large debris blast (20 m).",
+    "Only the Scorpion (and the unsold Commando) can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Fusion Turret'."
+   ],
+   "source": "turretMFACTurret.cs FusionTurretPack::onDeploy, DeployableFusionTurret; basepProjData.cs MFAC; turretApteryx.cs"
+  },
+  "RocketPack": {
+   "summary": "The Missile Turret launches homing missiles at hot targets: jetting players and vehicles.",
+   "notes": [
+    "Fires TurretMissile (Missile damage, 9.5 m blast), a seeking missile, every 2.5 s out to 135 m. verifyTarget accepts only targets with a heat factor of at least 0.5.",
+    "Ground only. It cannot be controlled by hand. When destroyed it sets off a large debris blast (20 m).",
+    "Only the Scorpion can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, it is shorter-ranged (135 m instead of 250 m), fires faster (2.5 s instead of 3.5 s) and is tougher (maxDamage 2.65 against 1.25). It fires TurretMissile instead of TurretMissileDeployed and has no help text on mount. Its team limit is 2 instead of 3."
+   ],
+   "source": "turretNewMissileTurret.cs RocketPack::onDeploy, DeployableRocket, DeployableRocket::verifyTarget; basepProjData.cs TurretMissile; serveriItemUsage.cs"
+  },
+  "MortarTurretPack": {
+   "summary": "The Anti-Matter Turret is a heavy artillery turret with almost no automatic range. It is meant to be aimed by remote control.",
+   "notes": [
+    "Fires MortarTurretShell (Mortar damage, 30 m blast) every 2 s. Its range is only 10 m, and the mount text says it 'has no auto-sensor and must be controlled manually to fire'.",
+    "$CanControl is 0, so touching it does not take control. It can only be run from the command map through Turret::onAttemptControl, which needs a Command Station. That function also accepts a Laptop, but Apteryx defines no Laptop item.",
+    "Ground only. Only the Scorpion can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Mortar Turret'."
+   ],
+   "source": "turretAntiMatterTurret.cs MortarTurretPack::onMount, ::onDeploy, DeployableMortar; turretApteryx.cs Turret::onAttemptControl, Turret::onCollision; basepProjData.cs MortarTurretShell"
+  },
+  "IrradiationTurretPack": {
+   "summary": "The Gatling Ion Gun is a deployable rapid-fire gun with no automatic targeting. A player steps into it and fires it by hand.",
+   "notes": [
+    "Fires IonGatling bullets (Energy damage) every 0.1 s. Its range is 0, so it never fires on its own ('Deployable chaingun, must be manually controlled').",
+    "Touching it puts a team player in control, standing on the gun. It is very tough (maxDamage 3.0) and recharges quickly (rate 30 after deploying, 10 after being re-enabled).",
+    "Because its range is 0, it does not count toward the long-range turret-interference check.",
+    "Ground only. Only the Scorpion (and the unsold Commando) can carry it. Team limit 2.",
+    "Unlike this wiki's Total Annihilation release, where this datablock is the 'Irradiation Cannon'."
+   ],
+   "source": "turretIonGatlingTurret.cs IrradiationTurretPack::onMount, ::onDeploy, IrradiationTurret; turretApteryx.cs Turret::onCollision, CountTurrets; basepProjData.cs IonGatling"
+  },
+  "ParticleBeamTurretPack": {
+   "summary": "The Energy Artillery Turret is a manually aimed version of the Energy Artillery cannon. Each shot charges for several seconds and then fires a devastating artillery shell.",
+   "notes": [
+    "Its range is 0, so it never fires on its own. Touching it puts a team player in control, standing on the turret.",
+    "ParticleBeamTurret::onFire works only when the turret is not reloading and has at least 185 energy. It spends 100 energy and starts the charge-up. Energy max is 200 and recharges at 15.",
+    "The charge-up spawns zero-damage ArtilleryEffect bursts at the muzzle every 0.3 s. TurretArtilleryRevUp hands off to the handheld weapon's ArtilleryRevUp after its first step, so the handheld 21-step count applies, and the ArtilleryShell (Missile damage, 17.5 m blast) fires after about 6 s.",
+    "Ground only. Only the Scorpion (and the unsold Commando) can carry it. Team limit 2.",
+    "New in Apteryx: this wiki's Total Annihilation release names ParticleBeamTurretPack only in its item-limit table and defines no such item."
+   ],
+   "source": "turretEnergyArtilleryTurret.cs ParticleBeamTurretPack::onDeploy, ParticleBeamTurret, ParticleBeamTurret::onFire, TurretArtilleryRevUp; weaponEnergyArtillery.cs ArtilleryRevUp; basepProjData.cs ArtilleryShell"
+  }
+ }
+}

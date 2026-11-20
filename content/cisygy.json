@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "CiSYGY Server Mod PR1 (Sundiata, February 1999) slims down Mephisto's SkyNet Tribes Pack v1.0 from 65 to 59 items, trading SkyNet's heavy guns and turrets (Stinger, ConCun, Railgun, Gaussgun, ForceField) for an Advanced Armor, ELF Turret, EMP Energy Cannon, Stalker/Fighter/MPC vehicles, slower Heavy/Medium stock energy, and a scarce 35,000-energy base economy.",
+  "notes": [
+   "Differs from SkyNet across 12 changed/removed items + 6 additions: drops RocketLauncher, ConCun, Railgun, Gaussgun, Command Station, Laser/Rocket Turrets, and ForceFields; adds AdvancedArmor, ELFTurretPack, EMPGun (Energy Cannon), Stalker, Fighter, and MPC vehicles.",
+   "Weapon & economy shifts vs SkyNet: slows Chaingun back to 0.2 s (was 0.1 s); converts SniperRifle to fire BulletAmmo at 0.35 s reload / 0.15 damage (was 1.5 s single-shot sniper); reverts ELF Gun ('Lightning Rod') back to 0.04 DPS; cuts $DefaultTeamEnergy from Infinite to 35,000 ($incTeamEnergy 700 -> 50)."
+  ]
+ }
+}

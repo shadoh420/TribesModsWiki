@@ -1,0 +1,40 @@
+ultra-renegades-jman: 39 of 110 need write-ups
+  LaserRifle (Laser Rifle): scripts
+  TaserRifle (Taser Rifle): scripts
+  FireballAbility (Fireball Ability): scripts
+  SmScreenAbility (SmokeScreen Ability): scripts
+  ExSmScreenAbility (LairWaster): scripts
+  FireScreenAbility (FireWall): scripts
+  SpellAbility (Spell): scripts
+  Blaster (Blaster): scripts
+  Chaingun (Chaingun): scripts
+  ChainBlasterAmmo (ChainBlaster Ammo): new
+  ChainBlaster (ChainBlaster): new
+  LiLPOOmki (LiL POO mki): scripts
+  LiLPOOmkii (LiL POO mkii): scripts
+  PlasmaGun (Plasma Gun): scripts
+  GrenadeLauncher (Grenade Launcher): scripts
+  Mortar (Mortar): scripts
+  BouncyAmmo (Bouncy Ammo): new
+  BouncyGun (Bouncy Gun): new
+  BlossomAmmo (Death Blossom Shells): new
+  Blossom (Death Blossom): new
+  FireWorks1Ammo (MIRV Ammo): new
+  FireWorks1 (MIRV): new
+  LiLFFB (LiLForce Field Buster): stats+scripts
+  NuclearAmmo (Nuclear Ammo): new
+  NuclearBomb (Nuclear Warhead): new
+  LiLRocketLauncher (LiLRocket Launcher): scripts
+  LiLEMPRocketLauncher (LiLEMPRocket Launcher): scripts
+  DiscLauncher (Disc Launcher): scripts
+  TargetingLaser (Targeting Laser): scripts
+  BeamOfPain (Beam Of Pain): stats+scripts
+  EnergyRifle (ELF Gun): scripts
+  CloakGun (Cloaking Gun): new
+  RevengePack (Backpack of Revenge): new
+  NuclearShieldPack (NuclearShield): new
+  CameraPack (Camera): scripts
+  SatCameraPack (Satellite Camera): new
+  TaserTrtCPack (Tracking Turret): scripts
+  TeleportPack (Teleport Pad): scripts
+  LaserTurretMPack (Laser Motion Turret): new

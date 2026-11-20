@@ -1,0 +1,572 @@
+{
+ "mod": {
+  "overview": "Renegades 2000 (Ren2K) re-implements the Renegades class game on Alazane's Alliance engine with the Insomniax (IX-Admin) server tools. The same eight classes return as iarmor* shop armors, but each class's grenade, beacon and touch ability is an armor callback in its own file, and several are new or broken: burning is switched off entirely, the Alien's life drain and the Engineer's disarming never trigger, and the Scout, Spy, Mercenary and Burster beacons do new things. It adds a Shotgun, Mass Driver, Rapidfire Laser, a Cyborg target-marking/seeking-missile kit, an Accelerator Device and renamed turret packs, and lowers most deployable team limits.",
+  "notes": [
+   "Load order: server.cs execs serverLink.cs, which execs serverRenegades.cs. serverRenegades::Start execs one file per armor, weapon, pack and deployable, then serverRenegades_ItemUsage.cs, which holds every $ItemMax, $MaxWeapons, $DamageScale and $VehicleUse table. Many items count as script changes only because their code moved into these files. Each item note says whether the behavior actually differs from Classic.",
+   "Armors are shop items: iarmorScout, iarmorSpy, iarmorSniper, iarmorMercenary, iarmorEngineer, iarmorBurster, iarmorAlien and iarmorCyborg map through $ArmorType[gender] to male/female PlayerData armorm<Class>/armorf<Class>. The Cyborg uses armorCyborg for both genders. Male and female functions are identical.",
+   "Class abilities are armor callbacks. Grenade::onUse, Beacon::onUse and RepairKit::onUse call <armor>::onGrenade, ::onBeacon and ::onRepairKit. Player::onDamage calls ::onPoison and ::onBurn. Player::onCollision calls the touching player's ::onPlayerContact.",
+   "Spawning: $DefaultArmor is dmarmor (the 'Commando' deathmatch armor). Game::playerSpawned then runs $spawnBuyList, which buys iarmorMercenary first, so everyone spawns as a Mercenary with Disc Launcher, Plasma Gun, Shotgun, Targeting Laser, Energy Pack, a Repair Kit, and Grenades and Beacons filled to the Mercenary maximum (6 and 3). There is no class-spawn option.",
+   "Deathmatch missions (dm.cs) leave you in the Commando armor (dmarmor/dmfemale, marmor shape, 4 weapon slots) with Blaster, Chaingun, Disc Launcher, Beacon, Plastique, Repair Kit and an Inventory Station pack. iarmorDeathmatch has its heading commented out, so it is not in the shop.",
+   "No burning: Armor::onBurn has its body commented out, so Plasma damage never sets anyone on fire. In Classic it had a 40% chance.",
+   "Poison (Energy damage from an enemy, or from anyone in deathmatch): timer 30, dropping 2 per 5-second tick, each tick adding 0.05 damage. A Repair Kit or Repair Patch cures it. Unlike Classic, a poison death gives no kill credit: the victim loses 1 point and everyone sees 'died from a strange disease'.",
+   "Flash damage from an enemy short-circuits you: weapon unmounted, energy set to 0 and no recharge for 14 s. When it ends, recharge is set to 8 whatever your armor's normal rate.",
+   "Laser and Sniper hits to the head do 30% extra (Blaster no longer counts). A Laser hit over 0.25 to the front-right torso knocks the weapon out of the victim's hand and does a flat 0.05 damage instead of normal damage (Classic: 0.08). The Repair Gun cannot be knocked out.",
+   "Shields: Electricity damage ignores them, and they are 75% as effective against Shrapnel and Mortar damage. Electricity kills, and Explosion/Shrapnel/Mortar/Missile kills with more than 0.5 overkill, blow the body apart.",
+   "Touching a dead body moves all its items to you, up to your carry limits.",
+   "Vehicles ($VehicleUse): Scout, Spy and Sniper can pilot everything. Unlike Classic, the Mercenary can also pilot the LAPC and HAPC, and the Engineer can pilot the HAPC. Burster, Alien, Cyborg and Commando can only ride.",
+   "Turrets (Turret::onCollision): touching a turret with $CanControl (Plasma, Rail, Vulcan) takes manual control if it is idle. Any class can do this, including the Cyborg. After you leave, it recalibrates for 10 s. Control from the Commander screen needs a Laptop or a Command Station, except Cameras.",
+   "Turret::deployShape's surface check reads (not terrain AND not interior AND == DeployablePlatform), so it only ever rejects a deployable platform. Spacing: more than 3 ranged turrets in a 50x50x25 box, or any turret of the same type in an 8x8x8 box, blocks deployment.",
+   "Friendly fire on turrets: Turret::onDamage applies $Server::TeamDamageScale unless the turret's datablock has $CanAlwaysTeamDestroy. Most deployable turrets set it. The Rail Turret's entry is misspelled (DeployRailTurret), so rail turrets use the team-damage scale. Classic gave every deployable turret full team damage.",
+   "IX-Admin (admin.cs) adds admin menus with public-admin lockouts ($Insomniax::PA*, all on except PAVote), public-vote lockouts (PV*), fair teams, personal skins (PSkin), a mod-options page, a kick/ban time (BanKickTime 999) and ixSave, which exports settings to config\\ixadmin.cs.",
+   "Ren2KSettings.cs (loaded by game.cs at every mission load) sets: team-kill tkLimit 3, tkMultiple 2, tkServerLvl 2 (a kick vote at every 3rd team kill, automatic kick at 6), tkClientLvl 0; StationTime 20 (ejected from an inventory station after the timer, with a 5 s warning); SafeStation on; LeaveAreaTime 15 (killed after 15 s outside the mission area); fairteams on; team energy Infinite.",
+   "ixUserList.cs is the IX-Admin user list: entries give user number, name, password, access level (SuperAdmin, PublicAdmin, AutoSuper, AutoPublic) and IP masks with * wildcards. Auto levels grant admin on connect when name and IP match. It ships switched off ($UserList::Activated = 0).",
+   "Ren2K.cs (the port's entry script) adds the stock Game::ForceTourneyMatchStart, Game::CheckTourneyMatchStart, MissionList::nextRandom and $flagToStandTime = 180. The engine's admin and objective scripts called these, but its 1.0-based game.cs lacked them.",
+   "Dead table entries: serverRenegades_ItemUsage.cs gives $ItemMax rows for harmor, EnergyRifle, Boost, FgcPack and ImRecPack, but no loaded file defines those datablocks or armors. packImRec.cs (ImRecPack, ImRecLaser and an older PhotonPack) is not exec'd, and packSMR.cs is commented out of the load list."
+  ]
+ },
+ "items": {
+  "Plastique": {
+   "summary": "Despite the name, this is the Commando's grenade-mode selector, not an explosive. Using it changes which explosive the Commando's next Grenade throws.",
+   "notes": [
+    "Only the Commando (dmarmor/dmfemale, the deathmatch armor) can carry it. dm.cs gives one at every deathmatch spawn.",
+    "dmarmor::onGrenade calls DoGrenade, which throws by $modeTime: mode 0 Handgrenade, 1 Nukebomb (Plastique, 15 s fuse), 2 Firebomb, 3 Shockgrenade, 4 Tranqgrenade, 5 Mortarbomb, 6 Firebomb.",
+    "Plastique::onUse has a cycling bug. From mode 0 it prints 'Normal', sets mode 1, then falls into the next test and moves straight on to mode 2 ('Fire'). After that it cycles 2, 3, 4, 5, 6, 1, 2 and so on. The normal Handgrenade is only thrown before the selector is first used.",
+    "Modes 2 ('Fire') and 6 ('Firebomb') both throw the same Firebomb. Using the selector is limited to once every 0.5 s and only works after the match starts."
+   ],
+   "source": "item.cs Plastique::onUse; armorDM.cs DoGrenade, dmarmor::onGrenade; dm.cs Game::playerSpawned"
+  },
+  "iarmorScout": {
+   "summary": "The Scout class: the fastest light frame, built for raiding. It steals items by touch and can pilot every vehicle.",
+   "notes": [
+    "PlayerData armormScout/armorfScout (larmor/lfemale shapes). Two weapon slots.",
+    "Touching an enemy moves all of their items into your inventory (as far as your carry limits allow) and flashes their screen. Same as Classic.",
+    "Grenade throws a Firebomb, as in Classic, but the Firebomb is now Explosion damage with 350 kickback (Classic: Electricity, 650).",
+    "Unlike Classic (Pulse Sensor), the Beacon is a Speed Booster: an impulse of 250 along your current direction of travel. If you are standing still it pushes along the world +Y axis, not the way you face.",
+    "Only class that can carry the Interceptor Pack (MechPack). Takes half damage from landing, impact and crush, and 1.2 to 1.3 times damage from Bullet, Energy, Shrapnel, Laser, Mortar, Blaster and Mine damage."
+   ],
+   "source": "armorScout.cs armormScout::onPlayerContact, ::onGrenade, ::onBeacon; armordata.cs Steal, Armor::SpeedBooster; miscMine.cs Firebomb; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorSpy": {
+   "summary": "The Spy class: a light infiltrator with the Cloaking Device, Magnum, timed Plastique grenades and the Laptop.",
+   "notes": [
+    "PlayerData armormSpy/armorfSpy (larmor/lfemale). Three weapon slots. Takes half damage from bullets.",
+    "Grenade throws Plastique (Nukebomb): 2.0 Mortar damage in a 10 m radius after a 15 s fuse (Classic: 10 s). Its Engineer-disarm check tests the Classic armor names earmor/efemale, so nobody can disarm it.",
+    "Unlike Classic (Satchel Charge), the Beacon activates Emergency Force Shields for about 20 s at shield strength 0.006.",
+    "The Classic Spy rule for using enemy teleport pads is gone. Any Laptop wearer can now use enemy pads, and the Spy can carry a Laptop.",
+    "Spy-only weapon: Magnum (Silencer). Spy-only pack: Cloaking Device. It can also carry the Laptop and the Plasma Turret pack. Female Spies can also buy the Dart Rifle; males cannot (the TranqGun row of the PopulateItemMax table)."
+   ],
+   "source": "armorSpy.cs armormSpy::onGrenade, ::onBeacon; armordata.cs startShield; miscMine.cs Nukebomb::onCollision; deployTeleporter.cs DeployableTeleport::onCollision; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorSniper": {
+   "summary": "The Sniper class: a light long-range frame with the Sniper Rifle, Cybernetic Laser pack, Laser Turret and hologram mines.",
+   "notes": [
+    "PlayerData armormSniper/armorfSniper (larmor/lfemale). Three weapon slots.",
+    "Grenade throws a HoloMine, a light-armor decoy that explodes when an enemy touches it. Unlike Classic, no team limit is checked (Classic: 15), and every HoloMine blows itself up after 120 s.",
+    "Beacon deploys a Sensor Jammer on a terrain or building surface 3 m ahead, as in Classic. It counts against the Sensor Jammer team limit.",
+    "Can carry the Laser Turret, Mechanical Tree and Optic Pack. Male Snipers can buy the Dart Rifle; female Snipers cannot (shifted TranqGun row in the PopulateItemMax table).",
+    "Can pilot every vehicle."
+   ],
+   "source": "armorSniper.cs armormSniper::onGrenade, ::onBeacon, SniperJammer; miscMine.cs HoloMine::onAdd, HoloMine::onCollision; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorMercenary": {
+   "summary": "The Mercenary is the all-round assault class and the armor everyone spawns in. It has five weapon slots.",
+   "notes": [
+    "PlayerData armormMercenary/armorfMercenary (marmor/mfemale).",
+    "$spawnBuyList buys this armor on every spawn, together with Disc Launcher, Plasma Gun, Shotgun, Targeting Laser, Energy Pack, Repair Kit, 6 Grenades and 3 Beacons.",
+    "Grenade throws a standard Handgrenade (2 s fuse), as in Classic.",
+    "Unlike Classic, the Beacon is a Speed Booster on yourself: an impulse of 300 along your direction of travel (world +Y if standing still). Classic's beacon was an area blast that launched everyone nearby.",
+    "New in Ren2K: it can pilot the LAPC and HAPC (the other vehicles only as a passenger). It also carries the Rocket Launcher, Vulcan, Thunderbolt, Rapidfire Laser and the Ion Turret pack."
+   ],
+   "source": "armorMercenary.cs armormMercenary::onGrenade, ::onBeacon; armordata.cs Armor::SpeedBooster; serverRenegades.cs $spawnBuyList; game.cs Game::playerSpawned; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorEngineer": {
+   "summary": "The Engineer is the builder class. It carries almost every deployable and heals anyone it touches.",
+   "notes": [
+    "PlayerData armormEngineer/armorfEngineer (marmor/mfemale). Three weapon slots, including the Railgun and the Engineer Repair-Gun.",
+    "Touching another player repairs them 0.10. Unlike Classic, there is no team check, so touching an enemy heals them too.",
+    "Classic let Engineers disarm Plastique and DetPack bombs. That code still tests the Classic armor names earmor/efemale, so Ren2K Engineers cannot disarm anything.",
+    "Grenade throws a Shock grenade (Flash damage, short-circuits enemies). The Beacon deploys a Camera. Both as in Classic.",
+    "The only class with the Blast Wall, Platform, Mortar Turret, Shock Turret and HPC Pack. It also has the Inventory Station, Teleport Pad, Springboard, Accelerator Device, Rail and Vulcan Turret packs, and Ion, Laser, Plasma and Missile turret packs.",
+    "New in Ren2K: it can pilot the HAPC (HPC)."
+   ],
+   "source": "armorEngineer.cs Repair, EngCamera, armormEngineer::onPlayerContact, ::onGrenade, ::onBeacon; miscMine.cs Nukebomb::onCollision, Suicidebomb2::onCollision; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorBurster": {
+   "summary": "The Burster is the heavy-ordnance class with the Mortar, Rocket Launcher, Flame Thrower and Suicide DetPack, and extra explosive ammo.",
+   "notes": [
+    "PlayerData armormBurster/armorfBurster (marmor/mfemale). Four weapon slots. Takes half damage from Plasma, Explosion, Missile, Shrapnel, Mortar and Mine damage.",
+    "armormBurster::onBurn is empty ('can't burn a burster'), but burning is disabled for every armor in Ren2K anyway.",
+    "Unlike Classic (Concussion grenade), the Grenade throws a Firebomb. The Concussion datablock still exists but nothing throws it.",
+    "Unlike Classic (Haul-Ass speed stim), the Beacon throws a Firebomb at a fixed force of 35 instead of the normal 15 x throw strength. The 0.5 s throw delay applies.",
+    "Burster-only pack: Suicide DetPack. Also carries the Missile Turret pack and up to 6 mines."
+   ],
+   "source": "armorBurster.cs armormBurster::onBurn, ::onGrenade, ::onBeacon; armordata.cs Armor::onBurn; miscMine.cs Firebomb; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorAlien": {
+   "summary": "The Alien is a fragile energy class with a huge energy pool, immunity to poison, a poison grenade and a temporary cloak.",
+   "notes": [
+    "PlayerData armormAlien/armorfAlien (marmor/mfemale). Health 0.4 with 600 energy (female: 500 energy, run speed 10 against 9). Classic's Alien had medium health and 140 energy. Four weapon slots.",
+    "Takes double damage from Plasma and Flash, and half from Laser, Blaster, Electricity and landing.",
+    "Immune to poison (armormAlien::onPoison is empty).",
+    "Life drain does not work. armormAlien::onPlayerContact calls Drain(%damagedPlayer, %damagingPlayer), but Drain's team check reads the undefined %targetPlayer and %sourcePlayer, which always compare equal, so it returns before doing anything. In Classic, touching an enemy healed you and poisoned them.",
+    "Grenade throws a Tranq grenade (Energy damage that poisons). The Beacon cloaks you for about 30 s with +3 sensor suppression; when it ends, sensor suppression is set to 0. Both as in Classic.",
+    "Alien-only packs: Regeneration Pack and Lightning Pack. Weapons include the Shockwave Cannon, Omega, Ion Rifle, Hyper Blaster, Thunderbolt and Rapidfire Laser."
+   ],
+   "source": "armorAlien.cs armormAlien::onPoison, ::onPlayerContact, ::onGrenade, ::onBeacon; armordata.cs Drain, startCloak, checkPlayerCloak; serverRenegades_ItemUsage.cs"
+  },
+  "iarmorCyborg": {
+   "summary": "The Cyborg is the heavy class: the most weapon slots and broad damage resistance. It carries an emergency-shield beacon and the only target-marking and seeking-missile kit.",
+   "notes": [
+    "PlayerData armorCyborg (harmor shape) for both genders. Six weapon slots. It takes 0.5 to 0.8 times damage from most damage types (Flash and Shotgun at full).",
+    "Grenade throws a Mortarbomb. The Beacon activates Emergency Force Shields for about 20 s (strength 0.006). Both as in Classic.",
+    "Cannot use teleport pads: DeployableTeleport::onCollision refuses any armor whose shape is harmor.",
+    "Unlike Classic, a Cyborg can take manual control of team Vulcan, Rail and Plasma turrets by touching them.",
+    "Cyborg-only gear: Target Marking Laser, Photon Torpedo, Image Rec. Launcher, Mass Driver (also the Commando) and the StealthShield Pack. It cannot buy the Shotgun.",
+    "Head shots: Player::onDamage only limits the +30% head bonus to middle quadrants for an armor literally named harmor. armorCyborg gets the full bonus."
+   ],
+   "source": "armorCyborg.cs armorCyborg::onGrenade, ::onBeacon; armordata.cs startShield; deployTeleporter.cs DeployableTeleport::onCollision; turret.cs Turret::onCollision; player.cs Player::onDamage; serverRenegades_ItemUsage.cs"
+  },
+  "ShotgunShells": {
+   "summary": "Ammo for the Shotgun. Each shell fires a spread of ten pellets.",
+   "notes": [
+    "Every class and the Commando can carry 15. An Ammo Pack raises that by half when bought at a station."
+   ],
+   "source": "weaponShotGun.cs; serverRenegades_ItemUsage.cs PopulateItemMax(ShotGunShells)"
+  },
+  "Shotgun": {
+   "summary": "A close-range shotgun that fires ten pellets per shell.",
+   "notes": [
+    "ShotgunImage::onFire uses one Shotgun Shell and spawns ten ShotgunBullet projectiles from the muzzle. Each bullet has 0.02 aim deflection, so the pellets spread.",
+    "Pellets do $ShotgunDamageType (type 16) damage, which each armor scales in its own $DamageScale row.",
+    "Part of the spawn loadout. Every class except the Cyborg can carry it."
+   ],
+   "source": "weaponShotGun.cs ShotgunImage::onFire, ShotgunBullet; serverRenegades.cs $spawnBuyList"
+  },
+  "Bolt": {
+   "summary": "The Thunderbolt fires a sustained lightning beam that damages the target and drains its energy. It is Classic's Thunderbolt (EnergyRifle) under a new datablock name.",
+   "notes": [
+    "Fires boltCharge lightning: Electricity damage over time plus energy drain, through Lightning::damageTarget. Electricity damage ignores shields.",
+    "Needs at least 15 energy to fire (Classic: 3).",
+    "Carried by the Mercenary, Alien, Cyborg and Commando. Classic allowed every class except the Burster."
+   ],
+   "source": "weaponthunderbolt.cs BoltImage, boltCharge; baseprojdata.cs Lightning::damageTarget; serverRenegades_ItemUsage.cs"
+  },
+  "MassAmmo": {
+   "summary": "Shells for the Mass Driver.",
+   "notes": [
+    "The Cyborg and Commando carry 20. Other classes have a limit of 10 but cannot buy the Mass Driver."
+   ],
+   "source": "weaponMassDriver.cs; serverRenegades_ItemUsage.cs PopulateItemMax(MassAmmo)"
+  },
+  "MassDriver": {
+   "summary": "A heavy, accurate shell launcher whose slow projectile hits hard and knocks the target back a long way.",
+   "notes": [
+    "Fires the Mass rocket projectile with Sniper damage type and almost no blast radius, so it must hit directly.",
+    "Because it is Sniper damage, head hits get the +30% bonus. A mid-body hit on an enemy wearing a Suicide DetPack sets the pack off.",
+    "Cyborg and Commando only."
+   ],
+   "source": "weaponMassDriver.cs MassDriverImage, Mass; player.cs Player::onDamage"
+  },
+  "DeathLaser": {
+   "summary": "The Rapidfire Laser is an energy-powered laser that fires short pulses almost continuously.",
+   "notes": [
+    "Fires DeathLaserBeam with a near-zero reload. Damage is 0.012 per point of energy spent, and each shot uses 1 to 5 energy.",
+    "Laser damage gets the +30% head-shot bonus. A single pulse is far below the 0.25 needed to knock a weapon from someone's hand.",
+    "Carried by the Spy, Mercenary, Engineer, Alien, Cyborg and Commando."
+   ],
+   "source": "weaponDeathLaser.cs DeathLaserImage, DeathLaserBeam; player.cs Player::onDamage"
+  },
+  "AmmoPack": {
+   "summary": "Raises your ammo capacity by half of your class's normal maximum for each ammo type and fills the extra when bought.",
+   "notes": [
+    "Unlike Classic's fixed per-ammo table ($AmmoPackMax), the bonus is $AmmoPackMult = 0.5 x your armor's $ItemMax for every addAmmo item, including Grenades, Beacons, Mines and Repair Kits. Station purchases (checkResources, fillAmmoPack) use this.",
+    "Item::giveItem still reads $AmmoPackMax, which Ren2K never defines, so ammo picked up from the ground or from bodies is capped at the normal maximum even while you wear the pack.",
+    "Dropping the pack takes your ammo above the normal limits with it. Whoever picks it up gets that ammo, up to 1.5 x their own class maximum.",
+    "AmmoPack::onRemove's loop tests i instead of %i, so its exit condition never changes. Whether the engine calls it was not determined.",
+    "Every class can carry it."
+   ],
+   "source": "packAmmo.cs AmmoPack::onDrop, ::onCollision, ::onRemove, checkPacksAmmo, fillAmmoPack; item.cs checkResources, Item::giveItem"
+  },
+  "Laptop": {
+   "summary": "The Laptop (Classic: Command Laptop) lets you control turrets from the Commander screen anywhere, hack enemy turrets by touch and use enemy teleport pads.",
+   "notes": [
+    "While worn, Turret::onAttemptControl lets you take control of any turret from the Commander screen without a Command Station.",
+    "Touching an enemy turret with $CanControl (Plasma, Rail or Vulcan) switches it to your team and puts you in control. Unlike Classic, Mortar and Missile turrets cannot be taken by touch.",
+    "After you leave a turret it recalibrates for 10 s. A hacked turret then reverts to its own team and stays on 'alert' for another 10 s. While wearing the Laptop you get these status messages instead of 'Turret is recharging'.",
+    "New: a Laptop wearer can use enemy teleport pads ('Enemy teleport override successful'). In Classic only the Spy could.",
+    "Mounting it triggers the pack image (min/max energy -1/-3). What that does was not determined from scripts. The mount help text goes to an undefined client, so nobody sees it.",
+    "Carried by the Spy and Engineer."
+   ],
+   "source": "packCommand.cs Laptop::onUse, ::onMount, Laptop::IsAvailable; turret.cs Turret::onCollision, Turret::onAttemptControl, Turret::onDismount, Turret::onInternalDiagnostics; deployTeleporter.cs DeployableTeleport::onCollision"
+  },
+  "SuicidePack": {
+   "summary": "The Burster's Suicide DetPack drops a huge timed bomb, and enemy snipers can set it off on your back.",
+   "notes": [
+    "Deploying it unmounts the pack and throws a Suicidebomb2 mine that explodes after 5 s (Classic: 20 s): 4.0 Shrapnel damage in a 70 m radius.",
+    "SuicidePack::deployShape never returns true, so onDeploy never removes the pack from your inventory. It is only unmounted, and using it again mounts it for another bomb.",
+    "While you wear it, an enemy Laser or Sniper hit to your mid-body unmounts it and drops a Suicidebomb that explodes after 0.5 s (4.0 Shrapnel, 50 m). Unlike Classic, there is no random choice of blast. The drop uses an undefined client's throw strength, so it lands at your feet.",
+    "Engineers cannot disarm it in Ren2K: the disarm check tests the Classic armor names. There is no station check on deploying.",
+    "Burster only."
+   ],
+   "source": "packSuicide.cs SuicidePack::onUse, ::onDeploy, ::deployShape; miscMine.cs Suicidebomb2, Suicidebomb; player.cs Player::onDamage"
+  },
+  "TargetMarkLaser": {
+   "summary": "The Target Marking Laser paints a target for the Cyborg's Photon Torpedo and Image Rec. missiles.",
+   "notes": [
+    "Fires a lightning-type beam whose damageTarget does no damage. It stores the hit object as LaunchAt on the shooter ID, which the script treats as your client, and tells you 'Marked <name>' (player name, map name or datablock name).",
+    "The mark stays until you paint something else. Seeking launchers read it from your client.",
+    "Cyborg only."
+   ],
+   "source": "weaponTargetMark.cs TargetMarkLaserBeam::damageTarget, TargetMarkLaser::onMount; packPhotonTorpedo.cs; packTrackerMissile.cs"
+  },
+  "PhotonPack": {
+   "summary": "A single-shot backpack torpedo that seeks whatever you last marked with the Target Marking Laser.",
+   "notes": [
+    "First use mounts it. The next use removes the pack from your inventory and fires one PhotonTorpedo seeking missile at your LaunchAt target. Its 10 damage kills almost anything it hits.",
+    "If nothing is marked, the target passed is empty. How the missile flies then was not determined from scripts.",
+    "Cyborg only."
+   ],
+   "source": "packPhotonTorpedo.cs PhotonPack::onUse, PhotonTorpedo"
+  },
+  "TrackerMissileAmmo": {
+   "summary": "Missiles for the Image Rec. Launcher.",
+   "notes": [
+    "Only the Cyborg can carry the launcher, but the Scout, Spy, Engineer, Burster and Alien can also carry these missiles (5 to 7) and pass them on. The Cyborg carries 10."
+   ],
+   "source": "packTrackerMissile.cs; serverRenegades_ItemUsage.cs"
+  },
+  "TrackerMissilePack": {
+   "summary": "The Image Rec. Launcher is a backpack launcher that fires seeking missiles at the target painted by your Target Marking Laser.",
+   "notes": [
+    "First use mounts it. Each later use spends one Image Rec. Missile and fires a TrackerMissile at your LaunchAt target, if one of your missiles is not already in flight.",
+    "After firing it waits 2 s before it can fire again.",
+    "Cyborg only."
+   ],
+   "source": "packTrackerMissile.cs TrackerMissilePack::onUse, TrackerMissile"
+  },
+  "Beacon": {
+   "summary": "Class ability item: each class's beacon does something different. Several differ from Classic.",
+   "notes": [
+    "Scout: Speed Booster, an impulse of 250 along your direction of travel (Classic: Pulse Sensor).",
+    "Spy: Emergency Force Shields for about 20 s (Classic: Satchel Charge).",
+    "Sniper: deploys a Sensor Jammer (as Classic).",
+    "Mercenary and Commando: Speed Booster, impulse 300 on yourself only (Classic: an area blast that launched nearby players).",
+    "Engineer: deploys a Camera (as Classic).",
+    "Burster: throws a Firebomb at a fixed force of 35 (Classic: Haul-Ass speed stim).",
+    "Alien: cloak for about 30 s (as Classic). Cyborg: Emergency Force Shields for about 20 s (as Classic).",
+    "A standing Speed Booster pushes along the world +Y axis. The old target-beacon code (Beacon::deployShape, team limit 40) is still there, but no class calls it. Unlike Classic, there is no station check."
+   ],
+   "source": "miscBeacon.cs Beacon::onUse, Beacon::deployShape; armor*.cs ::onBeacon; armordata.cs Armor::SpeedBooster, startShield, startCloak; armorSniper.cs SniperJammer; armorEngineer.cs EngCamera"
+  },
+  "Grenade": {
+   "summary": "Thrown explosive whose effect depends on your class.",
+   "notes": [
+    "Scout: Firebomb, now Explosion damage, 30 m radius, 350 kickback (Classic: Electricity, 650).",
+    "Spy: Plastique (Nukebomb), 2.0 Mortar damage after a 15 s fuse (Classic: 10 s). It cannot be disarmed.",
+    "Sniper: HoloMine decoy that explodes on enemy contact. There is no team limit, and it self-destructs after 120 s.",
+    "Mercenary: Handgrenade (Shrapnel, 2 s fuse). Engineer: Shock grenade (Flash, short-circuits). Alien: Tranq grenade (Energy, poisons). Cyborg: Mortarbomb (1.0 Mortar, 20 m). All as in Classic.",
+    "Burster: Firebomb (Classic: Concussion).",
+    "Commando: whatever the Plastique mode selector is set to.",
+    "Thrown with force 15 x throw strength. Fused grenades go off after 2 s. One throw every 0.5 s."
+   ],
+   "source": "miscGrenade.cs Grenade::onUse; armor*.cs ::onGrenade; armordata.cs Armor::ThrowGrenade; armorDM.cs DoGrenade; miscMine.cs"
+  },
+  "MineAmmo": {
+   "summary": "Thrown anti-personnel mine that only goes off for enemies.",
+   "notes": [
+    "Throws an AntipersonelMine set to your team. It triggers when an enemy player, an enemy vehicle or a moving object touches it, and mines dropped on top of each other set each other off.",
+    "Unlike Classic, MineAmmo::onUse never checks or increments the 35-mine team limit. Destroyed mines still decrement the counter.",
+    "When $Deathmatch is set (dm.cs, single-team missions), it throws a DMMine instead. A DMMine has no team and triggers on anyone.",
+    "Burster 6, Cyborg 5, everyone else 3."
+   ],
+   "source": "miscMine.cs MineAmmo::onUse, AntipersonelMine::onCollision, ::deployCheck, ::onDestroyed, DMMine::onCollision"
+  },
+  "RepairKit": {
+   "summary": "Single-use self repair that also cures poison.",
+   "notes": [
+    "Repairs 0.2 damage. Each armor's onRepairKit (Armor::onRepairKit) then clears your poison timer.",
+    "Unlike Classic, it can be used inside a station or while piloting."
+   ],
+   "source": "miscRepairKit.cs RepairKit::onUse; armordata.cs Armor::onRepairKit"
+  },
+  "MotionSensorPack": {
+   "summary": "Deploys a Motion Sensor that can go on floors, walls or ceilings.",
+   "notes": [
+    "Spawns DeployableMotionSensor on terrain or a building within 3 m, oriented to the surface, with a 1 m clear-space check. Placement is the same as Classic.",
+    "Team limit 10 (Classic: 15). Every class can carry one."
+   ],
+   "source": "deployMotionSensor.cs MotionSensorPack::onDeploy, ::deployShape; sensor.cs"
+  },
+  "PulseSensorPack": {
+   "summary": "Deploys a Pulse Sensor, as in base Tribes.",
+   "notes": [
+    "Spawns DeployablePulseSensor on flat terrain or a building (Item::deployShape).",
+    "Team limit 10 (Classic: 15). The Scout's beacon no longer places pulse sensors, so only this pack does. Every class can carry one."
+   ],
+   "source": "deployPulseSensor.cs PulseSensorPack::onDeploy; item.cs Item::deployShape"
+  },
+  "CameraPack": {
+   "summary": "Deploys a remote Camera you can view through from the Commander screen.",
+   "notes": [
+    "Spawns CameraTurret on any terrain or building surface, oriented to it. Cameras can be controlled without a Command Station or Laptop ($CanAlwaysControl).",
+    "Team limit 10 (Classic: 15), shared with the Engineer's beacon cameras.",
+    "Every class except the Mercenary can carry one. Behavior is otherwise as in Classic."
+   ],
+   "source": "deployCamera.cs CameraPack::deployShape, CameraTurret; armorEngineer.cs EngCamera; turret.cs Turret::onAttemptControl"
+  },
+  "DeployableSensorJammerPack": {
+   "summary": "Deploys a stationary Sensor Jammer.",
+   "notes": [
+    "Spawns DeployableSensorJammer on flat terrain or a building. Team limit 10, shared with the Sniper's beacon jammers. Same as Classic.",
+    "Every class can carry one."
+   ],
+   "source": "deploySensorJammer.cs DeployableSensorJammerPack::onDeploy; item.cs Item::deployShape; armorSniper.cs SniperJammer"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote Inventory Station.",
+   "notes": [
+    "Spawns DeployableInvStation on flat terrain or a building with a 1 m clear-space check.",
+    "Unlike Classic, there is no rule against placing it near other stations.",
+    "Team limit 10 (Classic: 15). Engineer and Commando. Deathmatch spawns start with one mounted."
+   ],
+   "source": "deploySmallInventoryStation.cs DeployableInvPack::deployShape, DeployableInvStation::onActivate; dm.cs Game::playerSpawned"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote Ammo Station.",
+   "notes": [
+    "Spawns DeployableAmmoStation on flat terrain or a building. Unlike Classic, there is no 8 m spacing rule from other stations.",
+    "Team limit 10. Carried by the Mercenary, Engineer, Burster, Alien, Cyborg and Commando."
+   ],
+   "source": "deploySmallAmmoStation.cs DeployableAmmoPack::deployShape, DeployableAmmoStation::onActivate"
+  },
+  "DeployableComPack": {
+   "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+   "notes": [
+    "Spawns DeployableComStation on flat terrain or a building. Unlike Classic, there is no 8 m spacing rule from other stations.",
+    "Standing in it sets your player's CommandTag and opens the Commander screen. When you leave, the script clears the tag on the client object instead of the player, so the player keeps Commander-screen turret control after leaving.",
+    "Team limit 5. Engineer and Cyborg."
+   ],
+   "source": "deploySmallCommandStation.cs DeployableComPack::deployShape, DeployableComStation::OnActivate; turret.cs Turret::onAttemptControl"
+  },
+  "ForceFieldPack": {
+   "summary": "Deploys a small 5x5 force field wall.",
+   "notes": [
+    "Spawns DeployableForceField facing the way you look. It only needs a flat surface within 3 m: there is no terrain/building or clear-space check. Same as Classic.",
+    "Team limit 12. Every class can carry one."
+   ],
+   "source": "deployForceField.cs ForceFieldPack::deployShape, DeployableForceField::onDestroyed"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Deploys a full-size force field wall.",
+   "notes": [
+    "Spawns LargeForceField with the same placement rules as the small field.",
+    "Team limit 2 (Classic: 4). Engineer and Cyborg (Classic: Engineer and Alien)."
+   ],
+   "source": "deployForceField.cs LargeForceFieldPack::deployShape, LargeForceField::onDestroyed"
+  },
+  "MannequinPack": {
+   "summary": "Deploys a stationary dummy of a player in light, medium or heavy armor as a decoy. It replaces Classic's Hologram pack.",
+   "notes": [
+    "Picks a random model: light armor 30%, medium armor 40%, heavy armor 30%. The heavier models are tougher.",
+    "Needs a flat surface and a clear 1 m spot. Team limit 6, counted under the key Mannequin.",
+    "An animation loop (Mannequin::onMove) exists but its schedule is commented out, so mannequins never move.",
+    "Every class can carry one."
+   ],
+   "source": "deployMannequin.cs MannequinPack::deployShape, Mannequin::onDestroyed, Mannequin::onMove"
+  },
+  "TreePack": {
+   "summary": "Deploys a Mechanical Tree for cover or camouflage.",
+   "notes": [
+    "Spawns DeployableTree (40%) or DeployableTree2 (60%) on flat terrain only. Not visible to sensors.",
+    "The file defines DeployableTree::onDestroyed twice and DeployableTree2 has no handler, so destroying a DeployableTree2 never frees its slot in the team limit.",
+    "Team limit 6 (Classic: 25). Sniper and Engineer."
+   ],
+   "source": "deployTree.cs TreePack::deployShape, DeployableTree::onDestroyed"
+  },
+  "BlastWallPack": {
+   "summary": "Deploys a solid Blast Wall for cover. It replaces Classic's misnamed Tripwire Pack.",
+   "notes": [
+    "Spawns BlastWall (door-panel shape) facing the way you look, on flat terrain only (not buildings), with a 1 m clear-space check.",
+    "Team limit 10 (Classic: 20). Engineer only."
+   ],
+   "source": "deployBlastWall.cs BlastWallPack::deployShape, BlastWall::onDestroyed"
+  },
+  "PlatformPack": {
+   "summary": "Deploys a thin 6x6 platform you can stand on.",
+   "notes": [
+    "Spawns DeployablePlatform wherever your 3 m line of sight hits. There is no surface, flat or clear-space check (as Classic). Not visible to sensors.",
+    "Team limit 12 (Classic: 25). Engineer only."
+   ],
+   "source": "deployPlatform.cs PlatformPack::deployShape, DeployablePlatform::onDestroyed"
+  },
+  "TeleportPack": {
+   "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+   "notes": [
+    "Team limit 2, so each team gets one linked pair. The pad sits 1 m above the surface with an electrical beam. The surface-type check is miswritten and only rejects deployable platforms. It still needs a flat spot and clear space.",
+    "After a teleport both pads recharge for 5 s.",
+    "Unlike Classic (1 in 45, 0.25 damage), each teleport has a 1-in-55 malfunction: 0.15 crush damage, the entry pad is permanently disabled, and neither pad is re-enabled, so the pair stops working.",
+    "Cyborgs (harmor shape) cannot teleport. Enemy pads can be used only while wearing a Laptop (Classic: Spies).",
+    "Destroying a pad does 20 debris damage to the team's other pad. Engineer and Commando."
+   ],
+   "source": "deployTeleporter.cs TeleportPack::deployShape, DeployableTeleport::onCollision, ::onDestroyed, ::Reenable"
+  },
+  "SpringPack": {
+   "summary": "Deploys a Springboard that flings anyone who touches it.",
+   "notes": [
+    "Unlike Classic's push in the facing direction, touching it sets your velocity: your horizontal speed doubled and vertical speed 45 ('SPROING!').",
+    "9 in 55 touches give vertical 150 with doubled horizontal speed. 1 in 55 is a 'moon' launch: horizontal speed x50, vertical 200, announced to everyone.",
+    "Launches anyone, including enemies. Needs a flat surface. Team limit 3 (Classic: 15). Engineer and Commando."
+   ],
+   "source": "deploySpringboard.cs SpringPack::deployShape, Springboard::onCollision"
+  },
+  "AcceleratorDevicePack": {
+   "summary": "Deploys an Accelerator Device: a beam that multiplies the speed of anyone who passes through it.",
+   "notes": [
+    "Places the AcceleratorDevice beam item 1 m above the aimed point, plus two AcceleratorDeviceSide mount shapes offset to the left and right. The offset vector has length 500. Exactly where the mounts end up was not verified.",
+    "Touching the beam multiplies your velocity by 5. 1 in 40 touches is a 'malfunction' that multiplies it by 12. The beam then hides for 3 s.",
+    "Destroying either mount removes the whole device. There is no surface or flat check.",
+    "Team limit 2, counted as AcceleratorDevice. Engineer and Commando."
+   ],
+   "source": "deployAccelerator.cs AcceleratorDevicePack::deployShape, AcceleratorDevice::onCollision, AcceleratorDeviceSide::onDestroyed"
+  },
+  "MechPack": {
+   "summary": "The Interceptor Pack deploys a ready-to-fly Interceptor jet.",
+   "notes": [
+    "Spawns the Interceptor flier on flat terrain or a building with a 1 m clear-space check. Classic used the stricter open-area flier check.",
+    "Counts against the Interceptor team limit of 5, shared with station-bought Interceptors.",
+    "The message says 'Piloting Interceptor', but the script does not mount you; you still walk into it.",
+    "Scout only."
+   ],
+   "source": "deployVehicles.cs MechPack::deployShape; vehicleInterceptor.cs"
+  },
+  "DetPack": {
+   "summary": "Despite the datablock name, this is the HPC Pack (Classic: StealthHPC Pack). It deploys an HPC transport, not an explosive.",
+   "notes": [
+    "Spawns the HAPC flier on flat terrain or a building with a clear-space check.",
+    "Counts against the HAPCVehicle team limit of 2 (Classic: 1).",
+    "Engineer only. Unlike Classic, Engineers can pilot the HAPC, so the deployer can fly it."
+   ],
+   "source": "deployVehicles.cs DetPack::deployShape; vehicleHAPC.cs; serverRenegades_ItemUsage.cs $VehicleUse"
+  },
+  "IonTurretPack": {
+   "summary": "Deploys a remote Ion Turret that fires electrical bolts. It replaces Classic's TurretPack.",
+   "notes": [
+    "Spawns DeployableIonTurret firing IonBolt (Electricity damage, which ignores shields) on a flat surface with room above it.",
+    "Uses the shared Turret::deployShape spacing: no more than 3 ranged turrets in a 50x50x25 box and no other Ion turret within 8 m.",
+    "Not touch-controllable. Team limit 5. Mercenary, Engineer, Alien and Cyborg."
+   ],
+   "source": "deployIonTurret.cs IonTurretPack::onDeploy, DeployableIonTurret; turret.cs Turret::deployShape"
+  },
+  "LaserTurretPack": {
+   "summary": "Deploys a Laser Turret that can be mounted on floors, walls or ceilings. It replaces Classic's LaserPack.",
+   "notes": [
+    "Spawns DeployableLaserTurret firing SniperLaser (Laser damage), oriented to any surface ($TurretLocAnywhere). It has no shield.",
+    "Shared turret spacing rules (see Ion Turret). Team limit 6.",
+    "Sniper, Engineer and Cyborg (Classic: Spy and Engineer)."
+   ],
+   "source": "deployLaserTurret.cs LaserTurretPack::onDeploy, DeployableLaserTurret; turret.cs Turret::deployShape"
+  },
+  "RocketPack": {
+   "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+   "notes": [
+    "Spawns DeployableRocket firing TurretMissile. It only engages targets with heat factor 0.5 or more, such as jetting players or vehicles (as Classic).",
+    "When destroyed it does a 20 m debris blast.",
+    "Cannot be taken over by touch ($CanControl 0). Shared turret spacing rules. Team limit 3. Engineer and Burster."
+   ],
+   "source": "deployMissileTurret.cs RocketPack::onDeploy, DeployableRocket::verifyTarget, ::onDestroyed; turret.cs Turret::deployShape"
+  },
+  "MortarTurretPack": {
+   "summary": "Deploys a remote Mortar Turret that only fires under manual control. It replaces Classic's TargetPack.",
+   "notes": [
+    "Spawns DeployableMortar firing MortarTurretShell (30 m Mortar blast). It has no auto-sensor (range 0), and mounting the pack tells you so.",
+    "Unlike Classic, it cannot be taken by touch ($CanControl 0), even with a Laptop. You control it from the Commander screen with a Laptop or Command Station.",
+    "Flat-ground placement and shared spacing rules. Team limit 2. Engineer only."
+   ],
+   "source": "deployMortarTurret.cs MortarTurretPack::onMount, ::onDeploy, DeployableMortar; turret.cs Turret::onCollision, Turret::onAttemptControl"
+  },
+  "ShockTurretPack": {
+   "summary": "Deploys a Shock Turret that short-circuits enemies. It replaces Classic's ShockPack.",
+   "notes": [
+    "Spawns DeployableShockTurret firing ShockShell (Flash damage, 30 m blast). Flash damage on an enemy zeroes their energy, stops recharge and unmounts their weapon for 14 s.",
+    "Can be mounted on any surface orientation. Shared turret spacing rules (Classic: at most 2 in a 50x50x10 box).",
+    "Team limit 4. Engineer only."
+   ],
+   "source": "deployShockTurret.cs ShockTurretPack::onDeploy, DeployableShockTurret; player.cs Shock_Damage"
+  },
+  "PlasmaTurretPack": {
+   "summary": "Deploys a Plasma Turret that a teammate can also fire by hand. It replaces Classic's misnamed LaserTurret pack.",
+   "notes": [
+    "Spawns DeployablePlasmaTurret firing FusionBolt on flat ground with room above it.",
+    "Teammates can walk into it to take manual control and are moved onto the turret. A Laptop wearer can do the same to an enemy one.",
+    "When destroyed it does a 20 m debris blast. Shared turret spacing rules (Classic: no other Plasma turret within 10 m and an open-area check).",
+    "Team limit 4. Spy and Engineer (Classic: Engineer and Cyborg)."
+   ],
+   "source": "deployPlasmaTurret.cs PlasmaTurretPack::onDeploy, DeployablePlasmaTurret::onDestroyed; turret.cs Turret::onCollision, Turret::onManualControl"
+  },
+  "RailTurretPack": {
+   "summary": "Deploys a manually fired Rail Turret. It replaces Classic's RailTurret pack.",
+   "notes": [
+    "Spawns DeployableRailTurret firing railLaser (Sniper damage). Range 0, so it only fires when manned.",
+    "Any teammate, including a Cyborg (Classic excluded them), takes control by walking into it and is moved onto the turret.",
+    "Unlike Classic, its spacing check counts Rail turrets, not Vulcans. When destroyed it does a 20 m debris blast.",
+    "Its $CanAlwaysTeamDestroy entry is misspelled, so teammates damage it only at the server team-damage scale.",
+    "Team limit 2. Engineer and Commando."
+   ],
+   "source": "deployRailTurret.cs RailTurretPack::onMount, ::onDeploy, DeployableRailTurret; turret.cs Turret::onCollision, Turret::onDamage, Turret::deployShape"
+  },
+  "VulcanTurretPack": {
+   "summary": "Deploys a Vulcan Turret that a teammate fires by hand. It replaces Classic's VulcanTurret pack.",
+   "notes": [
+    "Spawns VulcanTurret firing TurretBullet. Range 0, so it has no auto-sensor and only fires when manned.",
+    "Any teammate, including a Cyborg (Classic excluded them), can walk into it to take control and is moved onto the turret. A Laptop wearer can take an enemy one.",
+    "VulcanTurret::onDestroyed decrements the count key 'VulcanTurret' instead of 'VulcanTurretPack', so destroyed Vulcans never free the team limit of 2. After two deploys a team cannot place more for the rest of the mission.",
+    "Engineer and Commando."
+   ],
+   "source": "deployVulcanTurret.cs VulcanTurretPack::onDeploy, VulcanTurret::onDestroyed; turret.cs Turret::onCollision"
+  },
+  "ScoutVehicle": {
+   "summary": "The Scout (Classic: ScoutJet) is a fast single-seat flier armed with rockets.",
+   "notes": [
+    "Flier datablock Scout fires the Nuke projectile (Shrapnel damage, 20.5 m blast). Single seat, no passengers.",
+    "Only a Scout, Spy or Sniper can pilot it (as Classic).",
+    "Team limit 3."
+   ],
+   "source": "vehicleScout.cs FlierData Scout; baseprojdata.cs Nuke; vehicle.cs Vehicle::onCollision; serverRenegades_ItemUsage.cs $VehicleUse"
+  },
+  "InterceptorVehicle": {
+   "summary": "The Interceptor is a fast single-seat flier with a rapid-fire cannon. It replaces Classic's JetVehicle.",
+   "notes": [
+    "Fires VulcanIntBullet (Bullet damage) at a very short reload.",
+    "Single seat. Only a Scout, Spy or Sniper can pilot it. Everyone else gets 'Cannot pilot this vehicle in your current armor class'.",
+    "Team limit 5, shared with Interceptors deployed from the Interceptor Pack."
+   ],
+   "source": "vehicleInterceptor.cs FlierData Interceptor, VulcanIntBullet; deployVehicles.cs MechPack::deployShape; vehicle.cs Vehicle::onCollision"
+  },
+  "HAPCVehicle": {
+   "summary": "The HPC (Classic: StealthHPC) is an unarmed heavy transport with four passenger seats.",
+   "notes": [
+    "Unlike Classic's StealthHPC, it is visible to sensors.",
+    "No projectile is defined, so it has no weapon.",
+    "Pilots: Scout, Spy, Sniper, and in Ren2K also Mercenary and Engineer. All other classes ride.",
+    "Team limit 2, shared with the Engineer's HPC Pack."
+   ],
+   "source": "vehicleHAPC.cs FlierData HAPC; deployVehicles.cs DetPack::deployShape; serverRenegades_ItemUsage.cs $VehicleUse"
+  },
+  "Fixit": {
+   "summary": "The Engineer Repair-Gun is a repair beam that needs no Repair Pack.",
+   "notes": [
+    "Self-repair runs at 0.05 instead of Classic's 0.07.",
+    "Ren2K's auto-stop check (RepairBolt::checkDone) only handles the standard Repair Gun, so the Engineer Repair-Gun beam does not switch itself off when the target is fully repaired.",
+    "Repairing a generator, solar panel or portable generator is reported to the Insomniax admin stats (ixRepairing)."
+   ],
+   "source": "weaponfixit.cs / packRepair.cs RepairBolt::onAcquire, ::checkDone"
+  },
+  "RegenerationPack": {
+   "summary": "Alien pack that repairs your own damage while it is switched on.",
+   "notes": [
+    "Same scripts as Renegades Classic; Ren2K only moves it into its own file (packRegeneration.cs)."
+   ],
+   "source": "packRegeneration.cs"
+  }
+ }
+}

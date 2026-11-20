@@ -1,0 +1,54 @@
+{
+ "mod": {
+  "overview": "Starsiege Craft: Rogues and Renegades (SSCR), created by [SC]Matthias in August 2001, is a StarCraft-themed total conversion of base Starsiege Tribes featuring Terran, Protoss, Zerg, and Freelance classes. Players spawn in FireBat armor (or Freelancer/Judicator loadouts in Deathmatch) and visit inventory stations to switch into 20 specialized armors, each with distinct weapon limits, custom grenade/beacon abilities, and faction-specific weapons, psionics, packs, and flying vehicles. Compared to base Tribes, combat revolves heavily around asymmetric class roles, status effects like poison, burning, blinding, energy-draining FeedBack, and lethal melee contact, plus SCV base fortification and Tab-menu selectable firing modes. The mod supports standard team missions as well as Deathmatch and Team Deathmatch with efficiency-based scoring, alongside an admin menu for spawning and managing five types of AI bots.",
+  "notes": [
+   "Classes and Factions: The inventory is split into Terran Armors (Ghost, Marine, Medic, FireBat, Vulture, Goliath), Protoss Classes (Zealot, Templar, Dark Templar, Dragoon, Archon, Reaver, Hybrid Archon), Zerg Broods (Zergling, Hydralisk, Lurker, Ultralisk, Queen, Infested Marine), and Freelance (SCV, Xel'Naga). Most light/medium classes carry 3 weapons while heavy or elite classes (Goliath, Reaver, Hybrid Archon, Hydralisk, Lurker, Ultralisk) carry 4; Freelancers and Judicators in Deathmatch also carry 4.",
+   "Controls, Menus, and Weapon Modes: There are no # chat commands. Pressing Tab opens the Options menu where players switch teams, start votes, and open Weapon Options to change firing modes on the Anti Matter Launcher (Mortar, Missile, Spread), Psionic Receptive (Disc, Grenade, Sniper), Particle Cannon (Grenade, Missile, Spread), Shock Rifle (Beam, Sphere), and Gauss Rifle (Rifle, Grenade Launcher Attachment, or Both simultaneously).",
+   "Class Beacon and Grenade Abilities: Every class replaces standard Beacons and Grenades with custom skills. Beacons trigger Impact Shields (Dragoon, Archon, Reaver, Templar, Zealot, Goliath, Zergling, Hydralisk, Xel'Naga), SpeedBooster (Ghost, FireBat), Satchel Charges (Marine, Infested Marine), Camera deployment (SCV), HealGren (Medic), self-heal (Ultralisk), Firebombs (Vulture), HABombs (Hybrid Archon), DTMass rockets (Dark Templar, Queen), or BurrowShot spreads (Lurker). Grenades throw class-specific payloads such as Electro mines, Concussion mines, Shockgrenades, Forcegrenades, Yamato Nukebombs, Arclite Virusbomb, Psibomb disruptors, or Ultrabombs.",
+   "Combat and Status Effects: Weapon damage types inflict persistent status effects tracked in player.cs and armordata.cs: Energy damage applies biotoxin poison (cured by a Repair Kit, while Dragoon and Xel'Naga are immune), Plasma damage can ignite armor for burning damage-over-time, Flash damage short-circuits energy and unmounts the held weapon for 10 seconds, Optical Flares blind the target's screen, FeedBack Rifle converts the target's remaining jet energy directly into health damage, Broodling Spawn kills and bursts two broodling mine spawners from the corpse, and Dragoon melee contact drains health and energy while Xel'Naga contact vaporizes non-Xel'Naga foes.",
+   "Base Building and Economy: Team energy defaults to Infinite in game.cs (unless overridden by a mission), and the SCV (Engineer) is the exclusive builder for defensive barriers (BlastWall, ForceField, LargeForceField), platforms and movement pads (AirPlatform, LargeAirPlat, Springboard, Accelerator, Teleporter), deployable stations (Small Inventory, Ammo, Command), and most turrets (Ion, Laser, Missile, Shock, Plasma, Rail, Vulcan, Flame, HFlame, Elec, AA). Portable Uplink (Laptop) lets non-SCV carriers control turrets without a Command Station.",
+   "Vehicles and Piloting Locks: Faction flyers are restricted by armor class via $VehicleUse in armorvalues.cs: Terran armors pilot Wraith, DropShip (LAPC), and BattleCruiser (Speeder); Protoss armors pilot Photon Scout, AntiMatter Scout, Corsair (DogFighter), Shuttle (HAPC), and Carrier (Tempest); Zergling, Hydralisk, and Ultralisk pilot Zerg Guardian and Devourer flyers (Mutalisk is commented out in serverStarCraft.cs). SCV and Infested Marine can ride any craft as passengers but cannot pilot.",
+   "Bans, Caps, and Inactive Content: iarmorMedic (parmor) is completely banned ($InvList = 0, $RemoteInvList = 0, $VehicleInvList = 0). Zergling (iarmorLing) and Hydralisk (iarmorLoader) have $RemoteInvList = 0, restricting them to main Inventory Stations. Per-team deployable caps in serverStarCraft_ItemUsage.cs limit teams to 2 Rail/Vulcan/Flame/HFlame/Elec turrets, 3 Rocket/Accelerator/Springboard packs, 4 Plasma/Shock turrets, 5 Ion turrets/ComPacks, 6 Laser turrets, 8 BlastWalls/ForceFields, 10 Cameras/Sensors/Inv/Ammo packs, and 25 Satchel packs; RepairTurret, ForceField, MortarTurret, BarrageTurret, Mutalisk, and CloakPack are commented out of serverStarCraft.cs.",
+   "Game Modes and AI Bots: Standard team play and Deathmatch/Team Deathmatch (dm.cs, tracking kills/deaths and efficiency ratios once kills + deaths > 4, with $MaxNumKills = 15) are supported. Admins can spawn, remove, or mass-kill AI bots (Guard, Demo, Painter, Sniper, and Medic in Male/Female, Roaming or stationary modes) directly from the Tab admin menu.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): iarmorMedic (armorMedic.cs); Blocked at Remote Stations ($RemoteInvList = 0): iarmorLing (armorLing.cs), iarmorLoader (armorLoader.cs), RepairTurretPack (deployRepairTurret.cs)."
+  ]
+ },
+ "items": {
+  "iarmorXelNaga": {
+   "summary": "Ultra-fast, glass-cannon Freelance armor immune to poison and burn that vaporizes enemies on physical contact and heals to full health.",
+   "notes": [
+    "Runs at speed 20 with only 0.23 maxDamage, making it one of the fastest but most fragile classes in the mod.",
+    "Immune to poison and burn damage callbacks and carries exclusive gear (NagaLauncher and MineTele).",
+    "Physical contact with any non-Xel'Naga enemy instantly blows up and kills the target while resetting the Xel'Naga's damage to 0."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/starsiege-craft/armorXelNaga.cs"
+  },
+  "GNuke": {
+   "summary": "Ghost-exclusive tactical nuclear targeting laser that drops two warheads from 100 meters overhead if the user holds aim steady.",
+   "notes": [
+    "Can only target terrain or building surfaces within 1000 meters; targeting a player or flyer is rejected.",
+    "After firing, the Ghost must hold the exact aim point for 5 seconds; moving or shifting aim causes the nuclear strike to scatter randomly nearby instead of hitting the lock point.",
+    "Exclusive to the Ghost (armormScout/armorfScout) with a maximum carry of 3 NukeAmmo."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/starsiege-craft/weaponNuke.cs"
+  },
+  "StealthShieldPack": {
+   "summary": "Dual-purpose Solar Shield Pack that activates an energy-absorbing shield while suppressing the wearer's sensor signature.",
+   "notes": [
+    "Grants shieldStrength = 0.012 while active, absorbing incoming damage using player energy.",
+    "Adds 20 sensor suppression on activation to hide the wearer from enemy sensor networks.",
+    "Equipable by Ghost (Scout) and Goliath (Cyborg) per serverStarCraft_ItemUsage.cs."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/starsiege-craft/packStealthShield.cs"
+  },
+  "iarmorMedic": {
+   "summary": "Banned 'Dick Slanger' (parmor) gag armor disabled in all inventories and used solely for a super-admin curse menu option.",
+   "notes": [
+    "Set to 0 in $InvList, $RemoteInvList, and $VehicleInvList so no player can buy it at an inventory station.",
+    "Has 10 maxDamage, 0 maxForwardSpeed, and a 1-weapon limit carrying only the 'penis' pack in ArmorMax.cs.",
+    "Toggled onto players only by Super Admins through the Tab Admin Options 'Give ... the Balls of Life' menu action."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/starsiege-craft/armorMedic.cs"
+  }
+ }
+}

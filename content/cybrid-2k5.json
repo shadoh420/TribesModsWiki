@@ -1,0 +1,66 @@
+{
+ "mod": {
+  "overview": "Cybrid 2K5, subtitled The Cybrid Wars, is a 2005 total-conversion overhaul created by Armageddon and WorstAim of the Hybrid Development Team, built upon Ultra Renegades VX Elite. The mod replaces standard Tribes armors and fantasy spell systems with an intense factional war between the ballistic-heavy Hybrid faction and the energy-wielding machine Cybrid faction across Capture the Flag, Capture and Hold, Defend and Destruct, and Deathmatch modes. Gameplay features asymmetric weapon loadouts, where Hybrids carry high numbers of conventional and heavy ordnance weapons while Cybrids wield devastating specialized energy cannons, custom elemental grenades, and advanced survival packs. Players engage in fast-paced tactical battles utilizing deployable barriers and network stations, transformable mech vehicles, high-speed flight boosters, and apocalyptic superweapons like charged atom accelerators and orbital fission strikes.",
+  "notes": [
+   "Faction Armors and Capacity: Players choose between two distinct races across light, medium, and heavy chassis: the Hybrid faction (Talon Light carrying 5 weapons, Predator Medium carrying 7 weapons, and Eagle Heavy carrying 9 weapons) and the Cybrid faction (Banshee Light carrying 3 weapons, Adjudicator Medium carrying 5 weapons, and Executioner Heavy carrying 7 weapons). Players spawn as a Talon Light equipped with a 50.Cal Pistol, Verminator rifle, HaVoC Sniper Rifle, 12.Gauge Shotgun, Talon Rocket Launcher, and Medic Pack.",
+   "Signature Faction Packs: Backpacks offer radical tactical abilities tailored to faction roles. The Hybrid Light can deploy the Tick Pack to burrow into the terrain for heavy shielding while stationary, or use the Nitrogen Jetpack to mask heat signatures from anti-aircraft guns. The Hybrid Medium gains the Flight Pack with reusable 10-second boost cells or the explosive Claymore Pack that scatters 20 grenades. The Hybrid Heavy can trigger the Mech Pack to transform directly into a piloted Hover Tank or utilize mass-manipulating Thrust and Shield+ packs. The Cybrid Light possesses the Vanish Pack, a terrain shifter that teleports the user deep underground leaving a decoy surface clone until the jump key is pressed.",
+   "Advanced Weapons and Multi-Barrel Artillery: The mod expands weapon mechanics with complex multi-stage munitions and charge timers. Highlights include the Cybrid Armageddon Cannon, which charges up to 200 percent while holding the trigger to fire through eight tiers of escalation up to a full Armageddon Shot; the Split Fission Mortar, which separates in midair into eight bursting fireballs; the Reverse Fission Emitter, which initiates an expanding multi-ring nuclear shockwave; and the Hybrid Thermal Launcher, which deploys 100-radius AtomBomb blasts.",
+   "Custom Grenades and Elemental Damage: Combat features fourteen distinct damage classifications including Energy, Fusion, Pulse, Radiation, AntiMatter, ION, Bullet, Fire, Explosion, EMP, Nuclear, and Thermal. While Hybrids carry standard grenades and live mines, Cybrid chassis carry exclusive ordnance such as Vortex Grenades, Fusion Grenades, Pulse Grenades, Radiation Grenades, and Rail Grenades.",
+   "Vehicle Fleet and Weapon Switching: Four combat craft are available from vehicle pads or the Mech Pack: the Brawler Assault scout flier, the Mercenary Jet-Bike, the Star Destroyer heavy transport, and the Hover Tank assault mech. While piloting, players can dynamically cycle the vehicle primary weaponry between available configurations using the standard Next Weapon and Previous Weapon keybinds.",
+   "Deployable Networks and Remote Inventory Restrictions: Combat engineers can deploy comprehensive base fortifications with strict team limits: up to 10 Sentry Turrets, 10 Spy Camera Networks, 10 Sensor Jammers, 10 Pulse Sensors, 10 Motion Sensors, 7 Ammo Stations, 5 Inventory Stations, and 5 Electric Web plasma barrier turrets. Remote inventory stations are hard-coded to disallow armor changing by setting RemoteInvList to 0 for all six Hybrid and Cybrid armor types.",
+   "Persistent Chat Commands and T-Mail System: The mod integrates custom social and utility systems via in-game chat commands. Players can send private whispers using !pm, view persistent records including kills, deaths, suicides, and flag captures with !stats, or interact with Tribes-Email V.2 using !Tmail, !Write, !Compose, !AddContact, and !Clear. Server administrators authenticate through the chat command !sad followed by the password, bypassing standard console logins.",
+   "Special Administrative Controls: Built-in administration tools include clan match point configuration via the Tab menu, server management routines, and an administrative possession system that allows admins to take direct control of other player bodies or bots during live matches.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): CyHeavy (station.cs), CyLight (station.cs), CyMedium (station.cs), HyHeavy (station.cs), HyLight (station.cs), HyMedium (station.cs)."
+  ]
+ },
+ "items": {
+  "ArmageddonCannon": {
+   "summary": "Cybrid Heavy directed-energy cannon with an active hold-to-charge firing mechanic.",
+   "notes": [
+    "Holding down the trigger charges the weapon up to 200 percent while drawing atmospheric particles.",
+    "Projectiles scale dynamically across eight escalating tiers depending on charge percentage at release, transitioning from Fusion and Plasma bolts up to a maximum-charge Armageddon Shot."
+   ],
+   "source": "item.cs"
+  },
+  "MechPack": {
+   "summary": "Hybrid Heavy utility backpack that transforms the operator into an armored combat vehicle.",
+   "notes": [
+    "Activating the pack immediately spawns an armed HAPC Hover Tank and mounts the player inside as pilot.",
+    "If the player is carrying the enemy flag upon activation, the flag is automatically dropped to prevent vehicle flag caps."
+   ],
+   "source": "item.cs"
+  },
+  "VanishPack": {
+   "summary": "Cybrid Light terrain-shifting stealth backpack designed for evasive deception.",
+   "notes": [
+    "Activation shifts the player 100,000 units underground and spawns a stationary holographic substitution decoy at their last surface position.",
+    "Places the player in an orbiting observer camera around the decoy until they press the jump key to return to the surface."
+   ],
+   "source": "item.cs"
+  },
+  "SplitFissionGun": {
+   "summary": "Cybrid Heavy artillery mortar launching multi-stage cluster ordnance.",
+   "notes": [
+    "Fires a high-arcing Fission Shell that initiates a mid-flight separation sequence after three seconds.",
+    "The shell splits into eight individual Fission Fire sub-munitions that spray outward in a wide ballistic cluster."
+   ],
+   "source": "item.cs"
+  },
+  "tickPack": {
+   "summary": "Hybrid Light defensive entrenchment backpack.",
+   "notes": [
+    "Requires the player to remain completely motionless to activate.",
+    "Burrows the player 1.45 units into the terrain, erects surrounding tick wall structures, and raises defensive shield strength to 0.04 until deactivated."
+   ],
+   "source": "item.cs"
+  },
+  "HybridNuke": {
+   "summary": "Hybrid Heavy superweapon firing massive thermal explosive warheads.",
+   "notes": [
+    "Launches an AtomBomb projectile dealing thermal damage across a 100-meter explosion radius with immense knockback.",
+    "Acts as the primary base-clearing siege weapon of the Hybrid Heavy arsenal."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

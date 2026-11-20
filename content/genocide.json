@@ -1,0 +1,63 @@
+{
+ "mod": {
+  "overview": "Genocide (v2R) by 6|6|6*SlipKnot* with admin tools by ]|420|[*CraCka is an apocalyptic combat overhaul that elevates base Tribes into an explosive, high-capacity slaughterhouse. Players spawn immediately outfitted with nearly ten weapons and can carry up to a dozen simultaneously across rebalanced classes, turning every skirmish into an unrelenting hail of high-damage gunfire, missiles, and chemical ordnance. The mod dramatically expands base building with modular fortifications, aerial Sky Bases, and vehicle fleets, while punishing reckless play through lethal status effects like toxic sludge melting, weapon-stripping EMP shock, and burning plasma. Alongside standard capture the flag featuring live on-screen combat telemetry and 10-point capture awards, a dedicated Deathmatch mode plunges combatants directly into Hybrid Destroyer armor armed with tactical Atomic Bombs, Salvo launchers, and zero-drain jet packs.",
+  "notes": [
+   "Classes and Weapon Limits: Five specialized armors redefine combat mobility and payload, including Tactical Sniper (sarmor, 6 weapons, zero jet energy drain, top running speed of 22), Battalion Warrior (light, 10 weapons, 15 speed), Deffencive Engineer (medium, 9 weapons, 10 speed), Armageddon Mech (heavy, 12 weapons, 110 max energy, 8 speed with unusually low 9.0 mass), and Hybrid Destroyer (narmor, 12 weapons, 11 speed).",
+   "Spawns and Anti-Spawnkill Shielding: Regular match spawns automatically outfit players with a massive starter loadout consisting of Light Armor, Blaster, Chaingun, Plasmagun, Grenade Launcher, Mortar, Disc Launcher, Laser Rifle, Charger, Clash Rocket, Repair Kit, Energy Pack, mines, and grenades. To neutralize spawn camping, newly spawned players gain 10 seconds of invulnerability on initial drop (5 seconds on respawn), visually fading out and disarming weapons while an orbiting energy barrier absorbs damage.",
+   "Beacon Speed Boosters: Handheld targeting beacons double as consumable kinetic thrusters rather than static markers. Using a beacon immediately expends it to activate Armor::SpeedBooster, hurling the player forward and upward with impulse force scaled to the chassis, from 260 force on Tactical Snipers up to 370 force on Hybrid Destroyers.",
+   "Status Effects and Combat Debuffs: Battlefield weaponry triggers lingering debilitations via custom scripts. Bio weapons and sludge canisters cover victims in toxic sludge that eats away health over 30 seconds and melts corpses, shock rifles short-circuit armor energy to zero and shock players if they attempt to jet, and incendiary weapons ignite energy cores into ongoing plasma fires.",
+   "Engineering and Base Fortification: Base building expands far beyond field turrets through large deployable structures, notably the Sky Base pack which erects a fully powered floating fortress 300 units in the air complete with vehicle pads, inventory stations, and solar arrays. Defense networks also feature deployable bunkers, blast doors, blast hatches, defensive force fields, and automated turrets spanning Dual Laser, Plasma, Flak, Missile, and Electric Web variants.",
+   "Expanded Vehicle Fleet: Vehicle stations manufacture ten specialized ground and air combat craft, from fast BlaZter Scouts and plasma or disc jet-bikes to heavy napalm bombers, RPG assault flyers, and flying armored troop transports equipped with repair stations or rocket pods.",
+   "Rules, Bans, and Scoring Penalties: DeployableAmmoPack is explicitly banned server-wide by setting its team maximum to 0, while deployable inventory stations remain permitted and provide access to the full base inventory catalog. Destroying friendly structures incurs a harsh 10-point team score penalty, whereas repairing or destroying primary base generators grants 2.5 points and capturing the enemy flag awards 10 bonus points.",
+   "Admin Systems and Moderation: Server management features four authentication tiers (Owner, God, Super, Public) accessed through the console sad command, offering extensive punishment menus to blind, fling, kill, or de-wing (strip jet capability from) unruly combatants. Automated CodeRed monitoring provides stepped chat warnings when players accumulate team kills or drop below negative score thresholds.",
+   "Additional station and team bans: Team limit zeroed ($TeamItemMax = 0): DeployableAmmoPack=0 (WeapOnMount.cs)."
+  ]
+ },
+ "items": {
+  "AirBasePack": {
+   "summary": "Backpack deployable that constructs an entire floating sky fortress 300 units above the terrain.",
+   "notes": [
+    "Spawns floating pads for a roof and floor, force field perimeter walls, and an integrated vehicle station with launch pad.",
+    "Includes an onboard inventory station, command station, solar generator, and teleport access links connecting ground and air.",
+    "Requires terrain deployment outside a 50-meter radius around the team flag."
+   ],
+   "source": "item.cs"
+  },
+  "AntiGravPack": {
+   "summary": "Specialized backpack providing heavy armor with active sensor jamming and anti-gravity levitation.",
+   "notes": [
+    "Activates a low-drain shield and cloaking fadeout while adding 20 sensor suppression to hide heavy suits from radar.",
+    "Runs an automated impulse loop that continuously pushes the player forward and upward, effectively granting zero-gravity floating flight.",
+    "Designed to give heavy Armageddon Mechs rapid traversal across outdoor terrain."
+   ],
+   "source": "item.cs / player.cs"
+  },
+  "AtomicBomb": {
+   "summary": "Super-heavy artillery mortar designed to obliterate fortified enemy bases with cluster warheads.",
+   "notes": [
+    "Mounts a separate AtomicCore accessory model onto the player in slot 7 when equipped.",
+    "Consumes Atomic Bomb Shells to fire high-yield ClusterBomb munitions that saturate blast areas with catastrophic explosions.",
+    "Carries very low ammo limits due to its destructive anti-structure and anti-infantry capability."
+   ],
+   "source": "item.cs"
+  },
+  "Grappling": {
+   "summary": "Energy Hook utility tool that fires a sustained energy beam to grapple and reel players across distances.",
+   "notes": [
+    "Projects a 300-meter energy tether using the sustained beam weapon framework.",
+    "Calculates mass differences between the user and target to yank enemies inward or slingshot the user toward terrain and structures.",
+    "Consumes moderate energy over time while active without requiring physical ammunition."
+   ],
+   "source": "item.cs / baseProjData.cs"
+  },
+  "Sludge": {
+   "summary": "Heavy chemical mortar that bombards targets with toxic waste canisters.",
+   "notes": [
+    "Direct hits and splash damage drench victims in toxic sludge, triggering thirty seconds of lingering damage flashes.",
+    "Deals repetitive health degeneration that ignores regular shields and melts victims into dissolving puddles upon death.",
+    "Inflicts the custom onSludge status effect defined in the core mod functions."
+   ],
+   "source": "item.cs / GenoFunctions.cs"
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "mod": {
+  "overview": "DogFight is an aerial combat mod by {SOF} Snake eye that transforms Tribes into a dedicated flight simulator and anti-aircraft warfare arena. Players deploy or purchase a diverse fleet of specialized fighter jets with custom weapon loadouts, dogfight across open skies, and use high-altitude ejection and parachuting to survive crashes. Ground and air combat is sharply divided between agile, lightly armed pilots who deploy aircraft from portable packs and heavily armored anti-aircraft infantry wielding lock-on Stinger missiles, rail cannons, and automated flak turrets against fliers that take catastrophic 10x missile damage. Featuring aerial factions like the Royal Air Force, Red Barons, USAF, and NORAD, players spawn high above the terrain equipped with parachutes and pistols, ready for instant aerial combat.",
+  "notes": [
+   "Classes and Armor Restrictions: Medium armor is completely removed from the mod. Players choose between Light Armor (Pilot Armor) and Heavy Armor (Ground AA). Light Armor pilots carry only 1 weapon (Pistol) and a Parachute pack, and are the only class permitted to pilot aircraft. Heavy Armor can carry up to 5 heavy anti-aircraft weapons and deployable turrets, but cannot enter the pilot seat of fliers.",
+   "Spawn Gear and Ejection Mechanics: Players spawn with Light Armor, a Pistol, and a Parachute pack, often dropping into the arena from high in the sky. Pilots who press jump while flying are catapulted 500 units upward with an ejection notification and sound effect, allowing them to deploy their Parachute pack during freefall to glide safely down to earth.",
+   "Deployable Fighter Packs: Rather than relying solely on vehicle station pads, Light Armor pilots can equip Fighter Packs 1 through 9 as backpacks to deploy any of the nine fighter variants directly onto flat terrain or building rooftops.",
+   "Nine Aircraft Variants: The mod provides nine distinct flier configurations, including the high-speed F-17 with rapid Ion Bolts, F-16 with rockets, F-15 with chainguns, F-14 with explosive cannons, B-12 Skimmer dropping aerial bombs, F-18 firing spinfusor discs, F-19 firing plasma, Devastator firing lethal Anti-Matter Rays, and Scout firing blaster bolts.",
+   "Anti-Aircraft Arsenal: Ground infantry wield specialized anti-air weaponry including the lock-on Stinger missile launcher (supporting image and sensor locks, or falling back to dumbfire rockets if jammed), rapid-fire RFML missile pods, high-speed AA Miniguns, explosive AA Cannons, hyper-velocity Rail Drivers, and the devastating Mini Anti-Matter Ray.",
+   "Extreme Damage Scaling: Aircraft are glass cannons, taking 10x damage from all missile attacks, 2x damage from lasers and anti-matter rays, and 1.2x from bullets, ensuring that direct hits from Stingers or Rail Drivers result in instantaneous destruction.",
+   "Deployable Air Defense: Heavy infantry can deploy the FlakPack (Air Dominator flak cannon) and FlakPack2 (automated AA missile turret), which automatically track and engage aerial heat signatures up to 300 units away.",
+   "Equipment Bans and Removals: Station inventory removes standard base weapons like the Chaingun, Plasma Gun, Grenade Launcher, and Mortar, zeroing out $InvList for the Laser Rifle, Energy Rifle, and standard deployable TurretPack, while LAPC and HAPC troop transports are removed from vehicle pads.",
+   "Bot Support: Integrated AI bots spawn with custom weapon loadouts (Pistol, Minigun, Rail Driver) and use periodic targeting routines to dynamically select the Minigun against jetting aerial targets and the Rail Driver against ground targets.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): EnergyRifle (station.cs), LaserRifle (station.cs), TurretPack (station.cs)."
+  ]
+ },
+ "items": {
+  "Parachute": {
+   "summary": "Emergency descent backpack that negates fall damage when activated mid-air.",
+   "notes": [
+    "Requires the player to be falling with contact count above 11 before it can deploy.",
+    "Applies repeated upward impulses of 75 every 0.45 seconds until the player touches down safely on the ground."
+   ],
+   "source": "Parachute.cs"
+  },
+  "Stinger": {
+   "summary": "Shoulder-mounted surface-to-air missile launcher featuring dual targeting lock modes.",
+   "notes": [
+    "Scans line of sight for image locks or falls back to alternate sensor scans.",
+    "Launches tracking StingerMissiles, but drops to dumbfire StingerRockets if the target is protected by sensor jamming."
+   ],
+   "source": "item.cs"
+  },
+  "RailDriver": {
+   "summary": "High-velocity anti-materiel rail rifle designed to snipe enemy aircraft.",
+   "notes": [
+    "Fires a hyper-velocity projectile traveling between 1000 and 3500 units per second.",
+    "Inflicts laser damage type, instantly destroying aircraft due to their 2x laser damage vulnerability."
+   ],
+   "source": "item.cs"
+  },
+  "FlakPack": {
+   "summary": "Deployable Air Dominator flak turret backpack for perimeter air defense.",
+   "notes": [
+    "Deploys an automated hellfire-style remote turret with a 300 unit engagement radius.",
+    "Locks onto aerial heat signatures of 0.5 or higher and fires explosive FlakShells."
+   ],
+   "source": "item.cs"
+  },
+  "FighterPack": {
+   "summary": "Portable aircraft deployer backpack that spawns an F-17 fighter jet on flat ground.",
+   "notes": [
+    "Carried exclusively by Light Armor pilots and consumed upon successful deployment on flat ground or buildings.",
+    "Spawns an F-17 Scout flier featuring a top speed of 200 and a high-rate-of-fire IonBolt energy blaster."
+   ],
+   "source": "deployVehicles.cs"
+  }
+ }
+}

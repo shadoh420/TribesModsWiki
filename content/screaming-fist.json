@@ -1,0 +1,65 @@
+{
+ "mod": {
+  "overview": "Screaming Fist (Public Beta) is a ground-based, modern-military total conversion for Starsiege Tribes pitting the United States Army against the New Soviet Union. By disabling jetpacks across every armor class, it replaces high-flying Tribes skiing duels with squad-level infantry firefights, ladder-accessible structures, manned artillery turrets, and Comanche/Osprey air support. Players choose between four specialized classes—Infantry, Technician, Special Ops, and Heavy Infantry—and fight with real-world inspired firearms, remote mines, timed Detpacks, fly-by-wire missiles, and electronic hacking tools. In addition to classic Tribes gametypes, the mod introduces Assassination, Hostage, and Assault missions alongside role-based AI bots and controllable map trains.",
+  "notes": [
+   "Classes and mobility: Jetpacks are effectively disabled across all armors (minJetEnergy 61 exceeds maxEnergy 60, with jetForce 0 or 1), so players fight on foot, climb ladders, or ride aircraft. Players spawn as Infantry (speed 11, 0.66 maxDamage, 3 weapons) with Glock, AssRifle, and RepairKit. Technician (ConsoleMan, speed 12, 2 weapons) handles ConsoleJack hacking, GRoC Gun anti-missile flares, GRoC Cannons, Sentry Turrets, Detpacks, and Ammo Loaders; Special Ops (speed 12, 2 weapons) uses SniperRifle (2.0 headshot multiplier), silenced weapons, BugPack recon drones, and 6 Concussion Grenades; Heavy Infantry (speed 8, 1.0 maxDamage, 2 weapons, explosion damage scale 0.6) carries the Minigun, Deployable Inv/Ammo Stations, and up to 9 grenades and 6 mines.",
+   "Controls, menus, and chat commands: Use the Options menu (Tab) to configure your Detpack fuse timer (10, 20, 30 seconds, or custom time). On maps with moveable trains, the player riding as driver controls train speed in chat with #train faster, #train slower, or #train <percent>% (for example #train 50%). Admins also get BotTree route menus for managing AI waypoints.",
+   "Combined-arms weapons and gear: Buying the MAWAssRifle requires no other weapons and grants three modes (assault, incendiary, grenade launcher). Buying the RocketLauncher requires 2 weapon slots and adds the crouched, outdoor Fly-By-Wire (FBW) guided missile mode (max 4 in flight per team), which Technicians counter using the HomingFlaregun (GRoC Gun) or deployable GRoCCannonPack. Other custom gear includes Remote Mines triggered via the Detonator tool, blinding FlashGrenade (Concussion Grenade), and DeployableMedicPack (deploys a MedicStation that resupplies RepairPatches and RepairKits).",
+   "Manned turrets and resupply: Players on the owning team (or any team if unlocked by a ConsoleJack hack) can walk up to base HowitzerTurret artillery and 30mm BigCannonTurret guns to mount and fire them directly, then jump to dismount. These heavy turrets do not auto-recharge and must be rearmed using the ReloaderPack (Ammo Loader) beam.",
+   "Vehicles and piloting rules: Vehicle stations sell the single-seat Attack Comanche gunship (ScoutVehicle, 600 energy, max 3 per team) and the 6-passenger Osprey Transport (OspreyVehicle, 1200 energy, max 1 per team). Only Infantry and Special Ops armors are allowed in the pilot's seat; Technicians and Heavy Infantry can only board the Osprey as passengers.",
+   "Inventory bans and paired equipment: Main stations ban direct purchase of FlamerGun, FlamerAmmo, FuelPack, CameraPack, MinigunAmmo, FBWRocketLauncher, MAWIncendiaryRifle, and MAWGrenadeLauncher ($InvList=0); instead, MinigunAmmo comes with MinigunAmmoPack, and the extra MAW/FBW modes are bundled with their base weapons. Remote inventory stations additionally ban DeployableMedicPack, ReloaderPack, DeployableInvPack, DeployableAmmoPack, and FBWRocketAmmo ($RemoteInvList=0).",
+   "Custom modes and bots: Alongside CTF, C&H, D&D, and F&R, Screaming Fist adds Assassination (Team 0 Bodyguards escort a Flag-marked VIP against Team 1 Sniper-armed Special Ops Assassins), Hostage (capture and hold hostages while avoiding friendly-fire penalties), and Assault (timed attack-versus-defense missions). The mod also includes multi-role AI bots (Roam, Guard, Demo, Painter, Sniper, Medic, Miner) where Medic bots drop RepairKits on teammate contact and bots can ride vehicles.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): CameraPack (station.cs), FBWRocketLauncher (station.cs), FlamerAmmo (station.cs), FlamerGun (station.cs), FuelPack (station.cs), MAWGrenadeLauncher (station.cs), MAWIncendiaryRifle (station.cs), MinigunAmmo (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): DeployableAmmoPack (station.cs), DeployableInvPack (station.cs), DeployableMedicPack (station.cs), FBWRocketAmmo (station.cs), ReloaderPack (station.cs)."
+  ]
+ },
+ "items": {
+  "MAWAssRifle": {
+   "summary": "Three-mode Modular Assault Weapon exclusive to Infantry that fills the player's weapon capacity with rifle, incendiary, and grenade launcher fire modes.",
+   "notes": [
+    "Taking the MAW requires an empty weapon inventory; buying it auto-grants MAWAssRifle, MAWIncendiaryRifle, and MAWGrenadeLauncher together.",
+    "Available only to Infantry; selling or dropping it strips all three weapon modes."
+   ],
+   "source": "item.cs"
+  },
+  "FBWRocketLauncher": {
+   "summary": "Fly-By-Wire guided missile mode bundled with the Rocket Launcher that lets Infantry steer a live rocket in first person.",
+   "notes": [
+    "Requires 2 open weapon slots via RocketLauncher (except in Deathmatch), crouching outdoors with clear sky overhead, and respects a team cap of 4 active FBW rockets.",
+    "Enemy players can shoot down incoming FBW rockets with the HomingFlaregun (GRoC Gun) or deployed GRoCTurret cannons."
+   ],
+   "source": "item.cs"
+  },
+  "ConsoleJack": {
+   "summary": "Technician hacking tool used with the DeckPack to disarm Detpacks and sabotage or unlock enemy base defenses and stations.",
+   "notes": [
+    "Exclusive to Technician (ConsoleMan) and requires wearing a DeckPack to equip.",
+    "Holds a beam for 2 seconds to disarm an enemy Detpack or 6.5 seconds to disable, destroy, or temporarily unlock enemy turrets and stations for 20 seconds."
+   ],
+   "source": "baseProjData.cs"
+  },
+  "BugPack": {
+   "summary": "Backpack that launches a controllable flying camera drone capable of sticking a surveillance camera onto distant terrain or buildings.",
+   "notes": [
+    "Exclusive to Special Ops; firing while mounted launches the Remote Fly-Camera (FlyingBug) flier if the sky above is clear.",
+    "Counts toward the team's CameraPack limit (15) and deletes the drone once the camera is placed."
+   ],
+   "source": "vehicle.cs"
+  },
+  "ReloaderPack": {
+   "summary": "Ammo Loader backpack that lets players manually rearm manned artillery turrets, sentry turrets, and deployable field stations.",
+   "notes": [
+    "Equipping and activating the pack mounts the Reloader beam tool; available at main stations but banned at remote stations.",
+    "Restores energy/ammo on HowitzerTurret, BigCannonTurret (30mm Cannon), DeployableTurret, and deployable inventory/ammo stations."
+   ],
+   "source": "baseProjData.cs"
+  },
+  "OspreyVehicle": {
+   "summary": "Heavy multi-seat air transport essential for moving troops across large maps where jetpacks are disabled.",
+   "notes": [
+    "Only Special Ops and Infantry can pilot vehicles; Heavy Infantry and Technicians can ride as passengers.",
+    "Costs 1200 team energy with a team limit of 1 Osprey (compared to 600 energy and 3 per team for the Attack Comanche)."
+   ],
+   "source": "vehicle.cs"
+  }
+ }
+}

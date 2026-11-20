@@ -1,0 +1,132 @@
+# havoc vs base (131 items)
+new        ScoutArmor                   Scout
+new        SpArmor                      Spy
+renamed+statsLightArmor                   Sniper
+renamed+statsMediumArmor                  Mercenary
+new        BursterArmor                 Burster
+new        InfArmor                     Infiltrator
+new        EngArmor                     Engineer
+new        BehArmor                     Behemoth
+new        DragArmor                    Cyborg
+new        WraithVehicle                Wraith
+new        JetVehicle                   Interceptor
+renamed+statsLAPCVehicle                  LAPC
+renamed+statsHAPCVehicle                  HAPC
+new        CArmor                       DeathMatch
+renamed+statsBulletAmmo                   Bullets
+new        ShotgunShells                Shotgun Shells
+new        Shotgun1                     Shotgun
+new        Shotgun                      Shotgun
+stats      Chaingun                     Chaingun
+renamed+statsPlasmaAmmo                   Plasma Bolts
+stats      PlasmaGun                    Plasma Gun
+stats+scriptsTargetingLaser               Targeting Laser
+new        RealTargetingLaser           Targeting Laser
+new        Bee                          Targeting Beacons
+new        Anti                         Antidote
+new        Flagger                      Flag Decoy
+new        Smoker                       Smoke Bomb
+new        TractorBeam                  Tractor Beam
+new        Grapple                      Grappling Hook
+new        Scouter                      Spy Drone
+new        PSmoker                      Toxin Grenade
+new        EMPMine                      EMP Mine
+new        GASMine                      Toxin Mine
+new        Flare                        Flares
+stats+scriptsGrenade                      Grenade
+stats+scriptsBeacon                       Beacon
+stats+scriptsMineAmmo                     Mine
+stats+scriptsRepairKit                    Repair Kit
+new        Boost                        Bot
+renamed+statsDiscAmmo                     Disc Ammo
+new        HDiscAmmo                    Hyper Disc Ammo
+new        HDisc1Ammo                   Hyper Disc Ammo
+new        HDisc2Ammo                   Hyper Disc Ammo
+stats      DiscLauncher                 Disc Launcher
+new        HDisc1                       Hyper Spinfusor
+new        HDisc2                       Hyper Spinfusor
+new        HDiscLauncher                Hyper Spinfusor
+stats      GrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+new        EMPGrenadeAmmo               EMP Grenade Ammo
+new        RocketAmmo                   Missiles
+new        RocketLauncher               Rocket Launcher
+new        IXRocketLauncher             Missile Launcher
+new        EMPGrenadeLauncher           EMP Grenade Launcher
+new        SniperAmmo                   Sniper Bullets
+stats      Mortar                       Mortar
+new        SilencerAmmo                 Magnum Bullets
+new        Silencer                     Magnum
+new        TranqAmmo                    Poison Darts
+new        TranqGun                     Dart Rifle
+new        RailAmmo                     Railgun Bolts
+new        Railgun                      Railgun
+new        SniperRifle                  Sniper Rifle
+stats      Blaster                      Blaster
+stats      EnergyRifle                  ELF Gun
+new        WaveGun                      Shockwave Cannon
+new        Flamer                       Flame Thrower
+stats      LaserRifle                   Laser Rifle
+new        Fixit                        Engineer Repair Gun
+new        CoolLauncher                 Missile Control Station
+new        EmpM                         EMP Missile
+new        GasM                         Toxin Missile
+new        VoM                          Vortex Missile
+new        PhoenixM                     Phoenix Missile
+new        ToM                          Tomahawk Missile
+new        NapM                         Napalm Missile
+new        CM                           Cluster Bomb
+new        BooM                         HaVoC Missile
+new        AirAmmoPad                   Air Pad
+new        Plas                         Repair Drone
+stats+scriptsAmmoPack                     Ammo Pack
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+new        HeatSink                     Heat Sink
+new        SMRPack                      Auto Rocket Cannon
+new        PowerPack                    Power Core Pack
+new        TPack                        Teleport Pack
+new        ElfPack                      ELF Turret
+renamed+stats+scriptsTurretPack                   Ion Turret
+new        TTurretPack                  Tractor Turret
+new        ShockPack                    EMP Turret
+new        PlasmaPack                   Flame Turret
+new        OpticPack                    Cybernetic Laser
+new        SuicidePack                  Demolition Pack
+new        Laptop                       Command Laptop
+new        SMR2Pack                     Cannon
+new        SMR3Pack                     Cannon
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsMotionSensorPack             Motion Sensor
+new        CloakingDevice               Cloaking Pack
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+new        WatchdogPack                 Watchdogg
+new        BA                           Base Alarm
+new        LaserTurret                  Plasma Turret
+new        LaserPack                    Laser Turret
+new        AAPack                       AA Turret
+new        TargetPack                   Mortar Turret
+new        RocketPack                   Rocket Turret
+new        LELFPack                     Large ELF Turret
+new        ForceFieldPack               Force Field
+new        LargeForceFieldPack          Large Force Field
+new        doorthreebyfourForceFieldPackForce Field Door
+new        doorfourbyeightForceFieldPackLarge Force Field Door
+new        SpringPack                   Springboard
+new        DeployableComPack            Command Station
+new        Hider                        Cloaking Device
+new        TeleportPack                 Teleport Pad
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsDeployableInvPack            Inventory Station
+new        MechPack                     Interceptor Pack
+new        DetPack                      HAPC Pack
+stats+scriptsRepairPatch                  Repair Patch
+new        SpitfireVehicle              Spitfire
+new        HurricaneVehicle             Hurricane
+new        TomahawkVehicle              Tomahawk
+new        HellfireVehicle              Hellfire
+new        ThunderboltVehicle           Thunderbolt
+new        AAGun                        AA Gun

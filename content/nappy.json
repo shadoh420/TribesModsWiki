@@ -1,0 +1,64 @@
+{
+ "mod": {
+  "overview": "NAPPY 6 (NappyMod) by [NHOP]Smokey is a heavily expanded class-based CTF, base-building, and sky-dueling mod built on base Tribes. In standard CTF play, players spawn as Mercenaries with 2 seconds of spawn invulnerability and choose from eight specialized classes with custom weapons, backpacks, collision abilities, and class-specific Grenade and Beacon powers, alongside massive fortification, turret, jail, and vehicle packs. Compared to base Tribes, combat is faster and more tactical, adding status effects (shock, fire, poison blindness, weapon disarming, and Jail-Gun arrests), stealth cloaking fields, and high-altitude Jet and stealth Wraith flyers. Players who join unassigned (team -1) drop into one of eight isolated sky Duel Pits where chat commands customize arena walls, pit size, armors, weapons, and damage multipliers on the fly, while servers can also toggle an optional Builder Mode for long-range construction and *move/*rotate/*copy map editing.",
+  "notes": [
+   "Classes and roles: Eight main combat armors replace base armors by default ($BaseArmors = 0 in NAPPY.cs), each with unique Grenade and Beacon actions (Item_Miscellany.cs) and collision traits (Nappy_Player.cs). Mercenary (5 weapons, speed 9, Handgrenade, Speed Booster Beacon) is the default spawn class. Spy (3 weapons, speed 25) steals items on enemy collision, carries Dart Rifle, Magnum, Hack-Gun, 15 s Plastique grenades, and Satchel Beacons. Sniper (3 weapons, speed 20) uses Sniper Hut, OpticPack Cybernetic Laser, HoloMine decoys, and Sensor Jammer Beacons. Scout (2 weapons, speed 10) drops Firebombs and Pulse Sensors. Engineer (5 weapons, speed 8) heals allies on collision, packs/repairs/hacks objects, deploys bases/walls/turrets, and throws Shockgrenades. Flag Mover (6 weapons, speed 9, energy 200) is immune to poison blindness, drains 0.20 health from enemies on touch, and cloaks via Beacon. Burster (4 weapons, speed 10) is immune to fire burn, carries heavy explosives and Suicide DetPack, throws Concussion grenades, and pops Stim via Beacon. Cyborg (darmor, 6 weapons, speed 6, energy 300, 1.6x health) carries Vulcan, Mortar, Shockwave Cannon, SMRPack Auto-Rocket Cannon, Mortarbomb grenades, and Emergency Force Shields.",
+   "Duel Pit sky arenas and #commands: Players who spawn unassigned (team -1, not observing) automatically enter one of 8 sky Duel Pits (Nappy_Game.cs, Nappy_Duel.cs). Inside a pit, type !help for command lists, #pit 1 to 8 and #team -1 to 1 to switch arenas/sides, and customize duels with #duelType 1on1, #duelers, #wall Bounce or Teleport, #size 100 to 980, #armor, #backpack, #weapon, #ammo, #weaponAmmo, #grenadeType, #beaconType, #mineType, #repairKitType, #damage, and per-type damage multipliers like #LandingDamage, #BulletDamage, #ExplosionDamage, #SniperDamage, #PoisonDamage, #FireDamage, #ShockDamage, #LaserDamage, #MortarDamage, #BlasterDamage, #ElectricityDamage, #MineDamage, #MissileDamage, and #ShrapnelDamage.",
+   "Special combat mechanics and status effects: Laser and Sniper headshots deal +30% damage, hitting a target's front-right torso above damage tolerance disarms their held weapon, and sniping a wearer's back detonates a mounted SuicidePack (Nappy_Player.cs). Shock damage strips energy and unmounts the weapon for 14 s; AntiAir damage short-circuits energy for 5 s; Poison blinds and damages over 30 s; Fire can ignite targets for 10 s; and JailGun teleports struck enemies into a team Jail Cell (jailpack) for 20 s (Nappy_baseProjData.cs).",
+   "Base building, deployables, and packs: Stations stock an expanded fortifications toolkit including Blast Walls, 8 Panel Wall pieces, Force Fields, Platforms, Blast and Force Field Doors, 12 turret types, Teleport Pads (team limit 4), Springboards (team limit 10), Sniper Huts (team limit 2), a full Remote Base bunker with forcefields, rocket turret, and station (team limit 1), a Jail Cell (team limit 1), and an Arbitor cloaking box (team limit 1). Key utility packs include Command Laptop, Regeneration Pack, Lightning Pack, StealthShield Pack, Cybernetic Laser (OpticPack), and Auto-Rocket Cannon (SMRPack).",
+   "Deployable vehicles: Five vehicle packs can be deployed in the field with a team limit of 5 each (Item_Vehicles.cs, Item_Globals.cs, Nappy_Vehicle.cs). Only Light-tier armors (Scout, Spy, Sniper) can pilot flyers unless $BuilderMode is active, while heavier armors can still ride as LAPC/HAPC passengers. Custom vehicles add the stealth Wraith (cloaks on mount, hidden from sensors), the fast high-altitude Jet (maxAlt 2500, rapid JetBullet cannon), and a Mortar-armed LAPC.",
+   "Spawns, Builder Mode, and Admin/Bans: Players spawn with 2 s invulnerability ($Nappy::respawnInvulnerableTime = 2) and standard Tribes bot/AI support (ai.cs). QuadMortar and QuadMortarAmmo are explicitly banned from inventory stations ($InvList = 0 in Nappy_StationList.cs). Toggling $BuilderMode = 1 in NAPPY.cs turns the Inventory key into an anywhere Builder Station, extends deploy range by 9999x without consuming packs, and enables *move, *rotate, *amount, and *copy object-editing commands (Nappy_Builder.cs). SuperAdmins can use #password, #setTime, #nameFX, #nameTag1/#nameTag2, and the Tab Manipulate menu (Execute, Freeze, Strip, Launch).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): QuadMortar (Nappy_StationList.cs), QuadMortarAmmo (Nappy_StationList.cs)."
+  ]
+ },
+ "items": {
+  "DuelerArmor": {
+   "summary": "Default Duel Pit armor configured through chat commands rather than inventory stations.",
+   "notes": [
+    "Used by default when entering one of the 8 sky Duel Pits (Nappy_Duel.cs).",
+    "Has $MaxWeapons = 0 and showInventory = false so players customize gear via #weapon, #armor, #backpack, and #damage chat commands instead of stations."
+   ],
+   "source": "Item_Armors_Vehicles.cs, Nappy_ArmorData.cs, Nappy_Duel.cs"
+  },
+  "JailGun": {
+   "summary": "Beam tool that arrests and teleports enemy players into a deployed team Jail Cell.",
+   "notes": [
+    "Available to Cyborg, Mercenary, Engineer, Flag Mover, and Burster armors (Item_Weapons_Tools.cs, Nappy_ArmorData.cs).",
+    "Sustained beam (jailbolt) teleports enemy players into a deployed team Jail Cell (jailpack, team limit 1) for a 20-second sentence (Nappy_baseProjData.cs)."
+   ],
+   "source": "Item_Weapons_Tools.cs, Nappy_baseProjData.cs, Item_Bases_Objects.cs"
+  },
+  "ArbitorPack": {
+   "summary": "Deployable cloaking unit that hides nearby friendly base structures, vehicles, mines, and teammates.",
+   "notes": [
+    "Team limit of 1 (Item_Globals.cs); mainly carried by Engineers and Flag Movers.",
+    "Periodically cloaks nearby friendly players, static shapes, vehicles, mines, and base interiors inside a 200x200x50 box (Nappy_turret.cs)."
+   ],
+   "source": "Item_Deployables.cs, Nappy_turret.cs, Item_Globals.cs"
+  },
+  "WraithVehiclePack": {
+   "summary": "Deployable stealth flyer that cloaks its hull and pilot when mounted and avoids sensor detection.",
+   "notes": [
+    "Team limit of 5 (Item_Globals.cs); piloted only by Scout, Spy, or Sniper unless $BuilderMode is enabled (Nappy_Vehicle.cs).",
+    "Fades out when mounted, hides its driver (visibleDriver = false), and does not show on sensors (visibleToSensor = false)."
+   ],
+   "source": "Item_Vehicles.cs, Nappy_Vehicle.cs"
+  },
+  "SuicidePack": {
+   "summary": "Backpack explosive with a 20-second fuse that also detonates if triggered by suicide or sniped off the wearer's back.",
+   "notes": [
+    "Carried by Cyborg, Spy, and Burster armors; deploys as a thrown pack on a 20-second fuse or detonates immediately if the wearer suicides (Item_Backpacks.cs, Nappy_Player.cs).",
+    "Sniping the wearer in the back with Laser or Sniper fire detonates the pack while it is still mounted (Nappy_Player.cs)."
+   ],
+   "source": "Item_Backpacks.cs, Nappy_Player.cs"
+  },
+  "QuadMortar": {
+   "summary": "Cyborg heavy mortar variant that is defined in scripts but banned from inventory stations.",
+   "notes": [
+    "Explicitly disabled at base inventory stations ($InvList[QuadMortar] = 0, $InvList[QuadMortarAmmo] = 0 in Nappy_StationList.cs) and omitted from $RemoteInvList.",
+    "Item datablocks remain defined in Item_Weapons_Tools.cs and $ItemMax[darmor, QuadMortar] = 1 is still set in Nappy_ArmorData.cs."
+   ],
+   "source": "Nappy_StationList.cs, Item_Weapons_Tools.cs, Nappy_ArmorData.cs"
+  }
+ }
+}

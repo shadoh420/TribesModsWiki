@@ -1,0 +1,48 @@
+{
+ "mod": {
+  "overview": "TiZ 1.9 (The Infinite Zero Mod, created by Michael Cheung / Timer[TiZ] in May 2000) is a fast, high-lethality Tribes total conversion built on an early Alliance engine lineage via Warhammer 40K and Renegades. Players spawn ready to fight in Commando armor with a starter kit of Grenade Launcher, Nailgun, Disc Launcher, and Repair Pack, then specialize into seven distinct combat classes or build fortified field bases with deployable walls, platforms, turrets, force fields, springboards, and teleporters. Compared to Alliance, TiZ 1.9 trims several legacy armors and packs while cranking up weapon firepower, adding status effects (shock, burn, and poison), laser-disarming torso shots, pocket deployable vehicles, and outrageous area-denial tools like the Doom Cannon and Death Rain packs. It supports standard team objective maps as well as Deathmatch and Team Deathmatch with optional mission-placed AI patrol bots.",
+  "notes": [
+   "Classes and Roles (7 purchasable armors plus Commando DM/spawn armor; legacy Spy, Alien, Commando, and Loader suits are disabled in serverRenegades.cs): Kraken Armor (light, 4 weapons, speed 14 male / 13 female) throws Concussion grenades, uses Beacons as 250-impulse Speed Boosters, and is the only class able to buy the Vyper Pack (MechPack), though its contact Steal hook is stubbed out. Assasin (iarmorSniper, light, 4 weapons, speed 12 male / 20 female) throws energy-draining Shock grenades and deploys Sensor Jammers with Beacons. Assault Armor (medium, 6 weapons, speed 9, maxDamage 1.7) throws Handgrenades and uses Beacons as Speed Boosters. Mechanic (iarmorEngineer, medium, 4 weapons, speed 10 male / 8 female, 900 maxEnergy for female vs 150 male) repairs players on physical contact, throws high-knockback Force grenades, deploys Camera Turrets with Beacons, and exclusively carries base-building packs like BlastWallPack, PlatformPack, LargeForceFieldPack, TeleportPack, SpringPack, and DeployableInvPack/ComPack. Demolitions Man (medium, 7 weapons, speed 8) throws Plasma grenades and Firebombs (male) or Handgrenades (female) via Beacons. Annihilator (armorCyborg, heavy, 7 weapons, speed 3, maxDamage 2.20) throws 15-second-fuse Virus Bombs (100m energy blast that poisons targets; Engineers can attempt to disarm them) and uses Beacons for a 20-second Impact Shield. Titanic (armorDestroyer, heavy, 7 weapons, speed 7, maxDamage 1.60) throws Mortar bombs and activates a 20-second Impact Shield via Beacons.",
+   "Weapons and Combat Mechanics: Headshots with Laser or Sniper weapons deal 30 percent bonus damage, and right-side torso Laser hits dealing over 0.25 damage disarm the victim by knocking their active weapon out of their hand. Three status effects trigger on enemy hits (or in Deathmatch): Flash damage (Shockgrenade, Forcegrenade, Psibomb) zeroes energy, halts energy recharge for 14 seconds, and unmounts the target's weapon; Energy damage poisons the target for 0.15 damage every 5 seconds over 30 seconds (cured by using a Repair Kit); Plasma damage (Plasma Gun, Flamer, Plasgren) has a 50 percent chance to ignite targets for 0.2 burn damage every 2 seconds over 10 seconds. Standout weapons include the Annihilator/Titanic-only Doom Cannon (DiscCannon, 10.5 damage over a 300m radius), Storm Rager (19-pellet Shotgun), Scorpion Rifle (rapid-fire LongRifle), Nailgun (Chaingun), ERFP (Explosive Rapid Fire Pistol), Flamer, AutoCannon, ELF Gun, and Tech Repair Pistol (Fixit).",
+   "Packs, Deployables, and Map Props: Unique backpacks include StealthShieldPack (combines impact shielding with +20 sensor suppression), Laptop (remote turret control and enemy Teleport Pad override), and the devastating PackOMen (Hologram Pack) and Rain (Death Rain), both of which rain 60 exploding mortar mines over 60 seconds above the user. Engineers can build forward bases with Blast Walls, Platforms, Small and Large Force Fields, Mechanical Trees (TreePack), Teleport Pads (2 per team), Launch Pads (SpringPack, 3 per team), and four deployable turrets (Fusion/Ion, Laser, Missile, and Plasma). Fixed map SpringPads (missionSpringPad.cs) and deployed Springboards fling players high into the air with rare random misfires that launch users toward orbit.",
+   "Vehicles and Pocket Vehicle Packs: Four flier chassis are active in TiZ 1.9: Blizzard (Scout), Doom Rager (Interceptor), LPC Shriker (LAPC), and APC Bomber (HAPC). Rather than relying solely on vehicle pads, classes can buy pocket vehicle packs from inventory stations (such as BikePack for Jetbikes, MechPack for Vypers/Interceptors, DetPack for HAPCs, and SpeedPack/SpeederPack/SpeedoPack for Landspeeders) and deploy vehicles directly onto flat terrain or buildings. Note that Wraith, Fighter, Tempest, and Speeder vehicle scripts are commented out in serverRenegades.cs, even though DogPack, VyPack, and TempestPack still appear in deployVehiclex.cs.",
+   "Controls, Menus, and Modes: TiZ 1.9 uses standard Tribes keybinds for firing, jets, packs (P), grenades (G), and beacons (B), with no custom chat #commands. Server administration and voting run through the Tab menu (admin.cs), which includes an Insomniax-style public admin/anti-TK system configured in TiZSettings.cs and a Super-Admin-only Experimental menu capable of triggering PackOMen bomb rain, teleporting all players 500 units up for a mid-air FRAGFEST, or granting a TractorDevice. Supports standard team objective missions (objectives.cs) as well as Deathmatch and Team Deathmatch (dm.cs).",
+   "Spawns, Bans, and AI Bots: Everyone spawns in Commando (dmarmor/dmfemale) with a full starter kit ($spawnBuyList): Assault Armor, Grenade Launcher, Nailgun, Disc Launcher, Repair Kit, 4 Grenades, 4 Beacons, Repair Pack, Mines, and Targeting Laser. Tracker Missiles (ImRecPack) are explicitly banned via $InvList[ImRecPack] = 0 and $RemoteInvList[ImRecPack] = 0, and unused Alliance/Warhammer 40K items (such as Jetpack, Cloak, Satchel Charge, and four legacy armors) are disabled in serverRenegades.cs. Mission-placed team AI bots (ai.cs) patrol two-way waypoint paths and dynamically switch between Blaster at long range, Nailgun against jetting targets, and Disc Launcher in close ground fights.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): ImRecPack (packImRec.cs)."
+  ]
+ },
+ "items": {
+  "DiscCannon": {
+   "summary": "The Doom Cannon fires a high-velocity DiskShell dealing 10.5 Shuriken damage across a 300-meter explosion radius with 1500 kickback, capable of one-shotting any armor.",
+   "notes": [
+    "Costs 5000 energy and uses DiskAmmo (Doom Shell, max 2 in Annihilator or 1 in Titanic) with an 8-second reload time.",
+    "Restricted solely to Annihilator (armorCyborg) and Titanic (armorDestroyer) heavy armors."
+   ],
+   "source": "weaponDiscCannon.cs"
+  },
+  "Shotgun": {
+   "summary": "The Storm Rager spawns 19 high-velocity ShotgunBlast pellets in a single trigger pull, making it devastating in close-quarters duels.",
+   "notes": [
+    "Consumes 1 ShotgunAmmo per shot and requires at least 5 energy with a 1.5-second reload.",
+    "Usable by Kraken, Assault, Mechanic, Demolitions Man, Annihilator, and Commando armors."
+   ],
+   "source": "weaponShotgun.cs"
+  },
+  "Laptop": {
+   "summary": "Command-link backpack that lets you control turrets remotely and hack past team-access locks on enemy Teleport Pads.",
+   "notes": [
+    "Walking onto an enemy Teleport Pad while wearing a Laptop triggers an override and teleports you anyway.",
+    "Also provides standard remote turret control from the field."
+   ],
+   "source": "packCommand.cs, deployTeleporter.cs"
+  },
+  "TeleportPack": {
+   "summary": "Engineer-only deployable pad that teleports teammates between linked pads on the map.",
+   "notes": [
+    "Limited to 2 pads per team; destroying one Teleport Pad automatically damages all allied pads.",
+    "Pads recharge for 5 seconds after each jump and have a 1-in-55 chance to permanently malfunction and deal 0.15 crush damage."
+   ],
+   "source": "deployTeleporter.cs"
+  }
+ }
+}

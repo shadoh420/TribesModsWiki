@@ -1,0 +1,39 @@
+shifter-famm: 38 of 177 need write-ups
+  Chaingun (Equalizer): stats
+  Mortar (Mortar): scripts
+  LaserRifle (Laser Rifle): stats
+  EnergyRifle (ELF Gun): stats
+  HyperB (Hyper Blaster): stats
+  RocketLauncher (Rocket Launcher): scripts
+  TranqGun (Dart Rifle): stats
+  Silencer (Magnum): stats
+  ConCun (Shockwave Cannon): stats
+  Railgun (Railgun): stats
+  IonGun (Ion Rifle): stats
+  ShieldPack (Shield Pack): scripts
+  SensorJammerPack (Sensor Jammer Pack): stats
+  RegenerationPack (Regeneration Pack): stats+scripts
+  LightningPack (Teleport Pack): stats+scripts
+  FlightPack (Flight Pack): stats
+  SuicidePack (Suicide DetPack): scripts
+  AmmoPack (Ammo Pack): scripts
+  PlantPack (Healing Plant): scripts
+  TeleportPack (Teleport Pad): scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  airbase (AirBase): scripts
+  AccelPPack (Accelerator Pad): scripts
+  Regen (Regeneration Gun): scripts
+  CoolLauncher (Missile Control Station): scripts
+  Plastique (Plastique): scripts
+  RepairPatch (Repair Patch): scripts
+  EmplacementPack (Emplacement): scripts
+  ArbitorBeaconPack (Arbitor Device): stats
+  PowerGeneratorPack (Power Device): scripts
+  LasCannon (Gattling Laser Cannon): renamed+stats
+  PlasmaCannon (Heavy Plasma Cannon): renamed+stats
+  JammerBeaconPack (Jammer Device): new
+  Booster1Pack (Booster): new
+  Booster2Pack (Booster): new

@@ -1,0 +1,581 @@
+{
+ "mod": {
+  "overview": "STAR Mod is the STAR clan's December 1999 edition of Emo1313's Shifter v1 (scripts.vol dated 1999-12-26). It plays like Shifter v1 with Bots: nine buyable armor classes that decide weapons, resistances and what the grenade, mine and beacon keys do. The SpoonBot scripts are gone, and the clan's server settings are baked in. New on top: weapon option menus (including a locking LockJaw rocket), the Equalizer chaingun, a Missile Control Station that fires guided missiles, air bases, Accelerator Pads, Det Bugs, extra Engineer beacons and mines, and Tribes Racer vehicles.",
+  "notes": [
+   "Entry and settings: StarMod.cs runs StarShifter.cs, the release's 'STAR shifter.cs' with 13 lines switched off (auto-admin names and addresses, e-mail). This release has no bot scripts (no ai.cs or Bot*.cs) and the three bot switches are off, so there is no SpoonBot content as in Shifter v1 with Bots (server.cs still calls exec(AI) although no ai.cs ships).",
+   "Server settings in StarShifter.cs: vote kick and vote admin on, vote FFA off, random mission rotation, team balancing, outside-the-mission-area damage, turret kills count for the owner, personal skins, character saving ($Shifter::SaveOn), Tribes Racer vehicles ($Shifter::Racer) and guided missiles ($Shifter::Guided) all on. Fair teams checks every 30 seconds and moves the last joiner after 60. Kills within 10 seconds of spawning pay half. The welcome message names the 'STAR server' and reminds players of a 2-teamkill kick/ban rule.",
+   "Anti-team-kill is configured (warn at 1, kick after 30, 300 m accidental-damage proximity, ban time 0) but $Shifter::TeamKillOn is false, so the kick/ban rule is switched off in the settings file.",
+   "Scoring is higher than Shifter v1 with Bots: flag capture 30, flag-runner kill 15, runner defense 5, flag return 10, objective destroyed 15, repair base bonus 5, plus distance-based kill points (0 under 15 m, 1 to 100 m, 2 to 250 m, 3 beyond).",
+   "Spawning: each player has a Spawn Options menu (Standard, Random, Favorites) plus a saved-character spawn (saveinfo.cs, SaveCharacter). The default is Random. The random table is the same as in Shifter v1 with Bots: about 42% Mercenary, 30% DreadNaught, 10% Goliath, 10% Arbitor, 6% and 2% Engineer kits.",
+   "Weapon Options menu (admin.cs): Plasma Options (standard, rapid, multi), Mortar Options (standard, EMP, frag), Rocket Options (Standard Stinger, Locking Stinger if $Shifter::LockOn, LockJaw), GravGun Options (tractor, repulse). By armor: Engineer Options (Engineer Mines, Engineer Gun, Engineer Beacons) for Engineers; Plastique Options and Command LapTop Options for Chemeleons; Lock Telepoint for an Arbitor wearing the Teleport Pack. Unlike Shifter v1 with Bots, the Rocket Launcher has these fire modes. The Rocket Options menu is titled 'Mortar Options' in the code.",
+   "The weapon-use messages are new: itemmsgs.cs (executed after item.cs) redefines every weapon's onUse to call Weapon::onUse and then show 'Using' plus the weapon name on the bottom print for 2 seconds. It also holds leftover messages for weapons that do not exist in this mod (Flare Gun, Fusion Blaster, Particle Accelerator, Mine Launcher, Plasma Cannon, Jailer's Gun, Chaos Gun, Handheld Cloak, Shotgun).",
+   "Armor tweaks against Shifter v1 with Bots: DreadNaught has 1.7 max damage (was 1.6) and runs 8/6/6 (was 6/5/4); Chemeleon max damage 0.76 (was 0.66) with a little more jet force; the stimmed Scout has much stronger jets and jump impulse; Engineer runs 9.0/7.5/7.5 (was 8/7/7) and, like the Arbitor, cannot crouch. The Penis Curse armor (parmor) has 160 energy (was 60).",
+   "Status effects are shorter or longer than before: EMP lasts 12 ticks (was 14) and burning 10 ticks (was 5). Repair Kits and Repair Patches heal by armor (Engineer and DreadNaught 0.3; Mercenary, Chemeleon, Arbitor, Heavy, Goliath 0.2; Assassin, Scout, Stim, Juggernaught 0.1), cure poison, and lower a Scout's overdose chance. With $Shifter::EngHealAll on (it is), an Engineer who bumps a friendly object of a hackable kind repairs it by 0.10 per touch.",
+   "Class kit (Grenade, Mine, Beacon keys) differs from Shifter v1 with Bots mainly in the Beacon: Assassin drops a Det Bug, Engineer places the beacon type chosen in Engineer Beacons, Scout/Stim takes a stim shot, Chemeleon a satchel charge, Mercenary a speed booster, Arbitor cloaks for about 20 seconds, Goliath throws a Concussion2 grenade, DreadNaught and Heavy raise an emergency shield; the Juggernaught has none. Engineer mines gain a fifth Replicator type. The grenade table is unchanged (Stim now counts as Scout).",
+   "Vehicles: because $Shifter::Racer is on, server.cs loads trvehicle.cs (Tribes Racer vehicles, race code in tribesracer.cs by SpoonBot's author) instead of vehicle.cs. In that file the Interceptor fires InterceptorAmmo, a 0.4-damage, 2.5 m radius shell. The release also contains Team Deathmatch v1.6 (November 1999, teamdm.cs).",
+   "Stations: a Penis-cursed player cannot use any station. Ammo resupply now also refills Beacons. Deployable stations are now listed under 'fStations' in the shop; the Missile Control Station is a deployable station handled in DeployableStation::onCollision.",
+   "Script bugs and quirks in the code: PlasmaGunImage::onFire tests '!playerId.Plasma' without a % sign, which looks always true, so the rapid and multi plasma branches may be unreachable (not verified in play); the PlasmaGun and Mortar 'Using ...' messages test %client.rocket instead of their own mode variable; Mfgl::onUse is defined twice and the later itemmsgs.cs copy removes the Containment Pack requirement; Penis::onFire is an item function that the weapon image never calls; the locking Stinger mode spends AutoRocketAmmo (SMR ammo) instead of rocket ammo; DeployableCactus1 is never defined, so some Healing Plants deploy nothing; Nukebomb 'wrong wire' passes the text 'Mine::Detonate(...)' as a plain string, so it never explodes; the hack timer variable is spelled $Shifer::HackTime (consistently, so it still works); DeployableCoolStation::onDestroyed reads %player, which is not set there (its team count line uses an empty team)."
+  ]
+ },
+ "items": {
+  "Blaster": {
+   "summary": "The basic energy blaster. The only script change from Shifter v1 with Bots is a 'Using Blaster' message when it is selected.",
+   "notes": [
+    "Fires BlasterBolt as a single shot every 0.25 seconds on energy, no ammo. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Blaster' on the bottom print for 2 seconds.",
+    "Carried by Assassin, Mercenary, Heavy, Scout, Stim, DreadNaught, Chemeleon, Engineer and Arbitor (not Goliath or Juggernaught)."
+   ],
+   "source": "itemmsgs.cs Blaster::onUse; item.cs ItemData Blaster, BlasterImage; ArmorData.cs"
+  },
+  "Chaingun": {
+   "summary": "Renamed Equalizer. Unlike Shifter v1 with Bots and stock Tribes, its spinning gun no longer fires hit-scan bullets: each shot is a slow shell that explodes in a small radius.",
+   "notes": [
+    "ChaingunBullet now has damageClass 1 (radius damage): 0.3 damage, 2.5 m blast, kickback 150, 200 m/s muzzle speed (was 425), inherits twice the shooter's velocity, collides with its owner after 250 ms and lives 1.5 seconds. Aim deflection is tighter (0.003 vs 0.005).",
+    "It has its own Equalizer damage type, scaled by armor: Engineer 0.7, DreadNaught 0.8, Chemeleon 0.9, Assassin/Mercenary/Juggernaught 1.0, Scout/Goliath 1.1, Arbitor 1.2, Heavy 1.3. Death messages are still the chaingun ones ('ventilates ... with chaingun').",
+    "Still a spin-up weapon (0.2 second spin-up, 0.2 second fire time) on BulletAmmo. The Chaingun::verifyTarget helper of Shifter v1 with Bots is gone. ItemData.description is 'Equalizer' and 'Using Equalizer' shows on selection. An Equalizer::onUse function and an $ItemMax template for an item named Equalizer exist, but no such ItemData does, so the weapon stays Chaingun in code.",
+    "Carried by Assassin, Scout, Stim, Chemeleon, Mercenary, Engineer, DreadNaught and Heavy; the standard Mercenary spawn includes it."
+   ],
+   "source": "item.cs ItemData Chaingun, ChaingunImage; baseProjData.cs ChaingunBullet; ArmorData.cs $EqualizerDamageType; itemmsgs.cs"
+  },
+  "PlasmaGun": {
+   "summary": "Plasma Gun with three fire modes from Plasma Options (standard, rapid, multi), now with a 'Using Plasma Gun' message that names the mode.",
+   "notes": [
+    "PlasmaGunImage::onFire reads the player's Plasma setting: 0 fires one PlasmaBolt, 1 (rapid) fires PlasmaBoltRapid and PlasmaBoltRapid2, 2 (multi) fires three PlasmaBoltMulti, two with +25 and -25 added to the inherited velocity. One round of ammo is used per pull.",
+    "Bug: the standard-bolt test is written '!playerId.Plasma' (no % sign), which looks always true. If so, the standard bolt always fires and the rapid and multi branches are unreachable. Not verified in play.",
+    "PlasmaGun::onUse prints 'Standard', 'Rapid Fire' or 'Spread Fire'; its standard test also checks %client.rocket, so the standard message can show in the wrong cases.",
+    "Plasma hits can set enemies on fire (not Goliaths). Carried by every armor except Arbitor and Juggernaught."
+   ],
+   "source": "item.cs PlasmaGunImage::onFire; itemmsgs.cs PlasmaGun::onUse; admin.cs weapon_plasma_*; baseProjData.cs PlasmaBolt*; ArmorData.cs"
+  },
+  "GrenadeLauncher": {
+   "summary": "The grenade launcher. The only script change from Shifter v1 with Bots is the 'Using Grenade Launcher' message.",
+   "notes": [
+    "Fires GrenadeShell on GrenadeAmmo, half a second between shots. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Grenade Launcher' on the bottom print for 2 seconds.",
+    "Carried by every armor except Arbitor: Assassin, Mercenary, Heavy, Scout, Stim, Goliath, DreadNaught, Chemeleon, Engineer and Juggernaught."
+   ],
+   "source": "itemmsgs.cs GrenadeLauncher::onUse; item.cs ItemData GrenadeLauncher, GrenadeLauncherImage; ArmorData.cs"
+  },
+  "Mortar": {
+   "summary": "The heavy artillery piece with three shell types from Mortar Options (standard, EMP, frag), with a 'Using Mortar' message that names the shell.",
+   "notes": [
+    "MortarImage::onFire picks the projectile from the Mortar Options menu: 0 MortarShell, 1 EMPMortar, 2 BomberShell (frag shell that drops waves of bomblets a second after launch). Ammo is spent after the shell is chosen.",
+    "Mortar::onUse shows 'Standard Shell', 'EMP Shell' or 'Frag Shell'. Its standard test also checks %client.rocket, so the standard message can show in the wrong cases.",
+    "The menu is open to everyone but only Heavy, Goliath, DreadNaught and Juggernaught can carry the Mortar. DeployBomblets throws the bomblets with strength 5 instead of -5 as in Shifter v1 with Bots."
+   ],
+   "source": "item.cs MortarImage::onFire; itemmsgs.cs Mortar::onUse; admin.cs weapon_mortar_*; baseProjData.cs MortarShell, EMPMortar, BomberShell, DeployBomblets; ArmorData.cs"
+  },
+  "DiscLauncher": {
+   "summary": "The disc launcher. The only script change from Shifter v1 with Bots is the 'Using Disc Launcher' message.",
+   "notes": [
+    "Fires DiscShell on DiscAmmo (fire time 1.25 seconds). itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Disc Launcher' on the bottom print for 2 seconds.",
+    "Carried by Assassin, Mercenary, Heavy, Scout, Stim, Goliath, DreadNaught, Chemeleon and Engineer; part of the standard Mercenary spawn."
+   ],
+   "source": "itemmsgs.cs DiscLauncher::onUse; item.cs ItemData DiscLauncher, DiscLauncherImage; ArmorData.cs"
+  },
+  "LaserRifle": {
+   "summary": "The Laser Rifle: a single-shot laser sniper weapon. Unlike Shifter v1 with Bots, it no longer needs an Energy Pack to be used.",
+   "notes": [
+    "item.cs still has LaserRifle::onUse requiring a mounted Energy Pack ('Must have an Energy Pack to use Laser Rifle'), but itemmsgs.cs loads later and redefines it as Weapon::onUse plus a 'Using Laser Rifle' message, so the pack check never runs.",
+    "Fires SniperLaser (laser damage type) for 10 to 60 energy per shot. Laser hits get the head-shot bonus, weapon knock-out and flag knock-off reactions of Player::onDamage.",
+    "Carried by Assassin, Scout, Stim and Chemeleon."
+   ],
+   "source": "itemmsgs.cs LaserRifle::onUse; item.cs LaserRifle::onUse, LaserRifleImage; baseProjData.cs sniperLaser; player.cs Player::onDamage; ArmorData.cs"
+  },
+  "EnergyRifle": {
+   "summary": "The ELF Gun: a sustained electric beam. The only script change from Shifter v1 with Bots is the 'Using ELF Gun' message.",
+   "notes": [
+    "Sustained weapon firing lightningCharge for 3 to 11 energy per second. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using ELF Gun' on the bottom print for 2 seconds.",
+    "Carried by Assassin, Mercenary, Heavy, Scout, Stim, DreadNaught, Chemeleon, Engineer and Arbitor."
+   ],
+   "source": "itemmsgs.cs EnergyRifle::onUse; item.cs ItemData EnergyRifle, EnergyRifleImage; ArmorData.cs"
+  },
+  "HyperB": {
+   "summary": "Hyper Blaster: a light rapid-firing energy weapon that needs no ammo, now with slightly stronger bolts.",
+   "notes": [
+    "HyperBolt damage is 0.04 per bolt (0.03 in Shifter v1 with Bots) and the bolt now uses the 'paint' model with a green light. Blaster damage type: Arbitor takes 0.5x, Juggernaught 1.5x.",
+    "Carried by Mercenary, Scout, Stim and Arbitor; part of the standard Mercenary spawn and the Arbitor spawn. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Hyper Blaster' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs ItemData HyperB; baseProjData.cs HyperBolt; itemmsgs.cs HyperB::onUse; ArmorData.cs; game.cs randomSpawnList"
+  },
+  "RocketLauncher": {
+   "summary": "The Rocket Launcher with three modes from Rocket Options: a plain Stinger, a locking Stinger, and LockJaw. This is new compared to Shifter v1 with Bots, where it had no menu.",
+   "notes": [
+    "RocketImage::onFire reads the Rocket setting. 0 (Standard Stinger) fires a StingerMissile. 1 (Locking Stinger, offered only when $Shifter::LockOn) traces 500 m; on a Player or Flier it shows 'Lock Aquired', warns the target ('WARNING ... has a Missile Lock') and fires a StingerMissileTracker (now live 4 seconds, was 20). Otherwise it says 'Target Lock Failed' and fires a plain Stinger. This mode spends AutoRocketAmmo (SMR ammo), not rocket ammo.",
+    "2 (LockJaw) first needs a lock. With no target, firing spawns the LockJaw beam; LockJaw::onAcquire stores the target, refuses friendlies ('Can Not Target Friendlies'), tells you 'LockJaw Aquired - Active For Next 15 Seconds' and warns the target. Firing again within 15 seconds calls LockJawFire, which uses one rocket and launches a MiniMissileTracker at the target. MiniMissileTracker is a fast, tight-turning seeker: 0.5 damage, 10 m radius, 15 second life, starting at 100 m/s.",
+    "The Chemeleon exemption in the locking mode is broken: it compares the armor with '!= spyarmor || != spyfemale', which is always true, so any player or flier can be locked.",
+    "Rocket::onUse shows 'Stinger Mode', 'Locking Mode' or 'Lock Jaw Mode'. Carried by Mercenary, Goliath, DreadNaught, Engineer and Juggernaught; it is in the Goliath and both Engineer spawns."
+   ],
+   "source": "item.cs RocketImage::onFire, Tracker; baseProjData.cs StingerMissile, StingerMissileTracker, LockJaw, LockJawFire, MiniMissileTracker; admin.cs weapon_rocket*; itemmsgs.cs; ArmorData.cs"
+  },
+  "SniperRifle": {
+   "summary": "A projectile sniper rifle that fires a near-instant bullet; only the Assassin can carry it. The only script change from Shifter v1 with Bots is the 'Using Sniper Rifle' message.",
+   "notes": [
+    "Fires SniperRound (2000 m/s, its own Sniper damage type, strong knockback). Sniper damage does not get the laser head-shot bonus, but a sniper hit to the back of a Suicide Pack wearer sets the pack off.",
+    "Assassin only. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Sniper Rifle' on the bottom print for 2 seconds."
+   ],
+   "source": "itemmsgs.cs SniperRifle::onUse; item.cs ItemData SniperRifle, SniperRifleImage; ArmorData.cs; baseProjData.cs SniperRound; player.cs Player::onDamage"
+  },
+  "BoomStick": {
+   "summary": "The Boom Stick shotgun: a close-range weapon. Pellets now inherit less of the shooter's velocity.",
+   "notes": [
+    "Each trigger pull uses one shell and spawns 19 BoomStickBlast pellets (Shell damage type, 0.08 each, 200 m/s). BoomStickBlast inheritedVelocityScale is 0.3 here (1.0 in Shifter v1 with Bots), so running or jetting changes the spread less.",
+    "Carried by Assassin, Mercenary, Scout, Stim and Chemeleon. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Boom Stick' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs BoomStickImage::onFire; baseProjData.cs BoomStickBlast; itemmsgs.cs BoomStick::onUse; ArmorData.cs"
+  },
+  "TranqGun": {
+   "summary": "Dart Rifle: a sniper-style weapon that does modest direct damage and poisons the target. The only script change from Shifter v1 with Bots is the 'Using Dart Rifle' message.",
+   "notes": [
+    "Fires TranqDart (energy damage 0.16, 625 m/s, 1.5 second reload). An enemy hit by energy damage is poisoned (extra damage over time, Arbitors immune). Unlike Shifter v1 with Bots, a Repair Kit or Repair Patch now cures it ($poisonTime reset, 'Poison cured').",
+    "Carried only by Assassin and Chemeleon. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Dart Rifle' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs TranqGunImage, RepairKit::onUse; baseProjData.cs TranqDart; player.cs; itemmsgs.cs TranqGun::onUse; ArmorData.cs"
+  },
+  "Silencer": {
+   "summary": "The Magnum: a fast, accurate bullet weapon carried only by the Chemeleon. The only script change from Shifter v1 with Bots is the 'Using Magnum' message.",
+   "notes": [
+    "Fires SilencerBullet with the laser damage type, so Player::onDamage's laser reactions apply: head hits do +30%, a hit over 0.25 to the front-right torso can shoot the weapon out of the victim's hand, a back-of-the-head hit can knock a carried flag off.",
+    "Chemeleon only. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Magnum' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs SilencerImage; baseProjData.cs SilencerBullet; player.cs Player::onDamage; itemmsgs.cs Silencer::onUse; ArmorData.cs"
+  },
+  "ConCun": {
+   "summary": "Shockwave Cannon: a slow concussion shell with a huge blast that throws players around. The shell has a new look.",
+   "notes": [
+    "Fires the Shock rocket (50 m/s, 30 m radius, strong knockback, missile damage 0.15) for energy, not ammo. The shell now uses the 'shield' model with a shield-model trail and the new ShockwaveFour explosion; the damage figures match Shifter v1 with Bots.",
+    "Carried by DreadNaught and Arbitor; part of the Arbitor random spawn. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Shockwave Cannon' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs ConCunImage; baseProjData.cs Shock; baseExpData.cs ShockwaveFour; itemmsgs.cs ConCun::onUse; ArmorData.cs"
+  },
+  "Railgun": {
+   "summary": "A very fast, high-damage single-shot weapon with a long delay between shots. Unlike Shifter v1 with Bots, the Assassin can carry it too.",
+   "notes": [
+    "Fires RailRound (2000 m/s, bullet damage, strong knockback). Carried by Assassin and Engineer; both Engineer spawns include it.",
+    "itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Railgun' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs RailgunImage; baseProjData.cs RailRound; itemmsgs.cs Railgun::onUse; ArmorData.cs; game.cs randomSpawnList"
+  },
+  "Vulcan": {
+   "summary": "A spinning rotary cannon firing very many bullets, now at double the damage per bullet.",
+   "notes": [
+    "Spin-up weapon (0.5 second spin-up) firing VulcanBullet: 0.04 bullet damage (0.02 in Shifter v1 with Bots), mass 0.06. The Interceptor no longer shares this bullet in this mod's loaded vehicle file (it fires InterceptorAmmo).",
+    "Carried by Mercenary, Heavy, DreadNaught and Juggernaught; part of the DreadNaught spawn. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Vulcan' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs VulcanImage; baseProjData.cs VulcanBullet; itemmsgs.cs Vulcan::onUse; ArmorData.cs"
+  },
+  "Mfgl": {
+   "summary": "Tactical Nuke: a heavy launcher that fires a slow shell which turns into a multi-stage nuclear explosion. Unlike Shifter v1 with Bots, selecting it no longer needs the Containment Pack.",
+   "notes": [
+    "item.cs still has Mfgl::onUse refusing the weapon without a Containment Pack (or Juggernaught armor), but itemmsgs.cs redefines Mfgl::onUse later and only shows 'Using Tactical Nuke', so the refusal never runs. Buying it still auto-buys a Containment Pack and selling the pack sells the nuke.",
+    "Fires FgcShell; NuclearExplosion spawns the stacked nuke-damage blasts (base, rings, then cloud blasts). Nuke damage EMPs enemies and can ignite them. NuclearExplosion differs from Shifter v1 with Bots only in debug output.",
+    "Carried by Heavy, DreadNaught and Juggernaught, but only the DreadNaught can carry the warhead ammo. $TeamItemMax[Mfgl] is 2; no code that raises its count was found."
+   ],
+   "source": "itemmsgs.cs Mfgl::onUse; item.cs Mfgl::onUse, buyItem; baseProjData.cs FgcShell, NuclearExplosion; Mine.cs; ArmorData.cs"
+  },
+  "Flamer": {
+   "summary": "Flame Thrower: a short-range plasma weapon carried only by the Goliath, with a new flame look.",
+   "notes": [
+    "Fires FlamerBolt, a slow plasma-damage bolt (30 m/s, 0.75 second life, 4 m blast) on energy; plasma hits can ignite enemies (not other Goliaths). The bolt now uses the 'fiery' model.",
+    "Burning now lasts 10 ticks (5 in Shifter v1 with Bots). Goliath only; part of the Goliath spawn. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Flame Thrower' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs FlamerImage; baseProjData.cs FlamerBolt; player.cs Renegades_startBurn; itemmsgs.cs Flamer::onUse; ArmorData.cs"
+  },
+  "IonGun": {
+   "summary": "Ion Rifle: an energy weapon firing short-lived ion bolts. Weaker and shorter-ranged than in Shifter v1 with Bots, and no longer carried by Scouts.",
+   "notes": [
+    "IonBolt now does 0.25 electricity damage (was 0.26) in a 4 m blast (was 6), lives only 0.3 seconds (was 3.0) with a 0.5 second total time, and inherits less of the shooter's velocity (0.2 vs 0.5). Electricity ignores shields and an electricity kill blows the victim up.",
+    "Carried by Mercenary and Arbitor (Scout and Stim lost it). The Ion Turret uses the same bolt. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Ion Rifle' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs IonGunImage; baseProjData.cs IonBolt; itemmsgs.cs IonGun::onUse; ArmorData.cs"
+  },
+  "Omega": {
+   "summary": "Volter: a point-blank electric burst weapon for Arbitors and Heavies. The only script change from Shifter v1 with Bots is the 'Using Volter' message.",
+   "notes": [
+    "Fires FlameBurst, a grenade-type projectile with a 0.02 second life that detonates almost at once (electricity damage, 5 m radius), so it only hurts close targets.",
+    "Carried by Heavy and Arbitor. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Volter' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs OmegaImage; baseProjData.cs FlameBurst; itemmsgs.cs Omega::onUse; ArmorData.cs"
+  },
+  "TargetingLaser": {
+   "summary": "The Targeting Laser: a sustained painting beam. The only script change from Shifter v1 with Bots is the 'Using Targeting Laser' message.",
+   "notes": [
+    "Sustained weapon firing targetLaser (5 to 15 energy per second). itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Targeting Laser' on the bottom print for 2 seconds.",
+    "Carried by every armor except Juggernaught; part of every spawn kit."
+   ],
+   "source": "item.cs TargetingLaserImage; itemmsgs.cs TargetingLaser::onUse; ArmorData.cs; game.cs randomSpawnList"
+  },
+  "Fixit": {
+   "summary": "Engineer Repair-Gun: a built-in repair beam that needs no Repair Pack; the first of three forms of the Engineer gun. Behaves as in Shifter v1 with Bots, plus a 'Using Engineer Repair-Gun' message.",
+   "notes": [
+    "Fires RepairBolt: aimed at another player or object it repairs; aimed at oneself it repairs less. Completing a repair scores points; repairing enemy objects costs points.",
+    "Engineer Gun Options (Repair, Hack, Disassembler) swaps Fixit for Hackit or DisIt in the same slot, and only works if the Engineer already holds one of the three. Engineer only; in the first Engineer spawn.",
+    "With $Shifter::EngHealAll on, an Engineer who bumps into a friendly object of a hackable kind also repairs it by 0.10 per touch (Player::onCollision)."
+   ],
+   "source": "item.cs FixitImage, ItemData Fixit; itemmsgs.cs FixIt::onUse; admin.cs weapon_eng_*; player.cs Player::onCollision; ArmorData.cs"
+  },
+  "GravGun": {
+   "summary": "Grav Gun: a beam that pulls enemies toward you or pushes them away. The only script change from Shifter v1 with Bots is the 'Using Grav Gun' message.",
+   "notes": [
+    "gravCharge::damageTarget applies an impulse along the shooter's facing (negative for the Tractor setting, positive for Repulse) plus a trickle of damage; the setting comes from GravGun Options.",
+    "The menu is shown to everyone but only Engineer and Arbitor can carry the gun. itemmsgs.cs replaces the weapon's onUse: it calls Weapon::onUse and then shows 'Using Grav Gun' on the bottom print for 2 seconds."
+   ],
+   "source": "item.cs GravGun; baseProjData.cs gravCharge::damageTarget; admin.cs weapon_gravgun_*; itemmsgs.cs GravGun::onUse; ArmorData.cs"
+  },
+  "Penis": {
+   "summary": "The Penis Curse weapon. An admin can curse a player, locking them into a crippled armor (parmor) whose only item is this.",
+   "notes": [
+    "Cursing is an admin player-menu option (admin.cs 'peniscurse'): it sets the victim's armor to parmor, gives them one Penis, mounts it, drops any flag held and announces it to everyone. parmor is nearly immobile (2 m/s in every direction, 1 jet force), has 0.11 max damage and 160 energy, may hold one weapon and cannot use any station. Choosing the option again on a cursed player lifts the curse: the armor cycles through the others, the player is blown up and killed 2 seconds later with a PenisBlast shockwave.",
+    "If a cursed player uses the kill command (remoteKill), they get 'Removing the curse of the penis will not be that easy!' and die, and penisCurse re-applies the curse 10 to 39 seconds later ('The Penis Curse Has Returned ...'), this time mounting the Penis in the backpack slot. Dropping it is refused with the message 'The curse of the penis can not be removed so easily', although Penis::onDrop sends that message to an unset %client.",
+    "Firing does nothing as scripted: PenisImage has projectileType Undefined, and the code that spawns the Pee projectile is Penis::onFire, an item function the image never calls. Pee itself is a 5 m radius grenade with negative (repair-type) damage whose damageTarget handler only tells the target 'You got pee'd on by ...'.",
+    "Only parmor lists Penis in $ItemMax."
+   ],
+   "source": "item.cs ItemData Penis, PenisImage, Penis::onFire, Penis::onDrop; admin.cs peniscurse; blasts.cs PenisBlast; baseProjData.cs Pee; ArmorData.cs parmor"
+  },
+  "DeployableInvPack": {
+   "summary": "Deployable Inventory Station: a backpack that places a small remote inventory station, letting a player buy gear far from base.",
+   "notes": [
+    "Same deployShape as Shifter v1 with Bots (accepts a Deployable Platform as ground; flat surface and a clear spot within 3 m; team limit 5; the station keeps a 5000 energy pool that purchases spend). The shop heading changed to 'fStations'.",
+    "A Chemeleon can use enemy stations (the team check is skipped for spyarmor); a Penis-cursed player cannot use any station.",
+    "Carried by Mercenary, Heavy, Goliath, DreadNaught, Engineer and Arbitor; the rare Engineer spawn gets one."
+   ],
+   "source": "item.cs DeployableInvPack::deployShape; station.cs Station::onCollision, DeployableStation::onCollision; game.cs $RemoteInvEnergy"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deployable Ammo Station: a backpack that places a small remote ammo/resupply station.",
+   "notes": [
+    "Same deployShape as Shifter v1 with Bots (team limit 7; a 2500 energy pool that resupplies draw on). Shop heading is now 'fStations'.",
+    "Ammo stations now also refill Beacons (AmmoStation::resupply counts Beacon with Mine, Grenade and Repair Kit).",
+    "Carried by Mercenary, Heavy, Goliath, DreadNaught, Engineer and Arbitor."
+   ],
+   "source": "item.cs DeployableAmmoPack::deployShape; station.cs AmmoStation::resupply, Station::itemsToResupply; game.cs $RemoteAmmoEnergy"
+  },
+  "ShieldPack": {
+   "summary": "Shield Pack: converts the wearer's energy into a damage shield, now with a repeating shield flash.",
+   "notes": [
+    "Activating sets shieldStrength 0.022 and starts ShieldImage, which re-triggers the shield visual (GameBase::activateShield) once a second while the pack is on; deactivating clears the shield. Strength is as in Shifter v1 with Bots; the visual loop is new.",
+    "The shield absorbs damage by draining energy, less against shrapnel and mortar damage and not at all against electricity.",
+    "Carried by every armor except DreadNaught and Juggernaught."
+   ],
+   "source": "item.cs ShieldPackImage::onActivate/onDeactivate, ShieldImage; player.cs Player::onDamage; ArmorData.cs"
+  },
+  "CloakingDevice": {
+   "summary": "Cloaking Device: a backpack that makes the wearer invisible, with an area-cloaking side effect for Arbitors.",
+   "notes": [
+    "For armors other than the Arbitor, activating fades the wearer out and raises sensor suppression by 5; deactivating reverses it.",
+    "For an Arbitor the pack instead spawns a CloakBlast 3.5 m above (25 m radius, cloak damage type, now with the 'breath' shape) and switches the pack off at once. Anything it hits, friend or foe, is faded out by Player::onDamage's cloak handling and faded back in later; cloak damage is scaled to zero so it hurts no one.",
+    "Carried only by Arbitor and Chemeleon."
+   ],
+   "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate; blasts.cs CloakBlast; player.cs Player::onDamage; ArmorData.cs"
+  },
+  "RegenerationPack": {
+   "summary": "Regeneration Pack: a backpack that carries the Regeneration Gun, an energy-drain beam that heals its user. This replaces the non-working healing pack of Shifter v1 with Bots.",
+   "notes": [
+    "The pack image is a sustained DrainBolt source (8 to 14 energy). RegenerationPack::onUse mounts the pack the first time and, with the pack mounted, mounts a Regen weapon in the weapon slot the next time; onUnmount and onDrop put the previous weapon back. TransferHealth and the onActivate handler of Shifter v1 with Bots are gone.",
+    "Nothing in the scripts gives a player the Regen item (it has no $ItemMax entries and no setItemCount). Whether Player::mountItem works without it: Behavior not determined from scripts.",
+    "Carried by Heavy and Arbitor."
+   ],
+   "source": "item.cs RegenerationPackImage, RegenerationPack::onUse/onUnmount/onDrop, ItemData Regen; baseProjData.cs DrainBolt; ArmorData.cs"
+  },
+  "LightningPack": {
+   "summary": "Teleport Pack: an Arbitor-only backpack that teleports the wearer to a saved telepoint, or on a bad roll to a random nearby spot. Much richer than in Shifter v1 with Bots.",
+   "notes": [
+    "An Arbitor sets a telepoint with Weapon Options > Lock Telepoint (must be at least 50 m from every flag). Activating the pack teleports to it and shows 'Telepoint Location Susccessful'. If there is no telepoint, or on a roll above 90 of 0-99, the lock fails ('Telepoint Lock Failed'): the code throws the mounted pack item away and moves the wearer to a random point 25 to 50 m on X and 25 to 45 m on Y at the same height. A flag-drop 'Teleport malfunction' check tests a 0-99 roll for being above 99, so it can never fire.",
+    "Enemy Telepoint Disruptors (Engineer beacon, BeaconTwo in the TeleJammer set) within 125 m of the wearer or of the telepoint block it: 'Lock Failed, You are being JAMMED! 125m From Jammer Required!'.",
+    "After the move, if there is no ground below it rerolls 15 to 40 m / 15 to 35 m away and 25 m up. If the target is blocked: 'Object In The Way...'. Carried only by Arbitor."
+   ],
+   "source": "item.cs LightningPackImage::onActivate; admin.cs locktelepoint; itemfuncs.cs EngTeleDisruptor; ArmorData.cs"
+  },
+  "Laptop": {
+   "summary": "Command Laptop: a backpack that lets a Chemeleon or Engineer take over enemy turrets, or control turrets without a command station.",
+   "notes": [
+    "Switching it on sets the player's Laptop flag ('LapTop On'); off clears it. Laptop options (Weapon Options > Command LapTop Options) choose Turret Control (HackPack true) or Turret Hack (false).",
+    "Walking an Engineer or Chemeleon into an enemy turret (Turret::onCollision) with the Laptop on: in control mode a listed turret type is reprogrammed to the player's team for $Shifter::HackedTime (30 seconds), controlled from the player's position, and both teams are told ('X hacked into ...'). In hack mode a timed hack runs for $Shifer::HackTime (190, misspelled but consistent) seconds with 'Finished In n' messages, then the turret changes team for 30 seconds. Details of which branch applies when: Behavior not determined from scripts.",
+    "Client::takeControl skips its 'Must be at a Command Station to control turrets' refusal when the Laptop is mounted. Carried by Scout, Stim, Chemeleon and Engineer. Unlike Shifter v1 with Bots there is no Laptop::onUse/onMount."
+   ],
+   "source": "item.cs LaptopImage::onActivate/onDeactivate; admin.cs weapon_laptop; turret.cs Turret::onCollision, hackingturret; player.cs Client::takeControl; ArmorData.cs"
+  },
+  "SuicidePack": {
+   "summary": "Suicide DetPack: a Goliath-only backpack that is a timed nuclear bomb you drop and run from.",
+   "notes": [
+    "Deploying drops a Suicidebomb2 at your feet ('Det Pack will destruct in 20 seconds'); 20 seconds later NuclearExplosion fires the stacked nuke blasts on top of a large shrapnel blast. The pack's deploy code is as in Shifter v1 with Bots.",
+    "A laser or sniper hit to the back of the wearer knocks the pack off and it explodes at once as a Suicidebomb. An Engineer touching the planted bomb gets 'OOPS! You cut the wrong wire' on a roll below 5 of 10 (was below 3), but that branch passes the text 'Mine::Detonate(...)' as a plain string and does nothing.",
+    "Goliath only."
+   ],
+   "source": "item.cs SuicidePack::deployShape; player.cs Player::onDamage; bombs.cs Suicidebomb, Suicidebomb2; ArmorData.cs"
+  },
+  "CameraPack": {
+   "summary": "Camera pack: places a camera that can be watched or controlled remotely.",
+   "notes": [
+    "Same as Shifter v1 with Bots: deployShape also accepts a Deployable Platform; team limit 15; the CameraTurret has no weapon and Client::takeControl never requires a station for it.",
+    "The Engineer's Cloaked Camera beacon now places a camera that fades out (GameBase::startFadeOut) and no longer counts against the camera limit.",
+    "Carried by Assassin, Mercenary, Scout, Stim, Goliath, DreadNaught, Chemeleon, Engineer and Arbitor."
+   ],
+   "source": "item.cs CameraPack::deployShape; itemfuncs.cs EngCamera; turret.cs CameraTurret; player.cs Client::takeControl"
+  },
+  "BlastWallPack": {
+   "summary": "Backpack that places a Blast Wall, a solid wall with a lot of health. Engineer only.",
+   "notes": [
+    "The pack is now listed under 'eDefensive' and uses the AmmoPack model. deployShape aims up to 5 m (was 3), needs a flat surface (normal.z above 0.7) and a clear area. Team limit 6 (was 5).",
+    "The BlastWall itself is unchanged: newdoor5 model, blocks movement until destroyed."
+   ],
+   "source": "item.cs BlastWallPack::deployShape, ItemData BlastWallPack; staticshape.cs BlastWall"
+  },
+  "HoloPack": {
+   "summary": "Backpack that places a static Hologram, a decoy figure shaped like a light, medium or heavy armor.",
+   "notes": [
+    "Picks Hologram1 (30%), Hologram2 (40%) or Hologram3 (30%) at random and stands it on your team facing your way. It does not move or shoot. The deploy code matches Shifter v1 with Bots.",
+    "Needs a flat surface and a clear spot; hologram team limit 15. Carried by every armor except Juggernaught."
+   ],
+   "source": "item.cs HoloPack::deployShape; staticshape.cs Hologram1-3; Mine.cs Hologram::onAdd; ArmorData.cs"
+  },
+  "PlantPack": {
+   "summary": "Backpack that plants a Healing Plant, a cactus that repairs any damaged player who touches it. Engineer only.",
+   "notes": [
+    "DeployableCactus2::onCollision repairs a damaged player per touch; the team check is gone (commented out), so enemies are healed too.",
+    "Script bug: the deploy code picks DeployableCactus1 or DeployableCactus2 at random, but DeployableCactus1 is never defined, so some plantings create nothing. Team limit 3."
+   ],
+   "source": "item.cs PlantPack::deployShape; staticshape.cs DeployableCactus2::onCollision"
+  },
+  "TeleportPack": {
+   "summary": "Backpack that places a Teleport Pad; two pads on a team let it step between them.",
+   "notes": [
+    "Walking onto a pad sends you to another pad of the same team and disables both for 5 seconds ('Teleport Pad is recharging'). Heavy and DreadNaught cannot teleport ('Cannot teleport in this armor type'). Enemies are told 'Wrong Team'.",
+    "A Chemeleon can also be sent to an enemy pad ('Transporting To Enemy Telepad!'), a new branch compared with Shifter v1 with Bots. Destroying one pad deals 20 damage to the team's other pads. Engineer only."
+   ],
+   "source": "item.cs TeleportPack::deployShape; staticshape.cs DeployableTeleport::onCollision, onDestroyed"
+  },
+  "MechPack": {
+   "summary": "Interceptor Pack: deploys an Interceptor flier on the spot you aim at. Carried by Scout and Stim only.",
+   "notes": [
+    "Spawns a Jet flier on your team (message 'Piloting Interceptor') and counts it against the JetVehicle limit. Because Tribes Racer vehicles are on, trvehicle.cs defines the Jet: its gun fires InterceptorAmmo (0.4 damage, 2.5 m radius shell, 100 m/s) rather than the Vulcan bullet used in Shifter v1 with Bots."
+   ],
+   "source": "item.cs MechPack::deployShape; trvehicle.cs FlierData Jet; baseProjData.cs InterceptorAmmo"
+  },
+  "RepairKit": {
+   "summary": "Repair Kit: a carried first-aid item whose healing now depends on the armor and which also cures poison.",
+   "notes": [
+    "RepairKit::onUse heals by armor: Engineer and DreadNaught 0.3; Mercenary, Chemeleon, Arbitor, Heavy and Goliath 0.2; Assassin, Scout, Stim and others 0.1 (Shifter v1 with Bots healed 0.2 for everyone).",
+    "It resets the player's poison timer ('Poison cured'), and for a Scout or Stim lowers the overdose chance by 20 to 44 points ('Over Dose Down to ...').",
+    "Carried by every armor; the Engineer beacon mode Medi-Pack Patch throws one."
+   ],
+   "source": "item.cs RepairKit::onUse; ArmorData.cs"
+  },
+  "MineAmmo": {
+   "summary": "Mines: each armor's mine key throws or places a different mine; Engineers now choose from five types.",
+   "notes": [
+    "Assassin: flag decoy mine (Hologram); Engineer: Proximity Warning, Cloaking, Laser, Anti-Personnel or Replicator, per Weapon Options > Engineer Options > Engineer Mines; Scout, Mercenary, Goliath, Heavy: anti-personnel mine; Chemeleon: cloaking (Subspace) mine; Arbitor: shockwave mine; DreadNaught: point-defense laser mine on a surface within 3 m. The Juggernaught has no mines. The code tests only sarmor/sfemale for the Scout, so a Stim has no mine branch.",
+    "New Replicator mine (ReplicatorMine): 0.65 mine damage in 10 m. When destroyed it throws out two new mines (up to generation 4); it removes itself if another mine is within 1 m or the team limit is exceeded.",
+    "Counts carried: Goliath 6, DreadNaught 5, all other classes 3."
+   ],
+   "source": "item.cs MineAmmo::onUse, LaserMine; Mine.cs ReplicatorMine, replicateMines, AntipersonelMine, ProxMine, SubspaceMine, ShockMine, Hologram; ArmorData.cs"
+  },
+  "Grenade": {
+   "summary": "Grenades: each armor's grenade key throws a different bomb. Stim now counts as Scout.",
+   "notes": [
+    "Assassin: hologram bomb; Engineer: EMP grenade; Scout and Stim: firebomb (now 35 m radius, was 30); Chemeleon: plastique timed from Plastique Options; Mercenary: hand grenade; Arbitor: tranq grenade (damage 0.55, was 0.35; poisons); Heavy: plastique-type bomb; Goliath: concussion grenade; DreadNaught: mortar bomb (mortar damage 1.0, 20 m; fuse 5 seconds, was 2; also goes off 0.1 seconds after a player touches it). The Juggernaught has none.",
+    "An Engineer touching a planted Nukebomb has a 50% chance (was 10%) of the 'wrong wire' result, but that branch passes the text 'Mine::Detonate(...)' as a plain string and never explodes; otherwise it disarms the bomb.",
+    "Counts carried: Mercenary, Goliath, Engineer 6; Scout, Stim, Arbitor 5; Assassin, DreadNaught, Chemeleon 3; Heavy 1."
+   ],
+   "source": "item.cs Grenade::onUse; grenade.cs Tranqgrenade, Firebomb, Mortarbomb, Nukebomb::onCollision; ArmorData.cs"
+  },
+  "Beacon": {
+   "summary": "Beacon: the beacon key does a class-specific action instead of placing a normal beacon. This is the biggest class-kit change from Shifter v1 with Bots.",
+   "notes": [
+    "Assassin drops a Det Bug (replaces the Sensor Jammer); Engineer places the type chosen in Engineer Beacons: Standard Beacon, TelePoint Disruptor, Cloaked Camera, Missile Jammer or Medi-Pack Patch (team limit 10); Scout/Stim takes a stim shot; Chemeleon deploys a satchel charge turret; Mercenary throws a speed booster; Arbitor cloaks for about 20 seconds; Goliath throws a Concussion2 grenade (0.15 second throw delay); Heavy and DreadNaught raise an emergency shield (0.006 strength for 20 seconds). The Juggernaught has none.",
+    "The standard Engineer beacon is a DefaultBeacon target (beacon.cs) with 0.1 max damage; BeaconTwo is the silent kind used for jammers. Engineer and Assassin now carry up to 3 beacons (were 1). Ammo stations refill beacons."
+   ],
+   "source": "item.cs Beacon::onUse; itemfuncs.cs EngBeacon, EngTeleDisruptor, EngCamera, EngMissileLock, ScoutStim, DeploySatchel; beacon.cs; admin.cs weapon_engbeacon_*; ArmorData.cs"
+  },
+  "AirAmmoPad": {
+   "summary": "Air Ammo Pad: a backpack that drops a platform with an ammo station on it, away from base.",
+   "notes": [
+    "deployShape places an AirAmmoBasePad (a thin 6x6 elevator-model platform, 5.0 max damage) and a DeployableAmmoStation at the player's own position, named after the Air Ammo Pad and the deployer. It is refused within 10 m of your own flag ('You are too close to your flag.'). Team limit 4.",
+    "Destroying the platform lowers the team's Air Ammo Pad count. Carried by Engineer, Goliath and DreadNaught."
+   ],
+   "source": "item.cs AirAmmoPad::deployshape; staticshape.cs AirAmmoBasePad, thinelevator::onDestroyed; ArmorData.cs"
+  },
+  "airbase": {
+   "summary": "AirBase: an Engineer backpack that builds a whole floating base far above the deploy spot.",
+   "notes": [
+    "airbase::deployshape spawns a portable generator (ABPortGenerator), four LargeAirBasePlatform pieces, a LargeAirBaseRadar, a Command Station, an Inventory Station, a Vehicle Station and a Vehicle Pad, all placed about 80 to 90 m above the player's position and set to the player's team. Refused within 20 m of your own flag. Team limit 4 ('Air Base Generator already Active Can Not Deploy').",
+    "Engineer only."
+   ],
+   "source": "item.cs airbase::deployshape; staticshape.cs ABPortGenerator, LargeAirBasePlatform, LargeAirBaseRadar; ArmorData.cs"
+  },
+  "LaunchPack": {
+   "summary": "Backpack that places a Launch Pad that flings players who touch it. Engineer only.",
+   "notes": [
+    "DeployableLaunch::onCollision always gives the same impulse, forward 200 and up 600, with 'SPROING!' and a mortar sound. Unlike Shifter v1 with Bots there are no stronger random launches ('K-E-R-S-P-R-O-I-N-G', 'TO THE MOON, ALICE!'). There is no team check.",
+    "Team limit 15; 1.5 health."
+   ],
+   "source": "item.cs LaunchPack::deployShape; staticshape.cs DeployableLaunch::onCollision"
+  },
+  "AccelPPack": {
+   "summary": "Accelerator Pad: an Engineer backpack that places a large pad which launches teammates in the direction they face.",
+   "notes": [
+    "The pad is an octagonal elevator model with 3.33 max damage. When a teammate stands on it (more than 0.95 m above the pad) they are told 'Face the direction you want to go, then jump or use your jets. You may walk off the platform to avoid being deployed.' When they jump or jet off, AccelPadPack::CheckPlayer applies an impulse of 50 forward and 50 up, scaled by the armor's mass, with a 1-in-6 chance of an extra +15 forward and +20 up. A rare 'large' branch (+200/+220) tests a value above 30 on a 0-29 roll, so it can never fire.",
+    "Only the pad's own team is launched. Team limit 5. The Engineer's disassembler can pick it up again ('Accel Pad'). Carried by Engineer."
+   ],
+   "source": "item.cs AccelPPack::onDeploy, deployShape; staticshape.cs AccelPadPack::onCollision, CheckPlayer; baseProjData.cs objectColapsable; ArmorData.cs"
+  },
+  "Hackit": {
+   "summary": "Hack-Gun, the second form of the Engineer gun: it takes over powered enemy equipment for a time.",
+   "notes": [
+    "Chosen with Engineer Gun Options > Hack, which swaps Fixit for Hackit. Hold the beam on an enemy object for 5 seconds ($RSP::HackTime); on success the object changes to your team for 90 seconds ($RSP::HackedTime), then reverts, and both teams are told. Hacking is now tracked per client ($hacking[%client]); the 'infected object' booby trap of Shifter v1 with Bots is gone.",
+    "Only objects whose model is on checkHackable's list can be hacked (generators, solar panels, inventory and ammo stations, command panels, doors, elevator platforms, force fields, cameras, hellfire and indoor guns, missile turrets, radar and some sensors). Players cannot be hacked and your own objects are refused.",
+    "itemmsgs.cs adds a 'Using Engineer Hack-Gun' message on selection. Engineer only."
+   ],
+   "source": "item.cs Hackit, HackitImage; baseProjData.cs HackBolt::onAcquire, hackingItem; itemfuncs.cs checkHackable; admin.cs weapon_eng_hack; itemmsgs.cs"
+  },
+  "DisIt": {
+   "summary": "Disassembler-Gun, the third form of the Engineer gun: it dismantles deployed objects into packs. Unlike Shifter v1 with Bots it also works on the enemy team's objects.",
+   "notes": [
+    "Chosen with Engineer Gun Options > Disassymbler. Holding the beam on a deployed object for 5 seconds deletes it and puts its pack in your backpack slot, which must be empty ('drop your current pack first'). The old refusal 'You can not disassymble another teams ...' is gone from DisaBolt::onAcquire, so enemy deployables are not refused by that check.",
+    "Recognized objects include Ion, Rocket, Plasma, ELF, EMP, Mortar and Laser Turrets, Command Station, Sensor Jammer, Pulse Sensor, Camera, Blast Wall, and now the Accel Pad. Players cannot be disassembled.",
+    "itemmsgs.cs adds a 'Using Engineer Disassymbler' message on selection. Engineer only."
+   ],
+   "source": "item.cs DisIt, DisItImage; baseProjData.cs DisaBolt::onAcquire, objectColapsable; admin.cs weapon_eng_disa; itemmsgs.cs"
+  },
+  "Regen": {
+   "summary": "Regeneration Gun: a sustained drain beam that burns a target's life to heal the user. It is only reachable through the Regeneration Pack.",
+   "notes": [
+    "Fires DrainBolt (5 to 12 energy per second). DrainBolt::onAcquire refuses a self-target: 'You are not damaged, can not drain!' if undamaged, otherwise 'Must find powered object to drain!'. On another player or object it says that the target is being drained and tells a player target 'Being drained by' plus your name. Each tick checkDone applies 1/20 of the target's max damage and repairs the user by one twenty-fifth of that. The damage call passes the misspelled type $EnegyDamageType (an undefined variable, so it is not the Energy type), and the loop guard is written 'if ($PlayerDraining[%player] = True)', an assignment that is always true.",
+    "The weapon has class 'Tool', price 300, and no $ItemMax entry for any armor; the Regeneration Pack mounts it. How a player obtains it: Behavior not determined from scripts."
+   ],
+   "source": "item.cs ItemData Regen, RegenImage; baseProjData.cs DrainBolt::onAcquire, checkDone"
+  },
+  "CoolLauncher": {
+   "summary": "Missile Control Station: an Engineer or Goliath backpack that places a missile launcher plus its control console, from which guided missiles are loaded and fired.",
+   "notes": [
+    "deployShape (needs $Shifter::Guided on, which it is) wants very flat terrain or interior floor (normal.z above 0.94), a 10x10 m area clear of other objects, and a team limit of 3 stations. It places a DeployableCoolMortar turret (1.0 max damage) with a DeployableCoolStation console 2.5 m behind it, linked to each other. Destroying either one destroys the other. The turret starts loaded with a Phoenix missile (CoolProj). Message on mount: the station has no remote control and must be controlled manually.",
+    "To load: walk into the console (DeployableStation::onCollision -> CoolStationCheck) with a missile pack (heading 'uGuided Missiles') mounted. If the launcher is empty it takes the missile and says 'Turret has been loaded with a ...' naming the missile; otherwise you take control, are told 'Press JUMP to fire.', and jumping calls Turret::Jump, which spawns the loaded missile as a flier (an unloaded launcher says 'Missile Turret is not loaded.'). A launch is refused if something blocks the muzzle ('Unable to fire - Object in the way').",
+    "A Missile Jammer beacon (Engineer) of the enemy within 125 m stops the warhead: 'You are being JAMMED! Control Lock Failed, War Head Did NOT Detonate, Jammer DESTROYED!'. Carried by Engineer and Goliath."
+   ],
+   "source": "coolturret.cs CoolLauncher, DeployableCoolMortar, DeployableCoolStation, CoolStationCheck, Faker::onAdd; station.cs DeployableStation::onCollision; turret.cs Turret::Jump; trvehicle.cs Vehicle::onDestroyed; itemfuncs.cs CheckMissileJammer"
+  },
+  "EmpM": {
+   "summary": "EMP Missile: a guided missile pack whose warhead is an electromagnetic pulse.",
+   "notes": [
+    "Guided missile pack for the Missile Control Station: mount it, then walk into the station's console to load it. The missile flies as a fragile flier (0.001 max damage, so any hit sets it off) and does its damage when it is destroyed. Any armor can carry one, including the cursed armor.",
+    "On detonation (Vehicle::onDestroyed in trvehicle.cs) it creates two EMPBlast mines 3.5 m above the point (flash damage in a 25 m shockwave, which EMPs players), starts a 15 m flash-damage area-of-effect that lingers 10 seconds, and applies 0.75 flash damage in a 20 m radius. Flight is fast and nimble (max speed 85, min speed 55). Price 400."
+   ],
+   "source": "coolturret.cs EmpM, EmpProj, $vm; trvehicle.cs Vehicle::onDestroyed; blasts.cs EMPBlast"
+  },
+  "GasM": {
+   "summary": "Toxin Missile: a guided missile pack whose warhead leaves a lingering poison cloud.",
+   "notes": [
+    "Guided missile pack for the Missile Control Station: mount it, then walk into the station's console to load it. The missile flies as a fragile flier (0.001 max damage, so any hit sets it off) and does its damage when it is destroyed. Any armor can carry one, including the cursed armor.",
+    "On detonation it applies 0.55 energy damage in a 30 m radius and leaves a 20 m energy-damage area-of-effect that ticks for 25 seconds. Energy damage poisons enemies in this mod. Slower than the EMP missile (max speed 85, min 30). Price 400."
+   ],
+   "source": "coolturret.cs GasM, GasProj; trvehicle.cs Vehicle::onDestroyed"
+  },
+  "PhoenixM": {
+   "summary": "Phoenix Missile: the standard guided missile (CoolProj) and the one a new Missile Control Station starts loaded with.",
+   "notes": [
+    "Guided missile pack for the Missile Control Station: mount it, then walk into the station's console to load it. The missile flies as a fragile flier (0.001 max damage, so any hit sets it off) and does its damage when it is destroyed. Any armor can carry one, including the cursed armor.",
+    "CoolProj has no special branch in Vehicle::onDestroyed, so it uses the default explosion: 0.50 missile damage in a 20 m radius with a strong impulse (600). It is the fastest to accelerate (accel 100, speeds 45 to 90). Price 650."
+   ],
+   "source": "coolturret.cs PhoenixM, CoolProj; trvehicle.cs Vehicle::onDestroyed"
+  },
+  "NapM": {
+   "summary": "Napalm Missile: a guided missile pack whose warhead sets a wide area ablaze.",
+   "notes": [
+    "Guided missile pack for the Missile Control Station: mount it, then walk into the station's console to load it. The missile flies as a fragile flier (0.001 max damage, so any hit sets it off) and does its damage when it is destroyed. Any armor can carry one, including the cursed armor.",
+    "On detonation it applies 0.50 plasma damage in a 25 m radius, throws frag bomblets (DeployFrags, 10) and leaves a 35 m plasma-damage area-of-effect that ticks for 10 seconds (plasma hits can ignite enemies). Slower flier (max speed 70). Price 750."
+   ],
+   "source": "coolturret.cs NapM, NapProj; trvehicle.cs Vehicle::onDestroyed; bombs.cs DeployFrags"
+  },
+  "BooM": {
+   "summary": "HaVoC Missile: the big guided missile, noted in the code as the 'Turret Killer'.",
+   "notes": [
+    "Guided missile pack for the Missile Control Station: mount it, then walk into the station's console to load it. The missile flies as a fragile flier (0.001 max damage, so any hit sets it off) and does its damage when it is destroyed. Any armor can carry one, including the cursed armor.",
+    "On detonation it spawns an NRing1 nuke ring, an NCloud5 cloud and a HavocBlast (2.0 mortar damage in a 20 m shockwave), and adds 5.8 blaster-type damage in a 6 m radius. Heavy drag and low bank (max speed 100, min 70, bank 1.6), so it is hard to steer. Price 2000."
+   ],
+   "source": "coolturret.cs BooM, BooProj; trvehicle.cs Vehicle::onDestroyed; blasts.cs HavocBlast"
+  },
+  "SpyPod": {
+   "summary": "SpyPod Missile: a slow, nearly unarmed pod launched from the Missile Control Station.",
+   "notes": [
+    "Guided missile pack for the Missile Control Station: mount it, then walk into the station's console to load it. The missile flies as a fragile flier (0.001 max damage, so any hit sets it off) and does its damage when it is destroyed. Any armor can carry one, including the cursed armor.",
+    "SpyPodProj uses the 'discb' model and is slow (max speed 20, min 2, no lift). Vehicle::onDestroyed gives the 1.52-damage, 10 m radius branch only to fliers using the 'rocket' model, so the SpyPod falls through to the generic crash damage and its branch is unreachable. Price 2000. What the pod is meant to do: Behavior not determined from scripts."
+   ],
+   "source": "coolturret.cs SpyPod, SpyPodProj; trvehicle.cs Vehicle::onDestroyed"
+  },
+  "DetBug": {
+   "summary": "Det Bug: an Assassin trap thrown with the beacon key. An enemy who picks it up is blown up a few seconds later.",
+   "notes": [
+    "Beacon::onUse (Assassin) throws a DetBug item on your team ('Det Bug Dropped') and uses a beacon. Left alone it detonates after 90 seconds as an EMPBlast (flash damage shockwave) 1.5 m above it.",
+    "If an enemy touches it, DetBug::onCollision puts it in their inventory and DetBug::CheckDet counts down about 10 seconds (flashing the screen, 'You have a DetBug *YOU* will detonate in N seconds'). At zero they are blown up, take radius flash damage credited to the dropper, and an EMPBlast goes off 3.5 m above them ('...BOOM...'). Dropping it before then throws it back neutral and it detonates 4 seconds later. The damage multiplier reads a misspelled variable (%dammultib), so it is simply the armor's max damage times 10.",
+    "It has no $ItemMax entry for any armor; it is only created as a thrown item."
+   ],
+   "source": "itemfuncs.cs DetBug::onCollision, Detonate, onUse, CheckDet, onDrop; item.cs Beacon::onUse; blasts.cs EMPBlast"
+  },
+  "Plastique": {
+   "summary": "Plastique: a throwable explosive item that no armor can carry and no station sells.",
+   "notes": [
+    "Plastique::onUse throws a Nukebomb (mortar damage 2.0, 10 m) and prints the Plastique Options delay, but it never schedules the detonation and reads the delay from the player instead of the client, so the number is blank. The bomb waits until shot or damaged. It is the same code as in Shifter v1 with Bots.",
+    "Unlike Shifter v1 with Bots, ArmorData.cs has no $ItemMax entry for Plastique, so no armor can hold one; $InvList[Plastique] is 0 so stations do not sell it. The Chemeleon's grenade key still throws a timed plastique through Grenade::onUse (2, 5, 10 or 15 second delay from Plastique Options)."
+   ],
+   "source": "itemfuncs.cs Plastique::onUse; grenade.cs Nukebomb; station.cs $InvList[Plastique]; ArmorData.cs; admin.cs weapon_plastic"
+  },
+  "RepairPatch": {
+   "summary": "Repair Patch: a floor pickup that heals whoever touches it. It now heals by armor and cures poison.",
+   "notes": [
+    "RepairPatch::onCollision calls onUse for a damaged player, plays the pickup sound and respawns the patch. Healing matches the Repair Kit: Engineer and DreadNaught 0.3; Mercenary, Chemeleon, Arbitor, Heavy and Goliath 0.2; Assassin, Scout, Stim and others 0.1 (Shifter v1 with Bots always healed 0.125). It also resets the poison timer ('Poison cured') and lowers a Scout's overdose chance.",
+    "Not on any carry list; stations list it only in the resupply table (Station::itemsToResupply)."
+   ],
+   "source": "itemfuncs.cs RepairPatch::onCollision/onUse; station.cs Station::itemsToResupply"
+  },
+  "DeployableComPack": {
+   "summary": "Command Station pack: a deployable command station that gives remote command-screen access without going back to base.",
+   "notes": [
+    "Code is the same as in Shifter v1 with Bots (flat terrain, buildings or platforms, 3 m reach, team limit 5, 3000 energy pool); only the shop heading changed, to 'fStations'. Standing in it gives 'Command Access On' and the command view.",
+    "Carried by Heavy, DreadNaught and Engineer. Its price refers to $RemoteComEnergy, which no script in this mod defines."
+   ],
+   "source": "item.cs ItemData DeployableComPack; station.cs DeployableComStation; ArmorData.cs"
+  },
+  "FlightPack": {
+   "summary": "Flight Pack: an energy-boosting backpack for the light armors.",
+   "notes": [
+    "Same behavior as in Shifter v1 with Bots (negative-energy image so it adds energy, switches itself on when mounted, unmounting it also unmounts a Laser Rifle); the pack and its image now use the 'mortarpack' model instead of the jet pack model.",
+    "Carried by Scout, Stim and Chemeleon."
+   ],
+   "source": "item.cs FlightPackImage, ItemData FlightPack; ArmorData.cs"
+  },
+  "ForceFieldPack": {
+   "summary": "Backpack that places a Small Force Field your team can walk through but enemies cannot.",
+   "notes": [
+    "Same deployShape and field code as Shifter v1 with Bots (a teammate or Chemeleon bumping the field opens it for a few seconds; enemies never open it; it can be shot down). Only the shop heading changed, to 'eDefensive'.",
+    "Carried by every armor except Juggernaught."
+   ],
+   "source": "item.cs ItemData ForceFieldPack, ForceFieldPack::deployShape; staticshape.cs DeployableForceField"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Backpack that places a Large Force Field, a bigger and tougher wall teammates can walk through.",
+   "notes": [
+    "Same code as Shifter v1 with Bots; only the shop heading changed, to 'eDefensive'. Carried only by Engineer and Arbitor."
+   ],
+   "source": "item.cs ItemData LargeForceFieldPack; staticshape.cs LargeForceField"
+  },
+  "TreePack": {
+   "summary": "Backpack that plants a Mechanical Tree, a decorative tree that works as cover.",
+   "notes": [
+    "Same deployShape and tree models as Shifter v1 with Bots (terrain only, flat, randomly one of two tree models); only the shop heading changed, to 'eDefensive'. Carried by Assassin and Engineer."
+   ],
+   "source": "item.cs ItemData TreePack, TreePack::deployShape; staticshape.cs DeployableTree, DeployableTree2"
+  },
+  "PlatformPack": {
+   "summary": "Backpack that places a Deployable Platform, a flat slab for bridging or covering openings. Engineer only.",
+   "notes": [
+    "Same code as Shifter v1 with Bots (no flat or surface check; other deployables accept the platform as ground); only the shop heading changed, to 'eDefensive'."
+   ],
+   "source": "item.cs ItemData PlatformPack, PlatformPack::deployShape; staticshape.cs DeployablePlatform"
+  },
+  "DetPack": {
+   "summary": "Pack that deploys a flier, as in Shifter v1 with Bots (there named Stealth HPC Pack). Engineer only; it is unrelated to the Suicide DetPack.",
+   "notes": [
+    "The deploy code is unchanged; only the shop heading changed, to 'sPersonnel Movers'. It spawns an HAPC flier ('Deployed StealthHPC'); with Tribes Racer on, the HAPC used is the one in trvehicle.cs."
+   ],
+   "source": "item.cs ItemData DetPack, DetPack::deployShape; ArmorData.cs"
+  }
+ }
+}

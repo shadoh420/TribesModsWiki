@@ -1,0 +1,71 @@
+{
+ "mod": {
+  "overview": "Apocalypse Mod (v1.6) by ProtoManX, built upon Nicodemus's Foundation Mod with code from Ice's Devastator Mod and Creeperman's scripting, transforms base Tribes into an intense, tactical class-based combat game with seven distinct armors, thirty weapons, twelve specialized packs, and nine deployable turret types. The core gameplay loop blends high-speed aerial maneuvering and deep base warfare with an innovative armor ability system where every class replaces the generic grenade, mine, beacon, repair kit, and player-to-player contact with unique passive and activated powers like base teleportation, item theft, area EMPs, and kinetic repulsion shocks. Combat is enriched by extensive status mechanics including burning fires that players put out by crouching, lingering poison that demands standing still, and energy-crippling EMP discharges, alongside customizable firing chokes and weapon modules. Servers can also toggle specialized formats like the melee-only SlugFest mode, which replaces gunplay with tractor beams and lethal physical punches.",
+  "notes": [
+   "Seven distinct armor classes define player roles with tiered speeds, durability, and weapon slots: Quicksilver (scout and flag runner, speed 20, 0.55-0.60 health, 3 weapons), Light or Peltast (skirmisher and pilot, speed 11, 0.66 health, 3 weapons), Centurion (medium-light assault, speed 9.5, 0.83 health, 4 weapons), Medium or Hoplite (combat trooper, speed 8.0, 1.0 health, 4 weapons), Guardian (combat engineer and heavy support, speed 6.5, 1.16 health, 4 weapons), Heavy or Myrmidon (siege juggernaut, speed 5.0, 1.32 health, 5 weapons), and Apocalypse (super-heavy dreadnought, speed 4.0, 1.5 health, 6 weapons). Server admins also have access to Ultima Armor, which carries up to 99 weapons with 2.5 health.",
+   "Every armor class overrides standard utility keys with unique active abilities. Quicksilver triggers personal base teleportation on beacon, teleports enemies back to base on contact, and throws blind flashbangs; Light uses vehicle shielding beacons, steals items from enemies on contact, and throws poison gas; Centurion fires rocket booster leaps, cleanses teammate status debuffs on contact, and fields cloaked mines; Medium stuns enemies on contact, throws kamikaze self-destruct grenades, and drops jail mines; Guardian deploys inventory stations via beacon, repairs teammates on contact or bases via repair kit, and throws timed mini-det bombs; Heavy fires area EMP pulses, drains enemy energy on contact, and drops teleport mines; and Apocalypse projects a kinetic repulsion field, blasts foes away on contact, and throws repulse explosives.",
+   "Players configure their initial loadout through the personal preferences menu with four spawn presets: Rush (Centurion armor with Energy Pack, disc launcher, plasma gun, and shotgun), Pilot (Light armor with Ammo Pack, chaingun, and shotgun), Repair (Medium armor with Repair Pack and weapons), or Power (Apocalypse armor with Damage Converter, mortar, missile launcher, and flamethrower). When an admin enables Melee Mode (SlugFest), firearms are banned on spawn and players drop in with Centurion armor, tractor beams, targeting lasers, and energy packs, forcing players to reel enemies in with tractor beams and engage in close-quarters punching where each armor possesses a distinct punch power multiplier ranging from Quicksilver's 0.5 to Apocalypse's 1.1.",
+   "When Modules mode is enabled, weapon firing behaviors are modified by purchasing physical modular items at inventory stations, such as Napalm or EMP modules for the grenade launcher, Implosion modules for mortars, Scatter modules for the Apocalypse Gun, Spark modules for the flamethrower, and Full, Improved, Modified, or Skeet chokes for the shotgun. If Modules mode is disabled, players freely configure these alternate firing profiles and elemental settings directly through the Personal Settings menu.",
+   "Weapons inflict severe status ailments that require tactical counterplay. Burning deals damage over time but can be extinguished rapidly by crouching (stop, drop, and roll) or remaining in continuous motion; EMP attacks shut down player energy systems, setting energy and recharge rates to zero while generating damaging electrical arcs; Poison drains health over time, subsiding twice as fast if the victim stands completely still or lasting double the duration if running; Frost stuns and freezes movement; and Fusion damage can randomly cause instant disintegration, infection, ignition, or EMP shutdowns.",
+   "Apocalypse introduces twelve specialized backpacks led by the Damage Converter pack, which converts incoming enemy projectile damage into Shock Gun ammo, temporary cloaking duration for Quicksilver, sensor jammer time for Light, or temporary shield strength for Apocalypse. The Elemental Barrier pack lets players cycle among Fire, Wind, Earth, and Electrical defensive shields that reduce incoming damage of that element while radiating animated hazard fields that damage enemies on touch. Additional specialized packs include the Anti-Grav Pack that offsets 9 units of heavy armor mass, the heavy Personal Generator pack that quadruples energy recharge at the cost of mobility, the Kamikaze pack, and the high-yield Detonation Bomb pack.",
+   "The mod introduces over thirty weapons including the screen-clearing Apocalypse Gun (exclusive to Apocalypse armor, firing nuclear shells or scatter clusters), the Force Cannon (firing push or suction gravity rockets), Nanite Cannons (charging friend-or-foe nanites that damage foes while repairing friendly structures and teammates), the long-range Assassin rifle, and Creeperman's Tractor Beam. Base defense features nine deployable turrets (Mortar, Rocket, Plasma, Fusion, Laser, ELF, Frost, Disc, and Machine Gun), while the vehicle depot adds the single-pilot Bomber armed with heavy aerial mortar ordnance and the Striker combat gunship launching rapid-fire plasma rockets.",
+   "Players access personal loadout presets, weapon chokes, and elemental settings via the Tab options menu under Personal Settings. Server administrators manage matches through expanded options menus including toggling Melee Mode, weapon modules, and team damage, managing or possessing players, or granting Ultima Armor. Admin authentication allows up to a configured strike limit before offenders are automatically kicked and IP-banned. Standard items like generic mine ammo and standard turret packs are removed from inventory stations in favor of the class-integrated equipment and dedicated deployable packs."
+  ]
+ },
+ "items": {
+  "ConverterPack": {
+   "summary": "Specialized backpack that absorbs incoming enemy damage and converts it into armor-specific tactical advantages or Shock Gun ammunition.",
+   "notes": [
+    "Converts absorbed damage into temporary cloaking duration for Quicksilver armor up to 60 seconds.",
+    "Converts damage into temporary sensor jamming time for Light armor or temporary shielding for Apocalypse armor.",
+    "Automatically generates Shock Ammo when holding a Shock Gun, which cannot be purchased at stations."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/apocalypse/packs/Conversion.cs"
+  },
+  "ElementPack": {
+   "summary": "Switchable four-mode defensive barrier pack that provides specialized elemental damage reduction and damages colliding foes.",
+   "notes": [
+    "Supports four switchable elemental alignments: Fire (Plasma), Wind (Storm), Earth (Impact), and Electrical.",
+    "Emits continuous visual elemental pulses and inflicts elemental contact damage upon colliding with enemy players.",
+    "Can be configured via the personal settings menu or by slotting individual elemental modules."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/apocalypse/packs/Element.cs"
+  },
+  "ApocGun": {
+   "summary": "Massive super-heavy devastation weapon exclusive to Apocalypse armor that fires nuclear warheads or split scatter bombs.",
+   "notes": [
+    "Restricted exclusively to the Apocalypse armor chassis and admin Ultima armor.",
+    "Primary firing mode launches a tactical nuclear shell with a massive 100-meter blast radius and extreme knockback.",
+    "Secondary firing mode discharges high-velocity scatter bombs that detonate in a wide fragmentation cluster."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/apocalypse/weapons/ApocGun.cs"
+  },
+  "Nanite": {
+   "summary": "Tactical smart-ordnance weapon that charges and lobs canisters of autonomous nanites that distinguish friend from foe.",
+   "notes": [
+    "Holding the trigger charges additional nanite ammunition into the canister before launching, scaling impact power.",
+    "Nanites damage and disassemble enemy players while safely healing teammates on contact.",
+    "Friendly fire on base assets automatically repairs damaged friendly generators, stations, and turrets."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/apocalypse/weapons/Nanite.cs"
+  },
+  "ShockGun": {
+   "summary": "Heavy energy-ordnance launcher that cannot be resupplied at stations and relies entirely on absorbed enemy attacks for ammunition.",
+   "notes": [
+    "Cannot be used without wearing a Damage Converter or Ultima pack.",
+    "Holds up to 100 rounds of Shock Ammo that can only be accumulated by taking enemy hits while wearing the Damage Converter.",
+    "Fires high-velocity shockwave rockets traveling up to 300 meters per second that deal heavy explosive impact and knockback."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/apocalypse/weapons/Shock.cs"
+  },
+  "FreezePack": {
+   "summary": "Deployable defensive turret backpack limited to Guardian armor that shoots freezing cryo projectiles to immobilize invaders.",
+   "notes": [
+    "Limited to four active deployables per team and wearable exclusively by the Guardian armor class.",
+    "Fires rapid freeze projectiles that inflict frost damage upon target impact.",
+    "Any player struck by frost damage suffers a temporary stun effect that paralyzes movement and weapon fire."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/apocalypse/deployables/Frost.cs"
+  }
+ }
+}

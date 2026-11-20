@@ -1,0 +1,85 @@
+shifter-bots: 94 of 120 need write-ups
+  ScoutArmor (Scout): new
+  SpArmor (Chemeleon): new
+  LightArmor (Assassin): renamed+stats
+  MediumArmor (Mercenary): renamed+stats
+  BursterArmor (Goliath): new
+  EngArmor (Engineer): new
+  AlArmor (Arbitor): new
+  DragArmor (DreadNaught): new
+  Juggernaught (Juggernaught): new
+  WraithVehicle (Wraith): new
+  JetVehicle (Interceptor): new
+  LAPCVehicle (BomberLPC): renamed+stats
+  HAPCVehicle (StealthHPC): renamed+stats
+  Chaingun (Chaingun): stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  Mortar (Mortar): stats+scripts
+  HyperB (Hyper Blaster): new
+  RocketAmmo (RocketAmmo): new
+  RocketLauncher (Rocket Launcher): new
+  SniperAmmo (Sniper Bullet): new
+  SniperRifle (Sniper Rifle): new
+  BoomAmmo (Boom Shell): new
+  BoomStick (Boom Stick): new
+  TranqAmmo (Poison Dart): new
+  TranqGun (Dart Rifle): new
+  SilencerAmmo (Magnum Bullets): new
+  Silencer (Magnum): new
+  ConCun (Shockwave Cannon): new
+  RailAmmo (Railgun Bolt): new
+  Railgun (Railgun): new
+  VulcanAmmo (Vulcan Bullet): new
+  Vulcan (Vulcan): new
+  MfglAmmo (Nuclear Warhead): new
+  Mfgl (Tactical Nuke): new
+  Flamer (Flame Thrower): new
+  IonGun (Ion Rifle): new
+  Omega (Volter): new
+  Fixit (Engineer Repair-Gun): new
+  GravGun (Grav Gun): new
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): new
+  ShieldPack (Shield Pack): stats+scripts
+  CloakingDevice (Cloaking Device): new
+  StealthShieldPack (StealthShield Pack): new
+  RegenerationPack (Regeneration Pack): new
+  LightningPack (Teleport Pack): new
+  FlightPack (Flight Pack): new
+  AutoRocketAmmo (Auto Rockets): new
+  SMRPack (Rocket Launcher Pack): new
+  SMRPack2 (Rocket Launcher Pack): new
+  NewPack (Auto-Cannon): new
+  NewerPack (Auto-Cannon): new
+  Laptop (Command Laptop): new
+  SuicidePack (Suicide DetPack): new
+  FgcPack (Containment Pack): new
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  CameraPack (Camera): stats+scripts
+  TurretPack (Ion Turret): renamed+stats+scripts
+  LaserPack (Laser Turret): new
+  DeployableElf (Deployable Elf Turret): new
+  ShockPack (EMP Turret): new
+  TargetPack (Mortar Turret): new
+  PlasmaTurretPack (Plasma Turret): new
+  RocketPack (Rocket Turret): new
+  ForceFieldPack (Small Force Field): new
+  LargeForceFieldPack (Large Force Field): new
+  BlastWallPack (Blast Wall): new
+  HoloPack (Hologram): new
+  LaunchPack (Launch Pad): new
+  TreePack (Mechanical Tree): new
+  PlantPack (Healing Plant): new
+  PlatformPack (Deployable Platform): new
+  TeleportPack (Teleport Pad): new
+  MechPack (Interceptor Pack): new
+  DetPack (Stealth HPC Pack): new
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  Boost (Bot): new
+  Plastique (Plastique): new
+  Hackit (Engineer Repair-Gun): new
+  DisIt (Engineer Repair-Gun): new

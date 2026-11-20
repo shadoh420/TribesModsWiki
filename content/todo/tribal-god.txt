@@ -1,0 +1,126 @@
+tribal-god: 131 of 161 need write-ups
+  JailPack (Jail Cell): new
+  JailCapPack (Jail Capture Pad): new
+  hugewall (Huge Wall): new
+  Deployablebase (Deployable Base): new
+  DecoyCarrier (Decoy Carrier): new
+  IBlock (Big Fuckin Floor): new
+  AirBasePack (Air Base): new
+  BlastWall (Blast Wall): new
+  lgaForceFieldPack (LgaForceFieldDoor): new
+  lgbForceFieldPack (LgbForceFieldDoor): new
+  medaForceFieldPack (MedaForceFieldDoor): new
+  medbForceFieldPack (MediumFFDoor2): new
+  medcForceFieldPack (MediumFFDoor3): new
+  FlyerPack (Flyer): new
+  HolePack (Portable Hole): new
+  ProbeDroidPack (Probe Droid): new
+  CloakDroidPack (Cloak Droid): new
+  ClonePack (Droid): new
+  TeleportPack (Teleport Pad): new
+  HoloPack (Hologram): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  MotionSensorPack (Motion Sensor): stats+scripts
+  FreezePack (Freezing Pad): new
+  RailTurret (Rail Turret): new
+  LaserTurretPack (Laser Turret): new
+  TurretPack (Ion Turret): renamed+stats+scripts
+  LaserTurretBPack (Mini-Plasma Turret): new
+  FireBallTurretPack (Fireball Turret): new
+  FlameTurretPack (Flame Turret): new
+  MiniSAMTurretPack (Mini-S.A.M Turret): new
+  MiniFlakTurretPack (Mini-Flak Turret): new
+  NuclearTurretPack (Nuclear Turret): new
+  ConPack (Guard Dog): new
+  WatchdogPack (Watchdog): new
+  DissectionPack (Mini-Me Turret): new
+  TaserTrtBPack (Taser Turret): new
+  MiniELFTurretPack (Mini-ELF Turret): new
+  MiniSmokeTurretPack (Mini-Beam Of Pain): new
+  TaserTrtCPack (Tracking Turret): new
+  RTurretGenPack (RepairTurret Gen): new
+  RepairTurretPack (Repair Turret): new
+  ObeliskPack (Obelisk of Light): new
+  ObeliskPowerPack (Obelisk Power Source): new
+  JailTurretPack (Jail Turret): new
+  ArbitorBoxPack (Arbitor Device): new
+  Chaingun (Chaingun): stats+scripts
+  LiLPOOmkiAmmo (Bullet mki): new
+  LiLPOOmki (LiL POO mki): new
+  LiLPOOmkiiAmmo (Bullet mkii): new
+  LiLPOOmkii (LiL POO mkii): new
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  LiLFFBAmmo (LiLFFB Ammo): new
+  LiLFFB (LiLForce Field Buster): new
+  ATosserAmmo (ATosser Ammo): new
+  ATosser (Atom Tosser): new
+  FireballAbilityAmmo (Fire Implants): new
+  FireballAbility (Fireball Ability): new
+  SmScreenAbilityAmmo (Smoke Implants): new
+  SmScreenAbility (SmokeScreen Ability): new
+  ExSmScreenAbilityAmmo (Lair Implants): new
+  ExSmScreenAbility (LairWaster): new
+  FireScreenAbilityAmmo (FireWall Bombs): new
+  FireScreenAbility (FireWall): new
+  SpellAbilityAmmo (SpellHeart): new
+  SpellAbility (Spell): new
+  PlasmaCannon2 (Plasma Cannon): new
+  PlasmaCannon (Plasma Cannon): new
+  LaserRifle (Laser Rifle 6.7): renamed+stats+scripts
+  TaserRifle (Taser Rifle): new
+  EnergyRifle (ELF Gun): stats+scripts
+  BeamOfPain (Beam Of Pain): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  TankShredderAmmo (Tank Shredder Ammo): new
+  TankShredder (Tank Shredder): new
+  TRocketLauncherAmmo (TRocketLauncher Ammo): new
+  TRocketLauncher (Tank Rocketgun): new
+  MineLauncherAmmo (MineLauncher ammo): new
+  MineLauncher (MineLauncher): new
+  Mortar (Mortar): stats+scripts
+  DoublePlasmaAmmo (Double Plasma Bolt): new
+  DoublePlasma (Double Plasma): new
+  Blaster (Blaster): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  JailGun (Jail Gun): new
+  JailRifle (Jail Rifle): new
+  TankRPGAmmo (RPG Ammo): new
+  TankRPGLauncher (Tank RPG): new
+  AirStrike (AirStrike): new
+  DetPackLauncherAmmo (DetPackLauncher ammo): new
+  DetPackLauncher (DetPack Launcher): new
+  MineSweeper (Mine Sweeper): new
+  MineSweeper2 (Mine Sweeper): new
+  NDiscAmmo (NDisc Ammo): new
+  NDisc (Quad Disc): new
+  NDisc1 (Quad Disc): new
+  EnergyPack (Engineer Pack): renamed+stats+scripts
+  RepairGun (Repair Gun): new
+  RepairRifle (Repair Rifle): new
+  RepairPack (Repair Pack): stats+scripts
+  HackPack (Hack Pack): new
+  BoRgItem1 (BattlePack Advanced): new
+  BoRgItem2 (BattlePack Advanved): new
+  BoRgDevice (BattlePack Advanved): new
+  HiderPack (Morph Pack): new
+  CloakingDevice (Cloaking Device): new
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (StealthShield Pack): renamed+stats+scripts
+  SuicidePack (Suicide DetPack): new
+  instantHealth (Instant Health): new
+  LightArmor (Asassin): renamed+stats
+  MediumArmor (Mercenary): renamed+stats
+  EnginArmor (Engineer): new
+  HeavyArmor (BoRg): renamed+stats
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  RadiusMineAmmo (Radius Mine): new
+  Grenade (Grenade): stats+scripts
+  FlashGrenade (FlashGrenade): new
+  LiLBoostammo (LiLBoost): new
+  RepairPatch (Repair Patch): stats+scripts
+  cactusPack (Land Camo): new
+  Tunneler (Tunneler): new
+  Beacon (Beacon): stats+scripts

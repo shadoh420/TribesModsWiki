@@ -1,0 +1,141 @@
+# devastator vs base (140 items)
+renamed+statsLightArmor                   Pilot
+new        PantherArmor                 Strider
+new        SniperArmor                  Sniper
+new        SpecialArmor                 Specialist
+renamed+statsMediumArmor                  Engineer
+new        PyroArmor                    Pyro
+renamed+statsHeavyArmor                   Heavy Infantry
+new        TigerArmor                   Titan
+new        PsychoArmor                  Psycho!
+renamed+statsScoutVehicle                 Black Falcon
+renamed+statsLAPCVehicle                  Night Hawk Bomber
+renamed+statsHAPCVehicle                  B-52 Strato-Fortress
+new        KamikazeVehicle              Kamikaze
+new        JetVehicle                   Eagle Fighter
+renamed+stats+scriptsBlaster                      Adv. Blaster
+new        PC                           Hellfire Cannon
+new        MGAmmo                       Minigun Bullet
+new        MG                           Minigun
+new        MGSmoker                     Smoke
+new        Funk                         Party Gun
+new        Shotgun1Ammo                 Shotgun Ammo
+new        Shotgun1                     Adv. Shotgun
+new        FP                           Plasma Pistol
+new        ARAmmo                       Assault Bullets
+new        AR                           Assault Rifle
+new        SPAmmo                       S. Pistol Ammo
+new        SP                           Silenced Pistol
+renamed+stats+scriptsEnergyRifle                  Confetti Launcher
+new        FreezeGun                    Freeze Gun
+new        AG                           Acid Gun
+new        AGPack                       Containment Pack
+new        FreezePack                   Liquid Nitrogen Tank
+renamed+stats+scriptsGrenadeLauncher              Adv. Grenade Launcher
+new        RLAmmo                       Rocket Ammo
+new        RL                           Rocket Launcher
+new        Targeter                     Targeter
+new        Targeter2                    Targeter2
+stats      Mortar                       Mortar
+new        FAmmo                        Flare Ammo
+new        F                            Flare Gun
+new        BH                           Disruptor Cannon
+renamed+stats+scriptsDiscLauncher                 Adv. Disc Launcher
+new        LP                           Laser Pistol
+new        FL                           Flashlight
+stats      TargetingLaser               Targeting Laser
+new        TB                           Toolbox
+stats+scriptsDeployableInvPack            Inventory Station
+stats+scriptsDeployableAmmoPack           Ammo Station
+new        TGPack                       Booster Pack
+new        PTPack                       Pilot Pack
+new        FTPack                       Fuel Tank
+renamed+stats+scriptsRepairPack                   Medic Pack
+renamed+stats+scriptsShieldPack                   Flight Pack
+new        CSDPack                      Weapon Enhancent Pack
+new        CDPack                       Cloaking Device
+new        PCDPack                      Distraction Device
+new        ForceFieldPack               Force Field
+new        BlastWallPack                BlastWall
+new        BunkerPack                   Bunker
+new        TLPack                       Laser Sight
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsPulseSensorPack              Pulse Sensor
+new        VehPack                      Vehicle Station
+new        PadPack                      Vehicle Pad
+new        SolarPack                    Remote Generator
+new        DeadWeight                   Deadweight
+new        LessWeight                   Deadweight
+new        LessWeight2                  Deadweight
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+stats+scriptsTurretPack                   Turret
+new        CTurretPack                  Chain Turret
+new        M350Pack                     M-350
+new        DTurretPack                  Disc Turret
+new        DEPack                       Decoy Laser
+new        Laser2Pack                   Short Range Laser
+new        LaserPack                    Long Range Laser
+stats      RepairKit                    Repair Kit
+stats+scriptsMineAmmo                     Mine
+stats+scriptsGrenade                      Grenade
+stats      RepairPatch                  Repair Patch
+stats+scriptsBeacon                       Beacon
+new        FW                           Fire Works
+new        DemiPack                     Demi-God
+new        SuperPack1                   Light
+new        SuperPack2                   Dark
+new        IceArmor                     Ice's Armor
+new        UltraPack                    GOD 2x
+new        Perfect                      Perfection
+new        AAMinePack                   AA Mine Silo
+new        PerInv                       Personal Inv
+new        ControlPack                  Remote Pack
+new        SuicidePack                  Suicide Pack
+new        GunBuddyPack                 Gun-Buddy
+new        WingBuddyPack                Turret-Buddy
+new        ForceFloorPack               Plasma Deck
+new        VehMaint                     Vehicle Maintenance
+new        VehBase                      Vehicle Base
+new        V                            Virus Upload
+new        FakeRepairPack               FakeRepairPack
+new        Antidote                     Virus Antidote
+new        ELAmmo                       Energy Ammo
+new        EL                           Nuclear Fission Emitter
+new        GRAmmo                       Small RPG's
+new        GR                           RPG Rifle
+new        HGAmmo                       Hostage Gun Ammo
+new        HG                           Hostage Gun
+new        THPack                       Matter Transport Gun
+new        HangOverPuke                 
+new        Keg                          Keg
+new        PGLAmmo                      Proton Grenades
+new        PGL                          Proton Gren. Launcher
+new        AirMineAmmo                  Ground-Air Mine
+new        BeamPack                     Coolant Pack
+new        Beam                         Beam Cannon
+new        Flamethrower                 Flamethrower
+new        MultiAmmo                    3 Stingers
+new        Multi                        Multi-Rocket
+new        Shock                        Shockwave Rifle
+new        SmokeAmmo                    Smoke Rounds
+new        SmokeLauncher                Smoke Launcher
+new        Sword                        Flame Sword
+new        Tazer                        Tazer
+new        RAmmo                        Raptor Shells
+new        R                            Raptor
+new        SRAmmo                       Sniper Bullets
+new        SR                           Sniper Rifle
+new        RageAmmo                     Anger
+new        PAttack                      !RAGE¡
+new        SynAmmo                      Syndicate Ammo
+new        Syn                          Syndicate
+new        Syn0                         Syndicate
+new        BlastC1                      Blast Cannon
+new        BlastC4                      Blast Cannon
+new        BlastC                       Blast Cannon
+new        AssaultClip                  Assault-Rifle Clip
+new        PistolClip                   Pistol Clip
+new        SniperClip                   Sniper-Rifle Clip
+new        ShotgunClip                  Shotgun Clip

@@ -1,0 +1,7 @@
+ultra-tribute: 8 of 79 need write-ups
+  LaserRifle (Laser Rifle): stats+scripts
+  LiLRocketLauncher (LiL Rocket Launcher): stats+scripts
+  LiLEMPRocketLauncher (EMP Rocket Launcher): scripts
+  RepairKit (Repair Kit): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

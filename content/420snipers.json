@@ -1,0 +1,74 @@
+{
+ "mod": {
+  "overview": "420Snipers Beta ({420}Ice-Dragon, 2002-2003) strips Medium/Heavy armors and disables jetpacks completely (jetForce = 0) on a 20 m/s ground-sprint Sniper class, converting every Base gun slot into sniper rifles, railguns, and high-power lasers.",
+  "notes": [
+   "No-jet ground sniping (ArmorData.cs): removes MediumArmor and HeavyArmor; renames LightArmor to 'Sniper' with 20 m/s speed in all directions (was 11/10/10), 100 energy (was 60), and disabled jets (jetForce = 0, maxJetForwardVelocity = 0).",
+   "Total arsenal conversion: Blaster becomes 'Ice Laser' (Mortar-damage beam, 1.0 s beam); Chaingun becomes 'Flesh Eater' (0.5 s reload, sniper model); PlasmaGun becomes 'Predetor' (custom fire handler); GrenadeLauncher becomes ballistic 'Sniper Rifle'; Mortar becomes '420 Rifle'; DiscLauncher becomes 'Heavy Metal' (energy bullet, 0.25 damage); LaserRifle becomes 'Bloody Tears' (100 energy, 1.0 s beam); ELF Gun becomes a 1.0 DPS / 50 m / 100-drain beam."
+  ]
+ },
+ "items": {
+  "LightArmor": {
+   "summary": "Renamed 'Sniper'; ground speed raised to 20 m/s in every direction, maxEnergy raised to 100, and jetForce zeroed (no jetting).",
+   "notes": [
+    "MediumArmor and HeavyArmor are removed; players spawn with GrenadeLauncher, Mortar, and PlasmaGun."
+   ],
+   "source": "ArmorData.cs larmor; game.cs"
+  },
+  "Blaster": {
+   "summary": "Converted to 'Ice Laser' (sniper model, 100 maxEnergy, 1.0 s MortarDamageType beam).",
+   "notes": [
+    "Script mount/unmount handlers added."
+   ],
+   "source": "item.cs; baseProjData.cs IceLaser"
+  },
+  "Chaingun": {
+   "summary": "Renamed 'Flesh Eater' firing custom 'flesh' projectiles at 0.5 s reload using the sniper model.",
+   "notes": [
+    "Ammo renamed to 'Flesh Eaters' (cap 70)."
+   ],
+   "source": "item.cs; baseProjData.cs flesh"
+  },
+  "PlasmaGun": {
+   "summary": "Renamed 'Predetor' using script-side PlasmaGunImage::onFire with Pred Mags (cap 60).",
+   "notes": [
+    "Static projectileType removed in favor of scripted fire."
+   ],
+   "source": "item.cs PlasmaGunImage::onFire"
+  },
+  "GrenadeLauncher": {
+   "summary": "Converted into ballistic 'Sniper Rifle' firing Sniper1 bullets with EnergyDamageType instead of lobbed grenades.",
+   "notes": [
+    "Ammo renamed to 'Sniper Rounds' (cap 70)."
+   ],
+   "source": "item.cs; baseProjData.cs Sniper1"
+  },
+  "Mortar": {
+   "summary": "Converted into '420 Rifle' firing accelerated Sniper2 rounds at 0.8 s reload on all Sniper spawns.",
+   "notes": [
+    "Equipped by LightArmor ($ItemMax = 1, 80 rounds)."
+   ],
+   "source": "item.cs; baseProjData.cs Sniper2"
+  },
+  "DiscLauncher": {
+   "summary": "Converted into 'Heavy Metal' firing direct-hit EnergyDamageType HM bullets (0.25 damage, no splash/acceleration).",
+   "notes": [
+    "Uses 65 rounds max capacity."
+   ],
+   "source": "item.cs; baseProjData.cs HM"
+  },
+  "LaserRifle": {
+   "summary": "Renamed 'Bloody Tears' with 100 maxEnergy (was 60) and 1.0 s beamTime (was 0.5 s).",
+   "notes": [
+    "Custom red lightning beam bitmap and mount handlers."
+   ],
+   "source": "item.cs; baseProjData.cs SniperLaser2"
+  },
+  "EnergyRifle": {
+   "summary": "Converted into a heavy 1.0 damagePerSec beam (was 0.06) reaching 50 m and draining 100 energy/sec.",
+   "notes": [
+    "Uses the mortargun shape with 1.0 beamWidth."
+   ],
+   "source": "baseProjData.cs lightningCharge"
+  }
+ }
+}

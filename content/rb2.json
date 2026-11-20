@@ -1,0 +1,59 @@
+{
+ "mod": {
+  "overview": "Reality Bites 2.0 (rb2) is a modern military total-conversion mod created by DeadTaco and built on the MiniMod v0.6 plugin loader. Instead of Tribes sci-fi energy warfare, players pick one of six specialized soldier classes armed with real-world rifles, SMGs, shotguns, pistols, tactical grenades, and wearable protective gear, fighting with full friendly fire, directional hitboxes, weapon kickback, and magazine reloads via the Beacon key. Compared to its MiniMod loader parent, Reality Bites 2.0 replaces core item, armor, damage, and station scripts to emphasize tactical class roles, Engineer-built fortifications and airstrikes, and brutal close-to-long-range lethality. Alongside standard CTF, C&H, D&D, F&R, and Rabbit missions, it includes randomized-loadout Deathmatch, round-based Tribes Arena elimination, and Kill Tag (ktag) modes.",
+  "notes": [
+   "Six armor classes define strict roles: Recon (HyperArmor, speed 14, 0.7 HP, can crouch, CloakingDevice, HK MP5, Molotovs), Sniper (LightArmor, speed 10, 0.7 HP, reduced fall damage, can crouch, Barrett 50 cal and Remington), Engineer (EngArmor, speed 9, 1.0 HP, cannot crouch, 3 tool slots, Flamethrower, M4, mines/C4, all turrets/fortifications/drones), Grenadier (MediumArmor, speed 13 male / 9 female, 1.0 HP, cannot crouch, up to 4-6 grenades, M29 Grenade Launcher, HK G36), Commando (HeavyArmor, speed 9, 1.0 HP, jetForce 1025, cannot crouch, M60, OICW, AutoShotgun, M177 AA), and Heavy Gunner (UltraArmor, speed 8, 1.3 HP, jetForce 1025, cannot crouch, Minigun, Stinger, OICW, AutoShotgun).",
+   "Loadout rules limit every soldier to one primary weapon (buying a primary resets previous primaries), one grenade type, one mine type, one beacon type, and one backpack at a time, while secondary pistols/shotguns and melee tools (Cattle Prod, Lance) can be paired alongside a primary.",
+   "Magazine-fed firearms and the OICW use the Beacon key as a special action key: Extra Gun Clips (ShieldBeacon) trigger a 3-second reload animation, and OICW Grenades (TeleportBeacon) fire 20mm explosive rounds from the OICW.",
+   "Hitbox location and backpack armor gear shape gunfights: unhelmeted bullet headshots deal 7x damage (1x plus 6x bonus) and leg shots deal 70 percent (50 percent from the Barrett), while wearing Helmet (20 percent headshot damage), KevlarVest (40 percent torso bullet damage, 30 percent vs Barrett), FlakJacket (40 percent explosion damage), or FireSuit (immunity to fire and napalm scramble) counters specific threats.",
+   "Specialized ordnance creates strong status effects: TearGasGrenade and Gasser pacify targets for 15 seconds (forcing weapon unmount), ConcussionGrenade knocks weapons out of enemies' hands, FlareGrenade (Flash) blinds for 15 seconds, Flamethrower and Incendiary grenades ignite targets into erratic movement, GasCanGrenade drops a shootable fuel barrel, and Airstrike Beacons (TargetBeacon) call in bomber strikes.",
+   "Engineers build field bases and heavy support using Ramp Packs (ConstructorPack), OutpostPack (generator plus remote inventory and ammo stations), OpenableDoorPack (team-only doors vulnerable to C4), SandbagPack, SniperPerchPack, Machinegun Mounts (MountPack) required to deploy M2 Mounted Guns (HeavyMGpack), Utility Devices, Knee Mortars, Thruster Chargers (BotStationPack), and remote-controlled RC Army Drones (AttackDronePack).",
+   "Vehicles include the AH64 Apache (ScoutVehicle, restricted to Recon and Sniper pilots, able to mount Rotary Cannon, LAU Rockets, or High-Explosive Bombs), Huey (LAPCVehicle, 2 passengers), and Chinook (HAPCVehicle, 4 passengers), with Heavy Gunners barred from piloting transports.",
+   "Rules and bans: full friendly fire is active (TeamDamageScale = 1) with 3-second spawn protection, out-of-bounds rebound pushes straying players back into the map, killing sprees award announcements and bonus points at 5, 10, 15, and 20 kills, and stock ShieldPack, TurretPack, LaserRifle, FusionGun, QuadCannon, and unused weapon attachment items are banned (InvList = 0 or ItemMax = 0).",
+   "Controls, chat, and bots: the Tab Options menu includes a built-in Mod Help FAQ and votes for missions, Tournament/FFA mode, and no-flight civil war mode (also toggled via !civilwar in chat for prods, lances, and muskets only, alongside -me emotes); admins can spawn commandable, roaming, or auto-spawning bots (Guard, Mortar, Demo, Medic, Miner, Sniper, Painter, Runner) that fight on foot or ride as vehicle passengers.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AutoShotgunClip (plugins/autoshotgun.item.cs), AutoShotgunMount (plugins/autoshotgun.item.cs), AutoShotgunScope (plugins/autoshotgun.item.cs), berettaSMGClip (plugins/beretta.item.cs), berettaSMGScope (plugins/beretta.item.cs), britMagClip (plugins/britMAG.item.cs), britMagMount (plugins/britMAG.item.cs), britMagScope (plugins/britMAG.item.cs), FusionGun (station.cs), KlashnikovScope (plugins/ak74.item.cs), LaserRifle (station.cs), QuadCannon (plugins/quadcannon.item.cs), QUADClip (plugins/quadcannon.item.cs), QUADMount (plugins/quadcannon.item.cs), QUADScope (plugins/quadcannon.item.cs)."
+  ]
+ },
+ "items": {
+  "EngArmor": {
+   "summary": "Engineer armor class built around base construction, turrets, explosives, and field support.",
+   "notes": [
+    "Cannot crouch (canCrouch = false), moves at speed 9 with 1.0 maxDamage, and carries up to 3 tools (MaxTools = 3) plus a single primary weapon.",
+    "Exclusive user of LavaCannon (M4 Machinegun), MineLauncher (Flamethrower), OriginalMine, SatchelCharge, Plastique, and all Engineer deployables including ConstructorPack (Ramp Pack), OutpostPack, UtilityPack, BotStationPack, AttackDronePack, MountPack, HeavyMGpack, SniperPerchPack, SandbagPack, and OpenableDoorPack."
+   ],
+   "source": "ArmorData.cs, item.cs, plugins/*.item.cs"
+  },
+  "ShieldBeacon": {
+   "summary": "Extra Gun Clip item that reloads magazine-fed firearms using the Beacon key.",
+   "notes": [
+    "Purchased under the Beacons category (carry limit 2 to 4 depending on armor) and activated with the Beacon key.",
+    "Refills ammunition for magazine-fed weapons such as M4, AK74, Remington, MP5, Glock, Tommy Gun, AutoShotgun, Ruger, Ingram, Beretta, MiniUzi, Famas, and Taurus while unmounting the active gun for a 3-second reload sequence."
+   ],
+   "source": "item.cs"
+  },
+  "OICW": {
+   "summary": "Dual-purpose assault rifle combining 5.56mm automatic fire with a 20mm grenade launcher.",
+   "notes": [
+    "Restricted to Commando (HeavyArmor) and Heavy Gunner (UltraArmor) classes.",
+    "Pressing the Beacon key while holding TeleportBeacon (OICW Grenades) fires an explosive OICWGrenade from the underbarrel launcher on a 2-second cooldown."
+   ],
+   "source": "plugins/OICW.item.cs, item.cs"
+  },
+  "UtilityPack": {
+   "summary": "Multi-mode Engineer deployable configured by bumping into it.",
+   "notes": [
+    "Limited to 2 per team and usable only by Engineer armor.",
+    "Touching the deployed Utility Device as an Engineer cycles through PowerDrain, Hack (converts enemy objects), Repair, Slow, Gravity, and Bug (monitors enemy team chat) modes."
+   ],
+   "source": "item.cs, turret.cs, comchat.cs"
+  },
+  "BotStationPack": {
+   "summary": "Thruster Charger pad that supercharges player energy to 1000 and recharge rate to 16.",
+   "notes": [
+    "Limited to 1 per team and deployable only by Engineers.",
+    "Players with rechargeRate 9 or higher suffer a 10 percent chance on taking damage of having their overcharged thruster explode; stepping on it during civil war mode blows the player up immediately."
+   ],
+   "source": "item.cs, station.cs, player.cs"
+  }
+ }
+}

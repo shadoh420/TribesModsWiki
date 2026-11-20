@@ -1,0 +1,100 @@
+# gammy-mk2 vs atf (99 items)
+stats      BuilderArmor                 Mechanic Armor
+renamed+statsMachArmor                    Speedy Armor
+renamed+statsAlienArmor                   Alien Armor
+stats      MediumArmor                  Medium Armor
+renamed+statsGokuArmor                    DBZ Armor
+stats      HeavyArmor                   Heavy Armor
+renamed+statsHaCkArmor                    Flabby Armor
+stats      SlowArmor                    Goliath Armor
+renamed+stats+scriptsBlaster                      Tali Wacker Special
+renamed+stats+scriptsHammer1Pack                  GammaBlast
+renamed+statsHammer2Pack                  GammaBlast 2
+stats+scriptsChaingunb                    MiniGun
+stats+scriptsSniperGun                    Sniper Rifle
+renamed+stats+scriptsChaingun                     Raper Chaingun
+scripts    Chainguni                    C.U.G.O.M.S. Gun
+stats      PlasmaGun                    Plasma Gun
+renamed+stats+scriptsPlasmaGun2                   BFPG
+stats+scriptsPlasmaGun3                   EnergyBeam Cannon
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortari                      The Punisher
+renamed+stats+scriptsMortarX                      Matter Stream
+stats      MortarS                      Solar Flare
+renamed+stats+scriptsHaCkNuke                     Gamma's Nuke
+stats      LaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+scripts    EnergyRifle                  ELF Gun
+renamed+stats+scriptsEnergyRifle2                 Anti-Capper Gun
+renamed+stats+scriptsEnergyRifle3                 Zapper Rod
+stats+scriptsBR                           Builder Gun
+renamed+stats+scriptsRocketLauncher               Desctro Disc
+renamed+stats+scriptsUfo                          Mini Ufo Spawner
+renamed+stats+scriptsARL                          Mister Death
+renamed+stats+scriptsLF2                          Death's Mini ME
+renamed+stats+scriptsNuke                         Silly Bomber
+renamed+stats+scriptsRocketLauncher2sky           Radio Strike
+stats+scriptsFlameGun                     FlameThrower
+renamed+stats+scriptsTN                           Radioactive Nuke Launcher
+renamed+stats+scriptsSWA                          Sonic Disruptor
+renamed+stats+scriptsSWA2                         PriStar Rifle
+renamed+stats+scriptsAGG                          Energy Repulser
+scripts    BlasterM                     Blaster
+renamed+stats+scriptsHBL                          Light Decoy Launcher
+renamed+stats+scriptsHBM                          Medium Decoy Launcher
+renamed+stats+scriptsHBH                          Heavy Decoy Launcher
+renamed+stats+scriptsBlasterD                     Anti-UFO Gun
+renamed+stats+scriptsLF                           Multi Boom
+renamed+stats+scriptsSK                           Mass Smoker
+renamed+stats+scriptsSD                           Gorga's Rifle
+renamed+stats+scriptsFlameGun2                    Beam Attack
+stats+scriptsXrad                         -=Radiate=-
+renamed+stats+scriptsRocketLauncher2X             Cosmic Assault
+stats+scriptsRocketLauncher2i             Automeha
+renamed+stats+scriptsRocketLauncher2s             Spirit Bomb Attack
+stats+scriptsRocketLauncher2si            Mouse Strike
+scripts    RocketLauncher3              BFG
+renamed+stats+scriptsSE                           Static Shocker
+renamed+stats+scriptsBB                           Ass Raper
+stats+scriptsBBi                          Ass Ripper 2
+renamed+stats+scriptsBB2                          Gallet Gun
+renamed+stats+scriptsFW                           Energy Ball Blast
+renamed+statsGhostAmmo                    Hunter Rockets
+renamed+stats+scriptsRocketLauncher5              HuNtErRocket Launcher
+renamed+stats+scriptsChaingun2                    Zapper ChainGun
+stats      Chaingun2i                   Star Cannon
+renamed+stats+scriptsRocketLauncher7              Tri-Beam Attack
+renamed+stats+scriptsRocketLauncher6              PimpMo Hoes Special
+renamed+stats+scriptsRocketLauncher8              <<PARTICLE DiSrUpTeR>>
+renamed+stats+scriptsCometRifle                   SloMo Rifle
+renamed+stats+scriptsHD                           Auto DiscLauncher
+renamed+stats+scriptsRocketLauncher2              Kama-Ha-Ma-Ha Wave
+renamed+stats+scriptsSM                           Assault LAzer
+renamed+stats+scriptsRocketLauncher9              Multi-Raper Launcher
+renamed+statsEnergyPack                   Infini-PowerCell
+stats+scriptsJumpGun                      Jacker
+renamed+stats+scriptsJumperPack                   Teleport pack
+stats+scriptsTreePack                     Camo-Tree
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    MotionSensorPack             Motion Sensor
+scripts    SpringPadPack                Spring Pad
+stats+scriptsCameraPack                   Camera
+scripts    TurretPack                   Energy Turret
+stats+scriptsTurretPack6                  Beam Turret
+scripts    TurretPack2                  Sting Turret
+scripts    TurretPack3                  Auto Sentry Turret
+scripts    TurretPack4                  Barrier Turret
+scripts    TurretPack5                  HellFire Turret
+scripts    TripwirePack                 Metal Wall
+scripts    HoloPack                     Decoy
+stats      MineAmmo2                    Enemy Displacer Mine
+stats      MineAmmo4                    Inviso-Mines
+stats      MineAmmo3                    Proxy Decoy
+stats+scriptsBF                           The Big One
+stats      BF2                          Enemy Displacer Bomb
+stats      AS                           Neutron Beam
+stats      BF3                          Plastique Bombs
+stats+scriptsBF4                          Self-Destruct Mechanism
+stats      BF5                          Death Tree
+scripts    Grenade                      Grenade

@@ -1,0 +1,13 @@
+# thugwars vs base (12 items)
+new        MegaArmor                    Mega Armor
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortar                       Mortar
+new        RocketAmmo                   Rocket Ammo
+new        RocketLauncher               Rocket Launcher
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+scripts    DeployableAmmoPack           Ammo Station

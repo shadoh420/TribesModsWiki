@@ -1,0 +1,460 @@
+{
+  "mod": {
+    "overview": "UR3 Mayhem (Ultra Renegades 3) drops the Renegades class system that UR2 still carried. In its place are six open armors (Combat Flight, RidgeRunner, Mainstay, Tech, Class IV and HellBringer), and every armor may buy every item. What defines it relative to UR2 is a new arsenal built around rifles and EMP: an IX-2000 rifle with a huge head-shot bonus, an M-16, a Shotgun, EMP grenades, rockets, mines and an EMP Bomber, a Force Field Buster, a Cloaking Gun, and new base deployables (Flame and Assassin turrets, a Mini-Plasma turret, force-field doors). The Renegades poison, burn and short-circuit effects, touch abilities and class grenades are gone. EMP, which drains energy and stops recharge, is the only status effect.",
+    "notes": [
+      "Armors: LightArmor (Combat Flight)=larmor, RidgeRunnerArmor=rrarmor, MediumArmor (Mainstay)=marmor, techArmor=tarmor, HeavyArmor (Class IV)=harmor, HellBringerArmor=hbarmor. Female versions exist for all but HellBringer, and the Class IV female uses harmor.",
+      "Every armor has an $ItemMax entry of at least 1 for every item on the station list. Armors differ in stats, weapon slots and grenade type: weapon slots are larmor 8, rrarmor 7 (rrfemale 10), marmor 10, tarmor 8, harmor 12, hbarmor 12.",
+      "Everyone spawns in Combat Flight Armor (larmor). The spawn list buys Blaster, Chaingun, Disc Launcher, Grenade Launcher, Mortar, IX-2000 Sniper Rifle, Repair Kit, Repair Pack and a Grenade. Its 'Mine' entry is not an item name, so it buys nothing.",
+      "Only Combat Flight Armor can pilot vehicles. Other armors may ride as passengers, except in the Scout and EMP Bomber.",
+      "EMP damage (EMP grenades, rockets, mines and bombs) zeroes the victim's energy, stops recharge for 10 s, and unmounts any weapon that uses no ammo. Recharge then comes back at a flat 8. Players take half EMP damage. On a shielded base object, an EMP hit absorbed by the shield empties its energy.",
+      "Head hits from Laser damage do 30% extra and from Rifle damage (IX-2000) 120% extra. For Class IV and HellBringer armor, the bonus applies only on mid-head hits.",
+      "A Laser-type hit to the front-right torso knocks an enemy's weapon out of their hand. The threshold is 0.41 damage for most armors and 0.25 for Class IV and HellBringer.",
+      "With $insomniax::SafeStation set, teammates do no damage to a player who is inside a station.",
+      "Rifle, Shotgun and Assault Rifle hits apply a small push along the shot instead of the projectile's normal kickback.",
+      "Script bug: Player::onDamage tests for $FEBDamageType, which is never defined, so those checks match damage type 0 (Landing). Landing damage gives a strong reverse push, and against a shield it is reduced to 0.005.",
+      "Script bug: the female light armor's damage-scale entry for the assault rifle is misspelt ($AssaultRofleDamageType), so lfemale has no scale for AssaultRifle damage.",
+      "Admin and anti-team-kill settings come from UR3Mayhem.cs: tkLimit 5, tkMultiple 3, server level 1, client level 0, fairTeams on, voting someone admin off. A kick lasts 99999999 seconds."
+    ]
+  },
+  "items": {
+    "LightArmor": {
+      "summary": "Combat Flight Armor is the light frame and the only armor that can pilot vehicles. Everyone spawns in it.",
+      "notes": [
+        "PlayerData larmor/lfemale. Eight weapon slots. Jet energy drain is very low (0.1).",
+        "Grenade: throws a Hologram mine, a decoy with the flag model that explodes when anyone touches it, teammates included.",
+        "The only armor allowed to pilot fliers ('You must be in Light Armor to pilot the vehicles').",
+        "Takes extra damage from many types: 1.2-1.3 times for bullets, energy, shrapnel, mortar, blaster, rifle and rail damage."
+      ],
+      "source": "ArmorData.cs PlayerData larmor, $DamageScale, $MaxWeapons; item.cs Grenade::onUse; Mine.cs Hologram; vehicle.cs Vehicle::onCollision; game.cs Game::playerSpawn"
+    },
+    "RidgeRunnerArmor": {
+      "summary": "The RidgeRunner is a fast, sturdier light-frame armor that throws EMP mines as grenades.",
+      "notes": [
+        "PlayerData rrarmor/rrfemale (light-armor shape). It has the health of a medium armor (0.99) with light-armor mass, more jet force and a top speed of 15.",
+        "Seven weapon slots (the female version has 10).",
+        "Grenade: throws an EMP Mine.",
+        "Cannot pilot vehicles."
+      ],
+      "source": "ArmorData.cs PlayerData rrarmor, rrfemale, $MaxWeapons; item.cs Grenade::onUse"
+    },
+    "MediumArmor": {
+      "summary": "Mainstay Armor is the standard medium frame, with ten weapon slots and an ordinary hand grenade.",
+      "notes": [
+        "PlayerData marmor/mfemale. Ten weapon slots. In UR2 this was the Renegades Mercenary class; class abilities no longer exist.",
+        "Grenade: Handgrenade.",
+        "Takes normal (1.0) damage from most types.",
+        "Cannot pilot vehicles."
+      ],
+      "source": "ArmorData.cs PlayerData marmor, $DamageScale, $MaxWeapons; item.cs Grenade::onUse"
+    },
+    "techArmor": {
+      "summary": "Tech Armor is a light-weight medium-shape armor: faster than Mainstay and with better jets.",
+      "notes": [
+        "PlayerData tarmor/tfemale (medium-armor shape, but with light-armor mass 9). Top speed 14.",
+        "Eight weapon slots.",
+        "Grenade: Handgrenade.",
+        "Takes extra damage from bullets, energy, shrapnel, mortar and blaster, like the light armor.",
+        "Cannot pilot vehicles."
+      ],
+      "source": "ArmorData.cs PlayerData tarmor, tfemale, $DamageScale, $MaxWeapons; item.cs Grenade::onUse"
+    },
+    "HeavyArmor": {
+      "summary": "Class IV Armor is the heavy frame: the most health and twelve weapon slots. Its grenade throws a proximity mine.",
+      "notes": [
+        "PlayerData harmor (female players also get harmor). It has the highest health in the mod (1.32) and 110 energy.",
+        "Twelve weapon slots.",
+        "Grenade: throws an AntipersonelMine set to your team.",
+        "Laser and Rifle head-shot bonuses only apply to mid-head hits. The weapon-disarm threshold is lower (0.25).",
+        "Cannot pilot vehicles."
+      ],
+      "source": "ArmorData.cs PlayerData harmor, $MaxWeapons; item.cs Grenade::onUse; player.cs Player::onDamage"
+    },
+    "HellBringerArmor": {
+      "summary": "The HellBringer is a fast heavy-shape armor that shrugs off most damage types and throws EMP mines.",
+      "notes": [
+        "PlayerData hbarmor (heavy-armor shape, light-armor mass). Top speed 13.",
+        "Takes reduced damage from most types: 0.6 from bullets, explosions, missiles and lasers, 0.7-0.8 from most others. Rifle and rail damage are still scaled up (1.3 and 1.4).",
+        "Twelve weapon slots. It can carry 30 EMP mines (other armors 10).",
+        "Grenade: EMP Mine. Head-shot and disarm rules are as for Class IV.",
+        "There is no $ArmorType entry for a female HellBringer."
+      ],
+      "source": "ArmorData.cs PlayerData hbarmor, $DamageScale, $ItemMax, $MaxWeapons; item.cs $ArmorType, Grenade::onUse; player.cs Player::onDamage"
+    },
+    "JetVehicle": {
+      "summary": "The Avenger (Jet datablock) is a fast single-seat fighter that fires discs.",
+      "notes": [
+        "Fires DiscShell every 0.2 s. In UR2 the Jet was the Interceptor and fired Ion bolts.",
+        "Very tough for a flier (maxDamage 5.5) and it repairs itself.",
+        "Pilot must be in Combat Flight Armor. Team limit 10."
+      ],
+      "source": "vehicle.cs Jet, Vehicle::onCollision; station.cs $DataBlockName; item.cs $TeamItemMax"
+    },
+    "Jet2Vehicle": {
+      "summary": "The Devistator (Jet2) is a fighter like the Avenger, but armed with a rapid-fire blaster.",
+      "notes": [
+        "Fires BlasterBolt every 0.02 s. It is as tough as the Avenger (maxDamage 5.5) and also self-repairs.",
+        "Pilot must be in Combat Flight Armor. Team limit 10."
+      ],
+      "source": "vehicle.cs Jet2; station.cs $DataBlockName; item.cs $TeamItemMax"
+    },
+    "BomberVehicle": {
+      "summary": "The EMP Bomber is a fragile single-seat flier scripted to drop a stick of EMP bombs.",
+      "notes": [
+        "Bomber::onFire drops 7 EMPBomb grenades 0.2 s apart (EMP damage, 40 m radius, a pull rather than a push). It cannot fire again for 6 s.",
+        "The Bomber datablock has no projectileType. Whether the engine calls Bomber::onFire for it was not determined from the scripts.",
+        "Single seat: passengers cannot board. The pilot must be in Combat Flight Armor. Team limit 10."
+      ],
+      "source": "vehicle.cs Bomber, Bomber::onFire, DeployEMP, ToggleFire, Vehicle::onCollision; baseProjData.cs EMPBomb"
+    },
+    "LAPCVehicle": {
+      "summary": "The LPC is the light personnel carrier: an unarmed transport.",
+      "notes": [
+        "LAPC has no projectile, so it has no weapon. UR2's Bomber version dropped mortar shells.",
+        "Two passenger seats. The pilot must be in Combat Flight Armor. Team limit 10."
+      ],
+      "source": "vehicle.cs LAPC, Vehicle::findEmptySeat; item.cs $TeamItemMax"
+    },
+    "HAPCVehicle": {
+      "summary": "The HPC is the heavy personnel carrier: a slow, unarmed transport with four passenger seats.",
+      "notes": [
+        "HAPC has no projectile and is visible to sensors. UR2's Avenger version was sensor-invisible and fired discs.",
+        "Four passenger seats. The pilot must be in Combat Flight Armor. Team limit 10."
+      ],
+      "source": "vehicle.cs HAPC, Vehicle::findEmptySeat; item.cs $TeamItemMax"
+    },
+    "GrenadeAmmo": {
+      "summary": "Ammunition for the Grenade Launcher. Only the shop name changed (now 'GrenadeAmmo').",
+      "notes": [
+        "Every armor can carry 50."
+      ],
+      "source": "item.cs GrenadeAmmo; ArmorData.cs $ItemMax"
+    },
+    "ForceFieldBusterAmmo": {
+      "summary": "Rounds for the Force Field Buster.",
+      "notes": [
+        "Every armor can carry 50. Ammo stations resupply up to 20 at a time."
+      ],
+      "source": "item.cs ForceFieldBusterAmmo; station.cs AmmoStation::onResupply; ArmorData.cs $ItemMax"
+    },
+    "ForceFieldBuster": {
+      "summary": "A grenade-style launcher built to knock down force fields. Its huge-damage shell flattens deployed fields but only nicks players.",
+      "notes": [
+        "Fires ForceFieldBusterShell, a lobbed grenade with $FFBDamageType damage in a 15 m radius and a slight pull.",
+        "The shell's damage is on the same scale as the mod's force-field health (small 250.5, large 350.5, door 200), unlike any other player weapon.",
+        "Armors take only 0.2 of FFB damage, but the raw value is still far above any armor's health, so a direct hit is still deadly."
+      ],
+      "source": "item.cs ForceFieldBuster, ForceFieldBusterImage; baseProjData.cs ForceFieldBusterShell; staticshape.cs SmallForceField, LargeForceField; ArmorData.cs $DamageScale"
+    },
+    "ShotgunShells": {
+      "summary": "Shells for the Shotgun. Each shot uses one.",
+      "notes": [
+        "Every armor can carry 100."
+      ],
+      "source": "item.cs ShotgunShells; ArmorData.cs $ItemMax"
+    },
+    "Shotgun": {
+      "summary": "Close-range scattergun that fires ten pellets per shell.",
+      "notes": [
+        "ShotgunImage::onFire uses one shell and spawns 10 ShotgunBullet projectiles from the muzzle. Each pellet does Shotgun damage with wide aim deflection.",
+        "The image's own projectileType is the placeholder 'ThisShouldBeUndefined'. The pellets come only from the script.",
+        "Pellet hits push the target slightly along the shot. With no shells it prints 'You Ran Out Of Ammo for the Shotgun'."
+      ],
+      "source": "item.cs ShotgunImage::onFire; baseProjData.cs ShotgunBullet; player.cs Player::onDamage"
+    },
+    "MortarAmmo": {
+      "summary": "Mortar shells. Only the shop name changed (now 'MortarAmmo').",
+      "notes": [
+        "Every armor can carry 50."
+      ],
+      "source": "item.cs MortarAmmo; ArmorData.cs $ItemMax"
+    },
+    "EnergyRifle": {
+      "summary": "In UR3 Mayhem the EnergyRifle is an ELF Gun: a lightning beam that drains energy but does no damage.",
+      "notes": [
+        "Fires lightningCharge: 100 m beam, 0 damage per second, 15 energy per second drained from the target. In UR2 this slot was the damaging Thunderbolt (boltCharge).",
+        "Costs 1 energy per pulse at a very fast rate."
+      ],
+      "source": "item.cs EnergyRifleImage; baseProjData.cs lightningCharge"
+    },
+    "RifleAmmo": {
+      "summary": "Rounds for the IX-2000 Sniper Rifle.",
+      "notes": [
+        "Every armor can carry 500."
+      ],
+      "source": "item.cs RifleAmmo; ArmorData.cs $ItemMax"
+    },
+    "SniperRifle": {
+      "summary": "The IX-2000 Sniper Rifle fires extremely fast rifle rounds with a 120% head-shot bonus.",
+      "notes": [
+        "Fires RifleBullet with Rifle damage, using Rifle Ammo instead of UR2's Sniper ammo.",
+        "Head hits do 120% extra (for Class IV and HellBringer only on mid-head hits). Most armors also take 1.3 times Rifle damage, so a hit is lethal to almost anyone.",
+        "Hits push the target slightly instead of applying kickback."
+      ],
+      "source": "item.cs SniperRifleImage; baseProjData.cs RifleBullet; player.cs Player::onDamage; ArmorData.cs $DamageScale"
+    },
+    "AssaultRifleAmmo": {
+      "summary": "Rounds for the M-16 Assault Rifle.",
+      "notes": [
+        "Every armor can carry 250, and an Ammo Pack adds up to 250 more. Ammo stations resupply 250."
+      ],
+      "source": "item.cs AssaultRifleAmmo, $AmmoPackMax; station.cs; ArmorData.cs $ItemMax"
+    },
+    "AssaultRifle": {
+      "summary": "The M-16 is a fully automatic rifle that fires very fast, hard-hitting bullets.",
+      "notes": [
+        "Fires AssaultRifleBullet (Assault Rifle damage) with a 0.01 s reload. Each bullet's damage is above a light armor's whole health.",
+        "Hits push the target slightly along the shot.",
+        "The female light armor's damage-scale entry for this damage type is misspelt, so lfemale has no scale value for it."
+      ],
+      "source": "item.cs AssaultRifleImage; baseProjData.cs AssaultRifleBullet; player.cs Player::onDamage; ArmorData.cs $DamageScale"
+    },
+    "EMPGrenadeAmmo": {
+      "summary": "Shells for the EMP Grenade Launcher.",
+      "notes": [
+        "Every armor can carry 50."
+      ],
+      "source": "item.cs EMPGrenadeAmmo; ArmorData.cs $ItemMax"
+    },
+    "EMPGrenadeLauncher": {
+      "summary": "Lobs bouncing EMP grenades that knock out energy over a wide area.",
+      "notes": [
+        "Fires EMPGrenadeShell: EMP damage in a 40 m radius, with a pull instead of a push.",
+        "EMP zeroes a player's energy, stops recharge for 10 s and unmounts ammo-less (energy) weapons. Players take half EMP damage.",
+        "Fires rapidly (0.1 s reload)."
+      ],
+      "source": "item.cs EMPGrenadeLauncherImage; baseProjData.cs EMPGrenadeShell; player.cs Player::onDamage, StartEMP, checkPlayerEMP"
+    },
+    "EMPRocketAmmo": {
+      "summary": "Rockets for the EMP Rocket Launcher.",
+      "notes": [
+        "Every armor can carry 50."
+      ],
+      "source": "item.cs EMPRocketAmmo; ArmorData.cs $ItemMax"
+    },
+    "EMPRocketLauncher": {
+      "summary": "Fires fast, straight EMP rockets that drain energy in a large blast.",
+      "notes": [
+        "Fires EMPRocket (a RocketData, not seeking): EMP damage in a 40.5 m radius with a pull, very high speed.",
+        "Same EMP effect as the grenades: energy zeroed, no recharge for 10 s, energy weapons unmounted."
+      ],
+      "source": "item.cs EMPRocketImage; baseProjData.cs EMPRocket; player.cs StartEMP"
+    },
+    "CloakGun": {
+      "summary": "The Cloaking Gun fires a green beam that makes whatever it touches invisible for two minutes.",
+      "notes": [
+        "Fires cloakingCharge lightning. Its damageTarget script fades the target out and schedules a fade-in 120 s later. It does not apply the beam's listed damage or energy drain.",
+        "It works on any target, so you can cloak teammates, enemies or objects. Every beam tick schedules another fade-in."
+      ],
+      "source": "item.cs CloakGunImage; baseProjData.cs cloakingCharge, cloakingCharge::damageTarget"
+    },
+    "DeployableInvPack": {
+      "summary": "Deploys a remote Inventory Station.",
+      "notes": [
+        "Spawns DeployableInvStation on flat terrain or a building. UR3 Mayhem has no Deployable Platform, and the platform option from UR2 is removed.",
+        "Like UR2, there is no station-spacing check.",
+        "Team limit 5 (UR2 15)."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape; $TeamItemMax"
+    },
+    "PlasmaPack": {
+      "summary": "Deploys a small automatic turret that fires plasma bolts. It can go on any surface.",
+      "notes": [
+        "Spawns DeployableMiniPlasma firing PlasmaBolt, range 55.",
+        "Placement reaches 10 m and accepts any surface at any angle: floors, walls and ceilings, with the turret oriented to it. There is no terrain/building or spacing check.",
+        "Team limit 6."
+      ],
+      "source": "item.cs PlasmaPack::deployShape; turret.cs DeployableMiniPlasma"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deploys a remote Ammo Station.",
+      "notes": [
+        "Spawns DeployableAmmoStation on flat terrain or a building. The UR2 Deployable Platform option is gone.",
+        "Team limit 7."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape; $TeamItemMax"
+    },
+    "ForceFieldPack": {
+      "summary": "Deploys a small 3x4 force field. It cannot be used to wall in your own flag.",
+      "notes": [
+        "Spawns SmallForceField on flat terrain or a building. UR2 spawned the DeployableForceField with no surface check.",
+        "Refused if you are within 3 m of your team's flag ('cant hide the flag').",
+        "The field is very durable on this mod's scale (maxDamage 250.5). The Force Field Buster is the intended counter.",
+        "Team limit 6."
+      ],
+      "source": "item.cs ForceFieldPack::deployShape; staticshape.cs SmallForceField, SmallForceField::onDestroyed"
+    },
+    "LargeFieldPack": {
+      "summary": "Deploys a full-size force field wall, kept away from your own flag.",
+      "notes": [
+        "Spawns LargeForceField on flat terrain or a building. Refused within 5 m of your team's flag.",
+        "maxDamage 350.5.",
+        "Team limit 6."
+      ],
+      "source": "item.cs LargeFieldPack::deployShape; staticshape.cs LargeForceField, LargeForceField::onDestroyed"
+    },
+    "PlasmaPlatPack": {
+      "summary": "Drops a solid plasma-wall platform right where you stand, for building in mid-air.",
+      "notes": [
+        "Spawns PlasmaPlatform at your own position, not where you are aiming. There is no surface check, so it can be placed while jetting.",
+        "The flag-distance check only refuses placement closer than 0.01 m to your flag.",
+        "If the team limit (15) is reached, it fails without a message.",
+        "No onDestroyed handler lowers the PlasmaPlatPack count, so destroyed platforms never free their slot."
+      ],
+      "source": "item.cs PlasmaPlatPack::deployShape; staticshape.cs PlasmaPlatform"
+    },
+    "doorfivebyfiveForceFieldPack": {
+      "summary": "Deploys a force-field door that opens for teammates and blocks enemies.",
+      "notes": [
+        "Spawns doorfivebyfiveForceFieldShape wherever your 3 m line of sight hits, facing your direction. There is no surface check.",
+        "When a teammate touches it, the door fades out, moves 6 m up and returns after 4 s. Enemies touching it get nothing.",
+        "When destroyed it does a small debris blast.",
+        "Bug: its onDestroyed lowers the 'LargeForceField' team count instead of its own, so destroyed doors never free a slot in the limit of 4."
+      ],
+      "source": "item.cs doorfivebyfiveForceFieldPack::deployShape; staticshape.cs doorfivebyfiveForceFieldShape::onCollision, openDoor, closeDoor, onDestroyed, doDamage"
+    },
+    "EnergyPack": {
+      "summary": "Raises your energy recharge rate, but less than in UR2.",
+      "notes": [
+        "The image's negative energy use is -1 to -3 (UR2 -3 to -5).",
+        "It has no onUse of its own and uses the default backpack handling. Unmounting it still unmounts a Laser Rifle."
+      ],
+      "source": "item.cs EnergyPackImage, EnergyPack::onMount, EnergyPack::onUnmount"
+    },
+    "ShieldPack": {
+      "summary": "Energy shield that absorbs incoming damage, four times stronger than the stock pack.",
+      "notes": [
+        "Shield strength 0.048 (UR2 0.012).",
+        "Shrapnel, Mortar and Impact damage are absorbed at 75% strength. Unlike UR2, Electricity damage is no longer exempt from shields."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate, ShieldPackImage::onDeactivate; player.cs Player::onDamage"
+    },
+    "MotionSensorPack": {
+      "summary": "Deploys a Motion Sensor, as in base Tribes.",
+      "notes": [
+        "Spawns DeployableMotionSensor on terrain or buildings at any orientation. The UR2 Deployable Platform option is gone.",
+        "Team limit 15."
+      ],
+      "source": "item.cs MotionSensorPack::deployShape"
+    },
+    "AmmoPack": {
+      "summary": "Raises how much ammo you can carry.",
+      "notes": [
+        "Covers 16 ammo types, including Rifle, Shotgun, EMP grenade and rocket, FFB and Assault Rifle ammo.",
+        "Dropping the pack only moves excess ammo for the first 11 types in $AmmoPackItems. EMP grenade ammo, Shotgun shells, EMP rockets, FFB and Assault Rifle ammo above your limit stay with you.",
+        "The drop script stores each count under a field name that does not match the item at that index. For example, excess Rifle Ammo is saved as EMPRocketAmmo."
+      ],
+      "source": "item.cs AmmoPack::onDrop, $AmmoPackItems, $AmmoPackMax"
+    },
+    "CameraPack": {
+      "summary": "Deploys a remote Camera.",
+      "notes": [
+        "Spawns CameraTurret on terrain or buildings, oriented to the surface. The UR2 Deployable Platform option is gone.",
+        "Team limit 15."
+      ],
+      "source": "item.cs CameraPack::deployShape"
+    },
+    "TurretPack": {
+      "summary": "Deploys a generic remote turret. It has no shield, and its kills are not credited to the deployer.",
+      "notes": [
+        "Spawns DeployableTurret with no shield (UR2 0.005).",
+        "Unlike UR2, the deployer is not set as the turret's owner, so its kills are not credited to them.",
+        "Flat terrain or buildings only, with the usual turret spacing rules.",
+        "Team limit 8."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret::onAdd"
+    },
+    "AssassinTurretPack": {
+      "summary": "Deploys a base-defense camera turret that snipes with fast rifle-style bullets. It can only be built inside your own base.",
+      "notes": [
+        "Spawns AssassinTurret firing AssassinBullet (Assassin damage), range 75, quick reload.",
+        "Must be placed on a flat surface inside a building, with one of your team's static objects within a 70x70x50 box ('You must be near your own base').",
+        "The script was copied from the Flame Turret: it names the turret 'Flame Turret' plus the deployer's name and positions a fuel canister variable that is never created. It also checks for an 'SCVPack', which no item in UR3 Mayhem defines.",
+        "Team limit 50."
+      ],
+      "source": "item.cs AssassinTurretPack::deployShape; turret.cs AssassinTurret, AssassinTurret::onDestroyed; baseProjData.cs AssassinBullet"
+    },
+    "FlameTurretPack": {
+      "summary": "Deploys a short-range flame turret with a separate fuel canister. It can only be built inside your own base.",
+      "notes": [
+        "Spawns FlameTurret firing FlameLarge (Flame damage, small blast), range 10.",
+        "Also spawns a 'Flame Turret Fuel' Canister just behind it. Destroying the canister sets off a debris blast and damages the turret. Destroying the turret damages the canister.",
+        "Placement rules are the same as the Assassin Turret: flat surface inside a building, near your team's own objects.",
+        "Team limit 6."
+      ],
+      "source": "item.cs FlameTurretPack::deployShape; turret.cs FlameTurret, FlameTurret::onDestroyed; staticshape.cs Canister, Canister::onDestroyed; baseProjData.cs FlameLarge"
+    },
+    "VulcanTurret": {
+      "summary": "The Vulcan Turret pack is left over from UR2 and cannot be used.",
+      "notes": [
+        "Its deployShape still spawns a DeployableVulcan, but UR3 Mayhem has no DeployableVulcan datablock, so deploying cannot create a turret.",
+        "It is not on the station list, and no armor has an $ItemMax entry for it."
+      ],
+      "source": "item.cs VulcanTurret::deployShape; turret.cs; station.cs $InvList"
+    },
+    "RailTurret": {
+      "summary": "A long-range rail turret that, as configured, can never be deployed.",
+      "notes": [
+        "DeployableRail fires railLaser at range 125 with a 10 s reload and is very durable.",
+        "$TeamItemMax[RailTurret] is 0, so every deploy attempt reports the item limit reached.",
+        "Mounting the pack prints 'Watch The Enemy Drop Like Flys.' instead of UR2's manual-control warning."
+      ],
+      "source": "item.cs RailTurret::onMount, RailTurret::deployShape, $TeamItemMax; turret.cs DeployableRail"
+    },
+    "RepairKit": {
+      "summary": "Single-use self repair of 0.99.",
+      "notes": [
+        "Repairs 0.99 (UR2 1.2). There is no poison in this mod, so it cures nothing.",
+        "Every armor can carry 8."
+      ],
+      "source": "item.cs RepairKit::onUse; ArmorData.cs $ItemMax"
+    },
+    "MineAmmo": {
+      "summary": "Thrown anti-personnel mine that only goes off for enemies.",
+      "notes": [
+        "Always throws an AntipersonelMine set to your team. UR2's Commando DMMine is gone.",
+        "Mines take 25% of incoming mine damage (UR2 35%).",
+        "Every armor can carry 30. MineAmmo::onUse does not check the 35-mine team limit."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine::onCollision, AntipersonelMine::onDamage"
+    },
+    "EMPMineAmmo": {
+      "summary": "Thrown EMP mine that shorts out the energy of enemies who trigger it.",
+      "notes": [
+        "Throws an EMPMine set to your team. It goes off when an enemy player, vehicle or moving object touches it (2.5 m trigger radius). It also goes off if another mine lands within 1 m.",
+        "The blast does EMP-type damage with no raw damage, so it triggers the EMP effect (energy zeroed, no recharge for 10 s, energy weapons unmounted).",
+        "When destroyed it lowers the 'mineammo' team count, which EMP mines never raise.",
+        "Every armor can carry 10, the HellBringer 30."
+      ],
+      "source": "item.cs EMPMineAmmo::onUse; Mine.cs EMPMine, EMPMine::onCollision, EMPMine::deployCheck, EMPMine::onDestroyed; player.cs StartEMP"
+    },
+    "Grenade": {
+      "summary": "Thrown grenade whose type depends on your armor.",
+      "notes": [
+        "Combat Flight: Hologram, a flag-model decoy mine that explodes when anyone touches it, teammates included.",
+        "RidgeRunner and HellBringer: EMP Mine.",
+        "Mainstay and Tech: Handgrenade.",
+        "Class IV: AntipersonelMine.",
+        "Thrown at 15 x throw strength, one every 0.5 s. Carry limit 10, Mainstay 12, Class IV and HellBringer 16."
+      ],
+      "source": "item.cs Grenade::onUse; Mine.cs Hologram, Hologram::onCollision, EMPMine, Handgrenade, AntipersonelMine"
+    },
+    "Beacon": {
+      "summary": "Every armor's beacon is now a thrown Speed Booster: a zero-damage blast that launches players.",
+      "notes": [
+        "Throws a Boost mine (zero damage, 500 kickback, 8 m blast). It goes off when any player or vehicle touches it, or when another mine lands within 1 m.",
+        "Boost has a trigger radius of 250. Whether that makes it go off as soon as it settles was not determined from the scripts.",
+        "All UR2 class-specific beacon abilities are gone.",
+        "Every armor can carry 10."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost, Boost::onCollision, Boost::deployCheck"
+    },
+    "RepairPatch": {
+      "summary": "Health pickup found in the world.",
+      "notes": [
+        "Walking over it while damaged repairs 0.99 (UR2 1.125). If carried and used, it repairs 0.9.",
+        "It no longer clears poison, since the mod has none."
+      ],
+      "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+    }
+  }
+}

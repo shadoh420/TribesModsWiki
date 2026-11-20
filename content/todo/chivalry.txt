@@ -1,0 +1,115 @@
+# chivalry vs base (114 items)
+new        MageArmor                    Mage
+new        ScoutArmor                   Ranger
+new        WarriorArmor                 Warrior
+new        CrafterArmor                 Crafter
+new        ClericArmor                  Cleric
+new        PaladinArmor                 Crusader
+new        LeviathanArmor               Leviathan
+new        BomberVehicle                Heavy Bomber
+new        MinelayerVehicle             MineLayer HAPC
+new        GunshipVehicle               Gunship
+new        PhoenixVehicle               Phoenix
+new        FalconVehicle                Falcon
+new        CrawlerVehicle               Creeper LAPC
+stats+scriptsBlaster                      Blaster
+new        Crown                        Crown
+new        Crown2                       Crown
+new        Crown3                       Crown
+new        Crown4                       Crown
+new        PredatorAmmo                 Predator Bullet
+new        Predator                     Predator
+stats+scriptsChaingun                     Chaingun
+new        StubberAmmo                  Stubber Bullet
+new        Stubber                      Stubber
+scripts    PlasmaGun                    Plasma Gun
+new        HvyPlasmaAmmo                Heavy Plasma Bolt
+new        HvyPlasma                    Heavy Plasma
+scripts    GrenadeLauncher              Grenade Launcher
+new        VolcanoAmmo                  Volcano Mine Pack
+new        Volcano                      Volcano Mine Dispenser
+new        ViperAmmo                    Viper Rockets
+new        Viper                        Viper
+new        DisarmerShell                Disarmer Battery
+new        Disarmer                     Disarmer Rifle
+scripts    Mortar                       Mortar
+new        HeMIRVAmmo                   HE MIRV Shell
+new        EmpMIRVAmmo                  EMP MIRV Shell
+new        MIRV                         MIRV
+new        DaHammerAmmo                 DaHammer Ammo
+new        DaHammer                     DaHammer
+new        SlingshotAmmo                Trident Rocket
+new        Slingshot                    Trident Launcher
+new        StormLauncherAmmo            Storm Rocket
+new        StormLauncher                Storm Launcher
+new        ScattergunAmmo               Scattergun Shells
+new        Scattergun                   Scattergun
+scripts    DiscLauncher                 Disc Launcher
+new        ShredderAmmo                 Shredder Disc
+new        Shredder                     Shredder
+stats+scriptsLaserRifle                   Laser Rifle
+stats+scriptsTargetingLaser               Targeting Laser
+scripts    EnergyRifle                  ELF Gun
+new        Reincarnation                Respawn Spell
+new        EmpSpell                     Electron Spell
+new        HealSpell                    Heal Spell
+new        UndeadSpell                  Undead Curse
+new        StasisAmmo                   Stasis Ammo
+new        Stasis                       Stasis Spell
+new        Inferno                      Inferno Spell
+new        Turn                         Turn Undead Spell
+new        ShockwaveGun                 Shockwave Spell
+new        Life                         Ritual of Life
+new        Summon                       Resurrection Spell
+new        ShieldSpell                  Shield Spell
+new        CrafterGun                   Crafter Repair Beam
+new        Fingers                      Flaming Fingers Spell
+stats      DeployableInvPack            Inventory Station
+stats      DeployableAmmoPack           Ammo Station
+new        DepSmFFPack                  Small Force Field
+new        DepFFDoorPack                Force Field Door
+new        DepLgFFPack                  Large Force Field
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      MotionSensorPack             Motion Sensor
+new        BugPack                      Coyote-Ear Bug
+new        ComJamPack                   Commo Jammer
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsPulseSensorPack              Pulse Sensor
+new        SatComPack                   SatCom Unit
+new        LifeAltar                    Altar of Life
+new        Brimstone                    Brimstone Spell
+new        BrimstoneAltar               Altar of Brimstone
+new        Brim                         Ritual of Brimstone
+new        GiveHoly                     Bless
+new        HolyWeapon                   Holy Bolt
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsCameraPack                   Camera
+stats+scriptsTurretPack                   Turret
+new        DepRocketPack                Rocket Turret
+new        StutPack                     Stutter Turret
+new        AhnPack                      Annihilator Turret
+new        PlasPack                     Plasma Turret
+new        VulcPack                     Vulcan Turret
+new        ShockwvPack                  Shockwave Turret
+new        LaserPack                    Laser Turret
+new        BunkerPack                   Deployable Bunker
+new        WallPack                     Barricade
+stats      RepairKit                    Repair Kit
+new        NoUndead                     Life Shield
+new        PaladinHeal                  Hands of Healing
+new        WarlordShield                Blessing of War
+new        WarlordCharge                Power Boost
+new        WarlordRite                  Warlords Ritual
+new        PaladinRite                  Paladins Ritual
+stats+scriptsMineAmmo                     Mine
+new        ShockwaveMine                Shockwave Mine
+new        EmpMine                      Emp Mine
+new        StasisMine                   Stasis Mine
+stats      Grenade                      Grenade
+new        SmokeGren                    Smoke Grenade
+stats      Beacon                       Beacon
+new        ProxMine                     Proximity Mine
+stats      RepairPatch                  Repair Patch

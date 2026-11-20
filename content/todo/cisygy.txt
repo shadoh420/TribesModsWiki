@@ -1,0 +1,13 @@
+# cisygy vs skynet (12 items)
+new        AdvancedArmor                Advanced Armor
+new        StalkerVehicle               Stalker
+new        FighterVehicle               Fighter
+new        MAPCVehicle                  MPC
+stats      Chaingun                     Chaingun
+stats      SniperRifle                  Sniper Rifle
+new        EMPGun                       Energy Cannon
+renamed+statsEnergyRifle                  ELF Gun
+scripts    AmmoPack                     Ammo Pack
+new        ELFTurretPack                ELF Turret
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon

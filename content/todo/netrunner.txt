@@ -1,0 +1,71 @@
+# netrunner vs base (70 items)
+renamed+statsLightArmor                   Hakima 178 LD
+new        HeavyLightArmor              Asher 375 HLD
+new        LightMediumArmor             Kasha 720 LMD
+renamed+statsMediumArmor                  Laska Ind. 900-D MD
+new        HeavyMediumArmor             Kell 1920-C HMD
+new        LightHeavyArmor              Katana 2750-X LHD
+renamed+statsHeavyArmor                   Stiletto 5000 HD
+new        BlasterAmmo                  Subvert
+new        LaserAmmo                    Vampire
+renamed+statsBulletAmmo                   Killer
+renamed+statsDiscAmmo                     Solburn
+renamed+statsGrenadeAmmo                  Confuse
+renamed+statsMortarAmmo                   Expel
+renamed+statsPlasmaAmmo                   Decrypt
+new        ArkfireAmmo                  Arkfire
+new        LChaingun                    Killer Mk1
+renamed+statsChaingun                     Killer Mk2
+new        HChaingun                    Killer Mk3
+new        LDiscLauncher                Solburn Mk1
+renamed+statsDiscLauncher                 Solburn Mk2
+new        HDiscLauncher                Solburn Mk3
+new        LGrenadeLauncher             Confuse Mk1
+renamed+statsGrenadeLauncher              Confuse Mk2
+new        HGrenadeLauncher             Confuse Mk3
+renamed+stats+scriptsLaserRifle                   Vampire Mk1
+new        HLaserRifle                  Vampire Mk2
+new        LEnergyRifle                 Leech Mk1
+renamed+statsEnergyRifle                  Leech Mk2
+new        HEnergyRifle                 Leech Mk3
+renamed+statsMortar                       Expel Mk1
+new        Arkfire                      Arkfire Mk1
+new        Arkfire2                     Arkfire Mk2
+renamed+statsBlaster                      Subvert Mk1
+renamed+statsPlasmaGun                    Decrypt Mk1
+new        EnergyConduit                Energy Conduit
+new        ProgramSlot                  Program Slot
+new        Ram                          Ram Upgrade
+new        Resist                       Armor
+renamed+stats+scriptsAmmoPack                     Extra Memory
+renamed+stats+scriptsCameraPack                   Remote View
+renamed+stats+scriptsDeployableAmmoPack           Rmt. Recharge Cntr.
+renamed+stats+scriptsDeployableInvPack            Rmt. Upgrade Cntr.
+renamed+statsDeployableSensorJammerPack   Data Blind
+renamed+stats+scriptsEnergyPack                   Charge
+renamed+stats+scriptsMotionSensorPack             Detect Pulse
+renamed+statsPulseSensorPack              Detect Data
+renamed+statsRepairPack                   Compiler
+renamed+statsSensorJammerPack             Mask Data
+renamed+statsShieldPack                   Shield
+renamed+stats+scriptsTurretPack                   WatchDog ICE
+new        RotPack                      Rotweiler ICE
+new        SolburnPack                  Solburn ICE
+new        OmniPack                     Omni ICE
+new        CloakPack                    Cloak
+new        ExponentialPack              Exponential Mk1
+new        LargeExponentialPack         Exponential Mk2
+new        SpringPack                   Data Jump
+new        ArkFieldPack                 Arkfire Defense Field
+new        DataWallPack                 DataWall Mk1
+new        LargeDataWallPack            DataWall Mk2
+new        FireWallPack                 FireWall
+stats+scriptsBeacon                       Beacon
+stats+scriptsMineAmmo                     Mine
+stats      Grenade                      Grenade
+stats+scriptsRepairKit                    Repair Kit
+stats      RepairPatch                  Repair Patch
+renamed+statsScoutVehicle                 Single Carrier Line
+renamed+statsLAPCVehicle                  3-Way Line
+renamed+statsHAPCVehicle                  5-Way Line
+new        DeadWeight                   Deadweight

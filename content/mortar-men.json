@@ -1,0 +1,40 @@
+{
+ "mod": {
+  "overview": "Mortar Men v1.1 (IntauraMODs / Michael Wales, July 1999) removes Light Armor, Medium Armor, and Laser Rifle so every player spawns in a lightened, faster Heavy Armor that can pilot vehicles, fires discs/grenades/mortars faster, and carries expanded explosive reserves.",
+  "notes": [
+   "Heavy-only class (ArmorData.cs, game.cs, vehicle.cs): Game::playerSpawn spawns all players in harmor (Vehicle::onCollision lets harmor board Scouts/APCs). Heavy Armor drops mass from 18 to 16, moves faster (5/4/4 -> 7/6/6), and cuts jet drain (1.1 -> 0.8).",
+   "Expanded ordnance & faster reloads: Heavy carry caps increase for Discs (15 -> 35), Mortar Ammo (10 -> 30), Grenade Ammo (15 -> 20), and Mines (3 -> 5). Mortar and Grenade Launcher reloadTime speeds up 0.5 s -> 0.3 s, and Disc Launcher reloads 0.25 s -> 0.2 s.",
+   "Sensors trimmed (sensor.cs): lowers PulseSensor (400 -> 350 m), MediumPulseSensor (250 -> 200 m), and DeployablePulseSensor (200 -> 150 m) ranges, and tweaks station collision/resupply scripts."
+  ]
+ },
+ "items": {
+  "GrenadeLauncher": {
+   "summary": "Reload delay drops from 0.5 s to 0.3 s while Heavy Grenade Ammo capacity rises from 15 to 20.",
+   "notes": [
+    "Accelerates close-to-mid-range explosive volleys."
+   ],
+   "source": "item.cs GrenLauncherImage; ArmorData.cs"
+  },
+  "Mortar": {
+   "summary": "Reload delay drops from 0.5 s to 0.3 s and Heavy Mortar shell cap triples from 10 to 30.",
+   "notes": [
+    "Cores the Heavy-only mortar-duel loop."
+   ],
+   "source": "item.cs MortarImage; ArmorData.cs"
+  },
+  "DiscLauncher": {
+   "summary": "Reload delay drops from 0.25 s to 0.2 s and Heavy Disc capacity increases from 15 to 35.",
+   "notes": [
+    "Supports extended Heavy disc fighting and mobility."
+   ],
+   "source": "item.cs DiscLauncherImage; ArmorData.cs"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Removes the station WeaponCheck gate and updates onActivate resupply handling for Heavy-only play.",
+   "notes": [
+    "Pairs with expanded explosive ammo pools."
+   ],
+   "source": "station.cs"
+  }
+ }
+}

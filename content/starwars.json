@@ -1,0 +1,40 @@
+{
+ "mod": {
+  "overview": "Star Wars Total Conversion (v2.0, styled in-game as Star Wars Beta 2.d) turns Tribes into an asymmetric Rebel Alliance versus Imperial Forces battlefield built on base CTF, objective, and deathmatch rules. Instead of standard Tribes armors and spinfusors, players spawn as Rebel Pilots or Storm Troopers and visit inventory stations to switch into 18 faction-locked Star Wars heroes, troopers, and droids—from Luke Skywalker, Han Solo, and Chewbacca to Darth Vader, Darth Maul, and Boba Fett. Infantry combat revolves around faction blasters, flak cannons, sniper rifles, thermal detonators, Force powers, and directional lightsaber deflection, while base vehicle pads field Rebel X-Wings, A-Wings, Y-Wings, and Snow Speeders against Imperial TIE Fighters, Interceptors, and Bombers. Compared to base Tribes, engagements are faster and deadlier at range while rewarding Jedi/Sith melee positioning and EMP anti-vehicle defense.",
+  "notes": [
+   "Factions and Spawns: Team 0 is Rebel Alliance (beagle skin), spawning as a Rebel Pilot (rparmor) with a Naboo Blaster (NBlaster), Tool Kit (RepairPack), Repair Kit, Grenade, and Blaster Ammo. Team 1 is Imperial Forces (dsword skin), spawning as a Storm Trooper (harmor) with a BlasTech E-11 (TBlaster) and the same starter gear. On first join, players see a menu to choose between their personal skin and the team default.",
+   "Station Faction Filtering and Character Roster: Inventory, Remote Inventory, and Vehicle stations filter choices by team tag (Reb vs Imp). Rebels can swap into Dash Rendar (fast 14 speed, Force Throw), Luke Skywalker (Force Speed, Force Throw, Force Lightning, BSaber/GSaber), Princess Leia, Han Solo, Chewbacca (1.3 maxDamage tank, Flak Cannon, Torpedo Launcher), Hoth Trooper, Rebel Troop (Desert Rifle), or Rebel Command (Flak Cannon, Desert Rifle). Imperials can swap into Battle Droid (0.55 maxDamage), Tuskan Raider (Desert Rifle), Darth Maul (Double L.Saber, Force Throw/Lightning), Darth Vader (1.3 maxDamage, 4 weapon slots, RSaber, Force Throw/Lightning), Boba Fett (Boba's Blaster, Desert Rifle), Thrawn (RSaber/MSaber), Dark Trooper (1.3 maxDamage, Flak Cannon, Torpedo Launcher), or Xena (RSaber, Force Throw).",
+   "Lightsaber Deflection and Force Combat: While holding any lightsaber (BSaber, GSaber, RSaber, MSaber) with more than 20 energy, frontal laser and plasma blaster bolts are deflected back from your muzzle and frontal lightsaber swings are blocked, cutting damage taken to 0.05. Lightsabers also deal 50x damage against LAPC and HAPC troop transports. Force-sensitive characters unlock sustained Force beams (ForceThrow to toss enemies into the air, ForceLightning to burn health and energy) or Luke's ForceSpeed toggle (40 forward speed with jetpacks disabled while draining 15 energy/sec).",
+   "Star Wars Arsenal and Heavy Weapons: Replaces base Tribes guns with faction blasters (E-11, DL-44, Naboo Blaster, Scout Blaster, Battle Droid Blaster, Boba Fett's Blaster), rapid-fire Coruscant Guard Rifles, spinning Repeaters, 12-pellet Flak Cannons, and a Portable Proton Torpedo Launcher (TorpLauncher) that locks onto flying vehicles up to 3000m on line of sight. The DesertRifle fires high-velocity sniper rounds but requires an EnergyPack (Energy Cell) mounted in the backpack slot. Explosives include 2-second Grenades, antipersonnel Mines, high-damage Timer Mines, and rare Thermal Detonators (5-second fuse, 50m radius, 20.0 damage, team limit 5).",
+   "Starfighters, Transports, and EMP Vulnerability: Vehicle stations offer shared LPC/HPC troop transports (team limits 2 and 1) alongside faction starfighters: Rebels fly A-Wing, Snow Speeder, X-Wing, and Y-Wing; Imperials fly TIE Fighter, TIE Interceptor, and TIE Bomber. Starfighters only let players board at full 100 energy, and EMP hits (such as from fixed 350m Ion Cannons) eject pilots—immediately on Imperial TIE craft, or when vehicle energy drops below 15 on Rebel fighters.",
+   "Deployables, Fixed Turrets, and Bans: Teams can deploy EWEB Defense turrets (TurretPack, limit 5), Motion Sensors (15), Pulse Sensors (15), Sensor Jammers (8), and main-station-only Deployable Inventory (5) and Ammo Stations (7); CameraPack (Radar Unit) is disabled ($InvList=0 and $RemoteInvList=0). Base defenses add long-range Atgar Laser Cannons (200m), Turbo Laser Batteries (275m), and Ion Cannons (350m EMP).",
+   "Bots, Menus, and Controls: Ships with Spoonbot AI (spoonbot_starwars.cs), auto-spawning 10 preset bots (5 per side) unless engine BotBrain is active ($Server::BotBrain=1). Players can add or remove bots through the Tab menu under Spoonbot controls (Spawn bot / Remove bot) and toggle the live teammate bot status HUD with Ctrl+B. No custom hash chat commands are implemented in the mod scripts."
+  ]
+ },
+ "items": {
+  "DesertRifle": {
+   "summary": "High-velocity long-range sniper rifle that requires an equipped Energy Cell backpack to operate.",
+   "notes": [
+    "Can only fire while an EnergyPack (Energy Cell) is mounted in the backpack slot; unmounting the Energy Cell unmounts the rifle.",
+    "Available to Rebel Troop, Rebel Command, Tuskan Raider (marmor), and Boba Fett.",
+    "Fires 9000-velocity projectiles for 0.4 mortar-type damage with zero kickback."
+   ],
+   "source": "item.cs, baseProjData.cs, ARM_BobaFett.cs, ARM_RCommando.cs, ARM_RTroop.cs, ArmorData.cs"
+  },
+  "ThermalDet": {
+   "summary": "Massive-radius, high-damage timed explosive far stronger than the standard 2-second hand Grenade.",
+   "notes": [
+    "Detonates 5 seconds after throwing with a 50m explosion radius, 20.0 damage, and 2000 kickback strength, warning the thrower via bottomprint.",
+    "Limited to 5 per team ($TeamItemMax[ThermalDet] = 5); most characters carry 1, while Chewbacca, Darth Vader, and Dark Trooper can carry 2."
+   ],
+   "source": "item.cs, Mine.cs, ARM_Chewy.cs, ARM_Vader.cs, ARM_DTroop.cs"
+  },
+  "CameraPack": {
+   "summary": "Radar Unit deployable camera is explicitly banned from both main and remote inventory stations.",
+   "notes": [
+    "Set to 0 in both $InvList[CameraPack] and $RemoteInvList[CameraPack] inside station.cs, while TurretPack (EWEB Defense, limit 5) and sensor packs remain purchasable."
+   ],
+   "source": "station.cs, item.cs"
+  }
+ }
+}

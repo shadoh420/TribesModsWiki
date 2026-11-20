@@ -1,0 +1,117 @@
+# novamorpher vs base (116 items)
+renamed+statsLightArmor                   Omega Flyer
+renamed+statsMediumArmor                  Guard
+renamed+statsHeavyArmor                   Heavy Assult
+stats      Blaster                      Blaster
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeLauncher              Grenade Launcher
+stats      DiscLauncher                 Disc Launcher
+stats      LaserRifle                   Laser Rifle
+stats      TargetingLaser               Targeting Laser
+stats      EnergyRifle                  ELF Gun
+stats      EnergyPack                   Energy Pack
+scripts    ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      RepairPatch                  Repair Patch
+stats+scriptsBeacon                       Beacon
+new        InstantExplosionProjection   InstantExplosive
+new        MorphControl                 Morph Control
+new        RocketAmmo                   RocketAmmo
+new        RocketLauncher               Rocket Launcher
+new        AirStrike                    AirStrike
+new        SniperRifleAmmo              SniperRifleAmmo
+new        SniperRifle                  Sniper Rifle
+new        PistolAmmo                   PistolAmmo
+new        Pistol                       Pistol
+new        RGLAmmo                      RGL Ammo
+new        RepairGrenadeLauncher        Repair GL
+new        KickRifle                    Kick Rifle
+new        MMinigunAmmo                 MMinigun Ammo
+new        MMinigun                     MECHMiniGun ICPU
+new        MMinigun1                    MECHM PRT 1
+new        MMinigun2                    MECHM PRT 2
+new        MMinigun3                    MECHM PRT 3
+new        MMinigun4                    MECHM PRT 4
+new        FlameThrower                 Flame Thrower
+new        GrecketAmmo                  GrecketAmmo
+new        GrecketLauncher              Grecket Launcher
+stats+scriptsMortar                       Mortar
+new        BeaconRifle                  S/D Rifle
+new        VortexCAmmo                  Vortex Charge
+new        VortexC                      Vortex Cannon
+new        ExtraVortexCA                VortexC
+new        ExtraVortexCB                VortexC
+new        ExtraVortexCC                VortexC
+new        ShieldWep                    Particle Shield
+new        ATAmmo                       Nano Org
+new        SubAT                        Assimulator Tubes
+new        AT                           Assimulator Tubes
+new        BorgLaser                    Borg Laser
+new        ShotGunAmmo                  ShotGunAmmo
+new        ShotGun                      ShotGun
+new        Mana                         Mana
+new        FireballSpell                Fireball
+new        TeleportSpell                Teleport
+new        WindSpell                    Wind
+new        ParasiteSpell                Parasite
+new        ShieldSpell                  Shield Spell
+new        RageSpell                    Rage
+new        UndeadSpell                  Undead
+new        BSwapSpell                   BSwap
+new        CannonP1Pack                 Cannon
+new        CannonP2Pack                 Cannon
+new        NovaMorpher                  NovaMorpher
+new        AntiMorpher                  AntiMorpher
+new        SpecialRepair                Medic
+new        SniperX                      SnipeX
+new        Mage                         Mage (Magical)
+new        UndeadMage                   Mage (Dead)
+new        Borg                         Borg Drone
+new        MorpherJetVehicle            MorpherJet
+new        AtomicMorpher                Atomic Morpher
+new        UltraRepairPack              Ultra-Repair Pack
+new        SuperR2Pack                  Super-Repair Pack
+new        DepRocketTurretPack          Rocket Turret
+new        UnRepairTurretPack           De-Assembler
+new        AntiSniperTurretPack         Anti-Sniper Turret
+new        SpyRadarPack                 Multi-Radar
+new        WatcherTurretPack            Watcher
+stats      CameraPack                   Camera
+stats      DeployableAmmoPack           Ammo Station
+stats      DeployableInvPack            Inventory Station
+stats      MotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+renamed+stats+scriptsTurretPack                   Mini-Plasma Turret
+new        ForceFieldPack               Small Force Field
+new        MediumForceFieldPack         Medium Force Field
+new        LargeForceFieldPack          Large Force Field
+new        UTFTurretPack                UFA Pack
+renamed+stats+scriptsAmmoPack                     Ammo Bizzard
+new        PComChatServPack             Dep ComChat Sev
+new        LargeOctaPad                 Large Octagon
+new        BlastWallPack                BlastWall
+new        BlastFloorPack               BlastFloor
+new        MobileInvPack                M-Inv Station
+new        C4Pack                       C4 Explosive
+new        C4Activator                  C4Activator
+new        LaserTurretPack              Laser Turret
+new        TargetingPack                Targeting Pack
+new        HackGun                      Hack Gun
+new        HackPack                     Hack Pack
+new        HeatSSPack                   Heat Shield Pack
+new        ManaDrainerPack              Mana Drainer Dev
+new        AcceleratorDevicePack        Velocity Enhancer
+new        airbase                      AirBase
+new        SpringBoard                  Spring Pad
+new        HiderPack                    Terrain Shifter
+new        RepairBeaconPack             Repair Plateau
+new        BaseSwitchPack               BaseSwitch
+new        BoxBase                      BoxBase
+new        DronePack                    Telekinesis
+new        KamakaziPlane                Kamakazi Jet
+new        FlashLightning               Flash Lightning
+new        Adaptor                      *-|-Adaptor-|-*
+stats+scriptsGrenade                      Grenade
+stats+scriptsRepairKit                    Repair Kit

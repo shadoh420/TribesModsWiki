@@ -1,0 +1,73 @@
+{
+ "mod": {
+  "overview": "5th Element is an action-heavy total overhaul mod created by +]-[+Armagedon+ of Team Hybrid, combining fast-paced tribal combat with an expanded ten-armor class roster, thirty-five indexed weapons, and heavy deployable fortifications. Unlike base Tribes where players spawn lightly equipped in scout armor, matches begin immediately with high-firepower loadouts, defaulting players into the Neo-Mercenary medium armor equipped with a chain gun, disc launcher, and ELF energy rifle. Deathmatch mode shifts the starting loadout to the Neo-Engineer equipped with a deployable inventory station, allowing players to instantly establish forward supply points anywhere across the map. The mod emphasizes overwhelming aerial and artillery bombardment, pairing specialized classes with recursive trail-looping explosives, player-deployed vehicles, and celestial administrator capabilities.",
+  "notes": [
+   "Expanded Armor Roster: Features ten distinct armors including Neo-Scout (speed 13, 2 weapons, deploys field vehicles), Neo-Spy (speed 13, 3 weapons, cloaking device, laptop, magnum silencer), Neo-Sniper (speed 13, 3 weapons, laser rifle, railgun, sniper rifle), Neo-Mercenary (speed 10, 5 weapons, hyper spinfuser, impulse booster), Neo-Burster (speed 10, 4 weapons, mortar, rockets, detpack), Neo-Engineer (speed 10, 4 weapons, repair tool, field bases), Neo-Alien (speed 10, 4 weapons, plasma cannon, omega rifle, shockwave cannon), Neo-Cyborg (speed 7.5, 6 weapons, vulcan cannon, stealth shield), Neo-Dragoon (speed 7.3, 6 weapons, tracker missiles, target laser, heavy turrets), and the administrative Death Angel (speed 18, 100 weapons, immune to all damage).",
+   "Pre-Equipped Spawn System: Standard spawns outfit players directly in Neo-Mercenary armor loaded with an Energy Rifle, Chaingun, Disclauncher, Repair Kit, Grenades, Beacons, Targeting Laser, Energy Pack, and 175 bullets, completely eliminating base inventory downtime. In Deathmatch mode, players spawn as Neo-Engineers with a portable inventory station to construct armories anywhere, while stripped players are restricted to a Fixit repair tool and energy pack.",
+   "Custom Weapon Cycling: The mod replaces the default weapon selection handlers with a 35-slot indexed cycling system via remoteNextWeapon and remotePrevWeapon, seamlessly rotating through conventional firearms, energy cannons, heavy ordnance, and angelic spell weapons.",
+   "Extensive Fortification and Base Building: Engineers and combat classes can deploy nine turret models (Ion, Flame, Plasma, Laser, Vulcan, Rail, Shock, Mortar, and Rocket), single and double-sized force fields, force field doors, blast walls, springboards that launch players into the air, and deployable platforms.",
+   "Teleportation and Mobile Vehicle Deployment: High-tier engineers can purchase expensive deployable Teleport Pads to connect instant transit routes, while Neo-Scouts and engineers can deploy combat vehicles directly on terrain using the Interceptor Mech Pack, Scout Pack, or Stealth HPC Pack without needing a vehicle pad.",
+   "Advanced Heavy Artillery and Tracking: Dragoon and heavy armors utilize the Vengeance Missile Pack and Tracker Missile Cannon, using target-marking and locking lasers to guide heavy explosive ordnance with configurable warheads and scanning arrays.",
+   "Parasitic and Tactical Explosives: Features a wide range of exotic mines and ordnance including DetBugs that cling to victims and trigger an on-screen countdown before self-destructing, timed suicide detpacks, and recursive trail-looping projectiles that dispense secondary explosions along their trajectory.",
+   "Integrated Bot Support and Admin Governance: Includes native AI bot pathing and waypoint routines in ai.cs alongside a comprehensive Insomniax admin interface for managing team balance, station usage time limits, out-of-bounds execution timers, player discipline, and administrative Phoenix avatar spawning.",
+   "Station Purchasing Restrictions: Base inventory stations explicitly set InvList to zero for DMArmor, SpawnArmor, Boost, Plastique, and FgcPack, enforcing armor selection and preventing unintended utility items from being purchased at standard terminals.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Boost (station.cs), DMArmor (station.cs), FgcPack (station.cs), Plastique (station.cs), SpawnArmor (station.cs)."
+  ]
+ },
+ "items": {
+  "DeathArmor": {
+   "summary": "Administrative Death Angel armor featuring total damage immunity, hyperdrive flight, and a 100-weapon arsenal of elemental spells.",
+   "notes": [
+    "Boasts an absolute damage scale of 0.0 against all damage types including bullets, plasma, energy, explosions, lasers, and mortars.",
+    "Moves at an extreme forward speed of 18 with 200 energy and mounts quad War Angel Wings across multiple extra attachment slots.",
+    "Armed with 13 unique angelic spells including Tornado, Quake, God Tear, Plague, Freeze, Implode, Wing Span, and Holy Mortar."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "PhoenixPack": {
+   "summary": "War Angel Wings flight pack that grants hyperdrive propulsion and automatically attaches auxiliary wing structures.",
+   "notes": [
+    "Mounting the pack automatically attaches PhoenixPack2, PhoenixPack3, and PhoenixPack4 to extra player slots to render full spread wings.",
+    "Activating the pack engages hyperdrive mode, draining energy while rocketing the wearer across the map.",
+    "Exclusive to the Death Angel class and administrative Phoenix spawn loadouts."
+   ],
+   "source": "PItems.cs"
+  },
+  "TeleportPack": {
+   "summary": "High-cost deployable station allowing engineers to place teleportation pads for instant base-to-field transit.",
+   "notes": [
+    "Costs 3200 credits at inventory stations and can be carried and deployed exclusively by the Neo-Engineer class.",
+    "Requires placement on solid terrain or interior surfaces outside base objective zones to establish functional transit nodes.",
+    "Operates under team item limits to ensure balanced transit distribution across the map."
+   ],
+   "source": "item.cs"
+  },
+  "DetBug": {
+   "summary": "Parasitic explosive device that attaches to players and triggers a fatal countdown sequence.",
+   "notes": [
+    "Can be dropped or triggered to latch onto any player who comes into contact with the device.",
+    "Displays persistent on-screen warnings with an active countdown informing the carrier that they will detonate.",
+    "Triggers a lethal blast when the countdown expires unless the victim manages to discard the device."
+   ],
+   "source": "item.cs"
+  },
+  "Vengeance": {
+   "summary": "Backpack-mounted heavy guided missile system that coordinates with targeting lasers.",
+   "notes": [
+    "Mounts a dedicated locking laser in the weapon slot when deployed to paint enemy vehicles and installations.",
+    "Fires heavy Vengeance missiles that track painted targets with high-yield blast damage.",
+    "Admins and players can customize warhead payload characteristics and sensor tracking modes via dedicated interface menus."
+   ],
+   "source": "item.cs"
+  },
+  "SpringPack": {
+   "summary": "Deployable springboard pad that catapults players into high-velocity trajectory jumps.",
+   "notes": [
+    "Deploys flat on terrain or base surfaces with an upward-facing orientation normal.",
+    "Applies a massive vertical and directional impulse to any player or dynamic object that collides with the surface.",
+    "Frequently utilized by base defense and infiltration squads to scale walls or launch rapid assaults."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

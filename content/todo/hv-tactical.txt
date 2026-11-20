@@ -1,0 +1,76 @@
+# hv-tactical vs renegades-classic (75 items)
+renamed+statsScoutArmor                   Kestrel
+renamed+statsSpArmor                      Nighthawk
+renamed+statsLightArmor                   Peregrine
+renamed+statsMediumArmor                  Mongoose
+renamed+statsBursterArmor                 Badger
+new        WolverineArmor               Wolverine
+renamed+statsEngArmor                     Owl
+new        HeavyArmor                   Grizzly
+renamed+statsDragArmor                    Kodiak
+renamed+statsScoutVehicle                 Eagle
+renamed+statsWraithVehicle                Raven
+renamed+statsJetVehicle                   Hornet
+renamed+statsLAPCVehicle                  Percheron
+renamed+statsHAPCVehicle                  Mastadon
+scripts    Blaster                      Blaster
+stats+scriptsChaingun                     Chaingun
+scripts    PlasmaGun                    Plasma Gun
+scripts    GrenadeLauncher              Grenade Launcher
+scripts    Mortar                       Mortar
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsLaserRifle                   Laser Rifle
+renamed+stats+scriptsEnergyRifle                  ELF Gun
+renamed+stats+scriptsRocketLauncher               Stinger
+stats+scriptsSniperRifle                  Sniper Rifle
+stats+scriptsSilencer                     Magnum
+new        ConCun                       Shockwave Cannon
+renamed+stats+scriptsRailgun                      Light Railgun
+stats+scriptsVulcan                       Vulcan
+new        ClusterBomb                  Particle Accelerator
+new        MinelAmmo                    Mine Launcher Ammo
+new        MineLauncher                 Mine Launcher
+new        ShotgunShell                 Shotgun Shell
+new        Shotgun                      Shotgun
+new        EMPAmmo                      EMPAmmo
+new        EMPLauncher                  EMP Cannon
+new        MagGun                       MAG Gun
+new        AssaultRifleAmmo             Assault Rifle Clip
+new        AssaultRifle                 Assault Rifle
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    DeployableComPack            Command Station
+stats      EnergyPack                   Energy Pack
+stats      RepairPack                   Repair Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+scripts    CloakingDevice               Cloaking Device
+stats+scriptsStealthShieldPack            StealthShield Pack
+stats      Laptop                       Command Laptop
+scripts    MotionSensorPack             Motion Sensor
+stats+scriptsAmmoPack                     Ammo Pack
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+scripts    CameraPack                   Camera
+renamed+stats+scriptsTurretPack                   Sentry Turret
+stats+scriptsLaserPack                    Laser Turret
+renamed+stats+scriptsShockPack                    ELF Turret
+scripts    LaserTurret                  Plasma Turret
+renamed+stats+scriptsRocketPack                   Rocket Turret
+renamed+stats+scriptsForceFieldPack               Small Force Field
+stats+scriptsLargeForceFieldPack          Large Force Field
+stats+scriptsTreePack                     Mechanical Tree
+scripts    TeleportPack                 Teleport Pad
+renamed+stats+scriptsMechPack                     Hornet Pack
+new        BreathOfRaPack               Breath Of Ra
+new        ConPack                      Guard Dog
+new        WatchdogPack                 Watchdog
+new        MAGPack                      MAG Turret
+new        FlakPack                     Flak Turret
+new        VulcanPack                   Vulcan Turret
+new        C4Pack                       Demolition Pack
+scripts    RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+scripts    RepairPatch                  Repair Patch

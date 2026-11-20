@@ -1,0 +1,71 @@
+{
+ "mod": {
+  "overview": "Holocaust v3.5 With Duel is an extensive total conversion mod by /D:B/Spector that expands upon Meltdown Classic with expanded combat classes, airborne transformation packs, and an integrated 1v1 dueling system. The core gameplay loop blends objective base warfare and siege defense with high-lethality skirmishing, featuring eight distinct armor chassis ranging from agile snipers to walking mechs and heavy artillery titans. Combat is deeply customizable through dynamic weapon firing modes configured directly from the Tab menu, allowing weapons like the Electron Cannon, Chaingun, and Mortar to switch between shock, EMP, poison, and cluster munitions in the field. Alongside standard team warfare, the mod features a dedicated arena dueling system where players challenge each other to isolated 1v1 fights across multiple arenas with custom loadouts and streak tracking.",
+  "notes": [
+   "Eight armor chassis are available: Ultra Sniper (Light), Sniper, Engineer (Medium), Magnum (MagIon), Elite (Electro), Assault (MECH), Mars (Heavy), and Hercules (Herc). Weapon capacity ranges from 3 on the dedicated Sniper, 4 across light and medium variants, to 5 on Assault, Mars, and Hercules. Crouching is disabled on the super-heavy Assault, Mars, and Hercules classes. Armor choice also changes grenade behavior: lights throw SmallGrenades, mediums throw standard HandGrenades, Mars and Hercules throw dual Pocket Nuke shrapnel cluster bombs, and Assault triggers an integrated missile volley with heavy recoil.",
+   "Players spawn equipped with Light Armor, Proton Disc Launcher, 30mm Sniper Rifle, Chaingun, Grenade Launcher, Reassembler, grenades, mines, and an Accelerator booster pack. A spawn overlay welcomes the player and prompts them to press their next weapon key to enter play. Private communication can be sent using =player message in chat, while super administrators can broadcast server-wide centerprint announcements with =!message.",
+   "Pressing the Tab menu opens the Options screen where players can select Weapon Options to dynamically reconfigure weapon behaviors in the field. The Electron Cannon can be switched between Electron Blast, EMP, Booster, Poisoning, Internal Flaming (Heat), and Annihilation modes. The Chaingun can be toggled between standard mode and Vulcan mode, while Mortars can switch between Standard HE Shells, Bouncing Betty HE, and Vertigo Bomb airburst shells.",
+   "Weaponry inflicts distinct status effects that alter battlefield survivability. EMP attacks from the Electron Cannon or EMP munitions drain player energy continuously, halt shield recharge, and cause electrical damage to health once energy drops below 10. Poison from the Poison Dart Rifle or poison-mode Electron Cannon infects the player with a 15-second health drain. Using a standard Repair Kit immediately cures poison and drops remaining EMP duration down to two ticks. Heavy ordnance includes rapid-firing TwinFusors, SkySnipe Railguns, and ClusterBomb FireBombs.",
+   "The mod features Jetfire and Retaliator Transformer packs that blast players into the sky and instantly convert them into flyable combat aircraft mid-air, automatically dropping any carried flag during transformation. Foot mobility options include the Hyperdrive Pack, which enables 300-meter line-of-sight teleportation to the player's crosshair on a 15-second cooldown, the Rx-S Slipstream pack that warps the user and nearby allies to a waypoint, the Jump Pack for short evasive warps, and the Gravitron Field Pack that negates mass and boosts energy for heavy armor.",
+   "Engineers and defenders can deploy heavy defensive emplacements including Super Heavy Blaster artillery turrets, chaingun turrets, mobile generators, shield nodes, blast doors, and C-4 land-attack mines. The TeamChat Tapper pack and deployed bug enable electronic espionage, forwarding nearby enemy team chat messages within 200 meters. Remote inventory stations are explicitly banned (RemoteInvList set to zero) from stocking deployable turrets, mobile inventory stations, teleport pads, mobile generators, tactical eavesdropping bugs, and satellite Uplink Packs, requiring defenders to purchase heavy infrastructure at main base stations.",
+   "On Duel missions, players can use the Tab menu to challenge opponents to organized 1v1 duels across up to 12 dedicated arenas. Duelists select three weapons from a pool of 22 and one pack before cameras orbit both players during a synchronized ready countdown. Once combat begins, non-combatants cannot interfere and wrong-target hits are blocked, with the system announcing victory times, kill streaks, record-breaking win times, and custom finisher audio cues.",
+   "Additional station and team bans: Blocked at Remote Stations ($RemoteInvList = 0): AODArtilleryPack (deployables.cs), AODMobileInv (deployables.cs), AODShieldGen (deployables.cs), AODTeleporter (deployables.cs), CNode (deployables.cs), DBugPack (deployables.cs), DiscTurretPack (deployables.cs), DisruptorTurretPack (deployables.cs), DronePack (deployables.cs), dummypack (deployables.cs), ElectroTurretPack (deployables.cs), HoloPack (deployables.cs) (+8 more)."
+  ]
+ },
+ "items": {
+  "JetfirePack": {
+   "summary": "Airborne transformation backpack that converts the player into an armed Jetfire flier mid-flight.",
+   "notes": [
+    "Applies an upward vertical impulse and transforms the player into an active Jetfire vehicle mid-air.",
+    "Automatically forces the player to drop any carried flag to prevent aerial flag capping.",
+    "Paired with the RetaliatorPack, which performs the same transformation for the Retaliator gunship."
+   ],
+   "source": "packs.cs"
+  },
+  "MBCannon": {
+   "summary": "The Electron Blast Cannon, serving as the mod's flagship multi-mode energy heavy weapon.",
+   "notes": [
+    "Configurable through the Tab options menu into Blast, EMP, Booster, Poisoning, Heat, or Annihilation firing modes.",
+    "EMP mode strips enemy energy and inflicts electrical health damage, while Poison mode triggers a ticking infection.",
+    "Consumes MitziCore power charges as ammunition."
+   ],
+   "source": "weapons.cs"
+  },
+  "Warpxpack": {
+   "summary": "Hyperdrive backpack allowing instant line-of-sight teleportation to the target crosshair location.",
+   "notes": [
+    "Teleports the player to any terrain or surface within 300 meters of the crosshair.",
+    "Requires a 15-second cooling cycle between teleportation jumps.",
+    "Carrying players are warned against teleporting into solid interior walls."
+   ],
+   "source": "packs.cs"
+  },
+  "DBugPack": {
+   "summary": "Deployable TeamChat Tapper bug used for electronic espionage against enemy bases.",
+   "notes": [
+    "Deploys a covert listening bug onto interior or terrain surfaces.",
+    "Intercepts enemy team chat messages spoken within a 200-meter radius and transmits them to teammates as Enemy Trans alerts.",
+    "Can only be purchased at main base inventory stations since RemoteInvList is zero."
+   ],
+   "source": "deployables.cs"
+  },
+  "UplinkPack": {
+   "summary": "Satellite inventory uplink backpack granting full remote terminal access in the field.",
+   "notes": [
+    "Acquires a satellite uplink to open the complete inventory shopping GUI anywhere on the map.",
+    "Restricted exclusively to heavy armor chassis including Mars, Assault, and Hercules.",
+    "Restricted to main base inventory stations with RemoteInvList set to zero."
+   ],
+   "source": "packs.cs"
+  },
+  "TwinFusor": {
+   "summary": "Proton Duel Disk launcher capable of firing rapid dual disc fusor barrages.",
+   "notes": [
+    "Fires standard explosive disc shells with an accelerated 0.40-second reload cycle.",
+    "Features dual disc barrel models and fast spin-up time for high-velocity mid-air combat.",
+    "Highly favored in both open-field battles and the integrated 1v1 Duel arenas."
+   ],
+   "source": "weapons.cs"
+  }
+ }
+}

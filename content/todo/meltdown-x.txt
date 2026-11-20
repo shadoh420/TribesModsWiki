@@ -1,0 +1,65 @@
+# meltdown-x vs meltdown-hell (64 items)
+renamed+statsBlaster                      EMPIRIALTrident 40mm
+renamed+statsOmegaRifle                   OmegaRifle
+stats      MaserRifle                   Maser Rifle
+renamed+stats+scriptsMBCannon                     MBCannon Model:RJ11
+renamed+statsExtraEnergyA                 LightningXBeam
+renamed+statsExtraEnergyB                 LightningXBeam
+renamed+statsExtraEnergyC                 LightningXBeam
+renamed+statsEnergyGun                    LightningXBeam
+stats+scriptsChaingun                     Chaingun
+renamed+statsGatB                         LightBeam AutoBlaster
+renamed+statsGauss                        ShrapnelGatling80mm
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortar                       Mortar
+stats      ImpactMortar                 Impact Mortar
+stats      MineLauncher                 Mine Launcher
+stats      BabyNukeMortar               FireBomb
+stats      DiscLauncher                 Disc Launcher
+stats      DualDisc2                    TwinFusor
+stats      RPGLauncher                  RPG
+stats      MrpgLauncher2                MECHRPG
+stats      MrpgLauncher3                MECHRPG
+stats      MrpgLauncher4                MECHRPG
+stats      RPMLauncher                  RPM
+stats      MECHRocketLauncher           MECHRocketgun
+stats      MECHRocketLauncher2          MECHRocketgun
+stats      MECHRocketLauncher3          MECHRocketgun
+stats      MECHRocketLauncher4          MECHRocketgun
+stats      LaserPistol                  Laser Pistol
+renamed+stats+scriptsLaserRifle                   HP Dazer Rifle
+stats      PBW                          Particle Beam (PBW)
+renamed+statsRailgun                      80MM Sabbot
+renamed+statsRailGun2                     EMPIRIALMASER LS
+renamed+statsscope                        EMPIRIALMASER LS
+renamed+stats+scriptsRifle                        EMPIRIALMASER HP-LS
+renamed+statsMassDriver                   40MM Shrapnel Cannon
+renamed+statsSniperRifle                  20MM Renigade
+renamed+statsSXAmmo                       MDXDragonbolts
+renamed+stats+scriptsAAODSniperX                  MDX-Dragon
+new        MDXAmmo                      MDX Bolt
+new        MDXSniper                    MDX-Swarm
+new        HammerRAmmo                  HammerBolt
+new        MDXRSniper                   MDX-Hammer
+new        MDX1Ammo                     MDX Charge
+new        MDX1Sniper                   MDX-PP47
+new        MDX2Ammo                     MDXPP48Rounds
+new        MDX2Sniper                   MDX-PP48
+new        MDX3Ammo                     MDXLightningCharge
+new        MDX3Sniper                   MDX-Lightning
+stats      EnergyRifle                  ELF Gun
+stats      Reassembler                  Reassembler
+stats      TargetingLaser               Targeting Laser
+stats      Reactor                      Mini-Reactor
+stats      Accelerator                  Particle Accelerator
+stats      GravFieldPack                Gravitron Field Pack
+stats      ShieldPack                   Shield Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      CloakingDevice               3Dfx Cloaking Device
+stats      TargPack                     Missile Targeting Pack
+stats      AODCmdPack                   Turret Control pack
+stats      HyperPack                    Hyperdrive Pack
+stats      Slipstream                   Slipstream Teleporter
+stats      Capacitor                    Capacitor
+stats+scriptsSpeedPack                    SuperSpeed Pack
+stats      PyroXLPack                   PyroXL Conversion

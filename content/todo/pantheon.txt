@@ -1,0 +1,70 @@
+# pantheon vs insane (69 items)
+renamed+statsScoutArmor                   Scout Armor
+renamed+statsLightArmor                   Peltast (Light)
+renamed+statsMediumArmor                  Hoplite (Engineer)
+renamed+statsHeavyArmor                   Myrmidon (Heavy)
+new        AssaultArmor                 Assault Armor
+scripts    ScoutVehicle                 Scout
+stats      GunshipVehicle               Gunship
+new        MarauderVehicle              Marauder
+renamed+statsLAPCVehicle                  Bomber
+renamed+statsHAPCVehicle                  HPC
+new        EMPGrenadeAmmo               EMP Grenades
+new        FGCAmmo                      FGC-9000 Nukes
+new        ShotgunAmmo                  Shotgun Shell
+new        VulcanAmmo                   Vulcan Bullet
+stats      Blaster                      Blaster
+stats      DiscLauncher                 Disc Launcher
+new        EMPGrenadeLauncher           EMP Grenade Launcher
+new        FGC                          FGC-9000
+stats      LaserRifle                   Laser Rifle
+new        DeathLaser                   Laser Rifle, Rapidfire
+stats      Mortar                       Mortar
+stats      PlasmaGun                    Plasma Gun
+stats      Railgun                      Railgun
+renamed+statsRocketLauncher               Rocket Launcher
+new        Shotgun                      Shotgun
+stats      SniperRifle                  Sniper Rifle
+stats      TargetingLaser               Targeting Laser
+new        Vulcan                       Vulcan
+scripts    AmmoPack                     Ammo Pack
+scripts    Laptop                       Command Laptop
+scripts    FgcPack                      FGC-9000 Pack
+stats      MechPack                     Interceptor Pack
+new        SuicidePack                  Nuke Pack
+stats      ShieldPack                   Shield Pack
+stats+scriptsDeployableAmmoPack           Ammo Station
+stats+scriptsDeployableComPack            Command Station
+stats+scriptsDeployableInvPack            Inventory Station
+new        ProximityAlarmPack           Base Alarm
+new        BlastwallPack                Blast Wall
+stats+scriptsCameraPack                   Camera
+stats+scriptsPlatformPack                 Deployable Platform
+new        ForceFieldDoorPack           Force Field, Door
+renamed+stats+scriptsLargeForceFieldPack          Force Field, Large
+renamed+stats+scriptsForceFieldPack               Force Field, Small
+stats+scriptsMotionSensorPack             Motion Sensor
+new        OutpostPack                  Outpost
+stats      PulseSensorPack              Pulse Sensor
+renamed+stats+scriptsTreePack                     Seed Pack
+stats      DeployableSensorJammerPack   Sensor Jammer
+new        SniperPadPack                Sniper Pad
+new        DeployableSolarPanel         Solar Panel
+new        SpringPack                   Springboard
+stats+scriptsTeleportPack                 Teleport Pad
+new        TeleportDecoyPack            Teleport Pad Decoy
+new        DissectionPack               Dissection Turret
+stats+scriptsShockPack                    ELF Turret
+stats+scriptsLaserPack                    Laser Turret
+new        MortarTurretPack             Mortar Turret
+new        PlasmaPack                   Plasma Turret
+new        DumbRocketPack               Rocket Battery
+renamed+stats+scriptsRocketPack                   Seeking Missile Turret
+stats+scriptsTurretPack                   Turret
+new        PlasmaTurretDecoyPack        Turret Decoy
+new        VulcanPack                   Vulcan Turret
+stats+scriptsBeacon                       Beacon
+stats+scriptsGrenade                      Grenade
+stats      MineAmmo                     Mine
+stats      RepairKit                    Repair Kit
+stats      RepairPatch                  Repair Patch

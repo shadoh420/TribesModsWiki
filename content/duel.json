@@ -1,0 +1,74 @@
+{
+ "mod": {
+  "overview": "Duel Tournament is a dedicated competitive 1v1 and team dueling mod created by [HvC]NaTeDoGG and maintained across decades for the Tribes competitive community. The mod focuses on disciplined arena combat, allowing players to customize class loadouts and issue direct challenges, compete in King of the Hill style Winners rotations, or participate in organized team ladders. Unlike base Tribes wide-scale base assaults, Duel confines combatants within bounded interior or terrain arenas featuring freeze-countdown match starts, automated cleanup, and mid-air hit detection. Gameplay scripts load per mission across dozens of custom arena environments while maintaining an ongoing deathmatch arena for unengaged players.",
+  "notes": [
+   "Players select their armor and weapon setup through the Loadout Setup menu before entering combat. Light armor carries three weapons, Medium armor carries four weapons, and Heavy armor carries five weapons from an arsenal consisting of Chaingun, Plasma Gun, Disc Launcher, Grenade Launcher, Laser Rifle, ELF Gun, Blaster, and Mortar. Laser Rifles are strictly limited to Light armor paired with an Energy Pack, while Mortars require Heavy armor. Administrative armors including Admin Armor and Barmor can carry up to thirty weapons simultaneously.",
+   "Players initiate 1v1 duels by selecting an opponent from the player list and sending a challenge, which gives the recipient thirty seconds to accept. Upon acceptance, both players spawn at an available arena slot, are locked in place during a four-second countdown while damage is disabled, and fight until one falls. When a duelist dies, the server announces the victor along with their remaining health percentage, clears all active mines and projectiles, and moves the loser to observer mode.",
+   "A specialized Winners mode provides King of the Hill rotations for groups of three or more players. The winner remains in the arena while the loser transitions to observer orbit, automatically summoning the next queued challenger into the arena. Players can also toggle auto-request options to instantly reissue duel challenges against their previous opponent after every match.",
+   "Matches take place across dozens of custom interior structures floating high in the sky or placed inside terrain coordinates, such as Battle Cube, Hotel Arena, Complex, Egyptian, and Milks Shaft. The server creates dynamic boundary perimeters around active arenas; players who cross out of the combat area receive countdown warnings and suffer fatal boundary damage if they do not quickly return.",
+   "Players waiting for challenges can join an active Deathmatch arena directly through the menu system. Within the Deathmatch zone, combatants must remain within one hundred twenty meters of the arena center to avoid lethal out-of-bounds penalties. Operators can enable specialized objective modes within the arena, including Greed, Hoard, and FlagHunter, where players battle to collect flags and deliver them to a central nexus.",
+   "The Team Duel system allows players to form named rosters through chat commands, assign captains, and recruit members. Team leaders can invite players, trade team members, and issue challenges to opposing squads for structured round-based matches or multi-team skirmishes with dedicated team spawn points and round scoring.",
+   "The mod features an advanced projectile detection engine that calculates three-dimensional distance for airborne direct hits, triggering an audible cash register sound and printing mid-air distance notifications. Laser Rifle shots directed at an opponent head deal thirty percent bonus damage. An Advanced Score menu tracks weapon accuracy percentages, shots hit and missed, total damage dealt versus received, and weak-point body quadrant analysis.",
+   "Server records are tracked and exported to record files, honoring the fastest win time, longest kill streak, most mid-airs in a round, and furthest mid-air distance. Players can protect their accumulated match statistics and standings by registering a password through the chat interface to restore scores upon reconnecting.",
+   "Standard inventory stations disable Heavy Armor, Mortars, Mine Ammo, and Turret Packs, while arena limits restrict Laser Rifles to a maximum of two per team and prohibit Heavy Armor in specific arenas. Full friendly fire is enforced with team damage scale set to 1.0, and accidental team damage alerts both the attacker and the victim.",
+   "Super-administrators and trusted administrators have access to specialized remote commands to manage matches, freeze or mute disruptive players, inspect alias smurf lists, and spectate in orbit mode. Admins can also deploy environmental manipulation tools to reposition shapes, generate custom borders, and control world objects via line of sight.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): HeavyArmor (station.cs), MineAmmo (station.cs), Mortar (station.cs), Orbital1 (item.cs), TurretPack (station.cs); Team limit zeroed ($TeamItemMax = 0): HeavyArmor=0 (TDArena.cs)."
+  ]
+ },
+ "items": {
+  "DiscLauncherKing": {
+   "summary": "A unique spinfusor reserved for the reigning arena King.",
+   "notes": [
+    "Carried exclusively by the player designated as the server King, paired with the KingHalo visual marker.",
+    "Any challenger who kills the current King three times can mount the launcher to claim the title and crown.",
+    "Players who mount the weapon without King status suffer a KingCurse, experiencing continuous red damage flashing and death screams until discarded."
+   ],
+   "source": "item.cs"
+  },
+  "KingHalo": {
+   "summary": "A luminous crown accessory worn by the reigning King player.",
+   "notes": [
+    "Automatically equipped and activated on a duelist upon attaining King status.",
+    "Projects a visible glowing halo effect over the player model, signaling their status as champion to the server.",
+    "Transfers automatically to whichever challenger defeats the King and seizes the crown."
+   ],
+   "source": "item.cs"
+  },
+  "GateGun": {
+   "summary": "An administrative tool that creates functional two-way teleportation portals.",
+   "notes": [
+    "Fires line-of-sight targeting rays at terrain or interior geometry to place linked portal triggers.",
+    "Creates an instantaneous two-way gateway that teleports players between the two positioned gates.",
+    "Used by administrators to connect isolated arena structures or create rapid transit points."
+   ],
+   "source": "item.cs"
+  },
+  "Flaggy": {
+   "summary": "A novelty demolition weapon that fires deployable flag charges.",
+   "notes": [
+    "Fires flag entities that mount onto surfaces and track surrounding players.",
+    "Using the backpack key triggers a hook that remotely detonates all deployed flags as explosive charges.",
+    "Serves as an administrative and novelty demolition weapon."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherBlue": {
+   "summary": "A custom spinfusor variant that launches blue disc projectiles.",
+   "notes": [
+    "Belongs to a collection of custom colored disc launchers including green, yellow, pink, black, and purple models.",
+    "Unlocked by entering specific authorization codes via the custom disc remote command.",
+    "Fires distinctive blue disc shells while maintaining standard disc launcher flight speed and blast characteristics."
+   ],
+   "source": "item.cs"
+  },
+  "TreeGun": {
+   "summary": "An environmental tool used to rapidly plant physical tree models.",
+   "notes": [
+    "Fires a line-of-sight ray up to five thousand units to place permanent physical tree obstacles on terrain.",
+    "Paired with the WeedEater tool, which cuts down and deletes placed trees.",
+    "Used by administrators to add cover, foliage, and natural barriers to barren arena grounds."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

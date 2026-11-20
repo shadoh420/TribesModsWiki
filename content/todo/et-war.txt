@@ -1,0 +1,20 @@
+# et-war vs base (19 items)
+renamed+statsScoutVehicle                 Skipper
+renamed+statsLAPCVehicle                  Fighter-G17
+renamed+statsHAPCVehicle                  Fighter-K2
+renamed+stats+scriptsBlaster                      Dual Zapper
+new        Blaster2                     Dual Zapper
+new        Blaster3                     Dual Zapper
+renamed+stats+scriptsChaingun                     Plasma Rifle
+renamed+statsPlasmaGun                    Mini Rocket Launcher
+renamed+stats+scriptsGrenadeLauncher              Bounce Rifle
+renamed+stats+scriptsMortar                       Ion Mortar
+renamed+statsDiscLauncher                 Blade Flinger
+new        FlameAmmo                    Nampalm
+renamed+stats+scriptsLaserRifle                   Flamethrower
+new        MortarPack                   Mortar Pack
+new        RocketPack2                  Rocket Pack
+new        RocketPack3                  Rocket Pack
+new        FlamePack                    Flame Pack
+new        FlamePack2                   Flame Pack
+scripts    EnergyPack                   Energy Pack

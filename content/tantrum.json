@@ -1,0 +1,66 @@
+{
+ "mod": {
+  "overview": "Tribes Tantrum (by the maLadroiT, July 2005) replaces Base Tribes' station-buying loop with a class-based loadout system controlled through the TAB menu. Nearly all standard weapons, armors, ammo, and packs are disabled at Inventory Stations, so players pick one of seven specialized classes (including three Juggernaut presets) before spawning and rely on stations only to resupply or grab novelty deployables. Combat is faster and wilder than Base Tribes, featuring dual- and quad-mounted weapons, energy-wiping EMP blasts, kamikaze bombs, healing trees, linked team portals, and decoy flags. Teams have infinite energy and can also deploy up to four AI combat droids from Inventory Stations and assign them to escort teammates or hunt enemies through the TAB menu.",
+  "notes": [
+   "Classes and Spawn Setup: Press TAB to open Options and pick Spawn Setup Menu (Spizzawn). You choose from 7 classes (Medic, Assassin, Energy Gyp, Pyro, Engineer, Trooper, and 3 Juggernaut variants: Offensive/Demolitions, Kamikaze, and Defensive), with Medic as the initial default.",
+   "Class Loadouts and Restrictions: Medics (speed 10.5, 0.59 HP) carry RepairPack, Zapper, Chaingun, DiscLauncher, and Flag Decoy. Assassins (speed 12, 0.59 HP) carry Cloak, SniperRifle (0.68 damage, +30% headshots), Rail-Gun (dagger), Zapper, and DiscLauncher. Energy Gyps (speed 10, 0.59 HP) need EnergyPack for their Taser (poly) and EMP Shockwave (WaveGun), plus Burster and Charger (hydo). Pyros (speed 14, 0.54 HP) need GasTankPack for Flame Thrower (plasflam) and Torch Launcher (Flamer), plus Hand Rockets and PlasmaGun. Engineers (speed 9.75, 1.0 HP) spawn with Teleportation Pack (TalePack), DiscLauncher, GrenadeLauncher, Shotgun, and Chaingun. Troopers (speed 12, 0.59 HP) carry EnergyPack, Zapper (latgun), dual RocketLauncher, DiscLauncher, GrenadeLauncher, and Shotgun. Juggernauts (speed 9.4, 1.42 HP) carry heavy kits with Mortar, Argon Spread (bio), quad Moon Cannon (moondustLauncher), quad Machine Guns (macGun), or a single-shot Kamikaze Bomb (thrower, 3.0 damage, 15m radius). Every class also spawns with a RepairKit, 3 mines, and 4 grenades.",
+   "Inventory Station Bans: Almost all standard Base weapons, ammo, armor, and packs have $InvList = 0 and $RemoteInvList = 0 in station.cs, so you cannot swap standard classes or buy regular weapons at stations. Main stations still resupply health/ammo and sell only special gear: Robot (CameraPack), Flag Decoy (Flagger), Life Tree (HealthMinePack), Portal (TeleportPack), Flag Mine (twig), Alarm Turret (TurretPack), and Hologram (girl). Remote Inventory Stations sell those same specials except Robot (CameraPack).",
+   "Special Status Effects and Dual-Mount Weapons: EMP Shockwave (WaveGun) fires $ShockerDamageType blasts that wipe a victim's energy to 0. Zapper (lightgun/latgun) deals 1.0 $NeedleDamageType humiliation damage and broadcasts a taunt sound. Several weapons mount multiple linked barrels simultaneously, including Shotgun, RocketLauncher, Moon Cannon, and Machine Guns. Cloak (Claking) fades the player out and adds +5 sensor suppression while locking GUI menus until deactivated.",
+   "Deployable Droids and TAB Commands: Buying and deploying a Robot (CameraPack, max 4 per team) spawns an AI bot in BotArmor (1.5 HP, speed 12) armed with Chaingun, DiscLauncher, and Shotgun. To direct your bots, open TAB, click a player on the roster, and choose Follow <name> with a Droid (teammate) or Attack <name> with a Droid (enemy), then pick one of your team's active droids from the Choose a droid menu. There are no custom chat commands.",
+   "Vehicles and Team Economy: Team energy is set to Infinite ($DefaultTeamEnergy = \"Infinite\"). At Vehicle Stations, the LAPCVehicle is banned ($VehicleInvList[LAPCVehicle] = 0), leaving only the Assault Jet (ScoutVehicle, speed 50, max 3 per team) and War Taxi (HAPCVehicle, speed 20, 4 passenger seats, max 1 per team). Only Light Armors (Energy Gyp and Medic) can pilot vehicles, though heavier classes can ride as War Taxi passengers.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AmmoPack (station.cs), Beacon (station.cs), Blaster (station.cs), BotAmmo (station.cs), BotArmor (station.cs), BotGun (station.cs), BotGunX (station.cs), BulletAmmo (station.cs), Chaingun (station.cs), DeployableAmmoPack (station.cs), DeployableInvPack (station.cs), DeployableSensorJammerPack (station.cs), DiscAmmo (station.cs), Disclauncher (station.cs), ELFEliteForceArmor (station.cs) (+25 more)."
+  ]
+ },
+ "items": {
+  "CameraPack": {
+   "summary": "Robot deployable that spawns an AI combat droid rather than a camera.",
+   "notes": [
+    "Bought at main Inventory Stations only ($InvList[CameraPack] = 1, $RemoteInvList[CameraPack] = 0); limited to 4 per team.",
+    "Spawns a named AI droid in BotArmor (tarmor, maxDamage 1.5, speed 12) carrying Chaingun, DiscLauncher, and Shotgun.",
+    "Use the TAB player list to set a teammate or enemy as the target and assign one of your team's droids to follow or attack them."
+   ],
+   "source": "item.cs, BotGun.cs, station.cs, admin.cs"
+  },
+  "talepack": {
+   "summary": "Personal Teleportation Pack for instant two-step recall.",
+   "notes": [
+    "Mounted by Engineers on spawn (referred to as TalePack in game.cs); must be standing still to set the destination field.",
+    "Activating it a second time warps you back to the marked spot, removes the beacon, and drains your energy to 0."
+   ],
+   "source": "item.cs, game.cs"
+  },
+  "teleportpack": {
+   "summary": "Portal deployable that links two team teleporter pads.",
+   "notes": [
+    "Available at both main and Remote Inventory Stations ($InvList[TeleportPack] = 1, $RemoteInvList[TeleportPack] = 1), capped at 2 portals per team.",
+    "Walking into a team portal teleports you to the other portal and puts both on a 5-second recharge; carries a 1-in-55 chance of a cloning error dealing 0.15 crush damage.",
+    "Destroying one portal also damages and destroys its linked partner."
+   ],
+   "source": "item.cs, station.cs"
+  },
+  "Twig": {
+   "summary": "Flag Mine deployable shaped like a flag that traps enemies.",
+   "notes": [
+    "Available at Inventory and Remote Stations ($TeamItemMax[Twig] = 1), restricted to Medium/Engineer armor ($ItemMax[marmor, Twig] = 1).",
+    "Cannot be deployed within 10 units of your own flagstand; enemies who touch it take 0.2 damage while teammates phase through it."
+   ],
+   "source": "item.cs, station.cs"
+  },
+  "HealthMinePack": {
+   "summary": "Life Tree deployable that heals players on contact.",
+   "notes": [
+    "Sold at both main and Remote Inventory Stations with a limit of 2 per team ($TeamItemMax[DeployableHealth] = 2).",
+    "Must be placed on flat terrain or buildings; players colliding with the tree are repaired by 0.125 damage."
+   ],
+   "source": "item.cs, station.cs"
+  },
+  "Flagger": {
+   "summary": "Flag Decoy tool that mounts a fake glowing flag on your back.",
+   "notes": [
+    "Sold at main and Remote Inventory Stations and also included in the Medic's spawn loadout.",
+    "Using it toggles a glowing flag model in your flag slot; if you pick up a real flag and drop/unmount the decoy, the real flag re-mounts automatically."
+   ],
+   "source": "item.cs, station.cs, game.cs"
+  }
+ }
+}

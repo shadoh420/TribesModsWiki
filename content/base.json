@@ -1,0 +1,58 @@
+{
+  "mod": {
+    "overview": "Stock Starsiege: Tribes as shipped by Dynamix (scripts from version 1.11). Three armor classes, nine weapons, five backpacks, seven deployables and three flyers, all bought from inventory stations with team energy. Every mod on this wiki starts from these scripts, so this is the baseline that mod pages compare against.",
+    "notes": [
+      "Armor choice decides what you can carry: each armor has its own item limits ($ItemMax) and number of weapon slots ($MaxWeapons: light 3, medium 4, heavy 5).",
+      "Damage is applied as projectile damage × the target armor's damage scale for that damage type. Health is the armor's maxDamage (light 0.66, medium 1.0, heavy 1.32).",
+      "Laser rifle head shots deal 30% extra damage. Against heavy armor the bonus only applies to the centre of the head box.",
+      "The shield pack converts damage into energy loss before it reaches health: each point of energy soaks 0.012 damage (0.009 against grenades and mortars).",
+      "Players regenerate energy at a base recharge rate of 8; energy feeds jets, the blaster, laser rifle, ELF gun and active packs.",
+      "Inventory purchases draw from team energy when a server limits it; selling or dropping refunds the price.",
+      "Deployable turrets are limited to 2 within a 50×50×25 m area and must be at least 10 m from another turret. Everything deployable needs a clear 1 m spot on terrain or a building surface."
+    ]
+  },
+  "categories": {
+    "armors": "Three armor classes trade speed and jetting for health and carrying capacity. Male and female models share stats; heavy armor has no separate female datablock.",
+    "weapons": "Projectile weapons use ammo; the blaster, laser rifle, ELF gun and targeting laser run on energy instead.",
+    "packs": "One backpack slot. Active packs (shield, jammer, energy, repair) toggle on with the pack key and drain or add energy while running.",
+    "deployables": "Packs that place a structure where you're looking (within 3 m). Each team has a cap on how many of each can exist.",
+    "misc": "Thrown items and consumables carried outside the weapon and pack slots.",
+    "ammo": "Ammunition is bought in station increments and dropped in fixed amounts. The ammo pack raises the carry limit for most types.",
+    "vehicles": "Flyers bought at a vehicle station. Each team can own a limited number at once.",
+    "base-assets": "Fixed mission objects: generators, stations, turrets and sensors placed by the map. Not buyable."
+  },
+  "items": {
+    "LightArmor": {"summary": "The fastest armor and the only one that can use the laser rifle. Lowest health and carrying capacity, but the best jetting for its weight.", "notes": ["Can't carry the mortar, deployable turret, inventory station or ammo station.", "Takes 1.2–1.3× damage from bullets, blasters, mortars, ELF, shrapnel and mines.", "Three weapon slots."]},
+    "MediumArmor": {"summary": "The all-rounder: more health and weapon slots than light, can deploy turrets and stations, and resists plasma.", "notes": ["Takes only 0.6× plasma damage; every other damage type at 1.0×.", "Four weapon slots. Cannot use the laser rifle or mortar."]},
+    "HeavyArmor": {"summary": "The slow, heavily armored class and the only one that can carry the mortar. Resists most damage types and carries the most ammo.", "notes": ["Takes 0.4× plasma, 0.6× bullet, explosion, missile and laser damage, 0.7× mortar, blaster and ELF.", "Five weapon slots and the largest ammo limits.", "Laser rifle head shots get the 30% bonus only on the centre of the head."]},
+    "ScoutVehicle": {"summary": "A single-seat fighter. The fastest and most fragile flyer, armed with forward rockets.", "notes": ["Up to 3 per team.", "Takes half damage from blasters."]},
+    "LAPCVehicle": {"summary": "Light personnel carrier: a slow, unarmed transport for the pilot and passengers.", "notes": ["Up to 2 per team.", "Takes half damage from lasers and blasters."]},
+    "HAPCVehicle": {"summary": "Heavy personnel carrier: the toughest flyer, an unarmed transport that can ferry a full squad.", "notes": ["One per team.", "Takes half damage from lasers and blasters, and only 0.125× damage from hitting the ground."]},
+    "Blaster": {"summary": "An energy pistol every armor can carry. Fast, accurate bolts with no ammo to run out of.", "notes": ["Costs 5–6 energy per shot instead of ammo.", "Effective against light armor (1.3× blaster damage)."]},
+    "Chaingun": {"summary": "Rapid-fire flechette gun that spins up before firing. Hit-scan-fast bullets make it strongest at close to medium range.", "notes": ["0.5 s spin-up, 3 s spin-down.", "Bullets have a small random spread (aimDeflection 0.005).", "Weak against heavy armor (0.6× bullet damage)."]},
+    "PlasmaGun": {"summary": "Fires slow balls of plasma with a small splash radius. Good against light armor, poor against medium and heavy.", "notes": ["Plasma damage is cut to 0.6× on medium armor and 0.4× on heavy."]},
+    "GrenadeLauncher": {"summary": "Lobs bouncing grenades on a timed fuse. Good for clearing bunkers and hitting targets around corners.", "notes": ["Grenades bounce (elasticity 0.45) and explode after their fuse rather than on impact."]},
+    "Mortar": {"summary": "Heavy-armor-only artillery. Slow, arcing shells with the largest splash in the game, used to shell base defenses from range.", "notes": ["2 s fire time between shells.", "Heavy armor only.", "Light armor takes 1.3× mortar damage."]},
+    "DiscLauncher": {"summary": "The signature Tribes weapon. Fires a spinning disc that explodes on impact, with strong splash and knockback. Players also fire it at their feet to disc-jump.", "notes": ["Two direct discs kill a light armor.", "The disc accelerates after leaving the barrel, from 65 m/s up to 80 m/s.", "Splash and kickback make it the main tool for knocking enemies off course."]},
+    "LaserRifle": {"summary": "Long-range sniper rifle that fires an instant beam. Damage scales with the energy behind the shot.", "notes": ["Light armor only, and only while wearing an energy pack. Removing the pack unequips the rifle.", "Uses up to 60 energy per shot; damage is energy × 0.007.", "Head shots deal 30% extra damage."]},
+    "TargetingLaser": {"summary": "A non-damaging beam that paints a target for teammates and commanders.", "notes": ["Classed as a tool rather than a weapon, so it doesn't use a weapon slot.", "Drains 5–15 energy while held."]},
+    "EnergyRifle": {"summary": "The ELF gun: a short-range lightning arc that drains the target's energy and does light damage while held on them.", "notes": ["Drains 60 energy per second from the target, grounding jetting players.", "Costs the user 3–11 energy per second."]},
+    "EnergyPack": {"summary": "Adds energy regeneration while worn. Required to fire the laser rifle.", "notes": ["The pack runs at a negative energy cost, so it adds energy instead of using it.", "Taking it off unequips the laser rifle."]},
+    "RepairPack": {"summary": "Gives you a repair gun. Activating the pack equips the gun, which heals damaged players, turrets and base equipment.", "notes": ["The repair beam reaches 5 m.", "Dropping or swapping the pack removes the repair gun."]},
+    "ShieldPack": {"summary": "Projects an energy shield that absorbs damage, paid for out of your energy pool.", "notes": ["Each point of energy absorbs 0.012 damage (0.009 against grenades and mortars).", "If a hit exceeds what your energy can absorb, energy drops to 0 and the rest goes through.", "Costs 4–9 energy per second while on."]},
+    "SensorJammerPack": {"summary": "Hides you from enemy sensors while active.", "notes": ["Adds 20 to your sensor suppression while on.", "Costs 10 energy per second."]},
+    "AmmoPack": {"summary": "Raises how much ammunition you can carry. Dropping it drops the extra ammo with it.", "notes": ["Extra capacity: +150 bullets, +30 plasma, +15 discs, +15 grenade rounds, +10 mortar shells, +10 hand grenades, +5 mines, +10 beacons."]},
+    "DeployableInvPack": {"summary": "Deploys a remote inventory station so your team can re-equip in the field.", "notes": ["Must be placed on a flat surface.", "The deployed station is fragile (0.25 health).", "Medium and heavy armor only."]},
+    "DeployableAmmoPack": {"summary": "Deploys a remote ammo station for restocking in the field.", "notes": ["Must be placed on a flat surface.", "Medium and heavy armor only."]},
+    "MotionSensorPack": {"summary": "Deploys a small motion sensor that detects moving enemies nearby.", "notes": ["Can be mounted on walls and ceilings as well as floors."]},
+    "PulseSensorPack": {"summary": "Deploys a remote pulse sensor that reveals enemies over a wide radius.", "notes": ["Must be placed on a flat surface."]},
+    "DeployableSensorJammerPack": {"summary": "Deploys a stationary jammer that hides nearby friendly objects and players from enemy sensors.", "notes": ["Must be placed on a flat surface."]},
+    "CameraPack": {"summary": "Deploys a remote camera your team can view through from a command station.", "notes": ["Can be placed on walls and ceilings."]},
+    "TurretPack": {"summary": "Deploys a small remote turret that fires energy bolts at enemies in range.", "notes": ["At most 2 turrets in a 50×50×25 m area, each at least 10 m from another.", "Medium and heavy armor only."]},
+    "RepairKit": {"summary": "A one-use medkit. Using it repairs 0.2 damage instantly.", "notes": ["Carry limit is 1 for every armor."]},
+    "MineAmmo": {"summary": "Thrown antipersonnel mines that arm once they come to rest and explode on contact.", "notes": ["Once armed, any player, vehicle or moving object that touches it sets it off. There is no team check, so teammates trigger it too.", "A mine that lands on top of another object detonates.", "Thrown harder than hand grenades.", "Up to 35 mines per team at once."]},
+    "Grenade": {"summary": "Hand grenades, thrown with the grenade key. Throw strength depends on how long you hold it.", "notes": ["0.5 s between throws."]},
+    "Beacon": {"summary": "A small target beacon placed on a surface. It marks a spot that teammates and commanders can target.", "notes": ["Up to 40 per team."]},
+    "RepairPatch": {"summary": "A repair pickup found lying in missions. Running over it heals 0.125 damage if you're hurt.", "notes": ["Used from inventory it heals 0.1."]}
+  }
+}

@@ -1,0 +1,42 @@
+ur2: 63 of 111 need write-ups
+  DMArmor (Commando): new
+  ScoutVehicle (Scout): renamed+stats
+  LAPCVehicle (Bomber): renamed+stats
+  HAPCVehicle (Avenger): renamed+stats
+  TranqGun (FEB Rifle): renamed+stats
+  Bolt (Thunderbolt): new
+  Fixit (Engineer Repair-Gun): stats+scripts
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  DeployableComPack (Command Station): scripts
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  NewPack (Auto-Cannon): new
+  NewerPack (Auto-Cannon): new
+  SuicidePack (Suicide DetPack): scripts
+  MotionSensorPack (Motion Sensor): scripts
+  AmmoPack (Ammo Pack): scripts
+  CameraPack (Camera): stats+scripts
+  TurretPack (Ion Turret): scripts
+  LaserPack (Assassin Turret): renamed+stats+scripts
+  ShockPack (Shock Turret): scripts
+  TargetPack (Mortar Turret): scripts
+  LaserTurret (Plasma Turret): scripts
+  VulcanTurret (Vulcan Turret): scripts
+  RailTurret (Rail Turret): scripts
+  RocketPack (Missile Turret): stats+scripts
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  TripwirePack (Blast Wall): stats+scripts
+  HoloPack (Hologram): stats+scripts
+  TreePack (Mechanical Tree): scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (StealthHPC Pack): scripts
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  Plastique (Grenade Mode): new
+  RepairPatch (Repair Patch): stats+scripts

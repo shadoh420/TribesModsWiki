@@ -1,0 +1,7 @@
+# paintball-9beta vs paintball-speed (6 items)
+renamed+statsAngel                        WDP IR3 Angel 2002
+renamed+statsTLPack                       Laser Sight
+new        Camopack                     Land Camo
+renamed+statsInferno                      Diablo Inferno T3 Model
+renamed+statsFLPack                       Flash Light
+renamed+statsDelta                        Psycho Ballistics Delta .68

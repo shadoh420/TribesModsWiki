@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Paintball vRaPiD StYLe (.:RaPiD:., April 2004) forks Paintball v9.0 Beta (88 items), restoring faster agility and jump height (forward 14 -> 18, back 6 -> 15, side 5 -> 13, groundTraction 3 -> 12, jumpImpulse 40 -> 90), allowing 2 weapons carried (was 1), dropping ShieldPack ($ItemMax = 0) while re-enabling utility packs at stations, and making map props/crates destructible again.",
+  "notes": [
+   "Movement, durability & rules vs Paintball v9.0 Beta: boosts agility across all axes, doubles jumpImpulse (40 -> 90), raises Light weapon slots ($MaxWeapons 1 -> 2), grants landing immunity (1.0 -> 0.0) and 0.75x crush damage, removes ShieldPack ($ItemMax = 0) while unbanning Energy/Repair/Sensor/Ammo packs at stations, and restores destructible HP on map antennas/barrels/crates/cacti (was 999999999999).",
+   "Arsenal & gear tuning: expands ammo caps across nearly every marker (Angel 200 -> 500, Psycho 200 -> 500, Shocker 200 -> 450, Inferno 200 -> 350, Delta 10 -> 100), raises Flashlight lightRange 9 -> 100 m, and renames markers (e.g. UnhOlYAngl BuRstEr, DrAGoN SniPeR, TeRmiNaToR F5)."
+  ]
+ }
+}

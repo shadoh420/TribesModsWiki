@@ -1,0 +1,8 @@
+ultra-vxo: 18 of 92 need write-ups
+  MiniFlakTurretPack (Mini-Flak Turret): scripts
+  MiniSAMTurretPack (Mini-S.A.M Turret): scripts
+  MiniELFTurretPack (Mini-ELF Turret): scripts
+  MiniSmokeTurretPack (Mini-Beam Of Pain): scripts
+  RepairKit (Repair Kit): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

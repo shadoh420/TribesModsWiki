@@ -1,0 +1,70 @@
+{
+ "mod": {
+  "overview": "Orion Mod by Jason Avina (February 2000) is a tactical equipment expansion built directly on top of base Starsiege Tribes. It keeps the core three-armor balance, base game modes (CTF, C&H, D&D, F&R, and Deathmatch), and stock vehicle/station flow, while layering in high-impact backpacks, deployable defenses, and a Heavy-only locking Rocket Launcher. Compared to base Tribes, matches feature much sharper infiltration, ambush, and base-defense counters: Light snipers can cloak or teleport without needing an Energy Pack for their Laser Rifle, Heavies can lock onto fliers or detonate as walking bombs, and defenders can seal entrances with teammate-friendly Force Fields and deployable Missile Turrets. All inventory and remote stations stock the expanded arsenal with team energy defaulting to Infinite, and maps with AI marker groups also support scripted bots.",
+  "notes": [
+   "Classes and Armors: Keeps the three stock armors (LightArmor max 3 weapons, MediumArmor max 4, HeavyArmor max 5). Light Armor has exclusive access to the LaserRifle and Scout piloting, Medium Armor unlocks the GrenadeLauncher, TurretPack, remote stations, and ForceFieldPack, and Heavy Armor exclusively carries the Mortar, RocketLauncher, KamikazePack, and Missile Turret (RocketPack).",
+   "Menus and Controls: Players spawn in Light Armor with a DiscLauncher and RepairKit (or DiscLauncher with 15 discs and RepairKit in DM). On first connect, a team-pick/skin menu lets players choose between their personal skin (0 Use Personal Skin) or team default (1 Use Team Default). Standard Tribes keybinds control inventory, command mode, and weapon/pack use with no custom slash or chat commands.",
+   "Weapons and Loadout Rules: Removes the stock EnergyPack requirement from the LaserRifle, letting Light snipers pair the LaserRifle with a CloakingDevice, TeleportPack, HeatSink, or Laptop. Adds the Heavy-only RocketLauncher with 1000m line-of-sight lock-on against players, fliers, turrets, and sensors. SniperRifle is disabled (0 max across all armors and absent from station lists).",
+   "Tactical Backpacks: Adds five new packs beyond stock Energy, Repair, Shield, Ammo, and Sensor Jammer packs: CloakingDevice (fades user and hides IFF beyond 30m at 10 energy/sec), TeleportPack (warps to team spawn on a 10s cooldown, dropping any carried flag), HeatSink (zeros jetpack heat signature against RocketTurret and DeployableRocket), Laptop (1-3 energy/sec, allows remote turret control anywhere), and Heavy-only KamikazePack (0.75s-fuse 25-damage blast scaled 5x against armors and vehicles).",
+   "Deployables and Map Pads: Adds ForceFieldPack (team limit 4; deploys a self-repairing 5x5 barrier that opens on contact for teammates) and Heavy-only RocketPack (team limit 2; deploys a DeployableRocket heat-seeking missile turret with 150m sensor / 300m gun range and 3.5s reload). Map shapes also include SpringPad, LightSpringPad, and MegaSpringPad jump pads that launch colliding players.",
+   "Economy and Team Limits: Default team energy is set to Infinite, and both main Inventory Stations and Remote Stations stock nearly the full Orion arsenal (Remote Stations exclude DeployableInvPack and DeployableAmmoPack). Team item caps enforce up to 10 TurretPacks, 4 DeployableForceFields, 2 RocketPacks, 2 DeployableInvPacks, 4 DeployableAmmoPacks, 5 of each sensor/camera, 20 Beacons, 25 mines, 3 Scouts, 2 LAPCs, and 1 HAPC.",
+   "Vehicles and Bots: Scouts are restricted to Light Armor pilots and fire rapid FighterBullets (0.05 reloadDelay) alongside stock LAPC (2 passenger seats) and HAPC (4 passenger seats). Includes stock AI bot support for maps with AI waypoint groups, with bots switching between PlasmaGun, Chaingun, Blaster, and EnergyRifle based on distance and whether the target is jetting."
+  ]
+ },
+ "items": {
+  "RocketLauncher": {
+   "summary": "Heavy-only shoulder missile launcher that acquires instant line-of-sight target locks or fires unguided rockets.",
+   "notes": [
+    "Heavy Armor only (price 300, uses RocketAmmo at price 5, max 10 rounds).",
+    "Checks line of sight up to 1000m on fire: locking onto a Player, Flier, Turret, or Sensor sends a lock warning to the target and launches a homing StingerMissileTracker (1.0 damage, 9.5m blast radius).",
+    "Without a valid target lock, it fires a fast unguided StingerMissile (0.5 damage, 9.5m blast radius) with a smoke trail."
+   ],
+   "source": "item.cs"
+  },
+  "KamikazePack": {
+   "summary": "Heavy-only suicide explosive backpack that detonates a massive blast around the wearer.",
+   "notes": [
+    "Heavy Armor only (price 350).",
+    "Activating the pack drops a KamikazeBomb at the player's position that detonates after 0.75 seconds across a 15m radius.",
+    "Deals 25.0 base damage using KamikazeDamageType, which has a 5.0x multiplier against all armors and vehicles."
+   ],
+   "source": "item.cs"
+  },
+  "CloakingDevice": {
+   "summary": "Active stealth backpack that fades the user from sight and strips distant enemy sensor tracking.",
+   "notes": [
+    "Available to all three armors (price 250) and drains 10 energy per second while active.",
+    "Fades the player model out visually and hides their sensor/IFF signature from enemies farther than 30m away.",
+    "Enemies within 30m regain detection, making it a mid-to-long-range infiltration tool rather than point-blank invisibility."
+   ],
+   "source": "item.cs"
+  },
+  "TeleportPack": {
+   "summary": "Emergency recall backpack that warps the wearer back to their team's spawn area.",
+   "notes": [
+    "Available to all three armors (price 300) with no continuous energy drain.",
+    "Teleports the user to their team's recorded spawn coordinate (TeleSpot) and triggers a 10-second recharge cooldown.",
+    "Automatically forces the wearer to drop a carried flag before teleporting, preventing instant flag-cap escapes."
+   ],
+   "source": "item.cs"
+  },
+  "HeatSink": {
+   "summary": "Passive thermal-masking backpack that keeps jetting players invisible to heat-seeking turrets and missiles.",
+   "notes": [
+    "Available to all three armors (price 175) with zero energy drain.",
+    "Overrides Player::getHeatFactor to return 0.0 while mounted, even when jetting.",
+    "Prevents base RocketTurrets, deployable Missile Turrets, and seeking missiles from acquiring a heat lock."
+   ],
+   "source": "item.cs"
+  },
+  "ForceFieldPack": {
+   "summary": "Deployable energy barrier that blocks enemy traffic while automatically opening for teammates.",
+   "notes": [
+    "Available to Medium and Heavy Armor (price 250), capped at 4 active fields per team.",
+    "Deploys a translucent 5x5 barrier (1.75 max damage, 0.1 auto-repair rate) on terrain, buildings, or adjacent force fields.",
+    "Blocks enemy movement while automatically fading open for 6 seconds when a friendly player walks into it."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

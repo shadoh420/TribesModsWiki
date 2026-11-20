@@ -1,0 +1,67 @@
+{
+ "mod": {
+  "overview": "Tribes Arena v3.0 (Rasia through v2.3; Lizard v2.4-3.0, June 2002, arena.cs & ArenaConfig.cs) preserves Base 1.11 weapon/light/medium stats while banning Heavy Armor, Mortar, Mines, Turret Pack, and Deployable Inv/Ammo Stations, capping Laser Rifles at 3 per team in Public Mode, and running multi-round last-team-standing arena elimination.",
+  "notes": [
+   "Explicit bans & team caps (arena.cs, ArenaConfig.cs): sets $TeamItemMax[HeavyArmor] = 0 (bans Heavy Armor), bans Mortar and MortarAmmo ($InvList = $RemoteInvList = 0), bans Mines ($InvList = $RemoteInvList = $AmmoPackMax = 0), bans TurretPack ($InvList = $RemoteInvList = 0), bans DeployableInvPack and DeployableAmmoPack ($InvList = 0), and caps Laser Rifle at 3 per team in Public Mode ($SniperRifleLimitInPubMode = 3).",
+   "Match & anti-spam rules in arena.cs: enforces full friendly fire ($Server::TeamDamageScale = 1), 240 s round timers ($Arena::GameTimeLimit), 4-round Pub / 5-round Match win targets over 3-map sets, 5 s inventory station reuse cooldown + 75-buy cap, 32 s AFK observer ejection, and lizStats.cs performance tracking."
+  ]
+ },
+ "items": {
+  "HeavyArmor": {
+   "summary": "Banned in Tribes Arena via $TeamItemMax[HeavyArmor] = 0 in arena.cs.",
+   "notes": [
+    "Players fight strictly in Light Armor and Medium Armor."
+   ],
+   "source": "arena.cs"
+  },
+  "Mortar": {
+   "summary": "Banned at both main and remote Inventory Stations ($InvList = $RemoteInvList = 0).",
+   "notes": [
+    "MortarAmmo is also disabled from stations."
+   ],
+   "source": "arena.cs"
+  },
+  "MortarAmmo": {
+   "summary": "Banned at both main and remote Inventory Stations ($InvList = $RemoteInvList = 0).",
+   "notes": [
+    "Pairs with Mortar ban in arena.cs."
+   ],
+   "source": "arena.cs"
+  },
+  "MineAmmo": {
+   "summary": "Banned at both main and remote stations ($InvList = $RemoteInvList = 0) with AmmoPackMax zeroed ($AmmoPackMax[MineAmmo] = 0).",
+   "notes": [
+    "Removes mine traps from arena rounds."
+   ],
+   "source": "arena.cs"
+  },
+  "TurretPack": {
+   "summary": "Banned at both main and remote stations ($InvList = $RemoteInvList = 0).",
+   "notes": [
+    "Prevents turret camping during elimination rounds."
+   ],
+   "source": "arena.cs"
+  },
+  "DeployableInvPack": {
+   "summary": "Disabled at main Inventory Stations ($InvList = 0).",
+   "notes": [
+    "Forces players to rely on map stations or limited supply."
+   ],
+   "source": "arena.cs"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Disabled at main Inventory Stations ($InvList = 0).",
+   "notes": [
+    "Forces players to rely on map stations or limited supply."
+   ],
+   "source": "arena.cs"
+  },
+  "LaserRifle": {
+   "summary": "Limited to 3 per team in Public Mode ($SniperRifleLimitInPubMode = 3 in ArenaConfig.cs); damage and energy stats remain stock Base.",
+   "notes": [
+    "Match mode clears the team cap unless configured."
+   ],
+   "source": "ArenaConfig.cs; arena.cs"
+  }
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Shifter v1GY (Yukichigai's unreleased 2002-12-28 build, built atop GreyFlcn's Shifter HC v1G) is a hybrid experiment combining v1G's split script layout (gundata.cs, packdata.cs, deploydata.cs) and competitive tourney layer with Yukichigai's v1Y gameplay tweaks and configuration switches.",
+  "notes": [
+   "Built on Shifter HC (v1G)'s codebase, retaining the nine armor classes, split weapon/pack/deployable scripts, and $MaxWeapons caps (Scout 2, Chemeleon 3, Assassin 3, Mercenary 5, Goliath 4, Engineer 4, Arbitor 4, DreadNaught 4, Juggernaught 3).",
+   "Sets $ModList to 'Shifter_v1GY' in admin.cs (note: $Yuki::newdate reads '12-28-2001' in admin.cs while the archive is dated 2002-12-28) and changes 60 items relative to Shifter HC (v1G) without adding or removing item datablocks."
+  ]
+ }
+}

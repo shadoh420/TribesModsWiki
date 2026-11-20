@@ -1,0 +1,5 @@
+# mortar-men vs base (4 items)
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortar                       Mortar
+stats      DiscLauncher                 Disc Launcher
+scripts    DeployableAmmoPack           Ammo Station

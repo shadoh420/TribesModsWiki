@@ -1,0 +1,66 @@
+{
+ "mod": {
+  "overview": "NIHILITY (v1.4.3, November 2002 by AUTO) is an overhauled Tribes combat and fortification mod that replaces base armor classes and weaponry with six specialized roles, multi-mode firearms, and heavy base-building tools. Players spawn in Pawn (MediumArmor) with a Spinfusor, Iron Storm autocannon, and Blaster, then use inventory stations to kit into specialized classes ranging from wall-phasing Wraiths and deployable-heavy Slaves to siege-tank Paladins wielding Reaper Nukes and charge-up Negatron Beams. Compared to base Tribes, matches feature far greater mobility, lethality, and utility through Tab-menu weapon modes, status effects, stealth and teleportation packs, cloaked base fields, and a deployable Jail system for capturing enemies. The mod supports standard base mission types (CTF and objective missions) as well as Deathmatch and Team Deathmatch, with HaVoC-style admin and player option menus.",
+  "notes": [
+   "Classes and Roles: Six armors replace base Tribes classes (HeavyArmor is removed). Wraith (Light, 3 weapons, 16 speed, 0.66 health, 125 energy) is the scout/assassin with Railgun, Dart Gun, Laser Rifle, Wraith Pack, and Hyperdrive. Slave (EngArmor, 4 weapons, 7-8 speed, 90 energy) is the builder with nearly all deployables, turrets, walls, bunkers, towers, and Repair/Hack/Riot Shield tools. Pawn (Medium, 5 weapons, 9 speed, 90 energy) is the versatile trooper with the Molecular Accelerator (+50 speed). Navigator (AlArmor, 4 weapons, 12/9 speed, 300/200 energy, sensor-invisible) carries Laser Gatling Gun, Zettawatt Shotgun, Tractor/Grav beams, and Navigator Pack. Atomizer (DragArmor, 6 weapons, 11 speed, 1.9 health, 200 energy) is the mobile bruiser with El Diablo, Mercury Cannon, Blastomatic 3K, Nihility Pistol, and Mortar. Paladin (BursterArmor, 6 weapons, 4.75 speed, 2.5 health, 300 energy) is the heavy siege tank with Nemesis 4x A.C., Mortar MKII, Anti-Blastwall Torch, Negatron Beam, and Reaper Nuke Launcher.",
+   "Controls, Tab Menu, and Mode Switching: Pressing Tab opens the NIHILITY Options Table, where Weapon/Pack Options lets players switch weapon and pack firing modes mid-match. Configurable items include Iron Storm A.C. (Standard, Exploding, or Valhalla rounds by armor), Grenade Launcher (Standard, Repulsor, Napalm, Mine on Wraith, Energy Pulse on Navigator), Blastomatic 3K (Standard or Hyper Bolt on Atomizer), Dart Gun (Sniper or 12-dart Nematocyst burst), Laser Gatling Gun (Red 33%, Green 66%, or Blue 100% power), Shockwave Cannon (Normal or Inverse knockback), and Wraith Pack (Wall Shift or Floor Shift). Slave and Navigator can also equip the Command Laptop backpack to control team turrets remotely without a Command Station.",
+   "Class-Specific Grenades, Beacons, and Vehicles: Pressing Grenade throws class ordnance: 15-second Plastique/Nuke explosives (Wraith), Shock grenades (Slave), Handgrenades (Pawn), Tranq grenades (Navigator), Stickybombs (Atomizer), or Mortarbombs (Paladin); Mine drops standard antipersonnel mines (or DMMine in DM armor). Pressing Beacon triggers armor abilities: cloaking/phasing out (Wraith and Navigator), temporary deflection/electron/diffusion shields (Slave, Atomizer, Paladin), or throwing a Speed Booster (Pawn). Five vehicles are available (Scout, 200-speed Jet, stealth Wraith that fades out in flight, LAPC, and HAPC), but only Wraith, Slave, and Pawn can pilot; Navigator, Atomizer, and Paladin can only ride as APC passengers.",
+   "Unique Combat Mechanics and Status Effects: Laser and sniper headshots deal +30% damage, and laser hits over 0.25 damage to a target's front-right torso disarm their mounted weapon. Hitting a Big Bug Bomb (SuicidePack) wearer's torso with a laser or sniper detonates the bomb on their back, and using the suicide key while wearing one throws a Suicidebomb. Energy damage inflicts a poison/disease DoT (Navigator is immune; Repair Kit clears it), Plasma hits have a chance to ignite targets (Paladin is immune), and Flash damage triggers shock effects. Paladin's Negatron Beam requires the Ion Generator pack and holds fire to charge up to 50 auto-recharging Titan Cells before releasing, while Reaper Nuke Launcher requires the Deuterium Battery pack.",
+   "Jail System and Base Fortifications: Slaves can deploy a Jail Cell (1 per team, at least 150m from the flag) and up to 20 Jail Capture Pads, while any class can carry the Jailers Gun to zap enemies into the team's Jail Cell for a 20-second sentence. Slaves also build Bunkers, Towers, Scaffolding, Blast Walls/Doors, Force Fields/Doors, Accelerator/Springboard/Teleport Pads, Deployable Flag Stands, 11 deployable turret types (including Ion, Laser, Plasma, Rail, Vulcan, Disc, ELF, Shock, Missile, Mortar, and Indoor), and the Arbitor Box (Base Cloak, 3 per team), which cloaks friendly players, static shapes, vehicles, and mines in range.",
+   "Teleportation and Stealth Packs: Wraith Pack (Wraith only) shifts into GhostArmor or GhostFloorArmor to pass through walls or drop through floors while draining 0.03 health per second. Hyperdrive (Wraith and Navigator) teleports up to 210m toward the crosshair, risking instant death if fired again before its 8-second core stabilization finishes. Navigator Pack (Slipstream, Navigator only) warps nearby teammates to a commander-issued map waypoint on a 30-second cooldown, dropping any carried flags and blocking warps near enemy flags.",
+   "Rules, Banned Items, and Server Notes: Base SensorJammerPack is disabled (commented out in packJammer.cs), and ChameleonPack (enemy-team disguise pack) is excluded from station menus ($InvList commented out). Three items have $InvList set to 0: LaserCell and TitanCell (self-recharging internal energy pools for Laser Gatling Gun and Negatron Beam rather than station-bought ammo), and Nihility (a zero-damage fireworks gun only granted via console). Hosts should note that nihility.cs sets $Insomniax:: variables while admin.cs uses HaVoC $HaVoC:: variables, leaving player voting and public admin rights off by default unless configured.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): LaserCell (weaponLaserGattling.cs), Nihility (weaponFireworks.cs), TitanCell (weaponNegatronBeam.cs)."
+  ]
+ },
+ "items": {
+  "BursterArmor": {
+   "summary": "Paladin heavy siege armor that replaces base HeavyArmor, pairing massive durability and energy with exclusive superweapons.",
+   "notes": [
+    "Max 6 weapons, 2.50 maxDamage, 4.75 maxForwardSpeed, 300 maxEnergy, immune to plasma burn DoT.",
+    "Cannot pilot vehicles; can ride as an APC passenger.",
+    "Required to wield Ion Generator + Negatron Beam (Titan) and Deuterium Battery + Reaper Nuke Launcher (Nukes)."
+   ],
+   "source": "armordata.cs, item.cs, weaponNegatronBeam.cs, weaponNukes.cs, player.cs, vehicle.cs"
+  },
+  "GhostPack": {
+   "summary": "Wraith Pack that lets Wraiths pass through walls or drop through floors at the cost of continuous health drain.",
+   "notes": [
+    "Wraith (LightArmor) only; shifts the player into GhostArmor or GhostFloorArmor and ticks 0.03 self-damage per second while active.",
+    "Switch between Wall Shift and Floor Shift under Tab -> Weapon/Pack Options -> Wraith Pack."
+   ],
+   "source": "packGhost.cs, admin.cs"
+  },
+  "PhaseShifterPack": {
+   "summary": "Hyperdrive pack that teleports the wearer up to 210 meters toward the HUD crosshair.",
+   "notes": [
+    "Available to Wraith and Navigator; drains energy on warp and sets an 8-second instability cooldown.",
+    "Warping again before the core stabilizes risks killing the user (only a 6.5% survival roll)."
+   ],
+   "source": "packHyperdrive.cs"
+  },
+  "Titan": {
+   "summary": "Negatron Beam charge-up energy cannon exclusive to Paladin when paired with the Ion Generator pack.",
+   "notes": [
+    "Paladin only; requires the Ion Generator (IonPack) mounted in the backpack slot to equip and use.",
+    "Hold fire to charge up to 50 auto-recharging Titan Cells, then release to unleash a multi-hit shockwave burst."
+   ],
+   "source": "weaponNegatronBeam.cs, packElectron.cs"
+  },
+  "JailGun": {
+   "summary": "Jailers Gun that zaps enemy players and teleports them into your team's sky-high Jail Cell for a 20-second sentence.",
+   "notes": [
+    "Requires the team to have deployed a Jail Cell (jailpack, 1 per team, placed at least 150m from the team flag).",
+    "Also pairs with deployable Jail Capture Pads (JailCapPack) built by Slave armor."
+   ],
+   "source": "jailGun.cs, jailCell.cs, jailCapturePad.cs"
+  },
+  "Nihility": {
+   "summary": "Banned non-lethal fireworks launcher that deals zero damage and fires colorful splitting pyrotechnics.",
+   "notes": [
+    "Sets $InvList[Nihility] = 0 so it cannot be bought at stations; granted only via console firework(client).",
+    "Has Standard and Fireworks modes in the admin menu code, though Weapon/Pack Options focuses on combat weapons."
+   ],
+   "source": "weaponFireworks.cs, MBG.cs, admin.cs"
+  }
+ }
+}

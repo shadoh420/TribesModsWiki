@@ -1,0 +1,5 @@
+ultra-vxu: 9 of 52 need write-ups
+  LightArmor (Coaxial Plating): renamed+stats
+  ScoutVehicle (Aerial Enforcer): renamed+stats
+  RepairKit (Repair Kit): scripts
+  Grenade (Grenade): scripts

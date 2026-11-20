@@ -1,0 +1,779 @@
+{
+ "mod": {
+  "overview": "Total Annihilation is a large server-side overhaul of stock Tribes 1.11 (this is the late, community-maintained release with 2009-era and later patches). Stock light/medium/heavy armor is replaced by eight classes (Rogue Angel, Chameleon Assassin, Necromancer, Warrior, Builder, Troll, Tank, Titan), each with its own weapon list, beacon ability, grenade type and contact ability, plus dozens of new weapons, spells, deployables and vehicles. On top of normal mission types the server adds an in-map arena, duels, an LT competitive mode that can switch play to Annihilation, EliteRenegades or stock-style loadouts, plus status effects (burning, shock, poison) and exploding dropped ammo.",
+  "notes": [
+   "Armor classes are created by Armor::add() in armor.cs: each class is an inventory item such as iarmorAngel mapped to male and female PlayerData such as armormAngel and armorfAngel (Troll, Tank and Titan have one shared datablock, e.g. armorTank, with no female version).",
+   "Weapon slots ($MaxWeapons in serveritemusage.cs): Angel 3, Assassin 3, Necromancer 3, Warrior 5, Builder 4, Troll 5, Tank 4, Titan 5. What each class can carry comes from the PopulateItemMax table in the same file; most weapons are limited to one or two classes.",
+   "Knockback taken is scaled per class ($ArmorKickback, applied in Player::onDamage): Angel x2.0, Necromancer x1.4, Assassin x1.2, Troll x1.1, Warrior and Titan x1.0, Tank x0.8, Builder x0.7.",
+   "The beacon key is a class ability, handled inline in remoteUseItem (item.cs): Angel emergency brake and energy nova, Assassin and Necromancer cloak, Warrior speed boost, Builder deploys an inventory station, Troll fire ring, Tank smoke blast, Titan emergency shield. Each use consumes a beacon (not in build mode). The armor files' own onBeacon functions are not reached from the use key.",
+   "The grenade key throws a class-specific bomb (Grenade::onUse calls the armor's onGrenade): Angel cluster bomb, Assassin 15-second plastique, Necromancer hologram, Warrior hand grenade, Builder shock grenade, Troll fire bomb, Tank tank bomb, Titan mortar bomb.",
+   "Use keys are remapped in remoteUseItem: the Use Blaster and Use Laser keys (1 and 6) no longer select those weapons but cycle the mode of the held weapon (Mini Bomber, Vulcan, Particle Beam, Builder's Tool, Pitchfork, cutting laser in build mode); the Mortar key selects the Grappling Hook; the Disc Launcher and Plasma Gun keys select the Base or Elite variants for the LT Light and Mercenary armors.",
+   "Status effects (armor.cs): plasma damage sets the target on fire (flame and smoke effects for about 15 seconds; the flame projectile does no damage, only a small jetting-damage effect while jetting under 25% energy; piloting or using a station puts it out). Shock damage zeroes the target's energy and shows a 2-second shock effect. Poison ('herpes') adds 0.05 damage every 5 seconds for 15 ticks and is cured by a Repair Kit or Repair Patch. Bots are exempt from all three.",
+   "Head shots (Player::onDamage): laser damage gets +55% on a head hit (+45% on Troll, Tank and Titan, and only in the middle head quadrants). Sniper damage gets +35% on a head hit (+30% on the three heavies) and +27% on any other hit.",
+   "Shield absorption: electricity damage ignores shields entirely; shrapnel and mortar damage are absorbed at 75% efficiency.",
+   "Mine-type damage also drains 40 energy from the Chameleon Assassin and Necromancer.",
+   "Killing sprees: at 10, 20 and more than 30 kills in a row the killer is announced server-wide and fully repaired; at 10 they also get a special skin.",
+   "Mid-air disc hits (target airborne, disc explosion damage of at least 0.35) are announced and score a bonus.",
+   "Exploding ammo ($Annihilation::ExplodingAmmo, on by default): dropped ammo becomes a pickup mine instead of an item. Shooting it until it breaks makes it explode (damage 1.0, 10 m radius) and scatter up to three matching AmmoBomb halo mines (e.g. GrenadeAmmoBomb), which do no damage but knock things back. Plasma ammo never scatters. In the arena and LT mode dropped ammo is a normal item.",
+   "TotalAnnihilation_Settings.cs defaults: 24 players, 30-minute time limit, team damage off, respawn delay 0 under the AnniSpawn arena type, 1-second warm-up, auto-assigned and fair teams (no switching to the larger team), personal skins allowed, out-of-bounds disallowed, AFK players moved to observer after 300 seconds.",
+   "Inventory settings: extended inventories on (multi-use stations, with 'Zappy' beams checking stations are not walled off by blast walls or force fields), quick inventories (buying without a station) off, shopping list filtered to the current armor. Optional switches make bases indestructible ($Annihilation::SafeBase) or self-healing ($Annihilation::BaseHeal); both are off.",
+   "Build mode ($build, off by default) gives infinite deployables with no need for inventory stations, keeps most consumables from being used up, and is required for the Portal Device.",
+   "Voting: public kick and mission votes are on; admin, team-damage and tournament votes are off. Admin tiers are owner, god, super and public admin, set by passwords in the settings file plus an auto-admin list.",
+   "Mission types: the stock types (Capture and Hold, CTF, Deathmatch, Defend and Destroy and so on) plus 'LT Maps'. On an LT Maps mission ($TALT::Active) an admin or vote picks AnniSpawn, EliteSpawn or BaseSpawn, which makes the server play as Annihilation, EliteRenegades (Mercenary armor) or stock base (Light armor). In LT, weapon help text, player-contact abilities and exploding ammo are off.",
+   "Other modes: an in-map arena (#arena chat commands; spawn types AnniSpawn, EliteSpawn, BaseSpawn, TitanSpawn and BuilderSpawn), duels (#duel), an automatic 'rabbit' mode when one team is empty (not in tournament mode), Flag Hunter (off by default), timed race maps, Uber's Challenge maps and AI bots."
+  ]
+ },
+ "items": {
+  "RepairKit": {
+   "summary": "A one-use heal that can also be thrown onto damaged friendly equipment. Unlike stock Tribes, it cures poison and is not used up when there is nothing to repair.",
+   "notes": [
+    "If a damaged object on your team is within 5 m of your crosshair, the kit is dropped at it instead of used on you. When the dropped kit touches a damaged object it repairs it fully (sensors and stations) or by 0.70 (anything else).",
+    "Aimed at a friendly generator, it refuses ('Use Repair Packs or Builder Armor Builder Tool') and instead gives you a Repair Pack, turns it on and equips the repair gun. That swap can only happen once every 10 seconds.",
+    "Used on yourself it repairs 0.2 damage and clears poison. In build mode it is not used up.",
+    "If you are undamaged and not poisoned it says 'Nothing to repair, kit retained' and keeps the kit.",
+    "It can be used while a station menu is open; other items cannot.",
+    "Every class can carry one."
+   ],
+   "source": "armor.cs RepairKit::onUse; item.cs RepairKit::onCollision, remoteUseItem"
+  },
+  "RepairPatch": {
+   "summary": "The repair patch pickup. As in stock it heals 0.125 when walked over and 0.1 when used; unlike stock, picking one up also cures poison.",
+   "notes": [
+    "Walking over a patch only heals if you are damaged, and it respawns afterwards.",
+    "Using a carried patch is free in build mode."
+   ],
+   "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse"
+  },
+  "iarmorAngel": {
+   "summary": "The flying support class: very low health and energy, knocked around twice as hard as normal, but immune to falling damage and almost immune to bullets. It carries the Angel-only weapons (Angel Fire, Bio Feedback Beam, Heaven's Fury, Soul Grabber, Heaven's Harpoon, Grappling Hook).",
+   "notes": [
+    "Beacon (emergency brake): stops you dead in the air and puts your weapon away for 0.5 s, then fires one electric nova bolt for each point of energy you have. At exactly full energy (40) the stronger NovaBoltB bolts are used instead of NovaBoltA. Energy is not used up. 2.5-second cooldown; carries up to 5 beacons.",
+    "Grenade: a cluster bomb (mortar damage, 25 m radius) that explodes 2 seconds after the throw.",
+    "Contact: touching an enemy player runs Steal(), which moves every item they carry except the flag into your inventory, as far as it fits. Touching another Rogue Angel only plays a pain sound. Not active in LT mode.",
+    "Damage taken (serveritemusage.cs): bullets x0.1, landing x0, mortar x0.5, explosion x0.7, but shrapnel x1.5 and OS missiles x1.5.",
+    "Can carry the Interceptor pack, Sight pack, Nova pack and several sensor deployables. Up to 5 grenades, 3 weapon slots."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs PopulateItemMax/PopulateDamageScale; armor.cs Steal"
+  },
+  "iarmorSpy": {
+   "summary": "A light infiltrator with the Sniper Rifle, Laser Rifle and Chameleon pack. Its beacon cloaks the wearer, and touching a target can assassinate them outright.",
+   "notes": [
+    "Beacon (cloak): fades the wearer out for 15 seconds and raises their sensor suppression. It won't start while holding the flag, ends early if the flag is picked up, and has a 3-second cooldown after it ends. Carries up to 3 beacons.",
+    "Grenade: plastique (damage 4.0, 7.5 m radius) that explodes 15 seconds after it is placed. A Builder who touches it disarms it 90% of the time and sets it off the other 10%; the script does not check the Builder's team.",
+    "Contact: Assassinate() has a 50% chance to deal 14.2 assassin damage (instant death for any class) on touch. It works on enemies normally; while the Chameleon pack disguise is active (isSpy) it works only on players on your own team. It cannot assassinate another Assassin. Not active in LT mode.",
+    "The class takes only x0.2 assassin damage and x0.4 mine damage, but mine hits also drain 40 energy.",
+    "When cloaked, the Sniper Rifle also draws a visible fake laser beam on each shot.",
+    "Only class that can buy the Sniper Rifle, Chameleon pack and Airstrike pack; shares the Laser Rifle with the Troll."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs; armor.cs Assassinate, startCloak; miscmine.cs Nukebomb; player.cs Player::onDamage"
+  },
+  "iarmorNecro": {
+   "summary": "The spellcaster: medium-light health, a large energy pool and access to the spell weapons (Death Ray, Disarm, Flame Strike, Spell Flame Thrower, Shocking Grasp, Stasis) plus the Hammer.",
+   "notes": [
+    "Beacon (cloak): the same 15-second cloak as the Chameleon Assassin, with the same flag rules and 3-second cooldown. Carries up to 3 beacons.",
+    "Grenade: throws a hologram mine ('You summon a mirror image of yourself'). It arms when it comes to rest and explodes when an enemy player or vehicle touches it, or after 70 seconds. It resists mine damage (x0.25).",
+    "Contact: calls Drain(), meant to take 0.2 health and 80 energy from the touched player and give the Necromancer 0.2 health and 120 energy. As written, Drain() checks the teams of %targetPlayer and %sourcePlayer, which are not its parameters, so the team test compares two empty values and returns early; the drain likely never happens.",
+    "Mine hits drain 40 energy. Reduced damage from energy (x0.5), shotgun (x0.5), mines (x0.4) and most other types (x0.7 to x0.9).",
+    "Only class that can buy the Phase Shifter and Ghost packs."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs; armor.cs Drain; miscmine.cs HoloMine"
+  },
+  "iarmorWarrior": {
+   "summary": "The general-purpose medium soldier, with 5 weapon slots and the widest conventional arsenal (Vulcan, Rocket Launcher, Stinger, Flame Thrower, Rubbery Mortar, Shockwave Cannon and more), plus a few turret and base deployables.",
+   "notes": [
+    "Beacon (speed boost): an impulse of 300 along the current direction of travel, or up and forward along the aim if standing still. Carries up to 5 beacons.",
+    "Grenade: a standard hand grenade (shrapnel 1.0, 10 m) that explodes after 2 seconds; in LT mode an LT variant is thrown instead.",
+    "In LT mode the Warrior ignores burning, shock and poison.",
+    "serveritemusageanni.cs also always lets the Warrior buy the Blaster, the Elite chaingun and the base Grenade Launcher, with their ammo.",
+    "No special contact ability."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs; serveritemusageanni.cs"
+  },
+  "iarmorBuilder": {
+   "summary": "The engineer: the only class with the Builder's Tool, Pitchfork, Railgun and almost every deployable turret, barrier, teleporter and base pack.",
+   "notes": [
+    "Beacon (portable inventory): deploys an inventory station (map name 'Portable Inventory') on flat terrain or a building within 5 m, if the team's limit for deployable inventory stations isn't reached. Carries 1 beacon.",
+    "Grenade: a shock grenade (shock damage, 20 m radius) that explodes after 2 seconds and fries the energy of anyone caught in it.",
+    "Can disarm Assassin plastique by touching it (90% success).",
+    "Takes x0.7 energy and jetting damage and x0.8 bullet damage, but x1.2 electricity and x1.5 Troll fire.",
+    "No contact ability (its Repair() contact helper is an empty function)."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs; builder.cs; miscmine.cs Nukebomb::onCollision"
+  },
+  "iarmorTroll": {
+   "summary": "A heavy brawler with the Mortar, Minigun, Phase Disrupter and the Laser Rifle, and the only class with the Suicide and Regeneration packs.",
+   "notes": [
+    "Beacon (emergency defenses): fires a ring of 10 Troll fire bolts outward from the wearer (Troll plasma damage, 30 m radius). 4.5-second cooldown; carries up to 3 beacons.",
+    "Grenade: a fire bomb (explosion damage 0.1, 30 m radius, heavy knockback of 600) that goes off after 2 seconds.",
+    "Takes only x0.2 from its own Troll fire type and x0.6 from shrapnel.",
+    "The only class that can use the Mortar, which also has the Grappling Hook on its key for everyone else.",
+    "No special contact ability."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs"
+  },
+  "iarmorTank": {
+   "summary": "The heaviest and most expensive class, limited to its own tank weapons (Blast Cannon, Shredder, Rocket Launcher and RPG) and immune to poison and shock.",
+   "notes": [
+    "Beacon (emergency defenses): vents a smoke blast 2 m above the wearer (mortar damage 0.25, 10 m radius, knockback 150). 7-second cooldown; carries up to 3 beacons.",
+    "Grenade: a tank bomb (mortar damage 0.8, 30 m radius) that goes off after 2 seconds.",
+    "Its onPoison and onShock handlers are empty, so poison and shock effects never apply; it still catches fire.",
+    "Contact: calls the same Drain() as the Necromancer, which as written returns early (see Necromancer).",
+    "Takes x0.5 impact and OS-missile damage but x1.4 electricity and x1.5 Troll fire."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs; armor.cs Drain"
+  },
+  "iarmorTitan": {
+   "summary": "The heavy assault class with the Baby Nuke Launcher, OS Launcher and Particle Beam, plus the Shield pack and some base deployables.",
+   "notes": [
+    "Beacon (emergency shield): turns on a shield (strength 0.006 per point of energy) for 18 seconds; a 3-second cooldown follows. Carries up to 3 beacons.",
+    "Grenade: a mortar bomb (mortar damage 1.0, 20 m radius) that goes off after 2 seconds.",
+    "Takes x1.2 laser damage but reduced damage from impact, shrapnel, plasma, missiles and mines.",
+    "No special contact ability."
+   ],
+   "source": "angel.cs, spy.cs, necro.cs, warrior.cs, builder.cs, troll.cs, tank.cs, titan.cs; item.cs remoteUseItem; serveritemusage.cs; armor.cs startShield"
+  },
+  "AngelFire": {
+   "summary": "The Angel's energy grenade lobber: each shot throws a bouncing plasma charge that explodes in a small radius and sets targets on fire.",
+   "notes": [
+    "Runs on energy, not ammo.",
+    "Plasma damage, so anyone hit starts burning (see mod notes on fire).",
+    "Rogue Angel only."
+   ],
+   "source": "angelfire.cs; serveritemusage.cs"
+  },
+  "AngelRepairGun": {
+   "summary": "A short electric beam that heals teammates and is meant to heal the Angel too.",
+   "notes": [
+    "Only affects damaged players on your team; shows their damage percentage while the beam is on them.",
+    "Each tick lowers the target's damage by 0.01 ($AngelRepairRate).",
+    "Bug: the self-heal line sets the shooter's damage to the target's damage minus 0.0095 instead of the shooter's own damage minus that amount, so beaming a badly hurt teammate can raise your own damage.",
+    "Rogue Angel only."
+   ],
+   "source": "angelrepairgun.cs AngelRepairBolt::damageTarget"
+  },
+  "Heavensfury": {
+   "summary": "The Angel's rapid-fire 'shotgun': a stream of fast, low-damage electric bolts with slight spread, drawn from energy.",
+   "notes": [
+    "Electricity damage, which goes straight through shield packs.",
+    "The help text says it disables shields, jets and energy weapons; the code only gives it electricity damage, it does not trigger the shock effect.",
+    "Rogue Angel only."
+   ],
+   "source": "heavensfury.cs; player.cs Player::onDamage"
+  },
+  "SoulSucker": {
+   "summary": "A short-range electric pulse that steals life: hits on players or vehicles do heavy soul damage and heal the Angel.",
+   "notes": [
+    "Needs at least 10 energy; each hit empties the shooter's energy.",
+    "A player or vehicle hit takes 0.5 soul damage and the shooter is healed by 0.05; every hit target (including turrets) also takes 0.1.",
+    "The victim is told that you 'grabbed part of your soul'.",
+    "Mounting it adds the three decorative barrels SoulSuckerR, SoulSuckerL and SoulSuckerB.",
+    "Rogue Angel only."
+   ],
+   "source": "soul.cs SoulBolt::damageTarget, SoulSuckerImage::onFire, SoulSucker::MountExtras"
+  },
+  "SoulSuckerR": {
+   "summary": "A cosmetic side barrel the Soul Grabber mounts in slot 6.",
+   "notes": [
+    "Mounted by SoulSucker::MountExtras. It has no projectile and nothing triggers it, so it only adds to the weapon's look."
+   ],
+   "source": "soul.cs SoulSucker::MountExtras"
+  },
+  "SoulSuckerL": {
+   "summary": "A cosmetic side barrel the Soul Grabber mounts in slot 7.",
+   "notes": [
+    "Mounted by SoulSucker::MountExtras. It has no projectile and nothing triggers it, so it only adds to the weapon's look."
+   ],
+   "source": "soul.cs SoulSucker::MountExtras"
+  },
+  "SoulSuckerB": {
+   "summary": "A cosmetic barrel the Soul Grabber mounts in slot 5.",
+   "notes": [
+    "Mounted by SoulSucker::MountExtras. It has no projectile and nothing triggers it, so it only adds to the weapon's look."
+   ],
+   "source": "soul.cs SoulSucker::MountExtras"
+  },
+  "HarpoonAmmo": {
+   "summary": "Harpoons for Heaven's Harpoon. Harpoons that stick in the world can be picked up again.",
+   "notes": [
+    "A harpoon that comes to rest leaves a pickup; touching it gives 1 harpoon back.",
+    "Dropped harpoons become an ammo mine, but there is no HarpoonAmmoBomb, so destroying one scatters nothing.",
+    "Rogue Angel only, up to 15."
+   ],
+   "source": "harpoongun.cs; staticshape.cs HarpoonStill::onCollision; item.cs Ammo::onDrop"
+  },
+  "Harpoon": {
+   "summary": "A slow, heavy rocket-propelled harpoon that does sniper-type damage and stays stuck where it lands.",
+   "notes": [
+    "Sniper damage type, so it gets the sniper bonuses (+27% to the body, +35% to the head, +30% to heavy armor heads).",
+    "A harpoon that stops moving is replaced by a pickup that gives 1 harpoon back. After 20 seconds the pickup is moved to z=-1000. removeharpoon() only deletes it if %this.isharpoon is true, which is never set, so the object is never deleted.",
+    "Mounting it adds the decorative HarpoonScope (slot 7) and HarpoonClip (slot 6).",
+    "Rogue Angel only."
+   ],
+   "source": "harpoongun.cs HarpoonImage::onFire, trackHarpoon, removeharpoon; staticshape.cs HarpoonStill"
+  },
+  "HarpoonScope": {
+   "summary": "A scope model Heaven's Harpoon mounts in slot 7.",
+   "notes": [
+    "Mounted by Harpoon::onMount and removed by Harpoon::onUnMount. Its image has a projectile and ammo set, but nothing triggers slot 7, so it is cosmetic."
+   ],
+   "source": "harpoongun.cs Harpoon::onMount"
+  },
+  "HarpoonClip": {
+   "summary": "A clip model Heaven's Harpoon mounts in slot 6.",
+   "notes": [
+    "Mounted by Harpoon::onMount and removed by Harpoon::onUnMount. Its image has a projectile and ammo set, but nothing triggers slot 6, so it is cosmetic."
+   ],
+   "source": "harpoongun.cs Harpoon::onMount"
+  },
+  "GrapplingHook": {
+   "summary": "A rope you fire at terrain, buildings, vehicles or players within 75 m and swing on. Firing again releases it.",
+   "notes": [
+    "Hooking terrain, a building or an enemy pulls you toward the hook point once you stretch the rope past 92.5% of its starting length. Enemy players are pulled a little toward you too and take 0.005 electricity damage on every rope pulse (every 0.35 s).",
+    "Hooking a teammate pulls the teammate toward you instead; they break free by jetting.",
+    "The rope drops if it stretches past 200 m, you die, or the hook loses its anchor.",
+    "It has checks meant to block grappling while you or the target are disguised by a Chameleon pack, but they sit at the end of an else-if chain and are only reached when the target has no name or description.",
+    "The Mortar key selects it. Mounting it adds the decorative RopeCan.",
+    "Rogue Angel only."
+   ],
+   "source": "grapplinghook.cs GrapplingHookImage::onFire, GrapplingHook::Swing; item.cs remoteUseItem"
+  },
+  "RopeCan": {
+   "summary": "The rope canister model the Grappling Hook mounts in slot 7.",
+   "notes": [
+    "Mounted by GrapplingHook::MountExtras. Its image has no projectile and nothing triggers it, so it is cosmetic."
+   ],
+   "source": "grapplinghook.cs GrapplingHook::MountExtras"
+  },
+  "BabyNukeAmmo": {
+   "summary": "The warhead ammo for the Titan's Baby Nuke Launcher.",
+   "notes": [
+    "Titan only, up to 4.",
+    "Dropped warheads become an ammo mine; destroying one scatters BabyNukeAmmoBomb halo mines, which only knock things back."
+   ],
+   "source": "babynuke.cs; item.cs Ammo::onDrop, Mine::onDamage"
+  },
+  "BabyNukeMortar": {
+   "summary": "The Titan's tactical nuke: a slow, heavy shell carrying a cluster of secondary charges that spread into a mushroom-cloud pattern seconds after launch.",
+   "notes": [
+    "Each shot spends one warhead and fires a BabyNukeBomb (shrapnel 1.0, 40 m radius) together with 14 NukeExplosion grenades.",
+    "5.25 seconds after launch the grenades are given new velocities: five spread outward in a ring and the rest rise in a column at different speeds. 0.2 seconds later one of them spawns a large shockwave mine that goes off 1.5 seconds after that.",
+    "While the trigger is held it keeps triggering the second launcher (BabyNukeMortar2) in slot 4 every 0.1 seconds.",
+    "Titan only."
+   ],
+   "source": "babynuke.cs BabyNukeImage::onFire, FireBabyNukeMortar, NukeSpread, BombHalo"
+  },
+  "BabyNukeMortar2": {
+   "summary": "A second launcher model the Baby Nuke Launcher mounts in slot 4.",
+   "notes": [
+    "Mounted by BabyNukeMortar::MountExtras and triggered repeatedly by FireBabyNukeMortar while the main trigger is held.",
+    "Its image has ammo set but its projectileType line is commented out and it has no onFire handler, so triggering it fires nothing; it is effectively cosmetic."
+   ],
+   "source": "babynuke.cs BabyNuke2Image, FireBabyNukeMortar"
+  },
+  "GateGun": {
+   "summary": "A Portal-style device that opens linked pairs of portals on terrain or building surfaces up to 300 m away. Walking into one puts you out of the other at the same speed.",
+   "notes": [
+    "It only works in build mode, and no class can buy it (its item limit is 0 for every armor).",
+    "Each player has two portals; new shots alternate between them and replace the older one.",
+    "A portal can't be placed within 4 m of another portal or within 30 m of an enemy flag. Aiming at an enemy player puts the portal just above them.",
+    "Portals take no damage (portal::ondamage returns at once) and stay until replaced.",
+    "Exit speed matches entry speed, along the surface normal of the exit portal."
+   ],
+   "source": "portaldevice.cs GateGunImage::onFire, PortalTrigger::onEnter, portal::ondamage"
+  },
+  "Blaster": {
+   "summary": "Unlike stock Tribes, each Blaster shot fires three energy bolts at once, aimed at the point under your crosshair. In the normal Annihilation setup only the Warrior (and the LT Light and Mercenary armors) can buy it.",
+   "notes": [
+    "BlasterImage::onFire spawns BlasterBolt, BlasterBolt2 and BlasterBolt3 together, aimed with getPerfectTrans so they fly from the muzzle to the crosshair point.",
+    "The Use Blaster key no longer selects it: it cycles the held weapon's mode (see mod notes). Reach it with next/previous weapon.",
+    "It isn't in the main PopulateItemMax table; serveritemusageanni.cs, serveritemusagebase.cs and serveritemusageelite.cs give it to the Warrior, Light and Mercenary armors."
+   ],
+   "source": "blaster.cs BlasterImage::onFire; player.cs getPerfectTrans; item.cs remoteUseItem; serveritemusageanni.cs"
+  },
+  "BulletAmmoBase": {
+   "summary": "Chaingun bullets for the base-style chaingun used by the LT Light armor.",
+   "notes": [
+    "Up to 100 for Light armor. Dropped ammo has no BulletAmmoBaseBomb, so destroying it scatters nothing."
+   ],
+   "source": "chaingunbase.cs; serveritemusagebase.cs"
+  },
+  "ChaingunBase": {
+   "summary": "A copy of the stock chaingun, kept for the stock-style Light armor used by the LT BaseSpawn setting.",
+   "notes": [
+    "Fires normally through the engine; its only script adds weapon help text ('The Legendary Base Chaingun')."
+   ],
+   "source": "chaingunbase.cs; serveritemusagebase.cs"
+  },
+  "BulletAmmoElite": {
+   "summary": "Chaingun bullets for the EliteRenegades-style chaingun.",
+   "notes": [
+    "Up to 150 for the Mercenary and the Warrior. Dropped ammo has no matching Bomb datablock, so destroying it scatters nothing."
+   ],
+   "source": "chaingunelite.cs; serveritemusageelite.cs, serveritemusageanni.cs"
+  },
+  "ChaingunElite": {
+   "summary": "A copy of the EliteRenegades chaingun, used by the LT Mercenary armor and always available to the Warrior.",
+   "notes": [
+    "Fires normally through the engine; its only script adds weapon help text ('The Legendary EliteRenegades Chaingun')."
+   ],
+   "source": "chaingunelite.cs; serveritemusageelite.cs, serveritemusageanni.cs"
+  },
+  "DiscLauncher": {
+   "summary": "The standard spinfusor. Unlike stock Tribes, its key selects the base or elite disc launcher for the LT Light and Mercenary armors, and its hits feed the mod's mid-air disc scoring.",
+   "notes": [
+    "Available to Assassin, Warrior, Builder, Troll and Titan (the Titan carries only 15 discs).",
+    "Disc explosions of at least 0.35 on an airborne target are announced as mid-air disc hits and score a bonus.",
+    "If you hit a teammate who is using a station with disc (explosion) damage, the shot does nothing and your disc launcher is put away.",
+    "Dropped disc ammo becomes an ammo mine that scatters harmless halo mines when destroyed."
+   ],
+   "source": "disclauncher.cs; item.cs remoteUseItem; player.cs Player::onDamage, MidAirCheck"
+  },
+  "DiscAmmoBase": {
+   "summary": "Discs for the base-style Disc Launcher Base.",
+   "notes": [
+    "Up to 15 for Light armor. No DiscAmmoBaseBomb exists, so a destroyed dropped stack scatters nothing."
+   ],
+   "source": "disclauncherbase.cs; serveritemusagebase.cs"
+  },
+  "DiscLauncherBase": {
+   "summary": "A copy of the stock disc launcher for the Light armor in LT BaseSpawn. Light armor gets it when pressing the Disc Launcher key.",
+   "notes": [
+    "Fires through the engine; its only script adds help text."
+   ],
+   "source": "disclauncherbase.cs; item.cs remoteUseItem"
+  },
+  "DiscAmmoElite": {
+   "summary": "Discs for the EliteRenegades-style Disc Launcher Elite.",
+   "notes": [
+    "Up to 15 for the Mercenary. No matching Bomb datablock exists."
+   ],
+   "source": "disclauncherelite.cs; serveritemusageelite.cs"
+  },
+  "DiscLauncherElite": {
+   "summary": "A copy of the EliteRenegades disc launcher for the LT Mercenary armor, selected by the Disc Launcher key.",
+   "notes": [
+    "Fires through the engine; its only script adds help text. Mid-air hits with it are scored like those with the normal launcher."
+   ],
+   "source": "disclauncherelite.cs; item.cs remoteUseItem; player.cs MidAirCheck"
+  },
+  "Fixit": {
+   "summary": "The Builder's Tool in repair mode: a strong repair beam that only Builders may use. The mode key switches it to repack mode (Fixit2).",
+   "notes": [
+    "Repairs yourself at 0.125, other players and objects at 0.5 and friendly generators at 1.0 (rates added to the target's auto-repair).",
+    "It can repair enemy equipment (shown as 'enemy ...'), but not enemy generators.",
+    "Repairing a damaged friendly station, turret or pulse sensor to full gives 1 point, and a generator 2 points, unless you damaged it yourself. Restoring a dead generator's power is announced to the team.",
+    "Repairing a turret marked as needing a new owner makes it yours.",
+    "Anyone not in Builder armor who uses it gets blown up (Admin::BlowUp).",
+    "Repack mode (Fixit2, also mounted in slot 4) picks up deployables you placed yourself and gives the pack back (to your back if it's free, otherwise dropped). It keeps the object's damage and energy and lowers the team count. 1.3-second cooldown."
+   ],
+   "source": "fixit.cs SuperRepairBolt::onAcquire, RePackBolt::onAcquire, RepairRewards; weapon.cs Weapon::Mode"
+  },
+  "FlamerAmmo": {
+   "summary": "Fuel canisters for the Flamer.",
+   "notes": [
+    "Up to 40 to 100 depending on class (Titan 100, Troll 75). A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "flamer.cs; serveritemusage.cs"
+  },
+  "Flamer": {
+   "summary": "A rapid short-range flamethrower that sprays fast fireballs with a smoke puff, each setting targets on fire.",
+   "notes": [
+    "Each shot spends 1 ammo and spawns a Flames bolt (plasma damage, 7.5 m radius) plus a smoke effect.",
+    "Plasma damage, so targets catch fire.",
+    "Available to Assassin, Warrior, Builder, Troll and Titan."
+   ],
+   "source": "flamer.cs FlamerImage::onFire"
+  },
+  "FlameThrowerAmmo": {
+   "summary": "Flame cartridges for the Flame Thrower.",
+   "notes": [
+    "Up to 50 (Warrior) or 100 (Troll, Titan). A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "flamethrower.cs; serveritemusage.cs"
+  },
+  "FlameThrower": {
+   "summary": "A longer-range fire weapon that throws bouncing plasma cartridges which burst on contact and set targets on fire.",
+   "notes": [
+    "Fires FlameThrowerGren through the engine (plasma damage, 8 m radius).",
+    "Available to Warrior, Troll and Titan."
+   ],
+   "source": "flamethrower.cs"
+  },
+  "GrenadeAmmo": {
+   "summary": "Ammo for the Mini Bomber. Stock Tribes calls it 'Grenade Ammo'; here it is 'Mini ammo'.",
+   "notes": [
+    "The Mini Bomber's triple mode spends 2 per shot; single and EMP modes spend 1.",
+    "A destroyed dropped stack scatters harmless GrenadeAmmoBomb halo mines."
+   ],
+   "source": "grenadelauncher.cs; item.cs Ammo::onDrop"
+  },
+  "GrenadeLauncher": {
+   "summary": "Stock's grenade launcher renamed 'Mini Bomber', with three firing modes switched by the Use Laser/Use Blaster keys: triple (default), single and EMP.",
+   "notes": [
+    "Triple mode fires three grenades (GrenadeLauncherGren1-3) for 2 ammo and needs at least 2 ammo.",
+    "Single mode fires one stronger grenade (GrenadeLauncherGren, 20 m radius).",
+    "EMP mode fires an EMPGrenadeShell: shock damage in a 26 m radius that zeroes energy, with negative knockback that pulls targets in.",
+    "Available to Assassin, Warrior, Builder, Troll and Titan."
+   ],
+   "source": "grenadelauncher.cs GrenadelauncherImage::onFire; weapon.cs Weapon::Mode; miscmine.cs EMPGrenadeShell"
+  },
+  "GrenadeAmmoBase": {
+   "summary": "Grenades for the base-style Grenade Launcher.",
+   "notes": [
+    "Up to 10 for Light armor and 20 for the Warrior. No GrenadeAmmoBaseBomb exists."
+   ],
+   "source": "grenadelauncherbase.cs; serveritemusagebase.cs, serveritemusageanni.cs"
+  },
+  "GrenadeLauncherBase": {
+   "summary": "A copy of the stock grenade launcher, used by the LT Light armor and always available to the Warrior.",
+   "notes": [
+    "Fires through the engine; its only script adds help text ('The Legendary Base Grenade Launcher')."
+   ],
+   "source": "grenadelauncherbase.cs; serveritemusageanni.cs"
+  },
+  "HammerAmmo": {
+   "summary": "Canisters for Lucifer's Hammer.",
+   "notes": [
+    "Up to 10 to 30 depending on class. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "hammer.cs; serveritemusage.cs"
+  },
+  "Hammer": {
+   "summary": "Lucifer's Hammer lobs electrified canisters that turn into proximity mines in flight and blow up near enemies, frying their energy.",
+   "notes": [
+    "0.1 seconds after firing, the shell is replaced by a HammerShellMine with the same velocity. It explodes on contact with any player or vehicle, 1.25 seconds after coming to rest, or after 10 seconds.",
+    "Shock damage, which zeroes the energy of anyone hit.",
+    "Available to Assassin, Necromancer and Warrior."
+   ],
+   "source": "hammer.cs HammerImage::onFire, HammerShell::Arm, HammerShellMine::onCollision, deployCheck"
+  },
+  "JailGun": {
+   "summary": "A short electric beam that teleports an enemy into your team's jail for 20 seconds, if your team has a Jail Tower deployed.",
+   "notes": [
+    "80% of the time the target is jailed. 20% of the time the gun 'malfunctions' and jails the shooter instead.",
+    "Doesn't work on teammates, bots, invulnerable or already-jailed players, or when the shooter is jailed. It fails if your Jail Tower is missing or destroyed.",
+    "Jailing pulls the target out of any vehicle or turret.",
+    "Bug: the malfunction message is bottomprinted to the target, not to the shooter who was jailed.",
+    "Available to Assassin, Warrior and Builder."
+   ],
+   "source": "jailgun.cs jailbolt::damageTarget; jailtower.cs ToJail"
+  },
+  "Mortar": {
+   "summary": "Unlike stock Tribes, the mortar shell turns into a proximity mine 0.3 seconds after firing. It explodes when it touches a player or vehicle, or 1.25 seconds after it stops. Only the Troll can carry it.",
+   "notes": [
+    "MortarImage::onFire spends 1 ammo and spawns MortarShell; MortarShell::Arm swaps it for a MortarShellMine with the same velocity.",
+    "Shells that never come to rest go off after 15 seconds.",
+    "Pressing the Mortar key selects the Grappling Hook instead, so the Troll reaches the mortar with next/previous weapon.",
+    "A destroyed dropped mortar ammo stack scatters harmless halo mines."
+   ],
+   "source": "mortar.cs MortarImage::onFire, MortarShell::Arm, MortarShellMine::deployCheck; item.cs remoteUseItem"
+  },
+  "OSAmmo": {
+   "summary": "Optical-seeking missiles for the OS Launcher.",
+   "notes": [
+    "Titan only, up to 8. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "oslauncher.cs; serveritemusage.cs"
+  },
+  "OSLauncher": {
+   "summary": "Fires a remotely piloted missile: the shooter takes direct control of it, flying it like a vehicle until it hits, runs out of fuel or is detonated with the jump key.",
+   "notes": [
+    "Each shot also needs 32 energy. 0.25 seconds after launch the rocket becomes an 'Optical Seeking Missile' flier the player controls; control returns to the player when it blows up.",
+    "Fuel lasts about 15 seconds and the HUD counts down the warhead. It detonates on contact, when something is within 5 m ahead of it, on jump, or when fuel runs out.",
+    "The blast is 0.45 OS-missile damage in a 25 m radius, with knockback that scales with remaining fuel.",
+    "The missile is destroyed by any damage.",
+    "Titan only."
+   ],
+   "source": "oslauncher.cs OSLauncherImage::onFire, OSLauncher::takecontrol, OSMissile::exhaustFuel, KillRocket"
+  },
+  "ParticleBeamWeapon": {
+   "summary": "The Titan's particle cannon, with two modes switched by the mode keys: a standard neutron beam that fires when you have over 70 energy, and an enhanced positron beam you charge by holding the trigger.",
+   "notes": [
+    "Standard mode: with over 70 energy it triggers the beam image in slot 7 (ParticleBeamWeapon5, an energy-scaled laser) and kicks the shooter back in proportion to their energy. 2.5-second reset.",
+    "Enhanced mode: holding fire charges up to 100%, draining 2.5 energy every 0.05 s. From 60% a targeting laser shows the aim point, and a lock sound plays on players and vehicles.",
+    "Releasing a charged shot hits whatever is under the crosshair within 3000 m, using sniper damage. Recoil scales with the charge and a 2-second reload follows.",
+    "Bug: the charged shot sets players and fliers to charge/25 damage, but the next if/else overwrites it with charge/8 unless the target's map name is 'Bunker', so players take charge/8 (up to 12.5).",
+    "A charged shot that hits terrain at a mine's position damages that mine instead.",
+    "Mounting it also adds images in slots 4 and 6 (a zero-damage visual laser fired on release) and slot 7.",
+    "Titan only."
+   ],
+   "source": "particlebeam.cs ParticleBeamWeaponImage::onFire, ParticleBeamWeapon::onCharge, MountExtras; weapon.cs Weapon::Mode"
+  },
+  "ParticleBeamWeapon5": {
+   "summary": "The beam image the Particle Beam mounts in slot 7. It fires the actual standard-mode neutron beam.",
+   "notes": [
+    "Mounted by ParticleBeamWeapon::MountExtras and triggered for 0.1 s by each standard-mode shot. It fires a ParticleBeam laser whose damage scales with energy (laser damage type, so laser head-shot bonuses apply).",
+    "Not buyable on its own."
+   ],
+   "source": "particlebeam.cs ParticleBeamWeaponImage5, ParticleBeamWeaponImage::onFire"
+  },
+  "PhaseAmmo": {
+   "summary": "Ammo for the Phase Disrupter.",
+   "notes": [
+    "Troll and Titan, up to 20. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "phasedisrupter.cs; serveritemusage.cs"
+  },
+  "PhaseDisrupter": {
+   "summary": "A slow, huge-radius energy shell with very strong knockback and a long reload.",
+   "notes": [
+    "Fires PhaseDisrupterBolt through the engine (rocket damage, 20 m radius, knockback 450).",
+    "Troll and Titan only."
+   ],
+   "source": "phasedisrupter.cs"
+  },
+  "Grabbler": {
+   "summary": "The Builder's pitchfork, a tractor beam that grabs and carries players and certain deployed barriers. The mode key throws a held player or welds a held barrier in place.",
+   "notes": [
+    "In build mode anything except jail walls can be grabbed. Outside build mode it can grab players plus blast walls, force fields and force field doors (large and small), platforms, big crates and plasma floors. Jail walls can never be grabbed.",
+    "Fork beaming an enemy mine or hologram detonates it ('Enemy ordinance detonated').",
+    "A held player is carried at a fixed distance in front of you. A teammate escapes by jetting or by pressing their beacon key.",
+    "Mode key on a held player: launches them along your aim with a seeking shock bolt. An enemy launched this way is also shocked, set on fire and poisoned (not in bot missions).",
+    "Mode key on a held barrier (your own, or any as admin): welds it so other teammates can't move it.",
+    "Bug: Grabbler::smoke returns unless the mission type is 'CTF BOTS' (the test is inverted), so the launch smoke trail only appears in bot missions.",
+    "Admins can take away a player's pitchfork. Mounting it adds the decorative Pitchfork model in slot 7.",
+    "Builder only."
+   ],
+   "source": "pitchfork.cs GrabBolt::onAcquire, Grabler::move, grabbler::fire, Grabbler::smoke; weapon.cs Weapon::Mode; item.cs remoteUseItem"
+  },
+  "Pitchfork": {
+   "summary": "The pitchfork model the Grabbler mounts in slot 7.",
+   "notes": [
+    "Mounted by Grabbler::MountExtras. Its image has no projectile, so it is cosmetic."
+   ],
+   "source": "pitchfork.cs Grabbler::MountExtras"
+  },
+  "PlasmaAmmo": {
+   "summary": "Plasma ammo, renamed 'PlasmaBolt' from stock's 'Plasma Bolt'.",
+   "notes": [
+    "Dropped plasma ammo becomes an ammo mine but never scatters halo mines (Mine::onDamage skips PlasmaAmmo)."
+   ],
+   "source": "plasmagun.cs; item.cs Mine::onDamage"
+  },
+  "PlasmaGun": {
+   "summary": "Stock's plasma rifle. Unlike stock Tribes, every hit sets the target on fire, and the Plasma Gun key selects the base plasma gun for the LT Light and Mercenary armors.",
+   "notes": [
+    "Fires PlasmaBolt through the engine (plasma damage, 4 m radius).",
+    "The script's PlasmaGunImageXX::onFire handler is named so it never runs.",
+    "Available to Assassin, Warrior, Builder, Troll and Titan."
+   ],
+   "source": "plasmagun.cs; item.cs remoteUseItem; armor.cs Armor::onBurn"
+  },
+  "PlasmaAmmoBase": {
+   "summary": "Plasma ammo for the base-style Plasma Gun Base.",
+   "notes": [
+    "Up to 30 for Light armor."
+   ],
+   "source": "plasmagunbase.cs; serveritemusagebase.cs"
+  },
+  "PlasmaGunBase": {
+   "summary": "A copy of the stock plasma gun for the LT Light and Mercenary armors, chosen by the Plasma Gun key.",
+   "notes": [
+    "Fires through the engine; its only script adds help text. Plasma damage, so hits still set targets on fire."
+   ],
+   "source": "plasmagunbase.cs; item.cs remoteUseItem"
+  },
+  "RailAmmo": {
+   "summary": "Bolts for the Builder's Railgun.",
+   "notes": [
+    "Builder only, up to 18. No RailAmmoBomb exists, so a destroyed dropped stack scatters nothing."
+   ],
+   "source": "railgun.cs; serveritemusage.cs"
+  },
+  "Railgun": {
+   "summary": "A near-instant, very long-range bolt with heavy knockback that does sniper damage.",
+   "notes": [
+    "Sniper damage type, so it gets the sniper bonuses: +27% to the body, +35% to the head (+30% to the heads of the three heavies).",
+    "Builder only."
+   ],
+   "source": "railgun.cs; player.cs Player::onDamage"
+  },
+  "RocketAmmo": {
+   "summary": "Rockets for the Rocket Launcher.",
+   "notes": [
+    "10 for most classes, 20 for Troll and Titan. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "rocketlauncher.cs; serveritemusage.cs"
+  },
+  "RocketLauncher": {
+   "summary": "A straight-firing rocket launcher with a large blast radius and strong knockback. Its rockets don't home.",
+   "notes": [
+    "Fires BasicRocket through the engine (rocket damage, 20.5 m radius).",
+    "Mounting it adds the RocketLauncherSight model in slot 4.",
+    "Available to Warrior, Builder, Troll and Titan."
+   ],
+   "source": "rocketlauncher.cs"
+  },
+  "RocketLauncherSight": {
+   "summary": "The sight model the Rocket Launcher mounts in slot 4.",
+   "notes": [
+    "Mounted by RocketLauncher::MountExtras. Its image has no projectile, so it is cosmetic."
+   ],
+   "source": "rocketlauncher.cs RocketLauncher::MountExtras"
+  },
+  "RubberAmmo": {
+   "summary": "Shells for the Rubbery Mortar.",
+   "notes": [
+    "Up to 10 to 20 depending on class. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "rubbermortar.cs; serveritemusage.cs"
+  },
+  "RubberMortar": {
+   "summary": "A bouncy mortar whose shells ricochet around for several seconds before exploding.",
+   "notes": [
+    "Fires RubberMortarShell through the engine (mortar damage, 20 m radius, high elasticity).",
+    "Available to Warrior, Troll and Titan."
+   ],
+   "source": "rubbermortar.cs"
+  },
+  "ShockwaveGun": {
+   "summary": "An energy cannon that fires a slow shockwave bolt. It does little damage but throws everyone in a 20 m radius around.",
+   "notes": [
+    "Missile damage type with knockback 280; runs on energy.",
+    "Available to Assassin and Warrior."
+   ],
+   "source": "shockwave.cs"
+  },
+  "ShotgunShells": {
+   "summary": "Shells for the Shotgun.",
+   "notes": [
+    "Up to 30. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "shotgun.cs; serveritemusage.cs"
+  },
+  "Shotgun": {
+   "summary": "A short-range scattergun: each shell fires ten pellets with spread.",
+   "notes": [
+    "ShotgunImage::onFire spends 1 shell and spawns ten ShotgunBullet pellets (shotgun damage type).",
+    "Available to Assassin, Warrior, Builder and Troll."
+   ],
+   "source": "shotgun.cs ShotgunImage::onFire; admin.cs LT options"
+  },
+  "LaserRifle": {
+   "summary": "Stock's energy sniper laser. Unlike stock Tribes it doesn't need an energy pack, and only the Chameleon Assassin and Troll can carry it.",
+   "notes": [
+    "No LaserRifle::onUse exists in this mod, so the stock energy-pack check is gone.",
+    "Laser head shots do +55% (+45% to Troll, Tank and Titan heads, middle quadrants only) instead of stock's 30%.",
+    "The Use Laser key cycles weapon modes instead of selecting it; reach it with next/previous weapon."
+   ],
+   "source": "laserrifle.cs; item.cs remoteUseItem; player.cs Player::onDamage"
+  },
+  "SniperAmmo": {
+   "summary": "Rounds for the Sniper Rifle.",
+   "notes": [
+    "Chameleon Assassin only, up to 15. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "sniperrifle.cs; serveritemusage.cs"
+  },
+  "SniperRifle": {
+   "summary": "The Assassin's ballistic sniper rifle: a very fast bullet aimed at the point under the crosshair.",
+   "notes": [
+    "Laser damage type, so it gets the +55% head-shot bonus (+45% against heavies).",
+    "If the shooter is cloaked, each shot also draws a visible FakeLaser beam.",
+    "Chameleon Assassin only."
+   ],
+   "source": "sniperrifle.cs SniperRifleImage::onFire; player.cs getPerfectTrans"
+  },
+  "DeathRay": {
+   "summary": "The Necromancer's death ray spell: each cast fires a short energy beam from a second image in slot 4.",
+   "notes": [
+    "DeathRayImage::onFire mounts DeathRayBeam in slot 4 if needed and pulses it, with a 0.7-second lockout between casts.",
+    "The beam does laser damage, so laser head-shot bonuses apply.",
+    "Necromancer only."
+   ],
+   "source": "spelldeathray.cs DeathRayImage::onFire"
+  },
+  "DeathRayBeam": {
+   "summary": "The beam emitter used by the Death Ray spell, mounted in slot 4.",
+   "notes": [
+    "Fires DeathRayLaser (an energy-scaled laser) whenever DeathRayImage::onFire triggers slot 4. Not bought separately."
+   ],
+   "source": "spelldeathray.cs DeathRayBeamImage"
+  },
+  "DisarmerSpell": {
+   "summary": "A spell bolt that makes every enemy in its 20 m blast drop the weapon they're holding.",
+   "notes": [
+    "Costs an extra 10 energy per cast and has a 3.5-second lockout.",
+    "On hit, Player::onDamage stops the target's trigger and drops their mounted weapon. It works on enemies, on anyone in deathmatch, and on bots.",
+    "Necromancer only."
+   ],
+   "source": "spelldisarmer.cs DisarmerSpellImage::onFire; player.cs Player::onDamage"
+  },
+  "FlameStrike": {
+   "summary": "A spell that launches a racing bolt of flame, with a 1-in-10 chance of going wildly out of control.",
+   "notes": [
+    "Normally fires FlameStrikeSmall (plasma damage, so targets catch fire). 1.7-second lockout.",
+    "With a 10% chance it warns 'FLAME STRIKE OUT OF CONTROL' and fires a NukeShell instead (damage 60, 9.5 m radius).",
+    "Necromancer only."
+   ],
+   "source": "spellflamestrike.cs FlameStrikeImage::onFire"
+  },
+  "SpellFlameThrower": {
+   "summary": "The Necromancer's flame spell: a fast stream of fire cartridges paid for in energy.",
+   "notes": [
+    "Each cast costs an extra 10 energy. Fires SpellFlameThrowerGren (plasma damage).",
+    "If the muzzle is within 0.2 m of a surface, the spell backfires and does 0.1 plasma damage to the caster instead.",
+    "Necromancer only."
+   ],
+   "source": "spellflamethrower.cs SpellFlameThrowerImage::onFire"
+  },
+  "ShockingGrasp": {
+   "summary": "A short electric arc that damages enemies and drains their energy.",
+   "notes": [
+    "Damage and energy drain scale with time on target; teammates are ignored. Electricity damage goes through shield packs.",
+    "Mounting it also adds ShockingGrasp2 in slot 4.",
+    "Necromancer only."
+   ],
+   "source": "spellshockinggrasp.cs ShockingGraspBolt::damageTarget, ShockingGrasp::MountExtras"
+  },
+  "ShockingGrasp2": {
+   "summary": "A second Shocking Grasp emitter mounted in slot 4.",
+   "notes": [
+    "Mounted by ShockingGrasp::MountExtras. It has the same lightning projectile, but no script triggers slot 4, so it doesn't fire on its own."
+   ],
+   "source": "spellshockinggrasp.cs ShockingGrasp::MountExtras"
+  },
+  "Stasis": {
+   "summary": "A spell bolt that freezes an enemy in place for 10 seconds. While frozen they can't move and can't be damaged.",
+   "notes": [
+    "Costs an extra 20 energy per cast; 5-second lockout.",
+    "The target's armor is swapped for a stasis armor (harmor1 for light classes, harmor2 for medium, harmor3 for heavies) with no energy, and they are marked frozen. Player::onDamage ignores all damage to frozen players.",
+    "After 10 seconds Stasis::resetArmor restores the original armor.",
+    "Doesn't affect bots, yourself, teammates when team damage is off, or someone already in stasis.",
+    "Necromancer only."
+   ],
+   "source": "spellstasis.cs StasisImage::onFire, Stasis::resetArmor; player.cs Player::onDamage"
+  },
+  "StingerAmmo": {
+   "summary": "Missiles for the Stinger.",
+   "notes": [
+    "8 to 10 depending on class. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "stinger.cs; serveritemusage.cs"
+  },
+  "Stinger": {
+   "summary": "A lock-on missile launcher: firing with a player or vehicle under the crosshair (within 1500 m) launches a homing missile; otherwise it fires a straight rocket.",
+   "notes": [
+    "The shooter gets 'Stinger lock acquired' and the target 'Stinger lock detected'.",
+    "Also needs a little energy per shot.",
+    "Available to Warrior, Builder, Troll and Titan."
+   ],
+   "source": "stinger.cs StingerImage::onFire"
+  },
+  "TBlastCannonAmmo": {
+   "summary": "Shells for the Tank Blast Cannon.",
+   "notes": [
+    "Tank only, up to 30. A destroyed dropped stack scatters harmless halo mines."
+   ],
+   "source": "tankblastcannon.cs; serveritemusage.cs"
+  },
+  "TBlastCannon": {
+   "summary": "The Tank's 'shotgun on crack': each shell fires ten explosive slugs with spread.",
+   "notes": [
+    "TBlastCannonImage::onFire spends 1 shell and spawns ten BlastCannonShot bullets (missile damage, 7.5 m radius each).",
+    "Tank only."
+   ],
+   "source": "tankblastcannon.cs TBlastCannonImage::onFire"
+  }
+ }
+}

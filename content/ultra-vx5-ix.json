@@ -1,0 +1,95 @@
+{
+  "mod": {
+    "overview": "VX5 -IX- is Ultra Renegades VX5 with the InsomniaX server-admin layer bolted on: public-admin lockouts, anti-team-kill levels, fair teams, a safe-station option, an IP (smurf) logger and bonus points for power objectives. The weapons and deployables are VX5's, but the VX damage-type side effects are gone from Player::onDamage, the vxmod.cs profile and difficulty switches are not part of this build, and repair kits, mines, grenades and beacons are no longer used up. The force-field doors and teleport pads cannot actually be built, because their shape datablocks were dropped from staticshape.cs.",
+    "notes": [
+      "No mod profile or difficulty switching: vxmod.cs and the UltraVX5_*.cs presets are not in this build, so the scripts' own values apply (the same numbers as VX5's Defaults difficulty, with stock armor health).",
+      "Unlike VX5, Player::onDamage has none of the VX effects: EMP, Beam Of Pain and MiniELF hits no longer drop your items or drain energy, Flash no longer blinds, and bullet or LiL POO head shots no longer gib the victim or triple the damage. Laser head shots keep the stock +30%.",
+      "Safe stations: with $Insomniax::SafeStation on (the seeded default), a teammate's damage does nothing to you while you are using a station.",
+      "Killing an enemy flag carrier gives +1 score and killing your own team's carrier -1, although the messages say 2 points.",
+      "Destroying an enemy generator, portable generator or solar panel gives 3 points if that team is left unpowered and its power state hasn't changed again 60 s later; restoring your own team's power earns 3 points through the same 60 s check.",
+      "Repair Kit, Mine, Grenade and Beacon no longer call Player::decItemCount, so one of each lasts forever. ArmorData caps mines, grenades and beacons at 1 carried for every armor to match.",
+      "Other carry limits changed in ArmorData: LiLFFB shells 40, LiL POO mki and mkii bullets 50000.",
+      "The entry script seeds $DefaultTeamEnergy = Infinite and the archive's InsomniaX settings (anti-TK limit 3, multiple 2, fair teams on) when the host has not set them.",
+      "Corpses stay for 22 s instead of 12."
+    ]
+  },
+  "items": {
+    "lgaForceFieldPack": {
+      "summary": "The 4x17 force-field door pack. In this build it cannot produce a working door.",
+      "notes": [
+        "The deploy code is unchanged from VX5, but no StaticShapeData lgaForceFieldShape exists anywhere in this build's scripts (staticshape.cs dropped the whole VX force-field block), so the newObject call has no datablock to build.",
+        "The code doesn't check the result: it still prints Force Field Door deployed, uses up the pack and adds to the team count, which caps at 12."
+      ],
+      "source": "item.cs lgaForceFieldPack::deployShape; staticshape.cs (no lgaForceFieldShape)"
+    },
+    "lgbForceFieldPack": {
+      "summary": "The 4x14 force-field door pack. In this build it cannot produce a working door.",
+      "notes": [
+        "lgbForceFieldShape is not defined in this build's scripts, so the deploy creates nothing, yet it still reports success, consumes the pack and counts against the team limit."
+      ],
+      "source": "item.cs lgbForceFieldPack::deployShape; staticshape.cs (no lgbForceFieldShape)"
+    },
+    "medaForceFieldPack": {
+      "summary": "The 4x8 force-field door pack. In this build it cannot produce a working door.",
+      "notes": [
+        "medaForceFieldShape is not defined in this build's scripts, so the deploy creates nothing, yet it still reports success, consumes the pack and counts against the team limit."
+      ],
+      "source": "item.cs medaForceFieldPack::deployShape; staticshape.cs (no medaForceFieldShape)"
+    },
+    "medbForceFieldPack": {
+      "summary": "The 5x5 force-field door pack. In this build it cannot produce a working door.",
+      "notes": [
+        "medbForceFieldShape is not defined in this build's scripts, so the deploy creates nothing, yet it still reports success, consumes the pack and counts against the team limit."
+      ],
+      "source": "item.cs medbForceFieldPack::deployShape; staticshape.cs (no medbForceFieldShape)"
+    },
+    "medcForceFieldPack": {
+      "summary": "The 3x4 force-field door pack. In this build it cannot produce a working door.",
+      "notes": [
+        "medcForceFieldShape is not defined in this build's scripts, so the deploy creates nothing, yet it still reports success, consumes the pack and counts against the team limit."
+      ],
+      "source": "item.cs medcForceFieldPack::deployShape; staticshape.cs (no medcForceFieldShape)"
+    },
+    "TeleportPack": {
+      "summary": "The teleport pad pack. In this build no working pad is created.",
+      "notes": [
+        "The deploy code is VX5's, but the DeployableTeleport shape and its collision and recharge functions are missing from this build's staticshape.cs, so there is no pad to stand on and nothing to teleport you.",
+        "The deploy still reports Teleport Pad deployed, uses up the pack, adds to the team count (limit 4), and places the ElectricalBeamBig effect, which does still exist."
+      ],
+      "source": "item.cs TeleportPack::onDeploy/deployShape; staticshape.cs (no DeployableTeleport)"
+    },
+    "RepairKit": {
+      "summary": "A medkit that heals 0.99 damage and, unlike VX5's, is never used up.",
+      "notes": [
+        "RepairKit::onUse no longer decrements the item, so one kit can be used over and over with no delay."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "MineAmmo": {
+      "summary": "VX5's team-tagged thrown mine, but never used up: you can keep throwing mines from a single one.",
+      "notes": [
+        "MineAmmo::onUse no longer decrements the item; the only limit is the 0.5 s between throws.",
+        "The mine still uses the EMP damage type, but this build's Player::onDamage has no EMP effect, so it only does damage.",
+        "Carry limit is 1 for every armor."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine; player.cs Player::onDamage"
+    },
+    "Grenade": {
+      "summary": "The VX5 air brake (cuts your speed to one sixth), now unlimited.",
+      "notes": [
+        "Grenade::onUse no longer decrements the item and has no delay, so the brake can be used as often as you press the key once the match has started.",
+        "Carry limit is 1 for every armor."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "The VX5 speed booster, now unlimited.",
+      "notes": [
+        "Drops the zero-damage Boost charge (500 knockback) at your feet every 0.2 s at most, without using up the beacon.",
+        "Beacon::onUse first calls Beacon::deployShape, which no script in this build defines, then boosts anyway; no target beacon is ever placed.",
+        "Carry limit is 1 for every armor."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost"
+    }
+  }
+}

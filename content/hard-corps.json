@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "Hard Corps is an April 2000 tactical combat and defense overhaul for Starsiege: Tribes by Warpath that deepens base-building, positional marksmanship, and vehicle warfare. Players engage in objective battles featuring directional damage scaling where headshots and rear torso strikes inflict punishing extra damage, high-caliber laser rifles can disarm opponents or snipe the flag right off a runner's back, and EMP weaponry can short out energy equipment. Combat is supported by an expanded deployable arsenal including stacked force fields, launch pads, and weapon-disabling sentries, alongside modular vehicle stations where fighters can be outfitted with heavy aerial bombs, cluster cannons, and stealth packages. Alongside standard missions, the mod features specialized modes including Stairway To Heaven where teams race to construct towering force field staircases to high-altitude objectives, Tide Of Battle where kills convert victims to the killer's team, and Unfortunate Oversight where both teams spawn already holding each other's flag.",
+  "notes": [
+   "Classes and Roles: Light, Medium, and Heavy armors carry 3, 4, and 5 weapons respectively; Light armor prioritizes agility and sniper rifles, Medium gains access to Clusterguns, Force Field generators, and Gravity Pads, while Heavy armor anchors defense with deployable AA and Heavy Turrets alongside mortar ordnance.",
+   "Custom Spawn Equipment: Players spawn with three customizable loadout slots configured via the in-game Player Options menu, letting players drop into battle with their preferred setup of Blaster, Chaingun, Plasma Gun, or other permitted starting weapons.",
+   "Directional Combat and Precision Sniping: Hits against an opponent's head or rear quadrants deliver increased damage, laser sniper rifle shots striking a player's weapon hand will blast the gun straight out of their grip, and sniper hits to a flag carrier's back will knock the flag away while awarding defense bonuses.",
+   "EMP and Electrical Feedback: EMP pulses and sustained energy beams drain target capacitors to zero, cause painful electrical feedback damage, disable sensor nets, and force players to unmount weapons that rely on energy reserves instead of physical ammo.",
+   "Base Engineering and Deployables: Teams can fortify bases using Gravity Pads to boost players upward, Weapon Lock Out sentries that shut down nearby hostile guns, sustained Impulse Turrets that physically push foes back, Point Defence turrets, and stackable Force Fields that create barricades or sky ramps.",
+   "Modular Vehicle Outfitting: Fighters and transport flyers can be customized at vehicle stations before leaving the pad, choosing specialized weapons like Rotary Chainguns, Napalm Launchers, or heavy HEAP bombs alongside support modules for speed, stealth cloaking, shield hardening, or self-repair.",
+   "Anti-Standoff and Sudden Death CTF: When both teams simultaneously carry enemy flags, a standoff countdown begins; once Sudden Death activates, flag runners must continuously damage opponents or suffer lethal flag-inflicted backlash.",
+   "Discipline and Station Management: Lingering at an inventory station for more than 60 seconds triggers an automatic ejection with a 10-second station ban to ensure fair access, while chronic team-killers are stripped of weapons, marked with a glowing red pack, and targeted with a bounty before ejection."
+  ]
+ },
+ "items": {
+  "Clustergun": {
+   "summary": "A heavy projectile weapon firing a wide eight-shell shrapnel spread with delayed recoil and blast damage.",
+   "notes": [
+    "Requires ClustergunAmmo and drains 30 to 50 energy per shot.",
+    "Restricted to Medium and Heavy armors.",
+    "Spawns eight separate ClustergunShell projectiles per trigger pull."
+   ],
+   "source": "item.cs"
+  },
+  "EMPulsegun": {
+   "summary": "An energy projectile weapon that shuts down electronic equipment and forces energy-dependent weapons to unmount.",
+   "notes": [
+    "Fires an EMPulse bolt costing 30 to 35 player energy.",
+    "Drains target energy down to zero over several seconds and causes electrical feedback damage.",
+    "Forces victims to unmount weapons that lack standard physical ammunition."
+   ],
+   "source": "item.cs"
+  },
+  "ForceFieldPack": {
+   "summary": "A deployable generator that creates solid barrier force fields costing player energy rather than depleting inventory.",
+   "notes": [
+    "Costs 80 energy per placement rather than consuming the backpack.",
+    "Can be stacked on top of existing terrain, structures, or other force fields up to a team limit of 20.",
+    "Central to the Stairway To Heaven game mode for building ascending ramps to high-altitude objectives."
+   ],
+   "source": "item.cs"
+  },
+  "GravityPadPack": {
+   "summary": "A deployable launch pad that flings walking players high into the air with heavy directional impulse.",
+   "notes": [
+    "Must be deployed onto flat terrain surfaces.",
+    "Applies a powerful velocity impulse of 50 forward and 475 upward to anyone stepping across it.",
+    "Gradually degrades by taking 0.15 damage with each launch until destroyed."
+   ],
+   "source": "item.cs"
+  },
+  "WeaponLockOutPack": {
+   "summary": "A specialized light deployable turret that suppresses enemy armament within a 15-meter perimeter.",
+   "notes": [
+    "Locks onto enemy players holding armed weapons other than repair or power guns.",
+    "Fires a sustained energy beam draining 99 energy per second to disable weapons and electronic equipment."
+   ],
+   "source": "item.cs"
+  },
+  "DecoyFlagPack": {
+   "summary": "A deceptive backpack shaped like a team flag that pulses light to draw enemy fire away from real carriers.",
+   "notes": [
+    "Mounts a full flag visual model directly on the wearer's back.",
+    "Emits pulsing white light to mimic an active flag carrier in transit."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

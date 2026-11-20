@@ -1,0 +1,78 @@
+{
+ "mod": {
+  "overview": "GammY[MK2] version 0.07 is a late 2003 total conversion created by Gammak7 as an over-the-top fork of {ATF}HaCk's Foundation mod for Starsiege: Tribes. The mod transforms standard base Capture the Flag and Capture and Hold matches into an exaggerated sandbox filled with wildly divergent player classes, elemental combat modifiers, and heavy base building. Compared to the more grounded tactical arsenals of ATF, GammY[MK2] pushes speed, firepower, and defense to surreal extremes with supersonic Mach 5 sprinters, Dragon Ball Z energy attacks, 15-weapon walking artillery tanks, and instant long-range teleportation. Gameplay revolves around aggressively infiltrating bases using specialized mobility packs while defenders construct dense labyrinths of custom turrets, camouflage forests, and spring launch pads.",
+  "notes": [
+   "Classes and Armor Specialization: Players choose between nine distinct armor configurations. Light Armor carries 4 weapons with low mass for flag chasing and sniping. Speedy Armor (MachArmor) sacrifices firepower to carry only 2 weapons but reaches a forward running speed of 1000 with a 1036-force jump booster. Mechanic Armor (BuilderArmor) is a dedicated combat engineer with 1000 energy, 5 weapon slots, and the ability to carry 10 of each deployable turret, wall, and station alongside 100 deployable trees. Heavy Armor carries 7 weapons, Flabby Armor (HaCkArmor) acts as a swift heavy assault suit moving at speed 19, and Goliath Armor (SlowArmor) acts as an immovable juggernaut with 10.32 health, 15 weapon slots, and a crawl speed of 3.",
+   "Saiyan and Alien Archetypes: DBZ Armor (GokuArmor) features 400 energy, high jump impulse, a flaming shield effect when using a Shield Pack, and unique ki attacks like the Automeha wave, Spirit Bomb, Gallet Gun, and blinding Solar Flare, but is restricted from normal guns. Alien Armor (Xythilian) is invisible to sensors, launches with a 675 jump impulse, and auto-equips upon purchase with 1000 StrikeX rounds, the Xrad radiation launcher, the Cosmic Assault seeking barrage, and a Core Generator pack. Both armors take severe damage from the Anti-Alien Gun.",
+   "Spawn Kits and Default Loadouts: Players spawn in Light Armor equipped with a Chaingun, Blaster, Repair Kit, and the Neutron Beam (AS). The Neutron Beam fires a continuous red shock laser that deals shock damage, causing immediate target energy depletion and electrical disruption.",
+   "Elemental Modifier Backpacks: Equipping modifier packs fundamentally transforms compatible weapon projectiles with secondary status effects. The Fire Modifier (FirePack) causes weapons like the Blaster and AMortar to launch flame rounds that ignite targets for 15 seconds, dealing ongoing burn damage. The Emp Modifier triggers a 20-second electrical surge that drains energy to zero and halts recharging. The Poison Modifier causes lethal toxin damage ticking over 40 seconds, while the Light Modifier unleashes severe continuous visual screen flash.",
+   "Fortifications and Base Building: Defense is greatly expanded with team limits accommodating extensive construction, including up to 1000 Large Force Fields, 1000 Camo-Trees, 105 Spring Pads, and hundreds of automated turrets. Defenses feature specialized emplacements like HellFire Turrets, Sting Turrets, Barrier Turrets, Auto Sentries, and long-range Beam Turrets. Mechanics wield the Builder Gun, which casts a 1000-meter repair bolt to mend base structures and friendly players from extreme distance.",
+   "Demolitions and Super Bombs: Players can deploy destructive ordnance from equipment slots, including The Big One with a 25-second fuse, Plastique Bombs that instantly obliterate anything within 6 meters after 10 seconds, and disguised explosive Death Trees. Utility explosives include the Enemy Displacer Bomb, which inflicts zero health damage but blasts all entities within 300 meters hundreds of feet into the air after 20 seconds, and instant Self-Destruct Mechanisms wiping out a 100-meter perimeter.",
+   "Vehicles and Aerial Ramming: Air stations provide six specialized scout flyer variants alongside transport bombers. In addition to the standard Star Shooter chaingun scout, players can field the Raider missile fighter, the Fog Maker smoke distributor, the Energy Burster, and the Dragoon. The Kamakazie Scout reaches a flight speed of 200 and deals a massive 100.5 ram damage on collision, serving as a guided kinetic missile against enemy structures.",
+   "Teleportation Mobility: The Teleport Pack (JumperPack) grants Light Armor players the Jacker teleport weapon, consuming Teleport Charges to instantly transmit the player up to 1000 meters forward along their line of sight. The weapon contains an automated safety interlock that prevents players from teleporting directly into phase instability surrounding an enemy flag.",
+   "Menus, Controls, and Spoonbot Support: Game options and admin features are managed via standard pop-up menus rather than chat commands. Administrators can access a dedicated bot menu to spawn or remove Spoonbot AI combatants, place navigation tree points, and recalculate AI movement routes directly in-game."
+  ]
+ },
+ "items": {
+  "MachArmor": {
+   "summary": "Ultra-lightweight Mach 5 armor configured for breakneck speed and flag running.",
+   "notes": [
+    "Carries only 2 weapons and has a low mass of 3.0.",
+    "Reaches a maximum running speed of 1000 in forward, backward, and lateral directions.",
+    "Features a high jet force of 1036 that consumes 10.9 energy per tick, operating as a rapid jump booster.",
+    "Pairs with the D-Cell Pack to provide upgraded jet boosting capability."
+   ],
+   "source": "ArmourLight.cs"
+  },
+  "BuilderArmor": {
+   "summary": "Heavy construction armor tailored for extensive base fortification and long-range repairs.",
+   "notes": [
+    "Provides 1000 maximum energy, 5.66 health, and 5 weapon slots.",
+    "Permits carrying up to 10 of each deployable turret, station, sensor, force field, and spring pad, plus 100 Camo-Trees.",
+    "Can wield the Builder Gun, which projects a 1000-meter repair lightning bolt.",
+    "Features high ground traction for deploying structures across rough terrain."
+   ],
+   "source": "ArmourLight.cs"
+  },
+  "GokuArmor": {
+   "summary": "Saiyan-themed combat armor endowed with high energy reserves and martial arts ki attacks.",
+   "notes": [
+    "Provides 400 maximum energy, 5.66 health, and an explosive 275 jump impulse.",
+    "Uses specialized ki attacks including the Automeha beam, Spirit Bomb, Gallet Gun, and Solar Flare.",
+    "Generates a flaming shield visual effect when mounting a standard Shield Pack.",
+    "Restricted from conventional firearms and deployables, and shares vulnerability to Anti-Alien weaponry."
+   ],
+   "source": "ArmourMedium.cs"
+  },
+  "AlienArmor": {
+   "summary": "Stealth extraterrestrial armor equipped with extreme jump power and alien weaponry.",
+   "notes": [
+    "Completely invisible to enemy radar and motion sensors.",
+    "Automatically receives 1000 StrikeX rounds, the Xrad radiation launcher, RocketLauncher2X Cosmic Assault missiles, and a Core Generator upon purchase.",
+    "Features a jump impulse of 675 that triggers an audible missile turret sound on launch.",
+    "Has a maximum jet forward velocity of 92 with minimal energy drain, but remains vulnerable to Anti-Alien weaponry."
+   ],
+   "source": "ArmourLightF.cs"
+  },
+  "SlowArmor": {
+   "summary": "Massive Goliath super-tank heavy armor capable of hauling an entire arsenal at a crawl.",
+   "notes": [
+    "Carries up to 15 weapons simultaneously, more than any other armor class.",
+    "Boasts an exceptional durability of 10.32 health and 190 maximum energy.",
+    "Weighed down with a mass of 30, reducing forward speed to 3 and lateral speed to 2.",
+    "Possesses 20.5 ground traction to resist knockback effects while serving as a heavy artillery fortress."
+   ],
+   "source": "ArmourHeavy.cs"
+  },
+  "JumperPack": {
+   "summary": "Light armor teleportation backpack capable of instantly displacing the user across the map.",
+   "notes": [
+    "Exclusive to male and female Light Armor classes.",
+    "Equips the Jacker teleport weapon, which consumes Teleport Charges to transmit the user.",
+    "Instantly moves the player up to 1000 meters forward to their target aim point.",
+    "Features a phase instability detection check that blocks teleporting directly onto an enemy flag stand."
+   ],
+   "source": "PackGrappler.cs"
+  }
+ }
+}

@@ -1,0 +1,67 @@
+{
+  "mod": {
+    "overview": "VX \"-Tribute-\" is built on the VX5 Infinite scripts (no ammo items, energy-fed weapons) but brings back VX5's mode switching. Admins can run it as VX5, OGL, NOTOR, or new VXU and VXO \"-Tribute-\" profiles, with the Defaults/MEDIUM/HARD difficulty files. It restores the full-power, Energy-Pack-only Laser Rifle. Repair Kits and the Grenade air brake / Beacon speed boost are unlimited by default, behind server switches.",
+    "notes": [
+      "Profiles (vxmod.cs vxmode): \"Ultra_RenegadesVX5 -Tribute-\" (default, execs UltraVX5.cs), \"Ultra_RenegadesVX5_OGL\", \"Ultra_RenegadesVX5_NOTOR\", \"Ultra_RenegadesVXU -Tribute-\" (UltraVXU.cs) and \"Ultra_RenegadesVXO -Tribute-\" (UltraVXO.cs). Each profile sets its own spawn kit, shop lists and team limits; VXU and VXO take the LiL Rocket and EMP Rocket launchers out of the shop.",
+      "Difficulty modes are back: server start calls vxmode() and vxDIFmode(), and \"Defaults\" execs UltraVX5_EASY.cs, which sets projectile damage and item limits at mission start. MEDIUM and HARD raise armor health (HARD: light 1.2, medium 2.2, heavy 3.2) and cut weapon damage. Infinite and Hunter had no difficulty files. Mod voting is on and difficulty voting off by default (server.cs). UltraVX5_EASY.cs never sets armor maxDamage, so after switching from MEDIUM or HARD back to Defaults the raised armor health stays until the server restarts.",
+      "Switches set by the start-up script when the host has not set them: $UnlimitedBoostBrake true and $UnlimitedRepairKits true (game.cs also sets the latter true). Admins can switch Boosts/Brakes between infinite and non-infinite from the Tab menu.",
+      "$AdminViewPM true copies every private message to super admins (comchat.cs).",
+      "Hand-item limits are VX5's again (light armor: 35 Mines, Grenades and Beacons; Infinite allowed 1). Weapons still need no ammo, and the ammunition items are still absent."
+    ]
+  },
+  "items": {
+    "LaserRifle": {
+      "summary": "The full VX5 Laser Rifle again: a hard-hitting beam that draws a large chunk of energy per shot and only works with an Energy Pack.",
+      "notes": [
+        "Unlike Infinite, LaserRifleImage draws 10 to 20 energy per shot (Infinite: at most 0.1) with a 0.05 s reload. Laser damage is energy drawn times sniperLaser's damageConversion 0.7, so a shot hits roughly 200 times harder than Infinite's.",
+        "LaserRifle::onUse is back: without an Energy Pack mounted it refuses with \"Must have an Energy Pack to use Laser Rifle.\"",
+        "Laser hits to the head do 30% extra."
+      ],
+      "source": "item.cs LaserRifle::onUse, LaserRifleImage; baseProjData.cs sniperLaser"
+    },
+    "LiLRocketLauncher": {
+      "summary": "VX5's LiL Rocket Launcher with unlimited rockets: three homing rockets at a locked player or flier within 350 m, or one fast straight rocket otherwise.",
+      "notes": [
+        "onFire again calls Player::decItemCount on $WeaponAmmo[LiLRocketLauncher], but that table entry is set to \"\" in item.cs. The call removes nothing and the launcher stays unlimited.",
+        "The difficulty files set the rockets' damage (Defaults: LiLRocketEMP 0.3, LiLRocket and LiLRocketSubmission 1, LiLRocketalt 2; HARD: 0.2 each).",
+        "Not in the shop under the VXU and VXO profiles."
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire, $WeaponAmmo; UltraVX5_EASY.cs; UltraVX5_HARD.cs; UltraVXU.cs; UltraVXO.cs"
+    },
+    "LiLEMPRocketLauncher": {
+      "summary": "VX5's EMP rocket launcher with unlimited rockets: two homing EMP rockets at a locked target within 350 m, or one straight EMP rocket otherwise.",
+      "notes": [
+        "onFire again calls decItemCount on $WeaponAmmo[LiLEMPRocketLauncher], which is \"\", so nothing is removed.",
+        "An EMP hit zeroes the victim's energy, sets recharge to 6 and drops their weapon, pack and flag.",
+        "Not in the shop under the VXU and VXO profiles."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherImage::onFire; player.cs Player::onDamage; UltraVXU.cs; UltraVXO.cs"
+    },
+    "RepairKit": {
+      "summary": "Repairs almost all damage. Unlimited by default; the server switch $UnlimitedRepairKits makes kits consumable again.",
+      "notes": [
+        "onUse removes the kit only when $UnlimitedRepairKits is false. It is true by default and has no Tab-menu toggle.",
+        "Heals 0.99 damage. Armors carry 1 kit."
+      ],
+      "source": "item.cs RepairKit::onUse; game.cs; UltraVXTribute.cs"
+    },
+    "Grenade": {
+      "summary": "Air brake: using a grenade slows you down. How much depends on the active profile. Unlimited unless admins turn infinite Boosts/Brakes off.",
+      "notes": [
+        "When $UnlimitedBoostBrake is false, each use removes a grenade.",
+        "Default profile: your velocity is divided by 6, as in Infinite.",
+        "VXU profile: velocity is multiplied by $VXU::BrakeSpeed (-0.1), which reverses you slightly. VXO profile: multiplied by $VXO::BrakeSpeed (0), a dead stop. Both print \"Impulse Brake Activated.\" and also throw a LiLBoost mine (no damage, kickback 113)."
+      ],
+      "source": "item.cs Grenade::onUse, Brake::UpdateVel; ArmorData.cs $VXU::BrakeSpeed, $VXO::BrakeSpeed; Mine.cs lilBoost"
+    },
+    "Beacon": {
+      "summary": "Speed booster. In the default profile it drops a Boost mine at your feet whose blast throws you; in VXU and VXO it multiplies your speed directly. Unlimited unless admins turn infinite Boosts/Brakes off.",
+      "notes": [
+        "When $UnlimitedBoostBrake is false, each use removes a beacon. The removal happens before the 0.2 s throw cooldown check, so a press during the cooldown still uses one up.",
+        "Default profile: throws a Boost mine (no damage, kickback 500) at your feet. Unlike Infinite, the leftover call to the undefined Beacon::deployShape is gone.",
+        "VXU and VXO: Boost::UpdateVel scales your velocity by BoostSpeed (VXU 3.0, VXO 4.5), reduced by how close your x-speed already is to $SpeedMax (200). It keeps your current speed instead if scaling would slow you down. It prints \"You use a Speed Booster.\" and throws a LiLBoost mine."
+      ],
+      "source": "item.cs Beacon::onUse, Boost::UpdateVel, SpeedCompare; ArmorData.cs; Mine.cs Boost, lilBoost"
+    }
+  }
+}

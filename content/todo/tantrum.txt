@@ -1,0 +1,72 @@
+# tantrum vs base (71 items)
+new        MedicArmor                   Medic
+new        SniperArmor                  Assassin
+new        ELFEliteforceArmor           Gyp
+new        PyroArmor                    Pyro
+new        EngineerArmor                Engineer
+new        TrooperArmor                 Trooper
+new        JuggernautArmor              Juggernaut
+new        BotArmor                     Robot Shell
+renamed+statsScoutVehicle                 Assault Jet
+renamed+statsHAPCVehicle                  War Taxi
+new        Twig                         Flag Mine
+new        Flagger                      Flag Decoy
+new        Girl                         Hologram
+new        HealthMinePack               Life Tree
+new        teleportpack                 Portal
+new        TrapPack                     Foot-Trap
+new        repAmmo                      Scrap Metal
+new        NeedleAmmo                   Needles
+new        BrotAmmo                     Machinegun Bullets
+new        torchAmmo                    Rocket
+new        ShotgunShells                Shotgun Shells
+new        Shotgun                      Shotgun
+new        sgun2                        Shotgunextra
+new        handlas                      Needler
+new        h2                           Needler2
+new        hand3                        Needler
+new        h4                           aNeedler2
+new        poly                         Taser
+new        dagger                       Rail-Gun
+new        rail                         Rail-Gun2
+new        repLauncher                  Welding Gun
+new        bioAmmo                      BioHazardous Materials
+new        bio                          Argon Spread
+new        Flamer                       Torch Launcher
+new        throwerAmmo                  Time Bombs
+new        sniperAmmo                   Sniper Rounds
+new        SniperRifle                  Sniper Rifle
+new        WaveGun                      EMP Shockwave
+new        Claking                      Cloak
+new        talepack                     Teleportation Pack
+new        vaporAmmo                    MoonDust
+new        moondustLauncher             Moon Cannon
+new        macGun                       Machine Guns
+new        plasflam                     Flame Thrower
+new        GasTankPack                  Gas Tank
+new        torch                        Hand Rockets
+new        thrower                      Kamikaze Bomb
+stats      Chaingun                     Chaingun
+renamed+statsPlasmaAmmo                   Plasma Bolts
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeLauncher              Grenade Launcher
+new        BurstAmmo                    Electric Burster Shells
+new        RailAmmo                     Energy Rails
+renamed+statsDiscLauncher                 Spynfuser
+new        RocketLauncher               Rocket Launcher
+new        RocketLauncher2              Rocket Launcher2
+new        BotAmmo                      Machines
+new        BotGun                       Ex Machina
+new        BotGunX                      Botgun
+new        Burster                      Burster
+new        lightgun                     Zapper
+new        lightgun2                    Lightning Gun2
+new        lightgun3                    Lightning Gun3
+new        latgun                       Zapper
+new        latgun2                      Lightning Gun2
+new        latgun3                      Lightning Gun3
+stats+scriptsEnergyPack                   Energy Pack
+scripts    RepairPack                   Repair Pack
+renamed+stats+scriptsCameraPack                   Robot
+renamed+stats+scriptsTurretPack                   Alarm Turret
+new        AlfiePack                    ELF Turret

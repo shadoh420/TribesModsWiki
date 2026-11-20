@@ -1,0 +1,146 @@
+blur-of-insanity: 154 of 200 need write-ups
+  Twig (Flag Bomb): new
+  Seed ([XxX]): new
+  ELFEliteforceArmor (Electrical Technician): new
+  PyroArmor (Pyro): new
+  MedicArmor (Medic): new
+  EngineerArmor (Engineer): new
+  SniperArmor (Sniper - Assasign): new
+  JuggernautArmor (Juggernaut Infantry): new
+  ScoutVehicle (Assault Jet): renamed+stats
+  ChaneVehicle (HellFire Jet): new
+  LAPCVehicle (SpazZ Jet): renamed+stats
+  HAPCVehicle (ShockWave Jet): renamed+stats
+  signAmmo (Signal Flares): new
+  ShotgunShells (Shotgun Shells): new
+  Shotgun1 (Shotgun): new
+  Shotgun (Shotgun): new
+  plangun (StarDust): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  RealTargetingLaser (Targeting Laser): new
+  Bee (Targeting Beacons): new
+  Anti (Antidote): new
+  Flagger (Flag Decoy): new
+  Smoker (Smoke Bomb): new
+  TractorBeam (Tractor Beam): new
+  Grapple (Grappling Hook): new
+  Scouter (Spy Bot): new
+  PSmoker (Toxin Grenade): new
+  EMPMine (EMP Mine): new
+  GASMine (Toxin Mine): new
+  Grenade (Grenade): stats+scripts
+  chainAmmo (MiniGun Ammo): new
+  sector (Equilizer): new
+  sectordos (sector): new
+  poly (Polymorph Transmitter): new
+  Beacon (Beacon): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  RepairKit (Repair Kit): stats+scripts
+  repAmmo (Repair Grenades): new
+  repLauncher (Repair Shockwave): new
+  repagun (Repair Fuser): new
+  bioAmmo (BioHaZarD): new
+  bio (BioHaZarD DeathSpawn): new
+  fireAmmo (Napalm Shells): new
+  napalmfire (Napalm Split): new
+  Boost (Bot): new
+  DiscAmmo (Discs): renamed+stats
+  rockatAmmo (Rockets): new
+  HDiscAmmo (Hyper Disc): new
+  HDisc1Ammo (Hyper Disc): new
+  HDisc2Ammo (Hyper Disc): new
+  DiscLauncher (Spynfuser): renamed+stats
+  enrock (Energy Rocket): new
+  HDisc1 (Hyper Spinfusor): new
+  HDisc2 (Hyper Spinfusor): new
+  HDiscLauncher (Hyper Spinfusor): new
+  energyAmmo (Electrical Charges): new
+  faseletAmmo (Electrical Rockets): new
+  EMPGrenadeAmmo (EMPGrenadeAmmo): new
+  throwerAmmo (Time Bombs): new
+  RocketAmmo (Rockets): new
+  RocketLauncher (Combustion Rocket): new
+  IXRocketLauncher (Guided Rocket Launcher): new
+  EMPGrenadeLauncher (Poison Thorn): new
+  encan (Compression Cannon): new
+  energycan (Energy Rocket): new
+  Girl (Clone): new
+  sniperAmmo (Bionic SnipeAmmo): new
+  Silencer (Magnum): new
+  TranqAmmo (Poison Thorns): new
+  TranqGun (): new
+  RailAmmo (Railgun Bolt): new
+  Railgun (Railgun): new
+  SniperRifle (BioTechnic Rifle): new
+  Blaster (Setera Blaster): renamed+stats
+  WaveGun (EMP Shockwave): new
+  Flamer (Plasmatic Ion Pulser): new
+  Fixit (Engineer Repair Gun): new
+  CoolLauncher (Missile Control Station): new
+  EmpM (EMP Missile): new
+  GasM (Toxin Missile): new
+  VoM (Vortex Missile): new
+  PhoenixM (Phoenix Missile): new
+  ToM (Tomahawk Missile): new
+  NapM (Napalm Missile): new
+  CM (Cluster Bomb): new
+  BooM (HaVoC Missile): new
+  AirAmmoPad (Air Pad): new
+  tase (Taser): new
+  orb (Static Orb): new
+  Plas (Repair Bot): new
+  AmmoPack (Ammo Pack): stats+scripts
+  RepairPack (Medical Pack): renamed+stats
+  ShieldPack (Shield Pack): stats+scripts
+  glor (Double-Glocks): new
+  glock (StarDust Vaporizer): new
+  HeatSink (Heat Sink): new
+  vaporAmmo (MoonDust Vapor): new
+  moondustLauncher (MoonDust Vaporizer): new
+  plasflam (Flame Thrower): new
+  lavamos (Tranquilizer Gun): new
+  torch (Torch Grenades): new
+  meter (RadioWave): new
+  StealthShieldPack (Stealth Shield Pack): new
+  SMRPack (Pulse Rocket Pack): new
+  thrower (Time Bomb Setter): new
+  PowerPack (Generator Pack): new
+  TPack (Teleportation Pack): new
+  ElfPack (ELF Turret): new
+  TurretPack (Sector Turret): renamed+stats+scripts
+  TTurretPack (Magnet Turret): new
+  ShockPack (EMP Turret): new
+  PlasmaPack (Flame Turret): new
+  OpticPack (Cybernetic Laser): new
+  SuicidePack (Time Bomb): new
+  Laptop (Command Laptop): new
+  SMR2Pack (Cannon): new
+  SMR3Pack (Cannon): new
+  PulseSensorPack (Pulse Sensor): stats+scripts
+  MotionSensorPack (Motion Sensor): stats+scripts
+  CloakingDevice (Cloaking Pack): new
+  DeployableSensorJammerPack (Sensor Jammer): stats+scripts
+  CameraPack (Camera): stats+scripts
+  WatchdogPack (Alarm System): new
+  BA (Sound Alarm): new
+  VulcanTurret (Vulcan Turret): new
+  LaserTurret (Plasma Turret): new
+  LaserPack (Laser Turret): new
+  AAPack (AA Turret): new
+  TargetPack (Mortar Turret): new
+  RailTurret (Rail Turret): new
+  RocketPack (Rocket Turret): new
+  LELFPack (Large ELF Turret): new
+  ForceFieldPack (Force Field): new
+  LargeForceFieldPack (Large Force Field): new
+  doorthreebyfourForceFieldPack (Force Field Door): new
+  doorfourbyeightForceFieldPack (Large Force Field Door): new
+  SpringPack (Springboard): new
+  DeployableComPack (Command Station): new
+  Hider (Cloaking Device): new
+  TeleportPack (Teleport Pad): new
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableInvPack (Inventory Station): stats+scripts
+  MechPack (Interceptor Pack): new
+  DetPack (HAPC Pack): new
+  RepairPatch (Repair Patch): stats+scripts

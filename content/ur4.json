@@ -1,0 +1,252 @@
+{
+  "mod": {
+    "overview": "Ultra Renegades 4 (build 091100, by Dr. NoRtOn, from URG_Thrash's UR3) cuts UR3 Mayhem back to the three stock armors, renamed plainly Light, Medium and Heavy Armor, and drops the RidgeRunner, Tech and HellBringer classes with their gear. It removes the Flame Thrower, M-16, StealthShield Pack and most of Mayhem's extra turrets, and adds a rapid-fire Plasma Rifle, a new Force Field Buster launcher, a Cloaking Device pack and a Rocket Turret. Grenades and Beacons are no longer thrown: the Grenade stops you dead and the Beacon doubles your speed. Base turrets may only be deployed near your own flag.",
+    "notes": [
+      "Armors: LightArmor=larmor/lfemale, MediumArmor=marmor/mfemale, HeavyArmor=harmor (female players also get harmor). Weapon slots ($MaxWeapons): Light 8, Medium 10, Heavy 12, the same as UR3 Mayhem.",
+      "Every armor can buy almost the whole shop. Light Armor is the only one barred from the Force Field Buster launcher and the Mortar.",
+      "Almost every weapon's onUse now prints a bottomprint naming the weapon (\"Now holding ...\"); the Blaster's reads \"Ghetto Blaster\". This is the only script change for the Plasma Gun, Grenade Launcher, Shotgun, Targeting Laser and several other weapons.",
+      "Hitscan-style projectiles are slowed: the IX-2000, FEB Rifle and Railgun rounds all travel at 1000 instead of Mayhem's 4000-4500.",
+      "The vehicle station sells only the Scout, LAPC and HAPC ($VehicleInvList); UR3 Mayhem also sold the Jet, Devistator, EMP Bomber and Wraith.",
+      "Mini-Plasma and Rocket Turrets refuse to deploy unless the player is within 200 (turret) or 175 (rocket) of their team flag's original position.",
+      "UR4.cs sets the server options: fair teams on, team-kill limit 1, and three host-set admin passwords (super admin, public admin, owner/God admin)."
+    ]
+  },
+  "items": {
+    "LightArmor": {
+      "summary": "The light armor (larmor/lfemale), renamed from UR3 Mayhem's Combat Flight Armor. It is now the lightest of only three armors.",
+      "notes": [
+        "8 weapon slots. Can carry everything in the shop except the Force Field Buster launcher and the Mortar (ItemMax 0).",
+        "Its PlayerData is unchanged from UR3 Mayhem; only the name and the reduced armor roster differ."
+      ],
+      "source": "item.cs ItemData LightArmor; ArmorData.cs larmor, $ItemMax[larmor, ...]"
+    },
+    "MediumArmor": {
+      "summary": "The medium armor (marmor/mfemale), renamed from UR3 Mayhem's Mainstay Armor.",
+      "notes": [
+        "10 weapon slots; can carry the full UR4 shop, including the Force Field Buster and Mortar.",
+        "Unlike UR3 Mayhem's version it cannot crouch (canCrouch = false)."
+      ],
+      "source": "item.cs ItemData MediumArmor; ArmorData.cs marmor"
+    },
+    "HeavyArmor": {
+      "summary": "The heavy armor (harmor, also used for female players), renamed from UR3 Mayhem's Class IV Armor. It is now the top armor, since the HellBringer class is gone.",
+      "notes": [
+        "12 weapon slots; can carry the full UR4 shop.",
+        "Unlike UR3 Mayhem's version it cannot crouch (canCrouch = false). Its price changed too."
+      ],
+      "source": "item.cs ItemData HeavyArmor; ArmorData.cs harmor"
+    },
+    "Jet2Vehicle": {
+      "summary": "The Jet2 flier, renamed from UR3 Mayhem's Devistator to EMP Bomber. Instead of a rapid Blaster bolt it fires EMP grenade shells.",
+      "notes": [
+        "The Jet2 FlierData fires EMPGrenadeShell (an EMP-damage area shell) every 0.4 s. Mayhem's Devistator fired BlasterBolt every 0.02 s and had far more armor.",
+        "UR3 Mayhem's separate EMP Bomber (BomberVehicle) is removed; UR4 gives that name to Jet2.",
+        "UR4's station.cs does not list Jet2Vehicle in $VehicleInvList or $DataBlockName, so vehicle stations cannot sell it. Only a mission-placed one could appear in play."
+      ],
+      "source": "vehicle.cs FlierData Jet2; station.cs $VehicleInvList, $DataBlockName; item.cs ItemData Jet2Vehicle"
+    },
+    "Blaster": {
+      "summary": "The energy Blaster, now free to fire: it uses no energy and has an almost instant fire time, so it shoots as fast as the trigger allows.",
+      "notes": [
+        "Unlike UR3 Mayhem (1 energy per shot, 0.03 s fire time), BlasterImage has minEnergy and maxEnergy 0 and fireTime 0.001.",
+        "Selecting it prints \"Now holding Ghetto Blaster\"."
+      ],
+      "source": "item.cs BlasterImage, Blaster::onUse"
+    },
+    "BulletAmmo": {
+      "summary": "Chaingun ammunition, renamed from Bullet to ChainGun Ammo. Each Chaingun shot uses one round but fires five bullets.",
+      "notes": ["The Ammo Pack carries up to 150 extra."],
+      "source": "item.cs ItemData BulletAmmo, $AmmoPackMax"
+    },
+    "Chaingun": {
+      "summary": "The Chaingun becomes a scatter cannon: each shot spends one round of ChainGun Ammo and sprays five ChaingunBullets at once. It spins up faster and keeps spinning longer than Mayhem's.",
+      "notes": [
+        "ChaingunImage's projectileType is set to LeaveThisAlone, a datablock that doesn't exist, so the engine fires nothing itself. ChaingunImage::onFire spawns five ChaingunBullet projectiles from the muzzle with the player's velocity.",
+        "Spin-up 0.2 s and spin-down 3 s (UR3 Mayhem: 0.05 s each).",
+        "With no ammo it prints \"Chaingun has no Ammo.\""
+      ],
+      "source": "item.cs ChaingunImage, ChaingunImage::onFire, Chaingun::onUse"
+    },
+    "PlasmaGun": {
+      "summary": "The Plasma Gun fires single plasma bolts as in UR3 Mayhem.",
+      "notes": ["The only script change is an onUse bottomprint, \"Now holding Plasma Gun\"; the image and projectile are unchanged."],
+      "source": "item.cs PlasmaGun::onUse"
+    },
+    "GrenadeLauncher": {
+      "summary": "The Grenade Launcher lobs grenade shells as in UR3 Mayhem.",
+      "notes": ["The only script change is an onUse bottomprint, \"Now holding Grenade Launcher\"."],
+      "source": "item.cs GrenadeLauncher::onUse"
+    },
+    "PlasmaRifleAmmo": {
+      "summary": "Ammunition for the Plasma Rifle, sold cheaply and in bulk.",
+      "notes": ["Every armor can carry 500, and the Ammo Pack table allows another 666."],
+      "source": "item.cs ItemData PlasmaRifleAmmo, $AmmoPackMax; ArmorData.cs"
+    },
+    "PlasmaRifle": {
+      "summary": "A new rapid-fire rifle that shoots FusionBolt energy bolts (the bolt the base turrets fire), one PlasmaRifleAmmo per shot.",
+      "notes": [
+        "Single-shot image with fireTime 0.05 and reloadTime 0.01, so it fires about as fast as the trigger cycles.",
+        "UR4 sets collideWithOwner = True on FusionBolt, so the bolts can hit their shooter. That also applies to every turret that fires FusionBolt.",
+        "Selecting it prints \"Now holding Plasma Rifle\"."
+      ],
+      "source": "item.cs PlasmaRifleImage, PlasmaRifle::onUse; baseProjData.cs FusionBolt"
+    },
+    "Shotgun": {
+      "summary": "The Shotgun fires ten ShotgunBullet pellets per shell, one shell per shot, as in UR3 Mayhem.",
+      "notes": ["ShotgunImage::onFire is unchanged; the only script change is an onUse bottomprint, \"Now holding Shot Gun\"."],
+      "source": "item.cs ShotgunImage::onFire, Shotgun::onUse"
+    },
+    "Mortar": {
+      "summary": "The Mortar's shell gets its own launch speed and acceleration in UR4.",
+      "notes": [
+        "UR4's MortarShell gains an explicit muzzle and terminal velocity of 100 plus an acceleration term, fields Mayhem's MortarShell does not set. Damage and radius are unchanged.",
+        "Light Armor cannot carry it.",
+        "Selecting it prints \"Now holding Mortar\"."
+      ],
+      "source": "baseProjData.cs MortarShell; item.cs Mortar::onUse"
+    },
+    "DiscLauncher": {
+      "summary": "The Disc Launcher hits as hard as in UR3 Mayhem, but its blast radius is doubled.",
+      "notes": [
+        "DiscShell explosionRadius is 15 (UR3 Mayhem: 7.5); damage and speed are unchanged.",
+        "Selecting it prints \"Now holding Disc Launcher\"."
+      ],
+      "source": "baseProjData.cs DiscShell; item.cs DiscLauncher::onUse"
+    },
+    "LaserRifle": {
+      "summary": "The Laser Rifle draws more energy per shot but converts it to damage much less efficiently, so it hits for about half of what Mayhem's did.",
+      "notes": [
+        "LaserRifleImage maxEnergy is 6 (UR3 Mayhem: 1), and sniperLaser damageConversion is 0.07 (UR3 Mayhem: 0.9). A full shot therefore deals about 0.42 instead of 0.9.",
+        "UR3 Mayhem's LaserRifle::onUse was empty; UR4's calls Weapon::onUse and prints \"Now holding Laser Rifle\"."
+      ],
+      "source": "item.cs LaserRifleImage, LaserRifle::onUse; baseProjData.cs sniperLaser"
+    },
+    "TargetingLaser": {
+      "summary": "The Targeting Laser paints targets as in UR3 Mayhem.",
+      "notes": ["The only script change is an onUse bottomprint, \"Now holding Targeting Laser\"."],
+      "source": "item.cs TargetingLaser::onUse"
+    },
+    "EnergyRifle": {
+      "summary": "The ELF Gun's beam is half as long and drains a third as much energy, but it now does a trickle of damage.",
+      "notes": [
+        "lightningCharge: boltLength 50 (UR3 Mayhem 100), energyDrainPerSec 5 (Mayhem 15), damagePerSec 0.01 (Mayhem 0).",
+        "Selecting it prints \"Now holding ELF Gun\"."
+      ],
+      "source": "baseProjData.cs lightningCharge; item.cs EnergyRifle::onUse"
+    },
+    "SniperRifle": {
+      "summary": "The IX-2000 Sniper Rifle's round is now a slower rocket-type projectile, so long shots need some lead.",
+      "notes": [
+        "RifleBullet changes from BulletData at 4500 to RocketData at 1000 muzzle and terminal velocity, with a smoke shape and bullet explosion. Damage is unchanged.",
+        "Selecting it prints \"Now holding IX-2000 Sniper Rifle\"."
+      ],
+      "source": "baseProjData.cs RifleBullet; item.cs SniperRifle::onUse"
+    },
+    "TranqGun": {
+      "summary": "The FEB Rifle fires TranqDart rounds as before, but much slower, and now uses the sniper rifle model.",
+      "notes": [
+        "TranqDart muzzleVelocity is 1000 (UR3 Mayhem: 4500).",
+        "Selecting it prints \"Now holding FEB Rifle\"."
+      ],
+      "source": "baseProjData.cs TranqDart; item.cs TranqGun, TranqGunImage, TranqGun::onUse"
+    },
+    "Railgun": {
+      "summary": "The Railgun round travels at a quarter of UR3 Mayhem's speed, and the gun now uses the sniper rifle model.",
+      "notes": [
+        "RailRound muzzle and terminal velocity are 1000 (UR3 Mayhem: 4000); damage and kickback are unchanged.",
+        "Selecting it prints \"Now holding Rail Gun\"."
+      ],
+      "source": "baseProjData.cs RailRound; item.cs Railgun, RailgunImage, Railgun::onUse"
+    },
+    "FFBAmmo": {
+      "summary": "Shells for UR4's Force Field Buster launcher.",
+      "notes": [
+        "Light Armor can hold 5 but cannot carry the launcher, Medium holds 1 and Heavy 5.",
+        "$AmmoPackMax[FFBAmmo] is 0, so the Ammo Pack carries none. Ammo stations resupply 10 at a time."
+      ],
+      "source": "item.cs ItemData FFBAmmo, $AmmoPackMax; ArmorData.cs; station.cs AmmoStation::resupply"
+    },
+    "FFBLauncher": {
+      "summary": "A new mortar-style launcher that replaces UR3 Mayhem's ForceFieldBuster. It lobs one very heavy FFBShell with a huge blast radius, meant for knocking down force fields and deployables.",
+      "notes": [
+        "FFBShell is a GrenadeData area shell with damage 280 and explosion radius 40, and it can hit its owner after a 250 ms grace. UR4 adds no force-field-specific damage code; the shell is simply strong enough to wreck them.",
+        "2 s reload. Medium and Heavy Armor only (one each).",
+        "Selecting it prints \"Now holding Force Field Buster\"."
+      ],
+      "source": "item.cs FFBImage, FFBLauncher::onUse; baseProjData.cs FFBShell; ArmorData.cs"
+    },
+    "EMPGrenadeAmmo": {
+      "summary": "Ammunition for the EMP Grenade Launcher. Only its display name changed (EMPGrenadeAmmo instead of EMP Grenade Ammo).",
+      "notes": ["The same EMPGrenadeShell is what the renamed EMP Bomber (Jet2) fires."],
+      "source": "item.cs ItemData EMPGrenadeAmmo, EMPGrenadeLauncherImage"
+    },
+    "CloakGun": {
+      "summary": "The Cloaking Gun's beam works as in UR3 Mayhem (cloakingCharge::damageTarget is unchanged); only its model changed, to the shotgun.",
+      "notes": ["Selecting it prints \"Now holding Cloaking Gun\"."],
+      "source": "item.cs CloakGun, CloakGunImage, CloakGun::onUse; cloakingCharge::damageTarget"
+    },
+    "ShieldPack": {
+      "summary": "The Shield Pack costs less energy to run than in UR3 Mayhem but absorbs less.",
+      "notes": [
+        "ShieldPackImage drains 1-7 energy/s (UR3 Mayhem 4-8).",
+        "onActivate sets the player's shieldStrength to 0.038 (UR3 Mayhem 0.048). onDeactivate is unchanged."
+      ],
+      "source": "item.cs ShieldPackImage, ShieldPackImage::onActivate/onDeactivate"
+    },
+    "CloakingDevice": {
+      "summary": "A new sustained backpack that fades the wearer out of view while it runs. It also adds a small amount of sensor suppression.",
+      "notes": [
+        "onActivate calls GameBase::startFadeout on the player and raises sensor suppression by 3. onDeactivate fades back in, lowers suppression by 3 and releases the pack trigger.",
+        "It drains up to 10 energy per second while active.",
+        "UR3 Mayhem's StealthShield Pack, removed in UR4, added 20 suppression instead of 3."
+      ],
+      "source": "item.cs CloakingDeviceImage::onActivate/onDeactivate"
+    },
+    "AmmoPack": {
+      "summary": "The Ammo Pack carries extra ammunition. UR4 rebuilt its ammo table for the new weapons, but the drop and pickup code no longer matches that table.",
+      "notes": [
+        "$AmmoPackItems lists 12 entries: Bullet, Plasma, Disc, Grenade, PlasmaRifle, Mortar ammo, Beacon, Rifle, Tranq, Rail, Shotgun shells, FFB.",
+        "fillAmmoPack (on purchase) loops over only the first 9 entries. Rail ammo, Shotgun shells and FFB ammo are never added to it.",
+        "Unlike UR3 Mayhem (11 slots), AmmoPack::onDrop stores surplus for only the first 8 entries. The pack field names are left over from the old table (slot 4 PlasmaRifleAmmo is saved as .Grenade, slot 6 Beacon as .RailAmmo). They are still paired by index, so slots 0-6 survive a drop.",
+        "Bug: checkPacksAmmo, run on pickup, assigns slots 7 and 8 to %numpack instead of %numAdd. Picking up a dropped pack therefore gives Rifle and Tranq ammo equal to the Beacon count rather than what was stored."
+      ],
+      "source": "item.cs $AmmoPackItems, $AmmoPackMax, AmmoPack::onDrop, AmmoPack::onCollision, checkPacksAmmo, fillAmmoPack"
+    },
+    "TurretPack": {
+      "summary": "Renamed from Turret to Mini-Plasma Turret. It deploys a remote turret that fires plasma bolts, with a light shield, and only near your own flag.",
+      "notes": [
+        "The deployed DeployableTurret fires PlasmaBolt (UR3 Mayhem's fired MiniFusionBolt). onAdd gives it shieldStrength 0.02 and recharge rate 7 (Mayhem: no shield, rate 5).",
+        "deployShape refuses unless the player is within 200 of their team flag's original position (\"You may only deploy this near your base.\").",
+        "Rocket Turrets now count toward the nearby-turret interference and frequency checks. The interference count also looks for a \"DeployableMiniPlasma\" datablock that doesn't exist.",
+        "Named \"Mini-Plasma Turret#n <player>\" on the map. deployShape makes the turret the client's owned object and then sets it back to the player. Team limit 8."
+      ],
+      "source": "item.cs TurretPack::deployShape, $TeamItemMax; turret.cs TurretData DeployableTurret, DeployableTurret::onAdd"
+    },
+    "RocketPack": {
+      "summary": "A new deployable Rocket Turret that fires seeking TurretMissile rockets at targets with a heat factor of at least 0.5, meaning players who are jetting.",
+      "notes": [
+        "Deploys only on terrain or interiors, only on flat surfaces (normal dot up > 0.7), and only within 175 of the team flag's original position. It is subject to the same turret interference and frequency checks as the Mini-Plasma Turret.",
+        "DeployableRocket::verifyTarget rejects targets whose heat factor is below 0.5. onAdd gives it shieldStrength 0.02, and onDestroyed frees a team slot. Team limit 4.",
+        "Named \"RMT Rocket#n <player>\" on the map. The frequency check also counts a \"DeployableSentry\" datablock that doesn't exist."
+      ],
+      "source": "item.cs RocketPack::onUse/onDeploy/deployShape, $TeamItemMax; turret.cs TurretData DeployableRocket, DeployableRocket::onAdd/verifyTarget/onDestroyed"
+    },
+    "Grenade": {
+      "summary": "No longer thrown. In UR4 the Grenade is a \"Speed Brick\": using it sets your velocity to zero on the spot, for instant mid-air or mid-ski braking.",
+      "notes": [
+        "Grenade::onUse calls Item::setVelocity(player, 0), prints \"Speed Brick applied.\" and uses up one Grenade.",
+        "Unlike UR3 Mayhem, which threw a different mine per armor (EMP Mine, Hologram, hand grenade or antipersonnel mine), it is the same for every armor. It has no match-started check and no throw delay."
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "No longer thrown. In UR4 the Beacon is a \"Speed Boost\": using it doubles your current velocity.",
+      "notes": [
+        "Beacon::onUse adds the player's velocity to itself. It applies the result and uses up a Beacon only if every axis stays between -600 and 600; otherwise nothing happens and the Beacon is kept.",
+        "UR3 Mayhem instead threw a Boost mine. UR4 has no match-started check or throw delay.",
+        "Prints \"Speed Boost applied.\" The Ammo Pack carries up to 10 extra Beacons."
+      ],
+      "source": "item.cs Beacon::onUse, $AmmoPackMax"
+    }
+  }
+}

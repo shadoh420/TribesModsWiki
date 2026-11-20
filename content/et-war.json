@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "ET War (Rkon, Official TK Clan Mod, January 2009) turns Base Tribes into a 61-item high-speed vehicle & converted-weapon pack, swapping almost every Base gun's projectile (Plasma Chaingun, Mini-Rocket PlasmaGun, Flamethrower LaserRifle, Blade-Flinging DiscLauncher) and adding Dual Zapper Blasters and Flame/Mortar/Rocket packs.",
+  "notes": [
+   "Armor & economy changes vs Base: grants LaserRifle ('Flamethrower') to Medium and Heavy, equips all three classes with FlamePack + 200 Nampalm and Heavy with MortarPack, caps starting team energy at 200,000 ($incTeamEnergy 700 -> 300), and makes all three aircraft far faster and more maneuverable (Scout maxSpeed 50 -> 120, LAPC 25 -> 80, HAPC 25 -> 95, bank/pitch 10.5, APC HP lowered to 0.6).",
+   "Converted Base arsenal: Blaster -> Dual Zapper (8-9 energy); Chaingun -> Plasma Rifle (single-shot 0.002 spread plasma bolts); PlasmaGun -> Mini Rocket Launcher (0.3 missile dmg); GrenadeLauncher -> Bounce Rifle (0.1 s fire/reload); Mortar -> Ion Mortar; DiscLauncher -> Blade Flinger (0.5 s fire, 40 m/s); LaserRifle -> Flamethrower (0.03 s rapid Flame ammo)."
+  ]
+ }
+}

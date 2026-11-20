@@ -1,0 +1,73 @@
+{
+ "mod": {
+  "overview": "Nappy Cocaine is a 2004 total overhaul created by SSSneeky, building on NHOP's Nappy V4 mod and the InsomniaX administration framework derived from Renegades. The mod accelerates Renegades style base building and specialized class combat to hyper-lethal extremes, featuring street-themed armors, high-yield tactical nuclear launchers, and deployable packs that conjure entire interior base complexes onto the battlefield. Matches revolve around fast objective pressure in CTF and Deathmatch where players spawn heavily armed in Corner Hoe medium armor with rapid-fire concussion blasters, disc launchers, and chainguns right out of the gate. Combat is defined by positional gunplay, debilitating fire and poison status effects, high-speed custom vehicles, and deep defensive fortifications backed by engineering hack guns and automated jail systems.",
+  "notes": [
+   "Ten distinct armor classes feature customized movement and payload profiles, ranging from the ultra-fast SpArmor (Fast Crackhead, speed 25, 3 weapons) and high-thrust ScoutArmor (Crackhead, speed 10, jet force 450, 2 weapons) to the massive DragArmor (Pimp Daddy, speed 6, 300 energy, 1.6 max damage, 6 weapons) and stationary DefenderArmor. Other classes include LightArmor (Hired Goon, speed 20, 3 weapons), MediumArmor (Corner Hoe, speed 9, 5 weapons), BursterArmor (speed 8, 4 weapons), EngArmor (DrugLab Builder, speed 8, 5 weapons), AlArmor (Flag Mover, speed 9, 200 energy, 4 weapons), and the restricted DMArmor (Commando, speed 15, 4 weapons).",
+   "In standard team modes, players spawn fully kitted in MediumArmor equipped with a Concussion Blaster (HyperB), Hyper Chaingun, Hyper Disc Launcher, Repair Kit, 4 Handgrenades, 4 Beacons, Targeting Laser, and an Energy Pack. In Deathmatch modes, players spawn with a mounted Deployable Inventory Pack, and leaving the designated mission boundary triggers a 3-second alert followed by 0.05 periodic damage ticks until returning or perishing.",
+   "Headshots landed with a Sniper Rifle or Laser Rifle deal +30 percent bonus damage, while a precision laser shot to an enemy's right torso can knock their held weapon out of their hands. Energy weapon damage inflicts a 30-second ticking poison effect that slowly drains health unless the victim is wearing AlArmor, while plasma damage has a 50 percent chance to ignite victims in flames for 10 seconds unless protected by BursterArmor.",
+   "Using the generic Grenade item dynamically throws a unique explosive based on the user's equipped armor: Scouts throw Firebombs, Lights throw HoloMines, Mediums throw standard Handgrenades, Engineers throw Shockgrenades, Bursters throw Concussion bombs, Drags throw Mortarbombs, Als throw Tranqgrenades, and SpArmor or Heavies throw 15-second timer Nukebombs. DrugLab Builder engineers can defuse enemy-planted Plastique explosives and DetPacks by touching them, though there is a risky chance of cutting the wrong wire and triggering an immediate blast.",
+   "Players can construct massive field defenses including mobile vehicle stations (Getaway Car Unit), crack machine inventory dispensers, crackrock ammo units, teleport pads, springboards, panel blast walls, laser tripwires, and force field doors in five different dimensions. Through 18 distinct CommandCenterPacks, engineers can deploy entire full-scale interior structures (including Broadside, Scarabrae, Leviathan, Raindance, Stonehenge, and Dropships) directly onto level terrain, which automatically teleports the deployer inside.",
+   "Offensive gear includes the rapid-fire Concussion Blaster, Nuke Launcher firing 9999-damage map-clearing B-17 payloads, and the Espresso Crackwhore Gun that launches slow-drifting screaming cubes with a 999-meter blast radius. The Jailers Gun fires a specialized electric arc that places opposing players under arrest, instantly teleporting them into the nearest deployed enemy team Jail Cell for a mandatory 20-second prison sentence.",
+   "Pilots in light armor can operate five customized airframes: the supersonic Me-263 Fighter flying at speeds up to 220 with rapid-firing rail rounds, the Wraith flyer that fully cloaks from sight while piloted, the Can of Tuna saucer armed with lasers, the Crack whore LAPC firing high-speed mortar streams, and the heavily armored B-17 Bomber dropping nuke payloads and carrying four ejectable passengers.",
+   "The Engineer Hack-Gun lets players continuously channel a hacking bolt into enemy turrets, sensors, and stations to flip their allegiance to the engineer's team. Players wearing the Command Laptop backpack can remotely operate base and deployable turrets from anywhere without needing a physical command station, and can automatically hijack enemy deployable turrets by simply walking up to them.",
+   "Server administrators can cancel ongoing votes via the chat command !cancel [reason], manage personal logins defined in CocaineOptions.cs, and monitor the automated team-kill tracker. Several items are explicitly disabled from standard inventory purchase via station.cs: Bolt ($InvList[Bolt]=0), Boost ($InvList[Boost]=0), DMArmor ($InvList[DMArmor]=0), FgcPack ($InvList[FgcPack]=0), Flamer ($InvList[Flamer]=0), and Plastique ($InvList[Plastique]=0).",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Bolt (station.cs), Boost (station.cs), DMArmor (station.cs), FgcPack (station.cs), Flamer (station.cs), Plastique (station.cs)."
+  ]
+ },
+ "items": {
+  "CommandCenterPack19": {
+   "summary": "Leviathan Deployable Base backpack that constructs a massive interior building complex anywhere in the field and transports the deployer inside.",
+   "notes": [
+    "Part of a series of 18 CommandCenterPacks (packs 2 through 19) that deploy full game bases like Broadside, Scarabrae, Raindance, and Leviathan.",
+    "Spawns an interior base shell along with an internal inventory stand and remote inventory station.",
+    "Requires deployment on flat terrain outside restricted zones and consumes the backpack on placement."
+   ],
+   "source": "deployPB19.cs"
+  },
+  "JailGun": {
+   "summary": "Specialized electrical weapon that arrests target enemies on contact and teleports them into an enemy jail cell.",
+   "notes": [
+    "Fires the jailbolt electrical beam using between 5 and 80 energy with a 4.0 second reload time.",
+    "Finds the opposing team's deployed jail pad (jailports) and transports the victim directly inside for a 20-second jail sentence.",
+    "Works in tandem with the deployable Jail Cell (jailpack) and Jail Capture Pad (JailCapPack)."
+   ],
+   "source": "item.cs"
+  },
+  "Espresso": {
+   "summary": "The Crackwhore Gun, an eccentric heavy ordnance weapon firing slow-moving screaming explosive cubes.",
+   "notes": [
+    "Uses Boxed Crackwhores (EspressoAmmo) as ammunition and costs 500 credits at the inventory station.",
+    "Launches an EspressoMissile projectile that emits looping female death sounds while drifting slowly through the air.",
+    "Detonates after a 30-second live time with a devastating 999-meter blast radius and 450 kickback strength."
+   ],
+   "source": "item.cs"
+  },
+  "Laptop": {
+   "summary": "Command Laptop backpack enabling field turret control and walking turret hijacking.",
+   "notes": [
+    "Bypasses the requirement of standing at a fixed base Command Station to remotely pilot friendly turrets.",
+    "Colliding with enemy deployable turrets while wearing the laptop re-programs them to the player's team and mounts the player as controller.",
+    "Incurs a 14-second recharge cooldown after dismounting or unmounting turret control."
+   ],
+   "source": "item.cs"
+  },
+  "SuicidePack": {
+   "summary": "Deployable demolition backpack and high-risk wearable bomb susceptible to sniper detonation.",
+   "notes": [
+    "When used as a deployable, throws a Suicidebomb2 mine that detonates in a 70-meter shockwave after a 20-second countdown.",
+    "Enemy snipers who strike the middle back of a player wearing the pack will detonate the bomb immediately, killing the wearer and damaging nearby teammates.",
+    "DrugLab Builder engineers can defuse the deployed bomb by walking into it, with a 20 percent failure chance of cutting the wrong wire."
+   ],
+   "source": "item.cs"
+  },
+  "Hackit": {
+   "summary": "Engineer Hack-Gun tool used to recondition and convert enemy base assets and deployables.",
+   "notes": [
+    "Sustained beam weapon using 5 to 12 energy that channels the HackBolt lightning effect into target objects.",
+    "Gradually flips ownership of enemy turrets, sensors, and stations over to the engineer's team.",
+    "Costs 1000 credits and is categorized under engineering tools."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

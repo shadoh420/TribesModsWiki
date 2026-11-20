@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "BioWasteland is a post-apocalyptic, high-intensity team combat mod for Starsiege: Tribes built upon the Shifter foundation, pitting factions like Poisonous, Infectious, and Noxious against each other. Players battle across custom and classic objectives using distinct armor classes with active and passive touch abilities, deployable fortifications, tactical vehicles, and base infiltration mechanics like hacking and generator sabotage. Compared to Shifter, BioWasteland introduces specialized game modes like Titan (where teams escort a massive, player-controlled juggernaut to the enemy switch), Elimination, and dedicated 1v1 Arena Duels, while refining combat with progressive distance-based kill scoring, lifespan survival bonuses, and headshots. Strategic base defense is heightened through player-built outposts, deployable jails to arrest intruders, and a manufacturing economy where tactical nuclear ordnance must be slowly generated rather than bought at stations.",
+  "notes": [
+   "Ten specialized armors define team roles: the ultra-fast Runner and Recon disarm enemies on touch, the Cloaked Spy assumes the skins of opponents and intercepts private whispers with a Laptop, the Assassin inflicts deadly damage-over-time poison and deploys explosive flag decoys, the Stealth powers friendly stations and drains enemy energy, the versatile Patriot carries up to five weapons and can mount a BattlePack to transform into heavy armor, the Engineer heals objects by touch and deploys fortified bunkers, the Goliath and Dreadnaught field heavy mortars and nuke generators, and the massive Juggernaught uses its Jugg Hug to violently repel light armors while firing integrated GodHammer cannons.",
+   "In Titan mode, one player per team is crowned the Titan, donning super-heavy armor with twenty health, ten weapon slots, a TitanPack, and the ability to crush obstacles on contact. Titans cannot resupply at inventory stations and rely entirely on teammates to escort, defend, and feed them ammunition as they push across the battlefield to touch the enemy team's Titan Switch. The mod also features full Elimination mode with tracking via #elim and a dedicated 1v1 Arena Duel mode with challenger queues and death tracking.",
+   "Pressing Tab opens the comprehensive interactive menu to configure weapon loadouts, armor selection, deployable mine types, and remote plastique detonation. Players can type chat commands including #help for command summaries, #armor and #pack for equipment readouts, #weapon for active weapon specs, #rules for server conduct, #spawn to save or customize spawn equipment, #score for duel tallies, and #flag or #center for directional distance waypoints. Typing @player whispers directly to a teammate, though Spies carrying Laptop packs can eavesdrop on whispers and base antennas alert defenders to whispered transmissions.",
+   "Weapons feature versatile fire modes and secondary effects, including grenade launchers loaded with EMP, toxin, concussion, or tracker shells; twin-fuser disc launchers; Equalizers; hyper blasters; shoulder-mounted missile launchers with lock-on modes; and the Pneumatic Rifle firing poison darts. Combat incorporates physical damage knockback, five-point headshot bonuses, ammo detonation upon death via AmmoBoom, and a stimpack mechanic for Scouts that boosts speed and health regen at the risk of fatal overdose.",
+   "Engineers can deploy extensive defensive compounds using blast doors, blast floors, blast walls, gunnery bunkers, automated anti-aircraft barrage turrets, and forward spawn point packs. The iconic Jail system allows an Engineer to construct a deployable Jail Cell and use the Jailer Gun to instantly disarm and teleport enemy infiltrators into custody for twenty seconds. Additionally, players can deploy Zeppelin observation balloons and interceptor flight packs directly in the field.",
+   "Infiltrators can use laptops and repair tools to hack enemy terminals and turrets or insert capturable switch controls into unpowered enemy networks to hijack base systems. Station purchases are strictly restricted: NewPack is banned from standard inventory stations ($InvList=0), while forward remote inventory stations forbid heavy tactical gear including Airbase, BunkerPack, SpawnPack, PowerGeneratorPack, JailPack, LasCannon, BarragePack, and CoolLauncher ($RemoteInvList=0). Crucially, tactical nuclear mortar ammunition cannot be bought at stations ($TeamItemMax[MFGLAmmo]=0) and must be gradually manufactured by a deployed nuclear containment generator.",
+   "An advanced scoring engine awards progressive points for long-range kills up to three bonus points beyond 250 meters, flag defense within proximity bands, objective captures, and survivor streaks for living past two minutes. Spawn systems feature five seconds of post-spawn invulnerability, player loadout saving through SaveCharacter, and optional base power checks that force players into standard armor during blackouts. Spoonbot AI bots are fully integrated to populate matches and fulfill offensive and defensive team objectives.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): NewPack (station_list.cs); Team limit zeroed ($TeamItemMax = 0): MFGLAmmo=0 (item.cs); Blocked at Remote Stations ($RemoteInvList = 0): Airbase (station_list.cs), ArbitorBeaconPack (station_list.cs), BarragePack (station_list.cs), BunkerPack (station_list.cs), CoolLauncher (station_list.cs), EMPBeaconPack (station_list.cs), Hammer1Pack (station_list.cs), Hammer2Pack (station_list.cs), JailPack (station_list.cs), LasCannon (station_list.cs), Mfgl (station_list.cs), MfglAmmo (station_list.cs) (+2 more)."
+  ]
+ },
+ "items": {
+  "JailGun": {
+   "summary": "A specialized law enforcement weapon that zaps enemy players directly into a deployed Jail Cell.",
+   "notes": [
+    "Firing upon an enemy target forces them to immediately drop any carried flag and instantly teleports them inside the team's deployed jail cell.",
+    "The prisoner is held under arrest for twenty seconds before the security forcefield automatically opens.",
+    "Requires an active team jail cell deployed on the map to function."
+   ],
+   "source": "baseProjData.cs"
+  },
+  "jailpack": {
+   "summary": "A deployable backpack that constructs a fortified detention facility complete with security switches and forcefields.",
+   "notes": [
+    "Deployed by Engineers to create the destination holding cell required by the Jailer Gun.",
+    "Only one jail cell can be deployed per team at a time.",
+    "Features automatic release timers to contain captured enemies temporarily.",
+    "Banned from purchase at remote inventory stations ($RemoteInvList=0)."
+   ],
+   "source": "item.cs"
+  },
+  "TitanPack": {
+   "summary": "The exclusive, immovable backpack mounted automatically upon a team's chosen Titan in Titan missions.",
+   "notes": [
+    "Equips the Titan with immense armor plating granting twenty points of maximum damage capacity and ten weapon slots.",
+    "Prevents the wearer from using standard or remote inventory stations, forcing the Titan to rely on teammates for ammunition and repairs.",
+    "Enables crushing force against enemy defenses and allows the Titan to trigger the win condition at the enemy switch."
+   ],
+   "source": "titan.cs"
+  },
+  "FgcPack": {
+   "summary": "A hazardous nuclear containment pack that enables tactical weapons or deployable nuclear generators.",
+   "notes": [
+    "When activated by a Dreadnaught, it mounts the heavy Tactical Nuclear Launcher for massive bombardments.",
+    "When activated by a Goliath, it establishes a nuclear generator that manufactures tactical nuclear mortar ammunition over time.",
+    "Can also be detonated directly with devastating explosive results."
+   ],
+   "source": "helpscreen.cs"
+  },
+  "Laptop": {
+   "summary": "A portable command station backpack that grants advanced electronic warfare and surveillance capabilities.",
+   "notes": [
+    "Enables Spy armor to touch-hack enemy turrets, sensors, and terminals to disable or convert them to friendly control.",
+    "Allows Spies to intercept and read even encrypted enemy whispers and team communications.",
+    "Recon scouts use the laptop to scan and automatically place navigational waypoints on enemy emplacements."
+   ],
+   "source": "comchat.cs"
+  },
+  "Mfgl": {
+   "summary": "The Mobile Field Gun Launcher capable of firing catastrophic nuclear warheads across the battlefield.",
+   "notes": [
+    "Fires devastating tactical nuclear mortar shells with massive blast radius and lingering damage.",
+    "Its ammunition is strictly banned from purchase at all inventory stations ($TeamItemMax[MFGLAmmo]=0).",
+    "Teams must deploy and protect a nuclear generator to slowly produce each individual nuclear round."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

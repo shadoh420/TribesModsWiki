@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Retrogear (v1.25b) by Mustang is a February 1999 realistic-combat conversion for Tribes that strips out most futuristic energy and disc weapons in favor of Cold War and modern ballistic firearms, RPGs, and artillery. Instead of long spinfusor midair duels, matches play as lethal, low-TTK tactical skirmishes because armor health pools are slashed (0.35 Light, 0.6 Medium, 1.1 Heavy) and Shield Packs are removed. Players spawn in Light Armor with an AK-47, Repair Pack, Grenade, and Repair Kit, then specialize at inventory stations into mobile Light snipers/skirmishers, Medium shotgunners and deployable support, or Heavy DShK/mortar gunners. Standard Tribes base power, sensors, deployables, and vehicles remain intact, while base Plasma Turrets become fragile, rapid-fire ballistic machine guns.",
+  "notes": [
+   "Spawn and Bans: Players spawn in Light Armor (Flack Jacket) with an AK-47, Repair Pack, 1 Grenade, and a Repair Kit. Both main and remote inventory stations ban the Blaster, Chaingun, Disc Launcher, Plasma Gun, Laser Rifle, Shield Pack, and their ammo, leaving only Grenade Launcher, Mortar, ELF Gun, Targeting Laser, Mines, Grenades, Beacons, and Retrogear weapons.",
+   "Fragile Health Pools: Armor max damage is sharply cut to 0.35 for Light, 0.6 for Medium, and 1.1 for Heavy, with no Shield Pack available. A Repair Kit restores 0.2 damage, so positioning and first-shot accuracy decide duels.",
+   "Armor Roles and Quirkiness: Light (Flack Jacket, speed 11, 2 weapons) gets the Dragunov SVD sniper (capped at 10 rounds) and light rifles. Medium (Urban Assault Gear, speed 8, 3 weapons, 0.6x plasma scale) unlocks the Combat Shotgun, Hellfire Artillery, Turret Pack, and deployable stations. Heavy (Kevlar Body Armor, speed 5, 4 weapons, 0.4x to 0.8x damage scales) unlocks the DShK Heavy Machine Gun and Mortar. Note that ArmorData.cs leaves DSHK and Shotgun enabled on female Light and DSHK enabled on female Medium, while accidentally setting RPGPack to 0 on female Light.",
+   "Small-Arms Arsenal: The AK-47 (0.11 damage, 0.0008 deflection), H&K MP5 (0.09 damage, 0.008 deflection), and AKSU-74 (0.07 damage, 0.002 deflection) fire fast 420-440 m/s tracer rounds at 0.2s intervals; AmmoPack expands bullet, shotgun, and SVD reserves (except RPG and Hellfire ammo, which get 0 bonus).",
+   "Backpack-Paired Heavy Weapons: Buying the RPG automatically equips RPGPack (RPG Support Unit), and buying HellfirePack (Hellfire Artillery) automatically equips HFSPack (Hellfire Ammo Feed). Swapping out the matching backpack disables equipping or firing that weapon until you remount it.",
+   "Team Caps and Vehicles: Teams are limited to 2 HellfirePack launchers, 10 Turret Packs, 5 Deployable Inventory Stations, 7 Deployable Ammo Stations, 15 Pulse Sensors, 15 Motion Sensors, 8 Deployable Sensor Jammers, 15 Cameras, 35 Mines, 40 Beacons, 3 Scouts, 2 LPCs, and 1 HPC.",
+   "Glass-Cannon Base Turrets: Stock Plasma Turrets are converted into rapid-fire machine-gun turrets firing BigTurretGun bullets (0.07 damage every 0.25s), but their max damage is reduced from 1.0 to 0.07 so a single rifle burst destroys them.",
+   "Controls and Menus: Uses standard Tribes play, inventory, command, objectives, and team-pick menus with no custom slash or chat commands, and standard Tribes CTF/mission objectives with no bot AI.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): Blaster (station.cs), BulletAmmo (station.cs), Chaingun (station.cs), DiscAmmo (station.cs), Disclauncher (station.cs), LaserRifle (station.cs), PlasmaAmmo (station.cs), PlasmaGun (station.cs), ShieldPack (station.cs)."
+  ]
+ },
+ "items": {
+  "AK47": {
+   "summary": "Accurate 7.62mm assault rifle that serves as the standard spawn rifle and all-purpose skirmish weapon.",
+   "notes": [
+    "Default spawn weapon for all players alongside LightArmor, RepairPack, 1 Grenade, and a RepairKit.",
+    "Fires 440 m/s rounds at 0.2s intervals for 0.11 bullet damage with tight 0.0008 aim deflection.",
+    "Carry limits are 90 rounds in Light, 150 in Medium, and 180 in Heavy armor."
+   ],
+   "source": "item.cs, baseProjData.cs, game.cs"
+  },
+  "SVD": {
+   "summary": "High-velocity Dragunov sniper rifle capable of one-shotting Light armor at extreme range.",
+   "notes": [
+    "Restricted to Light armor (Flack Jacket) and capped at 10 rounds per trip to prevent uber-sniping.",
+    "Fires 2000 m/s rounds dealing 0.35 bullet damage with a 5-second reload time.",
+    "Against Light armor (0.35 max damage and 1.2x bullet multiplier), a single hit is lethal."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs"
+  },
+  "Shotgun": {
+   "summary": "Benelli Combat Shotgun tuned for short-range room clearing with a fast, short-lived explosive blast.",
+   "notes": [
+    "Restricted to Medium and Heavy armor on male models (accidentally left buyable on female Light armor in ArmorData.cs).",
+    "Fires a 700 m/s plasma-typed bolt with a 0.15s lifespan, 4.0m splash radius, and 0.45 damage.",
+    "Reloads in 1.0s with 0.5s fire delay; holds up to 32 shots in Medium and 40 in Heavy."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs"
+  },
+  "RPG": {
+   "summary": "Backpack-fed rocket launcher for anti-armor, base siege, and high-impulse splash attacks.",
+   "notes": [
+    "Auto-buys RPGPack when purchased at a station, and refuses to equip or fire unless RPGPack is mounted.",
+    "Fires 100-125 m/s rockets dealing 0.5 missile damage across a 9.5m blast radius with 400 kickback and a 3s reload.",
+    "Ammo is capped at 3 rockets for Light, 5 for Medium, and 7 for Heavy, and AmmoPack does not add extra rockets."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs"
+  },
+  "HellfirePack": {
+   "summary": "Team-capped Hellfire Artillery barrage launcher for saturating enemy bases and approaches.",
+   "notes": [
+    "Limited to 2 per team and restricted to Medium and Heavy armor.",
+    "Auto-buys HFSPack (Hellfire Ammo Feed) and requires it mounted in the backpack slot to equip or fire.",
+    "Fires arcing shrapnel shells (0.4 damage, 15m blast radius) with a 0.025s reload and 0.5s fire time, carrying up to 50 rounds."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs"
+  },
+  "DSHK": {
+   "summary": "Heavy 12.7mm machine gun that shreds infantry in two to three hits.",
+   "notes": [
+    "Intended for Heavy armor (Kevlar Body Armor) with a 100-round chain, though a script quirk also allows female Light and Medium armors to buy it.",
+    "Fires 0.20-damage bullets at 420 m/s with 0.2s fire and reload times and 0.008 deflection.",
+    "Two hits eliminate a Light player and three hits drop a Medium player."
+   ],
+   "source": "item.cs, baseProjData.cs, ArmorData.cs"
+  }
+ }
+}

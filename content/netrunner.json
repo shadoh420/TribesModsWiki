@@ -1,0 +1,34 @@
+{
+ "mod": {
+  "overview": "NetRunner (by Stiletto and Arkfire, April 2000) is a cyberpunk total conversion of Base Tribes where players act as deckers running offensive and defensive programs across persistent character profiles. Instead of starting light and fast as in Base Tribes, NetRunner inverts armor progression: you spawn in the sluggish, fragile Hakima 178 LD starter deck and earn Score and personal Credits to unlock faster, tougher, higher-capacity cyberdecks, better tiered weapons, and vehicles. Combat revolves around cyberspace status effects like Worm damage-over-time, Command-screen Confusion, weapon-dropping Expel blasts, Trace countdown kills, Feedback Deadweight slows, object Subversion, and forcefield cages, all counterable with Repair Kits. Crossing 1000 points prestiges your character back to the starter deck while awarding Power points for permanent stat upgrades across missions.",
+  "notes": [
+   "Deck Progression and Mobility: NetRunner replaces Base armors with 7 tiered Cyberdecks unlocked by player Score (0, 25, 50, 100, 200, 400, 800 points). Starting on Hakima 178 LD (0 pts, 5.0 speed, 0.5 health, 1.3x damage taken, 3 weapon slots, no crouch), higher decks progressively increase speed, jet velocity, health, damage reduction, energy, and weapon slots (up to Stiletto 5000 HD at 800 pts with 17.0 speed, 1.7 health, 0.7x damage taken, 5 slots, and crouching). All decks can pilot the 5-Way Line (HAPC), Kasha 720 LMD (50 pts) unlocks the 3-Way Line (LAPC), and Katana 2750-X LHD (400 pts) unlocks the Single Carrier Line (Scout).",
+   "Personal Credits and Prestige Reset: Team energy pools are replaced by personal Credits (starting at 1000) earned from kills, objectives, and wins (default 3.0x score multiplier and 10.0x credits per point). Loadouts, scores, credits, and upgrades persist across missions and disconnects. Exceeding 1000 points resets you back to Hakima 178 LD with 2000 Credits and +1 Power point for permanent upgrades; dropping below -50 points resets you to Hakima 178 LD with only a Blaster and 500 Credits, while losing points below your deck's threshold minus 9 degrades your deck one tier.",
+   "Permanent Utility Upgrades: Power points gained from topping 1000 points unlock four single-use Utility programs at main Inventory Stations: Energy Conduit (+2 energy recharge), Program Slot (+1 weapon carry slot), Ram Upgrade (+10% Extra Memory ammo multiplier), and Armor/Resist (-0.1 incoming damage multiplier).",
+   "Status-Effect Weaponry: Standard weapons are re-themed into tiered Programs (Mk1/Mk2/Mk3 gated by deck class) with cyberspace side effects. Solburn (discs) plants a ticking Worm virus DoT; Confuse (grenade launcher and hand grenades) forces victims into the Command screen; Expel Mk1 (mortar) forces targets to drop their active weapon; Vampire (laser) heals the shooter on hits and shoots weapons out of front-right torso hits; Leech (energy rifle) restores shooter energy; Subvert Mk1 (blaster) flips enemy turrets/objects to your team for 45s; Decrypt Mk1 (plasma) disables object shields for 45s; Arkfire Mk1/Mk2 traps targets in a 10-second forcefield cage (Mk2 explodes on collapse).",
+   "Feedback Mines, Trace Missiles, and Repair Kits: Antipersonel Mines inflict a Feedback Loop (attaching unbuyable, undroppable 500-mass Deadweight to cripple movement), while Omni ICE turrets fire TraceICE homing missiles that kill the target when the Trace countdown finishes. Using a Repair Kit (Recompile) restores 0.2 health and immediately cures active Worms, Feedback Deadweight, and Trace countdowns.",
+   "Deployables, Doors, and ICE Turrets: Defensive deployables include FireWall and DataWall Mk1/Mk2 barriers that act as team-only sliding doors (auto-opening on teammate contact), Exponential Mk1/Mk2 platforms (restricted within 10m of your flag), Data Jump (SpringPack) launch pads, Arkfire Defense Field (up to 3 temporary 6-panel containment cages per pack), and Narc beacons (50m Doppler sensors). Base defense adds WatchDog ICE (alerts teammates on hit), Rotweiler ICE, Solburn ICE (Worm discs), and Omni ICE (Trace missiles).",
+   "Menus, Controls, and Voting: The Tab menu provides NetRunner GameHelpers (Enemy/Friendly Flag Locator with distance and waypoint, Deck Info, Program Info, and Vehicle Help) alongside Voting Items for mission changes, toggling Team Damage, and switching between FFA and Tournament mode. Auto-team balancing is enabled by default.",
+   "Modes, Bans, and AI Support: Supports Base objective/CTF missions, Deathmatch/Team Deathmatch, and map-placed AI guard drones (ai.cs). DeadWeight is explicitly disabled from inventory stations ($InvList = 0, $RemoteInvList = 0) and only applied by mines, while LightArmor is the forced spawn deck rather than a station purchase.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): DeadWeight (item_deadweight.cs)."
+  ]
+ },
+ "items": {
+  "OmniPack": {
+   "summary": "Trace-Running Turret (Omni ICE)",
+   "notes": [
+    "Requires Heavy Medium (or rather Light Heavy) or Heavy Deck? Checked item_tables.cs: available at hmarmor (200 pts) and up.",
+    "Wait: let's check item_tables.cs line 116 exact values: hmarmor=1, hmfemale=1, lharmor=1, lhfemale=1, harmor=1, hfemale=1. Fires TraceICE ($MissileDamageType) homing missiles up to 300m gunRange; if the Trace countdown expires, the victim is killed unless cleared by a Repair Kit."
+   ],
+   "source": "pack_omnipack.cs, baseProjData.cs, item_tables.cs"
+  },
+  "DeadWeight": {
+   "summary": "Feedback Loop Debuff (Deadweight, mass 500)",
+   "notes": [
+    "$InvList[DeadWeight] = 0 and $RemoteInvList[DeadWeight] = 0; cannot be bought or dropped.",
+    "Applied on mine impact ($MineDamageType) for 10+ seconds, slowing the victim until the feedback loop tunes out or a Repair Kit is used."
+   ],
+   "source": "item_deadweight.cs, Item_Mine.cs, baseProjData.cs, item_repairkit.cs"
+  }
+ }
+}

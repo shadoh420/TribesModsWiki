@@ -1,0 +1,32 @@
+{
+ "mod": {
+  "overview": "Tribes Hunters v1.4 (Tinman / 'Kidney Thief', February 2000, FlagHunter.cs) uses stock Base weapons and physics while banning Mortar, Mines, and Turrets ($FlagHunter::banList), auto-spawning players in Light Armor with Blaster/Chaingun/Disc/RepairKit, and replacing CTF with Greed/Hoard Nexus flag scoring.",
+  "notes": [
+   "Bans & spawn gear (FlagHunter.cs): explicitly bans Mortar, MineAmmo (Mines), and TurretPack (Turrets) via $FlagHunter::banList[0..2]. Every player spawns directly in LightArmor carrying Blaster, Chaingun, DiscLauncher (equipped), and RepairKit.",
+   "Nexus scoring rules: every kill drops all carried flags plus one fresh flag ('yard sale' if >= 10), returning stacks to the Nexus scores escalating points, Greed mode requires holding at least $FlagHunter::GreedAmount (8) flags to cash in, and Hoard/Team Hunters toggles alter late-match rules."
+  ]
+ },
+ "items": {
+  "Mortar": {
+   "summary": "Banned in Tribes Hunters ($FlagHunter::banList[0] = \"Mortar\").",
+   "notes": [
+    "Prevents heavy mortar spamming around the flag Nexus."
+   ],
+   "source": "FlagHunter.cs"
+  },
+  "MineAmmo": {
+   "summary": "Banned in Tribes Hunters ($FlagHunter::banList[1] = \"MineAmmo\").",
+   "notes": [
+    "Prevents mining the Nexus turn-in pad."
+   ],
+   "source": "FlagHunter.cs"
+  },
+  "TurretPack": {
+   "summary": "Banned in Tribes Hunters ($FlagHunter::banList[2] = \"TurretPack\").",
+   "notes": [
+    "Prevents turret defenses around the Nexus."
+   ],
+   "source": "FlagHunter.cs"
+  }
+ }
+}

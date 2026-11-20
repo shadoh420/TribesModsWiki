@@ -1,0 +1,37 @@
+# orion vs base (36 items)
+stats      LightArmor                   Light Armor
+stats      MediumArmor                  Medium Armor
+stats      HeavyArmor                   Heavy Armor
+stats      ScoutVehicle                 Scout
+stats      LAPCVehicle                  LPC
+stats      HAPCVehicle                  HPC
+stats      Blaster                      Blaster
+stats      EnergyRifle                  ELF Gun
+stats      Chaingun                     Chaingun
+stats      PlasmaGun                    Plasma Gun
+scripts    LaserRifle                   Laser Rifle
+stats      GrenadeLauncher              Grenade Launcher
+stats      Mortar                       Mortar
+new        RocketAmmo                   Rocket Ammo
+new        RocketLauncher               Rocket Launcher
+stats      DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+stats      RepairPack                   Repair Pack
+stats+scriptsEnergyPack                   Energy Pack
+new        Laptop                       Command Laptop
+new        HeatSink                     Heat Sink
+stats+scriptsAmmoPack                     Ammo Pack
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+stats      CameraPack                   Camera
+stats      MotionSensorPack             Motion Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+new        ForceFieldPack               Force Field
+renamed+stats+scriptsTurretPack                   Sentry Turret
+new        RocketPack                   Missile Turret
+stats+scriptsTargetingLaser               Targeting Laser
+stats      RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+new        CloakingDevice               Cloaking Device
+new        TeleportPack                 Teleport Pack
+stats      ShieldPack                   Shield Pack
+new        KamikazePack                 Kamikaze Pack

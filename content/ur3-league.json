@@ -1,0 +1,260 @@
+{
+  "mod": {
+    "overview": "UR3 League 1.8 (April 2001, by {187}George W. and Dr. NoRtOn, after ($A$)FSB-Deacon's original League mod) is a competitive cut of the Ultra Renegades 4 line. It drops UR4's novelty and stealth gear (Sniper Rifle, FEB Rifle, Shotgun, Plasma Rifle, EMP launchers, Cloaking Device, the jet and Wraith vehicles) and adds rifles, a rocket launcher, resupply and decoy packs, a Spy Satellite and a Wall Turret. Most of what sets it apart is server-side rules for match play: a short spawn shield against spawn killing, a timer that ejects players from inventory stations, admin-selectable air-brake strength, friendly-fire notices, and admin and vote lockouts. Grenades and Beacons become movement tools (Air Brake and Speed Booster) and the Targeting Laser becomes an altimeter, as the join message says.",
+    "notes": [
+      "Spawn loadout ($spawnBuyList): Light Armor, Blaster, Disc Launcher, Grenade Launcher, IX-2000 Mayhem Rifle, Plasma Gun, LiL POO mki, mines, Grenade, Beacon, Targeting Laser, Repair Kit and Repair Pack. Every spawn is then set to 15 Beacons and 15 Grenades and switched to the LiL POO mki. UR4 spawned with Chaingun, Sniper Rifle and FEB Rifle instead.",
+      "Anti spawn kill (gwASK in game.cs): a spawning player more than 3 m from their own flag gets shieldStrength 5000 for 1.5 seconds. A comment in the code says it is meant to cover reaction time only.",
+      "Station eject: when $ultra_renegades::StationTime is set (15 in UR3League.cs, clamped to 10-60 s), a player still using an Inventory Station gets a 5-second warning and is then pushed out (ixCheckStationEject / ixStationEjectPlayer). Super admins can change the time.",
+      "Admins can switch air brakes between Hard (1.6: velocity times -0.3/-0.2/-0.1 for light/medium/heavy, so it reverses you) and Soft (1.7: times 0.5/0.4/0.3). Hard is the ArmorData default.",
+      "Shield-type absorption is changed in Player::onDamage. Shrapnel and mortar hits are absorbed at 0.75 of the shield strength (as in UR4), laser at 0.95 and rifle at 0.5. Railgun hits are absorbed at 0, so they ignore shields and drain the wearer's energy.",
+      "Head-shot bonus (+30%): League fixes UR4's always-true condition but still writes (head && Laser) || Rifle || Rail. Every rifle or railgun hit gets the bonus wherever it lands; laser hits get it only on the head.",
+      "Friendly fire: an ELF (electricity) hit on a teammate now warns both players, at most once every 10 seconds.",
+      "Safe stations (no team damage while in a station) check $insomniax::SafeStation, but the admin toggle and UR3League.cs set $ultra_renegades::SafeStation. The protection never switches on. This bug is inherited from UR4.",
+      "Remote turret spacing: up to 6 remote turrets in the large box; Sentry, Rocket and Wall turrets each need 6 m from one another. Sentry, Rocket and Wall turrets can only be deployed within 200 m of the team's flag stand.",
+      "Shipped settings (UR3League.cs): fair-teams checking on, anti-TK server level 2 (auto vote until kicked) with a limit of 3, team energy Infinite. Public admins cannot ban, change mod options or reset defaults; players may vote on missions and team damage."
+    ]
+  },
+  "items": {
+    "Blaster": {
+      "summary": "The Blaster, a rapid energy sidearm, unchanged in role from UR4.",
+      "notes": ["Unlike UR4, it has no onUse of its own, so selecting it no longer prints a \"Now holding\" banner. Firing is plain projectile firing with no script."],
+      "source": "item.cs Blaster datablocks (no Blaster::onUse)"
+    },
+    "BulletAmmo": {
+      "summary": "Bullets for the Verminator (the renamed Chaingun).",
+      "notes": ["The Laser Rifle's script also uses one of these per shot (see Laser Rifle)."],
+      "source": "item.cs ItemData BulletAmmo, LaserRifleImage::onFire"
+    },
+    "Chaingun": {
+      "summary": "The Verminator: UR4's scripted chaingun under a new name. Each shot fires five ChaingunBullet projectiles for one bullet of ammo.",
+      "notes": ["ChaingunImage::onFire is the same as UR4's apart from the message \"Verminator has no ammo.\"", "UR4's \"Now holding Chain Gun\" onUse banner is gone.", "No longer part of the spawn loadout."],
+      "source": "item.cs ChaingunImage::onFire"
+    },
+    "PlasmaGun": {
+      "summary": "Plasma Gun, an ordinary projectile weapon and part of the spawn loadout.",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4. Firing has no script."],
+      "source": "item.cs PlasmaGun datablocks"
+    },
+    "GrenadeLauncher": {
+      "summary": "Grenade Launcher, an ordinary lobbed-shell weapon and part of the spawn loadout.",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4. Firing has no script."],
+      "source": "item.cs GrenadeLauncher datablocks"
+    },
+    "Mortar": {
+      "summary": "Mortar, an ordinary lobbed-shell weapon.",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4. Firing has no script."],
+      "source": "item.cs Mortar datablocks"
+    },
+    "DiscLauncher": {
+      "summary": "Disc Launcher, firing spinfusor discs, and part of the spawn loadout.",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4. Firing has no script."],
+      "source": "item.cs DiscLauncher datablocks"
+    },
+    "LaserRifle": {
+      "summary": "A scripted laser rifle that fires a SniperLaser beam. It no longer needs an Energy Pack.",
+      "notes": [
+        "Unlike UR4, onUse no longer refuses to arm the rifle without an Energy Pack, so any armor allowed to carry it can fire it.",
+        "The image's projectile is a placeholder (ThisShouldBeUndefined). LaserRifleImage::onFire spawns the SniperLaser itself and takes 10 more energy on top of the image's own energy use.",
+        "Script bug: onFire also removes one $WeaponAmmo[Chaingun] (Bullet) per shot without checking for it, so firing eats Verminator ammo when you have some."
+      ],
+      "source": "item.cs LaserRifleImage::onFire"
+    },
+    "TargetingLaser": {
+      "summary": "In League, using the Targeting Laser shows an altimeter instead of mounting the laser. It prints how many meters above or below your own team's flag you are.",
+      "notes": [
+        "TargetingLaser::onUse compares your height with the original position of your team's flag and bottom-prints \"You are N meters ABOVE/BELOW your flag\" for 3 seconds. The join message calls it \"TargetingLaser(9)=Altimeter\".",
+        "onUse never calls Weapon::onUse, so the laser is never mounted and cannot be fired for target designation."
+      ],
+      "source": "item.cs TargetingLaser::onUse"
+    },
+    "EnergyRifle": {
+      "summary": "The ELF Gun, a short beam that drains the target's energy and does a little electrical damage.",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4.", "New in League: when you hit a teammate with it, both players get a friendly-fire message, at most once every 10 seconds (Player::onDamage, ELFhit)."],
+      "source": "item.cs EnergyRifle datablocks, player.cs Player::onDamage"
+    },
+    "RifleAmmo": {
+      "summary": "IX-2000 Ammo, left over from UR4's Sniper Rifle. League removed that rifle, so no weapon here fires this ammo.",
+      "notes": ["Ammo stations still resupply it for a SniperRifle (station.cs), and it remains on the Ammo Pack list. The Mayhem Rifle uses IX-2000 Ammo Mayhem (MayhemAmmo) instead."],
+      "source": "item.cs ItemData RifleAmmo, station.cs AmmoStation resupply"
+    },
+    "MayhemAmmo": {
+      "summary": "IX-2000 Ammo Mayhem, the rounds for the IX-2000 Mayhem Rifle.",
+      "notes": ["Refilled by the Resupply Pack.", "The Ammo Pack list has the entry as \"Mayhem\" rather than MayhemAmmo (see Ammo Pack)."],
+      "source": "item.cs ItemData MayhemAmmo, $WeaponAmmo[AssaultRifle]"
+    },
+    "AssaultRifle": {
+      "summary": "The IX-2000 Mayhem Rifle, a fast-firing hitscan-speed rifle that is part of every spawn loadout.",
+      "notes": ["No scripts: a plain single-shot weapon whose AssaultBullet uses the rifle damage type. Rifle damage gets the head-shot bonus on any hit and is half-absorbed by shields (see mod notes)."],
+      "source": "item.cs AssaultRifle / AssaultRifleImage, baseProjData.cs AssaultBullet"
+    },
+    "Railgun": {
+      "summary": "Railgun, a very fast RailRound shot.",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4.", "League's Player::onDamage absorbs rail damage at 0, so railgun hits pass straight through Shield and StealthShield packs. Rail hits also get the head-shot bonus wherever they land."],
+      "source": "item.cs Railgun datablocks, player.cs Player::onDamage"
+    },
+    "FFBLauncher": {
+      "summary": "Force Field Buster: fires a heavy-damage, wide-radius grenade shell (FFBShell, shrapnel damage).",
+      "notes": ["Only the selection banner (onUse) was removed relative to UR4.", "No force-field-specific damage handling was found in the scripts. Its effect on force fields comes from its raw damage and radius."],
+      "source": "item.cs FFBLauncher, baseProjData.cs FFBShell"
+    },
+    "RocketAmmo": {
+      "summary": "Rockets for the Rocket Launcher. Each rocket fired uses one.",
+      "notes": ["Refilled by the Resupply Pack."],
+      "source": "item.cs ItemData RocketAmmo, RocketLauncher::fireRockets"
+    },
+    "RocketLauncher": {
+      "summary": "A three-rocket salvo launcher. Each trigger pull fires up to three Rocket projectiles 0.2 seconds apart, one ammo each.",
+      "notes": [
+        "RocketImage::onFire schedules RocketLauncher::fireRockets(player, 3). Each call spawns one Rocket from the muzzle, removes one RocketAmmo and reschedules itself while rockets and ammo remain. With no ammo it prints \"***Out of Rockets***\".",
+        "Medium and heavy armor can carry it. Light armor's ItemMax is 0.",
+        "Script bug: onFire also schedules two playSound strings that contain %player literally. The variable doesn't exist when the schedule runs, so those two extra salvo sounds do not play."
+      ],
+      "source": "item.cs RocketImage::onFire, RocketLauncher::fireRockets"
+    },
+    "CloakGun": {
+      "summary": "Cloaking Gun: a beam that fades its target out of view for a while.",
+      "notes": ["Unlike UR4, cloakingCharge::damageTarget fades the target back in after 30 seconds instead of 120.", "Its selection banner (onUse) was removed."],
+      "source": "baseProjData.cs cloakingCharge::damageTarget"
+    },
+    "DeployableInvPack": {
+      "summary": "Deployable Inventory Station, deployed and used as in UR4.",
+      "notes": ["New in League: the deployed station records its last user (lastPlayer) on activation, so the shared Station code can restore that player's weapon when the station is destroyed.", "Deploying logs a server message."],
+      "source": "item.cs DeployableInvPack::deployShape, DeployableInvStation::onActivate"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deployable Ammo Station. It now holsters your weapon while resupplying, like a base ammo station.",
+      "notes": ["DeployableAmmoStation::onActivate records the user, unmounts the weapon in hand into lastWeapon, and AmmoStation::onResupply re-equips it when resupply finishes. In UR4 the weapon stayed in hand.", "On completion AmmoStation::onResupply also sets Beacons and Grenades to 15."],
+      "source": "item.cs DeployableAmmoStation::onActivate, station.cs AmmoStation::onResupply"
+    },
+    "ForceFieldPack": {
+      "summary": "Small Force Field, deployed as in UR4.",
+      "notes": ["The only script change is that the field object is created without the internal name \"Small Force Field\". Placement and limits are unchanged."],
+      "source": "item.cs ForceFieldPack::deployShape"
+    },
+    "LargeFieldPack": {
+      "summary": "Large Force Field, deployed as in UR4.",
+      "notes": ["The only script changes are an unnamed field object and corrected deploy and log message typos."],
+      "source": "item.cs LargeFieldPack::deployShape"
+    },
+    "EnergyPack": {
+      "summary": "Energy Pack: faster energy recharge for the wearer.",
+      "notes": ["League adds an explicit EnergyPack::onUse that just mounts the pack. Mount and unmount behavior is unchanged from UR4.", "The Laser Rifle no longer requires it."],
+      "source": "item.cs EnergyPack::onUse"
+    },
+    "ShieldPack": {
+      "summary": "Shield Pack: while active, incoming damage is absorbed by the wearer's energy.",
+      "notes": ["Shield strength drops to 0.012 from UR4's 0.038, so it absorbs about a third as much per point of energy.", "League's damage code weights the absorption by type: lasers 0.95, shrapnel and mortar 0.75, rifles 0.5, railgun 0 (no protection)."],
+      "source": "item.cs ShieldPackImage::onActivate, player.cs Player::onDamage"
+    },
+    "ResupplyPack": {
+      "summary": "A one-shot backpack. Activating it refills your ammo, Repair Kits, Beacons, Grenades and mines to your armor's maximum, then the pack is used up.",
+      "notes": ["ResupplyPackImage::onActivate sets each of Bullet, Plasma, Disc, Grenade-launcher, Mortar, Mayhem, Rail, FFB, Rocket and both LiL POO ammo types, plus RepairKit, Beacon, Grenade and MineAmmo, to $ItemMax for your armor, then sets ResupplyPack to 0.", "Its first parameter is named %clientId but receives the player object, which is what the calls need, so it works."],
+      "source": "item.cs ResupplyPackImage::onActivate"
+    },
+    "MotionSensorPack": {
+      "summary": "Deployable Motion Sensor, as in UR4.",
+      "notes": ["The only script change is a server log line on deploy."],
+      "source": "item.cs MotionSensorPack::deployShape"
+    },
+    "AmmoPack": {
+      "summary": "Ammo Pack: raises ammo limits while worn. On drop, ammo above normal limits goes into the dropped pack and is handed to whoever picks it up.",
+      "notes": [
+        "League extends the drop and pickup loop to 11 entries of $AmmoPackItems: Bullets, Plasma, Discs, grenade-launcher ammo, Grenades, mines, Mortar shells, Beacons, IX-2000 ammo, \"Mayhem\", Rail ammo. FFB and Rocket ammo (entries 11 and 12) are never carried over.",
+        "Script bug: for entries 7-10, checkPacksAmmo assigns %numpack instead of %numAdd. The picker-up gets the entry-6 (Mortar) surplus again for each of them, and the stored Beacon, IX-2000 and Rail surplus is lost.",
+        "Script bug: entry 9 is \"Mayhem\", not MayhemAmmo, so Mayhem rifle rounds are never handled."
+      ],
+      "source": "item.cs AmmoPack::onDrop, checkPacksAmmo, $AmmoPackItems"
+    },
+    "FakeFlagPack": {
+      "summary": "A decoy pack that shows a flag model on the wearer's back (the image uses the flag shape), so they look like a flag carrier.",
+      "notes": ["Its activate and deactivate scripts are written for a FakeFlagPackImage namespace, but the pack's image is FakeFlagImage, and the image has no weaponType for activation. The \"Flag Decoy On/Off\" functions never run, and they would only call startFadeIn/Out on the FakeFlag datablock name anyway. Only the worn flag model has any effect."],
+      "source": "item.cs FakeFlagImage, FakeFlagPackImage::onActivate/onDeactivate"
+    },
+    "StealthShieldPack": {
+      "summary": "A weak shield combined with sensor jamming: while active it absorbs a little damage with energy and hides the wearer from sensors.",
+      "notes": ["Activation sets shieldStrength 0.005 and raises the wearer's sensor suppression by 3. Deactivation clears the shield and removes the suppression.", "Like the Shield Pack, it gives no protection against railgun hits."],
+      "source": "item.cs StealthShieldPackImage::onActivate/onDeactivate"
+    },
+    "CameraPack": {
+      "summary": "Deployable Camera, as in UR4.",
+      "notes": ["The only script change is a server log line on deploy."],
+      "source": "item.cs CameraPack::deployShape"
+    },
+    "SpySatellitePack": {
+      "summary": "Deploys a Spy Satellite on flat terrain. While a team has one, its members get a \"SpySat:\" message whenever one of their own team's generators, turrets or pulse sensors is destroyed.",
+      "notes": [
+        "Deploys only on terrain with a mostly upward normal (dot > 0.7), within the team limit of 1. onDeploy counts it and sets $TeamSpying for the team.",
+        "Generator, Turret, PulseSensor and MediumPulseSensor onDestroyed message the destroyed object's own team when that team is spying. Destroying the satellite clears $TeamSpying and tells the team.",
+        "Behavior beyond these messages was not determined from scripts."
+      ],
+      "source": "item.cs SpySatellitePack::onDeploy/deployShape, staticshape.cs SpySatellite::onDestroyed, sensor.cs, turret.cs"
+    },
+    "TurretPack": {
+      "summary": "Sentry Turret: League's name for UR4's Mini-Plasma Turret pack. It deploys a DeployableTurret on terrain or interiors near your base.",
+      "notes": ["Must be deployed within 200 m of your flag (as in UR4). The spacing check now counts DeployableSentry, DeployableTurret and DeployableRocket.", "The deployed turret recharges at 5 instead of UR4's 7."],
+      "source": "item.cs TurretPack::deployShape, DeployableTurret::onAdd"
+    },
+    "RocketPack": {
+      "summary": "Rocket Turret: a deployable remote turret, placed within 200 m of your flag.",
+      "notes": ["The deployed turret recharges at 6 instead of UR4's 10 and is named \"Remote Rocket Turret\" on the map.", "Team limit 4."],
+      "source": "item.cs RocketPack::deployShape, DeployableRocket::onAdd"
+    },
+    "HellPack": {
+      "summary": "Wall Turret: a deployable remote turret that can be mounted on floors, walls or ceilings. It fires MiniHellBolt sentry shots.",
+      "notes": [
+        "HellPack::deployShape orients the turret to the surface normal (floor, ceiling or wall) on terrain or interiors. It obeys the shared remote-turret spacing and must be placed within 200 m of your flag. Team limit 2.",
+        "The turret recharges at 5. Destroying it frees a team slot."
+      ],
+      "source": "item.cs HellPack::deployShape/onDeploy, DeployableHellPack::onAdd/onDestroyed"
+    },
+    "Grenade": {
+      "summary": "Air Brake: using a Grenade scales your current velocity to slow (or, with hard brakes, reverse) your movement.",
+      "notes": [
+        "Grenade::onUse (only after the match starts, 0.5 s cooldown) throws a harmless Boost mine. It then multiplies your velocity by $BrakeSpeed[armor] times (SpeedMax - |x speed|) / SpeedMax.",
+        "Hard brakes (default): -0.3/-0.2/-0.1 for light/medium/heavy. Soft brakes: 0.5/0.4/0.3. Admins switch between them.",
+        "UR4's Speed Brick set velocity straight to zero.",
+        "Each spawn and each finished ammo-station resupply sets Grenades to 15."
+      ],
+      "source": "Mine.cs Grenade::onUse, VelocityCheck, MineData Boost; admin.cs hardbrakes/softbrakes"
+    },
+    "Beacon": {
+      "summary": "Speed Booster: using a Beacon multiplies your current velocity for a burst of speed.",
+      "notes": [
+        "Beacon::onUse (only after the match starts, 0.5 s cooldown, refused when vertical speed is above 1000) throws a harmless Boost mine. It then multiplies velocity by $BoostSpeed[armor] (2.75/2.2/1.7 for light/medium/heavy) times (SpeedMax - |x speed|) / SpeedMax. The boost shrinks as you approach top speed along the x axis.",
+        "UR4 simply doubled velocity, capped at 600 per axis.",
+        "Each spawn and each finished ammo-station resupply sets Beacons to 15."
+      ],
+      "source": "Mine.cs Beacon::onUse, VelocityCheck"
+    },
+    "RepairPatch": {
+      "summary": "Repair Patch pickups heal much less than in UR4.",
+      "notes": ["Touching one repairs 0.45 damage (UR4: 0.99), and using a carried one repairs 0.25 (UR4: 0.9)."],
+      "source": "item.cs RepairPatch::onCollision/onUse"
+    },
+    "TaserRifle": {
+      "summary": "Taser Rifle: an ammo-free laser rifle whose beam uses the wearer's energy to deal laser damage.",
+      "notes": ["Defined in Boom.cs with $WeaponAmmo empty and no scripts. Its TaserRfLaser beam converts energy into laser damage (damageConversion 3).", "Laser hits get the head-shot bonus only on the head."],
+      "source": "Boom.cs TaserRifle, baseProjData.cs TaserRfLaser"
+    },
+    "m16Ammo": {
+      "summary": "Bullets for the LiL POO mki.",
+      "notes": ["Carry limit 999 for every armor (Boom.cs)."],
+      "source": "Boom.cs m16Ammo"
+    },
+    "m16": {
+      "summary": "LiL POO mki: a very fast-firing rifle and the weapon every player is switched to on spawn.",
+      "notes": ["No scripts: a plain single-shot weapon with near-zero reload. Its m16Bullet uses the rifle damage type, so it gets the head-shot bonus on any hit and is half-absorbed by shields.", "Boom.cs carries a comment that its packet-rate settings are needed for these weapons to fire correctly."],
+      "source": "Boom.cs m16 / m16Image, baseProjData.cs m16Bullet, game.cs spawn"
+    },
+    "LiLPOOmkiiAmmo": {
+      "summary": "Bullets for the LiL POO mkii.",
+      "notes": ["Carry limit 500 (250 for heavy armor)."],
+      "source": "Boom.cs LiLPOOmkiiAmmo"
+    },
+    "LiLPOOmkii": {
+      "summary": "LiL POO mkii: a second rapid-fire rifle with a shock-explosion firing sound.",
+      "notes": ["No scripts: a plain single-shot weapon firing LiLPOOmkiiBullet with the rifle damage type, so it gets the rifle head-shot and shield rules."],
+      "source": "Boom.cs LiLPOOmkii, baseProjData.cs LiLPOOmkiiBullet"
+    }
+  }
+}

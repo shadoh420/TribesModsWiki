@@ -1,0 +1,58 @@
+{
+ "mod": {
+  "overview": "Meltdown Hell v3.3 is a high-intensity, total-war overhaul built upon Meltdown 2, incorporating elements from HaVoC and Shifter into frantic team-based combat. Players spawn instantly fully geared in specialized Hoplite armor and engage in high-lethal objective warfare across Capture the Flag, Capture and Hold, and Defend and Destruct missions. Compared to Meltdown 2, this version heavily expands combat versatility with modular multi-mode weaponry, integrated class utility powers triggered through beacons and grenades, and massive forward fortifications. The pacing is relentless and explosive, blending aerial skirmishes, artillery barrages, deployable tactical bases, and specialized armor counters into a chaotic futuristic battleground.",
+  "notes": [
+   "Six playable armor frames define combat roles: Light Peltast (3 weapons, fast skirmisher), Blastech (3 weapons, absorbs and resists explosions and mortars), Medium Engineer (4 weapons, utility deployer), MagIon Hoplite (4 weapons, energy-damage resistant combatant), Assault MECH (5 weapons, immune to fall impact and lasers), and Heavy Myrmidon (5 weapons, massive damage soak). Each armor alters weapon carry limits and unlocks distinct innate abilities when triggering beacons and grenades.",
+   "Using the Beacon utility triggers dedicated suit powers based on armor class instead of placing markers: Light triggers a 20-second protective Gundam Shield, Blastech activates a 20-second Gundam Cloak for stealth, Medium and MagIon trigger an explosive jet Speed Booster that consumes energy, and Heavy or MECH super-charges mounted LasCannons and Plasma Cannons or fires an innate Flaker artillery blast while stationary. Grenade throws are similarly specialized, ranging from light tactical grenades to the Myrmidon throwing dual Pocket Nukes and the MECH unleashing salvoes of shoulder-mounted rockets.",
+   "Players spawn directly into battle fully equipped in MagIon Hoplite armor carrying a Disc Launcher, Chaingun, Plasma Gun, Reassembler, Shotgun, Grenades, Mines, Beacons, Repair Kit, and Energy Pack. Upon spawning, a status prompt displays mission objectives and instructs players to press their Next Weapon key to enter active play. Team energy defaults to infinite on standard servers, allowing continuous weapon cycling and deployment without economic starvation.",
+   "Players can customize weapon firing profiles on the fly through the in-game Options menu under Weapon Options. The Mitzi Blast Cannon can be toggled between Mitzi Blast, EMP energy drain, Mitzi Booster, Poisoning, Heat, and Annihilator firing modes. The Chaingun toggles between standard Chaingun and rapid-fire Vulcan modes, while the Heavy Mortar switches between standard high explosive, Bouncing Betty cluster shells, and Vertigo airburst bombs.",
+   "Engineers and heavies can construct comprehensive forward firebases using an immense suite of deployable assets. These include blast doors, blast floors, portable generators, mobile bunkers, shield generators, Obelisks of Death, and deployable Mini-Bases. Automated defenses feature specialized turrets such as Tractor Turrets, EMP Blast Turrets, and Mitzi Blast Turrets alongside standard chaingun, laser, and AA missile batteries.",
+   "The Decoy Creator (DummyPack) is completely banned on the server with InvList and TeamItemMax set to 0. Additionally, remote and deployable inventory stations enforce strict restriction rules via RemoteInvList set to 0 on all heavy deployables, including mobile bunkers, mobile generators, obelisks, portable stations, blast floors, and heavy turrets, forcing players to resupply at main base inventory stations to restock high-tier defensive structures.",
+   "Specialized equipment supports clandestine warfare and information gathering. Equipping the Bug Pack allows an operative to tap into and read the opposing team's private team-chat messages in real time. Tactical weaponry such as the AAOD Sniper X scales damage directly against heavy armor plating, EMP grenade launchers siphon suit power to inflict internal health damage, and temporal forcefield projectors deploy mobile barriers.",
+   "Vehicle stations offer a diverse hangar spanning agile dogfighters like the Arwing and Scout, interceptors like the Sky Cutter and Valkyrie, and heavy ground armor like the ThunderTank and Hover Tank for cross-map dropship assaults. The mod integrates configurable SpoonBot Bioderm AI with custom voice chatter and combat roles, though dedicated bot spawning menus are reserved for admin setups.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): dummypack (deployables.cs); Team limit zeroed ($TeamItemMax = 0): dummy=0 (deployables.cs), dummypack=0 (deployables.cs); Blocked at Remote Stations ($RemoteInvList = 0): AODArtilleryPack (deployables.cs), AODBunker (deployables.cs), AODMobileGen (deployables.cs), AODMobileInv (deployables.cs), AODShieldGen (deployables.cs), BlastFloor (deployables.cs), CNode (deployables.cs), DiscTurretPack (deployables.cs), DisruptorTurretPack (deployables.cs), DShieldPack (deployables.cs), ElectroTurretPack (deployables.cs), IonTurretPack (deployables.cs) (+9 more)."
+  ]
+ },
+ "items": {
+  "MBCannon": {
+   "summary": "Heavy energy cannon with six selectable tactical firing modes.",
+   "notes": [
+    "Switchable via the in-game Weapon Options menu between standard Mitzi Blast, EMP energy drain, Mitzi Booster impulse, Poisoning darts, Heat shells, and Annihilator payload.",
+    "Serves as the signature multi-purpose heavy weapon of the Meltdown series, adaptable to anti-armor, anti-personnel, or crowd-control situations."
+   ],
+   "source": "weapons.cs"
+  },
+  "BugPack": {
+   "summary": "Backpack device designed for electronic espionage and communications tapping.",
+   "notes": [
+    "While equipped in the backpack slot, automatically intercepts all private enemy team-chat transmissions and routes them to the wearer's console.",
+    "Provides vital intelligence on enemy movements and offensive pushes without alerting the opposing commander."
+   ],
+   "source": "packs.cs"
+  },
+  "AAODSniperX": {
+   "summary": "High-powered armor-piercing sniper rifle whose lethality scales with target armor weight.",
+   "notes": [
+    "Damage calculation is armor-dependent, causing substantially higher damage against heavily armored Myrmidon and MECH units than lighter skirmishers.",
+    "Features a 1.5-second fire cycle and long-range optics for countering enemy juggernauts and heavy base defenders."
+   ],
+   "source": "weapons.cs"
+  },
+  "DummyPack": {
+   "summary": "Decoy holographic projector pack that is explicitly disabled across all inventories.",
+   "notes": [
+    "Completely banned on servers by having InvList, RemoteInvList, and TeamItemMax values set to 0.",
+    "Originally intended to spawn fake player decoys, but disabled in the configuration to prevent visual clutter and exploits."
+   ],
+   "source": "deployables.cs"
+  },
+  "ObeliskPack": {
+   "summary": "Heavy deployable offensive structure known as the Obelisk of Death.",
+   "notes": [
+    "Must be powered by deploying an Obelisk Power Source nearby before it can fire.",
+    "Banned from portable inventory stations via RemoteInvList so players must purchase and transport it directly from primary base stations."
+   ],
+   "source": "deployables.cs"
+  }
+ }
+}

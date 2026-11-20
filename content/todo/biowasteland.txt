@@ -1,0 +1,175 @@
+# biowasteland vs shifter (174 items)
+new        RunnerArmor                  Runner
+renamed+statsScoutArmor                   Recon
+renamed+statsSpArmor                      Spy
+renamed+statsMediumArmor                  Patriot
+renamed+statsAlArmor                      Stealth
+new        HeavyArmor                   DreadNaught
+stats+scriptsBooster1Pack                 Booster
+stats+scriptsBooster2Pack                 Booster
+new        FighterVehicle               Fighter
+new        ProwlerVehicle               Prowler
+renamed+statsLAPCVehicle                  Bomber
+renamed+statsHAPCVehicle                  GunShip
+new        GAPCVehicle                  Jerico
+renamed+stats+scriptsHackit                       2-in-1 Gun
+renamed+stats+scriptsDisIt                        Disassymbler-Gun
+new        AirStrike                    AirStrike
+new        SortieGun                    AirStrike Laser
+new        AlienGun                     Alien GunTurret
+renamed+stats+scriptsLasCannon                    Cannon: Laser
+renamed+stats+scriptsPlasmaCannon                 Cannon: Flame
+renamed+stats+scriptsEnergyRifle                  Translocator
+stats      Chaingun                     Equalizer
+new        Fists                        Brass Knuckles
+stats+scriptsFlamer                       Flame Thrower
+new        FlyerGun                     Flyer Gun
+stats+scriptsHammer1Pack                  God Hammer Cannon
+stats+scriptsHammer2Pack                  God Hammer Cannon 2
+stats      GravGun                      Grav Gun
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats      HyperB                       Hyper Blaster
+scripts    LaserRifle                   Laser Rifle
+renamed+stats+scriptsRegen                        Leech Gun
+stats+scriptsSilencer                     Magnum
+new        Silencer2                    Magnum
+stats+scriptsMortar                       Mortar
+stats+scriptsPenis                        Penis
+new        MiniPlasmaCannon             MiniTurret Cannon
+stats+scriptsPlasmaGun                    Plasma Gun
+new        RifleAmmo                    Rifle Ammo
+renamed+stats+scriptsTranqGun                     Pneumatic Rifle
+stats      Railgun                      Railgun
+renamed+stats+scriptsFixit                        Repair Gun
+new        StunWt                       Dead Weight
+stats+scriptsRocketLauncher               Rocket Launcher
+new        SabGun                       Saboteur Tool
+stats      ConCun                       Shockwave Cannon
+renamed+statsBoomAmmo                     Shotgun Shell
+renamed+stats+scriptsBoomStick                    Shotgun
+new        BoomStick2                   Shotgun
+new        Flamerlicks                  Flame Thrower
+new        SniperRifle2                 Sniper Rifle
+new        Nukelicks                    Nuke Scope
+stats+scriptsMfgl                         Tactical Nuke
+stats+scriptsTargetingLaser               Targeting Laser
+new        PaintAmmo                    Thorns
+new        SprayCan                     Thorn Spreader
+new        HDisc1                       Twin Fuser
+new        HDisc2                       Twin Fuser
+renamed+stats+scriptsDiscLauncher                 Twin Fuser
+stats+scriptsVulcan                       Vulcan
+stats+scriptsAmmoPack                     Ammo Pack
+new        StrikePack                   Demolition Kit
+new        BattlePack                   BattlePack
+renamed+stats+scriptsCloakingDevice               Cloaking Pack
+stats+scriptsLaptop                       Command Laptop
+renamed+stats+scriptsFgcPack                      Nuclear Pack
+stats+scriptsMechPack                     Interceptor Pack
+new        InveiglerPack                Inveigler
+new        LeechPack                    Leech Pack
+stats      RepairPack                   Repair Pack
+new        SMML                         SM-Missle Launcher
+new        JawPack                      Rocket-Lock Pack
+new        Sabotage                     Saboteur Kit
+stats+scriptsSensorJammerPack             Sensor Jammer Pack
+stats+scriptsShieldPack                   Shield Pack
+new        SpawnPack                    Spawn Point Pack
+stats+scriptsStealthShieldPack            StealthShield Pack
+stats+scriptsLightningPack                Teleport Pack
+new        WarpPack                     Warp Pack
+new        Balloon1                     Balloon
+new        BalloonPack                  Zepplin
+stats      BarragePack                  Anti-Aircraft Turret
+new        AGravPack                    Anti-Grav Turret
+new        ConPack                      Concussion Turret
+renamed+stats+scriptsCameraPack                   Dart Turret
+renamed+stats+scriptsDeployableElf                Elf Turret
+stats+scriptsShockPack                    EMP Turret
+new        FlakPack                     Flak Turret
+new        FlameTurretPack              Flame Turret
+new        GunTuretPack                 Gunnery Bunker
+new        HGravTurretPack              Hyper-Grav Turret
+stats+scriptsTurretPack                   Ion Turret
+stats+scriptsLaserPack                    Laser Turret
+new        MalicePack                   Hellacious Cannon
+stats      TargetPack                   Mortar Turret
+stats+scriptsPlasmaTurretPack             Plasma Turret
+new        RailTurretPack               Rail Turret
+stats+scriptsRocketPack                   Rocket Turret
+new        ChaingunTurretPack           Target Acquisition Turr
+new        VulcanTurretPack             Vulcan Turret
+new        BlastDoorPack                Blast Doors
+stats+scriptsBlastFloorPack               Blast Floor
+stats      BlastWallPack                Blast Wall
+new        SeedPack                     Cactus
+new        ElectricWeb                  Electric Web
+new        ElectricFloor                Electric Web: ground
+renamed+statsForceFieldPack               Force Field: barrier
+renamed+statsLargeForceFieldPack          Force Field: large
+renamed+statsLargeShockForceFieldPack     Force Field: large shock
+renamed+stats+scriptsShockFloorPack               Force Field: shock floor
+stats+scriptsPlantPack                    Healing Plant
+stats+scriptsTeleportPack                 Teleport Pad
+stats+scriptsHoloPack                     Hologram
+renamed+stats+scriptsTreePack                     Poison Oak
+renamed+stats+scriptsPowerGeneratorPack           Portable Generator
+new        PrismPack                    Prism
+stats      DeployableAmmoPack           Ammo Station
+new        BunkerPack                   Bunker
+stats      DeployableComPack            Command Station
+new        EmergencyInvPack             Emergency Inventory
+stats      DeployableInvPack            Inventory Station
+new        TrapPack6                    Energy Snare
+new        TrapPack2                    Lasso-Snare Trap
+new        TrapPack1                    Punji-Spike Trap
+new        TrapPack4                    Quick-Sand Trap
+new        TrapPack3                    Scary Trap
+new        TrapPack5                    Stun Trap
+renamed+stats+scriptsairbase                      Air Base
+renamed+stats+scriptsAirAmmoPad                   Air Fuser Turret
+new        AntennaPack                  Antenna
+renamed+stats+scriptsArbitorBeaconPack            Area Stealth Device
+stats+scriptsEMPBeaconPack                EMP Device
+renamed+stats+scriptsJammerBeaconPack             Missile Defense Beacon
+stats+scriptsMotionSensorPack             Motion Sensor
+stats+scriptsPulseSensorPack              Pulse Sensor
+new        SkyEyePack                   Satellite Dish
+stats+scriptsDeployableSensorJammerPack   Sensor Jammer
+stats+scriptsShieldBeaconPack             Shield Device
+stats+scriptsAccelPPack                   Accelerator Pad
+new        Elevator                     Elevator
+stats+scriptsLaunchPack                   Launch Pad
+new        MagBridgePack                Magneto Bridge
+new        HolePack                     Portable Hole
+new        ZepplinPack                  Zepplin Pad
+stats+scriptsCoolLauncher                 Missile Control Station
+stats      EmpM                         EMP Missile
+new        BallM                        Human Missile
+stats      NapM                         Napalm Missile
+renamed+stats+scriptsBooM                         Nuclear Missile
+stats      PhoenixM                     Phoenix Missile
+stats      SpyPod                       SpyPod Missile
+stats      GasM                         Toxin Missile
+stats      DetPackModule                DetPack Module
+stats      HellFireModule               HellFireModule
+new        RamModule                    RamModule
+new        TitanPack                    Ammo Pack
+stats      WraithModule                 WraithModule
+new        SwitchPack                   Base Control Switch
+new        SmartPack                    Base Vigil Security
+new        ReconPack                    Chat Encryptor
+new        BasePack                     Invasion Marker
+new        jailpack                     Jail Cell
+new        JailCapPack                  Jail Capture Pad
+new        JailGun                      Jailer's Gun
+new        Sentry                       Sentry
+new        LockOutPack                  Switch Lock
+stats+scriptsBeacon                       Beacon
+scripts    DetBug                       Det Bug
+stats+scriptsGrenade                      Grenade
+stats+scriptsMineAmmo                     Mine
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsRepairPatch                  Repair Patch
+new        Bone                         Bone
+new        JailGunlicks                 Jailer Beam

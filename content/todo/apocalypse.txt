@@ -1,0 +1,123 @@
+# apocalypse vs base (122 items)
+new        QuicksilverArmor             Quicksilver
+renamed+stats+scriptsLightArmor                   Peltast
+new        CenturionArmor               Centurion
+renamed+stats+scriptsMediumArmor                  Hoplite
+new        GuardianArmor                Guardian
+renamed+stats+scriptsHeavyArmor                   Myrmidon
+new        ApocalypseArmor              Apocalypse
+new        UltimaArmor                  Ultima
+new        UltimaPack                   Ultima Pack
+new        GrenNapMod                   Napalm Module
+new        GrenEmpMod                   EMP Module
+new        MortImpMod                   Implosion Module
+new        ApocScaMod                   Scatter Bomb Module
+new        ApocScaMod2                  Scatter Bomb Module
+new        FlamSpaMod                   Ignitor
+new        ForcImpMod                   Gravity Module
+new        ShotFulMod                   Full Choke
+new        ShotImpMod                   Improved Choke
+new        ShotModMod                   Modified Choke
+new        ShotSktMod                   Skeet Choke
+new        ElemFirMod                   Fire Core
+new        ElemWinMod                   Wind Core
+new        ElemEarMod                   Earth Core
+new        ElemEleMod                   Electric Core
+new        Blaster2                     Charge Blaster
+renamed+stats+scriptsBlaster                      Charge Blaster
+new        FusionRifle2                 Fusion Rifle
+new        FusionRifle                  Fusion Rifle
+new        FlameAmmo                    Liquid Nitrogen
+new        Canister2                    Liquid Nitrogen Canister
+new        Canister1                    Liquid Nitrogen Canister
+new        FlameThrower                 Flame Thrower
+new        SMachineGunAmmo              Sub Machine Gun Clip
+new        SMachineGun                  Sub Machine Gun
+stats      BulletAmmo                   Bullet
+stats+scriptsChaingun                     Chaingun
+new        Vulcan                       Vulcan
+new        Minigun                      Mini Gun
+new        ShotgunAmmo                  Shotgun Shells
+new        Shotgun                      Boom Stick
+stats      PlasmaAmmo                   Plasma Bolt
+stats      PlasmaGun                    Plasma Gun
+stats      GrenadeAmmo                  Grenade Ammo
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats      MortarAmmo                   Mortar Ammo
+stats+scriptsMortar                       Mortar
+new        RangerMortar                 Rapid Mortar
+new        NaniteAmmo                   Nanites
+new        Nanite2                      Nanite Cannon
+new        Nanite                       Nanite Cannon
+new        ApocAmmo                     Apocalypse Ammo
+new        ApocGun                      Apocalypse Cannon
+new        MissileAmmo                  Missiles
+new        MissileLauncher              Missile Launcher
+new        HomingAmmo                   Homing Missiles
+new        Barrage                      Barrage Cannon
+new        HomingLauncher               Homing Missile Launcher
+new        RepulseAmmo                  Force Shells
+new        RepulseGun2                  Force Cannon
+new        RepulseGun                   Force Cannon
+new        PhantomAmmo                  Phantoms
+new        PhantomLauncher              Phantom Gun
+new        ShockAmmo                    Shock
+new        ShockGun                     Shock Gun
+stats      DiscAmmo                     Disc
+stats      DiscLauncher                 Disc Launcher
+new        RailAmmo                     Rail Bolt
+new        Rail1                        Rail Gun
+new        Rail2                        Rail Gun
+new        RailGun                      Rail Gun
+new        AssassinAmmo                 Assassin Bullet
+new        Assassingun                  Assassin Rifle
+new        PoisonAmmo                   Poison Dart
+new        Poisongun                    Poison Dart Gun
+new        PlasmaLaser                  Plasma Laser
+new        ChainLaser                   Pulse Laser
+new        BeamCannon3                  Beam Cannon
+new        BeamCannon2                  Beam Cannon
+new        BeamCannon                   Beam Cannon
+stats+scriptsLaserRifle                   Laser Rifle
+stats      EnergyRifle                  ELF Gun
+stats      TargetingLaser               Targeting Laser
+new        WeldingGun                   Welding Torch
+new        TractorBeam                  Grappler Beam
+stats+scriptsEnergyPack                   Energy Pack
+new        PerGenPack2                  Personal Generator
+new        PerGenPack3                  Personal Generator
+new        PerGenPack                   Personal Generator
+new        AntiGravPack                 Anti-Grav Pack
+new        ConverterPack                Damage Converter
+stats+scriptsAmmoPack                     Ammo Pack
+stats      RepairPack                   Repair Pack
+stats+scriptsShieldPack                   Shield Pack
+new        ElementPack2                 Elemental Barrier
+new        ElementPack                  Elemental Barrier
+new        GhostPack                    Ghost Pack
+stats      DeployableSensorJammerPack   Sensor Jammer
+new        KamikazePack                 Kamikaze Pack
+new        DetPack                      Detonation Bomb
+stats      DeployableInvPack            Inventory Station
+stats      DeployableAmmoPack           Ammo Station
+stats      MotionSensorPack             Motion Sensor
+stats      PulseSensorPack              Pulse Sensor
+stats      CameraPack                   Camera
+new        MGunPack                     Machine Gun Turret
+new        MissilePack                  Rocket Turret
+new        DiscPack                     Disc Turret
+new        FreezePack                   Frost Turret
+new        PlasmaPack                   Plasma Turret
+new        FusionPack                   Fusion Turret
+new        LaserPack                    Laser Turret
+new        MelfPack                     Mini ELF Turret
+stats+scriptsRepairKit                    Repair Kit
+stats+scriptsRepairPatch                  Repair Patch
+new        PCapsule                     Power Capsule
+new        WCapsule                     Weapon Capsule
+stats+scriptsGrenade                      Grenade
+stats      ScoutVehicle                 Scout
+stats      LAPCVehicle                  LPC
+stats      HAPCVehicle                  HPC
+new        BombVehicle                  Bomber
+new        StrikerVehicle               Striker

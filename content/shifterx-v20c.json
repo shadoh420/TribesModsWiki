@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "ShifterX v20c (2004-03-24) is the final ShifterX release in the archive, adding the deployable N.D. System (ANuke, loaded via data_anuke.cs and func_anuke.cs) alongside minor updates to MLRS Missiles and Suicide DetPack.",
+  "notes": [
+   "Adds ANuke ('N.D. System', data_anuke.cs / func_anuke.cs) as a new deployable.",
+   "Adjusts Mfgl4Ammo ('MLRS Missiles') stats and updates SuicidePack scripts relative to ShifterX v19b."
+  ]
+ }
+}

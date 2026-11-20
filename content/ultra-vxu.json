@@ -1,0 +1,48 @@
+{
+  "mod": {
+    "overview": "UltraVXU 5.0 TWL is a stripped-down, ladder-style cut of the VXO line (the mod's files credit Nimec, 2001). There is one armor (light, renamed Coaxial Plating) and one vehicle (the scout, renamed Aerial Enforcer), and the Psionics, rocket launchers, Taser Rifle, Beam Of Pain, every VX turret, force field, teleport pad, cloak, sensor and most deployables are gone. What remains is a fast light-armor game of disc, LiLFFB, chaingun, plasma and LiL POO rifles with speed boosts and air brakes, where each player picks their brake style on joining.",
+    "notes": [
+      "Only LightArmor exists in $ArmorType (male larmor, female lfemale). 44 of VXO's item datablocks, including medium and heavy armor and the LPC and HPC flyers, are not defined in this mod.",
+      "Spawn loadout: Coaxial Plating with Disc Launcher, LiLFFB, Chaingun, Plasma Gun, LiL POO mkii and mki, Repair Pack, beacons, grenades, a Repair Kit and VX Gas Attack mines.",
+      "On first joining, the server shows a Choose Break Mode menu: 0 Impulse Breaks (Hard) or 1 Air Breaks (Soft). The choice sets the player's brake factor and spawns them.",
+      "Grenade and Beacon come from Mine.cs, which runs after item.cs and overrides the item.cs versions. The Beacon boost is VXO's (velocity x BoostSpeed x speed ratio); light armor's SpeedMax here is 180.",
+      "Player::onDamage follows VXO, with no VX damage-type side effects."
+    ]
+  },
+  "items": {
+    "LightArmor": {
+      "summary": "Coaxial Plating, the only armor in VXU: the light armor with more health and a little more ground speed than VXO's.",
+      "notes": [
+        "maxDamage 1 against 0.66 in VXO, and 15 forward and backward ground speed against 13.",
+        "Ten weapon slots. Every player spawns in it, and there is no other armor to buy."
+      ],
+      "source": "item.cs LightArmor, $ArmorType; ArmorData.cs PlayerData larmor, $MaxWeapons"
+    },
+    "ScoutVehicle": {
+      "summary": "Aerial Enforcer, the only vehicle in VXU: the scout flyer with a rapid-fire LiL POO gun and far more armor.",
+      "notes": [
+        "The Scout datablock has 100 max damage against 6 in VXO.",
+        "It fires LiLPOOmkiiBullet every 0.01 s instead of rockets, as in VXO.",
+        "The vehicle station sells only this flyer; 10 per team."
+      ],
+      "source": "vehicle.cs FlierData Scout; item.cs ScoutVehicle; station.cs $VehicleInvList"
+    },
+    "RepairKit": {
+      "summary": "A one-use medkit that heals 0.99 damage, nearly all of Coaxial Plating's 1.0 health.",
+      "notes": [
+        "Same as VXO except the message, now You use a Repair Kit."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "Grenade": {
+      "summary": "A brake whose strength each player chooses on joining: Impulse Breaks reverse you slightly, Air Breaks slow you to a quarter.",
+      "notes": [
+        "Runs the Mine.cs version: throws the zero-damage Boost charge forward, then multiplies your velocity by the player's own breakspeed x VelRatio and prints You use a Break.",
+        "breakspeed is -0.1 for Impulse Breaks (Hard) and 0.25 for Air Breaks (Soft), replacing VXO's armor-based factor of 0 that stopped you dead.",
+        "VelRatio is (SpeedMax - |x speed|) / SpeedMax, taken from the x axis only.",
+        "0.2 s between uses; uses one grenade each time."
+      ],
+      "source": "Mine.cs Grenade::onUse, VelocityCheck; game.cs processmenuairbreaks"
+    }
+  }
+}

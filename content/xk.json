@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "{|XK|} Mod Beta 1.4.5 (Xtreme Knights) is a November 2000 Renegades Alliance variant built by Neo{|XK|} and King Shit{|XK|} that turns Tribes into an over-the-top class, ordnance, and sky-fortress sandbox. Players spawn into fast-paced team matches or Deathmatch and immediately diverge across 10 specialized armor classes—ranging from the speed-30 Field Runner and item-stealing Scout to the base-building SCA Loader and 7-weapon Xtreme Knight Cyborg—each with unique Beacon abilities, custom grenades, and touch effects. Compared to standard Renegades Alliance, XK dramatically expands both personal firepower (Quad Rocket Launchers, BFG 10000, HH-Cloak Guns, Energy Grappling Hooks, Target-Marked Nuke Missiles) and base engineering (11 turret types, Blast Walls, Teleporters, and deployable Air Bases floating 150 feet in the air), supported by 12 custom aircraft that only light classes can pilot.",
+  "notes": [
+   "Classes and Roles: 10 buyable armor classes reshape combat with unique Beacon, Grenade, and touch triggers. Scout (speed 13, 3 weapons) steals enemy items on contact and boosts with Beacons; Field Runner (speed 30, 2 weapons) takes zero landing damage; Spy (speed 12, 3 weapons) throws 15-second Plastique grenades and drops remote Satchel Charges via Beacon; Sniper (speed 11, 3 weapons) throws Hologram decoys and deploys Sensor Jammers via Beacon; Mercenary (speed 9, 5 weapons) triggers a 50m Repulsion blast on Beacon; Engineer (speed 8, 3 weapons) heals teammates on touch and drops Cameras; Burster (speed 8, 4 weapons) is burn-immune and hurls Firebombs on both grenade and beacon; Alien (speed 9-10, 0.4 HP, 500-600 energy, 4 weapons) is poison-immune, drains enemy life/energy on touch, and cloaks on Beacon; SCA Loader (speed 8, 2 weapons) is the sole class able to buy heavy deployables and turrets; Xtreme Knight Cyborg (speed 6, 1.60 HP, 7 weapons) activates a 20-second shield on Beacon.",
+   "Controls, Menus, and Admin Tools: XK adds no custom #chat commands; server and player controls run through the Tab menu (including a Personal Skin vs Team Skin toggle, Fair Teams, Anti-TK level, and Station Kick timer). Super Admins gain a Fun Admin submenu with Pack o' Lightning (PackOMen) and Fragfest, which teleports every player together 500 meters into the sky. Spy's Satchel Charge detonates when exiting Command Mode, while the Laptop (packCommand) drains suit energy while open.",
+   "Weapons and Status Effects: Over 40 weapons and misc tools expand the sandbox with elemental and utility effects. Poison Dart Rifle and Tranqgrenades inflict Poison (periodic damage flashes until a Repair Kit is used, which cures poison); Flame Thrower and Firebombs inflict Burn; Shockgrenades and EMP gear short-circuit suit energy and unmount weapons for 14 seconds. Standouts include BFG 10000, Quad Rocket Launcher, Cyclone Disc, Omega Death Rifle, Health-Drain Rifle, HH-Cloak Gun (cloaks while held), Sound Ripper, and Energy Grappling Hook (TractorDevice).",
+   "Guided Packs and Suicide Gear: Xtreme Knight Cyborg gets an exclusive guided-ordnance trio where the Target Marking Laser paints a target so the Nuke Missile (PhotonPack) and Homing Missile Cannon (TrackerMissilePack) can seek it. Spy, Burster, Engineer, and Mercenary can equip the Kamikaze Pack (30-second countdown to a multi-bomb detonation) or Nuke DetPack (5-second self-destruct warning). A joke pack called A Big One! (WienerPack, shaped like a cactus) steals items on contact.",
+   "Deployables and Base Building: Base defense is centralized in the SCA Loader class (plus limited Sprint/Scout/DM utility). Loaders can build Blast Walls, Bunkers, Force Field Doors, Small Inventory/Ammo/Command Stations, Teleport Pads, Springboards, Accelerator Devices, Exploding Holograms, Mechanical Trees, and 11 turret types (Flame, Flak, Anti-Grav, Hyper-Grav, Ion, Laser, Missile, Mortar, Plasma, Railgun, and EMP Shock). Field Runners and Loaders can also deploy an Air Base 150 feet overhead complete with its own generator, vehicle station, and vehicle pad.",
+   "Vehicles and Piloting Rules: Twelve vehicles fill the skies (Scout, Interceptor, Wraith, Disrupter, Bouncer, Runner LPC, BomberLPC, Napalm Craft, Scrambler, HPC, Mini B-2 Bomber, and B-2 Stealth Bomber) armed with payloads ranging from Vulcan bullets and Discs to Napalm shells, Mortars, and B-2 Nuke bombs. Only light/fast classes (Scout, Spy, Sniper, and Field Runner) can pilot vehicles; heavier classes (Mercenary, Engineer, Burster, Alien, Loader, Cyborg, and DM Commando) can only ride as passengers.",
+   "Rules, Bans, and Server Protections: No inventory items are globally banned with InvList=0, though an unbuyable invulnerable stub armor (armorPenis) exists in the files and PackOMen is admin-only. Station locking (StationLockTD/NTD) prevents players from blasting teammates or enemies off inventory stations, paired with a 30-second auto-eject timer when more than 3 players are connected. Team deployable caps limit spamming (2 Air Bases, 3 Rail/Shock/Vulcan/HGrav turrets, 5 Kamikaze Packs, 20 Small Inv Stations).",
+   "Spawns, Modes, and Bots: In team play, players spawn in Scout armor with Disc Launcher, Chaingun, Grenade Launcher, 5 Grenades, 3 Beacons, 3 Mines, Targeting Laser, Energy Pack, and Repair Kit. In Deathmatch (dm.cs), players spawn in fast Commando armor (speed 15, 4 weapons, 300-power Speed Booster beacon, cycleable grenade types) carrying a Deployable Inventory Pack, Plastique, Blaster, Chaingun, and Disc Launcher. Mission-placed AI drones are supported via ai.cs with periodic weapon switching."
+  ]
+ },
+ "items": {
+  "iarmorCyborg": {
+   "summary": "Xtreme Knight heavy juggernaut armor built for siege firepower and guided missile strikes.",
+   "notes": [
+    "Carries up to 7 weapons with 1.60 maxDamage and 140 energy, but moves at speed 6.0 and can only ride vehicles.",
+    "Exclusive access to TargetMarkLaser, PhotonPack (Nuke Missile), and TrackerMissilePack (Homing Missile Cannon).",
+    "Throws Mortarbomb grenades and triggers a 20-second Emergency Force Shield on Beacon use."
+   ],
+   "source": "armorCyborg.cs"
+  },
+  "iarmorLoader": {
+   "summary": "SCA Armor dedicated base-builder class that trades weapon slots for full access to XK's deployable arsenal.",
+   "notes": [
+    "Limited to 2 weapons (such as Repair-Gun, Psycho Sword, Sound Ripper, Shock Gun, or Mine Launcher).",
+    "Only armor able to deploy every fortification, base station, and heavy turret pack including BlastWallPack, BunkerPack, DeployableInvPack, TeleportPack, FlakPack, FlameTurretPack, RailTurretPack, and HGravTurretPack.",
+    "Repairs friendly players by 0.10 damage on physical contact and throws Shockgrenades."
+   ],
+   "source": "armorLoader.cs"
+  },
+  "iarmorSprint": {
+   "summary": "Field Runner ultra-fast capper armor designed for high-speed flag runs and rapid vehicle deployment.",
+   "notes": [
+    "Immune to landing damage ($LandingDamageType = 0.0) and moves at speed 30 with 0.66 maxDamage.",
+    "Limited to 2 weapons, pilots all 12 vehicles, and can deploy Hover Pads, Air Base, and Mechanical Tree.",
+    "Beacon activates a 250-power Speed Booster impulse in the player's movement direction."
+   ],
+   "source": "armorSprint.cs"
+  },
+  "airbase": {
+   "summary": "Deployable sky platform that spawns a working forward vehicle pad and station 150 feet straight up.",
+   "notes": [
+    "Creates an elevated platform with a Portable Generator, Vehicle Station, and Vehicle Pad.",
+    "Refuses to deploy too close to your team's flag or if the Air Base generator is already active, with a team limit of 2.",
+    "Available only to SCA Armor (Loader) and Field Runner (Sprint)."
+   ],
+   "source": "deployAirBase.cs"
+  },
+  "KamikazePack": {
+   "summary": "Armed suicide pack that counts down 30 seconds before detonating in a cluster of Kamikaze Bombs.",
+   "notes": [
+    "Available to Spy, Burster, Engineer, and Mercenary armors with a team cap of 5.",
+    "Activating the pack starts a 30-second countdown (with warnings at 15 and 5..1 seconds) before scattering KamikazeBomb explosions; dropping the pack cancels it."
+   ],
+   "source": "packKamikaze.cs"
+  },
+  "TargetMarkLaser": {
+   "summary": "Laser designator that locks onto targets for Cyborg's guided Nuke and Homing Missile packs.",
+   "notes": [
+    "Cyborg-only tool that paints an enemy player or object with a targeting lock.",
+    "Required for PhotonPack (Nuke Missile) and TrackerMissilePack (Homing Missiles) to home in on a target."
+   ],
+   "source": "weaponTargetMark.cs"
+  }
+ }
+}

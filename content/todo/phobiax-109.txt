@@ -1,0 +1,40 @@
+# phobiax-109 vs insomniax (39 items)
+new        FighterVehicle               Lightningstrike Fighter
+new        EnergyRepeater               Energy Repeater
+stats      DiscLauncher                 Disc Launcher
+renamed+statsRocketAmmo                   Rocket Ammo
+scripts    RocketLauncher               Rocket Launcher
+new        TazerBeamGun                 Tazer
+new        TazerBeamGun2                Tazer
+new        TazerBoltGun                 Tazer
+new        TazerBoltGun2                Tazer
+new        DoomsdayLockingLaser         Targeting Laser
+new        FlareAmmo                    Flare
+new        FlareGun                     Flare Gun
+new        InjectorAmmo                 Nanites
+new        NaniteInjector               Nanite Injector
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    EnergyPack                   Energy Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    AmmoPack                     Ammo Pack
+scripts    CameraPack                   Camera
+scripts    TurretPack                   Turret
+scripts    SentryPack                   Sentry
+new        SentinelPack                 Sentinel
+scripts    AvengerPack                  Avenger
+scripts    FlakPack                     Flak Cannon
+new        DecimatorPack                Decimator
+scripts    ForceFieldPack               Small Force Field
+new        PilotPack                    Pilot Pack
+new        MagneticShieldPack           Magnetic Shield Pack
+new        BoomBoxPack                  Boom Box
+new        BoomBoxDetPack               Detonation Pack
+new        RetributionAmmo              Retribution Ammo
+new        RetributionPack              Retribution Pack
+stats      VengeanceAmmo                Vengeance Ammo
+stats+scriptsVengeance                    Vengeance Missile Pack
+new        DoomsdayPack                 Vengeance Missile Pack
+scripts    RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+scripts    RepairPatch                  Repair Patch

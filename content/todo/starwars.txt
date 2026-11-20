@@ -1,0 +1,78 @@
+# starwars vs base (77 items)
+new        TreePoint                    Tree point vis
+new        TreePointRoute               Tree Point Route vis
+new        RPilotArmor                  Rebel Pilot
+renamed+statsLightArmor                   Battle Droid
+new        DMaulArmor                   Darth Maul
+renamed+statsMediumArmor                  Tuskan Raider
+renamed+statsHeavyArmor                   Storm Trooper
+stats      LAPCVehicle                  LPC
+stats      HAPCVehicle                  HPC
+new        FlakAmmo                     Flak
+new        BlasterAmmo                  Blaster Energy Cells
+new        TBlaster                     BlasTech E-11
+new        BBlaster                     Boba Fett's Blaster
+new        HBlaster                     BlasTech DL-44
+new        NBlaster                     Naboo Blaster
+new        MSaber                       Double L.Saber
+new        GSaber                       Green L.Saber
+new        BSaber                       Blue L.Saber
+new        RSaber                       Red L.Saber
+new        DesertRifleAmmo              Desert Rifle Bullets
+new        DesertRifle                  Desert Rifle
+stats      TargetingLaser               Targeting Laser
+stats      DeployableInvPack            Inventory Station
+stats      DeployableAmmoPack           Ammo Station
+renamed+stats+scriptsEnergyPack                   Energy Cell
+renamed+stats+scriptsRepairPack                   Tool Kit
+renamed+stats+scriptsShieldPack                   Droid Pack
+stats      SensorJammerPack             Sensor Jammer Pack
+stats      MotionSensorPack             Motion Sensor
+renamed+statsAmmoPack                     Droid Pack
+stats      PulseSensorPack              Pulse Sensor
+stats      DeployableSensorJammerPack   Sensor Jammer
+renamed+stats+scriptsCameraPack                   Radar Unit
+renamed+stats+scriptsTurretPack                   EWEB Defense
+stats      RepairKit                    Repair Kit
+stats      MineAmmo                     Mine
+new        TimerMineAmmo                Timer Mine
+stats      Grenade                      Grenade
+new        ThermalDet                   Thermal Detonator
+stats      Beacon                       Beacon
+stats      RepairPatch                  Repair Patch
+new        ForceThrow                   Force Throw
+new        ForceLightning               Force Lightning
+renamed+stats+scriptsBlaster                      Battle Droid Blaster
+new        RepeaterAmmo                 Repeater Ammo
+new        Repeater                     Repeater
+new        BlasterRifleAmmo             Heavy Blaster Cells
+new        BlasterRifle                 BlasTech E-11 Rifle
+new        ForceSpeed                   Force Speed
+new        PTorpedoAmmo                 P. Torpedos
+new        Torplauncher                 Torpedo Launcher
+new        ScoutGun                     Scout Blaster
+new        GuardGunAmmo                 Heavy Blaster Cells
+new        GuardGun                     Coruscant Guard Rifle
+new        FlakCannon                   Flak Cannon
+new        ConcAmmo                     C. Torpedos
+new        Conclauncher                 Conc. Torpedo Launcher
+new        AWingVehicle                 A-Wing
+new        InterceptorVehicle           TIE Interceptor
+new        SnowSpeederVehicle           Snow Speeder
+new        TieVehicle                   TIE Fighter
+new        TieBombVehicle               TIE Bomber
+new        yWingVehicle                 Y-Wing
+new        XWingVehicle                 X-Wing
+new        HSoloArmor                   Han Solo
+new        LukeArmor                    Luke Skywalker
+new        DarkTArmor                   Dark Trooper
+new        RebelTrooper                 Rebel Troop
+new        RebelCommando                Rebel Command
+new        thrawnArmor                  Thrawn
+new        HothArmor                    Hoth Trooper
+new        ChewyArmor                   Chewbacca
+new        bobaarmor                    Boba Fett
+new        VaderArmor                   Darth Vader
+new        DashArmor                    Dash Rendar
+new        LeiaArmor                    Princess Leia
+new        xenaArmor                    Xena

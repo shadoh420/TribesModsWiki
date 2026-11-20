@@ -1,0 +1,3 @@
+# football-1v1 vs football (2 items)
+scripts    Football                     Football
+scripts    FootballThrower              Football Thrower

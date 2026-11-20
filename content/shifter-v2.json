@@ -1,0 +1,10 @@
+{
+ "mod": {
+  "overview": "Shifter v2 (2001-05-14 archive build, based on Emo1313's 09-28-2000 Shifter) expands the heavy-weapons and turret lineup while tweaking armor weapon caps. It adds the Underarm Mortars pack (MorPack), Dual Vulcans (VulPack / Vulcan1Pack / Vulcan2Pack), Howitzer weapons and ammo pack (HowGun / Howitzer / Howampack), Indoor and Outdoor Laser Turrets, and a Vulcan Turret, while removing the God Hammer Cannons and standard LaserPack.",
+  "notes": [
+   "Weapon cap changes from Shifter 09-28-2000 ($MaxWeapons in ArmorData.cs): Goliath 5 (was 4), DreadNaught 6 (was 4), and Juggernaught 4 (was 3).",
+   "Removed items relative to Shifter: LaserPack (replaced by indoorLaserPack and outdoorLaserPack), HammerAmmo, Hammer1Pack, and Hammer2Pack.",
+   "Added items: AutoMortarAmmo ('Underarm Mortars'), MorPack ('Mortar Launcher Pack'), VulPack ('Dual Vulcans'), Vulcan1Pack / Vulcan2Pack, HowAmmo ('Howitzer Shells'), HowGun / Howitzer / Howampack, indoorLaserPack, outdoorLaserPack, and vulcanPack."
+  ]
+ }
+}

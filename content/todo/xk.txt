@@ -1,0 +1,119 @@
+# xk vs alliance (118 items)
+new        iarmorScout                  Scout
+renamed+statsiarmorSprint                 Field Runner
+new        iarmorSpy                    Spy
+new        iarmorSniper                 Sniper
+new        iarmorMercenary              Mercenary
+new        iarmorEngineer               Military Commander
+new        iarmorBurster                Demolition Expert
+new        iarmorAlien                  Experimental Fusion
+renamed+statsiarmorLoader                 SCA Armor
+new        iarmorCyborg                 Xtreme Knight
+new        AlienLaser                   Alien Laser
+renamed+statsVulcanAmmo                   Machine Gun Bullet
+renamed+stats+scriptsVulcan                       Machine Gun
+new        HyperLaser                   ChainGun-Laser
+new        ClayAmmo                     Clay Shell
+new        Clay                         Clay Mortar
+renamed+stats+scriptsTranqGun                     Poison Dart Rifle
+stats+scriptsDiscLauncher                 Disc Launcher
+new        DiskHammer                   Cyclone Disc
+new        ELF                          Shock Gun
+new        DiskBolt                     Energy Disk Bolts
+new        EnergyDisk                   Energy Disc
+new        FireMortar                   Fire Mortar
+stats+scriptsFlamer                       Flame Thrower
+new        Breaker                      Fusion Disrupter
+renamed+statsGrenadeAmmo                  Shrapnel Ammo
+renamed+stats+scriptsGrenadeLauncher              Shrapnel Launcher
+renamed+stats+scriptsChaingun                     Hell Storm
+new        HyperB                       Pulse Rifle
+renamed+stats+scriptsDeathLaser                   Hyper Laser
+new        IonGun                       Ion Blaster
+new        IonDisk                      Ion Disc
+new        IonRocket                    Ion Rocket
+renamed+stats+scriptsLaserRifle                   Laser Cannon
+stats+scriptsSilencer                     Magnum
+new        MassCAmmo                    Flak Shell
+new        MassCannon                   Flak Cannon
+new        MinelAmmo                    Mine Launcher Ammo
+new        MineLauncher                 Mine Launcher
+stats+scriptsMortar                       Mortar
+renamed+stats+scriptsOmega                        Omega Death Rifle
+new        ClusterBomb                  Cluster Bomb
+renamed+stats+scriptsBlaster                      Pea Shooter
+new        PistolAmmo                   Clip
+new        Pistol                       9MM Pistol
+new        PlasAmmo                     Plas Shell
+new        Plas                         Plas Cannon
+scripts    PlasmaGun                    Plasma Gun
+new        QuadRocket                   Quad Rockets
+new        QRL                          Quad Rocket Launcher
+stats+scriptsRailgun                      Railgun
+renamed+statsRocketAmmo                   BFG Cells
+renamed+stats+scriptsRocketLauncher               BFG 10000
+renamed+stats+scriptsWaveGun                      Atomic Disruptor
+stats+scriptsSniperRifle                  Sniper Rifle
+new        Sword                        Psycho Sword
+renamed+stats+scriptsBolt                         (HDR)Health-Drain Rifle
+new        Volter                       Volter
+stats+scriptsTargetingLaser               Targeting Laser
+renamed+stats+scriptsFixit                        Repair-Gun
+new        CloakGun                     HH-Cloak Gun
+renamed+stats+scriptsTractorDevice                Energy Grappling Hook
+new        FlareAmmo                    Flares
+new        FlareGun                     Flare Gun
+new        SoundAmmo                    Sound Ripper Ammo
+new        SoundRipper                  Sound Ripper
+new        WienerPack                   A Big One!
+new        KamikazePack                 Kamikaze Pack
+scripts    AmmoPack                     Ammo Pack
+renamed+stats+scriptsCloakingDevice               Invisible Device
+scripts    EnergyPack                   Energy Pack
+new        LightningPack                Shock Pack
+new        OpticPack                    Laser Pack
+new        RegenerationPack             Healing Pack
+new        HammerPack                   Cyclone Pack
+stats      RepairPack                   Repair Pack
+new        SMRAmmo                      Auto-Rockets
+new        SMRPack                      Auto-Rocket Cannon
+new        StealthShieldPack            StealthShield Pack
+renamed+stats+scriptsSuicidePack                  Nuke DetPack
+renamed+stats+scriptsPackOMen                     Pack O' Lightning
+new        EnergizerPack                Energizer Pack
+scripts    TargetMarkLaser              Target Marking Laser
+renamed+stats+scriptsPhotonPack                   Nuke Missile
+renamed+statsTrackerMissileAmmo           Homing Missiles
+renamed+stats+scriptsTrackerMissilePack           Homing Missile Cannon
+new        TargetPack                   Targeting Turret
+scripts    CameraPack                   Camera
+scripts    DeployableComPack            Command Station
+stats      LargeForceFieldPack          Large Force Field
+new        DoorPack                     Small Force Door
+new        LargeDoorPack                Large Force Door
+renamed+statsMannequinPack                Exploding Hologram
+scripts    BlastWallPack                Blast Wall
+new        AirPlatformPack              Hover Pad
+new        LargeAirPlatPack             Large Hover Pad
+new        airbase                      AirBase
+new        BunkerPack                   Deployable Bunker
+stats      TeleportPack                 Teleport Pad
+scripts    MechPack                     Interceptor Pack
+scripts    DetPack                      HPC Pack
+new        TripMine                     Trip Mine
+new        FlameTurretPack              Flame Turret
+new        HGravTurretPack              Hyper-Grav Turret
+new        AGravPack                    Anti-Grav Turret
+scripts    IonTurretPack                Ion Turret
+scripts    LaserTurretPack              Laser Turret
+renamed+stats+scriptsShockTurretPack              EMP Turret
+renamed+statsRailTurretPack               Railgun Turret
+new        FlakPack                     Flak Turret
+new        FusionMarkerVehicle          Disrupter
+new        BouncerVehicle               Bouncer
+new        RunnerVehicle                Runner LPC
+new        ScorcherVehicle              Napalm Craft
+new        ScramblerVehicle             Scrambler
+new        MiniVehicle                  Mini B-2 Bomber
+new        B2Vehicle                    B-2 Stealth Bomber
+new        Plastique                    Grenade Mode

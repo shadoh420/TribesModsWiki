@@ -1,0 +1,90 @@
+shifterx-v18h: 89 of 127 need write-ups
+  Juggernaught (Juggernaught): stats
+  ScoutVehicle (Scout): stats
+  LAPCVehicle (Assault LPC): renamed+stats
+  HAPCVehicle (Stealth HPC): renamed+stats
+  Blaster (Blaster): stats+scripts
+  Chaingun (Chaingun): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  HyperB (Hyper Blaster): stats+scripts
+  SniperRifle (Sniper Rifle): stats+scripts
+  BoomStick (Boom Stick): stats+scripts
+  ConCun (Shockwave Cannon): stats+scripts
+  Railgun (Railgun): stats+scripts
+  Vulcan (Vulcan): stats+scripts
+  MfglAmmo (Nuclear Warhead): stats
+  Mfgl (Tactical Nuke): stats+scripts
+  Flamer (Flame Thrower): stats+scripts
+  IonGun (Ion Rifle): stats+scripts
+  Omega (Volter): new
+  Fixit (Engineer Repair-Gun): stats+scripts
+  GravGun (Grav Gun): stats+scripts
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableComPack (Command Station): stats+scripts
+  EnergyPack (Energy Pack): stats
+  RepairPack (Repair Pack): stats
+  ShieldPack (Shield Pack): stats+scripts
+  SensorJammerPack (Sensor Jammer Pack): stats
+  CloakingDevice (Cloaking Device): stats+scripts
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  FlightPack (Flight Pack): stats
+  SMRPack (Rocket Launcher Pack): stats+scripts
+  SMRPack2 (Rocket Launcher Pack): stats+scripts
+  NewPack (Auto-Cannon): new
+  NewerPack (Auto-Cannon): new
+  Laptop (Command Laptop): stats+scripts
+  SuicidePack (Suicide DetPack): stats+scripts
+  FgcPack (Containment Pack): stats
+  MotionSensorPack (Motion Sensor): stats+scripts
+  AmmoPack (Ammo Pack): stats+scripts
+  PulseSensorPack (Pulse Sensor): stats+scripts
+  DeployableSensorJammerPack (Sensor Jammer): stats+scripts
+  CameraPack (Camera): stats+scripts
+  TurretPack (Ion Turret): stats+scripts
+  LaserPack (Laser Turret): stats+scripts
+  DeployableElf (Deployable Elf Turret): stats+scripts
+  ShockPack (EMP Turret): stats+scripts
+  TargetPack (AAA Turret): renamed+stats+scripts
+  PlasmaTurretPack (Plasma Turret): stats+scripts
+  RocketPack (Rocket Turret): stats+scripts
+  ForceFieldPack (Small Force Field): stats+scripts
+  LargeForceFieldPack (Large Force Field): stats+scripts
+  BlastWallPack (Blast Wall): stats+scripts
+  HoloPack (Hologram): stats+scripts
+  LaunchPack (Launch Pad): stats+scripts
+  PlatformPack (Deployable Platform): stats+scripts
+  TeleportPack (Teleport Pad): stats+scripts
+  MechPack (Interceptor Pack): stats+scripts
+  DetPack (Assault LPC Pack): renamed+stats+scripts
+  RepairKit (Repair Kit): stats+scripts
+  MineAmmo (Mine): stats+scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts
+  Boost (Bot): new
+  Plastique (Plastique): stats+scripts
+  RepairPatch (Repair Patch): stats+scripts
+  Hackit (Engineer Repair-Gun): renamed+stats+scripts
+  DisIt (Engineer Repair-Gun): renamed+stats+scripts
+  BlastFloorPack (Blast Floor): stats+scripts
+  LargeShockForceFieldPack (Large Shock Force Field): stats+scripts
+  ShockFloorPack (Shock Floor): stats+scripts
+  IndoorPack (Indoor Turret): new
+  EmplacementPack (Emplacement): stats+scripts
+  ALPCTurret (Fire Control Computer): new
+  ALPCTurretR (Right Turret Cannon): new
+  ALPCTurretL (Left Turret Cannon): new
+  AsCannonGun (Assault Cannon): new
+  FusionCutterGun (Fusion Cutter): new
+  HeavyMGAmmo (Heavy Machinegun Ammo): new
+  HeavyMGGun (Heavy Machinegun): new
+  TargetingLaser (Targeting Laser): stats+scripts
+  RocketLauncher (Rocket Launcher): stats+scripts
+  SAMAmmo (SAM Ammo): new
+  SAMgun (SAM Launcher): new

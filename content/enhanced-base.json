@@ -1,0 +1,124 @@
+{
+ "mod": {
+  "overview": "Enhanced Base v2 (Timer[TiZ], April-May 2000) keeps the 52-item Base roster intact while banning Light Armor from using Grenade Launchers or Laser Rifles, increasing lethality across almost every weapon, doubling Energy Pack output, extending turret ranges, and replacing infinite team energy with a 50,000 / 100,000 economy.",
+  "notes": [
+   "Class specialization (ArmorData.cs): Light Armor loses GrenadeLauncher and LaserRifle ($ItemMax = 0) but runs faster (11 -> 13) with half jet drain (0.8 -> 0.4). Medium Armor gains LaserRifle access and an extra weapon slot ($MaxWeapons 4 -> 5), slightly faster forward speed (8 -> 9), lower jet drain (1.0 -> 0.8), higher ammo caps (175 bullets, 20 discs, 15 grenades, 5 turrets), and takes full 1.0x Plasma damage (was 0.6x). Heavy Armor gains an extra weapon slot (5 -> 6), is slower (5 -> 4) and tougher (maxDamage 1.32 -> 1.63), carries more ammo/explosives (25 discs, 15 mortars, 13 grenades, 6 mines), and resists Splash/Shrapnel (0.3/0.2) while taking 1.7x Blaster damage.",
+   "Weapon and pack lethality: Blaster deals 0.3 damage (was 0.125) and bounces up to 9.5 s (was 1.125 s); Chaingun tightens spread (0.005 -> 0.0019) and deals 0.135 damage (was 0.11); Plasma deals 0.55 (was 0.45); Mortar deals 1.2 (was 1.0); Disc Launcher accelerates 5x faster (5 -> 25) with double knockback (150 -> 300); Laser Rifle draws up to 80 energy (was 60) at 0.011 conversion (was 0.007); ELF Gun costs 500 (was 125) with 60 m reach (was 40 m) and 0.04 DPS (was 0.06); Energy Pack doubles energy bonus (-3 -> -6) and Ammo Pack capacities increase (e.g. 175 bullets, 17 discs, 16 grenades, 13 mortars).",
+   "Base economy & turrets: starts teams at 50,000 energy (100,000 max, instead of Infinite) with raised remote station costs ($RemoteInvEnergy 3000 -> 9000), multiplies deployable/vehicle team limits 5-10x ($TeamItemMax DeployableInv 5 -> 50, Turret 10 -> 50, Scout 3 -> 30), enables auto-respawn and 1 s item respawn, allows 4 turrets per box (was 2), suppresses deploy echoes, enables friendly damage on turrets, and boosts turret ranges (RocketTurret 150 -> 200 sight / 300 -> 400 gunRange, DeployableTurret 30 -> 100, IndoorTurret 25 -> 250, Camera/Mortar Turret 500)."
+  ]
+ },
+ "items": {
+  "Blaster": {
+   "summary": "Damage more than doubles (0.125 -> 0.3) and bounce liveTime extends from 1.125 s to 9.5 s (10.5 s totalTime).",
+   "notes": [
+    "Makes indoor Blaster ricochets dramatically deadlier and longer-lasting."
+   ],
+   "source": "baseProjData.cs BlasterBolt"
+  },
+  "Chaingun": {
+   "summary": "Spread tightens from 0.005 to 0.0019 and per-bullet damage increases from 0.11 to 0.135.",
+   "notes": [
+    "Significantly boosts mid-range accuracy and DPS."
+   ],
+   "source": "baseProjData.cs ChaingunBullet"
+  },
+  "PlasmaGun": {
+   "summary": "Bolt damage increases from 0.45 to 0.55, while Medium Armor takes 1.0x (was 0.6x) and Heavy takes 0.8x (was 0.4x) Plasma damage.",
+   "notes": [
+    "Turns Plasma into a major anti-Medium and anti-Heavy weapon."
+   ],
+   "source": "baseProjData.cs PlasmaBolt; ArmorData.cs"
+  },
+  "Mortar": {
+   "summary": "Mortar shell damage rises from 1.0 to 1.2.",
+   "notes": [
+    "Heavy Armor can now carry 15 Mortar shells (was 10)."
+   ],
+   "source": "baseProjData.cs MortarShell; ArmorData.cs"
+  },
+  "DiscLauncher": {
+   "summary": "Disc acceleration jumps 5x (5 -> 25) and kickBackStrength doubles (150 -> 300).",
+   "notes": [
+    "Doubled impulse enables stronger disc-jumping and knockback Disruption."
+   ],
+   "source": "baseProjData.cs DiscShell"
+  },
+  "LaserRifle": {
+   "summary": "Energy cap rises from 60 to 80 and damageConversion rises from 0.007 to 0.011; Medium Armor gains access while Light Armor loses it.",
+   "notes": [
+    "Removes Light-armor sniping while turning Medium into the dedicated Laser sniper class."
+   ],
+   "source": "item.cs LaserRifle; baseProjData.cs SniperLaser; ArmorData.cs"
+  },
+  "EnergyRifle": {
+   "summary": "Price increases from 125 to 500, beam lengthens from 40 m to 60 m, and damage drops from 0.06/s to 0.04/s.",
+   "notes": [
+    "Makes the ELF Gun a pricier, longer-range team-energy drain utility."
+   ],
+   "source": "item.cs EnergyRifle; baseProjData.cs lightningCharge"
+  },
+  "EnergyPack": {
+   "summary": "Energy recharge bonus doubles from -3 to -6; deployable limits and station interactions updated.",
+   "notes": [
+    "Supports heavier Laser Rifle and jet usage on Light and Medium."
+   ],
+   "source": "item.cs EnergyPack"
+  },
+  "GrenadeLauncher": {
+   "summary": "Banned from Light Armor ($ItemMax[larmor, GrenadeLauncher] = 0); launcher datablock strips validateShape.",
+   "notes": [
+    "Keeps Grenade Launcher exclusive to Medium and Heavy."
+   ],
+   "source": "ArmorData.cs"
+  },
+  "GrenadeAmmo": {
+   "summary": "Inventory display name changes from 'Grenade Ammo' to 'GrenadeAmmo'; Medium cap rises 10 -> 15 and Heavy 15 -> 20.",
+   "notes": [
+    "Projectile stats unchanged."
+   ],
+   "source": "item.cs GrenadeAmmo; ArmorData.cs"
+  },
+  "MortarAmmo": {
+   "summary": "Inventory display name changes from 'Mortar Ammo' to 'MortarAmmo'; Heavy cap rises from 10 to 15.",
+   "notes": [
+    "Projectile stats unchanged."
+   ],
+   "source": "item.cs MortarAmmo; ArmorData.cs"
+  },
+  "TurretPack": {
+   "summary": "Allows 4 turrets in a tight box ($maxNumTurretsInBox 2 -> 4) with tighter box minimum spacing, longer turret range (30 -> 100 m), 0.71 HP, and friendly turret damage enabled.",
+   "notes": [
+    "Deploy announce echo removed."
+   ],
+   "source": "turret.cs DeployableTurret; game.cs"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploy echo suppressed and remote deploy cost raised to $RemoteInvEnergy = 9000 (was 3000).",
+   "notes": [
+    "Reflects the capped 50k/100k team energy economy."
+   ],
+   "source": "item.cs; game.cs"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploy echo suppressed and remote deploy cost raised to $RemoteAmmoEnergy = 5000 (was 2500).",
+   "notes": [
+    "Reflects the capped team energy economy."
+   ],
+   "source": "item.cs; game.cs"
+  },
+  "MotionSensorPack": {
+   "summary": "Deploy echo message suppressed on placement; sensor stats unchanged.",
+   "notes": [
+    "Matches Enhanced Base's cleaner server log output."
+   ],
+   "source": "item.cs"
+  },
+  "CameraPack": {
+   "summary": "CameraTurret sight range increases from 50 m to 500 m and deploy echo is suppressed.",
+   "notes": [
+    "Turns deployed cameras into wide-area observation uplinks."
+   ],
+   "source": "turret.cs CameraTurret; item.cs"
+  }
+ }
+}

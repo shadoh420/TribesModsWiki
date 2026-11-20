@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Armageddon, subtitled Meltdown v w00, is a 2002 clan-oriented modification created by GreyWolf and VRWarper that expands the Meltdown 2, HaVoC, and Shifter foundations with overwhelming firepower and persistent player profiles. The core gameplay loop revolves around high-velocity objective and base assault battles where players spawn fully pre-geared into combat to establish deployable forward bases, launch heavy airstrikes, and clash over flags. Compared to its parent Meltdown 2, this release dramatically increases weapon carrying limits across all armor classes, integrates multi-mode firing configurations directly into weapon menus, and implements detailed locational damage where precise shots disarm weapons or force flag drops. Matches take place across standard capture-the-flag and deathmatch scenarios elevated by distance-scaled frag scoring, generator auto-repair toggles, and integrated admin enforcement tools.",
+  "notes": [
+   "Classes and Carry Capacities: Six armor classes offer drastically boosted arsenals compared to standard Tribes, allowing Archer light armor to haul up to 5 weapons (4 for females), Mercury Blastech armor to carry 5 weapons, SilverWolf medium engineer armor to carry 6 weapons while enjoying built-in immunity to methane poison, Paris MagIon armor to carry 6 weapons, and both Hercules MECH and Zeus heavy armors to wield up to 7 weapons simultaneously.",
+   "Immediate Spawns and Loadouts: Players spawn instantly ready for combat without visiting an inventory station, defaulting to Paris MagIon armor equipped with an extensive starter kit including a Disc Launcher, Chaingun, Plasma Gun, Reassembler, Mitzi Blast Cannon, Grenade Launcher, PBW, grenades, beacons, mines, and an Energy Pack.",
+   "Weapon Options and Dynamic Fire Modes: The in-game Options menu features a dedicated Weapon Options sub-menu allowing players to adjust their weapons on the fly, including configuring the Mitzi Blast Cannon across six MitziCore-powered modes (Standard Blast, EMP Blast, Booster, BlackHole vortex, Biological Warfare poison, and Annihilator burn) or toggling the Hyper-Chaingun between Standard single-shot mode and Vulcan triple-bullet spread mode.",
+   "Locational Hits and Tactical Disarming: Precision gunplay rewards exact placement through specialized damage hooks; sniper or laser hits to the front-right torso physically dislodge the victim's readied weapon, headshots to the back of the neck force flag runners to immediately drop the team flag, and direct hits from the Riot Disarmer completely strip both weapon and flag while blinding the target with flash.",
+   "Deployed Fortifications and Base Building: Engineers can construct forward bases and defenses using an extensive inventory of deployables, including blast doors, blast floors, acceleration thrust platforms, mobile inventory units, mobile generators, shield generators, vehicle base pads, air jails, and numerous automated turrets such as disc, mini, defender, flux, grog, artillery, rocket, pulse, and sniper plasma sentries.",
+   "Air Support and Vehicles: Players can designate coordinates with the Air-Strike Beacon Gun to phase in a physical 3D dropship model that navigates overhead and drops devastating carpet bombings of high-explosive shells, while vehicle stations offer 13 distinct craft including the Arwing fighter, Sky Cutter, Valkyrie Interceptor, LPC LandSkimmer, and Hover Tank.",
+   "Exotic Equipment and Status Effects: Unique gear includes the HoverGrav pack for sustained hovering, the Bug Pack for continuous 200-meter sensor jamming combined with enemy and observer chat eavesdropping, and the Leech Pack for draining nearby hostile energy and mines, alongside damage effects that inflict burning flesh or methane poisoning over time.",
+   "GreyBOT Commands and Rules: The server features persistent account tracking through GreyBOT using !register with player setup passwords, public commands like !rating, !overall, !renew, !retrieve, and !urgent, administrative controls like !afk (which grants safe-zone invulnerability until cycling weapons) and #id, while explicitly banning the AlienLaser from all stations ($InvList=0, $RemoteInvList=0) and restricting GravFieldPack2 from remote inventory.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): AlienLaser (weapons.cs)."
+  ]
+ },
+ "items": {
+  "MBCannon": {
+   "summary": "Definitive Meltdown heavy energy cannon offering multiple tactical firing modes powered by MitziCore energy cells.",
+   "notes": [
+    "Configured through the in-game Options menu into six distinct firing modes: Standard Blast, EMP Blast, Booster, BlackHole, Biological Warfare Poison, and Annihilator Burn.",
+    "Mode 3 launches a BlackHole gravity vortex requiring at least 125 energy cores and consuming 75 per shot.",
+    "Higher modes like Biological Warfare and Annihilator deal lingering methane poison or burning damage."
+   ],
+   "source": "weapons.cs"
+  },
+  "AODBeaconGun": {
+   "summary": "Long-range air support designator that summons an overhead gunship for aerial carpet bombing.",
+   "notes": [
+    "Requires line of sight and expends one beacon from player inventory upon deployment.",
+    "Spawns a physical 3D dropship high above the targeted terrain that glides forward while releasing clusters of bombs and artillery shells before phasing out.",
+    "Broadcasts an audio alert across the battlefield informing players that the gunship has begun its bombing run."
+   ],
+   "source": "airstrike.cs"
+  },
+  "DisarmRifle": {
+   "summary": "Tactical riot control rifle that physically forces opponents to drop their active weapons and carried objectives.",
+   "notes": [
+    "Targets hit by its energy discharge instantly drop their readied weapon onto the ground.",
+    "If the hit target is carrying the enemy team flag, the flag is immediately dropped as well.",
+    "Restricts usage to medium and heavy combat frames such as SilverWolf, Paris, Hercules, and Zeus."
+   ],
+   "source": "weapons.cs"
+  },
+  "RSniper": {
+   "summary": "Scoped long-range maintenance rifle designed to repair structures, turrets, and teammates from extreme distances.",
+   "notes": [
+    "Consumes Repair Bolts to launch high-velocity RepairDiscShell projectiles.",
+    "Produces an area-of-effect repair splash on impact, restoring all damaged friendly assets and players within the blast radius.",
+    "Available to all six armor classes without class restrictions."
+   ],
+   "source": "weapons.cs"
+  },
+  "BugPack": {
+   "summary": "Infiltration backpack integrating continuous sensor suppression with communication interception.",
+   "notes": [
+    "Increases player sensor suppression by 200 meters continuously upon mounting without needing manual activation.",
+    "Intercepts and displays all enemy team chat messages and spectator observer chatter directly on the wearer's screen.",
+    "Ideal for deep reconnaissance, sabotage, and base infiltration roles."
+   ],
+   "source": "packs.cs"
+  },
+  "AlienLaser": {
+   "summary": "Heavy energy beam weapon that is entirely banned and blocked from all loadouts and inventory stations.",
+   "notes": [
+    "Hardcoded to 0 in both base station and remote station availability registries.",
+    "Carrying capacity is strictly clamped to 0 across all six armor classes.",
+    "Retained in the source codebase from ancestor mods but completely excluded from active gameplay."
+   ],
+   "source": "weapons.cs"
+  }
+ }
+}

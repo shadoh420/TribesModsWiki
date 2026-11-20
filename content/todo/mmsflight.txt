@@ -1,0 +1,11 @@
+# mmsflight vs base (10 items)
+stats      ScoutVehicle                 Scout
+stats      LAPCVehicle                  LPC
+stats      HAPCVehicle                  HPC
+new        DestroyerVehicle             Destroyer
+new        IcptVehicle                  Interceptor
+new        BomberVehicle                Bomber
+new        SFortressVehicle             Small Fortress
+new        LFortressVehicle             Large Fortress
+new        AIcptVehicle                 Adv. Interceptor
+new        KamikazeVehicle              Kamikaze

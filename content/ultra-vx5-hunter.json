@@ -1,0 +1,213 @@
+{
+  "mod": {
+    "overview": "VX5 \"Hunter\" is Ultra Renegades VX5 rebuilt around unlimited gear, plus the Flag Hunter game type. Every weapon fires without ammo, using a little energy per shot or none at all. Repair Kits, Mines, Grenades and Beacons are never used up, and all ammunition items are gone. It adds Flag Hunter-only gear: the Hunter Armor, the Raptor Rifle, Torque Cannon, Star Burster rocket launcher and the Flag Stripper beam. Flag Hunter missions exec FlagHunter.cs, a free-for-all where every kill drops flags that you carry back to a Nexus for points.",
+    "notes": [
+      "No ammo: all 15 VX5 ammunition items (Bullet, Plasma, Disc, Grenade, Mortar, the LiL ammo types and the psionic implants) are removed. Weapon images instead use minEnergy 1 / maxEnergy 0.1, or no energy at all (Napalm Launcher). The LiL Rocket and EMP Rocket launchers no longer subtract ammo in onFire.",
+      "Hand items are never consumed: Repair Kit, Mine, Grenade and Beacon onUse no longer call decItemCount. The normal armors may carry only 1 of each; the Hunter Armor 5.",
+      "No difficulty modes: this build ships no vxmod.cs (server.cs has the exec commented out with PORT-OFF), so there are no profile or difficulty files. The datablock values shown are the live ones.",
+      "Default (non-Flag Hunter) spawn kit: Light Armor, LiL Rocket Launcher, Phase Shifter, Napalm Launcher, Plasma Gun, Raptor Rifle (the LaserRifle item), LiL POO mkii and mki, Repair Pack, Mine, Beacon, Grenade, Repair Kit.",
+      "Player::onDamage effects differ from VX5. EMP damage zeroes energy, sets recharge 6 and knocks out the victim's weapon and flag, but no longer the pack. Beam Of Pain damage zeroes energy, sets recharge 6, prints \"You have been Stripped!!!\" and drops only the flag; it no longer drops weapon or pack. A new AMine damage type has the same effect as EMP (\"You ran into an airmine!!!\"), but no projectile or mine in the scripts uses it.",
+      "Flag Hunter rules (FlagHunter.cs): everyone spawns on team 0's drop points with the Hunter kit. Each player starts carrying 1 flag; dying throws all your flags out (beyond $FlagHunter::YardSaleNumber, the extras come out as 2-point flags). Return flags to the Nexus for progressive points: 1 flag = 1, 2 = 1+2, 3 = 1+2+3 and so on. Camping in the Nexus area gives a warning after 10 s, then 0.05 damage per second.",
+      "Flag Hunter options: GREED mode needs at least 8 flags before you can return them. HOARD mode blocks returns from 20 minutes in until 15 minutes are left. TEAM mode splits players into Blood Eagle and Diamond Sword. All three can be voted or set by admins from the Tab menu. Records are kept in HunterRecords.cs.",
+      "Iplogger.cs keeps a log of the names seen from each IP address and shows it to super admins."
+    ]
+  },
+  "items": {
+    "HunterArmor": {
+      "summary": "The Flag Hunter armor: a medium-model armor issued by the Flag Hunter spawn kit, carrying the Hunter weapons and up to five of each hand item. It shrugs off most explosive damage types.",
+      "notes": [
+        "Maps to carmor (male) and cfemale. It uses the medium model with light-armor health (0.66) and 100 energy, cannot crouch, and has 7 weapon slots.",
+        "It has $DamageScale entries only for Landing, Impact, Crush, Energy (0.33), Debris, EMP, Beam Of Pain, Mine (0.1), AMine (0.1), Tribes, Laser and Bullet (cfemale takes Bullet at 0.5). Other types, such as Shrapnel, Explosion, Plasma, Missile, Mortar, Napalm, LiLRocket, Blaster and Electricity, have no entry, so their scale reads as empty and they do no damage.",
+        "Carries Raptor Rifle, Star Burster, Torque Cannon, Flag Stripper, Atomizer and 5 each of Mine, Grenade, Beacon and Repair Kit.",
+        "Buying it also gives Booster1Pack and Booster2Pack and mounts them in slots 4 and 5, 0.3 s later.",
+        "It is not in any $InvList; it is issued only by the Flag Hunter spawn list."
+      ],
+      "source": "item.cs buyItem, $ArmorType; ArmorData.cs carmor/cfemale; FlagHunter.cs $FlagHunter::spawnList"
+    },
+    "SmScreenAbility": {
+      "summary": "Smoke Screen: lobs long-lasting smoke grenades that do light Smoke damage. It runs on energy instead of Smoke Implants.",
+      "notes": [
+        "Unlike VX5, it has no ammo type; each shot costs a little energy.",
+        "The SmScreen shell lingers for 32 seconds. Smoke damage prints \"WARNING - Toxic Gas Detected!\" to the victim."
+      ],
+      "source": "item.cs SmScreenAbilityImage; player.cs Player::onDamage"
+    },
+    "Chaingun": {
+      "summary": "Atomizer: a rapid-fire gun of fast, visible Bullet-type shots that only travel for about a third of a second.",
+      "notes": [
+        "Unlike VX5's chaingun, it needs no Bullet Ammo (energy-fed) and fires every frame (fireTime 0).",
+        "ChaingunBullet now uses the laserhit shape and an AtomExp0 explosion and is visible, with no tracer. Its 0.35 s lifetime limits range.",
+        "Bullet hits to an enemy's head gib the target and do triple damage."
+      ],
+      "source": "item.cs ChaingunImage; baseProjData.cs ChaingunBullet; player.cs Player::onDamage"
+    },
+    "LiLPOOmki": {
+      "summary": "LiLPOOmki: a very fast-firing gun of extremely fast rounds that does Bullet damage. It no longer needs ammo.",
+      "notes": [
+        "Unlike VX5 it needs no Bullet mki ammo; each shot costs a little energy.",
+        "Bullet damage, so enemy head hits gib and do triple damage."
+      ],
+      "source": "item.cs LiLPOOmkiImage; baseProjData.cs LiLPOOmkiBullet; player.cs Player::onDamage"
+    },
+    "LiLPOOmkii": {
+      "summary": "LiLPOOmkii: rapid-fire, extremely fast rounds of the LiLPOOmkii damage type, now with no ammo.",
+      "notes": [
+        "Unlike VX5 it needs no Bullet mkii ammo; each shot costs a little energy.",
+        "Enemy head hits gib and do triple damage, as with bullets."
+      ],
+      "source": "item.cs LiLPOOmkiiImage; baseProjData.cs LiLPOOmkiiBullet; player.cs Player::onDamage"
+    },
+    "LiLFFB": {
+      "summary": "LiL FFB: the Force Field Buster grenade launcher, now unlimited and four times quicker to reload.",
+      "notes": [
+        "Unlike VX5, it uses energy instead of LiLFFB Ammo, and reloads in 0.25 s instead of 1 s.",
+        "Its heavy LiLFFBShell does large shrapnel damage in a 15 m blast."
+      ],
+      "source": "item.cs LiLFFBImage; baseProjData.cs LiLFFBShell"
+    },
+    "LiLRocketLauncher": {
+      "summary": "LiL Rocket Launcher: now fires \"Stripper\" EMP rockets. Two homing ones go at a locked player or flier, otherwise one fast straight rocket. Ammo is unlimited.",
+      "notes": [
+        "Unlike VX5, onFire spawns StripperONE and StripperTWO (seeking, EMP damage, 3 m blast) at a Player or Flier in line of sight within 350 m, after a RocketLockWarning. Otherwise it fires Stripperalt (EMP, 7 m blast, very fast).",
+        "It no longer subtracts ammo, and it reloads much faster than VX5's.",
+        "Because all three rockets are EMP damage, every hit knocks the victim's weapon and flag loose and drains their energy (see mod notes)."
+      ],
+      "source": "item.cs LiLRocketLauncherImage::onFire; baseProjData.cs StripperONE/StripperTWO/Stripperalt"
+    },
+    "LiLEMPRocketLauncher": {
+      "summary": "EMP Rocket Launcher: two homing EMP rockets at a locked player or flier within 350 m, or one straight EMP rocket otherwise, with unlimited ammo.",
+      "notes": [
+        "Same projectiles as VX5 (LiLEMPRocketONE/TWO, LiLEMPRocketalt), but onFire no longer subtracts ammo and the image is energy-fed.",
+        "For what an EMP hit does in this build, see the mod notes."
+      ],
+      "source": "item.cs LiLEMPRocketLauncherImage::onFire"
+    },
+    "HBeamOfPain": {
+      "summary": "Flag Stripper: the Hunter Armor's copy of the Beam Of Pain. It drains the target's energy and makes them drop the flags they carry.",
+      "notes": [
+        "Fires the same BeamOfPainProj as the Beam Of Pain. damageTarget pulls the target toward the shooter, damages and drains energy, with no team check.",
+        "In this build, Beam Of Pain damage sets the victim's energy to 0 and recharge to 6, prints \"You have been Stripped!!!\" and drops their flag item. In Flag Hunter that throws out every flag they carry except one.",
+        "Only the Hunter Armor can carry it."
+      ],
+      "source": "item.cs HBeamOfPain; baseProjData.cs BeamOfPainProj::damageTarget; player.cs Player::onDamage; FlagHunter.cs Flag::onDrop"
+    },
+    "RepairKit": {
+      "summary": "Repairs almost all of your damage and is never used up.",
+      "notes": [
+        "Unlike VX5, onUse no longer removes the kit, so one kit heals 0.99 damage as often as you like."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "MineAmmo": {
+      "summary": "Throws a mine that arms the moment it is created and blows up on any player who touches it, friend or foe. Never used up.",
+      "notes": [
+        "Unlike VX5, onUse no longer removes a mine from your inventory (0.5 s between throws).",
+        "deployCheck no longer waits for the mine to come to rest or plays its deploy animation; it arms at once and detonates if another mine is within 1 m.",
+        "onCollision no longer checks teams, so teammates (and you) set it off."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine::deployCheck/onCollision"
+    },
+    "Grenade": {
+      "summary": "AirBrake: using a grenade cuts your current velocity to one sixth. It is never used up.",
+      "notes": [
+        "Unlike VX5, onUse no longer removes the grenade and no longer prints \"You use an AirBrake.\""
+      ],
+      "source": "item.cs Grenade::onUse"
+    },
+    "Beacon": {
+      "summary": "Speed Booster: drops a Boost mine at your feet whose zero-damage blast (kickback 500) throws you. It is never used up.",
+      "notes": [
+        "Unlike VX5, onUse no longer removes the beacon and no longer prints \"You use a Speed Booster.\" (0.2 s between uses).",
+        "onUse first calls Beacon::deployShape, which no script in this build defines, so that call does nothing."
+      ],
+      "source": "item.cs Beacon::onUse; Mine.cs Boost"
+    },
+    "LaserRifle": {
+      "summary": "Raptor Rifle: the Laser Rifle slot now holds a rapid-fire paint-gun beam that costs almost no energy and needs no Energy Pack.",
+      "notes": [
+        "wpn_raptor.cs replaces the VX5 laser. LaserRifleImage fires RaptorProj every 0.01 s, drawing 0.01 energy per shot; at damageConversion 10 that is about 0.1 damage per hit.",
+        "The VX5 Energy Pack requirement (LaserRifle::onUse) is gone.",
+        "RaptorProj's damage type, $RlaserDamageType, is never assigned anywhere in the scripts. It reads as empty (0, the Landing type), so laser head-shot bonuses do not apply.",
+        "Part of the default spawn kit."
+      ],
+      "source": "wpn_raptor.cs LaserRifleImage, RaptorProj; item.cs"
+    },
+    "RaptorRifle": {
+      "summary": "Raptor Rifle: the Hunter Armor's copy of the rapid-fire Raptor beam, and the weapon Flag Hunter players spawn holding.",
+      "notes": [
+        "Identical image to the LaserRifle-slot Raptor Rifle: RaptorProj every 0.01 s for 0.01 energy.",
+        "$RlaserDamageType is never assigned, so the beam's damage type is empty (0, Landing). The Hunter Armor's Landing scale is 1.0.",
+        "Not sold; it is $FlagHunter::spawnWeapon."
+      ],
+      "source": "wpn_raptor.cs RaptorRifleImage; FlagHunter.cs"
+    },
+    "Torque": {
+      "summary": "Torque Cannon: an energy-fed gun of shield-shaped bolts with a small blast, carried by the Hunter Armor.",
+      "notes": [
+        "Uses TorqueImage, firing TribesShell: Tribes damage type, 4 m explosion, 0.04 s between shots.",
+        "Shares its image with the Phase Shifter (TribesArm).",
+        "Only the Hunter Armor can carry it; it comes in the Flag Hunter kit."
+      ],
+      "source": "wpn_torque.cs Torque, TorqueImage; baseProjData.cs TribesShell"
+    },
+    "TribesArm": {
+      "summary": "Phase Shifter: the normal armors' version of the Torque Cannon, firing the same shield-shaped Tribes bolts.",
+      "notes": [
+        "Same TorqueImage and TribesShell as the Torque Cannon. Its death messages call it the Phase Shifter or Phase Gun.",
+        "Part of the default (non-Flag Hunter) spawn kit."
+      ],
+      "source": "wpn_torque.cs TribesArm; game.cs $deathMsg, $spawnBuyList"
+    },
+    "RocketLauncher": {
+      "summary": "Star Burster: the Hunter Armor's rocket launcher, firing the same EMP \"Stripper\" rockets as this build's LiL Rocket Launcher.",
+      "notes": [
+        "onFire is the same as LiLRocketLauncherImage::onFire: StripperONE and StripperTWO home on a locked player or flier within 350 m, otherwise one Stripperalt.",
+        "EMP hits knock out the victim's weapon and flag and drain their energy.",
+        "Only the Hunter Armor can carry it."
+      ],
+      "source": "wpn_rocket.cs RocketLauncherImage::onFire"
+    },
+    "GrenadeLauncher": {
+      "summary": "Napalm Launcher: lobs bouncing napalm grenades with no ammo or energy cost at all.",
+      "notes": [
+        "wpn_napalm.cs replaces the VX5 grenade launcher. GrenadeLauncherImage fires ProjNapalm every 0.08 s and has no ammo type or energy cost.",
+        "ProjNapalm is a bouncing grenade (Napalm damage type, 15 m blast) that can stay live for up to 30 s. No script gives Napalm damage a burning effect.",
+        "Part of the default spawn kit."
+      ],
+      "source": "wpn_napalm.cs GrenadeLauncherImage, ProjNapalm"
+    },
+    "JetR": {
+      "summary": "Jet Right: a rocket-shaped tool mounted on the Hunter Armor by the Booster Pack. It appears to be decorative.",
+      "notes": [
+        "Booster1PackImage::onActivate mounts it in slot 5.",
+        "Its projectileType CHANGEMEPLZ is not defined anywhere, so firing it produces nothing. Not sold."
+      ],
+      "source": "booster.CS JetR, Booster1PackImage::onActivate"
+    },
+    "JetL": {
+      "summary": "Jet Left: the left-hand partner of Jet Right, mounted by the Booster Pack. It appears to be decorative.",
+      "notes": [
+        "Booster1PackImage::onActivate mounts it in slot 4.",
+        "Its projectileType CHANGEMEPLZ is not defined anywhere. Not sold."
+      ],
+      "source": "booster.CS JetL, Booster1PackImage::onActivate"
+    },
+    "Booster1Pack": {
+      "summary": "Booster Pack (right side): a mortar-gun shape mounted on the Hunter Armor when it is bought. Activating it swaps the two boosters for the Jet Left and Jet Right shapes.",
+      "notes": [
+        "buyItem gives it with the Hunter Armor and mounts it in slot 4 after 0.3 s.",
+        "onActivate mounts JetL in slot 4 and JetR in slot 5, replacing both boosters. onDeactivate releases the backpack trigger.",
+        "Its CHANGEMEPLZ projectile is undefined; no script applies any thrust. Behavior beyond the shape swap was not determined from scripts."
+      ],
+      "source": "booster.CS Booster1PackImage::onActivate/onDeactivate; item.cs buyItem"
+    },
+    "Booster2Pack": {
+      "summary": "Booster Pack (left side): the second mortar-gun shape mounted on the Hunter Armor. It does nothing on its own.",
+      "notes": [
+        "buyItem mounts it in slot 5 after 0.3 s. Its onActivate is empty, and its CHANGEMEPLZ projectile is undefined.",
+        "$ItemMax for both Booster Packs is set only for medium armor (marmor/mfemale), not for the Hunter Armor; buyItem sets the count directly."
+      ],
+      "source": "booster.CS Booster2PackImage, $ItemMax; item.cs buyItem"
+    }
+  }
+}

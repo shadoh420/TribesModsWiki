@@ -1,0 +1,26 @@
+# blitzkrieg vs base (25 items)
+new        InterceptorVehicle           Interceptor
+new        MinelayerVehicle             Minelayer
+new        APCVehicle                   APC
+stats      Chaingun                     Chaingun
+new        VulcanAmmo                   Vulcan Bullet
+new        Vulcan                       Vulcan
+new        GaussAmmo                    Gauss Ammo
+new        GaussCannon                  Gauss Cannon
+new        HornetAmmo                   Hornet Bolt
+new        HornetRifle                  Hornet Rifle
+new        BounceMortarAmmo             Bounce Mortar Ammo
+new        BounceMortar                 Bounce Mortar
+new        MastersonAmmo                Masterson Ammo
+new        MastersonCannon              Masterson Cannon
+new        LaserHPAmmo                  HP Laser Battery
+new        LaserRifleHP                 Laser Rifle (HP)
+stats      EnergyRifle                  ELF Gun
+scripts    DeployableInvPack            Inventory Station
+scripts    DeployableAmmoPack           Ammo Station
+scripts    MotionSensorPack             Motion Sensor
+scripts    CameraPack                   Camera
+new        FlakTurretPack               Flak Turret
+new        ChainTurretPack              Chain Turret
+scripts    TurretPack                   Turret
+new        TAGTurretPack                TAG Turret

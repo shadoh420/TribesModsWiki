@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Tribes Football (Football_Tasermod v5.7.5, JeremyIrons & Spike, fbstuff.cs) adds Light/Football-carrier armor rules (4.0 jetEnergyDrain, 400 jetForce, 50 jumpImpulse), spawns players with LightArmor + FootballThrower + RepairKit, and zeroes lethal damage on Disc/Grenade/Mortar into pure ball-handling and tackling knockback tools.",
+  "notes": [
+   "Non-lethal high-knockback ball sports: GrenadeLauncher (0.4 -> 0.0 dmg, 150 -> 250 knockback), Mortar (1.0 -> 0.0 dmg, 250 -> 370 knockback), and DiscLauncher (0.5 -> 0.0 dmg, 150 -> 250 knockback) drive player/ball momentum alongside the added Football (100 cap) and FootballThrower launcher.",
+   "Full football rules (fbstuff.cs, fireball.cs, quadpoints.cs): spawns players with LightArmor, FootballThrower, and RepairKit, swaps carriers to clarmor/clfemale physics while holding the ball, disables tackling when the ball is dead, and adds hot-potato/fireball and quad-point modes."
+  ]
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "mod": {
+  "overview": "Shifter FAMM (Yukichigai's 02-19-2002 build for the Fallen Angels / Multi Mayhem server) is an early Shifter_v1Y build that keeps standard Shifter_v1 visuals while introducing Yukichigai's early server customization switches ($Shifter::*).",
+  "notes": [
+   "Identifies itself as Shifter_v1Y in admin.cs ($ModList = 'Shifter_v1Y', $Yuki::newdate = '02-19-2002') and ships with Customization lines.txt documenting $Shifter::noStimFix, $Shifter::LaserMineCountLimit, $Shifter::AirBaseRepair, $Shifter::Showmod, $Shifter::HaVoCNuke, $Shifter::ChemSkinTouch, $Shifter::ShockFloors, $Shifter::OldStandard, $Shifter::RegStinger, $Shifter::BoosterPacks, and $Shifter::Boosters.",
+   "Restores JammerBeaconPack, Booster1Pack, and Booster2Pack relative to Shifter Advanced, drops the experimental Magnum/Silencer2/Sil/Sil2 variants, and renames LasCannon and PlasmaCannon to Gattling Laser Cannon and Heavy Plasma Cannon."
+  ]
+ }
+}

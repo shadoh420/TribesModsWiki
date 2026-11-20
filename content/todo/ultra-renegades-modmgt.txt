@@ -1,0 +1,36 @@
+ultra-renegades-modmgt: 55 of 90 need write-ups
+  HeavyArmor (Cyborg): new
+  DragArmor (Dragoon): renamed+stats
+  LAPCVehicle (BomberLPC): renamed+stats
+  HAPCVehicle (StealthHPC): renamed+stats
+  EnergyRifle (ELF Gun): renamed+stats
+  RocketLauncher (Stinger): renamed+stats
+  ConCun (Shockwave Cannon): new
+  MfglAmmo (FGC-9000 Nukes): new
+  Mfgl (FGC-9000): new
+  DeployableInvPack (Inventory Station): stats+scripts
+  DeployableAmmoPack (Ammo Station): stats+scripts
+  DeployableComPack (Command Station): stats+scripts
+  CloakingDevice (Cloaking Device): stats+scripts
+  StealthShieldPack (StealthShield Pack): stats+scripts
+  FgcPack (FGC-9000 Pack): new
+  AmmoPack (Ammo Pack): stats+scripts
+  TurretPack (Turret): renamed+stats+scripts
+  LaserPack (Laser Turret): renamed+stats+scripts
+  ShockPack (ELF Turret): renamed+stats+scripts
+  TargetPack (Targeting Turret): renamed+stats+scripts
+  LaserTurret (Plasma Turret): stats+scripts
+  DeployableMortar (Mortar Turret): new
+  RocketPack (Rocket Turret): renamed+stats+scripts
+  ForceFieldPack (Small Force Field): renamed+stats+scripts
+  LargeForceFieldPack (Large Force Field): stats+scripts
+  TripwirePack (Tripwire Pack): renamed+stats+scripts
+  TreePack (Mechanical Tree): stats+scripts
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): stats+scripts
+  RepairKit (Repair Kit): scripts
+  MineAmmo (Mine): stats+scripts
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): scripts
+  RepairPatch (Repair Patch): scripts

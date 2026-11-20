@@ -1,0 +1,276 @@
+{
+ "mod": {
+  "overview": "Shifter 2K5 v1.0 (2005-03-18, by ParoXsitiC and Android) is the last build of the Shifter K / 2K4 / 2K5 line and descends from Shifter v1G, so it keeps the nine-armor class system and the armor-dependent grenade, mine and beacon keys. It is a flat mod with extra server and admin scripts and a gameplay rebalance of v1G: a rewritten Tactical Nuke blast, impact-triggered Plastique, a Detbomb that goes off 1.5 seconds after it lands, hackable DetPacks, a passive Regeneration Pack and revised plasma, rocket and disc option menus.",
+  "notes": [
+   "Layout: Shifter2k5.cs execs the mod's own function files (SBA_Duel, playerfuncs, AdminServerConfig, AdminGameConfig, equiptopts, Nofog, missionopts), the info page Shifter2K5Info.cs and the switches in Shifter2k5Defaults.cs. Item scripts are split as in v1G (gundata.cs weapons, packdata.cs packs, deploydata.cs deployables) and item.cs holds the rest.",
+   "Server switches in Shifter2k5Defaults.cs include $Shifter::Newairbase (new or old Air Base), $Shifter::LockOn (Lock Jaw rocket menu entry), $Shifter::1secPlastique (allow a 1 second Plastique delay), $Shifter::DetPackLimit and $Shifter::NukeLimit (15 each per match), $Shifter::HackTime (5) and $Shifter::HackedTime (90), and $Shifter::NoOutside.",
+   "Leaving the mission area while carrying a Power Device, Emplacement, Air Base or Teleport Pad pack blows the carrier up (Player::leaveMissionArea: EMPBlast, flash damage, radius flash damage); the Power Device additionally costs 25 score and is announced to everyone else.",
+   "Detbomb (the Assassin's thrown beacon bomb) detonates 1.5 seconds after it is added; v1G used 10 seconds.",
+   "Plastique (Nukebomb): any non-Engineer player who touches it sets it off, teammates included; an Engineer sets it off 3 times in 10 and otherwise disarms it. Unlike v1G, an Engineer holding a repair, disassembler or hack tool gets no exemption.",
+   "Tactical Nuke blast: NuclearExplosion(client, position) now deals 1.75 nuke damage itself to every player, static object, vehicle, mine and interior in a 40 unit box and then spawns the effects (rings, blasts and several expanding circles of NukeMortar projectiles). In v1G it only called det().",
+   "det() (the Suicide DetPack blast) deals 1.5 nuke damage in its 15 x 15 x 25 box, but 1.75 when the global $Detlayed flag is set; Suicidebomb2::onAdd sets that flag and det() clears it when done.",
+   "DetPack hacking: hackingItem treats a MagCargo-shaped object as a laid DetPack. An Engineer who finishes hacking it deletes it, gets 10 score, and the team's SuicidePack count drops by one with the message 'Your team disarmed a DetPack. You now have one extra detpack'. v1G used a 1 in 10 chance of detonation and 2 score.",
+   "Tournament deployable saving differs per item: Emplacement writes config\\dtrack.log and only when $server::tourneymode is the string \"true\" with no ceasefire; the old Air Base writes config\\MatchDeployed.log. itemfuncs.cs calls airbase::specialdeploy when restoring deployables, but this mod defines no such function (only AirBase::newDeploy).",
+   "Armor changes in ArmorData.cs: Arbitor no longer carries the Disc Launcher or the Cloaking Device (both set to 0) and gains Tranquilizer ammo; Chemeleon is the only Cloaking Device user; Stim now throws the standard antipersonnel mine; Chemeleon armor cannot be locked by the Locking Stinger or the Rocket Launcher Pack."
+  ]
+ },
+ "items": {
+  "MineAmmo": {
+   "summary": "The mine key. What is thrown depends on armor class and, for the Engineer and the heavy armors, on a mine option; deathmatch servers hand everyone the DmMine.",
+   "notes": [
+    "$server::deathmatch: DmMine for every class. Assassin: Hologram decoy mine. Arbitor: ShockMine. Chemeleon: SubspaceMine. Scout, Stim, Mercenary and Goliath: the standard antipersonelMine.",
+    "Unlike v1G, Stim armor now has a branch and throws an antipersonelMine (v1G threw nothing for Stim).",
+    "Engineer, by EngMine option: 0 ProxMine (only while the team has fewer than 9, and counted on the team), 1 SubspaceMine, 2 laser mine (LaserMine, 15 energy), 3 antipersonelMine, 4 ReplicatorMine.",
+    "DreadNaught and Heavy, by dmines option: 0 or unset gives the laser mine (LaserMine, 15 energy) and 1 the antipersonelMine. Juggernaught and P-armor have no branch and throw nothing.",
+    "Throws need the match to be started and the 0.5 second throw delay to have passed. The item is consumed, thrown at 15 times throw strength and team-tagged only when a mine was created. Mine::Triggered, Detonate and onDamage in Mine.cs are identical to v1G."
+   ],
+   "source": "item.cs MineAmmo::onUse; Mine.cs Mine::Triggered"
+  },
+  "Grenade": {
+   "summary": "The grenade key. The thrown object depends on armor class; Mercenary and deathmatch servers get the plain hand grenade.",
+   "notes": [
+    "Mercenary and deathmatch: Handgrenade. Scout and Stim: Firebomb. Assassin: HoloMine. Engineer: EMPgrenade. Arbitor: Tranqgrenade. Goliath: Concussion. DreadNaught and Heavy: Mortarbomb. Juggernaught and P-armor have no branch.",
+    "Chemeleon throws a Plastique (Nukebomb) that has its damage level set to 3.0 after the delay chosen in the Plastique options, so it detonates on that timer. Unlike v1G, a delay of 1 second or less is raised to 2 seconds when $Shifter::1secPlastique is \"false\" (it is true in Shifter2k5Defaults.cs).",
+    "The Plastique also goes off when any non-Engineer player touches it (Nukebomb::onCollision). An Engineer sets it off 3 times in 10 and otherwise disarms it; v1G let an Engineer holding the repair, disassembler or hack tool always disarm it.",
+    "Throws need the match to be started; speed is 15 times throw strength with a 0.5 second throw delay, and the object is team-tagged."
+   ],
+   "source": "item.cs Grenade::onUse; grenade.cs Nukebomb::onCollision; playerfuncs.cs"
+  },
+  "Beacon": {
+   "summary": "The beacon key is a per-class ability slot rather than a plain target beacon; each armor gets its own action and several have a menu choice. It does nothing before the match starts.",
+   "notes": [
+    "Assassin (AssBcn option): 0 fires a StarShell flare (refused while at a station, which stops the resupply); 1 throws a Detbomb at speed 7.5 with no throw delay (v1G: speed 5, 0.5 second delay). Detbomb now detonates 1.5 seconds after being added (v1G: 10 seconds).",
+    "Engineer (EngBeacon option, limited by the team's EngBeacons count): 0 standard target beacon, 1 camera, 2 anti-missile (EngMissileLock), 3 MediKit (throws a RepairKit).",
+    "Scout and Stim: ScoutStim. Chemeleon (ChemBeacon option): 0 DeploySatchel, otherwise a targeting beacon. Goliath (GolBeacon option): 0 throws a Concussion2 at 20 times throw strength with a 0.15 second delay, otherwise a targeting beacon; an unset throw strength now defaults to 1.0 inside the throw check (v1G assigned it in the condition).",
+    "Mercenary: fires the speed boosters. Both the normal and the directional mode now clear the cooldown flags after 4 seconds (v1G: 6 seconds for the directional mode); a repeat use inside the first 2 seconds says 'Booster Cooling.'.",
+    "Arbitor: Renegades_startCloak; unlike v1G it no longer clears the player's empTime (that line is commented out). DreadNaught and Heavy: Renegades_startShield.",
+    "Juggernaught: with the LasCannon it starts a charge of 8 seconds (v1G: 10), with the Plasma Cannon a charge of 8 seconds, or with the God Hammer cannons it reduces their heat; with no heavy weapon it says so. A recently fired cannon retries the beacon use after 1.1 seconds."
+   ],
+   "source": "item.cs Beacon::onUse; grenade.cs Detbomb::onAdd"
+  },
+  "airbase": {
+   "summary": "Backpack that builds a floating Air Base 50 units above the player. Which layout is built depends on $Shifter::Newairbase, which Shifter2k5Defaults.cs sets to true (new layout).",
+   "notes": [
+    "item.cs wraps two definitions of the placement function in if($Shifter::Newairbase == \"true\") / else if(!= \"true\"), so only one exists, chosen by the variable's value when item.cs is read. The new one (AirBase::deployShape) builds from objects directly: nine platforms (eight large, one small) in two tiers, four rods, twenty AirBaseField panels plus four ForceField1 panels, two solar panels, two Inventory Stations, two Command Stations, a Vehicle Station with its Vehicle Pad and two Pulse Sensors, all on the player's team and in a per-base SimGroup.",
+    "The old layout (airBase::deployshape calling AirBase::newDeploy) builds four platforms, a Pulse Sensor, Vehicle Pad and Vehicle Station, a PortGenerator, a Command Station and an Inventory Station in a SimSet. In tourney mode it records the base to config\\MatchDeployed.log.",
+    "Both versions refuse with 'Objects In The Way, Can not deploy.' unless a 45 x 45 x 25 volume 50.5 units above is clear, and add 1 to the team's airbase count. The old function's CheckForObjects and playSound read an undefined %playerPos.",
+    "Script observation: $TeamItemMax[airbase] is 3 but neither deploy function compares the count with it. airbase::specialdeploy, which itemfuncs.cs calls when restoring saved deployables, is not defined in this mod.",
+    "Engineer only; it is on the inventory list but not remote-buyable. Carrying it out of the mission area blows the carrier up."
+   ],
+   "source": "item.cs airbase::onUse/onDeploy, AirBase::deployShape, airBase::deployshape, AirBase::newDeploy; player.cs Player::leaveMissionArea"
+  },
+  "Hackit": {
+   "summary": "The Engineer's Hack-Gun, one of the Engineer's three beam-tool modes (repair, hack, disassemble). Hold the beam on a powered target to take it over or to protect your own gear.",
+   "notes": [
+    "Mode swapping is done from the weapon options and key bindings (bindings.cs, playerfuncs.cs). The Hack-Gun is a sustained Tool item with a HackBolt projectile; using it shows 'Using Engineer Hack-Gun'. Only the Engineer carries it.",
+    "Hold time is $Shifter::HackTime (5 seconds). Hacked turrets revert after $Shifter::HackedTime (90 seconds) through turret.cs; in hackingItem itself the revert schedule is commented out.",
+    "Hacking your own object infects it with a protection virus. An enemy hacking an infected object must disarm it first: a roll above 50 out of 100 backfires with 0.90 flash damage, otherwise the virus is removed safely.",
+    "New in 2K5: checkHackable also accepts the MagCargo shape (a laid DetPack). Hacking or disassembling one disarms it: the DetPack is deleted, the Engineer gets 10 score, the team's SuicidePack count is reduced by one and the team is told it has an extra detpack. 'Disarming the Nuke Pack. Please wait...' is shown while hacking it.",
+    "hackingItem now passes player and object names through escapeString before rescheduling itself, so names with quotes no longer break the scheduled call."
+   ],
+   "source": "item.cs Hackit; itemmsgs.cs Hackit::onUse; baseProjData.cs HackBolt::onAcquire; itemfuncs.cs hackingItem, checkHackable"
+  },
+  "Regen": {
+   "summary": "The Regeneration Gun, a drain beam that damages enemy targets while healing the user and that can power friendly targets. In this mod nothing in the scripts mounts it.",
+   "notes": [
+    "The Regeneration Pack no longer mounts the Regen tool (RegenerationPack::onUse only mounts the pack), and no inventory list or armor limit gives Regen; the item exists in item.cs but is not obtainable by the scripts examined.",
+    "If mounted, DrainBolt::checkDone drains enemy targets with Flash damage equal to one twentieth of their max damage per tick and heals the user by one twenty-fifth of that. Unlike v1G (Grav damage at one fiftieth), the drain is stronger, and the refusal for hackable objects ('RegenPack does not work on this') is gone.",
+    "On a teammate it counts down powertime, then powers them: shieldStrength 0.025 for 120 seconds (v1G: 240) and the trigger is released at once ('Powering <name>', 'Receiving power from <name>'). A second power attempt says 'Finished charging from <name>'.",
+    "Fliers get shieldStrength 0.013 with no reset; stations and turrets get power or shielding as before, but the FlamerTurret is no longer in the turret list."
+   ],
+   "source": "baseProjData.cs DrainBolt::checkDone; item.cs Regen; packdata.cs RegenerationPack::onUse"
+  },
+  "Plastique": {
+   "summary": "A throwable Plastique charge item that no armor carries and no inventory lists.",
+   "notes": [
+    "Plastique::onUse throws the sticky Nukebomb at 4 times throw strength on the thrower's team. The message 'Plastique Explosive will explode in N seconds' uses %player.Plastic, which is never set, and no detonation is scheduled; the charge goes off only when damaged or touched.",
+    "Nukebomb::onCollision: any non-Engineer player touching it sets it off, teammates included; an Engineer sets it off 3 times in 10 and otherwise disarms it, with no exemption for holders of a repair or hack tool (v1G exempted them).",
+    "Not buyable: $InvList[Plastique] and $RemoteInvList[Plastique] are 0."
+   ],
+   "source": "item.cs Plastique::onUse; grenade.cs Nukebomb::onCollision; station_list.cs"
+  },
+  "EmplacementPack": {
+   "summary": "Backpack that builds a Defense Emplacement: a raised platform with an inventory station and force fields, built around the player.",
+   "notes": [
+    "Deploys on flat terrain only (within 6 m, clear area); the team limit of 2 is enforced in deployShape. The player is lifted 0.85 units onto the platform.",
+    "The construction is in EmplacementPack::specialdeploy so it can be restored from a saved record. In 2K5 it saves only when $server::tourneymode is the string \"true\" and there is no ceasefire, and writes config\\dtrack.log (v1G: dtrack.cs).",
+    "Engineer only; carrying it out of the mission area blows the carrier up. It is not remote-buyable."
+   ],
+   "source": "item.cs EmplacementPack::deployShape/specialdeploy; player.cs Player::leaveMissionArea"
+  },
+  "PowerGeneratorPack": {
+   "summary": "Backpack, shown as 'Power Device', that deploys a Portable Generator to power the team's deployed equipment.",
+   "notes": [
+    "deployShape calls deployable() for a PortGenerator StaticShape (range 5), sets its team and adds it to the team group so team gear is powered. The team limit is 1, and mounting the pack shows 'The Power Generator Will Power Your Team Equipment.'.",
+    "Unlike v1G, the second use deploys only if the player is not flagged outArea (set when leaving the mission area under $Shifter::NoOutside).",
+    "Leaving the mission area with the pack kills the carrier, costs 25 score and announces the cheat attempt to everyone else.",
+    "No script lowers the team count when the generator is destroyed. Engineer only, not remote-buyable."
+   ],
+   "source": "item.cs PowerGeneratorPack::onUse/deployShape; player.cs Player::leaveMissionArea"
+  },
+  "LasCannon": {
+   "summary": "A Juggernaught-only heavy weapon charged with Beacons that fires a barrage of laser bolts and kills the user if it is held at full charge too long.",
+   "notes": [
+    "The Beacon key charges it for 8 seconds (v1G: 10), one level per second, then sets full charge (15) with a 15 second overload timer (a HavocBlast at the carrier's position).",
+    "Unlike v1G, LasCannonImage::onFire adds 3 to the stored charge before choosing the volley, so each bracket is reached earlier. The volley uses LasCannonBolt and LasCannonShock1/2/3, with LasCannonBolt replacing the GatlingLaser shots; the full-charge volley (stored 15, tested as 18) adds LasCannonBolt2 and LasCannonShock2.",
+    "Charge and Detonate now return without mounting if the player is dead or no longer holds the LasCannon; v1G remounted it without checking.",
+    "Firing without a charge only says it uses Beacons. Only Juggernaught can carry it."
+   ],
+   "source": "item.cs LasCannonImage::onFire, LasCannoner::Charge/Detonate, Beacon::onUse"
+  },
+  "PlasmaCannon": {
+   "summary": "A Juggernaught-only heavy plasma weapon charged with Beacons; it fires a heavy plasma barrage and blows the user up if left overcharged.",
+   "notes": [
+    "The Beacon key starts an 8 second charge, one level per second, then sets full charge (15) with a 15 second overload timer (HavocBlast plus 5 Plasma damage to the user).",
+    "Firing releases PlasmaCannonBolt, PlasmaCannonBolt2 and PlasmaCannonShock in a pattern that grows with the charge (stages above 0, 3, 5, 7 and 9); at 15 it also fires two FireHeavyPlasma shots.",
+    "New in 2K5: PlasmaCannonImage::onFire does nothing while the player is dead or EMPed (an EMPed Juggernaught flagged isJugg retries after 1 second). There is also a bot path (PlasmaCannonImage::onFireBot and PlasmaCannoner::ChargeBot) for a Juggernaught flagged isJugg, which recharges itself for 8 seconds after each shot; PlasmaCannoner2::Detonate is an empty stub.",
+    "Charge now returns without mounting if the player no longer holds the PlasmaCannon (v1G remounted unconditionally). Firing without a charge only says it uses Beacons."
+   ],
+   "source": "item.cs PlasmaCannonImage::onFire/onFireBot, PlasmaCannoner::Charge/ChargeBot/Detonate"
+  },
+  "Mortar2": {
+   "summary": "A hidden stand-in item used for the Mortar's Frag Shell and MDM Shell settings, with its own scripted fire function.",
+   "notes": [
+    "Mortar::onUse mounts Mortar2 for setting 2 ('Frag Shell') and 3 ('MDM Shell'). The fire function is Mortar2Image::onFire, the v1G MortarImage2::onFire renamed with identical code.",
+    "Setting 2 launches a BomberShell (deployer set to the shooter). Setting 3 launches a DelayMortarShell that detonates after 10 seconds through MDMDetonate; firing again while it flies detonates it early. A shooter with one shell left launches without spending ammo, and MDMDetonate2 spends the last shell.",
+    "For settings 0 and 1 the function just calls Player::useItem(mortar). The ammo is the Mortar's ($WeaponAmmo[Mortar2] is MortarAmmo)."
+   ],
+   "source": "item.cs Mortar2Image::onFire, Mortar2; itemmsgs.cs Mortar::onUse"
+  },
+  "PlasmaGun": {
+   "summary": "Plasma Gun with three fire modes: standard bolt, single shot and a four-bolt spread.",
+   "notes": [
+    "PlasmaGunImage::onFire reads the Plasma setting: 0 fires one PlasmaBolt2; 1 ('Single Fire') fires one PlasmaBoltSingle; 2 ('Multi Fire') fires four PlasmaBoltMulti bolts in a spread. Every shot costs 1 ammo. Unlike v1G, setting 1 is a single bolt rather than the two-bolt rapid pair, and its message reads 'Single Shot'.",
+    "A setting 3 that fires a PlasmaBolt2 with frags at 0.5, 1.0 and 1.5 seconds exists in the code but no menu or binding sets it.",
+    "The Plasma options menu lists Standard Fire, Single Fire and Multi Fire. Carried by Goliath, DreadNaught, Engineer, Assassin, Mercenary, Scout and Chemeleon."
+   ],
+   "source": "gundata.cs PlasmaGunImage::onFire; itemmsgs.cs PlasmaGun::onUse; playerfuncs.cs"
+  },
+  "Disclauncher": {
+   "summary": "The Disc Launcher with two fire settings and a mode message.",
+   "notes": [
+    "DisclauncherImage::onFire: setting 0 fires a DiscShell1 and setting 1 ('Rapid Fire') fires a DiscShell2 (a faster, weaker disc), each spending one disc and playing SoundFireDisc. Selecting the weapon shows 'Using Disc Launcher - Standard' or '- Rapid Fire'.",
+    "The Disc Options menu offers Standard Fire and Rapid Fire. It is on the shared item list, so every armor except Juggernaught and P-armor can carry it, but Arbitor's limit is set to 0 in ArmorData.cs."
+   ],
+   "source": "gundata.cs DisclauncherImage::onFire; itemmsgs.cs Disclauncher::onUse; ArmorData.cs"
+  },
+  "Rocketlauncher": {
+   "summary": "Rocket Launcher with four settings: plain stinger, locking stinger, Lock Jaw (heat locker) and wire-guided.",
+   "notes": [
+    "RocketImage::onFire: setting 0 fires a JuggStingerMissile. Setting 1 fires a StingerMissileTracker at a player or flier within 500 m ('Lock Aquired') and a plain StingerMissile otherwise. A player in Chemeleon armor (spyarmor, spyfemale) cannot be locked and gets a plain stinger.",
+    "Setting 2 ('HeatLocker Mode'): with no target it fires a LockJaw that is deleted after 0.05 seconds and releases the trigger; with a target set it calls LockJawFire. The Lock Jaw menu entry appears only if $Shifter::LockOn is on.",
+    "Setting 3 ('WireGuided Mode') fires a GodHammerMortar with the shooter as deployer. Without ammo it says 'You have no Ammo for the Rocket Launcher'.",
+    "Carried by Goliath, Engineer, Mercenary, DreadNaught and Juggernaught."
+   ],
+   "source": "gundata.cs RocketImage::onFire; itemmsgs.cs Rocketlauncher::onUse; playerfuncs.cs"
+  },
+  "SilencerAmmo": {
+   "summary": "Silencer Bolt: an ammunition item that no weapon in this mod uses.",
+   "notes": [
+    "The description changed from v1G's 'Magnum Bullets' to 'Silencer Bolt'. The Magnum (Silencer) now has RailAmmo as its ammoType and $WeaponAmmo[Silencer] is RailAmmo, and the ammo station refills it with RailAmmo, so SilencerAmmo is never consumed.",
+    "It is still on the inventory and remote lists, sold in 25-round lots, has an ammo pack slot (15), and carries armor limits (Arbitor, Goliath, Engineer, Scout, DreadNaught and Chemeleon 25; Assassin 20; Mercenary 30)."
+   ],
+   "source": "gundata.cs ItemData SilencerAmmo, SilencerImage; item.cs $WeaponAmmo[Silencer]; ArmorData.cs; station_func.cs"
+  },
+  "Mfgl": {
+   "summary": "Tactical Nuke: a heavy launcher that fires a slow shell that detonates in a huge nuclear blast. Juggernaught only.",
+   "notes": [
+    "Mfgl::onUse still requires a Containment Pack or Juggernaught armor. MfglImage::onFire checks only the team nuke count against $TeamItemMax[MFGLAmmo] ($Shifter::NukeLimit, 15 per match); the player needs a shell, there is a 4 second refire block ('Nuke reloading.') and a kickback of ixApplyKickback(500, 70).",
+    "The team nuke counter and the 'used Nuke #N' message (sent to everyone in tourney mode) are skipped when $GameMode is \"Builder\"; v1G tested $builder. At the limit it shows 'Item limit reached for Tactical Nuke Shells' and still removes the shell.",
+    "The FgcShell is spawned with the shooter as deployer. FgcShell::Deploy now schedules NuclearExplosion(deployer, position) 3 seconds later and deletes the shell at the same time.",
+    "New in 2K5: NuclearExplosion itself deals 1.75 nuke damage to every player, static object, vehicle, mine and interior in a 40 unit box, then spawns the effects (rings, blasts and several circles of NukeMortar projectiles). In v1G it only called det() (1.5 damage in a smaller box). The damage done by the spawned effect projectiles was not examined."
+   ],
+   "source": "gundata.cs MfglImage::onFire, Mfgl::onUse; baseProjData.cs FgcShell::Deploy, NuclearExplosion"
+  },
+  "GravGun": {
+   "summary": "Grav Gun: a beam with three settings: pull the target, push it, or pull yourself toward it.",
+   "notes": [
+    "Settings (menu and key bindings): 0 Tractor and 1 Repulse apply an impulse to the target along the shooter's aim, in opposite directions, with a little Electricity damage; 2 Grapler sets the shooter's own velocity toward the target (force 20 plus a height term, and nothing if the height term is beyond 700).",
+    "Unlike v1G, gravCharge::damageTarget no longer checks that the target is a Player, so the Tractor and Repulse impulse is applied to any target the beam hits. A target equal to the shooter is ignored. The Repulse branch also calls Player::applyImpulse on an undefined %obj, which has no visible effect.",
+    "Selecting it prints the active mode. Carried by Arbitor and Engineer."
+   ],
+   "source": "baseProjData.cs gravCharge::damageTarget; gundata.cs GravGunImage; itemmsgs.cs GravGun::onUse"
+  },
+  "DeployableInvPack": {
+   "summary": "Backpack that deploys a team Inventory Station (DeployableInvStation) on the ground.",
+   "notes": [
+    "deployShape calls deployable() with a range of 4 and the pack's team limit of 5 ($TeamItemMax[DeployableInvPack]). The only change from v1G is the ninth argument (area), now False; deployable() does not read that argument beyond clearing it in builder mode, so no behavior difference was found.",
+    "Carrying the pack out of the mission area removes it from the player's inventory.",
+    "Carried by Arbitor, Goliath, Engineer, Mercenary and DreadNaught."
+   ],
+   "source": "packdata.cs DeployableInvPack::deployShape; item.cs; player.cs Player::leaveMissionArea"
+  },
+  "EnergyPack": {
+   "summary": "Energy Pack: a backpack that raises the wearer's energy supply.",
+   "notes": [
+    "Its image has negative energy use (min -1, max -3), so it adds energy; mounting it triggers it on automatically. Carried by every armor on the shared list (all but Juggernaught and P-armor).",
+    "EnergyPack::onUse only drops redundant braces compared with v1G; behavior is the same."
+   ],
+   "source": "packdata.cs EnergyPack::onUse/onMount"
+  },
+  "CloakingDevice": {
+   "summary": "Cloaking Device: a Chemeleon backpack that makes the wearer fade out and reduces how sensors see them.",
+   "notes": [
+    "CloakingDeviceImage::onActivate raises sensor suppression by 2, plays ForceFieldOpen, sets cloaked, starts Cloaker, fades the player out and shows 'Cloaking Device On'; onDeactivate reverses it ('Cloaking Device Off'). v1G added 5 suppression and had an Arbitor branch that threw a CloakBlast instead; Arbitor no longer carries it.",
+    "Cloaker repeats every 0.5 seconds while the pack is active. For every enemy within 140 m of a cloaked wearer it sets that enemy's detect parameters to 90 and 300, and restores 0.027 and 0 when no cloaker is in range. What those parameters do in play was not determined from scripts.",
+    "The image uses up to 9 energy per second (sustained). Chemeleon only."
+   ],
+   "source": "packdata.cs CloakingDeviceImage::onActivate/onDeactivate; player.cs Cloaker; ArmorData.cs"
+  },
+  "RegenerationPack": {
+   "summary": "Regeneration Pack: an Arbitor backpack. In this mod it only toggles a regen flag on the wearer.",
+   "notes": [
+    "RegenerationPack::onUse only mounts the pack (v1G mounted the Regen gun on a second use); onMount triggers it on. RegenerationPackImage::onActivate sets player.regen to true and onDeactivate sets it false.",
+    "Nothing reads that flag: the checkRegeneration healing loop is commented out. The pack does nothing visible by itself in the scripts.",
+    "Arbitor only."
+   ],
+   "source": "packdata.cs RegenerationPack::onUse/OnMount, RegenerationPackImage::onActivate/onDeactivate"
+  },
+  "SMRPack": {
+   "summary": "Rocket Launcher Pack: a shoulder-mounted auto-rocket launcher that fires one rocket each time it is activated.",
+   "notes": [
+    "SMRPackImage::onActivate spends one Auto Rocket. If the crosshair is on a player it fires a seeking StingerMissileTracker and warns the target; on a flier it does the same and warns the pilot; otherwise a plain stinger.",
+    "Unlike v1G, a target in Chemeleon armor (spyarmor, spyfemale) is not locked; it gets a plain stinger. Without ammo: 'You have no Ammo for the Auto Rocket Launcher'.",
+    "Carried by Goliath and DreadNaught."
+   ],
+   "source": "packdata.cs SMRPackImage::onActivate; ArmorData.cs"
+  },
+  "SuicidePack": {
+   "summary": "Suicide DetPack: a Goliath backpack that is a drop-and-run bomb which blows up 20 seconds after it is thrown.",
+   "notes": [
+    "Using it throws a Suicidebomb2 at 5 times throw strength ('Det Pack will destruct in 20 seconds'). The pack is consumed first, then the team limit ($Shifter::DetPackLimit, 15) is checked, so a pack used at the limit is wasted ('Item limit reached for Detpacks'). Each throw announces 'used DetPack #N' to the team, and to everyone in tourney mode. The counter is skipped when $GameMode is \"Builder\".",
+    "Suicidebomb2 detonates after 20 seconds or when destroyed, via det(): 1.75 nuke damage (instead of 1.5) in a 15 x 15 x 25 box because Suicidebomb2::onAdd sets the global $Detlayed flag, plus the nuke effects.",
+    "An Engineer touching it sets it off 4 times in 12 ('You cut the wrong wire') and otherwise disarms it; v1G used 5 in 12 with an exemption for holders of the repair, disassembler or hack tool. Other armors do nothing when touching it.",
+    "An Engineer hacking or disassembling it with the Hack-Gun disarms it and gives the team an extra detpack (see Hackit). Goliath only."
+   ],
+   "source": "packdata.cs SuicidePack::deployShape; bombs.cs Suicidebomb2::onAdd/onCollision, det; itemfuncs.cs hackingItem"
+  },
+  "TeleportPack": {
+   "summary": "Backpack that places a Teleport Pad; a team that deploys two pads can step between them.",
+   "notes": [
+    "Placement uses deployShape plus TeleportPack::specialdeploy(team, position), so the pad can be rebuilt from a saved record. Needs flat ground within 5 m and room around it; the team limit is the DeployableTeleport count (4).",
+    "Walking onto a pad sends you to another pad of your team and both are disabled for 5 seconds. Unlike v1G, DeployableTeleport::onCollision also creates a teleport effect (Teleport::CreateFX) at both pads immediately and again after 1 and 2 seconds.",
+    "Enemies get 'Wrong Team' unless they wear Chemeleon armor, which can pass through. Rocket-shaped missiles touching a pad are destroyed. Engineer only; carrying it out of the mission area blows the carrier up."
+   ],
+   "source": "deploydata.cs TeleportPack::deployShape/specialdeploy; staticshape.cs DeployableTeleport::onCollision"
+  },
+  "MechPack": {
+   "summary": "Backpack that deploys an unmanned Scout flier (the Interceptor Pack) and gives the deployer an Interceptor Module for it.",
+   "notes": [
+    "Needs a flat spot within 10 m, a clear area and headroom. The flier is a Scout on the player's team, counted as the team's ScoutVehicle (cleared by MechPack::onDestroyed).",
+    "The deployer receives one InterceptorModule item (deploydata.cs). Scout::OnFire in vehicle.cs fires two InterceptorAmmo bullets per shot for a pilot holding the module.",
+    "Carried by Scout only (Stim has no entry)."
+   ],
+   "source": "deploydata.cs MechPack::deployShape/onDestroyed; vehicle.cs Scout::OnFire"
+  },
+  "DetPack": {
+   "summary": "Backpack named 'Stealth HPC Pack' that deploys an HAPC flier.",
+   "notes": [
+    "DetPack::deployShape places a regular HAPC on terrain or an interior on flat ground within 3 m, named 'HPC Pack', and counts it against the team's HAPCVehicle limit. It shows 'Deployed StealthHPC'. The pack adds no cloaking in the code.",
+    "It is on the inventory lists, but ArmorData.cs gives no armor a limit for it, so no armor can carry it. This is not the Suicide DetPack.",
+    "The deploy code is identical to v1G."
+   ],
+   "source": "deploydata.cs DetPack::deployShape; ArmorData.cs; station_list.cs"
+  }
+ }
+}

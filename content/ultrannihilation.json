@@ -1,0 +1,1049 @@
+{
+  "mod": {
+    "overview": "UltrAnnihilation is a 2002 offshoot of an early Annihilation release with its own armor roster: Commando, Rogue Angel, Chameleon Assassin, Necromancer, Warrior, Builder, Troll, Tank and Titan. Weapons are simpler and much faster-firing than in this wiki's Total Annihilation release, with no weapon modes, reload gates or extra energy costs. Many deployables can be placed at long range, and several packs and deployables are never used up because of script bugs.",
+    "notes": [
+      "Who can carry what is set per armor by PopulateItemMax in serverItemUsage.cs (15 columns: Commando, Angel, Spy, Necro, Warrior and Builder in male and female versions, then Troll, Tank and Titan). Spells are Necromancer-only. The Blast Cannon, Shredder, Rocketgun and RPG are Tank-only. The Baby Nuke, OS Launcher and Particle Beam are Titan-only. The Railgun, Fixit and most deployables are Builder-only. The Targeting Laser is in every spawn kit.",
+      "Who can pilot or ride each flier is set by PopulateCanPilot. Troll, Tank and Titan can only ride, except that the Troll can pilot the LAPC and HAPC.",
+      "Fire and reload times are much shorter across the board (about 0.05 s on many weapons). Unlike this wiki's Total Annihilation release, there is no MountExtras mode switching (the Mini Bomber, Vulcan/chaingun or Mortar mine modes) and no optional weapon-help toggle; help text is bottomprinted on every mount.",
+      "Most weapons and spells have $AutoUse set to true, so a newly bought weapon is mounted at once (Item::giveItem).",
+      "Armor::onBurn in armorData.cs has its burn code commented out, so plasma-type hits set no one on fire. Poison works (startPoison: 0.05 damage every 5 seconds). Shock damage disables the target's weapon and energy recharge for about 14 seconds.",
+      "In Player::onDamage, Disarm, Shock, Poison and burn effects apply only to enemies (or anyone in Deathmatch); Stasis applies to everyone. Shield Packs absorb nothing from electricity damage, and electricity hits drain the target's energy to 0.",
+      "Many deployables trace their placement point with getLOSInfo reach 999 instead of the stock 3: sensors, cameras, the Springboard, Base Cloak, Control Jammer, turrets (Turret::deployShape) and the shared DeployStuff helper, which ignores its distance argument. The Teleport Pad reaches 1999. Stations, force fields, the Platform, Blast Wall and Accelerator stay at 3.",
+      "The deploy code has none of this wiki's Total Annihilation release's arena, out-of-bounds or build-mode exemptions.",
+      "Power uses powerFunctions.cs: an item that needs power joins a team Generator, Solar Panel or Port Generator in range, or failing that a Portable Generator, Portable Solar Panel or Power Node.",
+      "serverAnnihilation.cs execs many scripts that are not in this mod's sources (for example weaponGatlingBlaster, weaponBeaconGun, weaponAutoCannon, weaponHellfire, weaponMassDriver, packTNT, deployShieldGen, turretRailTurret). spellBigFlameStrike.cs is shipped but never exec'd."
+    ]
+  },
+  "items": {
+    "DiscLauncher": {
+      "summary": "The standard spinfusor: fires a single DiscShell, a slow spinning disc that explodes on impact with radius damage and knockback.",
+      "notes": [
+        "The script only defines DiscLauncher::onMount, which prints a help line; firing is handled entirely by the image's projectileType (DiscShell). Unlike this wiki's Total Annihilation release, the help text is always shown on mount rather than through the optional MountExtras weapon-help hook, but neither version has any custom fire logic. UltrAnnihilation's disc fires much faster (fireTime 0.05 vs 0.75)."
+      ],
+      "source": "weaponDiscLauncher.cs DiscLauncher::onMount; baseProjData.cs DiscShell"
+    },
+    "GrenadeAmmo": {
+      "summary": "Ammunition for the Grenade Launcher. Each pull of the trigger uses one round and throws three grenades.",
+      "notes": [
+        "Renamed: this wiki's Total Annihilation release calls it \"Mini ammo\" (for its Mini Bomber); UltrAnnihilation calls it \"Grenade Ammo\".",
+        "GrenadelauncherImage::onFire removes exactly one GrenadeAmmo per volley of three grenades."
+      ],
+      "source": "weaponGrenadeLauncher.cs GrenadeAmmo, GrenadelauncherImage::onFire"
+    },
+    "GrenadeLauncher": {
+      "summary": "A launcher that throws a spread of three bouncing grenades every shot for one round of ammo. It has no firing modes.",
+      "notes": [
+        "GrenadelauncherImage::onFire spawns GrenadeLauncherGren1, Gren2 and Gren3 together from the muzzle. The three differ only in bounciness (elasticity 0.25, 0.35, 0.45) and fuse length, so they scatter on landing. All three deal shrapnel radius damage.",
+        "With no ammo it prints \"Grenade Launcher out of ammo.\" and fires nothing.",
+        "Unlike this wiki's Total Annihilation release, where the same item is the \"Mini Bomber\" with three modes switched by the weapon-mode keys (single grenade, EMP grenade, or triple grenade at 2 rounds per volley), UltrAnnihilation only has the triple volley, and it costs 1 round.",
+        "The mount help text calls the shells napalm, but the projectiles use $ShrapnelDamageType, not plasma or fire damage."
+      ],
+      "source": "weaponGrenadeLauncher.cs GrenadelauncherImage::onFire, GrenadeLauncher::onMount; baseProjData.cs GrenadeLauncherGren1-3"
+    },
+    "PlasmaAmmo": {
+      "summary": "Ammunition for the Plasma Gun, one bolt per shot.",
+      "notes": [
+        "Renamed only in spelling: \"Plasma Bolt\" here, \"PlasmaBolt\" in this wiki's Total Annihilation release."
+      ],
+      "source": "weaponPlasmagun.cs PlasmaAmmo"
+    },
+    "PlasmaGun": {
+      "summary": "Fires a plasma bolt that bursts with a small blast of plasma damage on impact.",
+      "notes": [
+        "Firing is driven entirely by the image's projectileType (PlasmaBolt); the only script is an onMount help line.",
+        "Plasma hits call the victim armor's onBurn handler from Player::onDamage, but Armor::onBurn in armorData.cs has its burn code commented out, so plasma damage sets nothing on fire in this mod.",
+        "Unlike this wiki's Total Annihilation release, the bolt is much slower (muzzle velocity 55 vs 100). That release's script also has an unused PlasmaGunImageXX::onFire; neither has custom fire logic in play."
+      ],
+      "source": "weaponPlasmagun.cs; baseProjData.cs PlasmaBolt; player.cs Player::onDamage; armorData.cs Armor::onBurn"
+    },
+    "Shotgun": {
+      "summary": "A close-range shotgun that fires ten pellets per shell.",
+      "notes": [
+        "ShotgunImage::onFire takes one ShotgunShells and spawns ten ShotgunBullet projectiles from the muzzle. Spread comes from the bullet's aimDeflection.",
+        "The fire function is the same as in this wiki's Total Annihilation release (minus debug echoes); the difference is the faster reload/fire time and slightly wider pellet spread (aimDeflection 0.02 vs 0.018).",
+        "onFire decrements ammo without checking the count, so it relies on the engine's ammoType check to stop firing at zero."
+      ],
+      "source": "weaponShotGun.cs ShotgunImage::onFire; baseProjData.cs ShotgunBullet"
+    },
+    "Flamer": {
+      "summary": "A short-range flame weapon: each shot sprays a burst of Flames that deals plasma radius damage, with a smoke puff for effect.",
+      "notes": [
+        "FlamerImage::onFire checks FlamerAmmo, takes one, and spawns a Flames bullet plus a harmless FlameSmoke grenade (null damage). With no ammo it prints \"Out Of FlamerAmmo\".",
+        "The fire function matches this wiki's Total Annihilation release; UltrAnnihilation fires faster (fireTime 0.05 vs 0.15) and buying one mounts it automatically ($AutoUse true).",
+        "Damage is $PlasmaDamageType, but Armor::onBurn does nothing in this mod, so targets are not set alight."
+      ],
+      "source": "weaponFlamer.cs FlamerImage::onFire; baseProjData.cs Flames, FlameSmoke; armorData.cs Armor::onBurn"
+    },
+    "FlameThrower": {
+      "summary": "Lobs short-lived fire grenades (FlameThrowerGren) that burst into plasma radius damage at moderate range.",
+      "notes": [
+        "No custom fire script; the image fires FlameThrowerGren directly, one Flame Cartridge per shot.",
+        "Unlike this wiki's Total Annihilation release, each grenade does less damage (0.2 vs 0.5) but the gun cycles faster (0.05 vs 0.1 s).",
+        "Plasma damage triggers Armor::onBurn, which is disabled in this mod."
+      ],
+      "source": "weaponFlameThrower.cs; baseProjData.cs FlameThrowerGren"
+    },
+    "HDiscLauncherAmmo": {
+      "summary": "Hyper Disc ammunition for the Hyper Spinfusor. It is the only Hyper Disc item sold in the shop.",
+      "notes": [
+        "HDiscLauncherImage::onFire removes one HDiscLauncherAmmo per shot and copies the remaining count into the hidden barrel ammo items HDiscLauncher1Ammo and HDiscLauncher2Ammo, which are not shown in inventory.",
+        "Because of how that copy is written, the last two discs never fire (see HDiscLauncher)."
+      ],
+      "source": "weaponHDiscLauncher.cs HDiscLauncherAmmo, HDiscLauncherImage::onFire"
+    },
+    "HDiscLauncher1": {
+      "summary": "The hidden left-hand barrel of the Hyper Spinfusor. It is mounted automatically in slot 6 and fires HyperDiscShell when the main launcher triggers it.",
+      "notes": [
+        "Not sold or shown in inventory (showInventory false). HDiscLauncher::onMount mounts it and sets its ammo (HDiscLauncher1Ammo) to the player's Hyper Disc count; HDiscLauncher::onUnmount removes it.",
+        "Mounted with a rotation of -1.57 so it sits opposite HDiscLauncher2."
+      ],
+      "source": "weaponHDiscLauncher.cs HDiscLauncher1Image, HDiscLauncher::onMount/onUnmount"
+    },
+    "HDiscLauncher2": {
+      "summary": "The hidden right-hand barrel of the Hyper Spinfusor. It is mounted automatically in slot 7 and fires HyperDiscShell on alternate shots.",
+      "notes": [
+        "Not sold or shown in inventory. Its ammo item HDiscLauncher2Ammo is set by the main launcher's scripts, and it is removed when the Hyper Spinfusor is unmounted.",
+        "Mounted with a rotation of +1.57, mirroring HDiscLauncher1."
+      ],
+      "source": "weaponHDiscLauncher.cs HDiscLauncher2Image, HDiscLauncher::onMount/onUnmount"
+    },
+    "HDiscLauncher": {
+      "summary": "A dual-barreled rapid disc launcher that alternates shots between two side barrels. Each disc is a smaller-blast HyperDiscShell.",
+      "notes": [
+        "The main image has no projectile of its own. On mount it attaches the hidden barrels HDiscLauncher1 (slot 6) and HDiscLauncher2 (slot 7). Each shot's HDiscLauncherImage::onFire toggles %client.hd and pulses the trigger on one barrel, so the barrels fire alternately.",
+        "A shot is skipped (and no ammo spent) while either barrel is still in its Fire or Reload state.",
+        "Each shot removes one Hyper Disc, then copies the remaining count to the barrel's ammo. If one disc remains it sets the barrel's ammo to 0 instead, and on the final disc the count is already 0. Either way that barrel has no ammo, so the last two discs are spent without firing.",
+        "No counterpart in this wiki's Total Annihilation release."
+      ],
+      "source": "weaponHDiscLauncher.cs HDiscLauncherImage::onFire, HDiscLauncher::onMount/onUnmount; baseProjData.cs HyperDiscShell"
+    },
+    "JailGun": {
+      "summary": "A short-range beam that teleports an enemy player into the shooter's team Jail Cell for 30 seconds. It needs a deployed Jail Cell to work.",
+      "notes": [
+        "jailbolt::damageTarget runs when the beam touches something. It skips non-players and teammates, then searches the shooter's team's JailPorts group for a jail teleport not on the target's team, moves the target there, and prints an arrest message. JailBreak() 30 seconds later moves them to the team's JailRelease point.",
+        "If no jail teleport is found nothing happens, with no message to the shooter.",
+        "Bug: the function sets %target.jaildamage = true before any of its checks, and only JailBreak clears it. A player who was hit while no enemy jail existed, or who was touched by a teammate's or another non-qualifying beam, keeps the flag, so later Jail Gun hits do nothing to them until they respawn as a new player object.",
+        "Unlike this wiki's Total Annihilation release, there is no random malfunction that jails the shooter instead (80/20 there), no check against invulnerable, AI or already-jailed players, and the sentence is 30 seconds rather than 20. Reload is 4 s here vs 2 s there."
+      ],
+      "source": "weaponJailGun.cs; baseProjData.cs jailbolt::damageTarget; deployJailPack.cs JailBreak"
+    },
+    "RocketLauncher": {
+      "summary": "A straight-flying rocket launcher with a large blast radius and heavy knockback.",
+      "notes": [
+        "No custom fire script; it fires BasicRocket directly, one rocket per shot.",
+        "Unlike this wiki's Total Annihilation release, the rocket uses $ExplosionDamageType rather than a separate rocket damage type, starts slower (muzzle velocity 75 vs 125), and there is no extra sight model mounted alongside the launcher."
+      ],
+      "source": "weaponRocketLauncher.cs; baseProjData.cs BasicRocket"
+    },
+    "MineLauncherAmmo": {
+      "summary": "Ammunition for the Mine Launcher. One shell scatters ten bomblet mines.",
+      "notes": [
+        "Each shot uses one round; the shell itself does no damage and releases MineShell1 bomblets (see MineLauncher)."
+      ],
+      "source": "weaponMineLauncher.cs MineLauncherAmmo; miscMine.cs MineShell::onAdd"
+    },
+    "MineLauncher": {
+      "summary": "Lobs a canister that drops ten small mines along its path over three seconds, laying a minefield where it flies and lands.",
+      "notes": [
+        "The fired MineShell grenade deals no damage itself. MineShell::onAdd schedules MineShellSpread, which drops a MineShell1 \"Bomblet\" mine every 0.3 seconds from the shell's current position (thrown at strength 50) until ten have been dropped, then deletes the shell.",
+        "Each bomblet arms once it comes to rest (MineShell1::deployCheck, rechecked every 3 s). If another mine is inside its 1-unit box when it arms, it detonates at once, so bomblets that land touching each other blow up.",
+        "An armed bomblet explodes when a Player, vehicle or Moveable of a different team touches it. Its blast uses $ImpactDamageType.",
+        "The script never assigns the bomblets a team (no GameBase::setTeam call), so how the team check in onCollision treats them was not determined from scripts.",
+        "No counterpart in this wiki's Total Annihilation release."
+      ],
+      "source": "weaponMineLauncher.cs; baseProjData.cs MineShell; miscMine.cs MineShell::onAdd, MineShellSpread, MineShell1::onCollision/deployCheck"
+    },
+    "Mortar": {
+      "summary": "A lobbed mortar shell that explodes on contact or when its fuse runs out, dealing large-radius mortar damage.",
+      "notes": [
+        "No custom fire script; the image fires MortarShell directly.",
+        "Unlike this wiki's Total Annihilation release, the shell does not turn into a proximity mine. That release has MortarImage::onFire with a 1-second reload lock and MortarShell::Arm, which converts the shell into a mine that detonates near enemies or when it settles. UltrAnnihilation's shell is a plain grenade with higher damage (1.0 vs 0.75).",
+        "Script quirk: $WeaponAmmo[Mortar] is set to Mortar instead of MortarAmmo. Next/previous-weapon cycling (isSelectableWeapon) therefore treats the Mortar as always loaded. Weapon::onUse still checks the image's real ammo type, so with no ammo it shows \"Mortar has no ammo\"."
+      ],
+      "source": "weaponMortar.cs; baseProjData.cs MortarShell; item.cs isSelectableWeapon, Weapon::onUse"
+    },
+    "RubberMortar": {
+      "summary": "A mortar whose shells bounce many times before exploding with mortar damage.",
+      "notes": [
+        "No custom fire script; it fires RubberMortarShell, a very bouncy (elasticity 0.65) grenade that explodes when its fuse ends.",
+        "The projectile matches this wiki's Total Annihilation release. UltrAnnihilation fires much faster (fireTime 0.05 vs 2.0) and sets $AmmoPackMax[RubberAmmo] = 60 for the Ammo Pack."
+      ],
+      "source": "weaponRubberMortar.cs; baseProjData.cs RubberMortarShell"
+    },
+    "Battery": {
+      "summary": "A \"500 Volt Battery\" item defined alongside the Pulse Cannon but not used by anything.",
+      "notes": [
+        "The Pulse Cannon's ammoType = Battery line is commented out, and the Battery has no $InvList entry, item limit or other script reference. It cannot be bought and the cannon does not consume it.",
+        "Behavior not determined from scripts beyond being an unused item definition."
+      ],
+      "source": "weaponPulseCannon.cs Battery, PulseCannonImage"
+    },
+    "PulseCannon": {
+      "summary": "An energy weapon that fires fast ion bolts like the Ion Turret's, with a small energy blast on impact. It uses no ammo.",
+      "notes": [
+        "Energy-powered (minEnergy 5, maxEnergy 8) with no ammo type; fires PulseBolt, which deals $EnergyDamageType radius damage.",
+        "Only Builder, Troll and Titan armors may carry it (serverItemUsage.cs PopulateItemMax).",
+        "No counterpart in this wiki's Total Annihilation release."
+      ],
+      "source": "weaponPulseCannon.cs; baseProjData.cs PulseBolt; serverItemUsage.cs"
+    },
+    "ShockwaveGun": {
+      "summary": "An energy cannon that fires a slow shockwave projectile. It does modest damage but has a very large blast radius and strong knockback for throwing players around.",
+      "notes": [
+        "No custom fire script; it fires the Shock rocket ($MissileDamageType).",
+        "Unlike this wiki's Total Annihilation release, the blast is stronger and wider (damage 0.35 vs 0.10, radius 30 vs 20, knockback 350 vs 280), costs a minimum of 10 energy instead of 0, and fires far faster (fireTime 0.05 vs 2.0)."
+      ],
+      "source": "weaponShockwave.cs; baseProjData.cs Shock"
+    },
+    "Stinger": {
+      "summary": "A missile launcher that locks on to whatever player or vehicle is under the crosshair when fired. Otherwise it shoots an unguided rocket.",
+      "notes": [
+        "StingerImage::onFire does a 1500-unit line-of-sight check. If it hits a Player or Flier, it fires a seeking StingerMissile at that object and messages both shooter and target (\"Stinger lock acquired\" / \"Stinger lock detected\"). It hits any other object: a dumb StingerRocket. There is no team check, so teammates can be locked.",
+        "Bug: when the line-of-sight check finds nothing within 1500 units, the else-branch decrements $WeaponAmmo[Hellfire] instead of the Stinger's ammo. That variable is never set in this mod, so the shot costs no Stinger Ammo. This wiki's Total Annihilation release decrements StingerAmmo there.",
+        "Unlike that release, the missiles use $MissileDamageType rather than a rocket damage type, and reload is far shorter (0.05 vs 1.5 s)."
+      ],
+      "source": "weaponStinger.cs StingerImage::onFire; baseProjData.cs StingerMissile, StingerRocket"
+    },
+    "Vulcan": {
+      "summary": "A spin-up minigun that fires explosive bullets at a high rate.",
+      "notes": [
+        "No custom fire script; the image fires VulcanBullet directly, one round per bullet. Here the bullet does small-radius $ExplosionDamageType damage at muzzle velocity 700.",
+        "Unlike this wiki's Total Annihilation release, there is no mode switch. That release's VulcanImage::onFire toggles between standard Chaingun rounds (1 ammo) and fiery Vulcan rounds (2 ammo), and mounts a shell-ejector image. UltrAnnihilation always fires the explosive Vulcan round."
+      ],
+      "source": "weaponVulcan.cs; baseProjData.cs VulcanBullet"
+    },
+    "AngelFire": {
+      "summary": "The Angel armor's energy mortar: it lobs short-fused bolts of explosive energy that deal plasma radius damage.",
+      "notes": [
+        "No custom fire script; fires AngelFireGren, energy-powered with no ammo. Only Angel armor may carry it.",
+        "The projectile is the same as in this wiki's Total Annihilation release, whose help text says it sets victims on fire. In UltrAnnihilation, plasma hits call Armor::onBurn, which has its burn code commented out, so nobody is set alight.",
+        "Fires much faster than that release (fireTime 0.05 vs 0.2, reload 0.05 vs 0.9)."
+      ],
+      "source": "weaponAngelFire.cs; baseProjData.cs AngelFireGren; armorData.cs Armor::onBurn"
+    },
+    "Heavensfury": {
+      "summary": "The Angel armor's energy shotgun: a rapid stream of short-range electric bolts.",
+      "notes": [
+        "No custom fire script; fires HeavensfuryBolt ($ElectricityDamageType impact damage), energy-powered. Only Angel armor may carry it.",
+        "In Player::onDamage a Shield Pack's strength is multiplied by 0 against electricity. Any Heaven's Fury hit on a shielded player therefore sets their energy to 0, and the shield absorbs nothing.",
+        "Unlike this wiki's Total Annihilation release, each shot costs more energy (min 6 / max 7 vs 2 / 3); the bolt itself is unchanged."
+      ],
+      "source": "weaponHeavensFury.cs; baseProjData.cs HeavensfuryBolt; player.cs Player::onDamage"
+    },
+    "SniperRifle": {
+      "summary": "The Spy armor's long-range rifle: a very fast single bullet with heavy knockback.",
+      "notes": [
+        "No custom fire script; the image fires SniperBullet ($SniperDamageType, impact damage) directly. Despite the mount text calling it an area-effect weapon, the bullet is impact-class with a 0.1 explosion radius.",
+        "Bug: Player::onDamage's head-shot test reads head AND laser OR sniper. Operator precedence makes every Sniper Rifle hit get the +30% bonus, not only head shots, and the heavy-armor torso exception names harmor, which no armor in this mod uses.",
+        "Unlike this wiki's Total Annihilation release, there is no SniperRifleImage::onFire. That release fires from a corrected muzzle transform and adds a visible laser trace when the shooter is cloaked. Its bullet also uses $LaserDamageType. Here the rifle also has a much faster fire time (0.05 vs 1.5)."
+      ],
+      "source": "weaponSniperRifle.cs; baseProjData.cs SniperBullet; player.cs Player::onDamage"
+    },
+    "Fixit": {
+      "summary": "The Builder's repair gun: a sustained beam that repairs players and objects, or the wearer when aimed at nothing. Only the Builder armor can carry it ($ItemMax).",
+      "notes": [
+        "Mounting it also mounts the Builder's Repair-Gun (Fixit2) image in slot 4 as a second gun model; unmounting removes it, and dropping Fixit clears Fixit2.",
+        "SuperRepairBolt::onAcquire adds 0.5 to a target's auto-repair rate, or 0.25 when the beam lands on the wearer (\"AutoRepair On\"). Release subtracts it again and reports \"Repair Done\" or \"Repair Stopped\".",
+        "The beam's boltLength is 999.5, so its reach is far longer than this wiki's Total Annihilation release (25.5).",
+        "Unlike this wiki's Total Annihilation release, there is no repack mode (no RePackBolt), no builder-only check that blows up other armors, no generator or enemy-equipment rules, no repair rewards and no reclaiming of ownerless turrets. It repairs anything, enemy objects included.",
+        "Script bug: SuperRepairBolt::checkDone only stops the beam when the mounted item is RepairGun, so with the Fixit it never cuts off automatically when the target reaches full health; the player must release the trigger."
+      ],
+      "source": "weaponFixit.cs Fixit::onMount/onUnmount/onDrop; baseProjData.cs SuperRepairBolt::onAcquire/onRelease/checkDone; serverItemUsage.cs PopulateItemMax"
+    },
+    "Fixit2": {
+      "summary": "The second repair-gun model that the Builder Repair-Gun mounts in slot 4. It is hidden from the shop and never fires in play.",
+      "notes": [
+        "Its image uses the same SuperRepairBolt beam as the Fixit, mounted with mirrored rotation.",
+        "The functions that would trigger slot 4 alongside the main gun (FixitImage::onFire, CheckFixit) are commented out, so nothing ever pulls its trigger; it is cosmetic.",
+        "Unlike this wiki's Total Annihilation release, where Fixit2 is the Builder's Tool repack mode (RePackBolt) that the player switches to, UltrAnnihilation has no repack mode at all."
+      ],
+      "source": "weaponFixit.cs FixitImage2, Fixit::onMount (commented-out FixitImage::onFire, CheckFixit)"
+    },
+    "Railgun": {
+      "summary": "A hitscan-fast sniper weapon that fires a RailRound slug with a long trail. In UltrAnnihilation only the Builder armor may carry it ($ItemMax).",
+      "notes": [
+        "Firing is plain image behavior: no onFire script, one RailRound per shot using one Railgun Bolt.",
+        "Unlike this wiki's Total Annihilation release, it is set to auto-mount on purchase ($AutoUse true); the projectile behaves the same in both."
+      ],
+      "source": "weaponRailGun.cs RailgunImage, Railgun::onMount; baseProjData.cs RailRound; serverItemUsage.cs PopulateItemMax"
+    },
+    "PhaseDisrupterAmmo": {
+      "summary": "Ammo for the Phase Disrupter. Only Troll and Titan armors can carry it.",
+      "notes": [
+        "This wiki's Total Annihilation release names the same \"Disrupter Ammo\" item PhaseAmmo and also puts it in the Ammo Pack list; in UltrAnnihilation it is only an ordinary ammo item tied to the Phase Disrupter."
+      ],
+      "source": "weaponPhaseDisrupter.cs PhaseDisrupterAmmo; serverItemUsage.cs PopulateItemMax"
+    },
+    "PhaseDisrupter": {
+      "summary": "A heavy launcher for Troll and Titan armors that fires a slow PhaseDisrupterBolt rocket with a very wide blast.",
+      "notes": [
+        "No firing script: the image fires PhaseDisrupterBolt directly, using PhaseDisrupterAmmo.",
+        "The bolt deals missile-type damage; this wiki's Total Annihilation release uses $RocketDamageType and a smaller 20 m blast (UltrAnnihilation: 25 m).",
+        "Unlike this wiki's Total Annihilation release, it has short fire and reload times, so the long reload that release warns about does not apply."
+      ],
+      "source": "weaponPhaseDisrupter.cs PhaseDisrupterImage, PhaseDisrupter::onMount; baseProjData.cs PhaseDisrupterBolt"
+    },
+    "TBlastCannon": {
+      "summary": "The Tank's shotgun cannon: each shot fires ten explosive BlastCannonShot pellets for one round of ammo.",
+      "notes": [
+        "TBlastCannonImage::onFire spawns ten BlastCannonShot projectiles from the muzzle; their aimDeflection spreads them into a cone. With no ammo it prints \"You have no ammo for the Tank BlastCannon Cannon\".",
+        "The firing logic matches this wiki's Total Annihilation release; UltrAnnihilation sets it to auto-mount on purchase and uses much shorter fire and reload times.",
+        "Tank armor only ($ItemMax)."
+      ],
+      "source": "weaponTankBlastCannon.cs TBlastCannonImage::onFire; baseProjData.cs BlastCannonShot"
+    },
+    "TankShredder": {
+      "summary": "The Tank's quad chaingun: one main barrel plus three extra barrel images that fire together while the trigger is held.",
+      "notes": [
+        "Mounting it mounts TankShredder2, 3 and 4 in slots 4, 7 and 6; unmounting removes them.",
+        "TankShredderImage::onFire spawns one ShredderBullet and uses one round, then starts MDCheckTankShredder, which holds the three extra barrel triggers every 0.1 s while fire is held. Each extra barrel fires ShredderBullets and uses ammo on its own.",
+        "The file defines MDCheckTankShredder twice; the later definition (all three barrels) replaces the first, which used an undefined $TankShredderSlot.",
+        "Same firing scheme as this wiki's Total Annihilation release (CheckTankShredder there). UltrAnnihilation adds explicit onUnmount and onDrop handling, sets it to auto-mount, and spins down in 0.1 s instead of 3 s."
+      ],
+      "source": "weaponTankShredder.cs TankShredderImage::onFire, MDCheckTankShredder, TankShredder::onMount/onUnmount/onDrop"
+    },
+    "TRocketLauncher": {
+      "summary": "The Tank's twin rocket gun. Each shot fires two rockets side by side, which become heat-seeking missiles when a player or vehicle is under the crosshair.",
+      "notes": [
+        "TRocketLauncherImage::onFire builds a second muzzle transform offset to the side and fires two projectiles, using 2 ammo per shot.",
+        "If a line-of-sight check within 1500 m hits a Player or Flier, it fires two TankMissile seekers at that target and messages both sides (\"lock acquired\" to the shooter, \"lock detected\" to the target). Otherwise it fires two unguided TankRocket.",
+        "Mounting it also mounts three extra barrel images (slots 4, 7, 6) that MDCheckTRocketLauncher triggers while fire is held; those images have no projectile type.",
+        "Same logic as this wiki's Total Annihilation release; UltrAnnihilation sets it to auto-mount and has much faster fire and reload times.",
+        "Script bug: in the out-of-ammo branch %client is never set, so the \"out of ammo\" message is not sent to the shooter."
+      ],
+      "source": "weaponTankRocketLauncher.cs TRocketLauncherImage::onFire, MDCheckTRocketLauncher, TRocketLauncher::onMount/onUnmount/onDrop; baseProjData.cs TankRocket, TankMissile"
+    },
+    "TankRPGAmmo": {
+      "summary": "RPG rounds for the Tank RPG launcher, carried by the Tank armor only.",
+      "notes": [
+        "Renamed \"RPGs\"; this wiki's Total Annihilation release calls it \"RPG Ammo\".",
+        "weaponTankRPG.cs sets $AmmoPackMax[TankRPGAmmo] = 300 and $AmmoPackItems[15], but UltrAnnihilation's fillAmmoPack fills packs from $ItemMax times $AmmoPackMult over every ammo type and does not read $AmmoPackItems."
+      ],
+      "source": "weaponTankRPG.cs TankRPGAmmo; packAmmo.cs fillAmmoPack"
+    },
+    "TankRPGLauncher": {
+      "summary": "The Tank's four-tube RPG launcher: the main tube and three extra tubes fire RPG rockets together while the trigger is held.",
+      "notes": [
+        "TankRPGLauncherImage::onFire spawns one RPG and uses one round, then CheckTankRPGLauncher holds the triggers of TankRPGLauncher2, 3 and 4 (slots 4, 7, 6) every 0.1 s. Each extra tube fires RPG with its own slightly different refire time.",
+        "The extra tubes are not accurate-fire (accuFire false), so their rockets do not converge on the crosshair.",
+        "Same scheme as this wiki's Total Annihilation release; UltrAnnihilation adds onUnmount/onDrop handling, auto-mounts it, and cuts the tubes' 2 s reload to under 0.1 s."
+      ],
+      "source": "weaponTankRPG.cs TankRPGLauncherImage::onFire, CheckTankRPGLauncher, TankRPGLauncher::onMount/onUnmount/onDrop; baseProjData.cs RPG"
+    },
+    "BabyNukeMortar": {
+      "summary": "The Titan's nuke mortar. It lobs a BabyNukeBomb shell that, about 5 seconds after launch, sets off a stacked column of bomblets above itself.",
+      "notes": [
+        "The image fires BabyNukeBomb directly (a bouncing grenade-type shell that can hit its owner after 0.5 s). BabyNukeBomb::onAdd schedules BombSpread 5.1 s later.",
+        "BombSpread places ten bomblet mines (Bomba to Bombf) above the shell's position, from 5 m to 35 m up, four of them 10 m out to the sides at 25 m. Each detonates itself 0.1 to 0.75 s after it appears.",
+        "Unlike this wiki's Total Annihilation release, which fires a single shell plus a cloud of NukeExplosion projectiles pushed outward and upward, with a twin barrel and a hold-to-fire loop, UltrAnnihilation uses one shell plus fixed bomblets.",
+        "BombSpread reads the shell's position when it runs; if the shell has already exploded by then (for example on contact), where the bomblets appear is not determined from scripts.",
+        "Titan armor only ($ItemMax)."
+      ],
+      "source": "weaponBabynuke.cs BabyNukeImage; baseProjData.cs BabyNukeBomb, BabyNukeBomb::onAdd, BombSpread; miscMine.cs Bomba-Bombf::onAdd"
+    },
+    "OSLauncher": {
+      "summary": "The Titan's Optical Seeking missile launcher: firing spawns a fast, flyable OSMissile vehicle that the player steers until it hits something, runs out of fuel or is detonated.",
+      "notes": [
+        "OSLauncherImage::onFire creates an OSMissile flier 1.5 m above the muzzle, facing the player's direction, switches the player's control to it and unmounts their weapon. It uses one OS Rocket.",
+        "OSMissile::exhaustFuel burns 1 energy per second from 15, so the missile flies for about 15 seconds before it destroys itself. Jumping (OSMissile::jump) detonates it at once, and its tiny maxDamage means any hit or ram destroys it.",
+        "OSMissile::onDestroyed returns control to the player, re-mounts their previous weapon and calls calcRadiusDamage with missile damage. The blast is credited to the missile object, not the player.",
+        "Unlike this wiki's Total Annihilation release, which fires a dummy rocket and converts it to the flier 0.25 s later, with a 100 m altitude-jump check, fuel warnings and fuel-scaled blast force, UltrAnnihilation spawns the flier at once. Its onCollision is empty.",
+        "Script bug: onFire tests %player.vehicle, but %player is not set at that point, so the check that should block firing while already flying a missile always passes."
+      ],
+      "source": "weaponOSLauncher.cs OSLauncherImage::onFire, OSMissile::onAdd/jump/onDestroyed/exhaustFuel; staticshape.cs calcRadiusDamage"
+    },
+    "ParticleBeamWeapon": {
+      "summary": "The Titan's Particle Beam: a single-shot energy laser that fires a ParticleBeam bolt, needing a large energy reserve per shot.",
+      "notes": [
+        "No firing script: the image fires the ParticleBeam laser directly, with bullet-type damage.",
+        "Unlike this wiki's Total Annihilation release, it has no modes. That release has a charge-up Positron mode, with a 0-100% charge, lock tone and charge-scaled damage, and a Neutron mode that kicks the wielder backward. Neither exists here, and there are no extra side-mounted beam images.",
+        "Titan armor only ($ItemMax)."
+      ],
+      "source": "weaponParticleBeam.cs ParticleBeamWeaponImage; baseProjData.cs ParticleBeam"
+    },
+    "TargetingLaser": {
+      "summary": "The standard targeting laser tool, which paints a target point for teammates and turrets and deals no damage. Every armor can carry one, and it is part of the default spawn kit.",
+      "notes": [
+        "It is not in the weapon cycle (addWeapon is commented out) and has no scripts of its own; behavior is the engine's TargetLaserData.",
+        "Unlike this wiki's Total Annihilation release, there is no onUse override (that release swaps in a Cutting Laser in build mode), and it is listed under the weapons heading rather than tools."
+      ],
+      "source": "weaponTargetLaser.cs TargetingLaserImage; baseProjData.cs targetLaser; serverAnnihilation.cs $spawnBuyList"
+    },
+    "DeathRay": {
+      "summary": "Necromancer spell that fires a DeathRayLaser bolt of energy damage straight from the image.",
+      "notes": [
+        "No firing script; refire is set by the image timing alone.",
+        "Unlike this wiki's Total Annihilation release, which fires the beam from a separate DeathRayBeam image in slot 4 behind a 0.7 s reload gate and deals laser damage, UltrAnnihilation fires DeathRayLaser directly with energy damage.",
+        "Necromancer armors only ($ItemMax)."
+      ],
+      "source": "spellDeathRay.cs DeathRayImage; baseProjData.cs DeathRayLaser"
+    },
+    "DisarmerSpell": {
+      "summary": "Necromancer spell that fires a DisarmBolt; enemies caught in its 20 m blast drop the weapon they are holding.",
+      "notes": [
+        "The image fires DisarmBolt directly. Player::onDamage, for $DisarmDamageType from an enemy (or anyone in Deathmatch), releases the victim's trigger and drops their mounted weapon with the message \"Your have been hit by a disarm spell!\".",
+        "Spy armors take no damage from it ($DamageScale 0), but still drop their weapon.",
+        "Unlike this wiki's Total Annihilation release, there is no onFire script: no 3.5 s reload gate and no extra 10-energy charge per cast. The bolt is also much faster (170 vs 70 muzzle velocity)."
+      ],
+      "source": "spellDisarmer.cs DisarmerSpellImage; baseProjData.cs DisarmBolt; player.cs Player::onDamage; serverItemUsage.cs PopulateDamageScale"
+    },
+    "FlameStrike": {
+      "summary": "Necromancer spell that fires a fast FlameStrikeSmall plasma bolt that sets targets burning.",
+      "notes": [
+        "FlameStrikeImage::onFire is meant to fire, rarely, a huge FlameStrikeBig (45 m blast) with an \"OUT OF CONTROL\" warning, and FlameStrikeSmall otherwise.",
+        "Script bug: the check is floor(getRandom() * 30) == 31, which can never be true (the result is 0 to 29), so FlameStrikeBig is never fired.",
+        "Plasma damage triggers the target armor's onBurn when the target is an enemy (Player::onDamage).",
+        "Unlike this wiki's Total Annihilation release, which has a 1.7 s reload gate and a working 1-in-10 chance of an out-of-control NukeShell, UltrAnnihilation has no reload gate and the big blast never happens."
+      ],
+      "source": "spellFlameStrike.cs FlameStrikeImage::onFire; baseProjData.cs FlameStrikeSmall, FlameStrikeBig; player.cs Player::onDamage"
+    },
+    "SpellFlameThrower": {
+      "summary": "Necromancer spell that sprays short-lived SpellFlameThrowerGren plasma bursts in rapid succession.",
+      "notes": [
+        "The image fires SpellFlameThrowerGren directly. The plasma damage can set enemies burning (onBurn via Player::onDamage).",
+        "Unlike this wiki's Total Annihilation release, there is no onFire script: no extra 10 energy per burst, and no backfire. That release damages the caster instead of firing when there is an obstruction within 0.2 m."
+      ],
+      "source": "spellFlameThrower.cs SpellFlameThrowerImage; baseProjData.cs SpellFlameThrowerGren"
+    },
+    "ShockingGrasp": {
+      "summary": "Necromancer spell: a sustained ELF-style lightning beam that does electrical damage and drains the target's energy quickly.",
+      "notes": [
+        "ShockingGraspBolt is LightningData handled by the generic Lightning::damageTarget, which applies electricity damage and subtracts energy (100 per second at full contact) with no team check of its own.",
+        "Shield Packs give no protection against electricity damage (Player::onDamage sets shield strength to 0 for it).",
+        "Unlike this wiki's Total Annihilation release, which mounts a second beam image (ShockingGrasp2) and uses its own damageTarget that skips teammates, UltrAnnihilation has a single beam and no friendly-player exemption beyond the normal team-damage rules."
+      ],
+      "source": "spellShockingGrasp.cs ShockingGraspImage; baseProjData.cs ShockingGraspBolt, Lightning::damageTarget; player.cs Player::onDamage"
+    },
+    "Stasis": {
+      "summary": "Necromancer spell that fires a short-range StasisBolt. Players caught in it are swapped into an immobile, energy-less stasis armor for 5 seconds.",
+      "notes": [
+        "In Player::onDamage, $StasisDamageType swaps light armors (Angel, Spy, Necro) to harmor1, Warrior/Builder/DM to harmor2 and Troll/Tank/Titan to harmor3. These armors have zero movement speed, jet and jump, and no energy. Stasis::resetArmor restores the original armor after 5 s with \"You are free from Stasis.\"",
+        "There is no team check: teammates (and the caster, within the 3 m blast) are frozen too.",
+        "harmor1-3 have no $DamageScale entries, so a player in stasis takes no damage from any attack. A player already in stasis who is hit again by Stasis is not re-frozen.",
+        "buyItem refuses all purchases while the player wears a stasis armor.",
+        "Unlike this wiki's Total Annihilation release, the freeze lasts 5 s instead of 10. That release also ignores teammates (unless team damage is on), self-hits and bots, has a 5 s reload gate with an extra 20-energy cost, and its bolt flies far faster (2000 vs 100 muzzle velocity, 1 s life here).",
+        "Stasis::resetArmor is scheduled against the client, not the body, so it sets the remembered armor on whatever body the client has 5 s later."
+      ],
+      "source": "spellStasis.cs Stasis::resetArmor, harmor1/harmor2/harmor3; player.cs Player::onDamage, UnstasisMsg; item.cs buyItem; baseProjData.cs StasisBolt"
+    },
+    "AmmoPack": {
+      "summary": "A backpack that raises how much ammunition the wearer can carry. Buying it at a station adds half of the armor's normal maximum of every ammo type, charged to the team.",
+      "notes": [
+        "Unlike this wiki's Total Annihilation release, which fills from a fixed per-ammo table ($AmmoPackMax), fillAmmoPack gives floor(armor maximum x $AmmoPackMult) of each ammo registered with addAmmo; $AmmoPackMult is 0.5.",
+        "The bonus covers every addAmmo entry, including Beacons, Grenades, Mines and Repair Kits as well as weapon ammo.",
+        "Dropping the pack strips the ammo carried above the armor's normal maximum and stores it with the dropped pack. A player who picks it up receives that ammo, capped at 1.5 times their own armor's maximum per type.",
+        "Script bug: AmmoPack::onRemove's loop tests the bare word i instead of %i (for (%i = 0; i < $AmmoCount; %i++)), so as written the loop condition never changes."
+      ],
+      "source": "packAmmo.cs AmmoPack::onDrop, AmmoPack::onCollision, checkPacksAmmo, fillAmmoPack, AmmoPack::onRemove; item.cs addAmmo"
+    },
+    "ChameleonPack": {
+      "summary": "A Spy-only pack that disguises the wearer as the enemy team while it is switched on. Only one player per team can use it at a time, and it only works with two teams.",
+      "notes": [
+        "Turning it on drops any flag the wearer carries, switches their team to the other side and gives them the enemy team skin. The wearer's team is told who summoned the chameleon powers.",
+        "Unlike this wiki's Total Annihilation release, it changes the wearer's skin to the enemy team skin, and restores their custom or team skin when it wears off. Annihilation has the skin changes commented out.",
+        "With more than two teams, activating it removes the pack from the wearer with a refusal message.",
+        "Turning it off returns the wearer to their own team. Unlike Annihilation, there is no Deployable Cat interference buffer and no cloakable flag toggle.",
+        "Only Spy armor can carry it (serverItemUsage.cs item limits)."
+      ],
+      "source": "packChameleon.cs ChameleonPackImage::onActivate, ChameleonPackImage::onDeactivate; serverItemUsage.cs PopulateItemMax"
+    },
+    "CloakingDevice": {
+      "summary": "A backpack that fades the wearer out of sight while it is on. It is defined and listed in the stations, but no armor in this mod is allowed to carry it.",
+      "notes": [
+        "Turning it on fades the wearer out, raises their sensor suppression by 5 and sets guiLock, which stops them switching to the command, inventory or objectives screens. Turning it off fades them back in and reverses both.",
+        "Its item limit is 0 for every armor, so it cannot normally be bought.",
+        "Script bug: onActivate sets ghostDoneFlag on %clientId and calls startGhosting(%cl), but neither variable is defined in that function."
+      ],
+      "source": "packCloak.cs CloakingDeviceImage::onActivate, CloakingDeviceImage::onDeactivate; game.cs remoteCommandMode/remoteInventoryMode; serverItemUsage.cs PopulateItemMax"
+    },
+    "Laptop": {
+      "summary": "A Builder backpack that lets the wearer control turrets without a Command Station. It also lets them take over enemy turrets and use enemy teleport pads.",
+      "notes": [
+        "With the Laptop mounted, touching a turret takes manual control of it. An enemy turret is switched to the wearer's team while they control it, with the message \"Successful patch into enemy turret\".",
+        "Without a Laptop or Command Station, Turret::onAttemptControl refuses with \"Need laptop or Command Station\" unless the turret type is always controllable.",
+        "A Laptop wearer can use an enemy Teleport Pad (\"Enemy teleport override successful\"), and teleporter errors are reported as Laptop messages.",
+        "Only Builder armor can carry it.",
+        "Script bug: Laptop::onMount prints its help text to %client, which is never defined, so the help line does not reach the wearer. Unlike this wiki's Total Annihilation release, there is no help-toggle check."
+      ],
+      "source": "packCommand.cs Laptop::onUse, Laptop::onMount, Laptop::IsAvailable; turret.cs Turret::onCollision, Turret::onAttemptControl; deployTeleporter.cs DeployableTeleport::onCollision"
+    },
+    "EnergyPack": {
+      "summary": "A backpack that speeds up the wearer's energy regeneration. It switches itself on when mounted.",
+      "notes": [
+        "Unlike this wiki's Total Annihilation release, using it while it is already mounted does nothing. Annihilation turns a second use into a velocity boost that costs a third of the wearer's energy.",
+        "EnergyPack::onUnmount is empty; the old Laser Rifle unmount check is commented out."
+      ],
+      "source": "packEnergy.cs EnergyPack::onUse, EnergyPack::onMount, EnergyPack::onUnmount"
+    },
+    "SensorJammerPack": {
+      "summary": "A backpack that hides the wearer from enemy sensors while it is on.",
+      "notes": [
+        "Turning it on raises the wearer's sensor suppression by 20, and turning it off lowers it by 20.",
+        "Its on/off functions match this wiki's Total Annihilation release. UltrAnnihilation has no onMount help text.",
+        "Every armor except Spy can carry it."
+      ],
+      "source": "packJammer.cs SensorJammerPackImage::onActivate, SensorJammerPackImage::onDeactivate"
+    },
+    "PhaseShifterPack": {
+      "summary": "A Necromancer-only pack that teleports the wearer to the point under their crosshair. It has a small chance to kill them instead.",
+      "notes": [
+        "The target must be within $WarpRange (1400) and must not be a player or a vehicle. The jump is refused within a 30-unit box of an enemy flag.",
+        "The jump takes about 1.75 seconds: after 0.25 s the wearer is parked at a holding point, and 1.5 s later they are placed at the target with their velocity zeroed. The pack is ready again $WarpTime (1.5 s) after that.",
+        "Malfunction: floor(getRandom()*100) < $WarpChance (1) kills the wearer (\"You were ripped apart\"), about a 1% chance per use.",
+        "A carried flag can drop during the jump: $DropFlagChance is 0.5, but the roll is floor(getRandom()*100), so in effect the chance is 1%.",
+        "Unlike this wiki's Total Annihilation release (range 550, 5% malfunction, 7.5 s recharge), there is no position swap with a targeted player, and nothing blocks the jump while the wearer is connected to an inventory.",
+        "Script bug: the target check is written if (%object=\"Player\" || %object =\"Flier\" || %object =\"\") with = (assignment) rather than ==, so it does not compare the hit object's type as intended."
+      ],
+      "source": "packPhaseShifter.cs PhaseShifterPackImage::onActivate, phaseShiftProcess, phaseShiftComplete, phaseShiftRecharge"
+    },
+    "RepairPack": {
+      "summary": "A backpack with a repair gun for fixing players and objects. Use it once to mount the pack and again to draw the Repair Gun.",
+      "notes": [
+        "The Repair Gun's RepairBolt has a boltLength of 997.5, against 7.5 in this wiki's Total Annihilation release, so its repair beam reaches objects at very long range.",
+        "Aiming at nothing repairs the wearer (\"AutoRepair On\") at a rate of 0.075. Repairing a target adds 0.25 to that target's auto-repair rate until the trigger is released or the target is fully repaired.",
+        "Dropping the pack unmounts the Repair Gun.",
+        "Unlike Annihilation, walking over a dropped Repair Pack does not auto-equip it, and there is no Generator restriction."
+      ],
+      "source": "packRepair.cs RepairPack::onUse, RepairPack::onDrop, RepairGun::onMount/onUnmount; baseProjData.cs RepairBolt::onAcquire, RepairBolt::onRelease, RepairBolt::checkDone"
+    },
+    "ShieldPack": {
+      "summary": "A backpack energy shield that absorbs damage at the cost of energy while it is on.",
+      "notes": [
+        "Turning it on sets the wearer's shieldStrength to 0.012; turning it off sets it to 0.",
+        "Its on/off functions match this wiki's Total Annihilation release, without the help text.",
+        "Angel, Spy and Tank armor cannot carry it."
+      ],
+      "source": "packShield.cs ShieldPackImage::onActivate, ShieldPackImage::onDeactivate"
+    },
+    "StealthShieldPack": {
+      "summary": "A Shield Pack and Sensor Jammer in one: while on, it shields the wearer and hides them from sensors.",
+      "notes": [
+        "Turning it on sets shieldStrength to 0.012 and raises sensor suppression by 20; turning it off reverses both.",
+        "Its on/off functions match this wiki's Total Annihilation release.",
+        "Only Commando (DM) and Warrior armor can carry it."
+      ],
+      "source": "packStealthShield.cs StealthShieldPackImage::onActivate, StealthShieldPackImage::onDeactivate"
+    },
+    "SuicidePack": {
+      "summary": "A det pack for Spy and Troll armor. The wearer throws it as a large bomb that explodes after 5 seconds, or detonates it almost at once with the suicide key.",
+      "notes": [
+        "Using it while it is mounted unmounts it and throws a Suicidebomb2 mine (\"Det Pack will destruct in 5 seconds\"). Suicidebomb2::onAdd detonates it after 5 seconds. The timer is fixed.",
+        "Pressing the suicide (kill) key with the pack mounted does not kill the wearer. It unmounts the pack and throws a smaller Suicidebomb that detonates after 0.5 seconds.",
+        "Unlike this wiki's Total Annihilation release, the timer cannot be set from the tab menu and there is no 8.5-second reuse delay.",
+        "Script bug: the Player::decItemCount call in SuicidePack::onDeploy is commented out and remoteKill only unmounts the pack, so the det pack stays in the inventory and can be mounted and thrown again.",
+        "Touching a det pack defuses it (or 20% of the time sets it off) only for armors named earmor or efemale. No armor in this mod has those names, so in practice no one can defuse it. Script bug: the \"wrong wire\" branch calls Mine::Detonate(\" @ %this @ \") with a literal string instead of the object."
+      ],
+      "source": "packSuicide.cs SuicidePack::onUse, SuicidePack::onDeploy, SuicidePack::deployShape; miscMine.cs Suicidebomb2::onAdd, Suicidebomb2::onCollision, Suicidebomb::onAdd; player.cs remoteKill"
+    },
+    "RegenerationPack": {
+      "summary": "The Troll Pack: a Troll-only backpack that slowly heals the Troll while worn.",
+      "notes": [
+        "Mounting it switches it on. While it is on, every second checkRegeneration lowers an armorTroll wearer's damage by 0.0275.",
+        "On any other armor it adds 0.275 damage per second instead. Only Troll armor is allowed to carry it, so this branch is normally unreachable.",
+        "Unlike this wiki's Total Annihilation release, regeneration does not pause while the wearer is frozen.",
+        "Script bug: the unmount handler is named Regeneration::onUnmount rather than RegenerationPack::onUnmount (it is empty either way)."
+      ],
+      "source": "packRegeneration.cs RegenerationPack::OnMount, RegenerationPackImage::onActivate/onDeactivate, checkRegeneration"
+    },
+    "Beacon": {
+      "summary": "A hand item whose effect depends on the user's armor: speed boosts, invisibility, emergency shields or a deployed Inventory Station. Several armors get no effect.",
+      "notes": [
+        "Commando (DM) and female Warrior: Armor::SpeedBooster pushes the player along their current direction of travel, or along \"0 10 0\" when standing still, with an impulse of 300 (\"You spank yourself\"). It uses one beacon.",
+        "Male Warrior: the same booster with a 5-second cooldown (\"You must wait before using another booster\").",
+        "Spy and Necromancer: startCloak fades the player out and adds 3 sensor suppression for 20 seconds (\"You Cast Invisibility\"). It uses one beacon. When the cloak ends, sensor suppression is set to 0 rather than reduced by 3.",
+        "Titan: startShield gives emergency force shields (shieldStrength 0.006) for 20 seconds. It uses one beacon.",
+        "Builder: BuilderBeacon deploys an Inventory Station (DeployableInvStation) on flat terrain or buildings within 999 units. It counts against the team's DeployableInvPack limit and uses the beacon.",
+        "Troll: the beacon is used up with no effect. Angel and Tank: nothing happens and the beacon is kept.",
+        "Unlike this wiki's Total Annihilation release, the Spy, Necromancer and Titan beacons work: Annihilation has the cloak and shield calls commented out.",
+        "Beacon::deployShape (the stock target beacon, reach 999) still exists but no armor's onBeacon calls it."
+      ],
+      "source": "miscBeacon.cs Beacon::onUse, Beacon::deployShape; armor*.cs ::onBeacon; armorData.cs startCloak, checkPlayerCloak, startShield, Armor::SpeedBooster; armorBuilder.cs BuilderBeacon"
+    },
+    "Grenade": {
+      "summary": "A thrown hand grenade whose type depends on the thrower's armor. Grenade::onUse spends one grenade and calls the armor's onGrenade.",
+      "notes": [
+        "Commando (DM): DoGrenade picks by $modeTime[client] (Plastique, Firebomb, Shock, Tranq, Mortarbomb). Nothing in the scripts sets $modeTime, so in practice it always throws a standard Handgrenade.",
+        "Warrior: Handgrenade (2-second fuse).",
+        "Angel: ClusterBombmine, a mortar-type blast (2-second fuse).",
+        "Builder: Shockgrenade, a shock-damage blast (2-second fuse).",
+        "Spy: Nukebomb Plastique that explodes after 15 seconds (\"Plastique Explosive will explode in 15 seconds\").",
+        "Necromancer: HoloMine, a hologram decoy that explodes when an enemy touches it and detonates on its own after 120 seconds.",
+        "Troll: Firebomb (2-second fuse). Tank: TankBomb, a large shockwave (2-second fuse). Titan: Mortarbomb (2-second fuse).",
+        "Armor::ThrowGrenade throws at 15 x throw strength, sets the grenade to the thrower's team and allows another throw after 0.5 seconds.",
+        "Unlike this wiki's Total Annihilation release, there is no throw sound, no build-mode free grenades and no throw tally."
+      ],
+      "source": "miscGrenade.cs Grenade::onUse; armor*.cs ::onGrenade; armorDM.cs DoGrenade; armorData.cs Armor::ThrowGrenade; miscMine.cs grenade MineData ::onAdd"
+    },
+    "MineAmmo": {
+      "summary": "A thrown proximity mine, the same for every armor. It arms once it comes to rest and explodes when an enemy touches it.",
+      "notes": [
+        "MineAmmo::onUse throws an AntipersonelMine set to the thrower's team (a team-less DMMine when $Deathmatch is on) at 15 x throw strength, with a 0.5-second throw delay.",
+        "Once at rest the mine plays its deploy animation and arms. If another mine is already within a 1-unit box, it detonates at once.",
+        "An armed AntipersonelMine goes off on contact with an enemy player, vehicle or moveable. A DMMine goes off on contact with any player.",
+        "Mine-type damage counts only a quarter toward setting a mine off.",
+        "miscMine.cs defines MineAmmo::onUse twice. The first version (choosing replicating or fake-flag mines by inventory) is overridden by the later plain version."
+      ],
+      "source": "miscMine.cs MineAmmo::onUse (second definition), AntipersonelMine::onAdd/deployCheck/onCollision/onDamage, DMMine::*"
+    },
+    "RepairKit": {
+      "summary": "A consumable that repairs some of the user's damage and clears poison.",
+      "notes": [
+        "Using a kit always spends it and repairs 0.2 damage, then calls the armor's onRepairKit, which clears poison.",
+        "Unlike this wiki's Total Annihilation release, there is no \"Nothing to repair, kit retained\" check and no way to heal a damaged teammate's object.",
+        "Script bug: Armor::onRepairKit was meant to repair a Station within 5 units, but it calls GameBase::getDataName on the object-type string instead of the object, so the station repair never happens."
+      ],
+      "source": "miscRepairKit.cs RepairKit::onUse; armorData.cs Armor::onRepairKit"
+    },
+    "RepairPatch": {
+      "summary": "A small repair pickup: touching it repairs a damaged player and cures poison, and using a carried patch repairs a little damage.",
+      "notes": [
+        "On collision, a damaged player is repaired 0.125 and their poison timer is cleared; the patch then respawns.",
+        "Using one from the inventory spends it and repairs 0.1.",
+        "Unlike this wiki's Total Annihilation release, patches are always consumed (no build-mode exception)."
+      ],
+      "source": "miscRepairPatch.cs RepairPatch::onCollision, RepairPatch::onUse"
+    },
+    "PulseSensorPack": {
+      "summary": "A deployable radar sensor that extends the team's sensor coverage.",
+      "notes": [
+        "Deployed through Item::deployShape on flat terrain or building surfaces, with a reach of 999 units instead of the stock 3 (\"jdm 3\" comment).",
+        "Unlike this wiki's Total Annihilation release, there are no arena or out-of-bounds restrictions, and the deployed sensor has no power-sequence handlers.",
+        "Destroying the sensor frees a slot in the team limit."
+      ],
+      "source": "deployPulseSensor.cs PulseSensorPack::onUse, PulseSensorPack::onDeploy; item.cs Item::deployShape; sensor.cs"
+    },
+    "MotionSensorPack": {
+      "summary": "A deployable motion sensor that detects moving enemies nearby.",
+      "notes": [
+        "It can be placed on terrain, buildings or deployable platforms at any angle, oriented to the surface, with a 999-unit reach.",
+        "Unlike this wiki's Total Annihilation release (5-unit reach, arena/out-of-bounds checks), there are no placement restrictions beyond checkDeployArea."
+      ],
+      "source": "deployMotionSensor.cs MotionSensorPack::onDeploy, MotionSensorPack::deployShape"
+    },
+    "CameraPack": {
+      "summary": "A deployable camera that players can view through and that spots enemies for the team.",
+      "notes": [
+        "It can be placed on terrain, buildings or deployable platforms, oriented to the surface, with a 999-unit reach. Unlike this wiki's Total Annihilation release, the reach is not 5 units.",
+        "The camera plays its deploy sequence 1 second after placement and becomes active when it ends. Destroying it frees a team slot."
+      ],
+      "source": "deployCamera.cs CameraPack::deployShape, CameraTurret::onAdd, CameraTurret::onEndSequence, CameraTurret::onDestroyed"
+    },
+    "DeployableSensorJammerPack": {
+      "summary": "A deployable sensor jammer that hides nearby teammates and objects from enemy sensors.",
+      "notes": [
+        "Deployed through Item::deployShape on flat terrain or buildings with a 999-unit reach.",
+        "Unlike this wiki's Total Annihilation release, there are no arena or out-of-bounds restrictions and no power handlers on the deployed jammer."
+      ],
+      "source": "deploySensorJammer.cs DeployableSensorJammerPack::onDeploy; item.cs Item::deployShape"
+    },
+    "DeployableAmmoPack": {
+      "summary": "A deployable remote Ammo Station that resupplies teammates' ammunition.",
+      "notes": [
+        "It must go on flat (normal z above 0.7) terrain or a building within 3 units, and passes checkDeployArea.",
+        "When a player uses it, it plays its use animation, unmounts their current weapon and calls AmmoStation::onResupply. It starts with $RemoteAmmoEnergy energy.",
+        "Script bug: deployShape sets the map name from %name, which is undefined, so the station's map name is blank instead of \"Ammo Station\"."
+      ],
+      "source": "deploySmallAmmoStation.cs DeployableAmmoPack::deployShape, DeployableAmmoStation::onAdd, DeployableAmmoStation::onActivate"
+    },
+    "DeployableComPack": {
+      "summary": "A deployable remote Command Station that gives teammates command-map access in the field.",
+      "notes": [
+        "It must go on flat terrain, buildings or deployable platforms within 3 units.",
+        "Standing at it sets the player's CommandTag and switches them to the command screen (\"Command Access On\"). With CommandTag set, they can take control of team turrets.",
+        "The station starts with 3000 energy.",
+        "Only Builder and Titan armor can carry it."
+      ],
+      "source": "deploySmallCommandStation.cs DeployableComPack::deployShape, DeployableComStation::onAdd, DeployableComStation::OnActivate; turret.cs Turret::onAttemptControl"
+    },
+    "DeployableInvPack": {
+      "summary": "A deployable remote Inventory Station for buying gear away from base.",
+      "notes": [
+        "It must go on flat terrain or a building within 3 units. Players buy from the remote inventory list ($RemoteInvList).",
+        "Builders can also create this station by using a Beacon (BuilderBeacon), which shares the same team limit.",
+        "Unlike this wiki's Total Annihilation release (5-unit reach, arena/out-of-bounds checks, build-mode exemptions), it is a plain stock-style deploy.",
+        "Script bug: deployShape sets the map name from the undefined %name, so the deployed station's map name is blank."
+      ],
+      "source": "deploySmallInventoryStation.cs DeployableInvPack::deployShape, DeployableInvStation::onActivate; armorBuilder.cs BuilderBeacon"
+    },
+    "AcceleratorDevicePack": {
+      "summary": "A deployable accelerator beam that multiplies the speed of anything passing through it.",
+      "notes": [
+        "It is deployed within 3 units, floating 1 unit above the aim point. Two \"bridge\" mounts are placed 500 units to either side, as in this wiki's Total Annihilation release.",
+        "On contact it multiplies the toucher's velocity by 5. One time in 40 it \"malfunctions\" and multiplies by 12 instead.",
+        "After each use the beam hides for 3 seconds before fading back in.",
+        "Unlike Annihilation, which applies an impulse based on the player's mass and aim, rerolls sounds and treats mines and grenades separately, UltrAnnihilation scales whatever velocity the object already has, and does not check the object type.",
+        "Destroying either side mount destroys the beam and frees a team slot. The limit is tracked under AcceleratorDevice (12 per team)."
+      ],
+      "source": "deployAccelerator.cs AcceleratorDevicePack::deployShape, AcceleratorDevice::onCollision, AcceleratorDevice::DestroyPad, AcceleratorDeviceSide::onDestroyed"
+    },
+    "BaseCloakPack": {
+      "summary": "A Builder deployable that cloaks the team's players, structures, vehicles, mines and the base interior around it.",
+      "notes": [
+        "It must be placed inside a building (InteriorShape) on a surface with normal z above 0.3, with a 999-unit reach.",
+        "When enabled, it fades out every same-team player, static shape, vehicle, mine and interior in a 200 x 200 x 50 box around itself. It rechecks every 5 seconds, cloaking newcomers and fading in objects that have left.",
+        "When it is disabled or destroyed, everything it cloaked fades back in.",
+        "The effect is a visual fade-out; its effect on sensors is not determined from scripts.",
+        "Script bug: onDestroyed calls onDisabled, which already deletes the tracking set, then deletes %this.set again."
+      ],
+      "source": "deployBaseCloak.cs BaseCloakPack::deployShape, BaseCloak::onEnabled, BaseCloak::checkBaseCloak, BaseCloak::onDisabled, BaseCloak::onDestroyed"
+    },
+    "BlastWallPack": {
+      "summary": "A Builder deployable heavy wall panel for blocking routes and fire.",
+      "notes": [
+        "It must go on a flat surface within 3 units. It cannot be placed on an enemy-owned object unless that object is terrain or team-less.",
+        "Destroying the wall frees a team slot.",
+        "Unlike this wiki's Total Annihilation release, the wall has a much higher maxDamage (50 against 10).",
+        "Script bug: BlastWallPack::onDeploy has no braces after its if, and it never calls Player::decItemCount. The pack is not used up, so a Builder can keep deploying walls up to the team limit, and the stray message \"Heck...Blast Walls\" is printed on every attempt."
+      ],
+      "source": "deployBlastWall.cs BlastWallPack::onDeploy, BlastWallPack::deployShape, BlastWall::onDestroyed"
+    },
+    "ControlJammerPack": {
+      "summary": "A Builder deployable that destroys enemy remote-controlled craft near it and hurts their pilots.",
+      "notes": [
+        "It must be placed inside a building on a surface with normal z above 0.3, with a 999-unit reach.",
+        "Every second it scans a 200 x 200 x 50 box for enemy vehicles. Enemy OS missiles, Probe Droids and Suicide Droids are destroyed outright, and their controller takes 0.2 energy-type damage (\"You have been damaged by remote control feedback\").",
+        "Unlike this wiki's Total Annihilation release, the scan box is smaller (Annihilation uses 400 x 400 x 250), Survey Droids are not affected, and there are no invulnerability or jail exceptions.",
+        "Script bug: the scan creates a new SimSet every second and never deletes it."
+      ],
+      "source": "deployControlJammer.cs ControlJammerPack::deployShape, ControlJammer::onEnabled, ControlJammer::checkControlJammer"
+    },
+    "ForceFieldPack": {
+      "summary": "A deployable 5x5 force field panel for sealing doorways and gaps.",
+      "notes": [
+        "It deploys on any flat surface (normal z above 0.7) within 3 units, facing the player's heading. There is no surface-type or checkDeployArea check.",
+        "Unlike this wiki's Total Annihilation release, the field is weaker (maxDamage 4.5 against 10) and the reach is 3 units instead of 5.",
+        "Destroying the field frees a team slot."
+      ],
+      "source": "deployForceField.cs ForceFieldPack::deployShape, DeployableForceField::onDestroyed"
+    },
+    "LargeForceFieldPack": {
+      "summary": "A Builder deployable full-size force field panel.",
+      "notes": [
+        "It deploys on any flat surface within 3 units, facing the player's heading, with no surface-type or area check.",
+        "Unlike this wiki's Total Annihilation release, it has maxDamage 5 against 10, and the reach is 3 units instead of 5.",
+        "Destroying the field frees a team slot."
+      ],
+      "source": "deployForceField.cs LargeForceFieldPack::deployShape, LargeForceField::onDestroyed"
+    },
+    "ForceFieldDoorPack": {
+      "summary": "A Builder deployable 5x5 force field that opens for teammates and blocks enemies.",
+      "notes": [
+        "It deploys at the aim point within 3 units, facing the player's heading, with no flat-surface, surface-type or area check.",
+        "When a living teammate touches it, the door fades out and is moved 1000 units up, then returns and fades back in 2 seconds later. Enemies are blocked.",
+        "When destroyed it deals radius debris damage around itself.",
+        "Unlike this wiki's Total Annihilation release, vehicles that hit it take no crash damage.",
+        "Script bug: ForceFieldDoorPack::onDeploy never calls Player::decItemCount and prints \"Heck...Force Field Doors\", so the pack is not used up and can be deployed repeatedly up to the team limit. ForceFieldDoorShape::openDoor is also defined twice."
+      ],
+      "source": "deployForceFieldDoors.cs ForceFieldDoorPack::onDeploy, ForceFieldDoorPack::deployShape, ForceFieldDoorShape::onCollision, openDoor, closeDoor, onDestroyed"
+    },
+    "LargeForceFieldDoorPack": {
+      "summary": "A Builder deployable full-size force field door that opens for teammates.",
+      "notes": [
+        "It deploys at the aim point within 3 units with no surface checks.",
+        "When a living teammate touches it, it lifts 1000 units out of the way for 2 seconds, then returns.",
+        "When destroyed it deals radius debris damage.",
+        "Script bug: as with the small door, onDeploy never decrements the pack, so it is not used up."
+      ],
+      "source": "deployForceFieldDoors.cs LargeForceFieldDoorPack::onDeploy, LargeForceFieldDoorPack::deployShape, LargeForceFieldDoorShape::onCollision, openDoor, closeDoor, onDestroyed"
+    },
+    "PlatformPack": {
+      "summary": "A deployable thin 6x6 platform for building footholds and bridges.",
+      "notes": [
+        "It deploys at the aim point within 3 units, aligned to the player's heading, with no surface or flatness check. Motion sensors, cameras and command stations accept it as a base surface.",
+        "Unlike this wiki's Total Annihilation release, the reach is 3 units instead of 5, there is no ceiling handling, and the platform's maxDamage is 4.",
+        "Script bug: PlatformPack::onDeploy has no braces after its if and never calls Player::decItemCount. The pack is not used up, and \"Deployed\" is printed on every attempt."
+      ],
+      "source": "deployPlatform.cs PlatformPack::onDeploy, PlatformPack::deployShape, DeployablePlatform::onDestroyed"
+    },
+    "SpringPack": {
+      "summary": "A deployable springboard that launches anyone who touches it into the air.",
+      "notes": [
+        "It deploys on any flat surface within 999 units. The limit is tracked under Springboard (8 per team).",
+        "On contact: usually \"SPROING!\" (horizontal speed x2, vertical speed set to 45). 9 in 55 times \"K-E-R-S-P-R-O-I-N-G\" (vertical 60). 1 in 55 times \"TO THE MOON!\", with horizontal speed x50, vertical 80 and a server-wide joke message.",
+        "Unlike this wiki's Total Annihilation release (vertical 90/120/150, separate handling of mines, grenades and bots, short reuse lockout), it launches any colliding object at lower vertical speeds and has no lockout."
+      ],
+      "source": "deploySpringboard.cs SpringPack::deployShape, Springboard::onCollision, Springboard::onDestroyed"
+    },
+    "TeleportPack": {
+      "summary": "A deployable teleport pad: stepping on one sends the player to another of their team's pads.",
+      "notes": [
+        "It deploys on a flat surface within 1999 units, raised 1 unit, with an electrical beam effect. The limit is tracked under DeployableTeleport (12 per team).",
+        "Touching a pad moves the player to the first other same-team pad in the Teleports set. Both pads then recharge for 5 seconds.",
+        "Enemy players are refused (\"ACCESS DENIED\") unless they wear a Laptop, which overrides the pad.",
+        "One time in 55 the teleport malfunctions: the player takes 0.15 crush damage and the source pad becomes permanently non-functional. Script bug: in that case the destination pad is never re-enabled either.",
+        "Script bug: the TeleportPack::onDeploy decrement is commented out, so the pack is not used up and can keep deploying pads up to the team limit.",
+        "Script bug: the surface test is written (%obj != \"SimTerrain\" && %obj != \"InteriorShape\" && %obj == \"DeployablePlatform\"), which never rejects anything, so any flat surface is accepted.",
+        "Unlike this wiki's Total Annihilation release, there is no centring/height check on contact and no \"Needs repairs\" check for damaged pads."
+      ],
+      "source": "deployTeleporter.cs TeleportPack::onDeploy, TeleportPack::deployShape, DeployableTeleport::onCollision, DeployableTeleport::Reenable, DeployableTeleport::onDestroyed"
+    },
+    "FighterPack": {
+      "summary": "A backpack that, when deployed, creates an Interceptor flier on the spot, so the team gets an aircraft without a vehicle station. Only the Angel armor can carry it.",
+      "notes": [
+        "Use mounts the pack; using it again deploys. The aim point must be within 3 m, on terrain or a building, on a flat surface (normal dot up > 0.7), and pass the standard checkDeployArea clearance test.",
+        "Despite the pack's name it creates an Interceptor (newObject flier, Interceptor), not the Fighter vehicle. It faces the way the player faces, fades in, and the player gets the message \"Piloting Interceptor\" but is not put in the seat by the script.",
+        "Counts against the team's InterceptorVehicle limit, the same limit as station-bought Interceptors; Vehicle::onDestroyed gives the slot back when the craft is destroyed.",
+        "Only the Angel armor has a carry limit for it (serverItemUsage.cs PopulateItemMax)."
+      ],
+      "source": "deployVehicles.cs FighterPack::onUse, onDeploy, deployShape; serverItemUsage.cs; vehicle.cs Vehicle::onDestroyed"
+    },
+    "TransportPack": {
+      "summary": "A Builder backpack that deploys a heavy transport (HAPC) flier anywhere flat, with no vehicle station needed.",
+      "notes": [
+        "Deploy point must be within 3 m, on terrain or a building, flat (normal dot up > 0.7), and clear per checkDeployArea. The craft takes the player's facing and fades in; the map name is \"HPC Pack\".",
+        "Unlike this wiki's Total Annihilation release, it creates the HAPC datablock (4 passenger seats) rather than a Transport, counts against the HAPCVehicle team limit (returned by Vehicle::onDestroyed), uses a 3 m rather than 5 m reach and the generic checkDeployArea test, and has none of that release's arena, out-of-bounds or terrain checks.",
+        "Only the Builder armors can carry it."
+      ],
+      "source": "deployVehicles.cs TransportPack::onUse, onDeploy, deployShape; vehicleHAPC.cs"
+    },
+    "JailPack": {
+      "summary": "Summons a team jail cell high in the air above the player. Enemies hit by the Jailers Gun are teleported into it and released after 30 seconds.",
+      "notes": [
+        "One per team (TeamItemMax 1), and only the Builder armors can carry it. It must be deployed at least 100 m from the team's own flag.",
+        "The cell is built at fixed offsets from the player's own position, about 80 to 86 units up: force-field walls, roof and floor (JailSide), a team-only door, two tower switches, an Entry Pad with an electrical beam and a Release Pad on top. The message says \"summoned 250' Up\".",
+        "The door (JailDoor) opens only for players of the cell's team. It fades out, rises 6 units and closes again after 2 seconds.",
+        "Jailers Gun: jailbolt::damageTarget moves an enemy player hit by the shooter's team to that team's Entry Pad, shows a 30-second sentence message, then JailBreak moves them to the Release Pad and clears their jailed flag.",
+        "Destroying the first cell wall (or the door, which calls the same handler) destroys every cell part at random 0-9 second delays and resets the team's jail count to 0. Destroying any other wall applies heavy damage to the first wall, which sets off the same chain.",
+        "The two switches have empty onCollision handlers, so they do nothing.",
+        "Script bug: jailbolt::damageTarget sets the target's jaildamage flag before checking that it is an enemy player and that a cell exists. A target hit while the shooter's team has no jail is marked and cannot be jailed again until it respawns."
+      ],
+      "source": "deployJailPack.cs JailPack::deployshape, JailSide::onDestroyed, JailDoor::onCollision/openSesame/closeSesame, JailBreak; baseProjData.cs jailbolt::damageTarget"
+    },
+    "CommandShipPack": {
+      "summary": "A Builder-only remote base: deploying it on open terrain drops a dropship interior with inventory and ammo stations, an indoor turret, two plasma turrets and a generator that powers them.",
+      "notes": [
+        "One per team. Must be aimed within 3 m at bare terrain (not buildings), not within 40% of $FlagDistance of the enemy flag in a 2-team game, and with no static objects or items in a 65 x 65 x 65 box (checkDeployAreaCommandShip).",
+        "Spawns the gdsdrop.dis interior 3 units above the aim point. The inventory station, ammo station, indoor turret and two plasma turrets move into place and fade in after 3 seconds, and the Command Ship Main Generator after 5 seconds.",
+        "The generator (CommandShipGen) powers or unpowers every ship station and turret by map name (CommandShip::setPower). Destroying it cuts their power and does radius debris damage.",
+        "Unlike this wiki's Total Annihilation release, where the Command Ship pack is disabled (exec commented out, no carry limits), it is buyable and deploys instantly; it is not flown in.",
+        "Script bugs: CommandShip::setPower's power-off branch clears shieldStrength on an undefined %this instead of the turret, so ship turrets keep their shield when power is lost. Nothing ever lowers the team's CommandShipPack count, so once deployed the team cannot deploy another that mission."
+      ],
+      "source": "dropShipCommandShip.cs CommandShipPack::deployShape, checkDeployAreaCommandShip, CommandShip::setPower, CommandShipGen handlers"
+    },
+    "GunShipPack": {
+      "summary": "A Builder-only remote base that places a gunship interior on open terrain, fitted with four inventory stations, a command station, two ammo stations, four plasma turrets, an ELF turret, a large radar and a generator.",
+      "notes": [
+        "One per team. Must be aimed within 3 m at bare terrain, not within 40% of $FlagDistance of the enemy flag (2-team games), with a clear 75 x 75 x 65 box (checkDeployAreaGunShip).",
+        "The gswdrop.dis interior appears 5 units above the aim point. Its stations, turrets and radar fade in after 3 seconds and the Gun Ship Main Generator after 5 seconds.",
+        "GunShip::setPower switches all ship stations, turrets and the radar with the generator's state. Destroying the generator unpowers them and does radius debris damage.",
+        "Unlike this wiki's Total Annihilation release, where the Gunship is flown in from orbit after 15 seconds onto a landing beacon and is carried by Troll, Tank and Titan, here it is placed immediately and only Builders can carry it.",
+        "Script bugs: both ammo stations are given GameBase::setPosition(\"0 0 -3.13988\") where a rotation was meant (they are moved into place later anyway), and the command station gets the literal string \"%rot\" as its rotation. The power-off branch of GunShip::setPower uses an undefined %this. The team's GunShipPack count is never lowered, so only one can be deployed per mission."
+      ],
+      "source": "dropShipGunShip.cs GunShipPack::deployShape, checkDeployAreaGunShip, GunShip::setPower, GunShipGen handlers"
+    },
+    "airbasepack": {
+      "summary": "Intended to summon a floating air base (platforms, radar, generator, command, inventory and vehicle stations, and a vehicle pad) about 80 units above the player. As scripted, no armor can buy it and its main parts have no datablocks.",
+      "notes": [
+        "Deploy logic: refused within 20 m of the team's own flag. Parts are placed at fixed offsets from the player's position, roughly 80 to 89 units up. The message says the base materializes \"150' Straight Up\". The team limit check uses $TeamItemMax[airbasepack] (5).",
+        "The PopulateItemMax line for AirbasePack is commented out, so no armor has a carry limit for it and the inventory buy check refuses it.",
+        "The generator (ABPortGenerator), platforms (LargeAirBasePlatform) and radar (LargeAirBaseRadar) it creates are not defined anywhere in this mod's scripts. Only the stock CommandStation, InventoryStation, VehicleStation and VehiclePad datablocks exist.",
+        "Unlike this wiki's Total Annihilation release, which builds its air base from floating-pad interiors, force fields, stations and solar panels with its own destruction and warp-core logic, this version is a simple list of static shapes with no destruction handling.",
+        "Script bugs: besides the missing datablocks, it sets the map name on an undefined %inv and sets the team on one platform twice."
+      ],
+      "source": "deployAirbase.cs airbasepack::deployshape; serverItemUsage.cs PopulateItemMax/TeamItemMax"
+    },
+    "BunkerPack": {
+      "summary": "Deploys a small bunker interior (eround.dis) on flat terrain as instant cover.",
+      "notes": [
+        "Aim point within 3 m on terrain only, slope normal dot up > 0.6. No other bunker may be within a 20-unit box, and nothing static, item or player may be within 0.5 units (BnkrDeployArea). The bunker is turned to the player's facing.",
+        "Unlike this wiki's Total Annihilation release, there is no limit on distance from the team's flag (that release requires being within 450 m), and no explosive wall panels: the bunker is a bare interior with no destruction handler.",
+        "Carried by the Builder armors and the Titan. Team limit 4. The team count is never lowered, because a bunker cannot be destroyed by script."
+      ],
+      "source": "deployBunkerPack.cs BunkerPack::deployShape, BnkrDeployArea, CountObjects"
+    },
+    "MobileInvPack": {
+      "summary": "A Builder-carried inventory station that can be deployed almost anywhere. It must connect to team power before it works.",
+      "notes": [
+        "Uses the shared DeployStuff routine: aim at terrain or a building at any range (the LOS check uses 999), flat surface needed (normal dot up > 0.7), no other deployable in a 2 x 2 x 2 box, and a clear checkDeployArea.",
+        "After 2 seconds PowerItem looks within a 250-unit box for a powered team Generator, SolarPanel or PortGenerator and joins its power group. Failing that, it joins a team Portable Generator, Portable Solar Panel or Power Node. Otherwise it reports it is too far from power.",
+        "As a MobileStation it refuses players with \"Unit is not powered\" when unpowered. Its resupply uses the mobile inventory list ($MobileInvList), so it cannot sell itself.",
+        "Script bugs: MobileInvPack::deployShape does not return DeployStuff's result, so the onDeploy success check gets no value and the pack may not be removed from inventory after deploying. The destroy handler that lowers the team count is defined as MobileInvPack::onDestroyed (the pack's name, not the station's MobileInv datablock), and the class handler MobileStation::onDestroyed lowers MobileInventoryPack instead, so destroyed stations never free their team slot."
+      ],
+      "source": "deployMobileInv.cs MobileInvPack::deployShape, MobileInv::onEndSequence; deployFunctions.cs DeployStuff; powerFunctions.cs PowerItem; station.cs MobileStation::onCollision/onDestroyed"
+    },
+    "MobileGenPack": {
+      "summary": "A portable generator that, once deployed, powers nearby unpowered team equipment, such as mobile inventory stations, that needs power.",
+      "notes": [
+        "Deployed through DeployStuff (terrain or buildings, flat, unlimited aim range, 2 x 2 x 2 spacing). It is set active and added to the team's generator set at once.",
+        "After 2 seconds ConnectGenerator scans a 200-unit box and, 3 seconds apart, moves each unpowered same-team item that requires power into its own power set. If none is found it tells the deployer it is on standby.",
+        "Enabling plays its power sequence and generates power. Disabling or destroying it stops power, and destruction does radius debris damage.",
+        "Builder armors may carry up to 10. Team limit 10.",
+        "Script bugs: MobileGenPack::deployShape does not return DeployStuff's result, so onDeploy's decItemCount check gets no value. No handler lowers the team's MobileGenPack count when one is destroyed."
+      ],
+      "source": "deployGenerator.cs MobileGenPack::deployShape, MobileGen handlers; deployFunctions.cs DeployStuff; powerFunctions.cs ConnectGenerator"
+    },
+    "PortableSolarPack": {
+      "summary": "A deployable solar panel that acts as a portable power source for nearby team equipment. It must be placed under open sky.",
+      "notes": [
+        "Deployed through DeployStuff with placement type 3: terrain or a building, but there must be no interior in a tall box above the point (centered 30 units up, 50 high). Flat surface needed; any aim range.",
+        "Like the Portable Generator, after 2 seconds it runs ConnectGenerator over a 150-unit box to power unpowered team items that require power.",
+        "Unlike this wiki's Total Annihilation release, it needs no proximity to the team flag (that release requires within 450 m), has no gunship landing-zone or arena checks, uses the shared power-set system instead of Ann::Powering, takes full damage from teammates' fire with no halving for enemies, and its destruction does not lower the team count.",
+        "Script bugs: deployShape does not return DeployStuff's result. The file sets $MobileInvList[DeployableInvPack] instead of PortableSolarPack, so the panel's mobile inventory listing is never set."
+      ],
+      "source": "deploySolarPanel.cs PortableSolarPack::deployShape, PortableSolar handlers; deployFunctions.cs DeployStuff, CheckObjectType; powerFunctions.cs ConnectGenerator"
+    },
+    "SurveyDroidPack": {
+      "summary": "A remote-controlled scouting droid. While piloting it, the player can fire once to plant a 200-second target beacon on a nearby surface.",
+      "notes": [
+        "Deploying spawns the SurveyDroid flier 1.5 units above the muzzle point and switches the player's control to it. The player's body stays behind. The droid fades out after spawning, so it flies invisibly.",
+        "Fire: if the droid is within 3 m of terrain or a building and has not fired yet, it places a DefaultBeacon (Target Beacon) aligned to the surface. Beacon::onEnabled makes it a target and destroys it after 200 seconds. Unlike this wiki's Total Annihilation release, where SurveyDroid::onFire does nothing, the droid has a use.",
+        "Jumping, or touching any player, ends the link and returns control. Touching a teammate also kills the pilot.",
+        "Unlike that release, its maximum altitude is 50 rather than 20000, and it has no cloakable flag or TerrainCheck.",
+        "Script bugs: the beacon check tests the team's CameraPack count against the camera limit but increments the Beacon count. After placing a beacon it calls SurveyDroid::removeDrone, which is not defined. Collisions call SuicideDroid::onDestroyed, which lowers the Suicide Droid count instead of the Survey Droid count."
+      ],
+      "source": "droidSurveyDroid.cs DeploySurveyDroid, SurveyDroid::onFire/onCollision/onDestroyed/jump; miscBeacon.cs Beacon::onEnabled"
+    },
+    "TeleDroidPack": {
+      "summary": "A slow remote droid used as a teleport marker: fly it near a surface and fire, and the player's body is warped to that spot.",
+      "notes": [
+        "Every armor can carry one. Team limit 3. Deploying spawns the TeleDroid flier above the muzzle point and switches control to it (maximum altitude 950).",
+        "Fire, within 3 m of terrain or a building: calls phaseShiftProcess on the player's body, which moves it to a holding position underground and, 1.5 seconds later, to the droid's aim point with velocity zeroed. The droid then self-destructs and control returns to the body. This shares the Phase Shifter's recharge flag (hasPhaseShifted).",
+        "Jumping, or touching any player, ends the link. Touching a teammate also kills the pilot.",
+        "Script bugs: firing is gated on the team's CameraPack count being under the camera limit (copied from the Survey Droid). It then calls the undefined TeleDroid::removeDrone. Collisions call SuicideDroid::onDestroyed, so the Tele Droid count is not lowered on collision and the Suicide Droid count is."
+      ],
+      "source": "droidTeleDroid.cs DeployTeleDroid, TeleDroid::onFire/onCollision/onDestroyed/jump; packPhaseShifter.cs phaseShiftProcess, phaseShiftComplete"
+    },
+    "ProbeDroidPack": {
+      "summary": "A remote-piloted combat droid that the player flies from a distance, firing disruptor bolts.",
+      "notes": [
+        "Deploying spawns the ProbeDroid 1.5 units above the muzzle point and gives the player control of it. Jumping, or touching a player, ends the link. Touching a teammate also kills the pilot.",
+        "Unlike this wiki's Total Annihilation release, it fires DisruptorBolt instead of IrradiationBlast, is slower (max speed 10 vs 30) and is capped at altitude 40 (vs 20000). It also spawns straight above the muzzle point instead of 1.5 m ahead. It has no wall check that destroys a droid launched into a wall, and it is consumed on deploy even when build mode would spare it there.",
+        "Builder armors only. Team limit 3."
+      ],
+      "source": "droidProbeDroid.cs DeployProbeDroid, ProbeDroid::onCollision/onDestroyed/jump"
+    },
+    "SuicideDroidPack": {
+      "summary": "A fast remote-piloted droid that the player flies into enemies. Its weapon is a near-instant 30-unit mortar-class blast (SuicideGren).",
+      "notes": [
+        "Deploying spawns the SuicideDroid 1.5 units above the muzzle point and switches control to it. Touching an enemy player ends the link and destroys the droid. Touching a teammate also kills the pilot.",
+        "Its projectile, SuicideGren, lives 0.1 seconds, so firing detonates a large blast right at the droid. No script destroys the droid on firing, and the reload delay is 0.001.",
+        "Unlike this wiki's Total Annihilation release (suicideShell, max speed 30, any altitude, touching any player just ends the link), it is much faster (max speed 210) and capped at altitude 40.",
+        "Script bug: the onDeploy decItemCount call is commented out, so the pack is never used up. A Builder can redeploy it while the team's Suicide Droid count is under its limit of 6 (Builders may carry 10)."
+      ],
+      "source": "droidSuicideDroid.cs SuicideDroidPack::onDeploy, DeploySuicideDroid, SuicideDroid::onCollision/onDestroyed; baseProjData.cs SuicideGren"
+    },
+    "FlameTurretPack": {
+      "summary": "An indoor-only flame turret with a separate fuel canister behind it. Destroying either part takes down the other.",
+      "notes": [
+        "Must be placed inside buildings (interior surfaces only), 2.55 to 3.2 m away, flat, not within 40% of $FlagDistance of the enemy flag, and clear of other turrets per the turret interference boxes.",
+        "Spawns the FlameTurret plus a Canister (Flame Turret Fuel) 0.8 m behind it. Destroying the turret damages the canister. Destroying the canister does radius debris damage and damages the turret.",
+        "Unlike this wiki's Total Annihilation release, which allows any surface (its interior-only check is commented out) and a 1.75 to 5 m reach, here it is restricted to buildings with a 2.55 to 3.2 m reach. Its targeting range is 20 against that release's 30.",
+        "Builder armors only. Team limit 6."
+      ],
+      "source": "turretFlameTurret.cs FlameTurretPack::deployShape, FlameTurret::onDestroyed, Canister::onDestroyed"
+    },
+    "FusionTurretPack": {
+      "summary": "A ground-placed heavy plasma-style turret firing Fusioncharge, which explodes violently when destroyed.",
+      "notes": [
+        "Deployed through Turret::deployShape with ground-only placement: there must be room 1 unit above the aim point, the surface must be flat, and turret interference limits apply.",
+        "Destruction runs a large CalcRadiusDamage blast (radius 20).",
+        "Unlike this wiki's Total Annihilation release, its targeting range is 100 rather than 200, and Tank and Titan armors can carry it as well as DM, Warrior, Builder and Troll.",
+        "Shared Turret::deployShape here uses a 999 m reach, so turrets can be placed at any visible point. Its terrain/building check is miswritten (it rejects only when the object type is literally DeployablePlatform), so effectively any surface is accepted."
+      ],
+      "source": "turretFusionTurret.cs FusionTurretPack::onDeploy, DeployableFusionTurret::onDestroyed; turret.cs Turret::deployShape"
+    },
+    "IonTurretPack": {
+      "summary": "A deployable ion-bolt turret that can be mounted on walls and ceilings as well as floors.",
+      "notes": [
+        "Deployed through Turret::deployShape with anywhere placement: on floors it faces the player's heading, on ceilings it is flipped, and on walls it aligns to the surface normal.",
+        "Destruction uses the standard turret debris blast and lowers the team count.",
+        "This wiki's Total Annihilation release has the same turret under the names TurretPack/DeployableTurret. Here it is IonTurretPack, Tank armor may carry it too, and it is placed with the shared 999 m-reach deploy routine (that release uses 5 m)."
+      ],
+      "source": "turretIonTurret.cs IonTurretPack::onDeploy, DeployableIonTurret handlers; turret.cs Turret::deployShape"
+    },
+    "IrradiationTurretPack": {
+      "summary": "A manually controlled irradiation cannon. It has no auto-targeting, so a player must take control of it to fire.",
+      "notes": [
+        "Ground-only placement through Turret::deployShape. On mounting the pack, the bottom-print says it must be controlled manually.",
+        "Unlike this wiki's Total Annihilation release, where it auto-targets (range 200) and explodes with a large radius blast when destroyed, here its range is 0 (manual only) and the destruction blast is commented out.",
+        "Because its range is 0, it is not counted by the long-range turret interference check."
+      ],
+      "source": "turretIrradiationTurret.cs IrradiationTurretPack::onDeploy/onMount, IrradiationTurret::onDestroyed; turret.cs Turret::deployShape"
+    },
+    "LaserTurretPack": {
+      "summary": "A sniper-style laser turret with a long reload that can be placed on any surface orientation.",
+      "notes": [
+        "Anywhere placement through Turret::deployShape (floor, ceiling or wall). Standard turret debris blast on destruction.",
+        "Unlike this wiki's Total Annihilation release (Builders only, range 70), Necromancer armors and the Titan may carry one, Builders up to 10, and the range is 75."
+      ],
+      "source": "turretLaserTurret.cs LaserTurretPack::onDeploy, DeployableLaserTurret handlers; turret.cs Turret::deployShape"
+    },
+    "RocketPack": {
+      "summary": "A ground-placed missile turret that locks only onto hot targets.",
+      "notes": [
+        "verifyTarget accepts a target only if its heat factor is at least 0.5, so cool, non-jetting targets are ignored.",
+        "Fires TurretMissile with a range of 125. Unlike this wiki's Total Annihilation release (TurretMissileDeployed, range 250, small 7.5-radius destruction blast), it explodes with the large 20-radius debris blast when destroyed.",
+        "Ground-only placement through the shared Turret::deployShape."
+      ],
+      "source": "turretMissileTurret.cs RocketPack::onDeploy, DeployableRocket::verifyTarget/onDestroyed; turret.cs Turret::deployShape"
+    },
+    "MortarTurretPack": {
+      "summary": "A ground-placed remote mortar turret for lobbing shells at bases and groups.",
+      "notes": [
+        "Ground-only placement through Turret::deployShape. Standard turret debris blast on destruction.",
+        "Unlike this wiki's Total Annihilation release, its targeting range is 100 rather than 200 and it uses the shared 999 m-reach deploy routine."
+      ],
+      "source": "turretMortarTurret.cs MortarTurretPack::onDeploy, DeployableMortar handlers; turret.cs Turret::deployShape"
+    },
+    "NuclearTurretPack": {
+      "summary": "An indoor turret firing nuke shells, deployable only on flat floors inside buildings.",
+      "notes": [
+        "Uses its own deploy routine: the aim point must be within 3 m, on an interior (building) surface, flat (normal dot up > 0.7), and clear per checkDeployArea. There are no turret-interference or enemy-flag-distance checks.",
+        "Unlike this wiki's Total Annihilation release, which deploys it anywhere (floors, walls, ceilings, terrain) through Turret::deployShape, here it is restricted to building floors.",
+        "Builder armors only. Team limit 2."
+      ],
+      "source": "turretNuclearTurret.cs NuclearTurretPack::deployShape, DeployableNuclearTurret handlers"
+    },
+    "ParticleBeamTurretPack": {
+      "summary": "A manual-only particle beam turret: it never fires on its own, and a player must control it to shoot.",
+      "notes": [
+        "Ground-only placement through Turret::deployShape. Its range of 0 means it does not auto-target and is not counted by the long-range interference check.",
+        "Fires ParticleBeam with a 2.5-second reload and needs a full energy bank (minGunEnergy 200). There is no destruction blast beyond the debris effect.",
+        "This wiki's Total Annihilation release has this pack's carry line commented out. Here it is carried by DM, Warrior, Builder, Tank and Titan armors (team limit 2)."
+      ],
+      "source": "turretParticleBeamTurret.cs ParticleBeamTurretPack::onDeploy/onMount, ParticleBeamTurret handlers; turret.cs Turret::deployShape"
+    },
+    "PlasmaTurretPack": {
+      "summary": "A ground-placed plasma turret that explodes heavily when destroyed.",
+      "notes": [
+        "Ground-only placement through Turret::deployShape. Destruction runs a 20-radius CalcRadiusDamage blast.",
+        "Unlike this wiki's Total Annihilation release, its range is 100 rather than 200, and Tank and Titan armors can carry it as well as Warrior, Builder and Troll."
+      ],
+      "source": "turretPlasmaTurret.cs PlasmaTurretPack::onDeploy, DeployablePlasmaTurret::onDestroyed; turret.cs Turret::deployShape"
+    },
+    "ShockTurretPack": {
+      "summary": "A short-range shock turret that can be mounted on floors, walls or ceilings.",
+      "notes": [
+        "Anywhere placement through Turret::deployShape. Fires ShockShell at targets within 30. Standard turret debris blast when destroyed.",
+        "Same turret data as this wiki's Total Annihilation release. The difference is the shared deploy routine (999 m reach here) and the lack of that release's build-mode handling."
+      ],
+      "source": "turretShockTurret.cs ShockTurretPack::onDeploy, DeployableShockTurret handlers; turret.cs Turret::deployShape"
+    },
+    "vortexTurretPack": {
+      "summary": "A vortex-bolt turret that can be placed on any surface orientation.",
+      "notes": [
+        "Anywhere placement through Turret::deployShape. Range 60, against 100 in this wiki's Total Annihilation release. Standard turret debris blast when destroyed.",
+        "Script bug: onDeploy calls Player::dedItemCount (a typo for decItemCount), so the pack is never removed after a successful deploy. A Builder can keep deploying it until the team limit of 8."
+      ],
+      "source": "turretVortexTurret.cs vortexTurretPack::onDeploy, DeployablevortexTurret handlers; turret.cs Turret::deployShape"
+    },
+    "FighterVehicle": {
+      "summary": "The station-bought Fighter: a single-seat scout flier armed with ScoutMissile rockets.",
+      "notes": [
+        "Bought at vehicle stations. Any armor except Troll, Tank and Titan can pilot it (PopulateCanPilot). It has no passenger seats.",
+        "The Fighter datablock uses the stock flyer shape and ScoutMissile. This wiki's Total Annihilation release has the equivalent craft as ScoutVehicle/Scout.",
+        "onPilot and onUnPilot are empty. Destruction returns the team slot through Vehicle::onDestroyed."
+      ],
+      "source": "vehicleFighter.cs; serverItemUsage.cs PopulateCanPilot; vehicle.cs Vehicle::onCollision/onDestroyed"
+    },
+    "HAPCVehicle": {
+      "summary": "The heavy transport (HAPC): a slow, tough hover APC with four passenger seats.",
+      "notes": [
+        "Bought at vehicle stations or deployed from the Transport Vehicle Pack. Any armor except Tank and Titan can pilot it; the Troll can pilot it, while Tank and Titan can only ride.",
+        "Maximum altitude was raised to 150 (comment shows 15). Passengers are seated in the free seat nearest them (Vehicle::findEmptySeat).",
+        "This wiki's Total Annihilation release calls its transport TransportVehicle/Transport."
+      ],
+      "source": "vehicleHAPC.cs; serverItemUsage.cs PopulateCanPilot; vehicle.cs Vehicle::onCollision/findEmptySeat; deployVehicles.cs TransportPack::deployShape"
+    }
+  }
+}

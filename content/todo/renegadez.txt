@@ -1,0 +1,59 @@
+renegadez: 75 of 143 need write-ups
+  SpArmor (Infiltrator): renamed+stats
+  SpArmor1 (Spy): new
+  LightArmor (Assassin): renamed+stats
+  LightArmor1 (Sniper): new
+  BusterArmor (Buster): new
+  HeavyArmor (Guardian): new
+  HeavyArmor1 (Defender): new
+  ScoutVehicle (Scout): renamed+stats
+  HAPCAssaultVehicle (Assault HPC): new
+  StingerAmmo (Plane Killer Missiles): new
+  Stinger (Plane Killer): new
+  VehFixit (Vehicle Repair-Gun): new
+  DeployableInvPack (Inventory Station): scripts
+  DeployableAmmoPack (Ammo Station): scripts
+  HoverPack (Hover Pack): new
+  HDiscAmmo (Razor II Ammo): new
+  HDisc1Ammo (Razor II Ammo): new
+  HDisc2Ammo (Razor II Ammo): new
+  HDisc3Ammo (Razor II Ammo): new
+  HDisc1 (Razor II): new
+  HDisc2 (Razor II): new
+  HDisc3 (Razor II): new
+  HDiscLauncher (Razor II): new
+  HPCWeap1 (Razor II): new
+  HPCWeap2 (Razor II): new
+  HPCWeapLauncher (HPC Weapon): new
+  JailPack (Jail Cell): new
+  CommandShipPack (Mini Base): new
+  CloakDisrupterPack (CloakDisrupter Pack): new
+  BaseCloakPack (Base Cloaking Device): new
+  HyperPack (Teleportation Pack): new
+  RegenGenPack (Regeneration Gen.): new
+  JailGun (Jail Gun): new
+  Hider (Cloaking Device): new
+  ProbeDroidPack (Spy Drone): new
+  DeployableComPack (Command Station): scripts
+  EspPack (Espionage Pack): new
+  DefenseAlarm (Defense Alarm): new
+  TurretPack (Ion Turret): scripts
+  LaserTurret (Plasma Turret): scripts
+  VulcanTurret (Vulcan Turret): scripts
+  RailTurret (Rail Turret): scripts
+  TrackingTurretPack (TrackingTurret): new
+  RocketPack (MissileTurret): renamed+stats+scripts
+  BarragePack (Anti-Aircraft Turret): new
+  ForceFieldPack (Force Field): scripts
+  LargeForceFieldPack (Large Force Field): scripts
+  FloorDoorPack (Force Field Floor Door): new
+  TripwirePack (Blast Wall): stats+scripts
+  DeathStarPack (DeathStar): new
+  PlatformPack (Deployable Platform): scripts
+  TeleportPack (Teleport Pad): scripts
+  ScoutPack (Scout Pack): new
+  WraithPack (Wraith Pack): new
+  DoorfourbyeightForceFieldPack (Large Force Field Door): new
+  DoorfivebyfiveForceFieldPack (Force Field Door): new
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts

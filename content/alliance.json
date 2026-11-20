@@ -1,0 +1,69 @@
+{
+ "mod": {
+  "overview": "Alliance (Alliance Engine) is an engine and total conversion framework created by Alazane, Mjolnir, Mephisto, and Savage1 that unites multiple selectable rulesets under a single core. By default the mod runs Pure Alliance, replacing standard armor types with four focused classes: the fast Sprint scout, the flexible Commando combatant, the deployable-heavy Loader builder, and the heavily armed Destroyer walking fortress. Matches focus on coordinated base assault and territory control, drastically expanding tactical depth beyond base Tribes through class-specific beacon abilities, class-unique grenades, deployable base infrastructure, and remote-controlled defense grids. Movement and gunplay feel much faster and more dynamic thanks to directional speed accelerators, springboards, two-way teleporters, stealth flyers, and laser-guided heavy ordnance.",
+  "notes": [
+   "Pure Alliance Classes: The mod overhauls standard player chassis into four specialized roles: Sprint (carries 3 weapons, high agility, primary flyer pilot), Commando (carries 4 weapons, balanced combat specialist), Loader (carries 2 weapons, dedicated builder equipped to carry nearly all deployable stations, turrets, and barriers), and Destroyer (carries 5 weapons, heavily armored powerhouse wielding heavy ordnance), alongside a separate Deathmatch class.",
+   "Tactical Beacon Abilities: Rather than acting merely as waypoint markers, beacons trigger class-specific abilities on use: Sprint fires a Speed Booster impulse that launches the runner forward, Commando triggers a Repulsion wave that blasts away surrounding players, Loader immediately deploys a remote Camera turret, and Destroyer projects a personal protective shield.",
+   "Specialized Class Grenades and Contact Effects: Hand grenades adapt to the user's class: Sprint throws standard fragmentation grenades, Commando hurls incendiary Firebombs that ignite targets, Loader throws Shockgrenades, and Destroyer launches mortar-grade Mortarbombs. Additionally, a Loader player physically walking into an injured teammate automatically repairs 10 percent of their damage on contact.",
+   "Advanced Deployable Infrastructure: Base defense is heavily expanded with deployables like Accelerator Devices that boost passing players to 5x velocity (with a 1 in 40 chance of a 12x malfunction launch), Springboards that fling players into high trajectories, two-way Teleport Pads that link bases (restricted from heavy Destroyer armor), physical Blast Walls, Force Fields, decoy Mannequins to draw enemy fire, and deployable Mechanical Trees.",
+   "Turret Mounting and Laptop Infiltration: Rail Turrets and Vulcan Turrets feature embedded controls allowing players to physically mount them and aim their weapons manually. Equipping the Laptop backpack removes the requirement to visit a Command Station for remote turret operation, enables hacking enemy turrets on contact to temporarily switch their allegiance, and overrides access restrictions on enemy teleporter pads.",
+   "Laser Designation and Guided Ordnance: The Target Marking Laser emits a 400-meter designator beam that tags an enemy player or structure in the shooter's targeting computer. Once a target is designated, heavy classes can launch tracking projectiles using the Image Recognition Launcher (Tracker Missile) or the devastating single-use Photon Torpedo pack that autonomously pursue the designated target.",
+   "Expanded Vehicles and Stealth Flight: The mod introduces new aircraft including the Vulcan-equipped Interceptor fighter, LAPC and HAPC troop transports, and the Wraith stealth flyer, which turns completely invisible and disappears from sensors while being piloted. Builders can also deploy vehicles directly in the field using deployable Mech and Det packs.",
+   "Rulesets, Admin Settings, and Inventory Bans: Server hosts can switch between pure, base, and renegades rule sets in AllianceSettings.cs, and admins access comprehensive Insomniax settings menus for anti-teamkill tracking, station time limits, and match controls. The standalone Image Recognition pack (ImRecPack) is explicitly banned ($InvList=0, $RemoteInvList=0) in favor of the Target Marking Laser and Tracker Missile combination.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): ImRecPack (packImRec.cs)."
+  ]
+ },
+ "items": {
+  "AcceleratorDevicePack": {
+   "summary": "A deployable field gate that dramatically multiplies the velocity of any player passing through its beam.",
+   "notes": [
+    "Projects an acceleration field between two static bridge pylons.",
+    "Passing through the beam multiplies the player's movement velocity by 5x in their current travel direction.",
+    "Features a 1 in 40 chance of misfiring into an accelerator malfunction that catapults the runner at 12x velocity.",
+    "Teams are restricted to a maximum of 2 or 3 deployed accelerator devices."
+   ],
+   "source": "deployAccelerator.cs"
+  },
+  "TeleportPack": {
+   "summary": "A deployable teleportation pad that creates an instant two-way transit link across the map.",
+   "notes": [
+    "Teams can place up to 2 teleporter pads to link bases or critical map objectives.",
+    "Stepping onto a pad instantly transports the player to the linked partner pad with a 5-second recharge delay.",
+    "Heavy armors such as the Destroyer cannot use teleporters because their chassis is too massive.",
+    "Enemy players are locked out from using hostile pads unless carrying a Laptop backpack.",
+    "Destroying one teleporter pad backfeeds destructive damage to all other teleporters belonging to that team."
+   ],
+   "source": "deployTeleporter.cs"
+  },
+  "Laptop": {
+   "summary": "A mobile computing backpack that enables field hacking, remote turret control, and enemy system infiltration.",
+   "notes": [
+    "Grants remote access to friendly turrets from anywhere on the field without standing at a Command Station.",
+    "Touching an enemy turret while wearing the laptop hacks the turret and temporarily commandeers it for the hacker's team.",
+    "Allows players to bypass access locks and travel through enemy teleport pads.",
+    "Carried primarily by the Loader class in Pure Alliance and hacker roles in Renegades."
+   ],
+   "source": "packCommand.cs"
+  },
+  "TargetMarkLaser": {
+   "summary": "A long-range designator beam weapon used to guide heavy tracking missiles and torpedoes.",
+   "notes": [
+    "Projects a 400-meter non-damaging beam that locks onto a player, turret, or base installation.",
+    "Transmits the lock-on coordinate to the player's targeting computer for guided weapon integration.",
+    "Required for guiding Image Recognition Missiles and Photon Torpedoes to their destination.",
+    "Exclusively carried by heavy combat chassis like the Destroyer."
+   ],
+   "source": "weaponTargetMark.cs"
+  },
+  "PhotonPack": {
+   "summary": "A single-shot heavy backpack launcher that unleashes a lethal guided photon torpedo.",
+   "notes": [
+    "Launches a massive fusion projectile dealing catastrophic damage with a damage value of 10.",
+    "Requires a target to be actively designated by the Target Marking Laser to track.",
+    "Consumes and unmounts the backpack upon firing, requiring a station visit to resupply.",
+    "Restricted to the Destroyer armor class."
+   ],
+   "source": "packPhotonTorpedo.cs"
+  }
+ }
+}

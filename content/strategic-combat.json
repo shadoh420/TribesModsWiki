@@ -1,0 +1,66 @@
+{
+ "mod": {
+  "overview": "Strategic Combat (v1.63) by Dasher[TOP] is a 2001 tactical warfare variant of Despised's Tribal Combat with BarrysWorld Admin Mod 5.01 built in, shifting Tribes toward combined-arms base building, specialized armor classes, and dual-mode weaponry. Matches revolve around securing forward territory with deployable Supply Stations, portable Vehicle Pads, force screens, heavy artillery turrets, and remote drones while managing team energy and surviving an opening CTF truce. Compared to its parent Tribal Combat, v1.63 introduces the dedicated SCV Builder armor with a StarCraft-inspired build-and-repair construction workflow, dual-mounted Defender AutoCannons, Assault Armor horizontal speed clamping (21), and modular server/vote toggles for damage scaling and item-group bans (vehicles, turrets, emplacements, structures, teleports, traps, and drones). Respawn gear presets in the Tab menu let players drop straight into Attack, Defense, Repair, or Sniper roles, while BWAdmin provides league, referee, and anti-teamkill enforcement.",
+  "notes": [
+   "Classes and armor specials: Six armors define distinct battlefield roles, each with a Special ability on the b key (when combatConfig.cs is loaded). Light Armor (maxForwardSpeed 16, 3 weapons) fires a Beacon-fueled Jump Booster after a 3-second windup; Combat Armor (12.0, 4 weapons) triggers an Emergency Medical Kit healing 0.35 damage; Medium Armor (9.0, 4 weapons, throws Demo Grenade) triggers an Emergency Energy Supply below 40% energy; Assault Armor (5.5, 5 weapons, horzVelClamp 21, throws Blast Grenade, integral 25mm AutoCannon) toggles an Assault Shield; Defender Armor (2.75, 5 weapons, maxEnergy 220, throws Blast Grenade, integral Field Repair Unit) broadcasts energy to unpowered Inventory or Ammo Stations within 5 m and cannot use vehicles; SCV Armor (10.0, Field Repair Unit and Targeting Laser only) opens the SCVBuild construction menu and deploys structures at 50-60% damage that must be repaired to finish.",
+   "Controls, keybinds, and menus: Run exec(\"combatConfig.cs\"); once in the console while the mod is loaded to bind b to Armor Special and f to Next Weapon Mode. The Tab menu lets players switch weapon modes, choose a respawn gear preset (Attack, Defense, Repair, or Sniper, all spawning in Combat Armor), change teams or skins, and vote on mission, initial truce length, damage scaling (Low, Normal, High), or item-group bans (No Vehicles, Turrets, Emplacements, Structures, Teleports, Traps, Drones). There are no # chat commands for players; BWAdmin admins/referees have .cp, .bp, .tp, and ! message prefixes in comchat.cs.",
+   "Multi-mode and pack-gated weapons: Pressing f or using the Tab menu toggles fire modes on Blaster (armor energy vs Fusion Pack), 14.5mm Chaingun (accurate vs 2-round spread), 12mm Machine Pistol (3-round burst vs silent single shot), 25mm AutoCannon (HEAP vs HVAP, dual-mounted on Defender Armor), Grenade Launcher (standard vs 2-round AGL ImpactGrenade), Rocket Launcher (single vs 4-rocket salvo), and Missile Launcher (1000 m lock-on vs TV-guided GuidedMissile). Several weapons require a matching pack: EDGun needs a Shield Pack and drains shields/energy, Laser Rifle and Pulse Laser need an Energy Pack, and Transfer Gun needs a Repair Pack to siphon energy and heal the user. Other notable tools include the 23mm Gauss Cannon (drains 60 energy and dampens recharge if energy runs short), Flamethrower, Energy Cannon, 4-round Assault Rifle, 6-shot Particle Cannon, Demolitions Satchel, and 300 m Beacon Launcher.",
+   "Deployables, structures, and turrets: Base building expands well beyond standard Tribes, letting Medium, Defender, and SCV players place Barricades, Force Screens (which fade briefly for friendly players), Floating Pads (below 300 m altitude), Teleport Fields (linked pairs that destroy each other if one falls and drop carried flags), portable Vehicle Base Pads and Vehicle Base Control units, Supply Stations (EmplacementPack, 1 per team), Stealth and Anti-Armor Mines, and automated defenses including Missile Turrets, MRL rocket batteries, Long Tom artillery, Remote Snipers, Remote ELF, Anti-Aircraft, Plasma, and AutoCannon turrets, plus 25 m EMP Devices.",
+   "Vehicles and remote drones: Vehicle stations and deployed Vehicle Pads sell six fliers: Scout (52 speed, rockets), Fighter (45 speed, rapid cannon), Assault Craft (22 speed, heavy HEAP cannon, drops carried flags), LPC (30 speed), Bomber (25 speed, bombs), and HPC (25 speed, 4 passenger seats). Only Light and Combat Armor can pilot vehicles, Medium/Assault/SCV can ride as passengers, and Defender is barred entirely. Four deployable drones let operators fly remote craft from cover: Camera-deploying Drone, explosive Guided Bomb, Survey Drone, and chaingun-armed Attack Drone.",
+   "Rules, bans, and match flow: Players spawn with 6 seconds of invulnerability, team damage is forced on with an anti-TK kick after 5 team kills, powered turrets do not auto-repair, and CTF/CTFb maps start with a 2-minute initial truce that kills anyone touching the enemy flag. Several items exist in scripts but are banned at Inventory Stations ($InvList = 0): DetPack, SurveyDronePack, TeleportPad, TelePack, ShieldBeaconPack, PowerGeneratorPack, and PortInvPack, while EMPBeaconPack, EmplacementPack, and TeleportField are restricted to fixed bases ($RemoteInvList = 0). No AI bots are included.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): DetPack (station.cs), PortInvPack (station.cs), PowerGeneratorPack (station.cs), ShieldBeaconPack (station.cs), SurveyDronePack (station.cs), TelePack (station.cs), TeleportPad (station.cs); Blocked at Remote Stations ($RemoteInvList = 0): EMPBeaconPack (station.cs), EmplacementPack (station.cs), TeleportField (station.cs)."
+  ]
+ },
+ "items": {
+  "BuildingArmor": {
+   "summary": "SCV Armor (scvarmor): fast-moving dedicated base builder (maxForwardSpeed 10.0, maxEnergy 150) that constructs turrets, sensors, and base structures anywhere on the map.",
+   "notes": [
+    "Carry limit is 1 weapon (Field Repair Unit plus Targeting Laser) and up to 4 Beacons.",
+    "Pressing Special (b) opens the SCVBuild menu to spend team energy on Heavy Turrets (Remote AutoCannon, Anti Aircraft Cannon, Plasma Turret, Missile Turret, MRL, LongTom), Turrets (Turret, Chaingun Turret, Laser Turret, ELF Turret), Structures (Barricade, FloatingPad, Vehicle Base Pad, Vehicle Base Control), and Sensors (Pulse Sensor, Motion Sensor, Sensor Jammer).",
+    "Structures, turrets, and sensors deployed in SCV Armor consume 1 Beacon and spawn at 50-60% damage, so you must repair them with the Field Repair Unit to finish construction."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/strategic-combat/ArmorData.cs"
+  },
+  "DefenderArmor": {
+   "summary": "Defender Armor (darmor): ultra-slow, high-energy fortress suit (maxForwardSpeed 2.75, maxDamage 1.4, maxEnergy 220, 5 weapons) built to anchor base defense.",
+   "notes": [
+    "Cannot enter or pilot any vehicle.",
+    "Carries an integral Field Repair Unit that cannot be sold, throws Blast Grenades, and automatically dual-mounts a second 25mm AutoCannon (AutoCannon2) when equipping the 25mm AutoCannon.",
+    "Pressing Special (b) within 5 m of an unpowered Inventory Station or Ammo Station toggles Broadcast Power, draining your armor energy to keep the station running."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/strategic-combat/ArmorData.cs"
+  },
+  "AssaultArmor": {
+   "summary": "Assault Armor (harmor): slow frontline heavy (maxForwardSpeed 5.5, maxDamage 1.8, maxEnergy 150) with heavy ballistic/plasma/explosion resistance and an energy-powered shield.",
+   "notes": [
+    "Enforces horzVelClamp = 21 to cap horizontal skiing speed; carries up to 5 weapons with integral 25mm AutoCannon and 25mm Ammo, and throws Blast Grenades.",
+    "Pressing Special (b) toggles the Assault Shield (shieldStrength +0.01), halting energy recharge while active and shutting off automatically if energy drops below 8."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/strategic-combat/ArmorData.cs"
+  },
+  "AutoCannon": {
+   "summary": "25mm AutoCannon: spinning heavy cannon with selectable HEAP and HVAP rounds.",
+   "notes": [
+    "Toggles via f or Tab menu between HEAP (high-explosive armor-piercing) and HVAP (high-velocity armor-piercing) 25mm shells.",
+    "Usable by Assault Armor (integral) and Defender Armor; Defender Armor automatically mounts a synchronized second barrel in the secondary weapon slot."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/strategic-combat/combatWeapons.cs"
+  },
+  "MissileLauncher": {
+   "summary": "MissileLauncher: dual-mode anti-armor launcher firing either lock-on homing missiles or a first-person TV-guided missile.",
+   "notes": [
+    "Auto Target mode locks onto players or fliers in line of sight up to 1000 m and fires homingMissile projectiles.",
+    "Guidance mode (when drones are enabled) launches a player-steered GuidedMissile flyer (40 speed, 0.6/0.4 blast radius damage) and returns control to your body upon impact or fuel burnout."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/strategic-combat/combatWeapons.cs"
+  },
+  "EmplacementPack": {
+   "summary": "Supply Station (EmplacementPack): deployable forward base kit that spawns a Large Air Base Platform, a Portable Generator, and an Inventory Station together.",
+   "notes": [
+    "Limited to 1 per team and priced at 8000 team energy; purchasable at fixed Inventory Stations only (disabled in remote stations).",
+    "Requires a clear 20x20x20 flat terrain footprint within 6 m of the player to deploy."
+   ],
+   "source": "c:/Users/c/TribeWiki/tribes-wiki/sources/strategic-combat/combatStructures.cs"
+  }
+ }
+}

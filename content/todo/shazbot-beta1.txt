@@ -1,0 +1,51 @@
+# shazbot-beta1 vs base (50 items)
+new        GunnerVehicle                Gun Ship
+renamed+stats+scriptsBlaster                      Hyper Blaster
+new        ShockRfile                   Shock Rifle
+new        RailXAmmo                    Railgunammo
+new        RailX2                       Railgun
+new        RailX                        RailGun
+new        TittyAmmo                    flying titties
+new        Titty                        Titty gun
+new        FlamerAmmo                   Firball Ammo
+new        Flamer                       Flamer Thrower
+new        PistolAmmo                   .45 APC bullet
+new        Pistol                       .45 APC
+new        RailgunAmmo                  Railgun Ammo
+new        Railgun                      Sniper Rifle
+new        Mach1Ammo                    kk345 Ammo
+new        Mach1                        Machinery kk345
+new        ShotgunAmmo                  Buckshot
+new        Shotgun                      Shotgun
+new        BRifle                       Blastoid Rifle
+new        MissleAmmo                   Missles
+new        Missle                       Missle Launcher
+new        RocketgunAmmo                rockets
+new        Rocketgun                    Rocket Chaingun
+renamed+stats+scriptsChaingun                     Enforcer
+stats+scriptsPlasmaGun                    Plasma Gun
+stats+scriptsGrenadeLauncher              Grenade Launcher
+stats+scriptsMortar                       Mortar
+renamed+statsDiscAmmo                     
+renamed+stats+scriptsDiscLauncher                 Hyper Fuser
+new        DualAmmo                     Disc Ammo
+new        Dual1                        Dual Fuser
+new        Dual2                        Dual Fuser
+new        Dual                         Dual Fuser
+new        TacticalNAmmo                Nuke missles
+new        TacticalN                    Tactical Nuke
+new        NitroNAmmo                   NitroAmmo
+new        NitroN                       Nitrous Grenader
+new        XLaser                       Jinzo Laser
+stats+scriptsLaserRifle                   Laser Rifle
+stats+scriptsTargetingLaser               Targeting Laser
+stats+scriptsEnergyRifle                  ELF Gun
+scripts    Grenade                      Grenade
+scripts    Beacon                       Beacon
+new        RegenerationPack             Regenration Pack
+new        CloakingDevice               Cloak Pack
+new        ForceFieldPack               Small Force Field
+new        ForceFieldDoorPack           Force Field Door
+new        BlastWallPack                BlastWall
+new        PlatformPack                 Platform
+new        LaserTurretPack              Laser Turret

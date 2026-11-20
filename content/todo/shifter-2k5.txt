@@ -1,0 +1,28 @@
+shifter-2k5: 49 of 184 need write-ups
+  MineAmmo (Mine): scripts
+  Grenade (Grenade): scripts
+  Beacon (Beacon): scripts
+  airbase (AirBase): scripts
+  Hackit (Engineer Hack-Gun): scripts
+  Regen (Regeneration Gun): scripts
+  Plastique (Plastique): scripts
+  EmplacementPack (Emplacement): scripts
+  PowerGeneratorPack (Power Device): scripts
+  LasCannon (LasCannon): stats+scripts
+  PlasmaCannon (HeavyPlasmaCannon): stats+scripts
+  Mortar2 (Mortar2): stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  Disclauncher (Disc Launcher): new
+  Rocketlauncher (Rocket Launcher): new
+  SilencerAmmo (Silencer Bolt): renamed+stats
+  Mfgl (Tactical Nuke): stats+scripts
+  GravGun (Grav Gun): scripts
+  DeployableInvPack (Inventory Station): scripts
+  EnergyPack (Energy Pack): scripts
+  CloakingDevice (Cloaking Device): stats+scripts
+  RegenerationPack (Regeneration Pack): stats+scripts
+  SMRPack (Rocket Launcher Pack): stats+scripts
+  SuicidePack (Suicide DetPack): stats+scripts
+  TeleportPack (Teleport Pad): scripts
+  MechPack (Interceptor Pack): scripts
+  DetPack (Stealth HPC Pack): scripts

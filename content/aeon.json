@@ -1,0 +1,81 @@
+{
+ "mod": {
+  "overview": "AEON is an open-ended, non-violent roleplaying and monopolization sandbox mod for Starsiege: Tribes, set in and around the sprawling frontier settlement of Central. Players progress through a persistent economy by hunting meteors that crash across the terrain, staking real estate claims, designing custom buildings with modular construction blocks, trading goods, and mastering diverse skills ranging from agriculture to hotwiring. Unlike the fast-paced competitive combat of base Tribes, AEON eliminates standard loadout stations and explosive combat in favor of manual firearms with multi-step actions, dynamic physical attributes that upgrade armor tiers, and a dual Karma progression system rewarding both lawful and outlaw endeavors. The mod is built exclusively for its custom mission map named Free, which houses key municipal structures including the bank, library, trading markets, prison, and central teleporter network.",
+  "notes": [
+   "Armor Tiers and Physical Attributes: Players do not equip standard Light, Medium, or Heavy armors at stations, but instead spawn in Armor0 (Life 1) with 50 percent maximum health and a base forward run speed of 9 meters per second. Players upgrade their armor by training their core physical attributes in the skills menu: reaching level 1 in Strength, Stamina, and Agility upgrades the character to Armor1 (Life 2, 66 percent health, 11 m/s speed), level 3 promotes to Armor2 (Life 3, 80 percent health, 13 m/s speed), and level 5 unlocks Armor3 (Life 4, 100 percent health, 14 m/s speed with 40 m/s jet velocity). Training Agility also equips Mass Less inventory items to reduce body encumbrance and boost movement, while training Perception equips Light items in slot 6 to illuminate the player surroundings at night.",
+   "Controls, Activator Keybinds, and Chat Commands: Standard Tribes keys are remapped through an in-game activator system. The Grenade key is set by default to Interact, which activates doors, teleporters, and NPC terminals. The Mine key is bound to cycle Construction Tool modes forward, while the Beacon key opens the Key Binding Menu where players can configure Activator1 through Activator9 slots to trigger construction tool modes, skill abilities, trades, or chat commands, with presets available for construction or defaults. Players can also invoke chat commands in global chat, such as save to manually preserve character statistics, grab to drag incapacitated corpses, stuck to break free from terrain, time to check planetary clock cycles, and load or reload to chamber ammunition.",
+   "Skills, Knowledge, and the Law of Karma: Character progression revolves around a dual Karma system where both positive and negative actions contribute to personal power. Constructive actions like processing meteors, fertilizing crops, and analyzing ore veins yield positive Karma, whereas illicit actions like hotwiring vehicles, picking pockets, and looting corpses yield negative Karma. Every whole integer of Karma gained in either direction grants a Skill Point. However, skill points can only be spent if the player has acquired subject Knowledge by reading the corresponding instructional manuals at the Central Library. Available skill stacks include Attributes, Thievery (Hot Wiring, Stealing, Looting), Cultivation (Agriculture, Geology, Metallurgy), and Tradeskills (Herbology, Mechanical and Electrical Engineering, Architecture).",
+   "Central City Infrastructure, Library, and Banking: The city of Central is the social and economic hub of the server, containing a market, bank, teleporter room, library, and prison pyramid. Connecting players start with global chat muted and must walk to the Library in southern Central, press Interact on the checkout terminal, and use the introductory book from inventory to read through it and enable their chat privileges. Books carry rental timers and must be returned by tossing them directly at the library terminal before they expire to prevent late fees. In the northeastern bank, players can open personal savings accounts to deposit and withdraw cash, or store physical inventory items by tossing them at the teller terminal.",
+   "Real Estate Ownership and Modular Construction: Players can establish private property anywhere on the map outside city reserves through the Catalog menu accessed via the Tab options screen. Plots are defined by setting custom width, length, and height dimensions between 20 and 400 meters, choosing a position centered on the player or current waypoint, and selecting ownership rights such as Public Domain, Basic Rights, or Private Property. Once owned, players can order building packages from the catalog (such as small pillars, enormous blocks, bridges, windows, fake trees, solar panels, and foundries) that air-drop nearby in bio-degradable deployable packs. Equipping the Construction Tool allows owners to place, align, rotate across three axes, lock, undo, or delete structures, with architecture skills unlocking precise angle rotations and axis constraints.",
+   "Dynamic Meteor Hunting, Agriculture, and Metallurgy: Atmospheric meteors streak across the sky and crash into the landscape every 45 seconds, triggering earthquakes and localized seismic shockwaves. Players can locate fresh crash sites using the Geology skill to detect seismic bearings, then fire their Construction Tool at impact debris to liquefy hot minerals into instant wallet cash, with fresher rocks yielding up to 35 dollars plus a 10 dollar bonus for maxed geology before decaying over 5 minutes. Landowners can also cultivate crops by planting seeds (such as corn, potatoes, wheat, and marijuana) and applying agriculture skill to speed ripening, or harvest natural ore veins (iron, lead, copper, silver, gold, and platinum) to smelt into pure metals and alloys like steel, bronze, and electrum at foundry combine terminals.",
+   "Realistic Firearms, Manual Actions, and Reloading: Standard energy blasters and heavy explosives are completely removed in favor of kinetic firearms requiring authentic handling procedures. Weaponry comprises single-action and double-action revolvers, pump-action and semi-automatic shotguns, and bolt-action and automatic rifles. Single-action pistols require cocking the hammer back on the first trigger pull before discharging on the second; pump shotguns require racking the slide backward and forward between shots; and bolt rifles require drawing and pushing the bolt handle. Weapons do not reload automatically: players must chamber individual loose cartridges or swap magazines via inventory use or chat commands like load, collecting empty casings and spent magazines that can later be refilled with gunpowder and cast lead at foundry terminals.",
+   "Persistent Vehicles, Hotwiring, and Incarceration: Vehicles such as the Scout aircraft and Hover Bike can be purchased from the catalog and air-dropped to the buyer, automatically registering ownership and saving their exact coordinates, heading, and damage state across server sessions. Vehicles are electronically locked to their owner key, but players with the Hot Wiring skill can attempt to breach unattended vehicles, with required skill determined by whether the craft sits on public land or secured private property. Criminal acts like looting fallen players or excessive public disorder can result in imprisonment inside the Central Prison pyramid, where cell doors lock inmates away, unmount weapons, and restrict voice chat to a 25-meter radius while their negative Karma slowly trends back toward zero.",
+   "Server Rules, Match Structure, and Boundaries: AEON operates without fixed round timers or team-based victory conditions, functioning as a persistent world on mission Free where players belong to Team 0 (Players) alongside simulated AI civilians and drone helpers on Team 1 (Bots). Base inventory resupply stations are disabled in favor of municipal and property terminals, and unprovoked player killing is treated as an illegal server infraction. Stepping outside the mission boundary does not kill the player; instead, a boundary bounce calculation reverses velocity and flings the trespasser back toward the playable territory accompanied by an audible spring sound effect."
+  ]
+ },
+ "items": {
+  "CnTool": {
+   "summary": "Multipurpose beam tool used for mining meteor minerals, inspecting ore veins, and constructing property structures.",
+   "notes": [
+    "Purchased from the Catalog or Market Terminal for 100 dollars and equipped in the main weapon slot.",
+    "Fires a continuous processing beam; holding the beam on hot meteor debris or harvestable ore extracts mineral wealth directly into wallet cash or inventory.",
+    "Provides nine configurable construction modes to place, align, rotate across multiple axes, lock, undo, or delete modular structural components on owned real estate."
+   ],
+   "source": "Buildings.cs"
+  },
+  "DeployPack": {
+   "summary": "Canister backpack holding prefabricated building components ordered from the catalog.",
+   "notes": [
+    "Delivered via automated air drop whenever a player purchases structural blocks, bridges, towers, windows, or terminals.",
+    "Must be equipped in the backpack slot and triggered while looking at valid terrain or existing objects within property where the player holds deploy permissions.",
+    "Deploys into persistent static or interior shapes registered to the property deed and clears from inventory upon placement."
+   ],
+   "source": "Buildings.cs"
+  },
+  "SingleActionPistol": {
+   "summary": "Six-shot revolver featuring authentic manual hammer-cocking operation.",
+   "notes": [
+    "Costs 5000 dollars and holds up to six individual pistol rounds.",
+    "Operates with a two-step firing cycle: the first trigger pull pulls the hammer backward, and the second pull drops the hammer to discharge a projectile.",
+    "Reloads round-by-round from loose pistol ammunition in inventory, leaving spent empty rounds upon firing."
+   ],
+   "source": "Weapons.cs"
+  },
+  "PumpActionShotgun": {
+   "summary": "Close-range scattergun requiring manual slide manipulation between rounds.",
+   "notes": [
+    "Carries up to five shotgun shells and costs 6000 dollars at weapons terminals.",
+    "Fires a cluster of three heavy explosive pellets per blast with substantial spread and stopping power.",
+    "Requires cycling the slide between shots by alternating trigger clicks to draw the pump backward and rack it forward."
+   ],
+   "source": "Weapons.cs"
+  },
+  "BoltActionRifle": {
+   "summary": "High-power marksman rifle requiring manual bolt cycling between discharges.",
+   "notes": [
+    "Holds five rifle cartridges and is purchased for 7000 dollars.",
+    "Discharges high-velocity rounds that produce heavy concussive blast effects.",
+    "Players must cycle the bolt handle between each shot by clicking once to draw the bolt backward and clicking again to push it forward and chamber the next round."
+   ],
+   "source": "Weapons.cs"
+  },
+  "RazorVehicle": {
+   "summary": "Single-seat high-speed hover bike that persists across server sessions.",
+   "notes": [
+    "Ordered from the catalog for 5000 dollars and air-dropped directly to the buyer.",
+    "Saves its position, rotation, and damage level on the server so it remains wherever the owner leaves it.",
+    "Protected by owner electronic locks; unauthorized drivers must successfully channel the Hot Wiring skill to temporarily access the driver seat."
+   ],
+   "source": "Vehicle.cs"
+  },
+  "Vege_MariJ": {
+   "summary": "Agricultural herb harvested from planted crops that can be consumed or used in manufacturing.",
+   "notes": [
+    "Grown on player land from seeds, fertilized with the agriculture skill, and harvested upon reaching maturity.",
+    "Can be smoked through chat commands to mount a blunt and grant temporary Mass Less agility speed buffs.",
+    "Serves as an essential organic crafting component for assembling construction tools, repair guns, and advanced armor life upgrades."
+   ],
+   "source": "Enviro.cs"
+  }
+ }
+}

@@ -1,0 +1,81 @@
+# gundam vs starsiege-craft (80 items)
+renamed+statsiarmorScout                  Virgo
+renamed+statsiarmorSpy                    Taurus
+renamed+statsiarmorMercenary              Nakatu
+renamed+statsiarmorEngineer               Worker
+renamed+statsiarmorBurster                Heavyarms
+renamed+statsiarmorCyborg                 Wing Zero
+new        iarmorSprint                 Deathscythe
+renamed+statsiarmorSniper                 Wing
+renamed+statsiarmorAlien                  Sandrock
+renamed+statsiarmorCommando               Deathscythe Hell
+renamed+statsiarmorLing                   Leo
+renamed+statsiarmorLoader                 Tallgeese
+renamed+statsiarmorAss                    Epyon
+renamed+statsiarmorMedic                  Ball
+new        Blaster                      Cutter
+renamed+stats+scriptsWaveGun                      Swift Killer
+renamed+statsHyperBAmmo                   Machine Gun Bullets
+renamed+stats+scriptsHyperB                       Machine Gun
+renamed+stats+scriptsDeathLaser                   Energy Flare
+renamed+stats+scriptsPLasGun                      Laser Scythe
+renamed+statsSilencerAmmo                 Flamer Cartridges
+renamed+stats+scriptsSilencer                     Flamer Gun
+renamed+statsVulcanAmmo                   Storm Grenades
+renamed+stats+scriptsVulcan                       Storm Greanade Launcher
+renamed+statsRailAmmo                     Riper Missiles
+renamed+stats+scriptsRailgun                      Riper
+new        PartGun                      Particle Beam
+renamed+statsSniperAmmo                   Destruction Bullets
+renamed+stats+scriptsSniperRifle                  Destruction Rifle
+renamed+statsTranqAmmo                    Fusion Bullets
+renamed+stats+scriptsTranqGun                     Fusion Rifle
+renamed+statsLongAmmo                     Energy Rounds
+renamed+stats+scriptsLongRifle                    Energy Metaboliser
+renamed+stats+scriptsOmega                        Laser Pistol
+renamed+stats+scriptsDiscLauncher                 Laser Scythe
+renamed+stats+scriptsShurCannon                   Laser Sword
+renamed+stats+scriptsDemoGun                      Storm Canon
+renamed+statsCycloneAmmo                  Hellfire Missiles
+renamed+stats+scriptsCyclone                      Hellfire
+renamed+statsMassAmmo                     Shockwave Batteries
+renamed+stats+scriptsMassDriver                   Shockwave Canon
+stats      FlakC                        Particle Cannon
+renamed+statsTMortarAmmo                  Mini Nuke Canisters
+renamed+stats+scriptsTMortar                      Nuke Launcher
+renamed+statsWarpAmmo                     Death Fusion Bolts
+renamed+stats+scriptsWarp                         Death Bringer
+new        AmmoPack                     Ammo Pack
+renamed+statsEnergyPack                   Flyer Pack
+new        CloakingDevice               Personel Cloacking
+renamed+stats+scriptsStealthShieldPack            Sensor Shield Pack
+new        SensorJammerPack             Radar Jammer Pack
+renamed+stats+scriptsLightningPack                Flare Pack
+renamed+stats+scriptsPhotonPack                   Irradiation Rocket
+scripts    MineAmmo                     Mine
+renamed+statsDeployableInvPack            Deployable Inventory
+renamed+statsAirPlatformPack              Platform
+renamed+statsLargeAirPlatPack             Large Platform
+stats+scriptsTeleportPack                 Teleport Pad
+renamed+stats+scriptsSpringPack                   Launch Pad
+renamed+statsIonTurretPack                Anti Mater Turret
+stats      LaserTurretPack              Beam Turret
+renamed+statsRocketPack                   Long Rocket Turret
+renamed+statsShockTurretPack              Multi Laser Turret
+renamed+statsRailTurretPack               Heavy Laser Turret
+renamed+statsHFlameTurretPack             Flamer Turret
+renamed+stats+scriptsCloak                        Mist Generator
+renamed+stats+scriptsGravi                        Tractor Beam
+renamed+stats+scriptsStream                       Energy Beam Launcher
+renamed+stats+scriptsZap                          Steel Burster
+renamed+stats+scriptsFireball                     Irradiator
+renamed+stats+scriptsPull                         Energy Wip
+renamed+stats+scriptsPsiLaser                     Destruction Beam
+renamed+stats+scriptsSword                        Energy Sword
+renamed+stats+scriptsPlasMeta                     Ultra Canon
+renamed+statsInterceptorVehicle           Flare Scout
+renamed+statsHAPCVehicle                  Dropship
+renamed+statsTempestVehicle               Battle Carrier
+renamed+statsSpeederVehicle               MotherShip
+renamed+statsGuardVehicle                 Ultra Fighter
+renamed+statsDevVehicle                   Core Fighter

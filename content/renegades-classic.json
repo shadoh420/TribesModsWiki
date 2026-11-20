@@ -1,0 +1,744 @@
+{
+  "mod": {
+    "overview": "Renegades Classic 1.1c replaces the three stock armors with eight classes (Scout, Spy, Sniper, Mercenary, Burster, Engineer, Alien, Cyborg), each with its own item list, weapon-slot count and class-specific grenade, mine and beacon. It adds about a dozen new weapons, several backpack weapons, a long list of deployables (extra turret types, force fields, teleport pads, springboards, holograms, deployable flyers) and damage-over-time status effects: poison, burning and short-circuit. Touch abilities let some classes steal items, drain life or heal teammates. Stations, vehicles and the shop otherwise run on the base Tribes framework.",
+    "notes": [
+      "Classes: ScoutArmor=sarmor, SpArmor=spyarmor, LightArmor (Sniper)=larmor, MediumArmor (Mercenary)=marmor, BursterArmor=barmor, EngArmor=earmor, AlArmor (Alien)=aarmor, DragArmor (Cyborg)=darmor. Cyborg has no female model; female players also get darmor.",
+      "Weapon slots ($MaxWeapons): Scout 2, Spy 3, Sniper 3, Engineer 3, Mercenary 5, Burster 4, Alien 4, Cyborg 6.",
+      "With $Reneg::SpawnClass false (the default in Renegades.cs), everyone spawns as a Mercenary with Hyper Blaster, Chaingun, Disc Launcher, Targeting Laser and Energy Pack. With it true, players pick a class on joining and get that class's own spawn loadout. Every spawn also gets a Repair Kit, a Grenade and a Beacon.",
+      "Grenade and Beacon each do something different per class (see those items). Mine is the same for all eight classes. Hand-thrown items use throw force 15 x throwStrength; base Tribes threw grenades at 9.",
+      "Status effects come from damage type in Player::onDamage. Energy damage from an enemy poisons: the timer is set to 30 and drops 2 per 5-second tick, each tick adding 0.05 damage (Alien immune). Plasma damage from an enemy has a 40% chance to set you on fire: 0.05 damage every 2 s for about 10 s (Burster immune). Flash damage from an enemy short-circuits you: energy zeroed, no recharge and your weapon unmounted for 14 s. Kills from poison or burning are credited to whoever caused them.",
+      "Electricity damage ignores shields completely, and a kill with it always blows the body apart. Shields are 75% as effective against shrapnel and mortar damage.",
+      "Laser, Sniper and Blaster damage-type hits to the head do 30% extra. A Laser-type hit over 0.25 damage to the front-right torso knocks the victim's weapon out of their hand. That disarming shot does a flat 0.08 damage instead of its normal damage.",
+      "Only Scout, Sniper and Spy can pilot vehicles. Other classes can only ride as passengers in the BomberLPC or StealthHPC.",
+      "Teammate touch effects: an Engineer heals teammates 0.10 by touching them. Enemy touch effects: a Scout takes all of an enemy's items, and an Alien drains 0.20 health from the enemy and poisons them.",
+      "Deployable turrets always take full damage from teammates, whatever $Server::TeamDamageScale is set to.",
+      "Anti-team-kill (Renegades.cs): tkLimit 3, tkMultiple 3, server level 3 (auto-kick at 3 team kills), client level 1 (the victim's menu offers to kick the team killer). The admin menu can change the levels or turn TK handling off.",
+      "Station rules: $StationLockTD and $StationLockNTD stop teammates knocking players out of stations. With more than 3 players, anyone still in an inventory station after $Reneg::StationTime (30 s) is ejected.",
+      "Other server options in Renegades.cs: votes for kick, team damage, tourney mode, mission, out-of-area damage and time limit; separate public-admin permissions; fairTeams (the team menu only offers the smaller team); optional out-of-area damage (off by default).",
+      "Most packs and deployables use the stock backpack pattern: the first use mounts the pack and a second use deploys it. Deploy range is 3 m and you need a clear 1 m spot."
+    ]
+  },
+  "items": {
+    "ScoutArmor": {
+      "summary": "The fastest class: a light frame built for raiding and stealing items. It can pilot vehicles but carries only two weapons.",
+      "notes": [
+        "PlayerData sarmor (larmor shape). Top ground speed 13, the highest of any class.",
+        "Touching an enemy moves all of their items into your inventory (as far as your carry limits allow) and flashes their screen.",
+        "Grenade throws a Firebomb: Electricity damage in a 30 m radius with 650 kickback. Beacon deploys a Pulse Sensor.",
+        "The only class that can buy the Interceptor Pack (MechPack). It also has the Ion Rifle and Hyper Blaster.",
+        "Can pilot vehicles. Spawn loadout when class spawning is on: Laser Rifle, Ion Rifle, Targeting Laser, Energy Pack."
+      ],
+      "source": "ArmorData.cs PlayerData sarmor and $ItemMax; player.cs Player::onCollision; item.cs Grenade::onUse, Beacon::onUse, ScoutSensor; game.cs Game::playerSpawned"
+    },
+    "SpArmor": {
+      "summary": "Infiltration class with a cloak, satchel charges, timed plastique and the Command Laptop. It can use enemy teleport pads.",
+      "notes": [
+        "PlayerData spyarmor (larmor shape). Top ground speed 12.",
+        "Grenade throws Plastique (Nukebomb mine): 2.0 Mortar damage in a 10 m radius after a 10 s fuse. Any Engineer who touches it, on either team, disarms it 90% of the time and sets it off the other 10%.",
+        "Beacon deploys a Satchel Charge (DeployableSatchel, team limit 25). You set it off from the Commander screen, and it can be controlled without a Command Station.",
+        "Walking onto an enemy teleport pad sends you to one of that team's other pads.",
+        "Spy-only gear: Magnum (Silencer) and Cloaking Device. Also has the Laptop and Laser Turret pack.",
+        "Can pilot vehicles. Spawn loadout when class spawning is on: Blaster, Grenade Launcher, Magnum, Targeting Laser, Cloaking Device.",
+        "Admin and collision scripts check an 'undercover' flag (client.isSpy), but no script ever sets it."
+      ],
+      "source": "ArmorData.cs PlayerData spyarmor; item.cs Grenade::onUse, Beacon::onUse, DeploySatchel; Mine.cs Nukebomb::onCollision; staticshapeR.cs DeployableTeleport::onCollision; player.cs Client::takeControl"
+    },
+    "LightArmor": {
+      "summary": "The Sniper: a light long-range class with the Sniper Rifle, Dart Rifle and Cybernetic Laser backpack. It can pilot vehicles.",
+      "notes": [
+        "PlayerData larmor. Top ground speed 11.",
+        "Grenade throws a Hologram Mine: a decoy shaped like a light armor that explodes when an enemy touches it (team limit 15, counted as holomine).",
+        "Beacon deploys a Sensor Jammer, which counts against the Deployable Sensor Jammer team limit.",
+        "Sniper-only weapons: Sniper Rifle and Dart Rifle (TranqGun). Also has the Mechanical Tree pack and the Optic Pack.",
+        "Can pilot vehicles. Spawn loadout when class spawning is on: Chaingun, Dart Rifle, Sniper Rifle, Targeting Laser, Ammo Pack."
+      ],
+      "source": "ArmorData.cs PlayerData larmor and $ItemMax; item.cs Grenade::onUse, Beacon::onUse, SniperJammer; Mine.cs HoloMine; vehicle.cs Vehicle::onCollision"
+    },
+    "MediumArmor": {
+      "summary": "The Mercenary is the all-round assault class and the default spawn armor. It has five weapon slots.",
+      "notes": [
+        "PlayerData marmor. Everyone spawns as a Mercenary unless class spawning is turned on.",
+        "Five weapon slots, including the Rocket Launcher, Vulcan and Hyper Blaster. Can also carry the Ion Turret and Deployable Ammo Station.",
+        "Grenade throws a standard Handgrenade (2 s fuse).",
+        "Beacon throws a Speed Booster: a zero-damage blast with 300 kickback in an 8 m radius, used to launch nearby players.",
+        "Cannot pilot vehicles. Spawn loadout: Hyper Blaster, Chaingun, Disc Launcher, Targeting Laser, Energy Pack."
+      ],
+      "source": "ArmorData.cs PlayerData marmor and $ItemMax; game.cs Game::playerSpawn, Game::playerSpawned; item.cs Grenade::onUse, Beacon::onUse; Mine.cs Booster"
+    },
+    "BursterArmor": {
+      "summary": "Heavy-ordnance class with the Mortar, Rocket Launcher and Flame Thrower. It carries extra explosive ammo and the Suicide DetPack.",
+      "notes": [
+        "PlayerData barmor (marmor shape). Top ground speed 8.",
+        "Immune to the burning effect from plasma damage.",
+        "Grenade throws a Concussion grenade: Plasma damage in a 15 m radius, so it can set enemies on fire.",
+        "Beacon triggers the Haul-Ass stim: maxForwardSpeed set to 20 for about 10 s, then back to 9. The script writes this to the barmor datablock itself rather than to the one player, and resets it to 9, not the original 8.",
+        "Burster-only pack: Suicide DetPack. Also carries the Missile Turret pack and up to 6 mines.",
+        "Cannot pilot vehicles. Spawn loadout when class spawning is on: Grenade Launcher, Mortar, Rocket Launcher, Flame Thrower, Targeting Laser, Sensor Jammer Pack."
+      ],
+      "source": "ArmorData.cs PlayerData barmor and $ItemMax; player.cs Player::onDamage; item.cs Grenade::onUse, Beacon::onUse, Renegades_startStim, checkPlayerStim"
+    },
+    "EngArmor": {
+      "summary": "Builder and support class. It carries almost every deployable, heals teammates by touch and disarms enemy explosives.",
+      "notes": [
+        "PlayerData earmor (marmor shape). Three weapon slots, including the Railgun and the Engineer Repair-Gun (Fixit).",
+        "Touching a damaged teammate heals them 0.10.",
+        "Touching Plastique from either team disarms it 90% of the time (10% it explodes). Touching a Suicide DetPack bomb disarms it 80% of the time (20% it explodes).",
+        "Grenade throws a Shock grenade: Flash damage in a 20 m radius that short-circuits enemies. Beacon deploys a Camera.",
+        "Only class with the Inventory Station, Command Station, Teleport Pad, Blast Wall, Platform, Springboard, Shock, Mortar, Rail and Vulcan turrets, and the StealthHPC Pack.",
+        "Cannot pilot vehicles. Spawn loadout when class spawning is on: Railgun, Engineer Repair-Gun, Chaingun, Disc Launcher, Targeting Laser, Ammo Pack."
+      ],
+      "source": "ArmorData.cs PlayerData earmor and $ItemMax; player.cs Player::onCollision; Mine.cs Nukebomb::onCollision, Suicidebomb2::onCollision; item.cs Grenade::onUse, Beacon::onUse, EngCamera"
+    },
+    "AlArmor": {
+      "summary": "Energy-weapon class with a large energy pool, life-drain by touch, a poison grenade and a temporary cloak.",
+      "notes": [
+        "PlayerData aarmor (marmor shape). Max energy 140, against 90 for the other medium frames.",
+        "Immune to poison.",
+        "Touching an enemy heals you 0.20 and poisons them. Poison from an Alien also deals an extra 0.08 damage the moment it lands. If that hit kills, it is announced as a life drain and the Alien gets the kill.",
+        "Grenade throws a Tranq grenade: Energy damage in a 10 m radius that poisons enemies.",
+        "Beacon cloaks you for about 30 s: you fade out and get +3 sensor suppression. When the cloak ends, sensor suppression is set to 0.",
+        "Weapons: Blaster, Hyper Blaster, Shockwave Cannon, Ion Rifle, Omega Cannon, Thunderbolt. Alien-only packs: Regeneration Pack and Lightning Pack.",
+        "Cannot pilot vehicles. Spawn loadout when class spawning is on: Shockwave Cannon, Ion Rifle, Thunderbolt, Targeting Laser, Regeneration Pack."
+      ],
+      "source": "ArmorData.cs PlayerData aarmor and $ItemMax; player.cs Player::onCollision, Player::onDamage, Renegades_startBlind; item.cs Grenade::onUse, Beacon::onUse, Renegades_startCloak"
+    },
+    "DragArmor": {
+      "summary": "The Cyborg is the heavy class: the most health, energy and weapon slots, with an emergency shield beacon and a backpack rocket cannon.",
+      "notes": [
+        "PlayerData darmor (harmor shape). Max damage 1.6, max energy 140, top ground speed 6. Six weapon slots.",
+        "Grenade throws a Mortarbomb: Mortar damage in a 20 m radius after a 2 s fuse.",
+        "Beacon activates Emergency Force Shields for about 20 s, with shield strength 0.006 (half a Shield Pack).",
+        "Cannot use teleport pads, and cannot take manual control of Vulcan or Rail turrets by touching them.",
+        "When a dead player is looted, Beacons are not passed between Cyborgs and other classes.",
+        "Cyborg-only packs: StealthShield Pack and Auto-Rocket Cannon (SMRPack). Also carries the Plasma Turret and Command Station.",
+        "Cannot pilot vehicles. Spawn loadout when class spawning is on: Grenade Launcher, Mortar, Shockwave Cannon, Vulcan, Thunderbolt, Targeting Laser, StealthShield Pack."
+      ],
+      "source": "ArmorData.cs PlayerData darmor and $ItemMax; item.cs Grenade::onUse, Beacon::onUse, Renegades_startShield; staticshapeR.cs DeployableTeleport::onCollision; turret.cs Turret::onCollision; player.cs Player::onCollision"
+    },
+    "Blaster": {
+      "summary": "Energy sidearm that fires blaster bolts and needs no ammo.",
+      "notes": [
+        "Fires BlasterBolt (Blaster damage type), so head hits do 30% extra.",
+        "Available to every class except the Burster."
+      ],
+      "source": "item.cs BlasterImage; baseProjData.cs BlasterBolt; player.cs Player::onDamage"
+    },
+    "Chaingun": {
+      "summary": "Spin-up bullet weapon that uses Bullet ammo, as in base Tribes.",
+      "notes": [
+        "Fires ChaingunBullet (Bullet damage). It has no scripted special effects.",
+        "Not available to the Burster or Alien."
+      ],
+      "source": "item.cs ChaingunImage; baseProjData.cs ChaingunBullet"
+    },
+    "PlasmaGun": {
+      "summary": "Fires explosive plasma bolts that can set enemies on fire.",
+      "notes": [
+        "PlasmaBolt does Plasma damage in a 4 m radius.",
+        "Each Plasma-damage hit on an enemy has a 40% chance to start burning: 0.05 damage every 2 s for about 10 s. Bursters are immune."
+      ],
+      "source": "item.cs PlasmaGunImage; baseProjData.cs PlasmaBolt; player.cs Player::onDamage, Renegades_startBurn, checkPlayerBurn"
+    },
+    "GrenadeLauncher": {
+      "summary": "Lobs bouncing shrapnel grenades, as in base Tribes.",
+      "notes": [
+        "GrenadeShell does Shrapnel damage in a 15 m radius. Shields are only 75% as effective against Shrapnel damage."
+      ],
+      "source": "item.cs GrenadeLauncherImage; baseProjData.cs GrenadeShell; player.cs Player::onDamage"
+    },
+    "Mortar": {
+      "summary": "Heavy arcing launcher for the Burster and Cyborg.",
+      "notes": [
+        "MortarShell does Mortar damage in a 20 m radius. Shields are only 75% as effective against Mortar damage.",
+        "Only the Burster and Cyborg can carry it."
+      ],
+      "source": "item.cs MortarImage; baseProjData.cs MortarShell; ArmorData.cs $ItemMax"
+    },
+    "DiscLauncher": {
+      "summary": "Fires spinfusor discs that explode on impact, as in base Tribes.",
+      "notes": [
+        "DiscShell does Explosion damage in a 7.5 m radius. No scripted special effects."
+      ],
+      "source": "item.cs DiscLauncherImage; baseProjData.cs DiscShell"
+    },
+    "LaserRifle": {
+      "summary": "Energy-powered sniper laser. It only works while an Energy Pack is mounted.",
+      "notes": [
+        "It refuses to equip without an Energy Pack. Buying the rifle buys an Energy Pack automatically, selling the Energy Pack also sells the rifle, and unmounting the pack unmounts the rifle.",
+        "Fires sniperLaser2 (Laser damage, damageConversion 0.011 per point of energy).",
+        "Head hits do 30% extra. A hit over 0.25 damage to the front-right torso knocks the target's weapon out of their hand.",
+        "A mid-body hit on an enemy wearing a Suicide DetPack detonates the pack.",
+        "Not available to the Mercenary, Burster, Engineer, Alien or Cyborg."
+      ],
+      "source": "item.cs LaserRifle::onUse, buyItem, EnergyPack::onUnmount; baseProjData.cs sniperLaser2; player.cs Player::onDamage"
+    },
+    "HyperB": {
+      "summary": "Hyper Blaster: a rapid-fire energy blaster.",
+      "notes": [
+        "Fires HyperBolt (Blaster damage) every 0.1 s, so head hits do 30% extra.",
+        "Used by the Scout, Mercenary and Alien. It is the Mercenary's default spawn weapon."
+      ],
+      "source": "item.cs HyperBImage; baseProjData.cs HyperBolt; game.cs Game::playerSpawned"
+    },
+    "RocketLauncher": {
+      "summary": "Dumb-fire rocket launcher with a large blast radius.",
+      "notes": [
+        "Fires StingerMissile, a non-seeking RocketData: Explosion damage in a 20.5 m radius with 450 kickback.",
+        "Used by the Mercenary, Burster, Engineer and Cyborg."
+      ],
+      "source": "item.cs RocketImage; baseProjData.cs StingerMissile"
+    },
+    "SniperRifle": {
+      "summary": "Ammo-based Sniper-only rifle that fires high-velocity rounds.",
+      "notes": [
+        "SniperRound does Sniper damage with 600 kickback. Head hits do 30% extra.",
+        "A mid-body hit on an enemy wearing a Suicide DetPack detonates the pack.",
+        "Unlike the Laser Rifle and Magnum, it cannot knock weapons out of hands. That check only applies to Laser damage."
+      ],
+      "source": "item.cs SniperRifleImage; baseProjData.cs SniperRound; player.cs Player::onDamage"
+    },
+    "TranqGun": {
+      "summary": "The Dart Rifle fires poison darts that keep damaging the target over time.",
+      "notes": [
+        "TranqDart does Energy damage, which poisons enemies. The timer starts at 30 and drops 2 per 5-second tick, each tick adding 0.05 damage. A new hit resets the timer.",
+        "A Repair Kit or Repair Patch cures poison. Aliens are immune.",
+        "Kills by poison are announced and credited to the shooter.",
+        "Sniper only."
+      ],
+      "source": "item.cs TranqGunImage; baseProjData.cs TranqDart; player.cs Player::onDamage, Renegades_startBlind, checkPlayerBlind"
+    },
+    "Silencer": {
+      "summary": "The Magnum is the Spy's sidearm and fires visible bullets that count as laser hits.",
+      "notes": [
+        "SilencerBullet does Laser damage, so head hits do 30% extra.",
+        "Like the Laser Rifle, a hit over 0.25 damage to the front-right torso disarms the target, and a mid-body hit detonates an enemy's Suicide DetPack.",
+        "Spy only."
+      ],
+      "source": "item.cs SilencerImage; baseProjData.cs SilencerBullet; player.cs Player::onDamage"
+    },
+    "WaveGun": {
+      "summary": "The Shockwave Cannon fires an energy blast that hits a wide area and knocks players back.",
+      "notes": [
+        "Fires the Shock projectile: Missile damage in a 30 m radius with 350 kickback. It is a knockback weapon, not a short-circuit weapon; its damage type is Missile, not Flash.",
+        "Costs 40-45 energy per shot.",
+        "Used by the Alien and Cyborg."
+      ],
+      "source": "item.cs WaveGunImage; baseProjData.cs Shock"
+    },
+    "Railgun": {
+      "summary": "The Engineer's long-range slug thrower.",
+      "notes": [
+        "RailRound does Sniper damage with 600 kickback. Head hits do 30% extra, and a mid-body hit detonates an enemy's Suicide DetPack.",
+        "Engineer only in the class line-up."
+      ],
+      "source": "item.cs RailgunImage; baseProjData.cs RailRound; player.cs Player::onDamage"
+    },
+    "Vulcan": {
+      "summary": "Very fast-firing bullet weapon for the Mercenary and Cyborg.",
+      "notes": [
+        "Fires VulcanBullet (Bullet damage) every 0.09 s using Vulcan ammo. The Cyborg can carry 400 rounds. No scripted special effects."
+      ],
+      "source": "item.cs VulcanImage; baseProjData.cs VulcanBullet; ArmorData.cs $ItemMax"
+    },
+    "Flamer": {
+      "summary": "The Flame Thrower is a Burster energy weapon that sprays short-range plasma and sets enemies on fire.",
+      "notes": [
+        "FlamerBolt does Plasma damage in a 4 m radius, fires continuously and uses 5-6 energy per shot.",
+        "Each Plasma hit on an enemy has a 40% chance to start burning: 0.05 damage every 2 s for about 10 s. Bursters are immune."
+      ],
+      "source": "item.cs FlamerImage; baseProjData.cs FlamerBolt; player.cs Player::onDamage, Renegades_startBurn"
+    },
+    "IonGun": {
+      "summary": "The Ion Rifle fires electrical bolts that go straight through shields.",
+      "notes": [
+        "IonBolt does Electricity damage in a 4 m radius. Shields absorb nothing from Electricity damage, and a kill with it always blows the victim apart.",
+        "Uses 19-20 energy per shot.",
+        "Used by the Scout and Alien."
+      ],
+      "source": "item.cs IonGunImage; baseProjData.cs IonBolt; player.cs Player::onDamage"
+    },
+    "Omega": {
+      "summary": "The Omega Cannon is the Alien's rapid-fire electrical weapon.",
+      "notes": [
+        "OmegaBolt does Electricity damage and fires continuously. It ignores shields, and a kill with it blows the victim apart.",
+        "A friendly-fire hit with Electricity damage messages both players at most once every 8 s."
+      ],
+      "source": "item.cs OmegaImage; baseProjData.cs OmegaBolt; player.cs Player::onDamage"
+    },
+    "EnergyRifle": {
+      "summary": "The Thunderbolt fires a sustained lightning beam that damages the target and drains its energy.",
+      "notes": [
+        "Fires boltCharge lightning: Electricity damage at 0.20 per second, and 60 energy per second drained from the target.",
+        "Electricity damage ignores shields.",
+        "Available to every class except the Burster."
+      ],
+      "source": "item.cs EnergyRifleImage; baseProjData.cs boltCharge, Lightning::damageTarget"
+    },
+    "TargetingLaser": {
+      "summary": "Zero-damage laser for painting targets for teammates and turrets, as in base Tribes.",
+      "notes": [
+        "Fires targetLaser with no damage. It is a Tool and does not take a weapon slot.",
+        "Every class can carry one, and it is part of every class spawn loadout."
+      ],
+      "source": "item.cs TargetingLaserImage; baseProjData.cs targetLaser; game.cs Game::playerSpawned"
+    },
+    "Fixit": {
+      "summary": "The Engineer Repair-Gun is a repair beam that needs no Repair Pack.",
+      "notes": [
+        "Fires RepairBolt. A player or object it locks onto has its auto-repair rate raised by 0.1. With nothing in range it repairs you at 0.07 ('AutoRepair').",
+        "Stops by itself when the target is fully repaired. Targets that aren't damaged are refused.",
+        "A Tool for the Engineer only."
+      ],
+      "source": "item.cs FixitImage; baseProjData.cs RepairBolt::onAcquire, RepairBolt::checkDone"
+    },
+    "EnergyPack": {
+      "summary": "Raises your energy recharge rate. The Laser Rifle needs one.",
+      "notes": [
+        "Same as base: the pack image has negative energy use (-3 to -5), which acts as extra recharge.",
+        "Removing it unmounts a Laser Rifle, and selling it also sells the rifle."
+      ],
+      "source": "item.cs EnergyPack::onUse, EnergyPack::onMount, EnergyPack::onUnmount, EnergyPackImage, buyItem"
+    },
+    "RepairPack": {
+      "summary": "Backpack that powers the Repair Gun, as in base Tribes.",
+      "notes": [
+        "Using it again once mounted puts the Repair Gun in your hands. The gun locks onto other targets at 0.1 repair rate, or repairs you at 0.07.",
+        "Dropping or unmounting the pack removes the Repair Gun."
+      ],
+      "source": "item.cs RepairPack::onUse, RepairPack::onUnmount, RepairPack::onDrop; baseProjData.cs RepairBolt"
+    },
+    "ShieldPack": {
+      "summary": "Energy shield that absorbs incoming damage by spending your energy.",
+      "notes": [
+        "Shield strength 0.012 (same as base). Damage below energy x strength is absorbed entirely. Anything above that empties your energy and the rest goes through.",
+        "Only 75% effective against Shrapnel and Mortar damage, and gives no protection against Electricity damage.",
+        "Not available to the Cyborg, which uses the StealthShield Pack instead."
+      ],
+      "source": "item.cs ShieldPackImage::onActivate, ShieldPackImage::onDeactivate; player.cs Player::onDamage"
+    },
+    "SensorJammerPack": {
+      "summary": "Personal sensor jammer that hides you from enemy sensors while it is on.",
+      "notes": [
+        "Adds 20 sensor suppression while active (same as base).",
+        "Not available to the Alien or Cyborg."
+      ],
+      "source": "item.cs SensorJammerPackImage::onActivate, SensorJammerPackImage::onDeactivate"
+    },
+    "CloakingDevice": {
+      "summary": "The Spy's cloak makes you invisible while it is active.",
+      "notes": [
+        "While on, it fades you out and adds 5 sensor suppression.",
+        "It also sets guiLock on you and your client while active.",
+        "Spy only. It is part of the Spy spawn loadout."
+      ],
+      "source": "item.cs CloakingDeviceImage::onActivate, CloakingDeviceImage::onDeactivate"
+    },
+    "StealthShieldPack": {
+      "summary": "The Cyborg's pack combines a Shield Pack with a sensor jammer.",
+      "notes": [
+        "While active: shield strength 0.012 plus 20 sensor suppression.",
+        "Shield rules are the same as the Shield Pack: weaker against Shrapnel and Mortar, no effect against Electricity.",
+        "Cyborg only. It is part of the Cyborg spawn loadout."
+      ],
+      "source": "item.cs StealthShieldPackImage::onActivate, StealthShieldPackImage::onDeactivate; player.cs Player::onDamage"
+    },
+    "RegenerationPack": {
+      "summary": "Alien pack that repairs your own damage while it is switched on.",
+      "notes": [
+        "Fires AutoBolt at the wearer, adding 0.05 to your auto-repair rate. It switches itself off at full health ('Full Health').",
+        "item.cs also has a TransferHealth/checkPlayerDrain routine (zero energy, heal 0.04 every 2 s), but nothing calls it.",
+        "Alien only. It is part of the Alien spawn loadout."
+      ],
+      "source": "item.cs RegenerationPackImage; baseProjData.cs AutoBolt::onAcquire, AutoBolt::checkDone; item.cs TransferHealth (unused)"
+    },
+    "LightningPack": {
+      "summary": "Alien backpack weapon that fires a lightning field from the pack slot.",
+      "notes": [
+        "The pack image fires boltCharge lightning (Electricity damage at 0.20 per second, 60 energy per second drained from the target) for 9-10 energy.",
+        "Electricity damage ignores shields.",
+        "Alien only."
+      ],
+      "source": "item.cs LightningPackImage, LightningPackImage::onActivate; baseProjData.cs boltCharge, Lightning::damageTarget"
+    },
+    "OpticPack": {
+      "summary": "The Cybernetic Laser is a Sniper backpack weapon that fires a sniper laser from the pack slot.",
+      "notes": [
+        "The pack image fires SniperLaser (Laser damage, 10-60 energy) with a 6.5 s reload.",
+        "On activation it schedules a 'use backpack' command 0.5 s later. Whether that makes it fire repeatedly on its own was not determined from the scripts.",
+        "Sniper only."
+      ],
+      "source": "item.cs OpticPackImage, OpticPackImage::onActivate; baseProjData.cs sniperLaser"
+    },
+    "SMRPack": {
+      "summary": "The Auto-Rocket Cannon is a Cyborg backpack launcher that fires rockets from the pack slot.",
+      "notes": [
+        "The pack image fires StingerMissile using your Rocket ammo, with a 5 s reload.",
+        "On activation it schedules a 'use backpack' command 0.5 s later. Whether that makes it fire repeatedly on its own was not determined from the scripts.",
+        "Cyborg only."
+      ],
+      "source": "item.cs SMRPackImage, SMRPackImage::onActivate; baseProjData.cs StingerMissile"
+    },
+    "Laptop": {
+      "summary": "The Command Laptop lets you control turrets from anywhere and reprogram turrets by touching them.",
+      "notes": [
+        "While worn, you can take control of turrets without a Command Station.",
+        "Touching a deployable Mortar, Plasma, Missile, Vulcan or Rail turret, or a fixed Mortar Turret, switches it to your team and puts you in control.",
+        "After you leave a controlled turret there is a 14 s recharge before you can reprogram another ('Turret is recharging').",
+        "Used by the Spy and Engineer."
+      ],
+      "source": "item.cs Laptop::onUse, Laptop::onMount; turret.cs Turret::onCollision, Turret::onDismount, LaptopDrain; player.cs Client::takeControl"
+    },
+    "SuicidePack": {
+      "summary": "The Burster's Suicide DetPack drops a huge timed bomb, and enemy snipers can set it off on your back.",
+      "notes": [
+        "Deploying it drops a Suicidebomb2 mine that explodes after 20 s: 4.0 Shrapnel damage in a 70 m radius.",
+        "Any Engineer who touches the dropped bomb, on either team, disarms it 80% of the time and sets it off the other 20%.",
+        "While you wear it, an enemy Laser or Sniper hit to your mid-body sets it off on your back after 0.5 s. That blast is random: 30% a 50 m, 4.0-damage blast; 40% a 20 m, 1.0-damage mortar blast; 30% a 50 m, 0.5-damage flash blast.",
+        "Cannot be deployed from inside a station. Burster only."
+      ],
+      "source": "item.cs SuicidePack::onUse, SuicidePack::deployShape; Mine.cs Suicidebomb2, Suicidebomb::onAdd; player.cs Player::onDamage"
+    },
+    "AmmoPack": {
+      "summary": "Raises how much ammo you can carry, as in base Tribes, and fills the extra capacity when bought.",
+      "notes": [
+        "Extra capacity per type ($AmmoPackMax): Bullet 150, Plasma 30, Disc 15, Grenade ammo 15, Grenades 5, Mortar 10, Rocket 10, Sniper 15, Rail 5, Silencer 25, Vulcan 100, Beacons 3, Tranq 20, Mines 5.",
+        "Dropping the pack takes the ammo above your normal limits with it, and whoever picks it up gets that ammo."
+      ],
+      "source": "item.cs fillAmmoPack, AmmoPack::onDrop, AmmoPack::onCollision, checkPacksAmmo, Item::giveItem"
+    },
+    "DeployableInvPack": {
+      "summary": "Deploys a remote Inventory Station.",
+      "notes": [
+        "Spawns DeployableInvStation on flat terrain or a building.",
+        "Mod rule: cannot be placed within an 8 m box of any other station ('Too close to other stations').",
+        "Team limit 15 (base 5). Engineer only."
+      ],
+      "source": "item.cs DeployableInvPack::deployShape, checkStationArea; $TeamItemMax"
+    },
+    "DeployableAmmoPack": {
+      "summary": "Deploys a remote Ammo Station.",
+      "notes": [
+        "Spawns DeployableAmmoStation on flat terrain or a building. Cannot be within 8 m of another station.",
+        "Team limit 10 (base 7)."
+      ],
+      "source": "item.cs DeployableAmmoPack::deployShape, checkStationArea; $TeamItemMax"
+    },
+    "DeployableComPack": {
+      "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+      "notes": [
+        "Spawns DeployableComStation on flat terrain or a building. Cannot be within 8 m of another station.",
+        "Standing in it gives Command Access (turret control) for as long as you stay.",
+        "Team limit 5. Used by the Engineer and Cyborg."
+      ],
+      "source": "item.cs DeployableComPack::deployShape; station.cs DeployableComStation::OnActivate; $TeamItemMax"
+    },
+    "MotionSensorPack": {
+      "summary": "Deploys a Motion Sensor, as in base Tribes.",
+      "notes": [
+        "Spawns DeployableMotionSensor. It can go on floors, walls or ceilings and is oriented to the surface.",
+        "Team limit 15."
+      ],
+      "source": "item.cs MotionSensorPack::deployShape; $TeamItemMax"
+    },
+    "PulseSensorPack": {
+      "summary": "Deploys a Pulse Sensor, as in base Tribes.",
+      "notes": [
+        "Spawns DeployablePulseSensor on flat terrain or a building.",
+        "Team limit 15, shared with the Scout's beacon pulse sensors."
+      ],
+      "source": "item.cs PulseSensorPack::onDeploy, Item::deployShape, ScoutSensor"
+    },
+    "DeployableSensorJammerPack": {
+      "summary": "Deploys a stationary Sensor Jammer.",
+      "notes": [
+        "Spawns DeployableSensorJammer on flat terrain or a building.",
+        "Team limit 10 (base 8), shared with the Sniper's beacon jammers."
+      ],
+      "source": "item.cs DeployableSensorJammerPack::onDeploy, Item::deployShape, SniperJammer; $TeamItemMax"
+    },
+    "CameraPack": {
+      "summary": "Deploys a remote Camera you can view through from a command screen.",
+      "notes": [
+        "Spawns CameraTurret on any terrain or building surface, oriented to it.",
+        "Cameras can be controlled without a Command Station.",
+        "Team limit 15, shared with the Engineer's beacon cameras."
+      ],
+      "source": "item.cs CameraPack::deployShape, EngCamera; player.cs Client::takeControl"
+    },
+    "TurretPack": {
+      "summary": "Deploys a remote Ion Turret that fires electrical bolts.",
+      "notes": [
+        "Spawns DeployableTurret firing IonBolt (Electricity damage, ignores shields), range 55.",
+        "Placement: flat terrain or building, at most 2 Ion turrets in a 50x50x10 box and none within a 10x10x10 box.",
+        "Unlike base, the deploying player is credited with the turret's kills.",
+        "Team limit 5 (base 10)."
+      ],
+      "source": "item.cs TurretPack::deployShape; turret.cs DeployableTurret; $TeamItemMax"
+    },
+    "LaserPack": {
+      "summary": "Deploys a Laser Turret that can be mounted on floors, walls or ceilings.",
+      "notes": [
+        "Spawns DeployableLaser firing SniperLaser (Laser damage), range 125, reload 8 s.",
+        "At most 2 laser turrets in a 50x50x10 box.",
+        "Team limit 5. Used by the Spy and Engineer."
+      ],
+      "source": "item.cs LaserPack::deployShape; turret.cs DeployableLaser"
+    },
+    "ShockPack": {
+      "summary": "Deploys a Shock Turret that short-circuits enemies.",
+      "notes": [
+        "Spawns DeployableShock firing ShockShell (Flash damage, 30 m blast radius), range 30.",
+        "Flash damage on an enemy zeroes their energy, stops recharge and unmounts their weapon for 14 s.",
+        "Can mount on any surface orientation. At most 2 in a 50x50x10 box.",
+        "Team limit 4. Engineer only."
+      ],
+      "source": "item.cs ShockPack::deployShape; turret.cs DeployableShock; player.cs Shock_Damage, checkPlayerShock"
+    },
+    "TargetPack": {
+      "summary": "Deploys a remote Mortar Turret that only fires under manual control.",
+      "notes": [
+        "Spawns DeployableMortar firing MortarTurretShell (30 m Mortar blast). It has no auto-sensor (range 0), and the game tells you so when you mount the pack.",
+        "Same flat-surface and spacing rules as the Ion Turret.",
+        "Team limit 2. Engineer only."
+      ],
+      "source": "item.cs TargetPack::onMount, TargetPack::deployShape; turret.cs DeployableMortar"
+    },
+    "LaserTurret": {
+      "summary": "Despite the datablock name, this deploys a Plasma Turret.",
+      "notes": [
+        "Spawns DeployablePlasma firing FusionBolt, range 100.",
+        "Needs flat ground with a clear space above it and fewer than 2 players nearby (checkFlierArea), and no other Plasma turret within 10 m.",
+        "Team limit 4. Used by the Engineer and Cyborg."
+      ],
+      "source": "item.cs LaserTurret::deployShape, checkFlierArea; turret.cs DeployablePlasma"
+    },
+    "VulcanTurret": {
+      "summary": "Deploys a Vulcan Turret that a teammate fires by hand.",
+      "notes": [
+        "Spawns DeployableVulcan firing TurretBullet at very short intervals. Range 0, so it has no auto-sensor and only fires when manned.",
+        "Any teammate except a Cyborg can walk into it to take manual control and is moved onto the turret.",
+        "Team limit 3. Engineer only."
+      ],
+      "source": "item.cs VulcanTurret::onMount, VulcanTurret::deployShape; turret.cs DeployableVulcan, Turret::onCollision"
+    },
+    "RailTurret": {
+      "summary": "Deploys a manually fired Rail Turret.",
+      "notes": [
+        "Spawns DeployableRail firing railLaser (Sniper damage), reload 4 s. Range 0, so it only fires when manned.",
+        "Teammates other than Cyborgs take control by walking into it.",
+        "Its spacing check counts Vulcan turrets rather than Rail turrets, so the two types limit each other.",
+        "Team limit 3. Engineer only."
+      ],
+      "source": "item.cs RailTurret::onMount, RailTurret::deployShape; turret.cs DeployableRail, Turret::onCollision"
+    },
+    "RocketPack": {
+      "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+      "notes": [
+        "Spawns DeployableRocket firing TurretMissile (seeking), range 175.",
+        "Only engages targets with heat factor 0.5 or more, such as jetting players or vehicles.",
+        "Its spacing checks count Sentry, Ion and Missile turrets together.",
+        "Team limit 3. Used by the Burster and Engineer."
+      ],
+      "source": "item.cs RocketPack::deployShape; turret.cs DeployableRocket::verifyTarget"
+    },
+    "ForceFieldPack": {
+      "summary": "Deploys a small 5x5 force field wall.",
+      "notes": [
+        "Spawns DeployableForceField facing the way you are looking. It only needs a flat surface: there is no terrain/building or clear-space check.",
+        "Team limit 10. Every class can carry one."
+      ],
+      "source": "item.cs ForceFieldPack::deployShape; staticshapeR.cs DeployableForceField"
+    },
+    "LargeForceFieldPack": {
+      "summary": "Deploys a full-size force field wall.",
+      "notes": [
+        "Spawns LargeForceField with the same placement rules as the small field.",
+        "Team limit 4. Used by the Engineer and Alien."
+      ],
+      "source": "item.cs LargeForceFieldPack::deployShape; staticshapeR.cs LargeForceField"
+    },
+    "TripwirePack": {
+      "summary": "Despite the datablock name, this deploys a solid Blast Wall.",
+      "notes": [
+        "Spawns BlastWall (door-panel shape) on flat terrain only, not on buildings.",
+        "Team limit 20. Engineer only."
+      ],
+      "source": "item.cs TripwirePack::deployShape; staticshapeR.cs BlastWall"
+    },
+    "HoloPack": {
+      "summary": "Deploys a stationary hologram of a player as a decoy.",
+      "notes": [
+        "Picks a random model: light armor 30%, medium armor 40%, heavy armor 30%.",
+        "Counts against the shared 'hologram' team limit of 15, not its own item key.",
+        "Every class can carry one."
+      ],
+      "source": "item.cs HoloPack::deployShape; staticshapeR.cs Hologram1, Hologram2, Hologram3"
+    },
+    "TreePack": {
+      "summary": "Deploys a Mechanical Tree for cover or camouflage.",
+      "notes": [
+        "Spawns DeployableTree (40%) or DeployableTree2 (60%) on flat terrain only.",
+        "Team limit 25. Used by the Sniper and Engineer."
+      ],
+      "source": "item.cs TreePack::deployShape; staticshapeR.cs DeployableTree, DeployableTree2"
+    },
+    "SpringPack": {
+      "summary": "Deploys a Springboard that launches anyone who touches it.",
+      "notes": [
+        "Touching it applies an impulse in the direction you face. Normal launch: 200 forward and 600 up ('SPROING!').",
+        "About 1 in 7 launches is a big one: 400 forward and 1700 up.",
+        "1 in 30 is a 'moon' launch: 4000 forward and 1700 up, announced to everyone.",
+        "Launches anyone, including enemies. Team limit 15."
+      ],
+      "source": "item.cs SpringPack::deployShape; staticshapeR.cs DeployableSpring::onCollision"
+    },
+    "PlatformPack": {
+      "summary": "Deploys a thin 6x6 platform you can stand on.",
+      "notes": [
+        "Spawns DeployablePlatform wherever your 3 m line of sight hits. There is no flat-surface or clear-space check.",
+        "Team limit 25. Engineer only."
+      ],
+      "source": "item.cs PlatformPack::deployShape; staticshapeR.cs DeployablePlatform"
+    },
+    "TeleportPack": {
+      "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+      "notes": [
+        "Team limit 2, so each team gets one linked pair. The pad sits 1 m above the surface with an electrical beam.",
+        "After a teleport, both pads recharge for 5 s.",
+        "Each teleport has a 1-in-45 chance of 0.25 crush damage ('phased your molecular structure wrong').",
+        "Cyborgs cannot teleport. Spies can use enemy pads.",
+        "Destroying one pad does 20 debris damage to the team's other pad.",
+        "Engineer only."
+      ],
+      "source": "item.cs TeleportPack::deployShape; staticshapeR.cs DeployableTeleport::onCollision, DeployableTeleport::onDestroyed"
+    },
+    "MechPack": {
+      "summary": "The Interceptor Pack deploys a ready-to-fly Interceptor jet.",
+      "notes": [
+        "Spawns the Jet flier on flat open terrain (checkFlierArea).",
+        "Counts against the JetVehicle team limit of 5, shared with station-bought Interceptors.",
+        "Scout only, so the deployer can pilot it."
+      ],
+      "source": "item.cs MechPack::deployShape; vehicle.cs Jet"
+    },
+    "DetPack": {
+      "summary": "Despite the datablock name, this is the StealthHPC Pack: it deploys a StealthHPC transport, not an explosive.",
+      "notes": [
+        "Spawns the HAPC flier on flat open terrain.",
+        "Counts against the HAPCVehicle team limit of 1.",
+        "Engineer only. Engineers cannot pilot, so a Scout, Sniper or Spy has to fly it."
+      ],
+      "source": "item.cs DetPack::deployShape; vehicle.cs HAPC, Vehicle::onCollision"
+    },
+    "RepairKit": {
+      "summary": "Single-use self repair that also cures poison.",
+      "notes": [
+        "Repairs 0.2 damage (same as base) and clears poison.",
+        "Cannot be used inside a station or while piloting."
+      ],
+      "source": "item.cs RepairKit::onUse"
+    },
+    "MineAmmo": {
+      "summary": "Thrown anti-personnel mine that only goes off for enemies.",
+      "notes": [
+        "Throws AntipersonelMine and sets it to your team. Unlike base Tribes, it only triggers when an enemy, enemy vehicle or moving object touches it.",
+        "Shared team limit of 35 live mines.",
+        "Mines dropped on top of each other set each other off.",
+        "The Burster can carry 6 and the Cyborg 5. Other classes carry 3."
+      ],
+      "source": "item.cs MineAmmo::onUse; Mine.cs AntipersonelMine::onCollision, AntipersonelMine::deployCheck"
+    },
+    "Grenade": {
+      "summary": "Thrown explosive whose effect depends on your class.",
+      "notes": [
+        "Scout: Firebomb (Electricity damage, 30 m radius, 650 kickback).",
+        "Spy: Plastique, 10 s fuse, 2.0 Mortar damage. Engineers can disarm it.",
+        "Sniper: Hologram Mine, a light-armor decoy that explodes on enemy contact (team limit 15).",
+        "Mercenary: Handgrenade, 2 s fuse, Shrapnel damage.",
+        "Burster: Concussion, Plasma damage that can ignite enemies.",
+        "Engineer: Shock grenade, Flash damage that short-circuits enemies for 14 s.",
+        "Alien: Tranq grenade, Energy damage that poisons enemies.",
+        "Cyborg: Mortarbomb, 1.0 Mortar damage in a 20 m radius.",
+        "Fused grenades go off 2 s after being thrown. You can throw one every 0.5 s."
+      ],
+      "source": "item.cs Grenade::onUse; Mine.cs Firebomb, Nukebomb, HoloMine, Handgrenade, Concussion, Shockgrenade, Tranqgrenade, Mortarbomb"
+    },
+    "Beacon": {
+      "summary": "Class ability item: each class's beacon does something different instead of placing a base-style target beacon.",
+      "notes": [
+        "Scout: deploys a Pulse Sensor.",
+        "Spy: deploys a Satchel Charge that you detonate from the Commander screen.",
+        "Sniper: deploys a Sensor Jammer.",
+        "Mercenary: throws a Speed Booster (zero-damage blast with 300 kickback).",
+        "Burster: Haul-Ass stim, top speed 20 for about 10 s.",
+        "Engineer: deploys a Camera.",
+        "Alien: cloak for about 30 s.",
+        "Cyborg: Emergency Force Shields for about 20 s (shield strength 0.006).",
+        "The deployed versions use the team limits of the matching packs. Cannot be used from inside a station."
+      ],
+      "source": "item.cs Beacon::onUse, ScoutSensor, DeploySatchel, SniperJammer, EngCamera, Renegades_startStim, Renegades_startCloak, Renegades_startShield; Mine.cs Booster"
+    },
+    "Boost": {
+      "summary": "Listed in the shop as 'Bot'. Using it calls a training-mission AI setup routine.",
+      "notes": [
+        "Boost::onUse only calls Training::setupAI(client) and does not use up the item.",
+        "Training::setupAI exists only in base Training_AI.cs, where it spawns guard bots from a mission's AI group. No Renegades script loads that file.",
+        "Behavior not determined from scripts; in normal multiplayer it most likely does nothing."
+      ],
+      "source": "item.cs Boost::onUse; base Training_AI.cs Training::setupAI"
+    },
+    "RepairPatch": {
+      "summary": "Health pickup found in the world that heals and cures poison on contact.",
+      "notes": [
+        "Walking over it while damaged repairs 0.125 and clears poison, then the patch respawns.",
+        "No class can buy it, because no armor has an $ItemMax entry for it. If carried and used, it repairs 0.1."
+      ],
+      "source": "item.cs RepairPatch::onCollision, RepairPatch::onUse; ArmorData.cs $ItemMax"
+    },
+    "ScoutVehicle": {
+      "summary": "The ScoutJet is a fast single-seat flier armed with rockets.",
+      "notes": [
+        "Flier datablock Scout fires the Nuke projectile (Shrapnel damage, 20.5 m blast, 450 kickback) once per second.",
+        "Single seat, no passengers. Only a Scout, Sniper or Spy can pilot it.",
+        "Team limit 3."
+      ],
+      "source": "vehicle.cs Scout, Vehicle::onCollision; baseProjData.cs Nuke; station.cs VehicleStation::checkBuying"
+    },
+    "WraithVehicle": {
+      "summary": "Stealth flier that turns invisible while piloted.",
+      "notes": [
+        "It fades out when a pilot boards and fades back in when they get out. It is not visible to sensors and its driver is hidden.",
+        "No projectile is defined, so it has no weapon.",
+        "Single seat. Only a Scout, Sniper or Spy can pilot it. Team limit 2."
+      ],
+      "source": "vehicle.cs Wraith, Vehicle::onCollision, Vehicle::dismount"
+    },
+    "JetVehicle": {
+      "summary": "The Interceptor is the fastest flier, with a rapid-fire cannon.",
+      "notes": [
+        "Fires VulcanBullet2 every 0.025 s.",
+        "Single seat. Only a Scout, Sniper or Spy can pilot it.",
+        "Team limit 5, shared with Interceptors deployed from the Interceptor Pack."
+      ],
+      "source": "vehicle.cs Jet, Vehicle::onCollision; item.cs MechPack::deployShape"
+    },
+    "LAPCVehicle": {
+      "summary": "The BomberLPC is a light transport that drops mortar shells.",
+      "notes": [
+        "Fires MortarShell with a 4 s reload.",
+        "Carries passengers of any class. The pilot must be a Scout, Sniper or Spy.",
+        "Team limit 2."
+      ],
+      "source": "vehicle.cs LAPC, Vehicle::onCollision, Vehicle::findEmptySeat"
+    },
+    "HAPCVehicle": {
+      "summary": "The StealthHPC is a heavy transport that sensors cannot see.",
+      "notes": [
+        "Not visible to sensors. No projectile is defined, so it has no weapon.",
+        "Carries passengers of any class. The pilot must be a Scout, Sniper or Spy.",
+        "Team limit 1, shared with the Engineer's StealthHPC Pack."
+      ],
+      "source": "vehicle.cs HAPC, Vehicle::onCollision; item.cs DetPack::deployShape"
+    }
+  }
+}

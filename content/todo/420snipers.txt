@@ -1,0 +1,13 @@
+# 420snipers vs base (12 items)
+renamed+statsLightArmor                   Sniper
+renamed+stats+scriptsBlaster                      Ice Laser
+renamed+statsBulletAmmo                   Flesh Eaters
+renamed+stats+scriptsChaingun                     Flesh Eater
+renamed+statsPlasmaAmmo                   Pred Mags
+renamed+stats+scriptsPlasmaGun                    Predetor
+renamed+statsGrenadeAmmo                  Sniper Rounds
+renamed+stats+scriptsGrenadeLauncher              Sniper Rifle
+renamed+stats+scriptsMortar                       420 Rifle
+renamed+statsDiscLauncher                 Heavy Metal
+renamed+stats+scriptsLaserRifle                   Bloody Tears
+stats      EnergyRifle                  ELF Gun

@@ -1,0 +1,153 @@
+# hv-mechwarrior vs base (152 items)
+new        LightMech                    1---------Light Mechs---------
+new        WaspArmor                    Wasp
+new        CommandoArmor                Commando
+new        DeathMatchArmor              Panther
+new        PantherArmor                 Panther
+new        MediumMech                   1-------Medium Mechs-------
+new        CenturionArmor               Centurion
+new        HunchbackArmor               Hunchback
+new        HeavyMech                    1--------Heavy Mechs--------
+new        HellBringerArmor             HellBringer
+new        ArcherArmor                  Archer
+new        WarhammerArmor               Warhammer
+new        AssaultMech                  1-------Assault Mechs-------
+new        ChargerArmor                 Charger
+new        BattleMasterArmor            BattleMaster
+new        CyclopsArmor                 Cyclops
+new        AtlasArmor                   Atlas
+new        PHVehicle                    Phoenix Hawk
+new        StingrayVehicle              Stingray
+new        CorsairVehicle               Corsair
+new        RieverVehicle                Riever
+new        LeopardVehicle               Leopard Class
+new        UnionVehicle                 Union Class
+new        MachineGunAmmo               Machine Gun Ammo
+new        MachineGun                   Heavy Machine Gun
+new        MachineGun2                  Machine Gun
+new        Ultra5Ammo                   Ultra-AC5 Shells
+new        Ultra5                       Ultra-AC5
+new        Ultra10Ammo                  Ultra-AC10 Shells
+new        Ultra10                      Ultra-AC10
+new        Ultra20Ammo                  Ultra-AC20 Shells
+new        Ultra20                      Ultra-AC20
+new        AC5Ammo                      LBX-AC5 Clip
+new        AC5                          LBX-AC5
+new        AC10Ammo                     LBX-AC10 Clip
+new        AC10                         LBX-AC10
+new        AC20Ammo                     LBX-AC20 Clip
+new        AC20                         LBX-AC20
+new        HVAC10Ammo                   HV-AC10 Clip
+new        HVAC10                       HV-AC10
+new        HVACGun                      HV-AC10
+new        SniperGunAmmo                Light Gauss Rifle Slug
+new        SniperCannon                 Light Gauss Rifle
+new        GaussGunAmmo                 Gauss Rifle Slug
+new        GaussRifle                   Gauss Rifle
+new        GJAmmo                       Gyrojet Shell
+new        GJ                           Gyrojet Cannon
+new        ThumperGunAmmo               Thumper Shell
+new        ThumperGun                   Thumper
+new        ThumperGun2                  Thumper
+new        STRAmmo                      Streak Ammo
+new        STR2                         Streak SRM-2
+new        STR4                         Streak SRM-4
+new        STR6                         Streak SRM-6
+new        LRMAmmo                      LRM Ammo
+new        LRM5                         LRM-5 Missile Rack
+new        LRM10                        LRM-10 Missile Rack
+new        LRM20                        LRM-15 Missile Rack
+new        Thunderbolt5Ammo             Lt. Thunderbolt Missile
+new        Thunderbolt5                 Light Thunderbolt
+new        ThunderboltAmmo              Thunderbolt Missile
+new        Thunderbolt                  Thunderbolt
+new        ArrowIVAmmo                  ArrowIV Missile
+new        ArrowIV                      ArrowIV
+new        ThunderLRMAmmo               Thunder LRM Rocket
+new        ThunderLRM                   Thunder LRM
+new        ThunderLRMMissile            Thunder LRM
+new        MedLas                       Medium ER Laser
+new        LrgLas                       Large ER Laser
+new        MedPLas                      Medium Pulse Laser
+new        LrgPLas                      Large Pulse Laser
+new        PPC                          PPC
+stats+scriptsTargetingLaser               Targeting Laser
+new        RangeFinder                  Range Finder
+new        TAG                          TAG
+new        ScoutDroneAmmo               Scout Drone
+new        ScoutDrone                   Scout Drone
+new        NARC                         NARC
+new        Flamer                       Heavy Flamer
+new        SmokeAmmo                    Smoke Cannister
+new        SmokeLauncher                Smoke Launcher
+new        LMechMortarAmmo              Light Mortar Shell
+new        LMechMortar                  Light Mech Mortar
+new        LMechMortar2                 Light Mech Mortar
+new        HMechMortarAmmo              Heavy Mortar Shell
+new        HMechMortar                  Heavy Mech Mortar
+new        HMechMortar2                 Heavy Mech Mortar
+new        DeployableMechBay            Mobile Mech Bay
+new        DeployableMunitionsPack      Mobile Munitions Bay
+new        DoubleHeatSink               Double Heat Sinks
+new        MASCPack                     MASC Overdrive
+new        JumpBooster                  Jump Booster
+renamed+stats+scriptsRepairPack                   Welding Torch
+new        FerroFibrousArmor            Ferro-Fibrous Armor
+new        MunitionsPack                Munitions Pod
+new        ECMPod                       ECM Pod
+new        FCCPod                       Fire-Control Computer
+new        FCC                          FCC
+new        RadarPack                    Portable Radar Dish
+new        BeagleActiveProbe            Beagle Active Probe
+new        DeployableECMPod             Portable ECM Pod
+stats+scriptsCameraPack                   Camera
+new        MedLasPack                   Medium Laser Turret
+new        MedPLasPack                  Large Laser Turret
+new        LRM5Pack                     ArrowIV Turret
+new        STR2Pack                     Thumper AAA
+new        FlamerPack                   Flamer Turret
+new        Ultra20Pack                  Ultra-AC20 Turret
+new        PPCPack                      PPC Turret
+new        LongTomPack                  Long Tom Artillery
+stats      RepairKit                    Repair Kit
+new        GrenadeEQ                    1----------Grenades------------
+new        NukeGrenade                  Pentaglyceride Grenade
+new        InfernoGrenade               Inferno Grenade
+new        SmokeHandGrenade             Smoke Grenade
+stats+scriptsGrenade                      Grenade
+new        MineEQ                       1-------------Mines--------------
+new        VibroMine                    Vibro Mine
+new        InfernoMine                  Inferno Mine
+stats+scriptsMineAmmo                     Mine
+new        a                            a
+new        b                            b
+new        c                            c
+new        d                            d
+new        e                            e
+new        f                            f
+stats+scriptsBeacon                       Beacon
+stats      RepairPatch                  Repair Patch
+new        STRPackL                     Med Las
+new        STRPackP                     Med Las
+new        XgunA                        Med Las
+new        XgunB                        Med Las
+new        DRgunA                       Med Las
+new        DRgunB                       Med Las
+new        MLPackC2                     Med Las
+new        MLPackC                      Med Las
+new        UltraPackM                   Ultra-AC20
+new        MLPackHB                     Med Las
+new        GaussPackHB                  GaussRifle
+new        LRMPackA                     LRM-15
+new        LRMPackA2                    LRM-15
+new        MLPackA                      Med Las
+new        LRMPackW                     LRM-15
+new        LRMPackW2                    radar
+new        LRMPackB                     LRM-15
+new        MLPackB                      Med Las
+new        MLPackB2                     Med Las
+new        RadarPackH                   Radar
+new        RadarPackH2                  Radar
+new        MLPackH                      LRM-15
+new        LRMPackH                     LRM-15
+new        GaussPackH                   GaussRifle

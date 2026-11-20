@@ -1,0 +1,70 @@
+{
+ "mod": {
+  "overview": "Fallout Alpha is an experimental combat and bot-command modification created by Floater in early 2005 that transforms Starsiege Tribes into an RTS-hybrid minion battler. Players spawn by default as Machine Control Armor commanders armed with portal guns that summon, deploy, and command squads of AI infantry and mortar artillery in real time. The pace of combat is dramatically heightened compared to base Tribes through rapid-fire superblasters, cascading plasma lava, shockwave-radiating railguns, and pair-deployed airborne lightning zapper turrets. Standard multiplayer objective modes like Capture the Flag and Deathmatch become frantic tactical battles centered around directing bot strike teams with quick-chat voice commands while defending against rolling plasma flows and flying commanders.",
+  "notes": [
+   "Every player automatically spawns in Bot Armor (Machine Control Armor) equipped with the Ex Machina portal gun, Ex Machina Beta artillery caller, Plasma Gun, Targeting Laser, Repair Kit, and a Zapper Pack. Bot Armor features near-zero jet energy drain and intense thrust, allowing commanders to fly indefinitely above the battlefield while managing their squads.",
+   "The Ex Machina weapon consumes Bot Ammo to summon up to 25 automated minion bots per commander in random light, medium, and heavy armor variants. The Ex Machina Beta consumes 100 power cells to summon heavy mortar artillery bots that support frontal assault squads.",
+   "Minions respond dynamically to Tribes quick-chat voice triggers detected by comchat scripts. Shouting Attack (V V A) orders infantry bots to waypoint-assault whatever position the player targets within 500 units, while Cover me (V V V) orders them to follow closely; shouting Fire on my target (V T F) orders artillery bots to bombard positions designated by the player's Targeting Laser up to 350 units away, while Move out (V V M) puts them back in follow formation.",
+   "In addition to Bot Armor (carries 3 weapons and 30 bot ammo), players can equip Recon Armor (near double normal light speed at 21 forward speed, but taking 1.6x to 1.9x incoming damage), Anti-Aircraft Armor (carrying up to 6 weapons for aerial suppression), or Floater Armor (a heavy chassis with 4,400 max energy, complete immunity to landing and impact damage, and 5 weapon slots).",
+   "The armory introduces extreme offensive weaponry including the Lava Gun (sprays ten ultra-heavy liquid plasma projectiles per burst that cascade down terrain like flowing magma), the Radiation Gun (rapid-fires bouncing shockwave-generating grenades), the Incendia Amnis Superblaster (an instant-cycling automatic proton hose), and the Andromeda Railgun (fires devastating high-velocity positron shells trailing massive shockwaves).",
+   "The Zapper Pack deploys two floating lightning turrets suspended 24 to 45 meters up in the air that zap nearby enemies with 120-meter electrical arcs that strip 150 energy per second. Team deployables are governed by team item limits including 10 Zapper Packs, 10 Remote Turrets, 7 Deployable Ammo Stations, 5 Deployable Inventory Stations, and 35 Mines.",
+   "When an AI bot is destroyed, the server cleans up the entity and reduces the owner's active minion count, awarding points to the commander if an enemy destroyed the unit while penalizing points for friendly-fire bot casualties."
+  ]
+ },
+ "items": {
+  "BotGun": {
+   "summary": "Ex Machina minion portal launcher.",
+   "notes": [
+    "Fires a projectile that summons an AI soldier in light, medium, or heavy armor.",
+    "Uses Bot Ammo with a maximum cap of 25 active minions per player.",
+    "Minions automatically engage targets and can be commanded using voice menus."
+   ],
+   "source": "item.cs"
+  },
+  "BotGunX": {
+   "summary": "Ex Machina Beta mortar artillery caller.",
+   "notes": [
+    "Consumes 100 Power Cells per shot to deploy a heavy armor artillery minion.",
+    "Artillery bots carry a mortar with 10,000 rounds of ammunition.",
+    "Directs deployed artillery to bombard whatever point the owner paints with the Targeting Laser when triggered by voice command."
+   ],
+   "source": "item.cs"
+  },
+  "LavaGun": {
+   "summary": "Liquid plasma stream weapon.",
+   "notes": [
+    "Fires a cluster of ten heavy plasma grenade projectiles using Lava Ammo.",
+    "Projectiles have an extreme mass of 10,000 causing them to cascade downhill and create burning moats.",
+    "Extremely dangerous to fire uphill as rolling plasma will immolate the shooter."
+   ],
+   "source": "item.cs"
+  },
+  "ZapperPack": {
+   "summary": "Airborne lightning turret deployable pack.",
+   "notes": [
+    "Deploys two floating turrets suspended 24 to 45 meters in the air above the target location.",
+    "Turrets project 120-meter lightning arcs dealing electrical damage.",
+    "Drains 150 energy per second from affected targets and has a team limit of 10 packs."
+   ],
+   "source": "item.cs"
+  },
+  "FloaterArmor": {
+   "summary": "Ultra-heavy tank armor authored by Floater.",
+   "notes": [
+    "Boasts a massive energy pool of 4,400 with a custom fusion shield visual.",
+    "Completely immune to fall damage and impact damage with zero damage scaling.",
+    "Carries up to 5 weapons, 20 mines, 30 grenades, and 15 repair kits."
+   ],
+   "source": "newarmors.cs"
+  },
+  "SniperRifle": {
+   "summary": "Andromeda Railgun high-velocity positron weapon.",
+   "notes": [
+    "Fires compressed positron plasma shells using Andromeda Bolts.",
+    "Deals 2.8 explosive blast damage across a 5-unit radius on impact.",
+    "Projectiles travel at extreme velocity and leave a trail of massive expanding shockwaves."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

@@ -1,0 +1,72 @@
+{
+ "mod": {
+  "overview": "Destroyer Mod is an over-the-top, heavily overhauled late-2002 combat and fortification mod for Tribes created by {SOF} Snake eye. The mod completely replaces the stock light, medium, and heavy armor triad with six specialized combat classes ranging from agile cloaked skirmishers and spellcasting psionics to armored mechs and fortified engineers. Matches play out at a much more lethal and rapid pace than base Tribes, featuring active abilities bound to the beacon key, class-tailored custom grenades, elemental weapons like flamethrowers and liquid nitrogen sprayers, and complex base building using automated turrets and reactive force field doors. It runs across standard objective game types while introducing unique sandbox twists such as armed aerial fighters and interceptors, chat-driven gambling for super gear, and administrative boss armor loadouts.",
+  "notes": [
+   "Classes and Armor Roles: Players spawn as the medium Warrior class equipped with a shotgun, plasma gun, and disc launcher, but can re-equip at an inventory station into any of six specialized classes: Charger (light scout with extreme 18 forward speed), Psycic (light psionic spellcaster restricted to energy powers), Warrior (balanced medium frontline brawler), Builder (medium combat engineer), Avenger (heavy walking fortress with 7 weapon slots and high health), and Mech (heavy assault mech with 6 weapon slots and 11 forward speed). Super armor is an unbuyable secret seventh class carrying up to 30 weapons with 75 percent damage reduction.",
+   "Class Active Abilities and Custom Grenades: Pressing the beacon key activates unique class abilities rather than deploying a target marker. Chargers and Psycics ingest an invisibility pill granting 20 seconds of cloaking and sensor suppression; Warriors fire directional retro jets giving a 300 impulse speed burst on a 2.5 second cooldown; Avengers and Mechs deploy emergency force shields for 20 seconds; and Builders immediately erect an inventory station on flat terrain. Hand grenades also adapt to the equipped class, producing Charger EMP grenades, Psycic plasma psy-grenades, Builder incendiary flame grenades, Avenger heavy mortar bombs, and Mech explosive cluster nades.",
+   "Psycic Magic and Power Amplification: The Psycic armor class cannot equip standard ballistic or explosive armaments, relying entirely on dedicated energy powers from the powers menu including Fire Ball, Blast Cannon, Death Cannon, Energy Chaingun, Energy Disc, Laser, and Lightning. Carrying the Psycic-exclusive Power Enhancement Pack alters these attacks, transforming regular spells into devastating supercharged projectiles.",
+   "Fortifications and Base Defense: The Builder class possesses an unmatched construction kit that includes 20-health Blast Walls, opening and static Plasma Floors, and five deployable turret variants covering chaingun, flame, ion, laser, and plasma weapons. Builders also wield specialized maintenance tools including the multi-beam Builder Repair Gun, the 2000-meter Long Range Repair Rifle, and the sniper-style Railgun.",
+   "Exotic Weaponry and Pack Requirements: Combat introduces unique gear such as the double-barreled Shotgun, arm-mounted Double Chaingun for Mech armor, and nuclear-powered Fission and Fusion launchers. Certain specialized weapons enforce strict backpack requirements: the Chemical Sprayer fires freezing liquid nitrogen and cannot function without wearing the Nitrogen Tank pack, while the Flame Thrower requires wearing the Fuel Tank pack and is automatically sold if the fuel tank is unequipped.",
+   "Vehicles and Aerial Warfare: Air vehicles are expanded beyond simple transport into armed combat platforms purchased from vehicle stations. Alongside the rocket-armed Scout flier, teams can deploy the Fighter flier, which reaches speeds of 60 while strafing ground targets with a rapid-fire chaingun, and the Interceptor flier, which cruises at 50 speed to drop heavy rocket-bomb payloads.",
+   "Inventory Restrictions and Explosive Gear: Multiple game-breaking weapons are barred from inventory station purchase ($InvList=0), specifically the Super Gun and Super Chaingun. In addition, Small and Large Force Field Doors can only be obtained at primary base inventory stations and are banned from deployable remote inventory stations ($RemoteInvList=0). Players of most classes can also equip the Suicide Pack, an explosive backpack that detonates in a massive 50-meter radius blast dealing 4.0 raw damage.",
+   "Chat Gambling and Author Easter Eggs: Typing Lets Gamble into global chat initiates an active gamble routine: rolling five or lower immediately kills the player, rolling seven through nine awards 9000 health repair and energy recharge rates, and rolling exactly six awards secret Super Armor and the Super Gun. Attempting to insult the creator by typing Snake eye Sucks or Kuroi Sucks in chat triggers an instant retribution kill.",
+   "Additional station and team bans: Disabled at Inventory Stations ($InvList = 0): SChaingun (WeaponSChaingun.cs), SuperGun (WeaponSuperGun.cs); Blocked at Remote Stations ($RemoteInvList = 0): ForceFieldDoorPack (DeployableForceFields.cs), LargeForceFieldDoorPack (DeployableForceFields.cs)."
+  ]
+ },
+ "items": {
+  "SuperGun": {
+   "summary": "Mortar-shaped super weapon won via the chat gambling mechanic or granted by super administrators.",
+   "notes": [
+    "Banned completely from station inventories ($InvList=0, $RemoteInvList=0).",
+    "Fires high-explosive SuperBolts dealing double damage to all standard armors and vehicles.",
+    "Granted to any player who rolls a six after typing Lets Gamble in chat."
+   ],
+   "source": "WeaponSuperGun.cs"
+  },
+  "SChaingun": {
+   "summary": "Infinite ammo rapid-fire chaingun reserved exclusively for server super administrators.",
+   "notes": [
+    "Banned from all inventory terminals ($InvList=0, $RemoteInvList=0) and obtainable only via super admin menu commands.",
+    "Fires two high-velocity bullets simultaneously with zero ammunition cost.",
+    "Deals 150 percent damage across all standard player classes while Super Armor remains completely immune."
+   ],
+   "source": "WeaponSChaingun.cs"
+  },
+  "LargeForceFieldDoorPack": {
+   "summary": "Deployable defensive barrier that blocks enemy passage while automatically opening for teammates.",
+   "notes": [
+    "Restricted to main base inventory stations only and banned from remote deployable inventory stations ($RemoteInvList=0).",
+    "Can only be equipped and deployed by the Builder class and admin Super Armor.",
+    "Detects friendly players on collision and shifts 1000 units upward for two seconds before resetting and closing."
+   ],
+   "source": "DeployableForceFields.cs"
+  },
+  "PlasFloorPack": {
+   "summary": "Deployable plasma platform that provides elevated footing and acts as a team-sensitive trapdoor.",
+   "notes": [
+    "Deploys on flat surfaces with a team maximum limit of 15 floors.",
+    "Fades out and temporarily displaces upward when teammates touch it, allowing friends to pass through while denying enemies.",
+    "Complemented by PlasFloor2pack which provides a non-opening permanent static platform."
+   ],
+   "source": "DeployablePlasmaFloor.cs"
+  },
+  "PowerEnhPack": {
+   "summary": "Backpack generator exclusive to the Psycic armor class that supercharges psionic spells.",
+   "notes": [
+    "Usable only by the Psycic class (narmor and nfemale) with an inventory maximum of one.",
+    "Passively alters Psycic abilities like Fire Ball, Death Cannon, and Blast Cannon to fire enhanced super projectiles.",
+    "Occupies the backpack slot, forcing the Psycic to trade away shield and cloaking packs for offensive power."
+   ],
+   "source": "PackPowerEnh.cs"
+  },
+  "SuicidePack": {
+   "summary": "High-yield explosive backpack designed for sacrificial base breaches.",
+   "notes": [
+    "Can be bought and equipped by Warrior, Builder, Avenger, Mech, and Super armor classes.",
+    "Deploys a Suicidebomb mine that shouts a patriotic farewell and detonates after a 0.1 second delay.",
+    "Produces a devastating 50-meter explosion radius inflicting 4.0 raw damage and 300 kickback impulse."
+   ],
+   "source": "PackSuicide.cs"
+  }
+ }
+}

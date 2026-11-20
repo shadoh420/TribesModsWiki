@@ -1,0 +1,234 @@
+{
+ "mod": {
+  "overview": "Shifter Renegades is a Renegades fork (its spawn banner reads Renegades Ver. 4.0) that keeps the Classic class system but adds a ninth class, the Defender (HeavyArmor), plus an undercover Espionage Pack, a vehicle-only repair gun, backpack-deployed Scout and Wraith fliers and a DeathStar satellite launcher. It borrows Shifter's spawn options and saved player profiles. Several deployables lose Classic's spacing checks, and poison and burn kills are no longer credited to the attacker.",
+  "notes": [
+   "Classes: Classic's eight plus the Defender (HeavyArmor = harmor), bought like any armor at inventory stations. The initial class menu lists it too, but in this fork the menu's choice (client.spawnArmor) is never used to equip you: spawns follow the spawn options below. Weapon slots ($MaxWeapons): Scout 2, Spy 3, Sniper 3, Engineer 3, Mercenary 5, Burster 4, Alien 4, Cyborg 5 (Classic 6), Defender 6.",
+   "Spawn options (game.cs Game::playerSpawned): 'stan' gives the standard Mercenary kit (Hyper Blaster, Chaingun, Disc Launcher, Grenade Launcher, Targeting Laser, Repair Pack, Repair Kit); 'rand' rolls a random kit (21 in 50 standard Mercenary, 15 in 50 Cyborg, otherwise Burster, Alien or Engineer kits); 'favs' buys your station favorites, or the standard kit if you have none; 'saved' uses a profile loaded by saveinfo.cs. Every spawn then tries to buy 6 each of Beacon, Grenade and MineAmmo (capped by your class limits).",
+   "Script bug: Game::playerSpawn tests ($Shifter::SpawnType != \"rand\" || $Shifter::SpawnType != \"stan\"), which is always true, so the server default spawn type is reset to 'favs' on every spawn.",
+   "Poison and burning still tick 0.05 damage (poison every 5 s from a 30 timer dropping 2 per tick, burning every 2 s for about 10 s), but unlike Classic a death from them counts as a death and -1 score for the victim and is not credited to whoever caused it.",
+   "Alien touch now also deals 0.20 Energy damage to the touched enemy (which in turn poisons them through Player::onDamage) while healing the Alien 0.20.",
+   "Headshot bonus: Laser, Sniper and Blaster hits to the head still do 30% extra, except from a player holding the Railgun.",
+   "Undercover rules (Espionage Pack): while undercover a player cannot use stations, deployable stations, teleport pads or remote items, pilot vehicles, throw grenades or use beacons. Mines treat an undercover spy the opposite way from normal: they trigger when the mine's team value matches the spy's, and not when it differs.",
+   "Turret, force field, platform and Blast Wall placement no longer use Classic's checkStationArea or checkFlierArea spacing checks (see the items). checkFlierArea itself now only passes when the deployer is the only player inside an 8 m box.",
+   "Vehicle::onCollision drops Classic's tourney rule that damaged a flier whose pilot touched the flag.",
+   "Defender and Cyborg take 0.3 out-of-area Flash damage per tick (0.6 if shielded); other classes take 0.08 (0.55 if shielded).",
+   "Renegades.cs and AdminUserList.cs here are the Renegades 1.1a files supplied by the port (see ShifterRenegades.cs); the archive had neither."
+  ]
+ },
+ "items": {
+  "HeavyArmor": {
+   "summary": "The Defender, a new ninth class: the heaviest armor, with six weapon slots, built to soak hits and hold ground.",
+   "notes": [
+    "Game::playerSpawned defines a Defender loadout (Wave Gun, Mortar, Disc Launcher, Vulcan, Silencer, Rocket Launcher, Targeting Laser, Repair Pack) in a local %spawnBuyList table, but the buy loop reads the global $spawnBuyList, so that table is dead code and picking Defender in the class menu does nothing. You get it by buying it at a station, or by having it in your favorites with the 'favs' spawn option.",
+    "Knockback is cut: self-inflicted Explosion, Missile, Mine and Mortar hits push it 1/7 as hard, teammates' hits 1/2 and enemies' hits 1/1.6.",
+    "Resists the Silencer: a Silencer Laser hit to the body does 60% less, and a Silencer headshot does 40% less instead of the usual 30% extra.",
+    "Cannot pilot vehicles and cannot ride as a passenger ('Armor too heavy to transport'). Cannot use teleport pads, like the Cyborg.",
+    "Cannot loot items from dead enemies by touching their bodies.",
+    "Grenade: Mortarbomb. Beacon: throws a ByeBye charge (see Beacon).",
+    "A Repair Patch heals it 0.105 (Cyborg 0.08).",
+    "Touching a DeathStar solar panel does 2.0 damage to a Defender or Cyborg, versus 0.5 for other classes."
+   ],
+   "source": "ArmorData.cs harmor; game.cs Game::playerSpawned, processMenuInitialPickClass; player.cs Player::onDamage, Player::onCollision; vehicle.cs Vehicle::onCollision; staticshape.cs DeployableTeleport::onCollision, DeathStarSolar::onCollision; station.cs Repair Patch purchase"
+  },
+  "ScoutVehicle": {
+   "summary": "The Scout, a fast single-seat flier armed with rockets. Same as Classic's ScoutJet under a new name.",
+   "notes": [
+    "Flier datablock Scout fires the Nuke projectile once per second, unchanged from Classic.",
+    "Only a Scout, Sniper or Spy can pilot it, and not while undercover. It can also be deployed from a Scout Pack, which shares its team limit."
+   ],
+   "source": "vehicle.cs Scout, Vehicle::onCollision; item.cs ScoutVehicle, ScoutPack::deployShape"
+  },
+  "VehFixit": {
+   "summary": "A repair gun that only works on vehicles and vehicle stations.",
+   "notes": [
+    "Fires VehRepairBolt. It locks onto a flier, a vehicle pad or a vehicle station and adds 0.1 to its auto-repair rate while you hold the trigger.",
+    "Any other target gives 'Nothing in range'. An undamaged target gives 'Item is not damaged'. It stops by itself when the target is fully repaired.",
+    "Scout only."
+   ],
+   "source": "baseProjData.cs VehRepairBolt::onAcquire, onRelease, checkDone; item.cs VehFixit, VehFixitImage"
+  },
+  "DeployableInvPack": {
+   "summary": "Deploys a remote Inventory Station.",
+   "notes": [
+    "Spawns DeployableInvStation on flat terrain or a building.",
+    "Unlike Classic, there is no 8 m 'too close to other stations' check, so stations can be packed together.",
+    "Undercover spies cannot use it."
+   ],
+   "source": "item.cs DeployableInvPack::deployShape; station.cs DeployableStation::onCollision"
+  },
+  "DeployableAmmoPack": {
+   "summary": "Deploys a remote Ammo Station.",
+   "notes": [
+    "Spawns DeployableAmmoStation on flat terrain or a building.",
+    "Unlike Classic, there is no 8 m spacing check against other stations."
+   ],
+   "source": "item.cs DeployableAmmoPack::deployShape"
+  },
+  "DeployableComPack": {
+   "summary": "Deploys a remote Command Station for controlling turrets and cameras.",
+   "notes": [
+    "Spawns DeployableComStation on flat terrain or a building.",
+    "Unlike Classic, there is no 8 m spacing check against other stations."
+   ],
+   "source": "item.cs DeployableComPack::deployShape"
+  },
+  "EspPack": {
+   "summary": "Espionage Pack: activating it puts the Spy undercover on the enemy team, wearing their skin.",
+   "notes": [
+    "Activating drops your flag, sets isSpy and moves you to the other team (team and skin). Deactivating puts you back, restores your skin and removes the pack.",
+    "Only works with exactly two teams, and only one spy per team can be undercover at a time.",
+    "Your cover breaks (the pack is removed) whenever you damage anyone else.",
+    "Damage to you is sorted by comparing team values: from a player whose team value matches yours it is blocked, and that player is told you are 'on your team - Undercover!!'. From the other team value, it removes your pack. A touch from a player with a matching team value also removes the pack.",
+    "onActivate sets both your team (GameBase::setTeam) and your initial team (Client::setInitialTeam), so which real side counts as 'matching' in those checks is not determined from scripts.",
+    "While undercover you cannot use stations, teleporters or remote items, pilot vehicles, throw grenades or use beacons, and you cannot damage enemy generators or stations.",
+    "Cannot be given or picked up through Item::giveItem (looting or Scout stealing). Spy only."
+   ],
+   "source": "item.cs EspPackImage::onActivate, onDeactivate, Item::giveItem; player.cs Player::onDamage, Player::onCollision; staticshape.cs StaticShape::onDamage"
+  },
+  "TurretPack": {
+   "summary": "Deploys a remote Ion Turret that fires electrical bolts.",
+   "notes": [
+    "Unlike Classic, it can be placed on walls and ceilings: on flat ground it faces your heading, on a ceiling it hangs upside down, otherwise it aligns to the surface.",
+    "Same spacing rules as Classic (box limits on nearby Ion turrets).",
+    "Classic's hand-off that made the deploying player the turret's owner (and credited its kills) is gone."
+   ],
+   "source": "item.cs TurretPack::deployShape"
+  },
+  "LaserTurret": {
+   "summary": "Despite the datablock name, this deploys a Plasma Turret.",
+   "notes": [
+    "Spawns DeployablePlasma.",
+    "Unlike Classic, it no longer runs checkFlierArea, so it does not need clear space above or a lack of nearby players. The other placement checks are unchanged."
+   ],
+   "source": "item.cs LaserTurret::deployShape"
+  },
+  "VulcanTurret": {
+   "summary": "Deploys a Vulcan Turret that a teammate fires by hand.",
+   "notes": [
+    "Spawns DeployableVulcan, manned by walking into it as in Classic.",
+    "Unlike Classic, placement no longer runs checkFlierArea (no clear-space or nearby-player check)."
+   ],
+   "source": "item.cs VulcanTurret::deployShape"
+  },
+  "RailTurret": {
+   "summary": "Deploys a manually fired Rail Turret.",
+   "notes": [
+    "Spawns DeployableRail, manned by walking into it as in Classic.",
+    "Unlike Classic, placement no longer runs checkFlierArea (no clear-space or nearby-player check)."
+   ],
+   "source": "item.cs RailTurret::deployShape"
+  },
+  "RocketPack": {
+   "summary": "Deploys a Missile Turret that fires seeking missiles at hot targets.",
+   "notes": [
+    "Spawns DeployableRocket.",
+    "Unlike Classic, placement no longer runs checkFlierArea (no clear-space or nearby-player check)."
+   ],
+   "source": "item.cs RocketPack::deployShape"
+  },
+  "ForceFieldPack": {
+   "summary": "Deploys a small force field wall.",
+   "notes": [
+    "Spawns DeployableForceField on any flat surface, as in Classic.",
+    "The new code counts force fields in a box around the spot but never uses the count, so placement works the same as Classic."
+   ],
+   "source": "item.cs ForceFieldPack::deployShape"
+  },
+  "LargeForceFieldPack": {
+   "summary": "Deploys a full-size force field wall.",
+   "notes": [
+    "Spawns LargeForceField on any flat surface.",
+    "Unlike Classic, it refuses ('Item in the way') when an Ion, Laser, Plasma, Missile or Shock turret is within an 11x11x12 box."
+   ],
+   "source": "item.cs LargeForceFieldPack::deployShape"
+  },
+  "TripwirePack": {
+   "summary": "Despite the datablock name, this deploys a solid Blast Wall.",
+   "notes": [
+    "Spawns BlastWall on flat terrain only.",
+    "Unlike Classic, it refuses when an Ion, Laser, Plasma, Missile or Shock turret is within a 10x10x16 box, or when any static object is within a 2x2x2 box ('Object in the way').",
+    "Four Blast Walls in a square form the launch pad the DeathStar Pack needs."
+   ],
+   "source": "item.cs TripwirePack::deployShape, DeathDeployCheck"
+  },
+  "DeathStarPack": {
+   "summary": "Builds a DeathStar launcher that fires a satellite weapon platform 250 m into the sky above the launch spot.",
+   "notes": [
+    "Must be deployed on flat terrain inside a square of exactly 4 Blast Walls (2 along each axis within an 8 m box), with no static object in a 4x4x50 column above.",
+    "After a 3-2-1 countdown (1.5 s per step) it creates a DeathStar Ray (fires RailLaser, range 325), a DeathStar Missile turret (fires BazookaBolt at targets with heat factor 0.5 or more, range 325) and a solar panel, about 250 m above the pad. The launch blast does Debris radius damage at the pad twice.",
+    "1 in 40 launchers is defective: it explodes at the pad and the pack is still used up.",
+    "The solar panel self-repairs. It takes 0.6x Sniper damage and 2.1x Blaster damage. Destroying it blasts the area and removes the ray and missile turret 2 s later.",
+    "Touching the solar panel hurts (2.0 damage to Defender or Cyborg, 0.5 to others) and throws you back.",
+    "The satellite turrets always take full damage from teammates. Engineer only."
+   ],
+   "source": "item.cs DeathStarPack::deployShape, DeathDeployCheck, DeathLaunch, DeathstarOpps; turret.cs DeathStarRay, DeathStarMissile; staticshape.cs DeathStarSolar, CheckDestroySat, StaticShape::onDamage"
+  },
+  "PlatformPack": {
+   "summary": "Deploys a thin platform you can stand on.",
+   "notes": [
+    "Spawns DeployablePlatform wherever your 3 m line of sight hits, with no flat-surface check.",
+    "Unlike Classic, it refuses ('Item in the way') when an Ion, Laser, Plasma, Missile or Shock turret is within a 7x7x1 box."
+   ],
+   "source": "item.cs PlatformPack::deployShape"
+  },
+  "TeleportPack": {
+   "summary": "Deploys a Teleport Pad. Stepping on one sends you to your team's other pad.",
+   "notes": [
+    "Unlike Classic, placement no longer runs checkFlierArea.",
+    "Cyborgs and Defenders cannot teleport, and neither can undercover spies."
+   ],
+   "source": "item.cs TeleportPack::deployShape; staticshape.cs DeployableTeleport::onCollision"
+  },
+  "ScoutPack": {
+   "summary": "A backpack that deploys a Scout flier in the field.",
+   "notes": [
+    "Spawns a Scout flier on flat terrain only (not buildings), facing your heading. Placement runs checkFlierArea, so no other player can be within the 8 m box.",
+    "Counts against the team's ScoutVehicle limit, shared with Scouts bought at vehicle stations.",
+    "Scout only. You still have to climb in to fly it."
+   ],
+   "source": "item.cs ScoutPack::onUse, ScoutPack::deployShape, checkFlierArea"
+  },
+  "WraithPack": {
+   "summary": "A backpack that deploys a Wraith flier in the field.",
+   "notes": [
+    "Spawns a Wraith flier on flat terrain only, with the same checkFlierArea rule as the Scout Pack.",
+    "Counts against the team's WraithVehicle limit, shared with Wraiths bought at vehicle stations.",
+    "Spy only."
+   ],
+   "source": "item.cs WraithPack::onUse, WraithPack::deployShape"
+  },
+  "Grenade": {
+   "summary": "Thrown explosive whose effect depends on your class.",
+   "notes": [
+    "Same per-class grenades as Classic, plus the Defender, which throws a Mortarbomb like the Cyborg.",
+    "Unlike Classic, it cannot be thrown while undercover."
+   ],
+   "source": "item.cs Grenade::onUse"
+  },
+  "Beacon": {
+   "summary": "Class ability item: each class's beacon does something different.",
+   "notes": [
+    "Burster: unlike Classic's Haul-Ass stim, drops a GoodBye charge that blows 0.5 s later (Mine damage, 25 m radius, 300 kickback).",
+    "Defender: throws a ByeBye charge that blows 2 s later (Explosion damage, 50 m radius, 950 kickback).",
+    "Spy: Satchel Charge, which unlike Classic can be placed on any surface your line of sight hits, not only terrain or buildings.",
+    "Other classes are as in Classic. Cannot be used from inside a station or while undercover.",
+    "Script bug: the Burster and Defender branches set the charge's team from %client before it is assigned, so the charge does not get the thrower's team. They also skip the throw-rate check."
+   ],
+   "source": "item.cs Beacon::onUse, DeploySatchel; Mine.cs GoodBye, ByeBye"
+  },
+  "Fixit": {
+   "summary": "The Engineer Repair-Gun is a repair beam that needs no Repair Pack.",
+   "notes": [
+    "Unlike Renegades Classic, an Engineer using it repairs at 0.2 per tick instead of the normal rate, making Engineers much faster healers."
+   ],
+   "source": "item.cs RepairBolt::onAcquire"
+  },
+  "MineAmmo": {
+   "summary": "Thrown antipersonnel mines that arm once they come to rest and explode when an enemy touches them.",
+   "notes": [
+    "The script adds a spy exception (spy-flagged enemies pass safely, spy-flagged teammates trigger it), but nothing in Shifter Renegades sets the spy flag, so in practice it behaves like Renegades Classic: enemies trigger it, teammates don't."
+   ],
+   "source": "Mine.cs AntipersonelMine::onCollision; item.cs Espionage pack (sets client.isSpy)"
+  }
+ }
+}

@@ -1,0 +1,136 @@
+# armageddon vs meltdown-2 (135 items)
+renamed+statsLightArmor                   Archer
+renamed+statsBlastechArmor                Mercury
+renamed+statsMediumArmor                  SilverWolf (Eng.)
+renamed+statsMagIonArmor                  Paris (Medium)
+renamed+statsMECHArmor                    Hercules
+renamed+statsHeavyArmor                   Zeus (MECH)
+scripts    Beacon                       Beacon
+scripts    Grenade                      Grenade
+scripts    MineAmmo                     Mine
+new        Penis                        Penis
+stats+scriptsBlaster                      Blaster
+new        AODForceProj                 Riot-Shield Projector
+renamed+stats+scriptsAODBeaconGun                 Air-Strike Beacon Gun
+scripts    IonCannon                    Ion Cannon
+renamed+stats+scriptsOmegaRifle                   Reflux Rifle
+new        DisarmRifle                  Riot Disarmer
+new        AlienLaser                   Santa's Beam-Stick
+new        MaserRifle                   Blue Death
+renamed+stats+scriptsCharger                      Coulomb Cannon
+renamed+statsExtraCharger                 Coulomb Cannon
+renamed+stats+scriptsExtraCharger2                Coulomb Cannon
+renamed+statsExtraCharger3                Coulomb Cannon
+stats+scriptsMBCannon                     Mitzi Blast Cannon
+stats      ExtraEnergyA                 Protron
+stats      ExtraEnergyB                 Protron
+stats      ExtraEnergyC                 Protron
+scripts    EnergyGun                    Protron
+renamed+stats+scriptsChaingun                     Hyper-Chaingun
+renamed+stats+scriptsGatB                         Gatler
+renamed+stats+scriptsGauss                        Grey's Gauss Gun
+scripts    Minigun                      MiniGun
+scripts    MMinigun                     MECHMinigun
+stats      MMinigun3                    MECHMinigun
+stats      MMinigun4                    MECHMinigun
+renamed+stats+scriptsGrenadeLauncher              Super-*Nade
+scripts    Mortar                       Mortar
+renamed+statsImpactAmmo                   Mini-Tactical Nukes
+renamed+stats+scriptsImpactMortar                 The Iron Fist
+renamed+statsIMPAmmo                      Black-Ops Shells
+renamed+stats+scriptsImpGun                       'Black-Ops' Cannon
+scripts    EMPGrenadeLauncher           EMP Mortar Launcher
+stats+scriptsMineLauncher                 Mine Launcher
+renamed+stats+scriptsBabyNukeMortar               Tactical Nuke
+renamed+stats+scriptsStasisCannon                 Tear-Gas
+stats+scriptsDiscLauncher                 Disc Launcher
+stats      DualDisc2                    TwinFusor
+scripts    TwinFusor                    TwinFusor
+scripts    AODStinger                   Missile Launcher
+scripts    RPGLauncher                  RPG
+renamed+statsMrpgAmmo                     RPGs
+renamed+stats+scriptsMrpgLauncher                 Kabutsuchi
+stats      MrpgLauncher2                MECHRPG
+stats      MrpgLauncher3                MECHRPG
+stats      MrpgLauncher4                MECHRPG
+scripts    RPMLauncher                  RPM
+new        MMminigunAmmo                MMminigun Ammo
+new        MMminigun                    MECH Annihilator
+new        MMminigun2                   MECH Annihilator
+new        MMminigun3                   MECH Annihilator
+new        MMminigun4                   MECH Annihilator
+scripts    RPEMPLauncher                RPEMP
+scripts    MECHRocketLauncher           MECHRocketgun
+stats      MECHRocketLauncher4          MECHRocketgun
+stats+scriptsLaserPistol                  Laser Pistol
+renamed+stats+scriptsLaserRifle                   HP Laser Rifle
+stats+scriptsPBW                          Particle Beam (PBW)
+scripts    LasCannon                    Death Ray
+scripts    DartGun                      Poison Dart Rifle
+new        ARAmmo                       Assault Bullets
+new        AR                           Assault Rifle
+new        RailAmmo                     Railgun Bolt
+new        Railgun                      80MM RailGun
+renamed+statsRailGun2                     60MM RailGun
+renamed+statsscope                        60MM RailGun
+renamed+stats+scriptsRifle                        60MM RailGun
+renamed+stats+scriptsMassDriver                   40MM Sniper Rifle
+new        SniperAmmo                   Sniper Bullet
+new        SniperRifle                  20MM SkySnip Rifle
+scripts    AAODSniperX                  HP Sniper Rifle
+stats+scriptsReassembler                  Reassembler
+renamed+stats+scriptsPlasmaGun                    Plasma Sword
+stats+scriptsPlasmaCannon                 Plasma Cannon
+new        WrathAmmo                    BANG
+new        Blade                        Q's Wrath
+new        EAmmo                        Star Destroyers
+new        EctoPlasm                    Star Destoyer
+new        EctoPlasmChargerA            EctoPlasm Charger A
+new        EctoPlasmChargerB            EctoPlasm Charger B
+new        EctoPlasmChargerC            Star Destroyer
+new        BoomStickAmm                 12-guage shells
+new        BoomStick                    Ash's BoomStick
+new        JailGun                      Jail Gun
+new        RepairAmmo                   Repair Bolts
+new        RSniper                      Repair Sniper
+stats      EnergyPack                   Energy Pack
+renamed+stats+scriptsAccelerator                  Morpho-Plasmic Gen.
+stats      GravFieldPack                Gravitron Field Pack
+new        HoverGrav                    You can now HOVER forever.... however heavy weapons and energy based weapons may cause it to shut off
+new        GravFieldPack2               Quantum Flux Gen.
+stats+scriptsAutoPack                     AutoRepair Pack
+scripts    ShieldPack                   Shield Pack
+renamed+stats+scriptsBugPack                      ChatTap+SensorJamr
+renamed+stats+scriptsHyperPack                    Wormhole Manipulator
+stats+scriptsLeechPack                    Leech Pack
+scripts    AODShieldNode                Remote Shield Node
+scripts    CNode                        Remote Cloaking Node
+scripts    doorfivebyfiveForceFieldPack 5x5 Forcefield
+scripts    doorfourbyeightForceFieldPack4x8 Forcefield
+scripts    BlastDoor                    Blast Door
+scripts    BlastFloor                   Blast Floor
+renamed+stats+scriptsTeleportPack                 Teleport Pad
+stats      AODShieldGen                 Shield Generator
+scripts    DShieldPack                  Enhancement Beacon
+new        AccelPPack                   Thrust Platform
+new        jailpack                     Air Jail
+new        JailCapPack                  Jail Capture Pad
+renamed+stats+scriptsTNTPack                      Nega-Bomb
+new        groundbase                   Vehicle Base
+scripts    DeployableInvPack            Inventory Station
+scripts    DisruptorTurretPack          Plasma Turret
+new        AODMini                      Mini-Laser Turret
+scripts    AODDefender                  Defender Designator
+renamed+stats+scriptsDiscTurretPack               Seeking - Disc Turret
+new        SPlasmaPack                  Seeking - Plasma Turret
+scripts    TurretPack                   Laser Turret
+scripts    AODGrogPack                  Chaingun Turret
+scripts    FluxPack                     EMP Blast Turret
+scripts    Turret4Pack                  Fusion Turret
+new        HPTurretPack                 HP Turret
+new        ChatTapperPack               Team Chat Tapper
+scripts    IonTurretPack                Mitzi Blast Turret
+scripts    PulseTurretPack              AA Battery
+scripts    RocketPack                   Rocket Turret
+scripts    AODArtilleryPack             SHB Turret
+stats+scriptsElectroTurretPack            PBW Turret

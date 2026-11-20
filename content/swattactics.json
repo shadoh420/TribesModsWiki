@@ -1,0 +1,63 @@
+{
+ "mod": {
+  "overview": "SWAT Tactics is a Fallout Tactics-inspired combat and base-building mod for Tribes that reworks armors, weapons, deployables, and vehicles into fast, high-lethality tactical warfare. Players spawn fully armed in Human medium armor and fight across standard Tribes mission types using rapid-fire Gauss and minigun weaponry, cluster-rocket hand grenades, and low-altitude hover tanks. Compared to base Tribes, firefights are much deadlier and base defenses escalate quickly through deployable bunkers, large inventory stations, portable generators, force field doors, and seeking-rocket Moloturrets. Distinct armor damage multipliers and class-restricted packs give Ghoul scouts, Human troopers, Super Mutant heavies, and Robot skirmishers specialized battlefield roles.",
+  "notes": [
+   "Classes and Armor Quirks: Inventory Stations offer four armors themed around post-apocalyptic squads. Ghoul (LightArmor, 0.66 health, 4 weapons male or 3 female) is the fastest class, the only LaserRifle user, the only class allowed to pilot vehicles, and heals from plasma damage (-1.0 scale) while taking double explosion damage. Human (MediumArmor, 1.0 health, 5 weapons male or 4 female) is the default spawn armor with zero landing or impact damage. Super Mutant (HeavyArmor, 1.32 health, 6 weapons, cannot crouch) carries Mortar and the exclusive Mutant Scream, resists bullets and blasts (0.3x), but takes 3.6x laser damage. Robot (Robotarmor, 1.4 health, 5 weapons, cannot crouch) moves nearly as fast as Ghoul with upgraded jets and heals from landing/impact (-1.0), but takes 4.0x energy damage.",
+   "Spawns and Economy: Teams start with Infinite team energy ($DefaultTeamEnergy) at base stations, while deployed remote ammo and inventory stations still run on finite station energy (2500 and 3000). Players spawn in Human armor equipped with laser pistol, Guass Gun, Disc Launcher, Plasma grenade, Repair Pack, Rocket gun (Blaster), Mines, and Grenades.",
+   "Custom Arsenal and Hand Grenades: The base Chaingun is replaced by the Vindictor Mini, and the Blaster is converted into an energy-powered Rocket gun firing NukeMissle rockets. New weapons include the Ak74, Guass Rifle and Guass Gun (explosive missile rounds), Guass Mini, GattlingM (fires simultaneous plasma, missile, and bullet rounds), Sunbeam Minigun, laser pistol, Plasma grenade (GrenadeT), Darkmatter (launches TineShell cluster rounds), and Mutant Scream. Throwing standard Handgrenade items spawns a Needle Thrower static object after 1 second that sprays crazy rockets in random directions.",
+   "Deployables and Turret Changes: Players can deploy large base structures in the field, including Deployable Bunker (Ghoul only, team limit 5), DepCommand (team limit 7), Portable Gen (indoors only, team limit 99), Large Inv Station (team limit 7), Field Door (4x8 team-only force field door that opens when teammates collide with it), and molo Turret (team limit 5, fires homing StrangeRocket missiles at 300m range). Base MortarTurret and DeployableTurret fire Guass bolts, and IndoorTurret fires rapid SwatboltX blasts with zero reload delay.",
+   "Ground-Skimming Vehicles: All three vehicles (Scouter at 450 maxSpeed with DiscShell, Hummer LAPC at 350 with ChaingunBullet3 and 2 passenger seats, and Tank HAPC at 250 with NukeMissle and 4 passenger seats) have lift set to 0 and maxAlt set to 10, turning them into low-altitude hover vehicles rather than high-flying aircraft. Team limits are 3 Scouters, 2 Hummers, and 1 Tank, and only LightArmor Ghouls can drive.",
+   "Station Availability and Loadout Limits: There are no custom chat commands, bots, or special game modes; standard Tribes mission types apply. Main Inventory Stations sell all custom items, while Remote Stations omit GattlingMAmmo, ChangelingNet, DepCommandPack, PortableGenPack, DeployableInvLargePack, ForceFieldDoorPack, and deployable station packs. Because Robotarmor omits $ItemMax entries for several newer weapons and packs, Robots can only carry base gear plus laser pistol, VindictorMini, and Ak74."
+  ]
+ },
+ "items": {
+  "Robotarmor": {
+   "summary": "Robot class available at Inventory Stations (price 250) with high jet mobility and extreme vulnerability to energy turrets.",
+   "notes": [
+    "Fast medium-chassis armor (1.4 maxDamage, forward speed 16, jetForce 330, jetEnergyDrain 0.5, cannot crouch) that carries up to 5 weapons including Mortar, VindictorMini, and Ak74.",
+    "Negative landing and impact damage scales (-1.0) heal on hard impacts, while energy damage is multiplied 4.0x against it."
+   ],
+   "source": "item.cs"
+  },
+  "Scream": {
+   "summary": "Mutant Scream heavy weapon that fires lethal close-radius shockwave blasts.",
+   "notes": [
+    "Restricted to Super Mutant (HeavyArmor) with a 5.5s reload and no ammo cost.",
+    "Fires Screams shockwave rockets rated at 99999.2 damage over a 2m explosion radius."
+   ],
+   "source": "item.cs"
+  },
+  "Darkmatter": {
+   "summary": "Cluster launcher firing TineShell grenades that burst into rocket-spraying submunitions.",
+   "notes": [
+    "Uses no ammo and launches TineShell projectiles that spawn up to 10 Handgrenade submunitions mid-flight.",
+    "Each spawned Handgrenade triggers a Needle Thrower beacon that sprays crazy rockets in random directions."
+   ],
+   "source": "item.cs"
+  },
+  "ChangelingNet": {
+   "summary": "Sneak infiltration pack that flips the wearer's team while active.",
+   "notes": [
+    "Available only to Ghoul (LightArmor) at main Inventory Stations for 300 energy.",
+    "Activating the pack swaps the player between team 0 and team 1 (printing Sneaking or Found) to fool enemy defenses."
+   ],
+   "source": "item.cs"
+  },
+  "BunkerPack": {
+   "summary": "Deployable sniper bunker structure carried in the backpack slot.",
+   "notes": [
+    "Restricted to Ghoul (LightArmor), costs 1000 energy, deploys on flat terrain only, and has a team limit of 5.",
+    "Spawns an eround.dis bunker structure in the field for sniper cover."
+   ],
+   "source": "item.cs"
+  },
+  "molopack": {
+   "summary": "Deployable Moloturret armed with long-range seeking mortar rockets.",
+   "notes": [
+    "Available at both main and remote Inventory Stations for 350 energy (team limit 5) on all non-Robot armors.",
+    "Places a moloturret with 300m range that fires homing StrangeRocket mortar missiles."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

@@ -1,0 +1,23 @@
+ultra-mega-mod: 34 of 73 need write-ups
+  Blaster (Blaster): stats+scripts
+  BulletAmmo (Thermal Slugs): renamed+stats
+  Chaingun (Thermal Cannon): renamed+stats+scripts
+  PlasmaGun (Plasma Gun): stats+scripts
+  GrenadeLauncher (Grenade Launcher): stats+scripts
+  Shotgun (Shotgun): stats+scripts
+  Mortar (Mortar): stats+scripts
+  DiscLauncher (Disc Launcher): stats+scripts
+  LaserRifle (Laser Rifle): stats+scripts
+  TargetingLaser (Targeting Laser): stats+scripts
+  EnergyRifle (ELF Gun): stats+scripts
+  SniperRifle (IX-2000 Sniper Rifle): stats+scripts
+  TranqGun (FEB Rifle): stats+scripts
+  Railgun (Railgun): stats+scripts
+  CloakGun (Cloaking Gun): stats+scripts
+  ShieldPack (Shield Pack): stats+scripts
+  TurretPack (Turret): renamed+stats+scripts
+  LaserPack (Assassin Turret): new
+  VulcanTurret (Vulcan Turret): new
+  RailTurret (Rail Turret): new
+  Grenade (Grenade): stats+scripts
+  Beacon (Beacon): stats+scripts

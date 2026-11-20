@@ -1,0 +1,18 @@
+{
+ "mod": {
+  "overview": "SquadMod Alpha (KillerBunny, ~2000) blends Base combat with anti-teamkill enforcement, a Medium-only Stinger Rocket Launcher (banned from Remote Inventory Stations), a Heavy-only deployable Command Station, longer-lasting Blaster bolts, and higher Heavy/Medium mobility and energy.",
+  "notes": [
+   "Weapon & armor changes: Blaster bolt lifetime jumps 1.125 -> 9.5 s; Chaingun spread doubles (0.005 -> 0.01); ELF Gun costs 500 (was 125) at 0.04 DPS (was 0.06); Medium energy rises 80 -> 90 and gains Stinger RocketLauncher + 3 Rockets (main base Inventory Stations only, $RemoteInvList = 0); Heavy moves faster (5/4 -> 6/5) with 140 energy (was 110) and gains DeployableComPack.",
+   "Anti-TK & tactical tweaks: adds anti-TK enforcement, 10 s match start countdown ($MatchStartDelay), custom SquadModQuotes, higher Plasma damage scaling (Med 1.0x, Heavy 0.8x), and sniper damage scaling (1.0x Light, 0.6x Med)."
+  ]
+ },
+ "items": {
+  "RocketLauncher": {
+   "summary": "Medium-only Stinger Rocket Launcher; blocked from Remote Inventory Stations ($RemoteInvList = 0) and must be bought at a main base station.",
+   "notes": [
+    "Fires RocketAmmo (max 3 carried)."
+   ],
+   "source": "station.cs; ArmorData.cs"
+  }
+ }
+}

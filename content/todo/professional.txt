@@ -1,0 +1,71 @@
+# professional vs orion (70 items)
+new        HyperArmor                   Hyperlight Armor
+new        EngArmor                     Engineer
+stats+scriptsBlaster                      Blaster
+stats+scriptsEnergyRifle                  ELF Gun
+stats+scriptsChaingun                     Chaingun
+scripts    PlasmaGun                    Plasma Gun
+stats+scriptsDiscLauncher                 Disc Launcher
+stats+scriptsGrenadeLauncher              Grenade Launcher
+scripts    LaserRifle                   Laser Rifle
+stats+scriptsMortar                       Mortar
+stats+scriptsRocketLauncher               Rocket Launcher
+new        FakeFlag                     Flag Decoy
+stats+scriptsAmmoPack                     Ammo Pack
+scripts    MotionSensorPack             Motion Sensor
+scripts    PulseSensorPack              Pulse Sensor
+scripts    DeployableSensorJammerPack   Sensor Jammer
+renamed+stats+scriptsForceFieldPack               Light Field Door 5x5
+scripts    TurretPack                   Sentry Turret
+new        DeployableELFTurretPack      Heavy Elf Turret
+stats+scriptsRocketPack                   Missile Turret
+stats+scriptsTargetingLaser               Targeting Laser
+stats      RepairKit                    Repair Kit
+scripts    MineAmmo                     Mine
+new        OriginalGrenade              Grenade
+new        Plastique                    Plastique
+new        EMPGrenade                   EMPGrenade
+scripts    Beacon                       Beacon
+stats      RepairPatch                  Repair Patch
+stats+scriptsCloakingDevice               Cloaking Device
+stats+scriptsTeleportPack                 Teleport Pack
+scripts    ShieldPack                   Shield Pack
+scripts    KamikazePack                 Kamikaze Pack
+new        BaseAlarm                    Base Alarm
+new        BlastWall                    Blast Wall
+new        ChaingunTurretPack           Chaingun Turret
+new        DoBPack                      Pulse Laser
+new        doorthreebyfourForceFieldPack3x4 Field Door
+new        doorfourbyfourteenForceFieldPack4x14 Field Door
+new        doorfourbyseventeenForceFieldPack4x17 Field Door
+new        doorfourbyeightForceFieldPack4x8 Field Door
+new        doorfivebyfiveForceFieldPack 5x5 Field Door
+new        EnergizerPack                Energizer Pack
+new        FlakPack                     Flak Turret
+new        FlameTurretPack              Flame Turret
+new        FusionGun                    Fusion Blaster
+new        ConPack                      Guard Dog
+new        HoloPack                     Hologram
+new        LaserPack                    Laser Turret
+new        DeployableLRMotionSensorPack LR Motion Sensor
+new        MarlinAmmo                   Marlin Bullet
+new        Marlin                       Marlin Rifle
+new        MinelAmmo                    Mine Launcher Ammo
+new        MineLauncher                 Mine Launcher
+new        ShockPack                    Mini-ELF Turret
+new        PlasmaPack                   Mini-Plasma Turret
+new        ClusterBomb                  Particle Accelerator
+new        PlasmaCannon                 Plasma Cannon
+new        RailTurret                   Rail Turret
+new        RepairRifle                  Repair Rifle
+new        TreePack                     Seed Pack
+new        SeekerPack                   Seeker
+new        DShieldPack                  Shield Generator
+new        ShotgunShells                Shotgun Shells
+new        Shotgun                      Shotgun
+new        SpringPack                   Springboard
+new        SuicidePack                  Demolition Pack
+new        DeployableTeleportPack       Teleport Pad
+new        EMPGrenadeAmmo               EMPGrenadeAmmo
+new        EMPGrenadeLauncher           EMP Grenade Launcher
+new        BotGun                       BotGun
