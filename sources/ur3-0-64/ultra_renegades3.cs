@@ -1,0 +1,17 @@
+$simply_ultra::BanKickTime = "999999999999999999999999";
+$simply_ultra::fairTeams = "true";
+$simply_ultra::PABan = "true";
+$simply_ultra::PAKick = "true";
+$simply_ultra::PAMission = "true";
+$simply_ultra::PAModOptions = "true";
+$simply_ultra::PAResetDefaults = "true";
+$simply_ultra::PATeamChange = "true";
+$simply_ultra::PATeamDamage = "false";
+$simply_ultra::PATeamInfo = "false";
+$simply_ultra::PATimelimit = "true";
+$simply_ultra::PATourneyMode = "false";
+$simply_ultra::PAVote = "false";
+$simply_ultra::tkClientLvl = "0";
+$simply_ultra::tkLimit = "5";
+$simply_ultra::tkMultiple = "3";
+$simply_ultra::tkServerLvl = "1";

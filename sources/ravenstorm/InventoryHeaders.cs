@@ -1,0 +1,11 @@
+$InvHead[ihVeh] = "aAssault Craft";
+$InvHead[ihArm] = "aArmor";
+$InvHead[ihWea] = "bWeaponry";
+$InvHead[ihBac] = "cWar Gear";
+$InvHead[ihGui] = "dGuided Systems";
+$InvHead[ihMis] = "eMiscellaneious";
+$InvHead[ihDWe] = "fDefensive Armaments";
+$InvHead[ihDSe] = "gSensor Networks";
+$InvHead[ihDOb] = "hDefense and Objects";
+$InvHead[ihVpa] = "jVehicles";
+$InvHead[ihAmm] = "xAmmo";

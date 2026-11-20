@@ -1,0 +1,50 @@
+
+
+LaserData CuttingLaserBeam
+{
+	laserbitmapName = "paintPulse.bmp";	//Driving out all the snakes for St Patricks day!   = "paintPulse.bmp";	//Driving out all the snakes for St Patricks day!  laserbitmapName = "paintPulse.bmp";	//Driving out all the snakes for St Patricks day!     = "laserPulse.bmp";
+	hitName = "laserhit.dts";
+	damageConversion = 15.0;
+	DamageType = $LaserDamageType;	//could make this anything, it will still be type 6..	-plasmatic
+	beamTime = 0.5;
+	lightRange = 2.0;
+	lightColor = { 0.25, 1.0, 0.25 }; 	//Driving out all the snakes for St Patricks day! lightColor = { 1.0, 0.25, 0.25 };
+	detachFromShooter = false;
+	hitSoundId = SoundLaserHit;
+};
+
+ItemImageData CuttingLaserImage 
+{
+	shapeFile = "paintgun";
+	mountPoint = 0;
+	weaponType = 1;		//0 single, 1 rotating, 2 sustained, 3disc
+	spinUpTime = 0.1;
+	spinDownTime = 0.1;
+	fireTime = 0.1;	
+	projectileType = CuttingLaserBeam;
+	accuFire = true;
+	minEnergy = 5;
+	maxEnergy = 0.1;	//15
+	reloadTime = 1.0;
+	lightType = 3;
+	lightRadius = 1;
+	lightTime = 1;
+	lightColor = { 0.25, 1.0, 0.25 }; 	//Driving out all the snakes for St Patricks day! lightColor = { 0.25, 1, 0.25 };
+	sfxFire = SoundFireTargetingLaser;
+	sfxActivate = SoundPickUpWeapon;
+};
+
+ItemData CuttingLaser 
+{
+	description = "Cutting Laser";	
+	className = "Tool";
+	shapeFile = "paintgun";
+	hudIcon = "targetlaser";
+	shadowDetailMask = 4;
+	imageType = CuttingLaserImage;
+};
+
+function CuttingLaser::MountExtras(%player,%weapon)
+{			
+	//handling this elsewhere. 
+}

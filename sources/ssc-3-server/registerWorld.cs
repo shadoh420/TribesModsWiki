@@ -1,0 +1,16 @@
+            exec("registermud.cs");
+            echo("registered mudDML.vol");
+            exec("registerice.cs");
+            echo("registered iceDML.vol");
+            exec("registermars.cs");
+            echo("registered marsDML.vol");
+            exec("registerdesert.cs");
+            echo("registered desertDML.vol");
+            exec("registeralien.cs");
+            echo("registered alienDML.vol");
+            exec("registersavana.cs");
+            echo("registered savanaDML.vol");
+            exec("registerhuman1.cs");
+            echo("registered human1DML.vol");
+            exec("registerlush.cs");
+            echo("registered lushDML.vol");

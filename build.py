@@ -46,12 +46,15 @@ MODS = [
             ('ultra-vxe', 'VX Extreme (VXE)', 'ultra-vxo'),
             ('ultra-vxu', 'VXU', 'ultra-vxo'),
             ('ultra-vx6', 'Ultra Renegades VX6', 'base'),
-            ('ultra-vx-elite', 'VX-Elite', 'ultra-vx6')]),
+            ('ultra-vx-elite', 'VX-Elite', 'ultra-vx6'),
+            ('ultra-vx3', 'UltraVX3', 'vx3-a09'),
+            ('ultra-ux', 'UltraXtreme UX', 'ultra-renegades-vx5')]),
         ('Other Ultra builds', [
             ('ultra-zx', 'Ultra-ZX Infinite', 'base'),
             ('ultra-gzhq', 'Ultra Renegades GZHQ', 'base'),
             ('ur-x', 'Ultra Renegades -X-', 'base'),
-            ('ur-rx', 'Ultra Renegades RX', 'base')]),
+            ('ur-rx', 'Ultra Renegades RX', 'base'),
+            ('ur-2004', 'Ultra Renegades 2004', 'base')]),  # predecessor of RX, shares little with earlier UR builds
         # filed under Ultra Renegades in the catalog, but built on other mods (BOP, HaVoC, Meltdown); stats only for now
         ('Related (not UR-based)', [
             ('ultra-bop', 'Ultra-BOP', 'base'),
@@ -63,7 +66,11 @@ MODS = [
             ('annihilation', 'Total Annihilation', 'base'),
             ('ultrannihilation', 'UltrAnnihilation', 'annihilation'),
             ('apteryx', 'Apteryx v2', 'annihilation'),
-            ('tribal-god', 'Tribal God', 'base')]),
+            ('annihilation-3', 'Annihilation 3', 'ann-3-2009-03-03'),
+            ('vengeance', 'Annihilation Vengeance', 'ann-3-beta'),  # Dec 2004, on the Annihilation 3 Beta loader
+            ('tribal-god-original', 'Tribal God (original, Apr 2003)', 'base'),
+            ('utg-6-5', 'Ultra Tribal God 6.5 (Aug 2003)', 'tribal-god-original'),
+            ('tribal-god', 'Tribal God', 'utg-6-5')]),  # matches the Ultra Tribal God 6.6 installer (Nov 2003)
         # Ultra Shifter Duel's stats sit closest to v1G, but its scripts are Shifter's (15 items differ vs 52 from v1G)
         ('Shifter', [
             ('shifter', 'Shifter', 'base'),
@@ -74,6 +81,7 @@ MODS = [
             ('shifter-v1g', 'Shifter HC (v1G)', 'shifter'),
             ('shifter-2k4', 'Shifter 2K4 (v0.8)', 'shifter-v1g'),
             ('shifter-2k5', 'Shifter 2K5', 'shifter-v1g'),
+            ('shifter-k', 'ShifterK', 'shifterk-2003-08-09'),
             ('shifter-vx5duel', 'Ultra Shifter Duel', 'shifter'),
             ('shifter-v2', 'Shifter v2', 'shifter'),
             ('shifter-advanced', 'Shifter Advanced', 'shifter'),
@@ -104,6 +112,7 @@ MODS = [
             ('meltdown-x', 'Meltdown X', 'meltdown-hell'),
             ('armageddon', 'Armageddon', 'meltdown-2')]),
         ('Foundation & Apocalypse', [
+            ('foundation', 'Foundation', 'base'),
             ('foundation-2', 'Foundation II', 'base'),
             ('apocalypse', 'Apocalypse Mod', 'base'),
             ('atf', 'ATF Mod', 'base'),
@@ -115,6 +124,7 @@ MODS = [
             ('rampage', 'Rampage', 'base')]),
         ('Total Conversions', [
             ('5th-element', '5th Element', 'base'),
+            ('dune', 'DUNE', 'base'),
             ('dbz', 'DBZ 3k', 'base'),
             ('starsiege', 'Starsiege', 'base'),
             ('starsiege-craft', 'Starsiege Craft', 'base'),
@@ -155,6 +165,7 @@ MODS = [
             ('rsp', 'Redneck Slag Pack', 'base'),
             ('sex-nc17', 'SEX mod NC17', 'base'),
             ('tribes-racer', 'Tribes Racer', 'base'),
+            ('tsc', 'Tribes Snowboarding Circuit', 'base'),
             ('xfrisbee', 'Extreme Frisbee', 'base')]),
         ('Action & Mechanics', [
             ('420snipers', '420Snipers', 'base'),
@@ -162,6 +173,7 @@ MODS = [
             ('advanced-war', 'Advanced War', 'base'),
             ('alliance', 'Alliance Engine', 'base'),
             ('tiz19', 'TiZ v1.9', 'alliance'),
+            ('ravenstorm', 'RavenStorm', 'alliance'),
             ('xk', 'XK Mod', 'alliance'),
             ('snipers-base', 'Snipers Base', 'alliance'),
             ('cnc-tribes', 'C&C Tribes V2', 'base'),
@@ -203,6 +215,8 @@ MODS = [
             ('modx', 'Mod X', 'base'),
             ('mortar-men', 'Mortar Men', 'base'),
             ('nappy', 'Nappy Mod', 'base'),
+            ('nappy-builder', 'Nappy Builder', 'renegades-classic'),
+            ('nappy-c-builder', 'Nappy C-Builder', 'nappy-builder'),
             ('netrunner', 'NetRunner', 'base'),
             ('nfs', 'Need For Speed', 'base'),
             ('nihility', 'NIHILITY 1.4.3', 'base'),
@@ -223,6 +237,171 @@ MODS = [
             ('top-gun', 'Top Gun', 'delta-force'),
             ('tribal-combat', 'Tribal Combat', 'base'),
             ('vehiclemod', 'VehicleMod', 'base-plus')]),
+        # Alternate builds from Krogoth's File Library; parent = the previous build of the family by script dates
+        ('Annihilation builds', [
+            ('ann-1-00', 'Annihilation 1.00', 'base'),
+            ('ann-1-34', 'Annihilation 1.34', 'ann-1-00'),
+            ('ann-2-0-beta-0513', 'Annihilation 2.0 Beta (May 13, 2002)', 'ann-1-34'),
+            ('ann-2-0-beta-0514', 'Annihilation 2.0 Beta (May 14, 2002)', 'ann-2-0-beta-0513'),
+            ('ann-2-0-beta-0516', 'Annihilation 2.0 Beta (May 16, 2002)', 'ann-2-0-beta-0514'),
+            ('ann-2-0-beta-0520', 'Annihilation 2.0 Beta (May 20, 2002)', 'ann-2-0-beta-0516'),
+            ('ann-vag1', 'Annihilation vAG1', 'ann-2-0-beta-0520'),
+            ('ann-3-beta', 'Annihilation 3 Beta (patched)', 'annihilation'),
+            ('ann-3-2009-03-03', 'Annihilation 3 (March 2009)', 'ann-3-beta')]),
+        ('Shifter builds', [
+            ('shifter-1999-05-25', 'Shifter v1 (05-25-99)', 'base'),
+            ('shifter-1999-05-27', 'Shifter v1 (05-27-99b)', 'shifter-1999-05-25'),
+            ('shifter-1999-06-03', 'Shifter v1 (06-03-99)', 'shifter-1999-05-27'),
+            ('shifter-1999-06-12', 'Shifter v1 (06-12-99)', 'shifter-1999-06-03'),
+            ('shifter-1999-06-18', 'Shifter v1 (06-18-99)', 'shifter-1999-06-12'),
+            ('shifter-1999-07-23', 'Shifter v1 (07-23-99)', 'shifter-1999-06-18'),
+            ('shifter-1999-10-05', 'Shifter (10-05-99)', 'shifter-1999-07-23'),
+            ('shifter-spoonbots', 'Shifter with SpoonBots', 'shifter-1999-10-05'),
+            ('shifter-01', 'Shifter 01', 'shifter-1999-10-05'),
+            ('shifter-1999-12-30', 'Shifter (12-30-99)', 'shifter-1999-10-05'),
+            ('shifter-2000-01-10', 'Shifter v1 (01-10-2000)', 'shifter-1999-12-30'),
+            ('shifter-2000-01-28', 'Shifter v1 (01-28-2000)', 'shifter-2000-01-10'),
+            ('shifter-2000-03-18', 'Shifter v1 (03-18-2000)', 'shifter-2000-01-28'),
+            ('shifter-2000-07-13', 'Shifter (07-13-2000)', 'shifter-2000-03-18'),
+            ('shifter-2000-07-29', 'Shifter (07-29-2000 / 07-30-2000)', 'shifter-2000-07-13'),
+            ('shifter-2000-07-30a', 'Shifter (07-30-2000-A)', 'shifter-2000-07-29'),
+            ('shifter-2000-07-30b', 'Shifter (07-30-2000-B)', 'shifter-2000-07-30a'),
+            ('shifter-2000-09-01', 'Shifter (09-01-2000)', 'shifter-2000-07-30b'),
+            ('shifter-2000-09-08', 'Shifter (09-08-2000)', 'shifter-2000-09-01'),
+            ('shifter-2001-04-20', 'Shifter (04-20-2001)', 'shifter'),
+            ('shifter-v1g-2001-10-10', 'Shifter v1G (10-10-01)', 'shifter'),
+            ('shifter-v1g-2002-02-14', 'Shifter v1G (02-14-02)', 'shifter-v1g-2001-10-10'),
+            ('shifter-v1g-2002-06-19', 'Shifter v1G (06-19-02)', 'shifter-v1g'),
+            ('shifter-v1g-2002-09-12', 'Shifter v1G (09-12-02)', 'shifter-v1g-2002-06-19'),
+            ('shifter-v1g-2002-11-17', 'Shifter v1G (11-17-2002)', 'shifter-v1g-2002-09-12'),
+            ('shifterk-2003-08-01', 'ShifterK (8-1-2003)', 'shifter-v1g-2002-11-17'),
+            ('shifterk-2003-08-03', 'ShifterK (8-3-2003)', 'shifterk-2003-08-01'),
+            ('shifterk-2003-08-08', 'ShifterK (8-8-2003)', 'shifterk-2003-08-03'),
+            ('shifterk-2003-08-09', 'ShifterK (8-9-2003)', 'shifterk-2003-08-08'),
+            ('shifter-2k4-v07', 'Shifter 2K4 v0.7 Beta', 'shifter-k'),
+            ('shifter-2k4-v085', 'Shifter 2K4 v0.85 Beta', 'shifter-2k4'),
+            ('shifter-2k5-v10', 'Shifter 2K5 v1.0', 'shifter-2k5')]),
+        ('Hybrid (classic line)', [
+            ('hybrid-setup', 'Hybrid (Mod Setup)', 'base'),
+            ('hybrid-6-0a', 'Hybrid 6.0a', 'hybrid-setup'),
+            ('hybrid-7-0', 'Hybrid 7.0', 'hybrid-6-0a'),
+            ('hybrid-gold', 'Hybrid Gold', 'hybrid-7-0'),
+            ('hybrid-x', 'Hybrid X', 'hybrid-gold'),
+            ('hybrid-platinum', 'Hybrid Platinum', 'hybrid-x'),
+            ('hybrid-se-beta', 'Hybrid SE Beta', 'hybrid-platinum'),
+            ('hybrid-2k3', 'Hybrid 2K3 / Hybrid 3.0', 'hybrid-se-beta'),
+            ('hybrid-0-1', 'Hybrid 0.1 (Pre-Beta)', 'hybrid-2k3'),
+            ('arms2k4', 'Arms 2K4', 'hybrid-0-1')]),
+        ('Ultra Renegades builds', [
+            ('ur-u-renegades', 'Ultra Renegades (u_renegades)', 'base'),
+            ('ur-0-86', 'Ultra Renegades 0.86', 'ur-u-renegades'),
+            ('ur3-0-57', 'Ultra Renegades 3 v0.57', 'ur2'),
+            ('ur3-0-64', 'Ultra Renegades 3 v0.64', 'ur3-0-57'),
+            ('ur3-0-66b', 'Ultra Renegades 3 v0.66b', 'ur3-0-64'),
+            ('ur3-mayhem-0-99c', 'UR3 Mayhem 0.99c', 'ur3-0-66b'),
+            ('ur3-0-74', 'Ultra Renegades 3 v0.74', 'ur3-0-66b'),
+            ('ur3-league-1-5', 'UR3 League 1.5', 'ur3-mayhem'),
+            ('ur3-league-1-6', 'UR3 League 1.6', 'ur3-league-1-5'),
+            ('ur3-league-1-7', 'UR3 League 1.7', 'ur3-league-1-6')]),
+        ('Ultra VX builds', [
+            ('vx3-plusmod', 'UltraVX3 (PlusMod)', 'base'),
+            ('vx3-pooadmin', 'UltraVX3 (POOadmin)', 'vx3-plusmod'),
+            ('vx3-notor', 'UltraVX3 (NOTOR)', 'vx3-pooadmin'),
+            ('vx3-special', 'UltraVX3 Special', 'vx3-notor'),
+            ('vx3-a08', 'UltraVX3 a08', 'vx3-special'),
+            ('vx3-a09', 'UltraVX3 a09', 'vx3-a08'),
+            ('vx3-ogl', 'UltraVX3 (OGL)', 'vx3-a09'),
+            ('ultra-vxu-2003', 'Ultra Renegades VXU (Apr 2003)', 'ultra-vx3'),
+            ('ultra-gzhq-beta', 'Ultra GZHQ Beta', 'base'),
+            ('vx5-unlimited', 'VX5 Unlimited', 'ultra-renegades-vx5'),
+            ('vxe-r06', 'VXE r06', 'ultra-vxo'),
+            ('vxe-r07', 'VXE r07', 'vxe-r06'),
+            ('vxe-r071', 'VXE r071', 'vxe-r07'),
+            ('vxe-r072', 'VXE r072', 'vxe-r071'),
+            ('vx5-infinite-1', 'VX5 Infinite 1', 'ultra-renegades-vx5'),
+            ('vx5-infinite-2', 'VX5 Infinite 2', 'vx5-infinite-1'),
+            ('vx5-god-2003', 'VX5 GoD (Nov 2003)', 'ultra-renegades-vx5'),
+            ('vx5-infinite-3', 'VX5 Infinite 3', 'vx5-infinite-2'),
+            ('vx5-infinite-4', 'VX5 Infinite 4', 'vx5-infinite-3'),
+            ('vx5-infinite-5', 'VX5 Infinite 5', 'vx5-infinite-4'),
+            ('vx5-hunter-2004', 'Hunter (VX5, May 2004)', 'ultra-vx5-hunter'),
+            ('ur-tc', 'Ultra Renegades TC', 'ultra-infinite'),
+            ('vx6-infinite-r1', 'VX6 Infinite r1.0', 'ultra-vx6'),
+            ('vx5-infinite-6', 'VX5 Infinite 6 [VX]', 'vx5-infinite-5')]),
+        ('Renegades (early)', [
+            ('renegades-1-3', 'Renegades 1.3', 'base'),
+            ('renegades-2-0', 'Renegades 2.0', 'renegades-1-3'),
+            ('weapons-factory', 'Weapons Factory', 'renegades-2-0'),
+            ('renegades-3-0', 'Renegades 3.0', 'renegades-2-0'),
+            ('renegades-4-0b', 'Renegades 4.0b', 'renegades-classic'),
+            ('renegades-4', 'Renegades 4 (renegades4)', 'renegades-4-0b'),
+            ('renegades-5-0', 'Renegades 5.0', 'renegades-4'),
+            ('renegades-6-0a', 'Renegades 6.0a', 'renegades-5-0')]),
+        ('Other builds', [
+            ('paintball-1-0', 'Paintball 1.0', 'base'),
+            ('paintball-2-0', 'Paintball 2.0', 'paintball-1-0'),
+            ('paintball-2-6-orig', 'Paintball 2.6 (unpatched)', 'paintball-2-0'),
+            ('pb-tactical-2004', 'PB v.Tactical (Feb 2004)', 'paintball-tactical'),
+            ('deltaforce-0-8', 'DeltaForce 0.8', 'base'),
+            ('deltaforce-0-9b1', 'DeltaForce 0.9 beta 1', 'deltaforce-0-8'),
+            ('deltaforce-0-9b2', 'DeltaForce 0.9 beta 2', 'deltaforce-0-9b1'),
+            ('daf-server', 'Delta Air Force (server, 2007)', 'deltaairforce'),
+            ('ssc-1-19', 'Starsiege Craft 1.19', 'base'),
+            ('ssc-3-client', 'Starsiege Craft 3 (client side)', 'ssc-1-19'),
+            ('ssc-3-server', 'Starsiege Craft 3 (server side)', 'ssc-3-client'),
+            ('dbz-2000', 'DBZ (2000)', 'base'),
+            ('base-duel-2000', 'Base Duel (2000)', 'base-duel'),
+            ('tribes-racer-1999', 'Tribes Racer (1999)', 'base'),
+            ('tribes-racer-retribution', 'Tribes Racer Retribution', 'tribes-racer-1999'),
+            ('tribes-arena-2-1', 'Tribes Arena 2.1', 'base'),
+            ('tribes-arena-2-2', 'Tribes Arena 2.2', 'tribes-arena-2-1'),
+            ('tribes-arena-2-3', 'Tribes Arena 2.3', 'tribes-arena-2-2'),
+            ('tribes-arena-3-0', 'Tribes Arena 3.0', 'tribes-arena'),
+            ('minimod-0-3', 'MiniMod 0.3', 'base'),
+            ('minimod-0-6-bare', 'MiniMod 0.6 (Bare)', 'minimod-0-3'),
+            ('minimod-0-7', 'MiniMod 0.7', 'minimod-0-6-bare'),
+            ('vip-2000', 'VIP (Feb 2000)', 'base'),
+            ('vip-1-3', 'VIP 1.3', 'vip-2000'),
+            ('renegades-duel-2002', 'Renegades Duel (2002)', 'renegades-duel'),
+            ('dogfight-beta', 'DogFight Beta', 'base'),
+            ('dogfight-2002-03', 'DogFight (Mar 2002)', 'dogfight-beta'),
+            ('dogfight-1-0', 'DogFight 1.0', 'dogfight-2002-03'),
+            ('ixtribes-06b', 'IXTribes 0.6b', 'base'),
+            ('insomniax-0-8', 'Insomniax 0.8', 'ixtribes-06b'),
+            ('insomniax-0-9a', 'Insomniax 0.9a', 'insomniax-0-8'),
+            ('insomniax-0-9b', 'Insomniax 0.9b', 'insomniax-0-9a'),
+            ('havoc-1-55', 'HaVoC 1.55', 'base'),
+            ('havoc-1-59c', 'HaVoC 1.59c', 'havoc-1-55'),
+            ('rampage-1-7', 'RaMpAgE 1.7', 'base'),
+            ('sexmod-2', 'Sex Mod 2', 'base'),
+            ('sexxx', 'SeXxX', 'sexmod-2'),
+            ('sexmod-3', 'Sex Mod 3', 'sexxx'),
+            ('nfs-v1', 'Need For Speed v1', 'base'),
+            ('nfs-1999-06', 'Need For Speed (Jun 1999)', 'nfs-v1'),
+            ('eradication-1-3', 'Eradication 1.3', 'isn'),
+            ('rsp-1-17', 'RSP 1.17 (with Mission Score)', 'base'),
+            ('rsp-1-18', 'RSP 1.18', 'rsp-1-17'),
+            ('ultra-competition-1-0', 'Ultra Competition 1.0', 'ultra-renegades-vx5'),
+            ('football-kitty', 'Football (Kitty)', 'football'),
+            ('football-1v1-1-0', 'Football 1-on-1 Duel Server 1.0', 'football'),
+            ('football-gsl', 'GSL Football Mod', 'football-1v1'),
+            ('football-tasermod', 'Football Tasermod', 'football'),
+            ('reality-bites-1-01', 'Reality Bites 1.01', 'minimod'),
+            ('reality-bites-1-42', 'Reality Bites 1.42', 'reality-bites-1-01'),
+            ('meltdown-2-15', 'Meltdown 2.15', 'meltdown-classic'),
+            ('meltdown-ultra-2-32', 'Meltdown Ultra 2.32 (2-25-03)', 'meltdown-total-war'),
+            ('meltdown-ultra-2-33-may', 'Meltdown Ultra 2.33 (May 2003)', 'meltdown-ultra-2-32'),
+            ('meltdown-x-covert-ops', 'Meltdown X: Covert Ops (Premonition / Final Chapter v3.0)', 'meltdown-hell'),
+            ('genocide-1b', 'Genocide 1b', 'base'),
+            ('thugwars-1999', 'ThugWars (1999)', 'base'),
+            ('blur-of-insanity-2002', 'Blur of Insanity (Nov 2002)', 'base'),
+            ('scout-skirmish-2002', 'Scout Skirmish (Nov 2002)', 'thunderstruck'),
+            ('nappy6', 'Nappy 6', 'nappy'),
+            ('nappy6-beta', 'Nappy 6 Beta', 'nappy'),
+            ('nihility-1-3-1', 'NIHILITY 1.3.1', 'base'),
+            ('nihility-1-4-1', 'NIHILITY 1.4.1', 'nihility-1-3-1'),
+            ('nihility-1-4-2', 'NIHILITY 1.4.2', 'nihility-1-4-1'),
+            ('anarchymod', 'Anarchy (anarchymod)', 'renegades-classic')]),
     ] for i, t, p in rows],
 ]
 _EXTRA_META = {
@@ -245,6 +424,8 @@ for _m in MODS:
         _m.update(_EXTRA_META[_m['id']])
 MODS[[m['id'] for m in MODS].index('ultra-warfare')]['entry'] = 'Ultra_Warfare'  # its server script is renamed
 MODS[[m['id'] for m in MODS].index('minimod')]['entry'] = 'MiniMod'
+MODS[[m['id'] for m in MODS].index('minimod-0-3')]['entry'] = 'MiniMod'
+MODS[[m['id'] for m in MODS].index('minimod-0-7')]['entry'] = 'MiniMod-v07'
 MODS[[m['id'] for m in MODS].index('alliance')]['entry'] = 'serverAlliance'
 # VX5's vxmode()/vxDIFmode() let admins swap profile (OGL, NOTOR) and difficulty (MEDIUM, HARD) at runtime;
 # the default is UltraVX5.cs + UltraVX5_EASY.cs, so the alternates don't count toward the wiki's stats.
@@ -296,6 +477,12 @@ _TOP_EXTRAS = {
     'pantheon': ['Pantheon.cs'],
     'ideal': ['Ideal.cs'],
     'omega-mod': ['Omega.cs'],
+    **{i: ['TribesRacer.cs'] for i in ('tribes-racer-1999', 'tribes-racer-retribution')},
+    **{i: ['arena.cs'] for i in ('tribes-arena-2-1', 'tribes-arena-2-2', 'tribes-arena-2-3', 'tribes-arena-3-0')},
+    **{i: ['VIP.cs'] for i in ('vip-2000', 'vip-1-3')},
+    'base-duel-2000': ['DuelMOD.cs'],
+    'minimod-0-6-bare': ['MiniMod-v06.cs'],
+    'football-1v1-1-0': ['fb1vs1mod.cs'],
 }
 
 class Mod:
@@ -346,6 +533,15 @@ class Mod:
 
     def block(self, name):
         return self.lb.get(str(name).lower()) if name else None
+
+    def weapon_proj(self, name, img):
+        """The image's projectileType, else the $WeapProjectile[weapon] table DUNE's Weapon::onFire spawns from,
+        else the first Projectile::spawnProjectile("X", ...) in the image's onFire (Annihilation 3 / Vengeance)."""
+        if not img: return None
+        p = self.block(img.get('projectileType')) or self.block(self.glob('WeapProjectile', name))
+        if p: return p
+        m = re.search(r'Projectile::spawnProjectile\(\s*"?(\w+)"?\s*,', self.funcs.get((img['_name'].lower(), 'onfire'), ''), re.I)
+        return self.block(m.group(1)) if m else None
 
     def glob(self, table, *keys):
         return self.g.get(table.lower(), {}).get(','.join(str(k).lower() for k in keys))
@@ -424,7 +620,7 @@ def changed(M, P):
     def related(X, name):
         b = X.block(name); out = [b]
         img = X.block(b.get('imageType'))
-        if img: out += [img, X.block(img.get('projectileType'))]
+        if img: out += [img, X.weapon_proj(name, img)]
         return [x for x in out if x]
     def fns(X, name):
         # the item's own scripts plus those of its image, projectile and anything it deploys
@@ -479,12 +675,16 @@ def shell(title, body, mod=None, crumbs=(), depth=1):
             nav.append('<ul>' + ''.join(f'<li><a href="{up}{m.id}/{c}.html">{t}</a></li>' for c, t, _ in CATS if m.in_cat(c)) + '</ul>')
         nav.append('</li>')
     crumb = ' › '.join([f'<a href="{up}index.html">Home</a>'] + [f'<a href="{h}">{esc(t)}</a>' if h else esc(t) for t, h in crumbs])
+    # phones: the sidebar collapses, so the current mod's sections get a row of tabs above the page
+    tabs = ('<div class="modtabs">' + f'<a href="{up}{mod.id}/index.html">Overview</a>' +
+            ''.join(f'<a href="{up}{mod.id}/{c}.html">{t}</a>' for c, t, _ in CATS if mod.in_cat(c)) + '</div>') if mod else ''
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} — Tribes Mod Wiki</title><link rel="stylesheet" href="{up}style.css"></head><body>
 <header><a class="logo" href="{up}index.html">Tribes Mod Wiki</a><span class="tag">Starsiege: Tribes (1998) and its mods</span></header>
-<div class="wrap"><nav><h4>Mods</h4><ul>{''.join(nav)}</ul><h4>Wiki</h4><ul><li><a href="{up}index.html#catalog">Full mod catalog</a></li><li><a href="{up}index.html#reading">Reading the stats</a></li></ul></nav>
-<main><div class="crumbs">{crumb}</div>{body}</main></div>
-<footer>Stats are read directly from each mod's game scripts. Generated by build.py.</footer></body></html>'''
+<div class="wrap"><nav><details open><summary>Browse all mods ({len(MODEL)})</summary><h4>Mods</h4><ul>{''.join(nav)}</ul><h4>Wiki</h4><ul><li><a href="{up}index.html#catalog">Full mod catalog</a></li><li><a href="{up}index.html#reading">Reading the stats</a></li></ul></details></nav>
+<main><div class="crumbs">{crumb}</div>{tabs}{body}</main></div>
+<footer>Stats are read directly from each mod's game scripts. Generated by build.py.</footer>
+<script>if(matchMedia('(max-width:860px)').matches)document.querySelectorAll('nav details,details.grp').forEach(d=>d.open=false)</script></body></html>'''
 
 def table(head, rows, cls='data'):
     h = ''.join(f'<th>{x}</th>' for x in head)
@@ -514,7 +714,7 @@ def raw_block(b):
 
 # ---------------------------------------------------------------- per-item stats
 def weapon_info(M, it):
-    b = M.block(it['name']); img = M.block(b.get('imageType')); proj = M.block(img.get('projectileType')) if img else None
+    b = M.block(it['name']); img = M.block(b.get('imageType')); proj = M.weapon_proj(it['name'], img)
     rows, blocks = [('Price', fmt(M.num(b.get('price'))))], [b, img, proj]
     if M.glob('TeamItemMax', it['name']) not in (None, ''): rows += [('Team limit', fmt(M.glob('TeamItemMax', it['name'])))]
     if not img: return rows, blocks, None
@@ -599,7 +799,9 @@ def loadout(M, pd):
 def damage_scale(M, name):
     scales = {k.split(',', 1)[1]: v for k, v in M.g.get('damagescale', {}).items() if k.split(',', 1)[0] == name.lower()}
     if not scales: return ''
-    rows = [[dtype(k), f'<span class="{"bad" if v > 1 else "good" if v < 1 else ""}">{fmt(v)}</span>'] for k, v in sorted(scales.items())]
+    scales = {k: M.num(v) for k, v in scales.items()}
+    cls = lambda v: '' if not isinstance(v, (int, float)) else 'bad' if v > 1 else 'good' if v < 1 else ''
+    rows = [[dtype(k), f'<span class="{cls(v)}">{fmt(v)}</span>'] for k, v in sorted(scales.items())]
     return '<h2>Damage taken</h2><p class="muted">Multiplier on incoming damage by type. Above 1 = weak to it, below 1 = resistant.</p>' + table(['Damage type', 'Scale'], rows)
 
 def vehicle_info(M, it):
@@ -763,7 +965,7 @@ def cat_page(M, cat):
 
 def mod_page(M):
     c = M.content.get('mod', {})
-    rows = [('Version', M.version), ('Author', esc(M.author)), ('Era', M.era), ('Launch', f'<code>{esc(M.launch)}</code>')]
+    rows = [('Version', M.version), ('Author', esc(M.author)), ('Era', M.era), ('Launch', f'<code>{esc(M.launch)}</code>' if M.launch else '')]
     rows += [(CAT_TITLE[k], str(len(M.in_cat(k)))) for k, _, _ in CATS if M.in_cat(k)]
     body = f'<h1>{esc(M.title)} {esc(M.version)}</h1>' + infobox(M.title, rows)
     if c.get('overview'): body += f'<p class="lead">{esc(c["overview"])}</p>'
@@ -780,14 +982,17 @@ def home():
                 ', '.join(f'{len(m.in_cat(k))} {t.lower()}' for k, t, _ in CATS[:4] if m.in_cat(k)) + '</span></a>')
     cards = '<div class="cards">' + ''.join(card(m) for m in MODEL if not getattr(m, 'group', None)) + '</div>'
     for g in dict.fromkeys(m.group for m in MODEL if getattr(m, 'group', None)):
-        cards += f'<h3>{esc(g)}</h3><div class="cards">' + ''.join(card(m) for m in MODEL if getattr(m, 'group', None) == g) + '</div>'
+        ms = [m for m in MODEL if getattr(m, 'group', None) == g]
+        cards += (f'<details class="grp" open><summary>{esc(g)} <span class="muted">({len(ms)})</span></summary><div class="cards">'
+                  + ''.join(card(m) for m in ms) + '</div></details>')
     groups = {}
     for e in cat: groups.setdefault(e['category'], []).append(e)
     cat_html = ''
     for g, es in groups.items():
         rows = [[(f'<a href="{e["id"]}/index.html"><b>{esc(e["title"])}</b></a> <span class="pill">documented</span>' if e['id'] in doc else esc(e['title'])),
-                 esc(e['author']), esc(e['era']), f'<code>{esc(e["launch"])}</code>'] for e in es]
-        cat_html += f'<h3>{esc(g)} <span class="muted">({len(es)})</span></h3>' + table(['Mod', 'Author', 'Era', 'Launch'], rows)
+                 esc(e['author']), esc(e['era']), f'<code>{esc(e["launch"])}</code>' if e['launch'] else ''] for e in es]
+        cat_html += (f'<details class="grp" open><summary>{esc(g)} <span class="muted">({len(es)})</span></summary>'
+                     + table(['Mod', 'Author', 'Era', 'Launch'], rows) + '</details>')
     body = f'''<h1>Tribes Mod Wiki</h1>
 <p class="lead">A reference for <i>Starsiege: Tribes</i> (1998) and its server mods: every armor, weapon, pack, deployable and vehicle, with stats pulled straight from each mod's scripts. Start with base Tribes, then see how each mod changes it.</p>
 <h2>Documented mods</h2>{cards}
@@ -797,7 +1002,7 @@ def home():
 <li><b>Fire / reload time</b> are seconds per shot; <b>DPS</b> is damage ÷ (fire + reload) on a direct hit.</li>
 <li>Mod pages list <b>Changes from Base Tribes</b>, field by field, wherever a mod reuses a stock datablock.</li>
 <li>Every page ends with the raw datablocks so modders can check the source values.</li></ul>
-<h2 id="catalog">Mod catalog</h2><p>All {len(cat)} mods in the Tribes Asset Store. Mods marked <span class="pill">documented</span> have full pages; the rest are listed for reference.</p>{cat_html}'''
+<h2 id="catalog">Mod catalog</h2><p>All {len(cat)} mods from the Tribes Asset Store and Krogoth's File Library. Mods marked <span class="pill">documented</span> have full pages; the rest are listed for reference.</p>{cat_html}'''
     return shell('Home', body, None, (), depth=0)
 
 

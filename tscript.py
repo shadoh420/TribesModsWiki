@@ -52,9 +52,32 @@ def _armor_add(s):
                    f'$ArmorType[Male, iarmor{name}] = {m}; $ArmorType[Female, iarmor{name}] = {f};\n')
     return ''.join(out)
 
+def _eval_blocks(s):
+    """Vengeance builds datablocks as strings and eval()s them: defineLightArmor("", 1, 1) concatenates
+    "PlayerData armormNecro"@%tag@" { ... maxForwardSpeed = "@13*%mult@"; ... };". Expand each top-level call with its
+    literal arguments and return the datablock text."""
+    # ponytail: stitches every string literal in the body, so if/else branches both land in the block (later field wins)
+    out, top = [], _outside_functions(s)
+    for m in re.finditer(r'function\s+(\w+)\s*\(([^)]*)\)\s*\{', s):
+        body = _body(s, m.end())[0]
+        if 'eval(' not in body or not re.search(r'"\s*\w+Data\s+\w+', body): continue
+        params = [p.strip() for p in m.group(2).split(',') if p.strip()]
+        for call in re.finditer(r'(?<!function )\b' + m.group(1) + r'\s*\(([^;]*)\)\s*;', top):
+            args = dict(zip(params, (a.strip().strip('"') for a in call.group(1).split(','))))
+            def expr(e):
+                e = re.sub(r'%\w+', lambda p: args.get(p.group(0), ''), e).strip()
+                if re.fullmatch(r'[\d\s.+\-*/()]+', e):
+                    try: v = eval(e); return str(int(v)) if float(v).is_integer() else str(v)
+                    except Exception: pass
+                return e.strip('"')
+            parts = [t.group(1).replace('\\"', '"') if t.group(1) is not None else expr(t.group(2))
+                     for t in re.finditer(r'"((?:[^"\\]|\\.)*)"|@([^@";{}]*[^\s@";{}][^@";{}]*)@', body)]
+            out.append(''.join(parts) + '\n')
+    return ''.join(out)
+
 def parse_text(s, macros=None):
     s = strip_comments(s)
-    s += _armor_add(s)
+    s += _armor_add(s) + _eval_blocks(s)
     blocks, rest, pos = {}, [], 0
     for m in BLOCK.finditer(s):
         if m.start() < pos: continue
@@ -156,6 +179,10 @@ def exec_order(dirs, skip=(), entry='server'):
         for arg in re.findall(r'MiniMod::Load\s*\(\s*"([^"]+\.cs)"\s*\)', txt, re.I):
             if '*' in arg: pats.append(arg)
             else: visit(arg)
+        # Annihilation 3 / Vengeance: ExecFiles(Weapon) runs Weapon/Weapon.cs, then the folder's other files alphabetically
+        for folder in re.findall(r'^\s*ExecFiles\s*\(\s*"?(\w+)"?\s*\)', txt, re.I | re.M):
+            visit(f'{folder}/{folder}.cs'.lower())
+            pats.append(folder + '/*.cs')
         for pat in pats:
             pat_l = re.sub(r'[\\/]+', '/', pat).lower()
             prefix, pbase = pat_l.rsplit('/', 1) if '/' in pat_l else ('', pat_l)
@@ -205,4 +232,8 @@ PlayerData p { maxDamage = 0.66; }; function X::onUse(%a) { if (1) { newObject("
     b, g, _, _ = parse_text('PlayerData armormAngel { maxDamage = 1; };\nArmor::add("Angel", "Rogue Angel", 175);\nArmor::add("Titan", "Titan", 400);')
     assert b['iarmorAngel']['price'] == 175 and g['ArmorType']['Female,iarmorAngel'] == 'armorfAngel', g
     assert g['ArmorType']['Male,iarmorTitan'] == 'armorTitan', g
+    b, _, _, _ = parse_text('function defL(%tag,%mult)\n{\n %d = "PlayerData armorm"@%tag@"X { maxDamage = 0.56;"@\n'
+                            '  " maxForwardSpeed = "@13*%mult@"; groundForce ="@ 40 * 9.0@";";\n %d = %d @ "};";\n eval(%d);\n}\n'
+                            'defL("",1);\ndefL("Fast",1.25);')
+    assert b['armormX']['maxForwardSpeed'] == 13 and b['armormFastX']['maxForwardSpeed'] == 16.25 and b['armormX']['groundForce'] == 360, b
     print('ok')

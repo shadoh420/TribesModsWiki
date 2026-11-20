@@ -1,0 +1,17 @@
+$Insomniax::BanKickTime = "600";
+$Insomniax::fairTeams = "true";
+$Insomniax::PABan = "true";
+$Insomniax::PAKick = "true";
+$Insomniax::PAMission = "true";
+$Insomniax::PAModOptions = "true";
+$Insomniax::PAResetDefaults = "true";
+$Insomniax::PATeamChange = "false";
+$Insomniax::PATeamDamage = "true";
+$Insomniax::PATeamInfo = "false";
+$Insomniax::PATimelimit = "true";
+$Insomniax::PATourneyMode = "true";
+$Insomniax::PAVote = "true";
+$Insomniax::tkClientLvl = "0";
+$Insomniax::tkLimit = "5";
+$Insomniax::tkMultiple = "3";
+$Insomniax::tkServerLvl = "1";

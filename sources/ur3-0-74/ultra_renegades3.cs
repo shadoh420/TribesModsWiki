@@ -1,0 +1,17 @@
+$ultra_renegades3::BanKickTime = "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+$ultra_renegades3::fairTeams = "true";
+$ultra_renegades3::PABan = "true";
+$ultra_renegades3::PAKick = "true";
+$ultra_renegades3::PAMission = "true";
+$ultra_renegades3::PAModOptions = "true";
+$ultra_renegades3::PAResetDefaults = "true";
+$ultra_renegades3::PATeamChange = "true";
+$ultra_renegades3::PATeamDamage = "false";
+$ultra_renegades3::PATeamInfo = "false";
+$ultra_renegades3::PATimelimit = "true";
+$ultra_renegades3::PATourneyMode = "false";
+$ultra_renegades3::PAVote = "false";
+$ultra_renegades3::tkClientLvl = "0";
+$ultra_renegades3::tkLimit = "5";
+$ultra_renegades3::tkMultiple = "3";
+$ultra_renegades3::tkServerLvl = "1";

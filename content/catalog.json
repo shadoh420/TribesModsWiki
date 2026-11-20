@@ -1454,5 +1454,1373 @@
   "era": "~2000",
   "launch": "-mod XtremeTribes",
   "category": "Action & Mechanics"
+ },
+ {
+  "id": "dune",
+  "title": "DUNE (Server Source)",
+  "author": "",
+  "era": "scripts dated 2002-2005 (README updated May 22, 2005)",
+  "launch": "",
+  "category": "Total Conversions"
+ },
+ {
+  "id": "ravenstorm",
+  "title": "RavenStorm",
+  "author": "Timer",
+  "era": "scripts dated 1999-2000",
+  "launch": "-mod RavenStorm",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ultra-ux",
+  "title": "UltraXtreme UX",
+  "author": "",
+  "era": "scripts dated May 2003",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur-2004",
+  "title": "Ultra Renegades 2004",
+  "author": "UltraRaptor (PWA)",
+  "era": "2004",
+  "launch": "-mod Ultra_Renegades2004",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-vx3",
+  "title": "UltraVX3",
+  "author": "kissiePOO",
+  "era": "scripts dated Dec 2000",
+  "launch": "-mod Ultra_RenegadesVX",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "shifter-k",
+  "title": "ShifterK (10-30-2003)",
+  "author": "KiLL(-) & enV.3zer0 (based on Shifter v1G)",
+  "era": "Aug-Oct 2003",
+  "launch": "-mod shifter",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "foundation",
+  "title": "Foundation Mod",
+  "author": "Nicodemus",
+  "era": "2000",
+  "launch": "-mod foundation",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nappy-builder",
+  "title": "Nappy Builder",
+  "author": "",
+  "era": "scripts dated 2000-2001",
+  "launch": "-mod Nappybuilder",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nappy-c-builder",
+  "title": "Nappy C-Builder",
+  "author": "",
+  "era": "scripts dated 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-gold",
+  "title": "Hybrid Gold",
+  "author": ".:(A):.Armagedon",
+  "era": "2000-2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "annihilation-3",
+  "title": "Annihilation 3 (St. Patrick's Day 2009)",
+  "author": "Plasmatic",
+  "era": "Mar 2009",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vengeance",
+  "title": "Annihilation Vengeance (Dec 11, 2004)",
+  "author": "Plasmatic (built on the Annihilation 3 file loader)",
+  "era": "Dec 2004",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "tsc",
+  "title": "Tribes Snowboarding Circuit (1.0 Beta)",
+  "author": "Martyr (aka Dayspring)",
+  "era": "scripts dated May 2003",
+  "launch": "",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "ann-1-00",
+  "title": "Annihilation 1.00",
+  "author": "",
+  "era": "scripts dated Apr 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-1-34",
+  "title": "Annihilation 1.34",
+  "author": "",
+  "era": "scripts dated Nov 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-2-0-beta-0513",
+  "title": "Annihilation 2.0 Beta (May 13, 2002)",
+  "author": "",
+  "era": "scripts dated May 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-2-0-beta-0514",
+  "title": "Annihilation 2.0 Beta (May 14, 2002)",
+  "author": "",
+  "era": "scripts dated May 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-2-0-beta-0516",
+  "title": "Annihilation 2.0 Beta (May 16, 2002)",
+  "author": "",
+  "era": "scripts dated May 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-2-0-beta-0520",
+  "title": "Annihilation 2.0 Beta (May 20, 2002)",
+  "author": "",
+  "era": "scripts dated May 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-vag1",
+  "title": "Annihilation vAG1",
+  "author": "",
+  "era": "scripts dated Dec 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ann-3-beta",
+  "title": "Annihilation 3 Beta (patched)",
+  "author": "",
+  "era": "scripts dated Nov 2004",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "ann-3-2009-03-03",
+  "title": "Annihilation 3 (March 2009)",
+  "author": "",
+  "era": "scripts dated Mar 2009",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-1999-05-25",
+  "title": "Shifter v1 (05-25-99)",
+  "author": "",
+  "era": "scripts dated May 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-05-27",
+  "title": "Shifter v1 (05-27-99b)",
+  "author": "",
+  "era": "scripts dated May 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-06-03",
+  "title": "Shifter v1 (06-03-99)",
+  "author": "",
+  "era": "scripts dated Jun 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-06-12",
+  "title": "Shifter v1 (06-12-99)",
+  "author": "",
+  "era": "scripts dated Jun 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-06-18",
+  "title": "Shifter v1 (06-18-99)",
+  "author": "",
+  "era": "scripts dated Jun 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-07-23",
+  "title": "Shifter v1 (07-23-99)",
+  "author": "",
+  "era": "scripts dated Jul 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-10-05",
+  "title": "Shifter (10-05-99)",
+  "author": "",
+  "era": "scripts dated Oct 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-spoonbots",
+  "title": "Shifter with SpoonBots",
+  "author": "",
+  "era": "scripts dated Oct 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-01",
+  "title": "Shifter 01",
+  "author": "",
+  "era": "scripts dated Oct 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-1999-12-30",
+  "title": "Shifter (12-30-99)",
+  "author": "",
+  "era": "scripts dated Dec 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-01-10",
+  "title": "Shifter v1 (01-10-2000)",
+  "author": "",
+  "era": "scripts dated Jan 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-01-28",
+  "title": "Shifter v1 (01-28-2000)",
+  "author": "",
+  "era": "scripts dated Jan 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-03-18",
+  "title": "Shifter v1 (03-18-2000)",
+  "author": "",
+  "era": "scripts dated Mar 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-07-13",
+  "title": "Shifter (07-13-2000)",
+  "author": "",
+  "era": "scripts dated Jul 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-07-29",
+  "title": "Shifter (07-29-2000 / 07-30-2000)",
+  "author": "",
+  "era": "scripts dated Jul 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-07-30a",
+  "title": "Shifter (07-30-2000-A)",
+  "author": "",
+  "era": "scripts dated Jul 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-07-30b",
+  "title": "Shifter (07-30-2000-B)",
+  "author": "",
+  "era": "scripts dated Aug 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-09-01",
+  "title": "Shifter (09-01-2000)",
+  "author": "",
+  "era": "scripts dated Sep 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2000-09-08",
+  "title": "Shifter (09-08-2000)",
+  "author": "",
+  "era": "scripts dated Sep 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2001-04-20",
+  "title": "Shifter (04-20-2001)",
+  "author": "",
+  "era": "scripts dated Apr 2001",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-v1g-2001-10-10",
+  "title": "Shifter v1G (10-10-01)",
+  "author": "",
+  "era": "scripts dated Oct 2001",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-v1g-2002-02-14",
+  "title": "Shifter v1G (02-14-02)",
+  "author": "",
+  "era": "scripts dated Feb 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-v1g-2002-06-19",
+  "title": "Shifter v1G (06-19-02)",
+  "author": "",
+  "era": "scripts dated Jun 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-v1g-2002-09-12",
+  "title": "Shifter v1G (09-12-02)",
+  "author": "",
+  "era": "scripts dated Sep 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-v1g-2002-11-17",
+  "title": "Shifter v1G (11-17-2002)",
+  "author": "",
+  "era": "scripts dated Nov 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifterk-2003-08-01",
+  "title": "ShifterK (8-1-2003)",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifterk-2003-08-03",
+  "title": "ShifterK (8-3-2003)",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifterk-2003-08-08",
+  "title": "ShifterK (8-8-2003)",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifterk-2003-08-09",
+  "title": "ShifterK (8-9-2003)",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-2k4-v07",
+  "title": "Shifter 2K4 v0.7 Beta",
+  "author": "",
+  "era": "scripts dated Feb 2004",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "shifter-2k4-v085",
+  "title": "Shifter 2K4 v0.85 Beta",
+  "author": "",
+  "era": "scripts dated May 2004",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "shifter-2k5-v10",
+  "title": "Shifter 2K5 v1.0",
+  "author": "",
+  "era": "scripts dated Mar 2005",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "hybrid-setup",
+  "title": "Hybrid (Mod Setup)",
+  "author": "",
+  "era": "scripts dated Jan 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-6-0a",
+  "title": "Hybrid 6.0a",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-7-0",
+  "title": "Hybrid 7.0",
+  "author": "",
+  "era": "scripts dated Apr 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-x",
+  "title": "Hybrid X",
+  "author": "",
+  "era": "scripts dated Jun 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-platinum",
+  "title": "Hybrid Platinum",
+  "author": "",
+  "era": "scripts dated Jul 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-se-beta",
+  "title": "Hybrid SE Beta",
+  "author": "",
+  "era": "scripts dated Feb 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-2k3",
+  "title": "Hybrid 2K3 / Hybrid 3.0",
+  "author": "",
+  "era": "scripts dated Mar 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "hybrid-0-1",
+  "title": "Hybrid 0.1 (Pre-Beta)",
+  "author": "",
+  "era": "scripts dated Dec 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "arms2k4",
+  "title": "Arms 2K4",
+  "author": "",
+  "era": "scripts dated Dec 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ur-u-renegades",
+  "title": "Ultra Renegades (u_renegades)",
+  "author": "",
+  "era": "scripts dated Apr 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ur-0-86",
+  "title": "Ultra Renegades 0.86",
+  "author": "",
+  "era": "scripts dated May 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ur3-0-57",
+  "title": "Ultra Renegades 3 v0.57",
+  "author": "",
+  "era": "scripts dated Jul 1999",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-0-64",
+  "title": "Ultra Renegades 3 v0.64",
+  "author": "",
+  "era": "scripts dated Jul 1999",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-0-66b",
+  "title": "Ultra Renegades 3 v0.66b",
+  "author": "",
+  "era": "scripts dated Aug 1999",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-mayhem-0-99c",
+  "title": "UR3 Mayhem 0.99c",
+  "author": "",
+  "era": "scripts dated Feb 2000",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-0-74",
+  "title": "Ultra Renegades 3 v0.74",
+  "author": "",
+  "era": "scripts dated Nov 2000",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-league-1-5",
+  "title": "UR3 League 1.5",
+  "author": "",
+  "era": "scripts dated Oct 2000",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-league-1-6",
+  "title": "UR3 League 1.6",
+  "author": "",
+  "era": "scripts dated Jan 2001",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur3-league-1-7",
+  "title": "UR3 League 1.7",
+  "author": "",
+  "era": "scripts dated Apr 2001",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vx3-plusmod",
+  "title": "UltraVX3 (PlusMod)",
+  "author": "",
+  "era": "scripts dated Jul 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx3-pooadmin",
+  "title": "UltraVX3 (POOadmin)",
+  "author": "",
+  "era": "scripts dated Jul 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx3-notor",
+  "title": "UltraVX3 (NOTOR)",
+  "author": "",
+  "era": "scripts dated Aug 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx3-special",
+  "title": "UltraVX3 Special",
+  "author": "",
+  "era": "scripts dated Nov 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx3-a08",
+  "title": "UltraVX3 a08",
+  "author": "",
+  "era": "scripts dated Nov 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx3-a09",
+  "title": "UltraVX3 a09",
+  "author": "",
+  "era": "scripts dated Nov 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx3-ogl",
+  "title": "UltraVX3 (OGL)",
+  "author": "",
+  "era": "scripts dated Dec 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ultra-vxu-2003",
+  "title": "Ultra Renegades VXU (Apr 2003)",
+  "author": "",
+  "era": "scripts dated Apr 2003",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ultra-gzhq-beta",
+  "title": "Ultra GZHQ Beta",
+  "author": "",
+  "era": "scripts dated Dec 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vx5-unlimited",
+  "title": "VX5 Unlimited",
+  "author": "",
+  "era": "scripts dated May 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vxe-r06",
+  "title": "VXE r06",
+  "author": "",
+  "era": "scripts dated Jul 2003",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vxe-r07",
+  "title": "VXE r07",
+  "author": "",
+  "era": "scripts dated Jul 2003",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vxe-r071",
+  "title": "VXE r071",
+  "author": "",
+  "era": "scripts dated Jul 2003",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vxe-r072",
+  "title": "VXE r072",
+  "author": "",
+  "era": "scripts dated Jul 2003",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vx5-infinite-1",
+  "title": "VX5 Infinite 1",
+  "author": "",
+  "era": "scripts dated Sep 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vx5-infinite-2",
+  "title": "VX5 Infinite 2",
+  "author": "",
+  "era": "scripts dated Nov 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vx5-god-2003",
+  "title": "VX5 GoD (Nov 2003)",
+  "author": "",
+  "era": "scripts dated Nov 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vx5-infinite-3",
+  "title": "VX5 Infinite 3",
+  "author": "",
+  "era": "scripts dated Dec 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vx5-infinite-4",
+  "title": "VX5 Infinite 4",
+  "author": "",
+  "era": "scripts dated Jan 2004",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vx5-infinite-5",
+  "title": "VX5 Infinite 5",
+  "author": "",
+  "era": "scripts dated Feb 2004",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "vx5-hunter-2004",
+  "title": "Hunter (VX5, May 2004)",
+  "author": "",
+  "era": "scripts dated May 2004",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "ur-tc",
+  "title": "Ultra Renegades TC",
+  "author": "",
+  "era": "scripts dated Jun 2004",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vx6-infinite-r1",
+  "title": "VX6 Infinite r1.0",
+  "author": "",
+  "era": "scripts dated Apr 2005",
+  "launch": "",
+  "category": "Ultra Renegades"
+ },
+ {
+  "id": "vx5-infinite-6",
+  "title": "VX5 Infinite 6 [VX]",
+  "author": "",
+  "era": "scripts dated Sep 2005",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegades-1-3",
+  "title": "Renegades 1.3",
+  "author": "",
+  "era": "scripts dated Mar 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "renegades-2-0",
+  "title": "Renegades 2.0",
+  "author": "",
+  "era": "scripts dated Apr 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "weapons-factory",
+  "title": "Weapons Factory",
+  "author": "",
+  "era": "scripts dated Oct 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "renegades-3-0",
+  "title": "Renegades 3.0",
+  "author": "",
+  "era": "scripts dated Jan 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "renegades-4-0b",
+  "title": "Renegades 4.0b",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegades-4",
+  "title": "Renegades 4 (renegades4)",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegades-5-0",
+  "title": "Renegades 5.0",
+  "author": "",
+  "era": "scripts dated Jun 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "renegades-6-0a",
+  "title": "Renegades 6.0a",
+  "author": "",
+  "era": "scripts dated Apr 2003",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "paintball-1-0",
+  "title": "Paintball 1.0",
+  "author": "",
+  "era": "",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "paintball-2-0",
+  "title": "Paintball 2.0",
+  "author": "",
+  "era": "",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "paintball-2-6-orig",
+  "title": "Paintball 2.6 (unpatched)",
+  "author": "",
+  "era": "scripts dated May 2004",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "pb-tactical-2004",
+  "title": "PB v.Tactical (Feb 2004)",
+  "author": "",
+  "era": "scripts dated Feb 2004",
+  "launch": "",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "deltaforce-0-8",
+  "title": "DeltaForce 0.8",
+  "author": "",
+  "era": "scripts dated Mar 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "deltaforce-0-9b1",
+  "title": "DeltaForce 0.9 beta 1",
+  "author": "",
+  "era": "scripts dated Apr 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "deltaforce-0-9b2",
+  "title": "DeltaForce 0.9 beta 2",
+  "author": "",
+  "era": "scripts dated May 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "daf-server",
+  "title": "Delta Air Force (server, 2007)",
+  "author": "",
+  "era": "scripts dated Feb 2007",
+  "launch": "",
+  "category": "Tactical & Realism"
+ },
+ {
+  "id": "ssc-1-19",
+  "title": "Starsiege Craft 1.19",
+  "author": "",
+  "era": "scripts dated Jun 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ssc-3-client",
+  "title": "Starsiege Craft 3 (client side)",
+  "author": "",
+  "era": "scripts dated Jan 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ssc-3-server",
+  "title": "Starsiege Craft 3 (server side)",
+  "author": "",
+  "era": "scripts dated Feb 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "dbz-2000",
+  "title": "DBZ (2000)",
+  "author": "",
+  "era": "scripts dated Sep 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "base-duel-2000",
+  "title": "Base Duel (2000)",
+  "author": "",
+  "era": "scripts dated May 2000",
+  "launch": "",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "tribes-racer-1999",
+  "title": "Tribes Racer (1999)",
+  "author": "",
+  "era": "scripts dated Nov 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribes-racer-retribution",
+  "title": "Tribes Racer Retribution",
+  "author": "",
+  "era": "scripts dated Nov 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribes-arena-2-1",
+  "title": "Tribes Arena 2.1",
+  "author": "",
+  "era": "scripts dated Dec 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribes-arena-2-2",
+  "title": "Tribes Arena 2.2",
+  "author": "",
+  "era": "scripts dated Dec 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribes-arena-2-3",
+  "title": "Tribes Arena 2.3",
+  "author": "",
+  "era": "scripts dated Jan 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "tribes-arena-3-0",
+  "title": "Tribes Arena 3.0",
+  "author": "",
+  "era": "scripts dated Jul 2002",
+  "launch": "",
+  "category": "Competitive & Duels"
+ },
+ {
+  "id": "minimod-0-3",
+  "title": "MiniMod 0.3",
+  "author": "",
+  "era": "scripts dated Sep 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "minimod-0-6-bare",
+  "title": "MiniMod 0.6 (Bare)",
+  "author": "",
+  "era": "scripts dated Sep 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "minimod-0-7",
+  "title": "MiniMod 0.7",
+  "author": "",
+  "era": "scripts dated Sep 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vip-2000",
+  "title": "VIP (Feb 2000)",
+  "author": "",
+  "era": "scripts dated Feb 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "vip-1-3",
+  "title": "VIP 1.3",
+  "author": "",
+  "era": "scripts dated Apr 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "renegades-duel-2002",
+  "title": "Renegades Duel (2002)",
+  "author": "",
+  "era": "scripts dated Jul 2002",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "dogfight-beta",
+  "title": "DogFight Beta",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "dogfight-2002-03",
+  "title": "DogFight (Mar 2002)",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "dogfight-1-0",
+  "title": "DogFight 1.0",
+  "author": "",
+  "era": "scripts dated Sep 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ixtribes-06b",
+  "title": "IXTribes 0.6b",
+  "author": "",
+  "era": "scripts dated Mar 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "insomniax-0-8",
+  "title": "Insomniax 0.8",
+  "author": "",
+  "era": "scripts dated May 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "insomniax-0-9a",
+  "title": "Insomniax 0.9a",
+  "author": "",
+  "era": "scripts dated Oct 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "insomniax-0-9b",
+  "title": "Insomniax 0.9b",
+  "author": "",
+  "era": "scripts dated Mar 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "havoc-1-55",
+  "title": "HaVoC 1.55",
+  "author": "",
+  "era": "scripts dated Jun 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "havoc-1-59c",
+  "title": "HaVoC 1.59c",
+  "author": "",
+  "era": "scripts dated Mar 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "rampage-1-7",
+  "title": "RaMpAgE 1.7",
+  "author": "",
+  "era": "scripts dated May 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "sexmod-2",
+  "title": "Sex Mod 2",
+  "author": "",
+  "era": "scripts dated Oct 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "sexxx",
+  "title": "SeXxX",
+  "author": "",
+  "era": "scripts dated Jul 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "sexmod-3",
+  "title": "Sex Mod 3",
+  "author": "",
+  "era": "scripts dated Feb 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nfs-v1",
+  "title": "Need For Speed v1",
+  "author": "",
+  "era": "scripts dated May 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nfs-1999-06",
+  "title": "Need For Speed (Jun 1999)",
+  "author": "",
+  "era": "scripts dated Jun 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "eradication-1-3",
+  "title": "Eradication 1.3",
+  "author": "",
+  "era": "scripts dated Jun 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "rsp-1-17",
+  "title": "RSP 1.17 (with Mission Score)",
+  "author": "",
+  "era": "scripts dated Aug 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "rsp-1-18",
+  "title": "RSP 1.18",
+  "author": "",
+  "era": "scripts dated Feb 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "ultra-competition-1-0",
+  "title": "Ultra Competition 1.0",
+  "author": "",
+  "era": "scripts dated Jun 2001",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "football-kitty",
+  "title": "Football (Kitty)",
+  "author": "",
+  "era": "scripts dated Jul 2005",
+  "launch": "",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "football-1v1-1-0",
+  "title": "Football 1-on-1 Duel Server 1.0",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "football-gsl",
+  "title": "GSL Football Mod",
+  "author": "",
+  "era": "scripts dated Sep 2003",
+  "launch": "",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "football-tasermod",
+  "title": "Football Tasermod",
+  "author": "",
+  "era": "scripts dated Nov 2006",
+  "launch": "",
+  "category": "Comedic & Sports"
+ },
+ {
+  "id": "reality-bites-1-01",
+  "title": "Reality Bites 1.01",
+  "author": "",
+  "era": "scripts dated Jun 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "reality-bites-1-42",
+  "title": "Reality Bites 1.42",
+  "author": "",
+  "era": "scripts dated Oct 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-2-15",
+  "title": "Meltdown 2.15",
+  "author": "",
+  "era": "scripts dated Jul 2000",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-ultra-2-32",
+  "title": "Meltdown Ultra 2.32 (2-25-03)",
+  "author": "",
+  "era": "scripts dated Feb 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-ultra-2-33-may",
+  "title": "Meltdown Ultra 2.33 (May 2003)",
+  "author": "",
+  "era": "scripts dated May 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "meltdown-x-covert-ops",
+  "title": "Meltdown X: Covert Ops (Premonition / Final Chapter v3.0)",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "genocide-1b",
+  "title": "Genocide 1b",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "thugwars-1999",
+  "title": "ThugWars (1999)",
+  "author": "",
+  "era": "scripts dated Jun 1999",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "blur-of-insanity-2002",
+  "title": "Blur of Insanity (Nov 2002)",
+  "author": "",
+  "era": "scripts dated Nov 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "scout-skirmish-2002",
+  "title": "Scout Skirmish (Nov 2002)",
+  "author": "",
+  "era": "scripts dated Nov 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nappy6",
+  "title": "Nappy 6",
+  "author": "",
+  "era": "scripts dated Aug 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nappy6-beta",
+  "title": "Nappy 6 Beta",
+  "author": "",
+  "era": "scripts dated Apr 2004",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nihility-1-3-1",
+  "title": "NIHILITY 1.3.1",
+  "author": "",
+  "era": "scripts dated Dec 2001",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nihility-1-4-1",
+  "title": "NIHILITY 1.4.1",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "nihility-1-4-2",
+  "title": "NIHILITY 1.4.2",
+  "author": "",
+  "era": "scripts dated Mar 2002",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "anarchymod",
+  "title": "Anarchy (anarchymod)",
+  "author": "",
+  "era": "scripts dated Feb 2001",
+  "launch": "",
+  "category": "Flagships & The Big Three"
+ },
+ {
+  "id": "tribal-god-original",
+  "title": "Tribal God (original installer)",
+  "author": "[TG]-X-Ecutioner",
+  "era": "scripts.vol dated Apr 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
+ },
+ {
+  "id": "utg-6-5",
+  "title": "Ultra Tribal God 6.5 ([TG] Setup 08-31-03)",
+  "author": "[TG]-X-Ecutioner",
+  "era": "Aug 2003",
+  "launch": "",
+  "category": "Action & Mechanics"
  }
 ]
