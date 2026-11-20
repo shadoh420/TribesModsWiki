@@ -1,0 +1,397 @@
+///This File assigns and defines beacons, mines and nades for armors
+
+$ItemMax[larmor, RepairKit] = 1;	//Seraph
+$ItemMax[lfemale, RepairKit] = 1;	//Seraph
+$ItemMax[earmor, RepairKit] = 1;	//Slave
+$ItemMax[efemale, RepairKit] = 1;	//Slave
+$ItemMax[marmor, RepairKit] = 1;	//Pawn
+$ItemMax[aarmor, RepairKit] = 1;	//Navigator
+$ItemMax[darmor, RepairKit] = 1;	//Atomizer
+$ItemMax[barmor, RepairKit] = 1;	//Paladin
+
+$ItemMax[larmor, MineAmmo] = 10;	//Seraph
+$ItemMax[lfemale, MineAmmo] = 10;	//Seraph
+$ItemMax[earmor, MineAmmo] = 10;	//Slave
+$ItemMax[efemale, MineAmmo] = 10;	//Slave
+$ItemMax[marmor, MineAmmo] = 10;	//Pawn
+$ItemMax[aarmor, MineAmmo] = 10;	//Navigator
+$ItemMax[darmor, MineAmmo] = 10;	//Atomizer
+$ItemMax[barmor, MineAmmo] = 10;	//Paladin
+
+$ItemMax[larmor, Grenade] = 10;		//Seraph
+$ItemMax[lfemale, Grenade] = 10;	//Seraph
+$ItemMax[earmor, Grenade] = 15;		//Slave
+$ItemMax[efemale, Grenade] = 15;	//Slave
+$ItemMax[marmor, Grenade] = 20;		//Pawn
+$ItemMax[aarmor, Grenade] = 15;		//Navigator
+$ItemMax[darmor, Grenade] = 25;		//Atomizer
+$ItemMax[barmor, Grenade] = 25;		//Paladin
+
+$ItemMax[larmor, Beacon] = 5;		//Seraph
+$ItemMax[lfemale, Beacon] = 5;		//Seraph
+$ItemMax[earmor, Beacon] = 5;		//Slave
+$ItemMax[efemale, Beacon] = 5;		//Slave
+$ItemMax[marmor, Beacon] = 8;		//Pawn
+$ItemMax[aarmor, Beacon] = 5;		//Navigator
+$ItemMax[darmor, Beacon] = 5;		//Atomizer
+$ItemMax[barmor, Beacon] = 5;		//Paladin
+
+$AutoUse[RepairKit] = false; 
+
+$InvList[RepairKit] = 1;
+$InvList[MineAmmo] = 1;
+$InvList[Grenade] = 1;
+$InvList[Beacon] = 1;
+
+ItemData RepairKit 
+{
+	description = "Repair Kit";
+	shapeFile = "armorKit";
+	heading = "eMisc Items";
+	shadowDetailMask = 4;
+	price = 10;
+};
+
+ItemData MineAmmo 
+{
+	description = "Mine";
+	shapeFile = "mineammo";
+	heading = "eMisc Items";
+	shadowDetailMask = 4;
+	price = 10;
+	className = "HandAmmo";
+};
+
+
+ItemData Grenade 
+{
+	description = "Grenade";
+	shapeFile = "grenade";
+	heading = "eMisc Items";
+	shadowDetailMask = 4;
+	price = 10;
+	className = "HandAmmo";
+};
+
+ItemData Beacon 
+{ 
+	description = "Beacon"; 
+	shapeFile = "sensor_small"; 
+	heading = "eMisc Items"; 
+	shadowDetailMask = 4; 
+	price = 10; 
+	className = "HandAmmo"; 
+}; 
+
+function RepairKit::onUse(%player,%item)
+{
+	Player::decItemCount(%player,%item);
+	GameBase::repairDamage(%player,0.2);
+	%c = Player::getClient(%player);
+	$poisonTime[%c] = 0;
+} 
+
+function MineAmmo::onUse(%player,%item)
+{
+	if($matchStarted)
+	{
+		if(%player.throwTime < getSimTime() )
+		{
+			Player::decItemCount(%player,%item);
+			%armor = Player::getArmor(%player);
+			%client = Player::getClient(%player);
+			if (%armor == "dmarmor" || %armor == "dmfemale") %obj = newObject("","Mine","DMMine");
+			else { %obj = newObject("","Mine","antipersonelMine");
+			GameBase::setTeam (%obj,GameBase::getTeam (%client));
+		}
+		addToSet("MissionCleanup", %obj);
+		GameBase::throw(%obj,%player,15 * %client.throwStrength,false);
+		%player.throwTime = getSimTime() + 0.5;
+		}
+	}
+} 
+
+
+function Grenade::onUse(%player,%item)
+{
+	if($matchStarted)
+	{
+		if(%player.throwTime < getSimTime() )
+		{
+			Player::decItemCount(%player,%item);
+			%armor = Player::getArmor(%player);
+			if (%armor == "larmor" || %armor == "lfemale")
+			{
+				Client::sendMessage(Player::getClient(%player),1, "Plastique Explosive will explode in 15 seconds");
+				%obj = newObject("","Mine","Nukebomb");
+			}
+			if (%armor == "garmor" || %armor == "gfemale")//ghost
+			{
+				Client::sendMessage(Player::getClient(%player),1, "Plastique Explosive will explode in 15 seconds");
+				%obj = newObject("","Mine","Nukebomb");
+			}
+			if(%armor == "earmor" || %armor == "efemale") %obj = newObject("","Mine","Shockgrenade");
+			if (%armor == "marmor") %obj = newObject("","Mine","Handgrenade");
+			if (%armor == "aarmor") %obj = newObject("","Mine","Tranqgrenade");
+			if (%armor == "barmor") %obj = newObject("","Mine","Mortarbomb");
+			if (%armor == "darmor") %obj = newObject("","Mine","Mortarbomb");
+			addToSet("MissionCleanup", %obj);
+			%client = Player::getClient(%player);
+			GameBase::throw(%obj,%player,15 * %client.throwStrength,false);
+			%player.throwTime = getSimTime() + 0.5;
+			GameBase::setTeam (%obj,GameBase::getTeam (%client));
+		}
+	}
+} 
+
+
+function Beacon::onUse(%player,%item) 
+{ 
+%armor = Player::getArmor(%player); %clientId = Player::getClient(%player); 
+if (%armor == "larmor" || %armor == "lfemale") 
+{ 
+startCloak(%clientId, %player); 
+Player::decItemCount(%player,%item); 
+} 
+if(%armor == "earmor" || %armor == "efemale") 
+{ 
+startShield(%clientId, %player); 
+Player::decItemCount(%player,%item); 
+}
+if (%armor == "marmor") 
+{ 
+if($matchStarted) 
+{ 
+if(%player.throwTime < getSimTime() ) 
+{ 
+%obj = newObject("","Mine","Booster"); 
+addToSet("MissionCleanup", %obj); 
+%client = Player::getClient(%player); 
+GameBase::throw(%obj,%player,15 * %client.throwStrength,false); 
+%player.throwTime = getSimTime() + 0.5; 
+Client::sendMessage(Player::getClient(%player),0, "You use a Speed Booster."); 
+Player::decItemCount(%player,%item); 
+} 
+} 
+} 
+if (%armor == "aarmor") 
+{ 
+Renegades_startCloak(%clientId, %player); 
+Player::decItemCount(%player,%item); 
+} 
+if (%armor == "barmor") 
+{ 
+startShield(%clientId, %player); 
+Player::decItemCount(%player,%item); 
+}
+if (%armor == "darmor")
+{ 
+Renegades_startShield(%clientId, %player); 
+Player::decItemCount(%player,%item); 
+}
+} 
+
+
+//=======================
+//BEACON EFF SCRIPTS
+//=======================
+
+function Renegades_startShield(%clientId, %player) 
+{ 
+Client::sendMessage(%clientId,1,"Barrier field generated..."); GameBase::playSound(%player,ForceFieldOpen,0); 
+%player.shieldStrength = 0.0162; 
+if($shieldTime[%clientId] == 0) 
+{ 
+$shieldTime[%clientId] = 20; 
+checkPlayerShield(%clientId, %player); 
+} 
+else 
+$shieldTime[%clientId] = 20; 
+} 
+
+function checkPlayerShield(%clientId, %player) 
+{ 
+%armor = Player::getArmor(%player); 
+if($shieldTime[%clientId] > 0) 
+{ 
+$shieldTime[%clientId] -= 2; 
+if ((!Player::isDead(%player)) && (%armor == "darmor" || %armor == "dfemale") ) 
+{ 
+if (Player::isDead(%player)) 
+{ } 
+} 
+else 
+{ 
+$shieldTime[%clientId] = 0; 
+} 
+schedule("checkPlayerShield(" @ %clientId @ ", " @ %player @ ");",2,%player); 
+} 
+else 
+{ 
+Client::sendMessage(%clientId,1,"Barrier field shut-down..."); 
+%player.shieldStrength = 0; 
+GameBase::playSound(%player,ForceFieldOpen,0); 
+} 
+} 
+//EFF 2
+function startShield(%clientId, %player) 
+{	// Taken straight from Annihilation which was from Renegades
+	Client::sendMessage(%clientId,1,"Barrier field generated...");
+	GameBase::playSound(%player,ForceFieldOpen,0);
+	%player.shieldStrength = 0.0162;
+	if($shieldTime[%clientId] == 0) 
+	{	$shieldTime[%clientId] = 20;
+		checkPlayerShield(%clientId, %player);
+	}
+	else $shieldTime[%clientId] = 20;
+}
+
+function checkPlayerShield(%clientId, %player) 
+{	// Taken straight from Annihilation which was from Renegades
+	if ($shieldTime[%clientId] > 0 && !Player::isDead(%player)) 
+	{	$shieldTime[%clientId] -= 2;
+		schedule("checkPlayerShield(" @ %clientId @ ", " @ %player @ ");",2,%player);
+	}
+	else 
+	{	$shieldTime[%clientId] = 0;
+		Client::sendMessage(%clientId,1,"Barrier field shut-down...");
+		%player.shieldStrength = 0;
+		GameBase::playSound(%player,ForceFieldOpen,0);
+	}
+}
+
+
+//=======================
+//END BEACON EFF SCRIPTS
+//=======================
+
+
+//=======================
+//BEACON CLOAKING SCRIPTS
+//=======================
+
+//CLOAK 1
+
+function Renegades_startCloak(%clientId, %player) 
+{ 
+%armor = Player::getArmor(%player); 
+Client::sendMessage(%clientId,1,"Phasing Out..."); 
+GameBase::playSound(%player,ForceFieldOpen,0); 
+GameBase::startFadeout(%player); 
+%rate = Player::getSensorSupression(%player) + 3; Player::setSensorSupression(%player,%rate); 
+if($cloakTime[%clientId] == 0) 
+{ 
+$cloakTime[%clientId] = 20; 
+checkPlayerCloak(%clientId, %player); 
+} 
+else 
+$cloakTime[%clientId] = 20; 
+} 
+
+
+
+
+function checkPlayerCloak(%clientId, %player) 
+{ 
+%armor = Player::getArmor(%player); 
+if($cloakTime[%clientId] > 0) 
+{ 
+$cloakTime[%clientId] -= 2; 
+if ( (!Player::isDead(%player)) && (%armor == "aarmor" || %armor == "afemale") ) 
+{ } 
+else 
+{ 
+$cloakTime[%clientId] = 0; 
+} 
+schedule("checkPlayerCloak(" @ %clientId @ ", " @ %player @ ");",2,%player); 
+} 
+else 
+{ 
+Client::sendMessage(%clientId,1,"Phasing In..."); 
+GameBase::playSound(%player,ForceFieldOpen,0); 
+GameBase::startFadein(%player); 
+%rate = Player::getSensorSupression(%player) - 5; Player::setSensorSupression(%player,0); 
+} 
+} 
+
+//CLOAK 2
+
+function startCloak(%clientId, %player) 
+{
+	// Taken straight from Annihilation which was from Renegades
+	%armor = Player::getArmor(%player);
+	Client::sendMessage(%clientId,1,"Phasing Out...");
+	GameBase::playSound(%player,ForceFieldOpen,0);
+	GameBase::startFadeout(%player);
+	%rate = Player::getSensorSupression(%player) + 3;
+	Player::setSensorSupression(%player,%rate);
+	if($cloakTime[%clientId] == 0) 
+	{	$cloakTime[%clientId] = 20;
+		checkPlayerCloak(%clientId, %player);
+	}
+	else $cloakTime[%clientId] = 20;
+}
+
+function checkPlayerCloak(%clientId, %player) 
+{	%armor = Player::getArmor(%player);
+	if (!Player::isDead(%player) && $cloakTime[%clientId] > 0) 
+	{	$cloakTime[%clientId] -= 2;
+		schedule("checkPlayerCloak(" @ %clientId @ ", " @ %player @ ");",2,%player);
+	}
+	else 
+	{	$cloakTime[%clientId] = 0;
+		Client::sendMessage(%clientId,1,"Phasing In...");
+		GameBase::playSound(%player,ForceFieldOpen,0);
+		GameBase::startFadein(%player);
+		%rate = Player::getSensorSupression(%player) - 5;
+		Player::setSensorSupression(%player,0);
+	}
+}
+
+//=======================
+//END OF BEACON CLOAKING SCRIPTS
+//=======================
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+function spawndeath(%client) {
+        %player = Client::getOwnedObject(%client);
+        %vel = Item::getVelocity(%player);
+                for(%i=0; %i < 6.28; %i += 0.628) {
+                %pos = Vector::add(getBoxCenter(%player), Vector::getFromRot("0 0 " @ %i, 2, 1));
+                %trans = "0 0 1 0 0 0 0 0 1 " @ %pos;
+                %obj = Projectile::spawnProjectile("GrenadeShell",%trans, %player, %vel);
+                Projectile::spawnProjectile(%obj);
+                Item::setVelocity(%obj, %vel);
+                }
+}
+
+function spankdeath(%client) {
+        %player = Client::getOwnedObject(%client);
+        %vel = Item::getVelocity(%player);
+                for(%i=0; %i < 6.28; %i += 0.628) {
+                %pos = Vector::add(getBoxCenter(%player), Vector::getFromRot("0 0 " @ %i, 2, 1));
+                %trans = "0 0 1 0 0 0 0 0 1 " @ %pos;
+                %obj = Projectile::spawnProjectile("SpankShell",%trans, %player, %vel);
+                Projectile::spawnProjectile(%obj);
+                Item::setVelocity(%obj, %vel);
+                }
+}
+
+function mortardeath(%client) {
+        %player = Client::getOwnedObject(%client);
+        %vel = Item::getVelocity(%player);
+                for(%i=0; %i < 6.28; %i += 0.628) {
+                %pos = Vector::add(getBoxCenter(%player), Vector::getFromRot("0 0 " @ %i, 2, 1));
+                %trans = "0 0 1 0 0 0 0 0 1 " @ %pos;
+                %obj = Projectile::spawnProjectile("mortarshell",%trans, %player, %vel);
+                Projectile::spawnProjectile(%obj);
+                Item::setVelocity(%obj, %vel);
+                }
+}
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+//GrenadeShell

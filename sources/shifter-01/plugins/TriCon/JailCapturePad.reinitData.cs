@@ -1,0 +1,11 @@
+///-----------------------------------------------
+/// description = "Jail Capture Pads";
+/// Created by TriCon Team C3 & graphfx
+/// http://www.planetstarsiege.com/tricon
+///-----------------------------------------------
+
+for(%i = 0; %i < 8; %i++)
+{
+                $TeamItemCount[%i @ JailCapPack] = 0;
+                $TeamEnergy[%i] = $DefaultTeamEnergy;
+}

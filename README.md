@@ -33,3 +33,12 @@ overrides in load order.
 ## Sources
 - Base: `C:\Program Files (x86)\Dynamix\TRIBES11\base\scripts.vol`
 - Mods: https://github.com/jcmolnar/Tribes-Asset-Store (`packs/<id>/Mods/<Name>/scripts`)
+- More mods: Krogoth's File Library, https://library.theexiled.pwnageservers.com/category.php?id=2 (used with Krogoth's permission).
+  Added from it: dune, ravenstorm, ultra-ux, ur-2004, ultra-vx3, shifter-k, foundation, nappy-builder, nappy-c-builder,
+  hybrid-gold, annihilation-3, vengeance, tsc. Only scripts that differ from base are kept; annihilation-3 and vengeance
+  keep their `Armor/`, `Weapon/`... folders because their `ExecFiles(Folder)` loader reads them by folder.
+  Alternate builds of existing mods (156, e.g. dated Shifter and Annihilation builds) are in the "... builds" groups at the
+  end of `MODS`, each compared against the previous build of its family.
+  Weapons without `projectileType` are resolved from `$WeapProjectile[weapon]` (DUNE) or the first
+  `Projectile::spawnProjectile("X", ...)` in the image's `onFire` (Annihilation 3, Vengeance). `tscript.py` also expands
+  datablocks a mod builds as strings and `eval()`s (Vengeance's armors).

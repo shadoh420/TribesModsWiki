@@ -41,7 +41,12 @@ details.raw summary{cursor:pointer;font-size:13.5px}
 footer{text-align:center;font-size:12px;color:var(--muted);padding:16px}
 ul{padding-left:22px}li{margin:3px 0}
 h2::after{content:"";display:block;clear:none}
-@media (max-width:860px){.wrap{display:block}nav{position:static;width:auto;max-height:none;padding:10px 16px;border-bottom:1px solid var(--line)}
-nav>ul{display:flex;flex-wrap:wrap;gap:4px 14px}main{padding:14px 16px 30px;border:0}.infobox{float:none;width:auto;margin:0 0 14px}}
+nav summary{display:none}.modtabs{display:none}
+details.grp{margin:14px 0}details.grp>summary{cursor:pointer;font-weight:700;font-size:16px;margin:6px 0 8px}
+@media (max-width:860px){.wrap{display:block}nav{position:static;width:auto;max-height:none;padding:8px 16px;border-bottom:1px solid var(--line)}
+nav summary{display:list-item;cursor:pointer;font-weight:600;padding:6px 0;color:var(--accent2)}
+nav details>ul{display:flex;flex-wrap:wrap;gap:4px 14px}nav details ul ul{display:none}
+.modtabs{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}.modtabs a{border:1px solid var(--line);border-radius:14px;padding:3px 10px;font-size:13px;background:var(--bg)}
+main{padding:14px 16px 30px;border:0}.infobox{float:none;width:auto;margin:0 0 14px}h1{font-size:25px}}
 .note{background:var(--th);border-left:3px solid var(--accent2);padding:6px 10px;font-size:13.5px}
 .note.warn{border-left-color:var(--bad)}

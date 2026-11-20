@@ -1,0 +1,17 @@
+$InvHead[ihVeh] = "aFleets";
+$InvHead[ihTsh] = "bTerran Ships";
+$InvHead[ihPsh] = "cProtoss Flyers";
+$InvHead[ihZsh] = "dZerg Flying Strains";
+$InvHead[ihArm] = "eTerran";
+$InvHead[ihPro] = "fProtoss";
+$InvHead[ihZer] = "gZerg";
+$InvHead[ihScv] = "hFreelance";
+$InvHead[ihWea] = "iTerran Weaponry";
+$InvHead[ihWet] = "jProtoss Armaments";
+$InvHead[ihPsi] = "kZerg Abilities";
+$InvHead[ihBac] = "lPacks";
+$InvHead[ihMis] = "mOutfittings";
+$InvHead[ihDWe] = "nTurrets";
+$InvHead[ihDSe] = "oSensor Network";
+$InvHead[ihDOb] = "pMisc.";
+$InvHead[ihAmm] = "qAmmunition";

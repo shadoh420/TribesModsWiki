@@ -1,0 +1,11 @@
+{
+ "mod": {
+  "overview": "Foundation Mod (Nicodemus, 2000) is Base Tribes taken apart into one script per item, meant as a starting point and learning aid for modders. The gameplay is unchanged: every weapon, armor, pack, deployable, turret, station and vehicle keeps its stock stats. Foundation Mod II (ProtoManX, 2005-2006) was later built on the same idea.",
+  "notes": [
+   "One file per item: Base Tribes defines all the weapons in item.cs, the armors in armordata.cs, the turrets in turret.cs and so on. Foundation moves each item into its own file, grouped in folders (WeaponBlaster.cs, ArmourLight.cs, PackRepair.cs, DeployableTurret.cs, StaticTurretELF.cs, VehicleScout.cs...). Each file holds everything for that item: its $InvList/$AutoUse table entries, its projectile, its ItemImageData and its ItemData.",
+   "A single registration list: server.cs runs the normal base scripts, then exec(RipServer). ripserver.cs is just a list of exec(\"folder\\\\File.cs\") lines, one per item, so adding an item means dropping in a file and adding one line. The comments in server.cs tell authors to rename ripserver.cs after their own mod.",
+   "Shared lists split out: the next/previous weapon cycle (nextprevweapons.cs), the ammo-station resupply table (resupplylist.cs) and the team-item reset on mission change (missionreinitdata.cs) are moved out of item.cs and station.cs into their own files, so a new weapon is registered in those three places.",
+   "Left in place on purpose: explosion and debris data stay in baseExpData.cs and baseDebrisData.cs, because several items share the same explosions (per the readme)."
+  ]
+ }
+}
