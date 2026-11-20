@@ -130,6 +130,7 @@ MODS = [
         ('Competitive & Duels', [
             ('base-duel', 'BaseDuel', 'base'),
             ('duel', 'Duel Tournament', 'base'),
+            ('team-duel', 'Team Duel', 'base'),
             ('tribes-arena', 'Tribes Arena', 'base'),
             ('ultra-competition', 'Ultra Competition', 'ultra-renegades-vx5')]),
         ('Tactical & Realism', [
@@ -290,6 +291,7 @@ _TOP_EXTRAS = {
     'xfrisbee': ['frisbee.cs'],
     'tribes-racer': ['TribesRacer.cs'],
     'duel': ['TDArena.cs', 'TDMain.cs'],
+    'team-duel': ['TDArena.cs', 'TDMain.cs'],
     'insane': ['Insane.cs'],
     'pantheon': ['Pantheon.cs'],
     'ideal': ['Ideal.cs'],

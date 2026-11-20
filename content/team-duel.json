@@ -1,0 +1,124 @@
+{
+ "mod": {
+  "overview": "Team Duel is Lestat's Tribes 1 team-dueling and arena combat mod, famously hosted on =Argh!='s Duel. Built on a base Tribes 1.11 physics and weapon core, it combines structured multi-player Team Duel matches, 1v1 duels, Winners (King of the Hill) rotations, and an open Deathmatch / FlagHunter arena across dozens of floating sky and terrain arenas, backed by mid-air hit detection, live stat tracking, and custom arena/admin tools.",
+  "notes": [
+   "Team Duel system (TDMain.cs, TDArena.cs, MultiTD.cs, TDMenu.cs): Players form named squads, designate captains, recruit or trade members, and challenge rival teams to round-based arena matches or multi-team skirmishes with dedicated team spawns, round scoring, and optional Team Duel CTF (TDCTF.cs).",
+   "1v1 Duels & Winners mode (duelmod.cs, duelmatch.cs): Players can issue direct 1v1 challenges with countdown freeze-locks and automatic mine/projectile cleanup between rounds, or enter Winners (King of the Hill) rotations where the victor stays in the arena and the next queued challenger drops in.",
+   "Customizable loadouts: Players configure armor and weapon loadouts through the menu system (Light carries 3 weapons, Medium 4, Heavy 5) from the Base Tribes arsenal (Chaingun, Plasma Gun, Disc Launcher, Grenade Launcher, Laser Rifle, ELF Gun, Blaster, Mortar), with Heavy Armor, Mortars, Mine Ammo, and Turret Packs disabled at standard inventory stations and Heavy Armor zeroed out in team arenas ($TeamItemMax[HeavyArmor] = 0 in TDArena.cs).",
+   "Argh's Duel ruleset details (item.cs, TDMain.cs): Full friendly fire is enabled ($Server::TeamDamageScale = 1), Repair Kit pickups are tracked by play type, and unlike later Duel Tournament builds, $TeamItemMax[LaserRifle] = 2 is commented out while team-item checks in item.cs cover both Laser Rifles and Chainguns outside Deathmatch.",
+   "Deathmatch & FlagHunter (DMMain.cs, FlagHunter.cs): Unengaged players waiting for matches can fight in an active bounded Deathmatch arena or participate in FlagHunter / Greed / Hoard objective modes.",
+   "Mid-air detection, stats & records (TDStatDetection.cs, TDScores.cs, TDNewScores.cs, TDSave.cs): Tracks 3D mid-air direct-hit distances, weapon accuracy, damage dealt/received, kill streaks, and server records, with password-protected score saving across reconnects.",
+   "King title & custom colored discs (item.cs, TDMain.cs): The reigning server King carries the KingHalo crown and King Disc Launcher (DiscLauncherKing), while custom colored Disc Launchers (Blue, Green, Yellow, Pink, Black, Purple) and novelty/admin tools (LeGun, LeNade, GateGun, TreeGun, WeedEater, Grabbler, Flaggy, etc.) are included in item.cs."
+  ]
+ },
+ "items": {
+  "DiscLauncherKing": {
+   "summary": "A unique spinfusor reserved for the reigning server King.",
+   "notes": [
+    "Carried exclusively by the player holding the King title, paired with the KingHalo crown.",
+    "Defeating the current King lets a challenger claim the crown and launcher.",
+    "Mounting the weapon without King status triggers the KingCurse until discarded."
+   ],
+   "source": "item.cs"
+  },
+  "KingHalo": {
+   "summary": "A glowing crown accessory worn by the reigning server King.",
+   "notes": [
+    "Automatically equipped on the player who holds the King title.",
+    "Displays a visible halo above the player model and transfers when a challenger claims the crown."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherBlue": {
+   "summary": "Custom spinfusor variant firing blue disc projectiles.",
+   "notes": [
+    "Part of Team Duel's set of colored Disc Launchers (Blue, Green, Yellow, Pink, Black, Purple) with standard Base Tribes disc stats."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherGreen": {
+   "summary": "Custom spinfusor variant firing green disc projectiles.",
+   "notes": [
+    "Part of Team Duel's set of colored Disc Launchers with standard Base Tribes disc stats."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherYellow": {
+   "summary": "Custom spinfusor variant firing yellow disc projectiles.",
+   "notes": [
+    "Part of Team Duel's set of colored Disc Launchers with standard Base Tribes disc stats."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherPink": {
+   "summary": "Custom spinfusor variant firing pink disc projectiles.",
+   "notes": [
+    "Part of Team Duel's set of colored Disc Launchers with standard Base Tribes disc stats."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherBlack": {
+   "summary": "Custom spinfusor variant firing black disc projectiles.",
+   "notes": [
+    "Part of Team Duel's set of colored Disc Launchers with standard Base Tribes disc stats."
+   ],
+   "source": "item.cs"
+  },
+  "DiscLauncherPurple": {
+   "summary": "Custom spinfusor variant firing purple disc projectiles.",
+   "notes": [
+    "Part of Team Duel's set of colored Disc Launchers with standard Base Tribes disc stats."
+   ],
+   "source": "item.cs"
+  },
+  "LeGun": {
+   "summary": "Lestat's custom novelty/admin weapon.",
+   "notes": [
+    "Cycles through custom projectile firing patterns controlled by the wielder's mode state."
+   ],
+   "source": "item.cs"
+  },
+  "LeNade": {
+   "summary": "Lestat's custom grenade-launching novelty/admin tool.",
+   "notes": [
+    "Fires LestatShell projectiles from the weapon muzzle."
+   ],
+   "source": "item.cs"
+  },
+  "GateGun": {
+   "summary": "An administrative tool that places linked two-way teleportation portals.",
+   "notes": [
+    "Fires line-of-sight rays onto terrain or interiors to create paired portal triggers that teleport players between them."
+   ],
+   "source": "item.cs"
+  },
+  "Grabbler": {
+   "summary": "An administrative object-manipulation tool.",
+   "notes": [
+    "Allows trusted admins to grab, move, and position world objects via line of sight."
+   ],
+   "source": "item.cs"
+  },
+  "TreeGun": {
+   "summary": "An administrative tool for planting physical tree obstacles.",
+   "notes": [
+    "Places tree shapes along line of sight; paired with WeedEater to remove them."
+   ],
+   "source": "item.cs"
+  },
+  "WeedEater": {
+   "summary": "An administrative tool that removes placed trees.",
+   "notes": [
+    "Companion tool to TreeGun for clearing trees from arena terrain."
+   ],
+   "source": "item.cs"
+  },
+  "Flaggy": {
+   "summary": "A novelty demolition weapon that fires remote-detonated flag charges.",
+   "notes": [
+    "Launches flag entities onto surfaces that can be detonated remotely via the pack key."
+   ],
+   "source": "item.cs"
+  }
+ }
+}

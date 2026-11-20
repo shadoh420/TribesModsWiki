@@ -1072,6 +1072,14 @@
   "category": "Action & Mechanics"
  },
  {
+  "id": "team-duel",
+  "title": "Team Duel",
+  "author": "Lestat (hosted on =Argh!='s Duel)",
+  "era": "2000s–2020",
+  "launch": "Server mod (hosted on =Argh!='s Duel)",
+  "category": "Competitive & Duels"
+ },
+ {
   "id": "thieves",
   "title": "Thieves Mod (Revelation)",
   "author": "p|DGE0n (Xpidge0n@aol.com) & PheoniX (Pheonix2og@cs.com) (~2001; 74 files!)",
