@@ -1,4 +1,5 @@
 # Tribes Mod Wiki
+https://shadoh420.github.io/TribesModsWiki/
 
 Static wiki for Starsiege: Tribes and its mods. Stats come from each mod's scripts; write-ups live in `content/`.
 
